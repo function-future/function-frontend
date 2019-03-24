@@ -4,6 +4,17 @@
       <HeaderComp></HeaderComp>
     </div>
     <div class="content">
+      <BaseCard>
+        <div class="buttons">
+          <BaseButton type="reset" buttonClass="button-cancel">Cancel</BaseButton>
+          <BaseButton type="submit" buttonClass="button-save">Save</BaseButton>
+          <BaseButton type="submit" buttonClass="button-edit">Edit</BaseButton>
+          <BaseButton type="submit" buttonClass="button-delete">Delete</BaseButton>
+        </div>
+        <div class="inputs">
+          <BaseInput label="Test Input"></BaseInput>
+        </div>
+      </BaseCard>
       <router-view/>
     </div>
   </div>
@@ -11,11 +22,17 @@
 
 <script>
 import HeaderComp from '@/components/skeletons/HeaderComp'
+import BaseButton from '@/components/BaseButton'
+import BaseInput from '@/components/BaseInput'
+import BaseCard from '@/components/BaseCard'
 
 export default {
   name: 'App',
   components: {
-    HeaderComp
+    HeaderComp,
+    BaseButton,
+    BaseInput,
+    BaseCard
   }
 }
 </script>
