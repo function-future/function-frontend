@@ -21,56 +21,85 @@
 </template>
 
 <script>
-import HeaderComp from '@/components/skeletons/HeaderComp'
-import BaseButton from '@/components/BaseButton'
-import BaseInput from '@/components/BaseInput'
-import BaseCard from '@/components/BaseCard'
+  import HeaderComp from '@/components/skeletons/HeaderComp'
+  import BaseButton from '@/components/BaseButton'
+  import BaseInput from '@/components/BaseInput'
+  import BaseCard from '@/components/BaseCard'
 
-export default {
-  name: 'App',
-  components: {
-    HeaderComp,
-    BaseButton,
-    BaseInput,
-    BaseCard
+  export default {
+    name: 'App',
+    components: {
+      HeaderComp,
+      BaseButton,
+      BaseInput,
+      BaseCard
+    }
   }
-}
 </script>
 
 <style>
-  html, body{
+  html, body {
     height: 100%;
     margin: 0;
   }
-#app {
-  height: 100%;
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-}
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
+  #app {
+    height: 100%;
+    font-family: Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+  }
 
   .left-nav {
     display: inline-block;
-    width: 15%;
+    width: 27%;
     height: 100%;
   }
 
   .content {
     display: inline-block;
-    width: 85%;
+    width: 73%;
+  }
+
+  @media only screen and (min-width: 875px) {
+    .left-nav {
+      width: 24%;
+    }
+
+    .content {
+      width: 76%;
+    }
+  }
+
+  @media only screen and (min-width: 1000px) {
+    .left-nav {
+      width: 23%;
+    }
+
+    .content {
+      width: 77%;
+    }
+  }
+
+  @media only screen and (min-width: 1150px) {
+    .left-nav {
+      width: 19%;
+    }
+
+    .content {
+      width: 81%;
+    }
+  }
+
+  @media only screen and (min-width: 1500px) {
+    .left-nav {
+      width: 17%;
+    }
+
+    .content {
+      width: 83%;
+    }
   }
 </style>

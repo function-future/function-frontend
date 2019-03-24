@@ -1,25 +1,27 @@
 <template>
-  <div class="navbar">
+  <nav class="navbar">
     <router-link to="/" class="navbar-link">
-      <img src="@/assets/Logo.png">
+      <img src="@/assets/logo.png">
     </router-link>
-      <router-link to="/" class="navbar-link">Feeds</router-link>
-      <router-link to="/" class="navbar-link">Announcements</router-link>
-      <router-link to="/" class="navbar-link">Blogs</router-link>
-      <router-link to="/" class="navbar-link">Courses</router-link>
-      <router-link to="/" class="navbar-link">Files</router-link>
-      <router-link to="/" class="navbar-link">Users</router-link>
-      <router-link to="/" class="navbar-link">Grades</router-link>
-  </div>
+    <ul class="menu">
+      <li><router-link to="/" class="navbar-link">Feeds</router-link></li>
+      <li><router-link to="/home" class="navbar-link">Announcements</router-link></li>
+      <li><router-link to="/home" class="navbar-link">Blogs</router-link></li>
+      <li><router-link to="/home" class="navbar-link">Courses</router-link></li>
+      <li><router-link to="/home" class="navbar-link">Files</router-link></li>
+      <li><router-link to="/home" class="navbar-link">Users</router-link></li>
+      <li><router-link to="/home" class="navbar-link">Grades</router-link></li>
+    </ul>
+  </nav>
 </template>
 
 <script>
-  export default {
-    data () {
+export default {
+  data () {
 
-    },
-    methods: {}
-  }
+  },
+  methods: {}
+}
 </script>
 
 <style>
@@ -32,36 +34,64 @@
     padding-top: 30px;
   }
 
+  .menu {
+    display: block;
+    list-style-type: none;
+    margin-right: 20px;
+    padding-left: 0;
+  }
+
   img {
+    display: block;
     vertical-align: center;
-    width: 150px;
+    width: 125px;
     padding-bottom: 25px;
-  }
-
-  img:hover {
-    opacity: 0.9;
-  }
-
-  img:active {
-    opacity: 0.7;
   }
 
   .navbar-link {
     display: block;
     text-decoration: none;
     color: white;
-    font-size: 1.2em;
+    font-size: 1em;
     padding: 5px;
-    margin-left: 25px;
+    margin-left: 15px;
     text-align: left;
   }
 
   .navbar-link:hover {
-    color: rgba(255,255,255,0.7);
+    opacity: 0.9;
   }
 
   .navbar-link:active {
-    color: rgba(255,255,255,0.4);
+    opacity: 0.7;
   }
 
+  .router-link-exact-active {
+    font-weight: bold;
+  }
+
+  @media only screen and (min-width: 800px) {
+    img {
+      width: 150px;
+    }
+
+    .navbar-link {
+      padding-left: 10px;
+      font-size: 1.2em;
+      margin-left: 25px;
+    }
+  }
+
+  @media only screen and (min-width: 1500px) {
+    img {
+      width: 200px;
+    }
+
+    .navbar-link {
+      padding-left: 10px;
+      font-size: 1.4em;
+      padding-top: 10px;
+    }
+
+  }
 </style>
