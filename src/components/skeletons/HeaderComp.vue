@@ -4,24 +4,18 @@
       <img src="@/assets/logo.png">
     </router-link>
     <ul class="menu">
-      <li><router-link to="/" class="navbar-link">Feeds</router-link></li>
-      <li><router-link to="/home" class="navbar-link">Announcements</router-link></li>
-      <li><router-link to="/home" class="navbar-link">Blogs</router-link></li>
-      <li><router-link to="/home" class="navbar-link">Courses</router-link></li>
-      <li><router-link to="/home" class="navbar-link">Files</router-link></li>
-      <li><router-link to="/home" class="navbar-link">Users</router-link></li>
-      <li><router-link to="/home" class="navbar-link">Grades</router-link></li>
+      <li><router-link :to="{ name: 'home' }" class="navbar-link">Feeds</router-link></li>
+      <li><router-link :to="{ name: 'announcements' }" class="navbar-link">Announcements</router-link></li>
+      <li><router-link :to="{ name: 'blogs' }" class="navbar-link">Blogs</router-link></li>
+      <li><router-link :to="{ name: 'courses' }" class="navbar-link">Courses</router-link></li>
+      <li><router-link :to="{ name: 'files' }" class="navbar-link">Files</router-link></li>
+      <li><router-link :to="{ name: 'users' }" class="navbar-link">Users</router-link></li>
+      <li><router-link :to="{ name: 'grades' }" class="navbar-link">Grades</router-link></li>
     </ul>
   </nav>
 </template>
 
-<script>
-export default {
-  data () {
-
-  },
-  methods: {}
-}
+<script type="text/javascript" src="./js/HeaderComp.js">
 </script>
 
 <style>
