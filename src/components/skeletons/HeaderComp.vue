@@ -31,7 +31,7 @@ export default {
     height: 100%;
     border-radius: 0 40px 40px 0px;
     box-shadow: 0px 5px 35px 0px rgba(130, 130, 130, 0.5);
-    padding-top: 30px;
+    overflow: hidden;
   }
 
   .menu {
@@ -46,6 +46,7 @@ export default {
     vertical-align: center;
     width: 125px;
     padding-bottom: 25px;
+    padding-top: 30px;
   }
 
   .navbar-link {

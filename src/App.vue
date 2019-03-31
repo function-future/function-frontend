@@ -4,37 +4,28 @@
       <HeaderComp></HeaderComp>
     </div>
     <div class="content">
-      <BaseCard>
-        <div class="buttons">
-          <BaseButton type="reset" buttonClass="button-cancel">Cancel</BaseButton>
-          <BaseButton type="submit" buttonClass="button-save">Save</BaseButton>
-          <BaseButton type="submit" buttonClass="button-edit">Edit</BaseButton>
-          <BaseButton type="submit" buttonClass="button-delete">Delete</BaseButton>
+      <div class="container">
+        <div class="title">
+          <BaseTitle></BaseTitle>
         </div>
-        <div class="inputs">
-          <BaseInput label="Test Input"></BaseInput>
-        </div>
-      </BaseCard>
-      <router-view/>
+        <BaseCard>
+          <div class="buttons">
+            <BaseButton type="reset" buttonClass="button-cancel">Cancel</BaseButton>
+            <BaseButton type="submit" buttonClass="button-save">Save</BaseButton>
+            <BaseButton type="submit" buttonClass="button-edit">Edit</BaseButton>
+            <BaseButton type="submit" buttonClass="button-delete">Delete</BaseButton>
+          </div>
+          <div class="inputs">
+            <BaseInput label="Test Input"></BaseInput>
+          </div>
+        </BaseCard>
+        <router-view/>
+      </div>
     </div>
   </div>
 </template>
 
-<script>
-  import HeaderComp from '@/components/skeletons/HeaderComp'
-  import BaseButton from '@/components/BaseButton'
-  import BaseInput from '@/components/BaseInput'
-  import BaseCard from '@/components/BaseCard'
-
-  export default {
-    name: 'App',
-    components: {
-      HeaderComp,
-      BaseButton,
-      BaseInput,
-      BaseCard
-    }
-  }
+<script type="text/javascript" src="@/index.js">
 </script>
 
 <style>
@@ -49,57 +40,75 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
-    color: #2c3e50;
+    background-color: white;
   }
 
   .left-nav {
     display: inline-block;
-    width: 27%;
+    width: 27vw;
     height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
   }
 
   .content {
     display: inline-block;
-    width: 73%;
+    width: 73vw;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    right: 0;
+    overflow: auto;
+  }
+
+  .container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .title {
+    padding: 5px 0 5px 5px;
+    text-align: left;
   }
 
   @media only screen and (min-width: 875px) {
     .left-nav {
-      width: 24%;
+      width: 24vw;
     }
 
     .content {
-      width: 76%;
+      width: 76vw;
     }
   }
 
   @media only screen and (min-width: 1000px) {
     .left-nav {
-      width: 23%;
+      width: 23vw;
     }
 
     .content {
-      width: 77%;
+      width: 77vw;
     }
   }
 
   @media only screen and (min-width: 1150px) {
     .left-nav {
-      width: 19%;
+      width: 19vw;
     }
 
     .content {
-      width: 81%;
+      width: 81vw;
     }
   }
 
   @media only screen and (min-width: 1500px) {
     .left-nav {
-      width: 17%;
+      width: 17vw;
     }
 
     .content {
-      width: 83%;
+      width: 83vw;
     }
   }
 </style>

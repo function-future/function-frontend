@@ -12,16 +12,26 @@
 <style scoped>
   .button {
     border: none;
-    padding: 10px;
-    width: 150px;
+    padding: 5px 10px 5px 10px;
+    width: 125px;
     border-radius: 40px;
     /*font-family: Roboto;*/
     color: white;
     font-style: normal;
     font-weight: bold;
-    font-size: 25px;
+    font-size: 1.2em;
     line-height: normal;
     text-align: center;
+    transition: all .2s ease;
+    margin: 2px 0 2px 0;
+  }
+
+  .button:active {
+    opacity: 0.9;
+  }
+
+  .button:hover {
+    box-shadow: 0 0 4px rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
   }
 
   .button-save {
