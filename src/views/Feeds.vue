@@ -29,7 +29,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   .sticky-notes-card {
     min-height: 125px;
   }

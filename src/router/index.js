@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import feeds from '../views/Feeds.vue'
+import announcements from '../views/Announcements.vue'
 
 Vue.use(Router)
 
@@ -21,7 +22,7 @@ export default new Router({
     {
       path: '/announcements',
       name: 'announcements',
-      component: feeds
+      component: announcements
     },
     {
       path: '/courses',
