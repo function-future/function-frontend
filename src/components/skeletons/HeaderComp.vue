@@ -4,7 +4,7 @@
       <img src="@/assets/logo.png">
     </router-link>
     <ul class="menu">
-      <li><router-link :to="{ name: 'home' }" class="navbar-link">Feeds</router-link></li>
+      <li><router-link :to="{ name: 'feeds' }" class="navbar-link">Feeds</router-link></li>
       <li><router-link :to="{ name: 'announcements' }" class="navbar-link">Announcements</router-link></li>
       <li><router-link :to="{ name: 'blogs' }" class="navbar-link">Blogs</router-link></li>
       <li><router-link :to="{ name: 'courses' }" class="navbar-link">Courses</router-link></li>
@@ -15,8 +15,7 @@
   </nav>
 </template>
 
-<script type="text/javascript" src="./js/HeaderComp.js">
-</script>
+<!--<script type="text/javascript" src="./js/HeaderComp.js"></script>-->
 
 <style>
   .navbar {

@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '../views/Home.vue'
+import feeds from '../views/Feeds.vue'
 
 Vue.use(Router)
 
@@ -10,38 +10,38 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: Home
+      name: 'feeds',
+      component: feeds
     },
     {
       path: '/blogs',
       name: 'blogs',
-      component: Home
+      component: feeds
     },
     {
       path: '/announcements',
       name: 'announcements',
-      component: Home
+      component: feeds
     },
     {
       path: '/courses',
       name: 'courses',
-      component: Home
+      component: feeds
     },
     {
       path: '/files',
       name: 'files',
-      component: Home
+      component: feeds
     },
     {
       path: '/users',
       name: 'users',
-      component: Home
+      component: feeds
     },
     {
       path: '/grades',
       name: 'grades',
-      component: Home
+      component: feeds
     }
   ]
 })

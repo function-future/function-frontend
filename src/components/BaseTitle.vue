@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="title-text">Hello</h1>
+    <h1 class="title-text"><slot></slot></h1>
   </div>
 </template>
 
@@ -13,6 +13,8 @@
   }
 
   h1 {
+    text-align: left;
+    padding: 5px 0 5px 5px;
     margin: 20px 0 10px 0;
   }
 </style>
