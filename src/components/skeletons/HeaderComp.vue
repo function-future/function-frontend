@@ -15,7 +15,8 @@
   </nav>
 </template>
 
-<!--<script type="text/javascript" src="./js/HeaderComp.js"></script>-->
+<script type="text/javascript" src="./js/HeaderComp.js">
+</script>
 
 <style>
   .navbar {
