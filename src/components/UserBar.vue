@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="block" v-bind:class="{'block-extend': isExtend, 'block-shrink': isExtend === false}">
-      <div class="block-list">
+      <div class="block-list disable-selection">
         <font-awesome-icon icon="user-circle" class="icon" /> Karnando
       </div>
       <div class="more-block">
@@ -13,12 +13,12 @@
         </span>
       </div>
       <transition name="fade" >
-        <div class="block-list" v-if="isExtend">
+        <div class="block-list disable-selection" v-if="isExtend">
           <font-awesome-icon icon="cog" class="icon" /> Profile
         </div>
       </transition>
       <transition name="fade">
-        <div class="block-list" v-if="isExtend">
+        <div class="block-list disable-selection" v-if="isExtend">
           <font-awesome-icon icon="sign-out-alt" class="icon" /> Logout
         </div>
       </transition>
@@ -121,5 +121,13 @@
 
   .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
     opacity: 0;
+  }
+
+  .disable-selection {
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer */
+    -khtml-user-select: none; /* KHTML browsers (e.g. Konqueror) */
+    -webkit-user-select: none; /* Chrome, Safari, and Opera */
+    -webkit-touch-callout: none; /* Disable Android and iOS callouts*/
   }
 </style>
