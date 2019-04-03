@@ -66,12 +66,12 @@
     position: fixed;
     top: 0;
     right: 0;
-    overflow: auto;
+    overflow: hidden;
   }
 
   .container {
-    padding-left: 20px;
-    padding-right: 20px;
+    margin: 0 20px 20px 20px;
+    height: 95vh;
   }
 
   .user-section {
@@ -79,6 +79,12 @@
     position: absolute;
     top: 0;
     right: 5vw;
+  }
+
+  .scrollable-container {
+    max-height: 90%;
+    overflow: auto;
+    padding-right: 5px;
   }
 
   @media only screen and (min-width: 875px) {
