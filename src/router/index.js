@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import feeds from '../views/Feeds.vue'
 import announcements from '../views/Announcements.vue'
+import blogs from '../views/ActivityBlogs.vue'
 import config from '../config/index'
 
 Vue.use(Router)
@@ -18,7 +19,7 @@ export default new Router({
     {
       path: config.app.pages.blogs,
       name: 'blogs',
-      component: feeds
+      component: blogs
     },
     {
       path: config.app.pages.announcements,
