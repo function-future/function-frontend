@@ -6,7 +6,7 @@
     <div class="content">
       <div class="container">
         <div class="title">
-          <BaseTitle>Feeds</BaseTitle>
+          <BaseTitle>{{ title }}</BaseTitle>
         </div>
         <div class="user-section">
           <UserBar></UserBar>
@@ -85,6 +85,14 @@
     max-height: 90%;
     overflow: auto;
     padding-right: 5px;
+  }
+
+  .blue {
+    color: #02AAF3;
+  }
+
+  .red {
+    color: #FF0000;
   }
 
   @media only screen and (min-width: 875px) {

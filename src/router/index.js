@@ -14,37 +14,58 @@ export default new Router({
     {
       path: config.app.pages.feeds,
       name: 'feeds',
-      component: feeds
+      component: feeds,
+      meta: {
+        title: 'Feeds'
+      }
     },
     {
       path: config.app.pages.blogs,
       name: 'blogs',
-      component: blogs
+      component: blogs,
+      meta: {
+        title: 'Activity Blogs'
+      }
     },
     {
       path: config.app.pages.announcements,
       name: 'announcements',
-      component: announcements
+      component: announcements,
+      meta: {
+        title: 'Announcements'
+      }
     },
     {
       path: config.app.pages.courses,
       name: 'courses',
-      component: feeds
+      component: feeds,
+      meta: {
+        title: 'Courses'
+      }
     },
     {
       path: config.app.pages.files,
       name: 'files',
-      component: feeds
+      component: feeds,
+      meta: {
+        title: 'Files'
+      }
     },
     {
       path: config.app.pages.users,
       name: 'users',
-      component: feeds
+      component: feeds,
+      meta: {
+        title: 'Users'
+      }
     },
     {
       path: config.app.pages.grades,
       name: 'grades',
-      component: feeds
+      component: feeds,
+      meta: {
+        title: 'Grades'
+      }
     }
   ]
 })

@@ -2,10 +2,10 @@
   <div class="scrollable-container">
     <div class="button-div">
       <BaseButton type="submit" buttonClass="button-save">
-        <font-awesome-icon icon="plus" class="icon"/> New
+        <span><font-awesome-icon icon="plus" class="icon"/> New</span>
       </BaseButton>
     </div>
-    <BaseCard class="blog-card">
+    <BaseCard class="blog-card" cardClass="card-hover">
       <div class="blog-header blog-title">
         <h3>Blog Title Goes Here...</h3>
       </div>
@@ -14,8 +14,8 @@
           January 19, 2019
         </div>
         <div class="blog-action">
-          <span><font-awesome-icon icon="edit" class="icon icon-blue" size="lg"></font-awesome-icon></span>
-          <span><font-awesome-icon icon="trash-alt" class="icon icon-red" size="lg"></font-awesome-icon></span>
+          <span><font-awesome-icon icon="edit" class="icon blue" size="lg"></font-awesome-icon></span>
+          <span><font-awesome-icon icon="trash-alt" class="icon red" size="lg"></font-awesome-icon></span>
         </div>
       </div>
       <div class="blog-preview">
@@ -44,12 +44,6 @@ export default {
     min-height: 175px;
   }
 
-  .blog-card:hover {
-    cursor: pointer;
-    transition: all .3s ease;
-    box-shadow: 2px 2px 10px rgba(0,0,0,0.1), 2px 2px 10px rgba(0,0,0,0.3);
-  }
-
   .blog-header {
     display: inline-block;
   }
@@ -57,12 +51,12 @@ export default {
   .blog-date {
     padding: 5px 15px 5px 5px;
     display: inline-block;
-    border-right: 1px solid #BDBDBD;
   }
 
   .blog-action {
     display: inline-block;
     padding-left: 15px;
+    border-left: 1px solid #BDBDBD;
   }
 
   .blog-action span {
@@ -98,13 +92,5 @@ export default {
 
   .float-right {
     float: right;
-  }
-
-  .icon-blue {
-    color: #02AAF3;
-  }
-
-  .icon-red {
-    color: red;
   }
 </style>
