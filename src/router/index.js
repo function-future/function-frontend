@@ -42,8 +42,18 @@ export default new Router({
       component: feeds
     },
     {
-      path: config.app.pages.grades,
-      name: 'grades',
+      path: config.app.pages.quizzes,
+      name: 'quizzes',
+      component: feeds
+    },
+    {
+      path: config.app.pages.assignments,
+      name: 'assignments',
+      component: feeds
+    },
+    {
+      path: config.app.pages.finalComparisons,
+      name: 'finalComparisons',
       component: feeds
     }
   ]

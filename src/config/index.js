@@ -7,7 +7,9 @@ module.exports = {
       courses: '/courses',
       files: '/files',
       users: '/users',
-      grades: '/grades'
+      quizzes: '/quizzes',
+      assignments: '/assignments',
+      finalComparisons: '/final-comparisons'
     }
   },
   api: {

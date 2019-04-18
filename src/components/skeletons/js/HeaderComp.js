@@ -1,6 +1,17 @@
 export default {
   data () {
-
+    return {
+      showGrades: false
+    }
   },
-  methods: {}
+  computed: {
+    showGrades () {
+      return this.showGrades
+    }
+  },
+  methods: {
+    toggleGradesMenu () {
+      this.showGrades = !this.showGrades
+    }
+  }
 }
