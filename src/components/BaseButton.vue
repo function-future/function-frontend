@@ -34,6 +34,10 @@
     box-shadow: 2px 2px 8px rgba(0,0,0,0.08), 2px 2px 10px rgba(0,0,0,0.15);
   }
 
+  .button:focus {
+    outline:none;
+  }
+
   .button-save {
     background: #02AAF3;
   }
