@@ -26,4 +26,7 @@
     margin: 10px;
     font-size: 1em;
   }
+  .input-box:focus {
+    outline: none;
+  }
 </style>

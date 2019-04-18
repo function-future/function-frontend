@@ -4,9 +4,12 @@
     <select
       @input="updateValue"
       class="select-box"
-      v-bind="$attrs"
-      :selected="option === value"><!-- Binding attrs allows attribute inheritance such as type="text" , etc! -->
-      <option v-for="option in options" :key="option">{{option}}</option>
+      v-bind="$attrs"><!-- Binding attrs allows attribute inheritance such as type="text" , etc! -->
+      <option
+        v-for="option in options"
+        :key="option"
+        :value="option"
+        :selected="option === value">{{option}}</option>
     </select>
   </div>
 </template>
