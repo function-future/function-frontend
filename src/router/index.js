@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import feeds from '../views/Feeds.vue'
 import announcements from '../views/Announcements.vue'
 import blogs from '../views/ActivityBlogs.vue'
+import users from '../views/Users.vue'
 import config from '../config/index'
 
 Vue.use(Router)
@@ -54,7 +55,7 @@ export default new Router({
     {
       path: config.app.pages.users,
       name: 'users',
-      component: feeds,
+      component: users,
       meta: {
         title: 'Users'
       }
