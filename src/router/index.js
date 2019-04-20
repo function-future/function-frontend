@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import feeds from '../views/Feeds.vue'
 import announcements from '../views/Announcements.vue'
 import blogs from '../views/ActivityBlogs.vue'
-import assignments from '../views/Assignment'
+import assignments from '../views/Assignment/Assignment'
 import config from '../config/index'
 
 Vue.use(Router)
