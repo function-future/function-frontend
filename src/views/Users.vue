@@ -5,6 +5,7 @@
         <span><font-awesome-icon icon="plus" class="icon"/> New</span>
       </BaseButton>
     </div>
+    <UserCard></UserCard>
   </div>
 </template>
 
