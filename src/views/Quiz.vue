@@ -32,9 +32,15 @@
         </div>
       </div>
       <div class="card-footer">
-        <div class="completion-status"
-             :class="[isComplete ? 'complete ': 'pending']"></div>
-        <span>Completed</span>
+        <div class="completion-status">
+          <div class="completion-status--box"
+               :class="[isComplete ? 'complete ': 'pending']"></div>
+          <span>Completed</span>
+        </div>
+        <div class="retry-count">
+          <font-awesome-icon icon="redo"></font-awesome-icon>
+          <span>3/5 tries</span>
+        </div>
       </div>
     </BaseCard>
   </div>
@@ -87,6 +93,12 @@
 }
 
 .completion-status {
+  margin-right: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.completion-status--box {
   height: 20px;
   width: 20px;
   margin-right: 5px;
@@ -98,5 +110,10 @@
 
 .pending {
   background-color: red;
+}
+
+.retry-count {
+  display: flex;
+  align-items: center;
 }
 </style>
