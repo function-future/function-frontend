@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import feeds from '../views/Feeds.vue'
 import announcements from '../views/Announcements.vue'
 import blogs from '../views/ActivityBlogs.vue'
-import quizzes from '../views/Quiz'
+import quizzes from '../views/Quiz/Quiz'
 import config from '../config/index'
 
 Vue.use(Router)
