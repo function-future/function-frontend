@@ -24,7 +24,8 @@ export default {
       ],
       selectedFilter: '',
       selectedSort: '',
-      searchValue: ''
+      searchValue: '',
+      isComplete: true
     }
   }
 }

@@ -32,7 +32,9 @@
         </div>
       </div>
       <div class="card-footer">
-        Completed
+        <div class="completion-status"
+             :class="[isComplete ? 'complete ': 'pending']"></div>
+        <span>Completed</span>
       </div>
     </BaseCard>
   </div>
@@ -80,5 +82,21 @@
 }
 .card-footer {
   font-size: 0.8em;
+  display: flex;
+  align-items: center;
+}
+
+.completion-status {
+  height: 20px;
+  width: 20px;
+  margin-right: 5px;
+}
+
+.complete {
+  background-color: limegreen;
+}
+
+.pending {
+  background-color: red;
 }
 </style>
