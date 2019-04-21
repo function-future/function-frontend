@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import feeds from '../views/Feeds.vue'
-import announcements from '../views/Announcements.vue'
-import blogs from '../views/ActivityBlogs.vue'
-import users from '../views/Users.vue'
+import feeds from '../views/Feeds/Feeds.vue'
+import announcements from '../views/Announcements/Announcements.vue'
+import blogs from '../views/ActivityBlogs/ActivityBlogs.vue'
+import users from '../views/Users/Users.vue'
 import config from '../config/index'
 
 Vue.use(Router)
