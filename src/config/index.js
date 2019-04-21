@@ -7,7 +7,11 @@ module.exports = {
       courses: '/courses',
       files: '/files',
       users: '/users',
-      grades: '/grades'
+      grades: '/grades',
+      stickyNotes: {
+        list: '/sticky-notes',
+        add: '/sticky-notes/add'
+      }
     }
   },
   api: {

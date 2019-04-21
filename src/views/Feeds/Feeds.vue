@@ -1,6 +1,6 @@
 <template>
   <div class="scrollable-container">
-    <BaseCard class="sticky-notes-card">
+    <BaseCard class="sticky-notes-card" @click.native="goToStickyNotesDetail" cardClass="card-hover">
       <div class="sticky-notes-header sticky-notes-title">
         <h3>Sticky Notes Title Goes Here...</h3>
       </div>
@@ -57,6 +57,11 @@ export default {
   name: 'feeds',
   components: {
     BaseCard
+  },
+  methods: {
+    goToStickyNotesDetail () {
+      this.$router.push({ name: 'stickyNotes' })
+    }
   }
 }
 </script>
@@ -64,6 +69,7 @@ export default {
 <style scoped>
   .sticky-notes-card {
     min-height: 125px;
+    cursor: pointer;
   }
 
   .sticky-notes-header {

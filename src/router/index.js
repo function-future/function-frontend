@@ -4,6 +4,8 @@ import feeds from '../views/Feeds/Feeds.vue'
 import announcements from '../views/Announcements/Announcements.vue'
 import blogs from '../views/ActivityBlogs/ActivityBlogs.vue'
 import users from '../views/Users/Users.vue'
+import stickyNotes from '../views/StickyNotes/StickyNotesDetail.vue'
+import addStickyNote from '../views/StickyNotes/AddStickyNote.vue'
 import config from '../config/index'
 
 Vue.use(Router)
@@ -66,6 +68,22 @@ export default new Router({
       component: feeds,
       meta: {
         title: 'Grades'
+      }
+    },
+    {
+      path: config.app.pages.stickyNotes.list,
+      name: 'stickyNotes',
+      component: stickyNotes,
+      meta: {
+        title: 'Sticky Notes'
+      }
+    },
+    {
+      path: config.app.pages.stickyNotes.add,
+      name: 'addStickyNote',
+      component: addStickyNote,
+      meta: {
+        title: 'Add Sticky Notes'
       }
     }
   ]
