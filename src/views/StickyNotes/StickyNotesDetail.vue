@@ -2,18 +2,18 @@
   <div class="scrollable-container">
     <BaseCard class="card" cardClass="card-hover">
       <div class="header">
-        <h3>Announcement Title Goes Here...</h3>
+        <h3>{{ stickyNotes.noteTitle }}</h3>
       </div>
       <div class="header float-right">
         <div class="date">
-          January 19, 2019
+          {{ stickyNotes.updatedAt | moment("dddd, MMMM Do YYYY") }}
         </div>
         <div class="action">
-          <span @click="addStickyNote"><font-awesome-icon icon="edit" class="icon blue" size="lg"></font-awesome-icon></span>
+          <span @click="goToAddStickyNote"><font-awesome-icon icon="edit" class="icon blue" size="lg"></font-awesome-icon></span>
         </div>
       </div>
       <div class="preview">
-        <span>est pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat vivamus at augue eget arcu dictum varius duis at consectetur lorem donec massa sapien faucibus et molestie ac feugiat sed lectus vestibulum mattis ullamcorper velit sed ullamcorper morbi tincidunt ornare massa eget egestas purus viverra accumsan in nisl nisi scelerisque eu ultrices vitae auctor eu augue ut lectus arcu bibendum at varius vel pharetra vel turpis nunc eget lorem dolor sed viverra ipsum nunc aliquet bibendum</span>
+        <span>{{ stickyNotes.noteDescription }}</span>
       </div>
     </BaseCard>
   </div>
@@ -22,15 +22,40 @@
 <script>
 // @ is an alias to /src
 import BaseCard from '@/components/BaseCard'
+import axios from 'axios'
 
 export default {
   name: 'announcements',
   components: {
     BaseCard
   },
+  data () {
+    return {
+      stickyNotes: {
+        noteTitle: '',
+        noteDescription: '',
+        updatedAt: ''
+      }
+    }
+  },
+  created () {
+    axios.get('/api/core/sticky-notes')
+      .then(res => this.stickyNotes = res.data.data)
+      .catch(err => console.log(err))
+  },
+  computed: {
+    noteDate: function () {
+      let dateObj = new Date(this.stickyNotes.updatedAt + 1000)
+      let day = dateObj.getDay()
+      let year = dateObj.getFullYear()
+      let month = dateObj.getMonth() + 1
+      let date = dateObj.getDate()
+      return day + ', ' + date + ' ' + month + ' ' + year
+    }
+  },
   methods: {
-    addStickyNote () {
-      this.$router.push({ name: 'addStickyNote' })
+    goToAddStickyNote () {
+      this.$router.push({ name: 'editStickyNote' })
     }
   }
 }
@@ -38,7 +63,7 @@ export default {
 
 <style scoped>
   .card {
-  min-height: 80vh;
+    min-height: 80vh;
   }
 
   .header {

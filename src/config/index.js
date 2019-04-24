@@ -10,19 +10,23 @@ module.exports = {
       grades: '/grades',
       stickyNotes: {
         list: '/sticky-notes',
-        add: '/sticky-notes/add'
+        edit: '/sticky-notes/edit'
       }
     }
   },
   api: {
-    users: {
-
-    },
-    sticky_notes: {
-
-    },
-    announcements: {
-
+    users: {},
+    sticky_notes: {},
+    announcements: {}
+  },
+  dev: {
+    assetsSubDirectory: 'static',
+    assetsPublicPath: '/',
+    proxyTable: {
+      '/api': {
+        target: 'http://localhost:8080',
+        changeOrigin: true
+      }
     }
   }
 }
