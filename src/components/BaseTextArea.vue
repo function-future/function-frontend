@@ -1,47 +1,43 @@
 <template>
     <div>
-      <label v-if="label" class="input-label">{{ label }}</label>
-      <input
+      <label v-if="label" class="textarea-label">{{ label }}</label>
+      <textarea
         @input="updateValue"
-        class="input-box"
-        v-bind="$attrs"
-        :class="inputType"/><!-- Binding attrs allows attribute inheritance such as type="text" , etc! -->
+        class="textarea-box"
+        v-bind="$attrs">
+      </textarea><!-- Binding attrs allows attribute inheritance such as type="text" , etc! -->
     </div>
 </template>
 
-<script type="text/javascript" src="./js/BaseInput.js">
+<script type="text/javascript" src="./js/BaseTextArea.js">
 </script>
 
 <style scoped>
-  .input-label {
+  .textarea-label {
     margin-right: 20px;
   }
 
-  .input-box {
+  .textarea-box {
     background: #FFFFFF;
     border: 1px solid #FFFFFF;
     box-sizing: border-box;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.25);
-    border-radius: 40px;
-    padding: 10px 20px 10px 20px;
+    border-radius: 20px;
+    padding: 20px;
     margin: 10px 0 10px 0;
     font-size: 1em;
+    resize: none;
     width: 100%;
+    height: 100%;
     outline: none;
   }
 
-  .title {
-    padding: 15px 25px 15px 25px;
-    font-weight: bold;
-    color: #505050;
-  }
-
-  .input-box:hover {
+  .textarea-box:hover {
     transition: all .3s ease;
     box-shadow: 2px 2px 10px rgba(0,0,0,0.1), 2px 2px 10px rgba(0,0,0,0.3);
   }
 
-  .input-box:focus {
+  .textarea-box:focus {
     box-shadow: 2px 2px 10px rgba(0,0,0,0.1), 2px 2px 10px rgba(0,0,0,0.3);
   }
 </style>

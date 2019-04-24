@@ -1,5 +1,5 @@
 export default {
-  name: 'BaseInput',
+  name: 'BaseTextArea',
   inheritAttrs: false,
   props: {
     label: {
@@ -7,9 +7,6 @@ export default {
     },
     value: {
       type: [String, Number]
-    },
-    inputType: {
-      type: String
     }
   },
   methods: {
