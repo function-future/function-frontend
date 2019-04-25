@@ -9,15 +9,20 @@ module.exports = {
       users: '/users',
       grades: '/grades',
       stickyNotes: {
-        list: '/sticky-notes',
+        detail: '/sticky-notes',
         edit: '/sticky-notes/edit'
       }
     }
   },
   api: {
-    users: {},
-    sticky_notes: {},
-    announcements: {}
+    core: {
+      users: {},
+      stickyNotes: {
+        get: '/api/core/sticky-notes',
+        post: '/api/core/sticky-notes'
+      },
+      announcements: {}
+    }
   },
   dev: {
     assetsSubDirectory: 'static',

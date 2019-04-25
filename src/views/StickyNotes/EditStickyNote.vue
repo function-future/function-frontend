@@ -2,15 +2,14 @@
   <div class="scrollable-container">
     <div class="edit-container">
       <div class="title">
-        <BaseInput class="input-title" inputType="title"></BaseInput>
+        <BaseInput class="input-title" inputType="title" v-model="stickyNotes.noteTitle"></BaseInput>
       </div>
       <div class="description">
-        <!--<BaseInput class="input-description"></BaseInput>-->
-        <BaseTextArea class="input-description"></BaseTextArea>
+        <BaseTextArea class="input-description" v-model="stickyNotes.noteDescription"></BaseTextArea>
       </div>
       <div class="action">
         <div class="submit-button">
-          <BaseButton type="submit" buttonClass="button-save">Save</BaseButton>
+          <BaseButton type="submit" buttonClass="button-save" @click="postStickyNote">Save</BaseButton>
         </div>
       </div>
     </div>
@@ -18,19 +17,44 @@
 </template>
 
 <script>
-  import BaseInput from '@/components/BaseInput'
-  import BaseCard from '@/components/BaseCard'
-  import BaseButton from '@/components/BaseButton'
-  import BaseTextArea from '@/components/BaseTextArea'
+import BaseInput from '@/components/BaseInput'
+import BaseButton from '@/components/BaseButton'
+import BaseTextArea from '@/components/BaseTextArea'
+import config from '@/config/index'
 
-  export default {
-    components: {
-      BaseButton,
-      BaseCard,
-      BaseInput,
-      BaseTextArea
+export default {
+  components: {
+    BaseButton,
+    BaseInput,
+    BaseTextArea
+  },
+  data () {
+    return {
+      stickyNotes: {
+        noteTitle: '',
+        noteDescription: '',
+        updatedAt: ''
+      }
+    }
+  },
+  created () {
+    this.$http.get(config.api.core.stickyNotes.get)
+      .then(res => (this.stickyNotes = res.data.data))
+      .catch(err => console.log(err))
+  },
+  methods: {
+    postStickyNote () {
+      let payload = {
+        noteTitle: this.stickyNotes.noteTitle,
+        noteDescription: this.stickyNotes.noteDescription
+      }
+
+      this.$http.post(config.api.core.stickyNotes.post, payload)
+        .then(res => { this.$router.push({ name: 'stickyNotes' }) })
+        .catch(err => console.log(err)) // TODO: add error modal
     }
   }
+}
 </script>
 
 <style>

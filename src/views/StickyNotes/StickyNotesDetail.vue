@@ -22,10 +22,10 @@
 <script>
 // @ is an alias to /src
 import BaseCard from '@/components/BaseCard'
-import axios from 'axios'
+import config from '@/config/index'
 
 export default {
-  name: 'announcements',
+  name: 'stickyNotes',
   components: {
     BaseCard
   },
@@ -39,19 +39,9 @@ export default {
     }
   },
   created () {
-    axios.get('/api/core/sticky-notes')
+    this.$http.get(config.api.core.stickyNotes.get)
       .then(res => (this.stickyNotes = res.data.data))
       .catch(err => console.log(err))
-  },
-  computed: {
-    noteDate: function () {
-      let dateObj = new Date(this.stickyNotes.updatedAt + 1000)
-      let day = dateObj.getDay()
-      let year = dateObj.getFullYear()
-      let month = dateObj.getMonth() + 1
-      let date = dateObj.getDate()
-      return day + ', ' + date + ' ' + month + ' ' + year
-    }
   },
   methods: {
     goToAddStickyNote () {
@@ -105,10 +95,5 @@ export default {
   h3 {
     margin: 5px 0 15px 0;
     text-align: left;
-  }
-
-  .button-div {
-    text-align: right;
-    margin-right: 20px;
   }
 </style>
