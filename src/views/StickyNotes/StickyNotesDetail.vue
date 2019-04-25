@@ -40,7 +40,7 @@ export default {
   },
   created () {
     axios.get('/api/core/sticky-notes')
-      .then(res => this.stickyNotes = res.data.data)
+      .then(res => (this.stickyNotes = res.data.data))
       .catch(err => console.log(err))
   },
   computed: {

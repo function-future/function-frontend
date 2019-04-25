@@ -4,7 +4,8 @@
       <textarea
         @input="updateValue"
         class="textarea-box"
-        v-bind="$attrs">
+        v-bind="$attrs"
+        :value="value">
       </textarea><!-- Binding attrs allows attribute inheritance such as type="text" , etc! -->
     </div>
 </template>

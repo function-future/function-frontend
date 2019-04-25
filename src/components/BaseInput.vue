@@ -5,6 +5,7 @@
         @input="updateValue"
         class="input-box"
         v-bind="$attrs"
+        :value="value"
         :class="inputType"/><!-- Binding attrs allows attribute inheritance such as type="text" , etc! -->
     </div>
 </template>
