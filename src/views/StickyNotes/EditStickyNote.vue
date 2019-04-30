@@ -8,7 +8,10 @@
         <BaseTextArea class="input-description" v-model="stickyNotes.noteDescription"></BaseTextArea>
       </div>
       <div class="action">
-        <div class="submit-button">
+        <div class="action-button">
+          <BaseButton type="cancel" buttonClass="button-cancel" @click="cancel">Cancel</BaseButton>
+        </div>
+        <div class="action-button">
           <BaseButton type="submit" buttonClass="button-save" @click="postStickyNote">Save</BaseButton>
         </div>
       </div>
@@ -19,7 +22,7 @@
 <script type="text/javascript" src="./js/EditStickyNote.js">
 </script>
 
-<style>
+<style scoped>
   .edit-container {
     margin: 10px;
   }
@@ -41,5 +44,11 @@
   .action {
     display: flex;
     justify-content: flex-end;
+  }
+
+  .action-button {
+    display: inline-block;
+    padding-left: 5px;
+    padding-right: 5px;
   }
 </style>
