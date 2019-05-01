@@ -1,8 +1,8 @@
-import BaseCard from '@/components/BaseCard'
+import BaseCard from '@/components/BaseCard.vue'
 import config from '@/config/index'
 
 export default {
-  name: 'stickyNotes',
+  name: 'feeds',
   components: {
     BaseCard
   },
@@ -21,8 +21,8 @@ export default {
       .catch(err => console.log(err))
   },
   methods: {
-    goToAddStickyNote () {
-      this.$router.push({ name: 'editStickyNote' })
+    goToStickyNotesDetail () {
+      this.$router.push({ name: 'stickyNotes' })
     },
 
     setStickyNotes (response) {
