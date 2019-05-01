@@ -25,19 +25,7 @@
   </div>
 </template>
 
-<script>
-// @ is an alias to /src
-import BaseCard from '@/components/BaseCard'
-import BaseButton from '@/components/BaseButton'
-
-export default {
-  name: 'announcements',
-  components: {
-    BaseButton,
-    BaseCard
-  }
-}
-</script>
+<script type="text/javascript" src="./js/Announcements.js"></script>
 
 <style scoped>
   .announcement-card {
