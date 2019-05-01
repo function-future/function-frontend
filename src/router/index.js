@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import feeds from '../views/Feeds/Feeds.vue'
-import announcements from '../views/Announcements/Announcements.vue'
-import blogs from '../views/ActivityBlogs/ActivityBlogs.vue'
-import users from '../views/Users/Users.vue'
-import stickyNotes from '../views/StickyNotes/StickyNotesDetail.vue'
-import addStickyNote from '../views/StickyNotes/AddStickyNote.vue'
-import config from '../config/index'
+import feeds from '@/views/Feeds/Feeds.vue'
+import announcements from '@/views/Announcements/Announcements.vue'
+import blogs from '@/views/ActivityBlogs/ActivityBlogs.vue'
+import users from '@/views/Users/Users.vue'
+import stickyNotes from '@/views/StickyNotes/StickyNotesDetail.vue'
+import editStickyNote from '@/views/StickyNotes/EditStickyNote.vue'
+import config from '@/config/index'
 
 Vue.use(Router)
 
@@ -71,7 +71,7 @@ export default new Router({
       }
     },
     {
-      path: config.app.pages.stickyNotes.list,
+      path: config.app.pages.stickyNotes.detail,
       name: 'stickyNotes',
       component: stickyNotes,
       meta: {
@@ -79,11 +79,11 @@ export default new Router({
       }
     },
     {
-      path: config.app.pages.stickyNotes.add,
-      name: 'addStickyNote',
-      component: addStickyNote,
+      path: config.app.pages.stickyNotes.edit,
+      name: 'editStickyNote',
+      component: editStickyNote,
       meta: {
-        title: 'Add Sticky Notes'
+        title: 'Edit Sticky Notes'
       }
     }
   ]

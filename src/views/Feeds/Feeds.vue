@@ -2,13 +2,13 @@
   <div class="scrollable-container">
     <BaseCard class="sticky-notes-card" @click.native="goToStickyNotesDetail" cardClass="card-hover">
       <div class="sticky-notes-header sticky-notes-title">
-        <h3>Sticky Notes Title Goes Here...</h3>
+        <h3>{{ stickyNotes.noteTitle }}</h3>
       </div>
       <div class="sticky-notes-header sticky-notes-date">
-        January 19, 2019
+        {{ stickyNotes.updatedAt | moment("dddd, MMMM Do YYYY") }}
       </div>
       <div class="sticky-notes-content">
-        <span>est pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat vivamus at augue eget arcu dictum varius duis at consectetur lorem donec massa sapien faucibus et molestie ac feugiat sed lectus vestibulum mattis ullamcorper velit sed ullamcorper morbi tincidunt ornare massa eget egestas purus viverra accumsan in nisl nisi scelerisque eu ultrices vitae auctor eu augue ut lectus arcu bibendum at varius vel pharetra vel turpis nunc eget lorem dolor sed viverra ipsum nunc aliquet bibendum</span>
+        <span>{{ stickyNotes.noteDescription }}</span>
       </div>
     </BaseCard>
     <BaseCard class="announcement-card">
@@ -49,21 +49,7 @@
   </div>
 </template>
 
-<script>
-// @ is an alias to /src
-import BaseCard from '@/components/BaseCard.vue'
-
-export default {
-  name: 'feeds',
-  components: {
-    BaseCard
-  },
-  methods: {
-    goToStickyNotesDetail () {
-      this.$router.push({ name: 'stickyNotes' })
-    }
-  }
-}
+<script type="text/javascript" src="./js/Feeds.js">
 </script>
 
 <style scoped>
