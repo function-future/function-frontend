@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import assignments from '@/views/Assignment/Assignment'
 import addAssignment from '@/views/Assignment/AddAssignment'
+import quizzes from '@/views/Quiz/Quiz'
 import feeds from '@/views/Feeds/Feeds.vue'
 import announcements from '@/views/Announcements/Announcements.vue'
 import blogs from '@/views/ActivityBlogs/ActivityBlogs.vue'
@@ -91,7 +92,10 @@ export default new Router({
     {
       path: config.app.pages.quizzes,
       name: 'quizzes',
-      component: feeds
+      component: quizzes,
+      meta: {
+        title: 'Quizzes'
+      }
     },
     {
       path: config.app.pages.assignments.list,
