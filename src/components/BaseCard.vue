@@ -1,5 +1,5 @@
 <template>
-    <div class="card">
+    <div class="card" :class="cardClass">
       <slot></slot>
     </div>
 </template>
@@ -17,5 +17,11 @@
     padding: 15px 25px 15px 25px;
     margin: 15px;
     text-align: left;
+  }
+
+  .card-hover:hover {
+    cursor: pointer;
+    transition: all .3s ease;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.1), 2px 2px 10px rgba(0,0,0,0.3);
   }
 </style>

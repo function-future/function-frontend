@@ -8,19 +8,36 @@ module.exports = {
       files: '/files',
       users: '/users',
       quizzes: '/quizzes',
-      assignments: '/assignments',
-      finalComparisons: '/final-comparisons'
+      assignments: {
+        list: '/assignments',
+        add: '/assignments/add'
+      },
+      finalComparisons: '/final-comparisons',
+      grades: '/grades',
+      stickyNotes: {
+        detail: '/sticky-notes',
+        edit: '/sticky-notes/edit'
+      }
     }
   },
   api: {
-    users: {
-
-    },
-    sticky_notes: {
-
-    },
-    announcements: {
-
+    core: {
+      users: {},
+      stickyNotes: {
+        get: '/api/core/sticky-notes',
+        post: '/api/core/sticky-notes'
+      },
+      announcements: {}
+    }
+  },
+  dev: {
+    assetsSubDirectory: 'static',
+    assetsPublicPath: '/',
+    proxyTable: {
+      '/api': {
+        target: 'http://localhost:8080',
+        changeOrigin: true
+      }
     }
   }
 }

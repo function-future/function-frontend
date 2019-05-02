@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="page-header">
-      <BaseButton type="submit" buttonClass="button-save">
+      <BaseButton type="submit" buttonClass="button-save" @click="addAssignment">
         <font-awesome-icon icon="plus" class="icon"/> New
       </BaseButton>
       <BaseSelect

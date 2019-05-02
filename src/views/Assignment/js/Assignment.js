@@ -27,5 +27,10 @@ export default {
       searchValue: '',
       isComplete: true
     }
+  },
+  methods: {
+    addAssignment () {
+      this.$router.push({name: 'addAssignment'})
+    }
   }
 }
