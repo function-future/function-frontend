@@ -6,6 +6,8 @@ module.exports = {
         ws: true,
         changeOrigin: true
       }
-    }
+    },
+    hot: false,
+    port: 10001
   }
 }
