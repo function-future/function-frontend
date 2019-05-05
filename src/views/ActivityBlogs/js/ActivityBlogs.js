@@ -2,7 +2,7 @@ import BaseCard from '@/components/BaseCard'
 import BaseButton from '@/components/BaseButton'
 
 export default {
-  name: 'announcements',
+  name: 'activityBlogs',
   components: {
     BaseButton,
     BaseCard

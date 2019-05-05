@@ -9,21 +9,21 @@
       v-for="activityBlog in activityBlogs"
       v-bind:key="activityBlog.id"
       @click.native="goToActivityBlogDetail(activityBlog.id)"
-      class="card"
+      class="blog-card"
       cardClass="card-hover">
-      <div class="header blog-title">
+      <div class="blog-header blog-title">
         <h3>{{ activityBlog.title }}</h3>
       </div>
-      <div class="header float-right">
-        <div class="date">
+      <div class="blog-header float-right">
+        <div class="blog-date">
           {{ activityBlog.createdAt | moment("dddd, MMMM Do YYYY") }}
         </div>
-        <div class="actions">
+        <div class="blog-actions">
           <span><font-awesome-icon icon="edit" class="icon blue" size="lg"></font-awesome-icon></span>
           <span><font-awesome-icon icon="trash-alt" class="icon red" size="lg"></font-awesome-icon></span>
         </div>
       </div>
-      <div class="preview">
+      <div class="blog-preview">
         <span>{{ activityBlog.description }}</span>
       </div>
     </BaseCard>
@@ -34,39 +34,39 @@
 </script>
 
 <style scoped>
-  .card {
+  .blog-card {
     min-height: 175px;
   }
 
-  .header {
+  .blog-header {
     display: inline-block;
   }
 
-  .date {
+  .blog-date {
     padding: 5px 15px 5px 5px;
     display: inline-block;
   }
 
-  .actions {
+  .blog-actions {
     display: inline-block;
     padding-left: 15px;
     border-left: 1px solid #BDBDBD;
   }
 
-  .actions span {
+  .blog-actions span {
     padding: 5px;
     transition: all .2s ease;
   }
 
-  .actions span:hover {
+  .blog-actions span:hover {
     opacity: 0.8;
   }
 
-  .actions span:active {
+  .blog-actions span:active {
     opacity: 0.9;
   }
 
-  .preview {
+  .blog-preview {
     text-align: justify;
   }
 
