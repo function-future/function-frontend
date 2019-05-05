@@ -5,13 +5,17 @@
         <span><font-awesome-icon icon="plus" class="icon"/> Add</span>
       </BaseButton>
     </div>
-    <BaseCard class="announcement-card" cardClass="card-hover" @click.native="goToAnnouncementDetail">
+    <BaseCard
+      v-for="announcement in this.announcements"
+      class="announcement-card"
+      cardClass="card-hover"
+      @click.native="goToAnnouncementDetail">
       <div class="announcement-header announcement-title">
-        <h3>Announcement Title Goes Here...</h3>
+        <h3>{{ announcement.title }}</h3>
       </div>
       <div class="announcement-header float-right">
         <div class="announcement-date">
-          January 19, 2019
+          {{ announcement.createdAt |  moment("dddd, MMMM Do YYYY") }}
         </div>
         <div class="announcement-action">
           <span>
@@ -26,7 +30,7 @@
         </div>
       </div>
       <div class="announcement-preview">
-        <span>est pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat vivamus at augue eget arcu dictum varius duis at consectetur lorem donec massa sapien faucibus et molestie ac feugiat sed lectus vestibulum mattis ullamcorper velit sed ullamcorper morbi tincidunt ornare massa eget egestas purus viverra accumsan in nisl nisi scelerisque eu ultrices vitae auctor eu augue ut lectus arcu bibendum at varius vel pharetra vel turpis nunc eget lorem dolor sed viverra ipsum nunc aliquet bibendum</span>
+        <span>{{ announcement.description }}</span>
       </div>
     </BaseCard>
   </div>
