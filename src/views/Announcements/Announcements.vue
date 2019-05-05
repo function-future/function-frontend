@@ -5,7 +5,7 @@
         <span><font-awesome-icon icon="plus" class="icon"/> Add</span>
       </BaseButton>
     </div>
-    <BaseCard class="announcement-card" cardClass="card-hover">
+    <BaseCard class="announcement-card" cardClass="card-hover" @click.native="goToAnnouncementDetail">
       <div class="announcement-header announcement-title">
         <h3>Announcement Title Goes Here...</h3>
       </div>
@@ -14,7 +14,14 @@
           January 19, 2019
         </div>
         <div class="announcement-action">
-          <span><font-awesome-icon icon="edit" class="icon blue" size="lg"></font-awesome-icon></span>
+          <span>
+            <font-awesome-icon
+              icon="edit"
+              class="icon blue"
+              size="lg"
+              @click="goToEditAnnouncement">
+            </font-awesome-icon>
+          </span>
           <span><font-awesome-icon icon="trash-alt" class="icon red" size="lg"></font-awesome-icon></span>
         </div>
       </div>

@@ -3,7 +3,11 @@ module.exports = {
     pages: {
       feeds: '/',
       blogs: '/blogs',
-      announcements: '/announcements',
+      announcements: {
+        list: '/announcements',
+        detail: '/announcements/:id',
+        edit: '/announcements/:id/edit'
+      },
       courses: '/courses',
       files: '/files',
       users: '/users',
@@ -21,7 +25,9 @@ module.exports = {
         get: '/api/core/sticky-notes',
         post: '/api/core/sticky-notes'
       },
-      announcements: {}
+      announcements: {
+        get: '/api/core/announcements'
+      }
     }
   },
   dev: {

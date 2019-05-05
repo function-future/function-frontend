@@ -12,7 +12,8 @@ export default {
         noteTitle: '',
         noteDescription: '',
         updatedAt: ''
-      }
+      },
+      announcements: {}
     }
   },
   created () {
@@ -25,12 +26,22 @@ export default {
       this.$router.push({ name: 'stickyNotes' })
     },
 
+    goToAnnouncementPage () {
+      this.$router.push({ name: 'announcements' })
+    },
+
     setStickyNotes (response) {
       if (response.code === 404) {
         this.stickyNotes.noteTitle = 'Sticky Notes'
         this.stickyNotes.noteDescription = 'Sticky notes will appear here'
       } else if (response.code === 200) {
         this.stickyNotes = response.data
+      }
+    },
+
+    setAnnouncementsList (response) {
+      if (response.code === 200) {
+        this.announcements = response.data
       }
     }
   }

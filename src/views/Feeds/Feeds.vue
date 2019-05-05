@@ -11,7 +11,7 @@
         <span>{{ stickyNotes.noteDescription }}</span>
       </div>
     </BaseCard>
-    <BaseCard class="announcement-card">
+    <BaseCard class="announcement-card" @click.native="goToAnnouncementPage">
       <h3>Announcements</h3>
       <div class="announcement-card-scrollable">
         <BaseCard class="announcement-box">
@@ -96,5 +96,6 @@
     box-shadow: none;
     margin: 0 0 15px 0;
     border: 1px solid #828282;
+    cursor: pointer;
   }
 </style>

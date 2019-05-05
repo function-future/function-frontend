@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import feeds from '@/views/Feeds/Feeds.vue'
 import announcements from '@/views/Announcements/Announcements.vue'
+import announcementDetail from '@/views/Announcements/AnnouncementDetail.vue'
+import editAnnouncement from '@/views/Announcements/EditAnnouncement.vue'
 import blogs from '@/views/ActivityBlogs/ActivityBlogs.vue'
 import users from '@/views/Users/Users.vue'
 import stickyNotes from '@/views/StickyNotes/StickyNotesDetail.vue'
@@ -31,11 +33,27 @@ export default new Router({
       }
     },
     {
-      path: config.app.pages.announcements,
+      path: config.app.pages.announcements.list,
       name: 'announcements',
       component: announcements,
       meta: {
         title: 'Announcements'
+      }
+    },
+    {
+      path: config.app.pages.announcements.detail,
+      name: 'announcementDetail',
+      component: announcementDetail,
+      meta: {
+        title: 'Announcement Detail'
+      }
+    },
+    {
+      path: config.app.pages.announcements.edit,
+      name: 'editAnnouncement',
+      component: editAnnouncement,
+      meta: {
+        title: 'Edit Announcement'
       }
     },
     {
