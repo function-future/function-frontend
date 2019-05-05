@@ -7,9 +7,10 @@
     </div>
     <BaseCard
       v-for="announcement in this.announcements"
+      v-bind:key="announcement.id"
       class="announcement-card"
       cardClass="card-hover"
-      @click.native="goToAnnouncementDetail">
+      @click.native="goToAnnouncementDetail(announcement.id)">
       <div class="announcement-header announcement-title">
         <h3>{{ announcement.title }}</h3>
       </div>
@@ -23,7 +24,7 @@
               icon="edit"
               class="icon blue"
               size="lg"
-              @click="goToEditAnnouncement">
+              @click.stop="goToEditAnnouncement(announcement.id)">
             </font-awesome-icon>
           </span>
           <span><font-awesome-icon icon="trash-alt" class="icon red" size="lg"></font-awesome-icon></span>
