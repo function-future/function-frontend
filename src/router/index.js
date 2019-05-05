@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import feeds from '@/views/Feeds/Feeds.vue'
 import announcements from '@/views/Announcements/Announcements.vue'
-import blogs from '@/views/ActivityBlogs/ActivityBlogs.vue'
+import activityBlogs from '@/views/ActivityBlogs/ActivityBlogs.vue'
 import users from '@/views/Users/Users.vue'
 import stickyNotes from '@/views/StickyNotes/StickyNotesDetail.vue'
 import editStickyNote from '@/views/StickyNotes/EditStickyNote.vue'
@@ -23,9 +23,17 @@ export default new Router({
       }
     },
     {
-      path: config.app.pages.blogs,
-      name: 'blogs',
-      component: blogs,
+      path: config.app.pages.activityBlogs.list,
+      name: 'activityBlogs',
+      component: activityBlogs,
+      meta: {
+        title: 'Activity Blogs'
+      }
+    },
+    {
+      path: config.app.pages.activityBlogs.detail,
+      name: 'activityBlogDetail',
+      component: activityBlogs,
       meta: {
         title: 'Activity Blogs'
       }

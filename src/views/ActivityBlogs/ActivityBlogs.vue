@@ -5,74 +5,68 @@
         <span><font-awesome-icon icon="plus" class="icon"/> New</span>
       </BaseButton>
     </div>
-    <BaseCard class="blog-card" cardClass="card-hover">
-      <div class="blog-header blog-title">
-        <h3>Blog Title Goes Here...</h3>
+    <BaseCard
+      v-for="activityBlog in activityBlogs"
+      v-bind:key="activityBlog.id"
+      @click.native="goToActivityBlogDetail(activityBlog.id)"
+      class="card"
+      cardClass="card-hover">
+      <div class="header blog-title">
+        <h3>{{ activityBlog.title }}</h3>
       </div>
-      <div class="blog-header float-right">
-        <div class="blog-date">
-          January 19, 2019
+      <div class="header float-right">
+        <div class="date">
+          {{ activityBlog.createdAt | moment("dddd, MMMM Do YYYY") }}
         </div>
-        <div class="blog-action">
+        <div class="actions">
           <span><font-awesome-icon icon="edit" class="icon blue" size="lg"></font-awesome-icon></span>
           <span><font-awesome-icon icon="trash-alt" class="icon red" size="lg"></font-awesome-icon></span>
         </div>
       </div>
-      <div class="blog-preview">
-        <span>est pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat vivamus at augue eget arcu dictum varius duis at consectetur lorem donec massa sapien faucibus et molestie ac feugiat sed lectus vestibulum mattis ullamcorper velit sed ullamcorper morbi tincidunt ornare massa eget egestas purus viverra accumsan in nisl nisi scelerisque eu ultrices vitae auctor eu augue ut lectus arcu bibendum at varius vel pharetra vel turpis nunc eget lorem dolor sed viverra ipsum nunc aliquet bibendum</span>
+      <div class="preview">
+        <span>{{ activityBlog.description }}</span>
       </div>
     </BaseCard>
   </div>
 </template>
 
-<script>
-// @ is an alias to /src
-import BaseCard from '@/components/BaseCard'
-import BaseButton from '@/components/BaseButton'
-
-export default {
-  name: 'announcements',
-  components: {
-    BaseButton,
-    BaseCard
-  }
-}
+<script type="text/javascript" src="./js/ActivityBlogs.js">
 </script>
 
 <style scoped>
-  .blog-card {
+  .card {
     min-height: 175px;
   }
 
-  .blog-header {
+  .header {
     display: inline-block;
   }
 
-  .blog-date {
+  .date {
     padding: 5px 15px 5px 5px;
     display: inline-block;
   }
 
-  .blog-action {
+  .actions {
     display: inline-block;
     padding-left: 15px;
     border-left: 1px solid #BDBDBD;
   }
 
-  .blog-action span {
+  .actions span {
     padding: 5px;
     transition: all .2s ease;
   }
 
-  .blog-action span:hover {
+  .actions span:hover {
     opacity: 0.8;
   }
 
-  .blog-action span:active {
+  .actions span:active {
     opacity: 0.9;
   }
 
-  .blog-preview {
+  .preview {
     text-align: justify;
   }
 

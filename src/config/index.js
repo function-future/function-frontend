@@ -2,7 +2,11 @@ module.exports = {
   app: {
     pages: {
       feeds: '/',
-      blogs: '/blogs',
+      activityBlogs: {
+        list: '/activity-blogs',
+        detail: '/activity-blogs/:id',
+        edit: '/activity-blogs/:id/edit'
+      },
       announcements: '/announcements',
       courses: '/courses',
       files: '/files',
