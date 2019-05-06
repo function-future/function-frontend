@@ -69,6 +69,13 @@ export default {
         name: 'activityBlogDetail',
         params: { id: id }
       })
+    },
+
+    goToEditActivityBlog (id) {
+      this.$router.push({
+        name: 'editActivityBlog',
+        params: { id: id }
+      })
     }
   }
 }

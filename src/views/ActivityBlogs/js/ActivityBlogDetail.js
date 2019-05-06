@@ -23,5 +23,11 @@ export default {
     }
   },
   methods: {
+    goToEditActivityBlog (id) {
+      this.$router.push({
+        name: 'editActivityBlog',
+        params: { id: id }
+      })
+    }
   }
 }

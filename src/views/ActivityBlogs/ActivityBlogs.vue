@@ -19,7 +19,9 @@
           {{ activityBlog.createdAt | moment("dddd, MMMM Do YYYY") }}
         </div>
         <div class="blog-actions">
-          <span><font-awesome-icon icon="edit" class="icon blue" size="lg"></font-awesome-icon></span>
+          <span @click.stop="goToEditActivityBlog(activityBlog.id)">
+            <font-awesome-icon icon="edit" class="icon blue" size="lg"></font-awesome-icon>
+          </span>
           <span><font-awesome-icon icon="trash-alt" class="icon red" size="lg"></font-awesome-icon></span>
         </div>
       </div>
