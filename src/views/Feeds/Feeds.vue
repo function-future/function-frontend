@@ -11,7 +11,7 @@
         <span>{{ stickyNotes.noteDescription }}</span>
       </div>
     </BaseCard>
-    <BaseCard class="announcement-card" @click.native="goToAnnouncementPage">
+    <BaseCard class="announcement-card" @click.native="goToAnnouncementPage" cardClass="card-hover no-pointer">
       <h3>Announcements</h3>
       <div class="announcement-card-scrollable">
         <BaseCard class="announcement-box">
