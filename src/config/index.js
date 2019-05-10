@@ -21,13 +21,46 @@ module.exports = {
     }
   },
   api: {
+    base_path: '',
     core: {
+      auth: {
+        status: '/api/core/auth',
+        login: '/api/core/auth',
+        logout: '/api/core/auth'
+      },
+      access: {
+        accessList(url) {
+          return `/api/core/user/access-list/${url}`
+        },
+        menuList: '/api/core/menu-list'
+      },
       users: {},
       stickyNotes: {
         get: '/api/core/sticky-notes',
         post: '/api/core/sticky-notes'
       },
-      announcements: {}
+      announcements: {
+        get: '/api/core/announcements',
+        post: '/api/core/announcements',
+        detail: {
+          get(announcementId) {
+            return `/api/core/announcements/${announcementId}`
+          },
+          update(announcementId) {
+            return `/api/core/announcements/${announcementId}`
+          },
+          delete(announcementId) {
+            return `/api/core/announcements/${announcementId}`
+          }
+        }
+      },
+      profile: {
+        get: '/api/core/user/profile',
+        change_password: '/api/core/user/password'
+      },
+      blogs: {
+        get: '/api/core//activity-blogs'
+      }
     }
   },
   dev: {
