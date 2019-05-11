@@ -8,7 +8,6 @@ const getRequest = function (path, callback, errorHandler, configuration) {
       callback(data.response)
     })
     .catch(error => {
-      console.log(error)
       if (typeof errorHandler === 'function') {
         errorHandler(error)
       }

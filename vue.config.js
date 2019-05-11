@@ -6,7 +6,6 @@ const path = require('path')
 module.exports = {
   configureWebpack: config => {
      if (process.env.NODE_ENV === 'development') {
-      console.log('WOIIII')
       return {
         mode: 'development',
         optimization: {

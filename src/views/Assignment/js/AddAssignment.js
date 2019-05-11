@@ -32,7 +32,7 @@ export default {
       this.$router.go(-1)
     },
     saveAssignment () {
-      console.log(this.assignment)
+      // console.log(this.assignment)
     }
   }
 }
