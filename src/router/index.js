@@ -114,8 +114,8 @@ export default new Router({
       }
     },
     {
-      path: config.app.pages.finalComparisons,
-      name: 'finalComparisons',
+      path: config.app.pages.finalJudging,
+      name: 'finalJudging',
       component: feeds
     }
   ]

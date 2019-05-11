@@ -33,7 +33,7 @@ const putRequest = function (path, callback, data, errorHandler, configuration) 
 }
 
 const deleteRequest = function (path, callback, errorHandler, configuration) {
-  axios.delegate(path, configuration)
+  axios.delete(path, configuration)
     .then(callback)
     .catch(errorHandler)
 }

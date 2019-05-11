@@ -1,4 +1,4 @@
-export const login = [
+export const auth = [
   {
     // Attempt Login
     method: 'POST',
@@ -42,9 +42,9 @@ export const login = [
 ]
 
 //access-list
-export const access = {
+export const accessList = {
   method: 'GET',
-  url: '/api/core/user/access-list/feeds',
+  url: '/api/core/user/access-list?url=/feeds',
   response: {
     "add": true,
     "delete": true
@@ -52,7 +52,7 @@ export const access = {
 }
 
 //menu-list
-export const menu = {
+export const menuList = {
   method: 'GET',
   url: '/api/core/user/menu-list',
   response: {
@@ -183,7 +183,7 @@ export const announcements = [
   {
     //Create new announcement
     method: 'POST',
-    url: '/api/core/announcements?page=1&size=10',
+    url: '/api/core/announcements',
     response: {
       "code": 201,
       "status": "CREATED",

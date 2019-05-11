@@ -12,7 +12,7 @@ module.exports = {
         list: '/assignments',
         add: '/assignments/add'
       },
-      finalComparisons: '/final-comparisons',
+      finalJudging: '/final-judging',
       grades: '/grades',
       stickyNotes: {
         detail: '/sticky-notes',
@@ -30,7 +30,7 @@ module.exports = {
       },
       access: {
         accessList(url) {
-          return `/api/core/user/access-list/${url}`
+          return `/api/core/user/access-list?${url}`
         },
         menuList: '/api/core/menu-list'
       },
@@ -59,7 +59,7 @@ module.exports = {
         change_password: '/api/core/user/password'
       },
       blogs: {
-        get: '/api/core//activity-blogs'
+        get: '/api/core/activity-blogs'
       }
     }
   },
