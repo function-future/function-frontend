@@ -1,6 +1,10 @@
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
-import { stickyNotes } from '@/api-mock/mock/core-routes'
+import {
+  stickyNotes,
+  announcements,
+  announcementDetails
+} from '@/api-mock/mock/core-routes'
 
 const mock = new MockAdapter(axios)
 
