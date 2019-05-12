@@ -177,7 +177,12 @@ export const announcements = [
           ],
           "updatedAt": 1555980050616
         }
-      ]
+      ],
+      "paging": {
+        "page": 1,
+        "size": 4,
+        "totalRecords": 100
+      }
     }
   },
   {
