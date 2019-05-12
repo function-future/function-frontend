@@ -53,4 +53,9 @@
   .button-edit {
     background: #45C92F;
   }
+
+  .button-icon {
+    width: unset;
+    background: #02AAF3;
+  }
 </style>
