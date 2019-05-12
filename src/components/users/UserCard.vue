@@ -6,33 +6,18 @@
         <h4>{{ user.university }}</h4>
       </div>
       <div class="col future-info" style="flex-grow: 3">
-        <h4>Batch {{ user.batch }}</h4>
+        <h4>{{ batch }}</h4>
         <h5>{{ user.division }}</h5>
       </div>
       <div class="col actions-div" style="flex-grow: 1">
-        <span><font-awesome-icon icon="edit" class="icon blue" size="lg"></font-awesome-icon></span>
-        <span><font-awesome-icon icon="trash-alt" class="icon red" size="lg"></font-awesome-icon></span>
+        <span @click="goToEditUser"><font-awesome-icon icon="edit" class="icon blue" size="lg"></font-awesome-icon></span>
+        <span @click="deleteUser"><font-awesome-icon icon="trash-alt" class="icon red" size="lg"></font-awesome-icon></span>
       </div>
     </div>
   </BaseCard>
 </template>
 
-<script>
-import BaseCard from '@/components/BaseCard'
-
-export default {
-  components: { BaseCard },
-  data () {
-    return {
-      user: {
-        name: 'Karnando Sepryan',
-        university: 'BINUS University',
-        batch: '3',
-        division: 'Development'
-      }
-    }
-  }
-}
+<script type="text/javascript" src="./js/UserCard.js">
 </script>
 
 <style scoped>

@@ -15,30 +15,24 @@
     </div>
     <div class="tab-container">
       <div class="scrollable-tab" v-if="currentTab === 'students'">
-        <UserCard></UserCard>
-        <UserCard></UserCard>
-        <UserCard></UserCard>
-        <UserCard></UserCard>
-        <UserCard></UserCard>
-        <UserCard></UserCard>
-        <UserCard></UserCard>
-        <UserCard></UserCard>
+        <div v-for="student in students" :key="student.id">
+          <UserCard :user="student"></UserCard>
+        </div>
       </div>
       <div class="scrollable-tab" v-if="currentTab === 'admins'">
-        <UserCard></UserCard>
-        <UserCard></UserCard>
-        <UserCard></UserCard>
-        <UserCard></UserCard>
-        <UserCard></UserCard>
-        <UserCard></UserCard>
+        <div v-for="admin in admins" :key="admin.id">
+          <UserCard :user="admin"></UserCard>
+        </div>
       </div>
       <div class="scrollable-tab" v-if="currentTab === 'mentors'">
-        <UserCard></UserCard>
+        <div v-for="mentor in mentors" :key="mentor.id">
+          <UserCard :user="mentor"></UserCard>
+        </div>
       </div>
       <div class="scrollable-tab" v-if="currentTab === 'judges'">
-        <UserCard></UserCard>
-        <UserCard></UserCard>
-        <UserCard></UserCard>
+        <div v-for="judge in judges" :key="judge.id">
+          <UserCard :user="judge"></UserCard>
+        </div>
       </div>
     </div>
   </div>
