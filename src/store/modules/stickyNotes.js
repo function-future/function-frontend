@@ -22,7 +22,6 @@ export const actions = {
         noteDescription: response[0].description,
         updatedAt: response[0].updatedAt
       }
-      console.log(data)
       commit('SET_STICKY_NOTES_INFO', data)
     }, fail)
   },

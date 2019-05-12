@@ -17,7 +17,7 @@
         <BaseCard class="announcement-box"
                   v-for="announcement in announcementList"
                   v-bind:key="announcement.id"
-                  @click.native="goToAnnouncementDetail(announcement.id)">
+                  @click.native.stop="goToAnnouncementDetail(announcement.id)">
           <h4>{{ announcement.title }}</h4>
           <div class="announcement-box-content">
             <span>{{ announcement.description }}</span>

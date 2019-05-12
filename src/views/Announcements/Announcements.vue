@@ -6,7 +6,7 @@
       </BaseButton>
     </div>
     <BaseCard
-      v-for="announcement in this.announcements"
+      v-for="announcement in announcementList"
       v-bind:key="announcement.id"
       class="announcement-card"
       cardClass="card-hover"
