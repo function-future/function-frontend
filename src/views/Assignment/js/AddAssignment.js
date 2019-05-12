@@ -20,11 +20,14 @@ export default {
       assignment: {
         title: '',
         question: '',
-        date: new Date(2019, 4, 3),
-        batch: 3,
+        date: new Date(),
+        batch: 'Batch 3',
         // file: ''
       },
-      batches: [1, 2, 3]
+      batches: [
+        'Batch One',
+        'Batch Second',
+        'Batch 3']
     }
   },
   methods: {
