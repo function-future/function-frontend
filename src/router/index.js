@@ -86,7 +86,7 @@ export default new Router({
       name: 'editStickyNote',
       component: editStickyNote,
       meta: {
-        title: 'Edit Sticky Notes'
+        title: 'Edit Sticky Note'
       }
     },
     {

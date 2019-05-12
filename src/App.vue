@@ -11,20 +11,6 @@
         <div class="user-section">
           <UserBar></UserBar>
         </div>
-        <!--<BaseCard>-->
-          <!--<h3 class="sticky-notes-title">-->
-            <!--Sticky Notes Title Goes Here...-->
-          <!--</h3>-->
-          <!--<div class="buttons">-->
-            <!--<BaseButton type="reset" buttonClass="button-cancel">Cancel</BaseButton>-->
-            <!--<BaseButton type="submit" buttonClass="button-save">Save</BaseButton>-->
-            <!--<BaseButton type="submit" buttonClass="button-edit">Edit</BaseButton>-->
-            <!--<BaseButton type="submit" buttonClass="button-delete">Delete</BaseButton>-->
-          <!--</div>-->
-          <!--<div class="inputs">-->
-            <!--<BaseInput label="Test Input"></BaseInput>-->
-          <!--</div>-->
-        <!--</BaseCard>-->
         <router-view/>
       </div>
     </div>

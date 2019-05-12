@@ -43,16 +43,6 @@ export default {
       let data = {...this.stickyNote}
       this.postStickyNotes({data})
     },
-    // postStickyNote () {
-    //   let payload = {
-    //     noteTitle: this.stickyNotes.noteTitle,
-    //     noteDescription: this.stickyNotes.noteDescription
-    //   }
-    //
-    //   this.$http.post(config.api.core.stickyNotes.post, payload)
-    //     .then(res => { this.$router.push({ name: 'stickyNotes' }) })
-    //     .catch(err => console.log(err)) // TODO: add error modal
-    // },
     cancel () {
       this.$router.go(-1)
     }
