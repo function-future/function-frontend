@@ -1,8 +1,8 @@
 import request from '../default-request'
 import config from '@/config/index'
 
-const getAnnouncementList = function (callback, errorHandler) {
-  request.getRequest(config.api.core.announcements.get, callback, errorHandler)
+const getAnnouncementList = function (callback, data, errorHandler) {
+  request.getRequest(config.api.core.announcements.get(data.page, data.size), callback, errorHandler)
 }
 
 const createAnnouncement = function (callback, data, errorHandler) {

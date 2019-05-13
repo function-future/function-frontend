@@ -8,8 +8,16 @@ export default {
     BaseButton,
     BaseCard
   },
+  data () {
+    return {
+      paging: {
+        page: 0,
+        size: 10
+      }
+    }
+  },
   created () {
-    this.fetchAnnouncements('data')
+    this.loadAnnouncementList()
   },
   computed: {
     ...mapGetters([
@@ -32,6 +40,11 @@ export default {
         name: 'editAnnouncement',
         params: { id: id }
       })
+    },
+    loadAnnouncementList () {
+      this.paging = { ...this.paging }
+      let data = { ...this.paging }
+      this.fetchAnnouncements({ data })
     }
   }
 }

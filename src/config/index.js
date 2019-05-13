@@ -44,7 +44,7 @@ module.exports = {
         post: '/api/core/sticky-notes'
       },
       announcements: {
-        get: '/api/core/announcements',
+        get (page, size) { return `/api/core/announcements?page=${page}&size=${size}` },
         post: '/api/core/announcements',
         detail: {
           get(announcementId) {

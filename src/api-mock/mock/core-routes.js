@@ -108,7 +108,7 @@ export const announcements = [
   {
     // Get list of announcements
     method: 'GET',
-    url: '/api/core/announcements',
+    url: '/api/core/announcements?page=0&size=10',
     response: {
       "code": 200,
       "status": "OK",

@@ -7,9 +7,17 @@ export default {
   components: {
     BaseCard
   },
+  data () {
+    return {
+      paging: {
+        page: 0,
+        size: 10
+      }
+    }
+  },
   created () {
     this.fetchStickyNotes()
-    this.fetchAnnouncements('data')
+    this.loadAnnouncementList()
   },
   computed: {
     ...mapGetters([
@@ -46,6 +54,11 @@ export default {
       if (response.code === 200) {
         this.announcements = response.data
       }
+    },
+    loadAnnouncementList () {
+      this.paging = { ...this.paging }
+      let data = { ...this.paging }
+      this.fetchAnnouncements({ data })
     }
   }
 }

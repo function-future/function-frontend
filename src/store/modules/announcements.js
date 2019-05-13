@@ -16,9 +16,9 @@ export const mutations = {
 
 export const actions = {
   fetchAnnouncements ({ commit }, { data, fail }) {
-    announcementApi.getAnnouncementList(({data: response}) => {
+    announcementApi.getAnnouncementList(({ data: response }) => {
       commit('GET_ANNOUNCEMENTS', response)
-    }, fail)
+    }, data, fail)
   },
   fetchAnnouncementById ({ commit }, { data, fail }) {
     announcementApi.getAnnouncementDetail(({data: response}) => { //TODO: Learn how to pass announcement ID to API calls
