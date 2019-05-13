@@ -19,7 +19,7 @@ export default {
     ...mapActions([
       'fetchStickyNotes'
     ]),
-    initPage(){
+    initPage () {
       this.fetchStickyNotes()
     },
     goToAddStickyNote () {

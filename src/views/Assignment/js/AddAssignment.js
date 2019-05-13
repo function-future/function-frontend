@@ -21,7 +21,7 @@ export default {
         title: '',
         question: '',
         date: new Date(),
-        batch: 'Batch 3',
+        batch: 'Batch 3'
         // file: ''
       },
       batches: [

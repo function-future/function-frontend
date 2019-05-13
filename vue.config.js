@@ -5,7 +5,7 @@ const path = require('path')
 
 module.exports = {
   configureWebpack: config => {
-     if (process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV === 'development') {
       return {
         mode: 'development',
         optimization: {
@@ -16,7 +16,7 @@ module.exports = {
         },
         resolve: {
           alias: {
-            '@mock-api': path.resolve(__dirname,'src/api-mock')
+            '@mock-api': path.resolve(__dirname, 'src/api-mock')
           }
         },
         devServer: {

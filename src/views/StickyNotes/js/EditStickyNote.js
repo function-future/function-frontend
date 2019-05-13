@@ -36,12 +36,12 @@ export default {
       this.setStickyNote()
     },
     setStickyNote () {
-      this.stickyNote = {...this.stickyNotes}
+      this.stickyNote = { ...this.stickyNotes }
     },
     postStickyNote () {
       this.setStickyNote()
-      let data = {...this.stickyNote}
-      this.postStickyNotes({data})
+      let data = { ...this.stickyNote }
+      this.postStickyNotes({ data })
     },
     cancel () {
       this.$router.go(-1)

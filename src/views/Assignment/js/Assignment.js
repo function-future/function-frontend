@@ -30,7 +30,7 @@ export default {
   },
   methods: {
     addAssignment () {
-      this.$router.push({name: 'addAssignment'})
+      this.$router.push({ name: 'addAssignment' })
     }
   }
 }

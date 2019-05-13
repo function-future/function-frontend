@@ -7,21 +7,21 @@ export const state = {
 
 export const mutations = {
   GET_ANNOUNCEMENTS (state, payload) {
-    state.announcementList = {...payload}
+    state.announcementList = { ...payload }
   },
   GET_ANNOUNCEMENT_BY_ID (state, payload) {
-    state.announcement = {...payload}
+    state.announcement = { ...payload }
   }
 }
 
 export const actions = {
   fetchAnnouncements ({ commit }, { data, fail }) {
-    announcementApi.getAnnouncementList(({data: response}) => {
+    announcementApi.getAnnouncementList(({ data: response }) => {
       commit('GET_ANNOUNCEMENTS', data)
     }, fail)
   },
   fetchAnnouncementById ({ commit }, { data, fail }) {
-    announcementApi.getAnnouncementDetail(({data: response}) => { //TODO: Learn how to pass announcement ID to API calls
+    announcementApi.getAnnouncementDetail(({ data: response }) => { // TODO: Learn how to pass announcement ID to API calls
       commit('GET_ANNOUNCEMENT_BY_ID', data)
     }, fail)
   }

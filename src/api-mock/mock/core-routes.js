@@ -5,13 +5,13 @@ export const auth = [
     url: '/api/core/auth',
     param_body: ['email', 'password'],
     response: {
-      "code": 200,
-      "status": "OK",
-      "data": {
-        "role": "STUDENT",
-        "email": "user@user.com",
-        "name": "User Name",
-        "avatar": "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
+      'code': 200,
+      'status': 'OK',
+      'data': {
+        'role': 'STUDENT',
+        'email': 'user@user.com',
+        'name': 'User Name',
+        'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
       }
     }
   },
@@ -20,13 +20,13 @@ export const auth = [
     method: 'GET',
     url: '/api/core/auth',
     response: {
-      "code": 200,
-      "status": "OK",
-      "data": {
-        "role": "STUDENT",
-        "email": "user@user.com",
-        "name": "User Name",
-        "avatar": "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
+      'code': 200,
+      'status': 'OK',
+      'data': {
+        'role': 'STUDENT',
+        'email': 'user@user.com',
+        'name': 'User Name',
+        'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
       }
     }
   },
@@ -41,26 +41,26 @@ export const auth = [
   }
 ]
 
-//access-list
+// access-list
 export const accessList = {
   method: 'GET',
   url: '/api/core/user/access-list?url=/feeds',
   response: {
-    "add": true,
-    "delete": true
+    'add': true,
+    'delete': true
   }
 }
 
-//menu-list
+// menu-list
 export const menuList = {
   method: 'GET',
   url: '/api/core/user/menu-list',
   response: {
-    "courses": true,
-    "files": true,
-    "users": true,
-    "grades": true,
-    "chatroom": true
+    'courses': true,
+    'files': true,
+    'users': true,
+    'grades': true,
+    'chatroom': true
   }
 }
 
@@ -70,20 +70,20 @@ export const stickyNotes = [
     method: 'GET',
     url: '/api/core/sticky-notes',
     response: {
-      "code": 200,
-      "status": "OK",
-      "data": [
+      'code': 200,
+      'status': 'OK',
+      'data': [
         {
-          "id": "sample-id",
-          "title": "Sticky Note Title",
-          "description": "Note noteDescription goes here. Length is undetermined.",
-          "updatedAt": 1555333551046
+          'id': 'sample-id',
+          'title': 'Sticky Note Title',
+          'description': 'Note noteDescription goes here. Length is undetermined.',
+          'updatedAt': 1555333551046
         }
       ],
-      "paging": {
-        "page": 1,
-        "size": 1,
-        "totalRecords": 100
+      'paging': {
+        'page': 1,
+        'size': 1,
+        'totalRecords': 100
       }
     }
   },
@@ -92,13 +92,13 @@ export const stickyNotes = [
     method: 'POST',
     url: '/api/core/sticky-notes',
     response: {
-      "code": 201,
-      "status": "CREATED",
-      "data": {
-        "id": "507f1f77bcf86cd799439011",
-        "title": "Sticky Note Title",
-        "description": "Note description goes here. Length is undetermined.",
-        "updatedAt": 1555333551046
+      'code': 201,
+      'status': 'CREATED',
+      'data': {
+        'id': '507f1f77bcf86cd799439011',
+        'title': 'Sticky Note Title',
+        'description': 'Note description goes here. Length is undetermined.',
+        'updatedAt': 1555333551046
       }
     }
   }
@@ -110,103 +110,103 @@ export const announcements = [
     method: 'GET',
     url: '/api/core/announcements?page=1&size=10',
     response: {
-      "code": 200,
-      "status": "OK",
-      "data": [
+      'code': 200,
+      'status': 'OK',
+      'data': [
         {
-          "id": "sample-id",
-          "title": "Announcement 1",
-          "summary": "Summary goes here. Maximum 70 characters?",
-          "description": "Description goes here. Currently there is no limit to description length.",
-          "files": [
+          'id': 'sample-id',
+          'title': 'Announcement 1',
+          'summary': 'Summary goes here. Maximum 70 characters?',
+          'description': 'Description goes here. Currently there is no limit to description length.',
+          'files': [
             {
-              "id": "sample-id",
-              "file": {
-                "full": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png",
-                "thumbnail": null
+              'id': 'sample-id',
+              'file': {
+                'full': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png',
+                'thumbnail': null
               }
             }
           ],
-          "updatedAt": 1555980050616
+          'updatedAt': 1555980050616
         },
         {
-          "id": "sample-id",
-          "title": "Announcement 1",
-          "summary": "Summary goes here. Maximum 70 characters?",
-          "description": "Description goes here. Currently there is no limit to description length.",
-          "files": [
+          'id': 'sample-id',
+          'title': 'Announcement 1',
+          'summary': 'Summary goes here. Maximum 70 characters?',
+          'description': 'Description goes here. Currently there is no limit to description length.',
+          'files': [
             {
-              "id": "sample-id",
-              "file": {
-                "full": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png",
-                "thumbnail": null
+              'id': 'sample-id',
+              'file': {
+                'full': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png',
+                'thumbnail': null
               }
             }
           ],
-          "updatedAt": 1555980050616
+          'updatedAt': 1555980050616
         },
         {
-          "id": "sample-id",
-          "title": "Announcement 1",
-          "summary": "Summary goes here. Maximum 70 characters?",
-          "description": "Description goes here. Currently there is no limit to description length.",
-          "files": [
+          'id': 'sample-id',
+          'title': 'Announcement 1',
+          'summary': 'Summary goes here. Maximum 70 characters?',
+          'description': 'Description goes here. Currently there is no limit to description length.',
+          'files': [
             {
-              "id": "sample-id",
-              "file": {
-                "full": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png",
-                "thumbnail": null
+              'id': 'sample-id',
+              'file': {
+                'full': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png',
+                'thumbnail': null
               }
             }
           ],
-          "updatedAt": 1555980050616
+          'updatedAt': 1555980050616
         },
         {
-          "id": "sample-id",
-          "title": "Announcement 1",
-          "summary": "Summary goes here. Maximum 70 characters?",
-          "description": "Description goes here. Currently there is no limit to description length.",
-          "files": [
+          'id': 'sample-id',
+          'title': 'Announcement 1',
+          'summary': 'Summary goes here. Maximum 70 characters?',
+          'description': 'Description goes here. Currently there is no limit to description length.',
+          'files': [
             {
-              "id": "sample-id",
-              "file": {
-                "full": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png",
-                "thumbnail": null
+              'id': 'sample-id',
+              'file': {
+                'full': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png',
+                'thumbnail': null
               }
             }
           ],
-          "updatedAt": 1555980050616
+          'updatedAt': 1555980050616
         }
       ],
-      "paging": {
-        "page": 1,
-        "size": 4,
-        "totalRecords": 100
+      'paging': {
+        'page': 1,
+        'size': 4,
+        'totalRecords': 100
       }
     }
   },
   {
-    //Create new announcement
+    // Create new announcement
     method: 'POST',
     url: '/api/core/announcements',
     response: {
-      "code": 201,
-      "status": "CREATED",
-      "data": {
-        "id": "sample-id",
-        "title": "Announcement 1",
-        "summary": "Summary goes here. Maximum 70 characters?",
-        "description": "Description goes here. Currently there is no limit to description length.",
-        "files": [
+      'code': 201,
+      'status': 'CREATED',
+      'data': {
+        'id': 'sample-id',
+        'title': 'Announcement 1',
+        'summary': 'Summary goes here. Maximum 70 characters?',
+        'description': 'Description goes here. Currently there is no limit to description length.',
+        'files': [
           {
-            "id": "sample-id",
-            "file": {
-              "full": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png",
-              "thumbnail": null
+            'id': 'sample-id',
+            'file': {
+              'full': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png',
+              'thumbnail': null
             }
           }
         ],
-        "updatedAt": 1555980050616
+        'updatedAt': 1555980050616
       }
     }
   }
@@ -218,23 +218,23 @@ export const announcementDetails = [
     method: 'GET',
     url: '/api/core/announcements/1',
     response: {
-      "code": 200,
-      "status": "OK",
-      "data": {
-        "id": "sample-id",
-        "title": "Announcement 1",
-        "summary": "Summary goes here. Maximum 70 characters?",
-        "description": "Description goes here. Currently there is no limit to description length.",
-        "files": [
+      'code': 200,
+      'status': 'OK',
+      'data': {
+        'id': 'sample-id',
+        'title': 'Announcement 1',
+        'summary': 'Summary goes here. Maximum 70 characters?',
+        'description': 'Description goes here. Currently there is no limit to description length.',
+        'files': [
           {
-            "id": "sample-id",
-            "file": {
-              "full": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png",
-              "thumbnail": null
+            'id': 'sample-id',
+            'file': {
+              'full': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png',
+              'thumbnail': null
             }
           }
         ],
-        "updatedAt": 1555980050616
+        'updatedAt': 1555980050616
       }
     }
   },
@@ -243,23 +243,23 @@ export const announcementDetails = [
     method: 'POST',
     url: '/api/core/announcements/1',
     response: {
-      "code": 200,
-      "status": "OK",
-      "data": {
-        "id": "sample-id",
-        "title": "Announcement 1",
-        "summary": "Summary goes here. Maximum 70 characters?",
-        "description": "Description goes here. Currently there is no limit to description length.",
-        "files": [
+      'code': 200,
+      'status': 'OK',
+      'data': {
+        'id': 'sample-id',
+        'title': 'Announcement 1',
+        'summary': 'Summary goes here. Maximum 70 characters?',
+        'description': 'Description goes here. Currently there is no limit to description length.',
+        'files': [
           {
-            "id": "sample-id",
-            "file": {
-              "full": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png",
-              "thumbnail": null
+            'id': 'sample-id',
+            'file': {
+              'full': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png',
+              'thumbnail': null
             }
           }
         ],
-        "updatedAt": 1555980050616
+        'updatedAt': 1555980050616
       }
     }
   },
@@ -268,23 +268,23 @@ export const announcementDetails = [
     method: 'DELETE',
     url: '/api/core/announcements/1',
     response: {
-      "code": 200,
-      "status": "OK",
-      "data": {
-        "id": "sample-id",
-        "title": "Announcement 1",
-        "summary": "Summary goes here. Maximum 70 characters?",
-        "description": "Description goes here. Currently there is no limit to description length.",
-        "files": [
+      'code': 200,
+      'status': 'OK',
+      'data': {
+        'id': 'sample-id',
+        'title': 'Announcement 1',
+        'summary': 'Summary goes here. Maximum 70 characters?',
+        'description': 'Description goes here. Currently there is no limit to description length.',
+        'files': [
           {
-            "id": "sample-id",
-            "file": {
-              "full": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png",
-              "thumbnail": null
+            'id': 'sample-id',
+            'file': {
+              'full': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png',
+              'thumbnail': null
             }
           }
         ],
-        "updatedAt": 1555980050616
+        'updatedAt': 1555980050616
       }
     }
   }

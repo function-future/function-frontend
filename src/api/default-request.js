@@ -4,7 +4,7 @@ require('@mock-api')
 
 const getRequest = function (path, callback, errorHandler, configuration) {
   axios.get(path, configuration)
-    .then(({data}) => {
+    .then(({ data }) => {
       callback(data.response)
     })
     .catch(error => {

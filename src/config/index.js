@@ -29,7 +29,7 @@ module.exports = {
         logout: '/api/core/auth'
       },
       access: {
-        accessList(url) {
+        accessList (url) {
           return `/api/core/user/access-list?${url}`
         },
         menuList: '/api/core/menu-list'
@@ -43,13 +43,13 @@ module.exports = {
         get: '/api/core/announcements',
         post: '/api/core/announcements',
         detail: {
-          get(announcementId) {
+          get (announcementId) {
             return `/api/core/announcements/${announcementId}`
           },
-          update(announcementId) {
+          update (announcementId) {
             return `/api/core/announcements/${announcementId}`
           },
-          delete(announcementId) {
+          delete (announcementId) {
             return `/api/core/announcements/${announcementId}`
           }
         }

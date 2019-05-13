@@ -40,7 +40,6 @@
 
 <script type="text/javascript" src="./js/AddAssignment.js"/>
 
-
 <style scoped>
   .edit-container {
     margin: 10px;

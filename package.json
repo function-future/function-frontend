@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "dev": "webpack-dev-server --inline --progress --config webpack-dev-server.js",
+    "dev": "cross-env BABEL_ENV=development webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit"
@@ -35,7 +35,9 @@
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0",
     "friendly-errors-webpack-plugin": "^1.7.0",
+    "jest": "^24.8.0",
     "npm": "^6.9.0",
+    "vue-jest": "^3.0.4",
     "vue-template-compiler": "^2.5.21",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.3.0",

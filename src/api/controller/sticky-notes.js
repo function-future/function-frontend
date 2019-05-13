@@ -7,6 +7,7 @@ const getStickyNote = function (callback, errorHandler) {
 
 const createStickyNote = function (callback, data, errorHandler) {
   request.postRequest(config.api.core.stickyNotes.post, callback, data, errorHandler)
+  console.log(data)
 }
 
 export default {
