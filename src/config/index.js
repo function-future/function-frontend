@@ -47,14 +47,14 @@ module.exports = {
         get (page, size) { return `/api/core/announcements?page=${page}&size=${size}` },
         post: '/api/core/announcements',
         detail: {
-          get(announcementId) {
-            return `/api/core/announcements/${announcementId}`
+          get (id) {
+            return `/api/core/announcements/${id}`
           },
-          update(announcementId) {
-            return `/api/core/announcements/${announcementId}`
+          update (id) {
+            return `/api/core/announcements/${id}`
           },
-          delete(announcementId) {
-            return `/api/core/announcements/${announcementId}`
+          delete (id) {
+            return `/api/core/announcements/${id}`
           }
         }
       },

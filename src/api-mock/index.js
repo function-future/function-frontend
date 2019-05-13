@@ -11,7 +11,8 @@ const mock = new MockAdapter(axios)
 const methodMap = {
   GET: 'onGet',
   PUT: 'onPut',
-  POST: 'onPost'
+  POST: 'onPost',
+  DELETE: 'onDelete'
 }
 
 stickyNotes.forEach(data => {
@@ -19,5 +20,9 @@ stickyNotes.forEach(data => {
 })
 
 announcements.forEach(data => {
+  mock[methodMap[data.method]](data.url).reply(200, data)
+})
+
+announcementDetails.forEach(data => {
   mock[methodMap[data.method]](data.url).reply(200, data)
 })

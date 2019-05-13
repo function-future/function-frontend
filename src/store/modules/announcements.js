@@ -6,24 +6,24 @@ export const state = {
 }
 
 export const mutations = {
-  GET_ANNOUNCEMENTS (state, payload) {
-    state.announcementList = {...payload}
+  SET_ANNOUNCEMENTS (state, payload) {
+    state.announcementList = { ...payload }
   },
-  GET_ANNOUNCEMENT_BY_ID (state, payload) {
-    state.announcement = {...payload}
+  SET_ANNOUNCEMENT_BY_ID (state, payload) {
+    state.announcement = { ...payload }
   }
 }
 
 export const actions = {
   fetchAnnouncements ({ commit }, { data, fail }) {
     announcementApi.getAnnouncementList(({ data: response }) => {
-      commit('GET_ANNOUNCEMENTS', response)
+      commit('SET_ANNOUNCEMENTS', response)
     }, data, fail)
   },
   fetchAnnouncementById ({ commit }, { data, fail }) {
-    announcementApi.getAnnouncementDetail(({data: response}) => { //TODO: Learn how to pass announcement ID to API calls
-      commit('GET_ANNOUNCEMENT_BY_ID', data)
-    }, fail)
+    announcementApi.getAnnouncementDetail(({ data: response }) => {
+      commit('SET_ANNOUNCEMENT_BY_ID', response)
+    }, data, fail)
   }
 }
 

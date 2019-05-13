@@ -216,12 +216,12 @@ export const announcementDetails = [
   {
     // Get announcement detail
     method: 'GET',
-    url: '/api/core/announcements/1',
+    url: '/api/core/announcements/sample-id-1',
     response: {
       "code": 200,
       "status": "OK",
       "data": {
-        "id": "sample-id",
+        "id": "sample-id-1",
         "title": "Announcement 1",
         "summary": "Summary goes here. Maximum 70 characters?",
         "description": "Description goes here. Currently there is no limit to description length.",
@@ -241,7 +241,7 @@ export const announcementDetails = [
   {
     // Update Announcement
     method: 'POST',
-    url: '/api/core/announcements/1',
+    url: '/api/core/announcements/sample-id-1',
     response: {
       "code": 200,
       "status": "OK",
@@ -266,7 +266,7 @@ export const announcementDetails = [
   {
     // Delete announcement
     method: 'DELETE',
-    url: '/api/core/announcements/1',
+    url: '/api/core/announcements/sample-id-1',
     response: {
       "code": 200,
       "status": "OK",
