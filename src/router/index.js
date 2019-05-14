@@ -1,5 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import assignments from '@/views/Assignment/Assignment'
+import addAssignment from '@/views/Assignment/AddAssignment'
+import quizzes from '@/views/Quiz/Quiz'
 import feeds from '@/views/Feeds/Feeds.vue'
 import announcements from '@/views/Announcements/Announcements.vue'
 import blogs from '@/views/ActivityBlogs/ActivityBlogs.vue'
@@ -83,8 +86,37 @@ export default new Router({
       name: 'editStickyNote',
       component: editStickyNote,
       meta: {
-        title: 'Edit Sticky Notes'
+        title: 'Edit Sticky Note'
       }
+    },
+    {
+      path: config.app.pages.quizzes,
+      name: 'quizzes',
+      component: quizzes,
+      meta: {
+        title: 'Quizzes'
+      }
+    },
+    {
+      path: config.app.pages.assignments.list,
+      name: 'assignments',
+      component: assignments,
+      meta: {
+        title: 'Assignments'
+      }
+    },
+    {
+      path: config.app.pages.assignments.add,
+      name: 'addAssignment',
+      component: addAssignment,
+      meta: {
+        title: 'Add Assignment'
+      }
+    },
+    {
+      path: config.app.pages.finalJudging,
+      name: 'finalJudging',
+      component: feeds
     }
   ]
 })

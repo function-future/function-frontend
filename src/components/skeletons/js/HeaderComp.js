@@ -1,6 +1,17 @@
 export default {
   data () {
-
+    return {
+      gradesSubmenuVisibility: false
+    }
   },
-  methods: {}
+  computed: {
+    showGrades () {
+      return this.gradesSubmenuVisibility
+    }
+  },
+  methods: {
+    toggleGradesMenu () {
+      this.gradesSubmenuVisibility = !this.gradesSubmenuVisibility
+    }
+  }
 }
