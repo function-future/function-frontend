@@ -42,19 +42,6 @@ export default {
         params: { id: id }
       })
     },
-    setStickyNotes (response) {
-      if (response.code === 404) {
-        this.stickyNotes.noteTitle = 'Sticky Notes'
-        this.stickyNotes.noteDescription = 'Sticky notes will appear here'
-      } else if (response.code === 200) {
-        this.stickyNotes = response.data
-      }
-    },
-    setAnnouncementsList (response) {
-      if (response.code === 200) {
-        this.announcements = response.data
-      }
-    },
     loadAnnouncementList () {
       this.paging = { ...this.paging }
       let data = { ...this.paging }
