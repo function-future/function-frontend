@@ -287,5 +287,30 @@ export const announcementDetails = [
         "updatedAt": 1555980050616
       }
     }
-  }
+  },
+  {
+    // Update Announcement
+    method: 'PUT',
+    url: '/api/core/announcements/sample-id-1',
+    response: {
+      "code": 200,
+      "status": "OK",
+      "data": {
+        "id": "sample-id",
+        "title": "Announcement 1 Edited",
+        "summary": "Summary goes here. Maximum 70 characters?",
+        "description": "Description goes here. Currently there is no limit to description length.",
+        "files": [
+          {
+            "id": "sample-id",
+            "file": {
+              "full": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png",
+              "thumbnail": null
+            }
+          }
+        ],
+        "updatedAt": 1555980050616
+      }
+    }
+  },
 ]

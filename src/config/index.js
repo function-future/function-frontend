@@ -5,6 +5,7 @@ module.exports = {
       blogs: '/blogs',
       announcements: {
         list: '/announcements',
+        add: '/announcements/add/announcement',
         detail: '/announcements/:id',
         edit: '/announcements/:id/edit'
       },

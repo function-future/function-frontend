@@ -16,6 +16,9 @@ export default {
       announcementDetail: {}
     }
   },
+  props: [
+    'editMode'
+  ],
   created () {
     this.getAnnouncementDetail()
   },
@@ -27,11 +30,14 @@ export default {
   methods: {
     ...mapActions([
       'fetchAnnouncementById',
-      'createAnnouncement'
+      'createAnnouncement',
+      'updateAnnouncement'
     ]),
     initPage () {
-      this.getAnnouncementDetail()
-      this.setAnnouncementDetail()
+      if (this.editMode) {
+        this.getAnnouncementDetail()
+        this.setAnnouncementDetail()
+      }
     },
     getAnnouncementDetail () {
       let id = { 'id': this.$route.params.id }
@@ -44,7 +50,13 @@ export default {
     sendAnnouncement () {
       this.setAnnouncementDetail()
       let data = { ...this.announcementDetail }
-      this.createAnnouncement({ data })
+
+      if (this.editMode) {
+        this.updateAnnouncement({ data })
+      } else {
+        this.createAnnouncement({ data })
+        this.$router.push({ name: 'announcements' })
+      }
     },
     cancel () {
       this.$router.go(-1)

@@ -29,6 +29,11 @@ export const actions = {
     announcementApi.createAnnouncement(({ data: response }) => {
       commit('SET_ANNOUNCEMENT_BY_ID', response)
     }, data, fail)
+  },
+  updateAnnouncement ({ commit }, { data, fail }) {
+    announcementApi.updateAnnouncement(({ data: response }) => {
+      commit('SET_ANNOUNCEMENT_BY_ID', response)
+    }, data, fail)
   }
 }
 

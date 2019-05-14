@@ -57,7 +57,17 @@ export default new Router({
       component: editAnnouncement,
       meta: {
         title: 'Edit Announcement'
-      }
+      },
+      props: { editMode: true }
+    },
+    {
+      path: config.app.pages.announcements.add,
+      name: 'addAnnouncement',
+      component: editAnnouncement,
+      meta: {
+        title: 'Add Announcement'
+      },
+      props: { editMode: false }
     },
     {
       path: config.app.pages.courses,

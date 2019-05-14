@@ -28,8 +28,14 @@ const postRequest = function (path, callback, data, errorHandler, configuration)
 
 const putRequest = function (path, callback, data, errorHandler, configuration) {
   axios.put(path, data, configuration)
-    .then(callback)
-    .catch(errorHandler)
+    .then(({ data }) => {
+      callback(data.response)
+    })
+    .catch(error => {
+      if (typeof errorHandler === 'function') {
+        errorHandler(error)
+      }
+    })
 }
 
 const deleteRequest = function (path, callback, errorHandler, configuration) {
