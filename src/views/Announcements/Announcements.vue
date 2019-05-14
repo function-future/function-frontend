@@ -1,7 +1,7 @@
 <template>
   <div class="scrollable-container">
     <div class="button-div">
-      <BaseButton type="submit" buttonClass="button-save">
+      <BaseButton type="submit" buttonClass="button-save" @click="goToAddAnnouncement">
         <span><font-awesome-icon icon="plus" class="icon"/> Add</span>
       </BaseButton>
     </div>

@@ -34,7 +34,11 @@ export default {
         params: { id: id }
       })
     },
-
+    goToAddAnnouncement () {
+      this.$router.push({
+        name: 'addAnnouncement'
+      })
+    },
     goToEditAnnouncement (id) {
       this.$router.push({
         name: 'editAnnouncement',
