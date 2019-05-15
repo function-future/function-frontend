@@ -5,8 +5,8 @@ module.exports = {
       blogs: '/blogs',
       announcements: {
         list: '/announcements',
-        add: '/announcements/add/announcement',
-        detail: '/announcements/:id',
+        add: '/announcements/add',
+        detail: '/announcements/:id/detail',
         edit: '/announcements/:id/edit'
       },
       courses: '/courses',
@@ -35,7 +35,7 @@ module.exports = {
       },
       access: {
         accessList(url) {
-          return `/api/core/user/access-list?${url}`
+          return `/api/core/user/access-list?url=${url}`
         },
         menuList: '/api/core/menu-list'
       },
