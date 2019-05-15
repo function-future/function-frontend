@@ -49,6 +49,20 @@ export default {
       this.paging = { ...this.paging }
       let data = { ...this.paging }
       this.fetchAnnouncements({ data })
+    },
+    textPreview: function (announcement) {
+      if (announcement.summary) {
+        return this.showLimitedPreviewText(announcement.summary)
+      } else {
+        return this.showLimitedPreviewText(announcement.description)
+      }
+    },
+    showLimitedPreviewText: function (text) {
+      let maximumCharacters = 70
+      if (text.length > 70) {
+        return text.slice(0, maximumCharacters) + '...'
+      }
+      return text
     }
   }
 }

@@ -16,7 +16,7 @@
       </div>
       <div class="announcement-header float-right">
         <div class="announcement-date">
-          {{ announcement.createdAt |  moment("dddd, MMMM Do YYYY") }}
+          {{ announcement.updatedAt |  moment("dddd, MMMM Do YYYY") }}
         </div>
         <div class="announcement-action">
           <span>
@@ -31,7 +31,7 @@
         </div>
       </div>
       <div class="announcement-preview">
-        <span>{{ announcement.description }}</span>
+        <span>{{ textPreview(announcement) }}</span>
       </div>
     </BaseCard>
   </div>
