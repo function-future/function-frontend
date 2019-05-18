@@ -15,25 +15,41 @@ export const mutations = {
 }
 
 export const actions = {
+  initialState ({ commit }) {
+    commit('SET_ANNOUNCEMENT_BY_ID', {})
+    commit('SET_ANNOUNCEMENTS', [])
+  },
   fetchAnnouncements ({ commit }, { data, fail }) {
-    announcementApi.getAnnouncementList(({ data: response }) => {
-      commit('SET_ANNOUNCEMENTS', response)
-    }, data, fail)
+    return new Promise((resolve, reject) => {
+      announcementApi.getAnnouncementList(({ data: response }) => {
+        commit('SET_ANNOUNCEMENTS', response)
+        resolve()
+      }, data, (fail) => { reject(fail) })
+    })
   },
   fetchAnnouncementById ({ commit }, { data, fail }) {
-    announcementApi.getAnnouncementDetail(({ data: response }) => {
-      commit('SET_ANNOUNCEMENT_BY_ID', response)
-    }, data, fail)
+    return new Promise((resolve, reject) => {
+      announcementApi.getAnnouncementDetail(({ data: response }) => {
+        commit('SET_ANNOUNCEMENT_BY_ID', response)
+        resolve()
+      }, data, (fail) => { reject(fail) })
+    })
   },
   createAnnouncement ({ commit }, { data, fail }) {
-    announcementApi.createAnnouncement(({ data: response }) => {
-      commit('SET_ANNOUNCEMENT_BY_ID', response)
-    }, data, fail)
+    return new Promise((resolve, reject) => {
+      announcementApi.createAnnouncement(({ data: response }) => {
+        commit('SET_ANNOUNCEMENT_BY_ID', response)
+        resolve()
+      }, data, (fail) => { reject(fail) })
+    })
   },
   updateAnnouncement ({ commit }, { data, fail }) {
-    announcementApi.updateAnnouncement(({ data: response }) => {
-      commit('SET_ANNOUNCEMENT_BY_ID', response)
-    }, data, fail)
+    return new Promise((resolve, reject) => {
+      announcementApi.updateAnnouncement(({ data: response }) => {
+        commit('SET_ANNOUNCEMENT_BY_ID', response)
+        resolve()
+      }, data, (fail) => { reject(fail) })
+    })
   }
 }
 

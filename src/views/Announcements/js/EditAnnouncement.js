@@ -2,7 +2,6 @@ import { mapActions, mapGetters } from 'vuex'
 import BaseInput from '@/components/BaseInput'
 import BaseButton from '@/components/BaseButton'
 import BaseTextArea from '@/components/BaseTextArea'
-import config from '@/config/index'
 
 export default {
   name: 'editAnnouncement',
@@ -20,7 +19,7 @@ export default {
     'editMode'
   ],
   created () {
-    this.getAnnouncementDetail()
+    this.initPage()
   },
   computed: {
     ...mapGetters([
@@ -31,7 +30,8 @@ export default {
     ...mapActions([
       'fetchAnnouncementById',
       'createAnnouncement',
-      'updateAnnouncement'
+      'updateAnnouncement',
+      'initialState'
     ]),
     initPage () {
       if (this.editMode) {
@@ -43,6 +43,10 @@ export default {
       let id = { 'id': this.$route.params.id }
       let data = { ...id }
       this.fetchAnnouncementById({ data })
+        .then(() => {
+        }, () => {
+          this.$toasted.error('Fail to load announcement detail')
+        })
     },
     setAnnouncementDetail () {
       this.announcementDetail = { ...this.announcement }
@@ -53,9 +57,24 @@ export default {
 
       if (this.editMode) {
         this.updateAnnouncement({ data })
+          .then(() => {
+            this.$router.push({
+              name: 'announcementDetail',
+              params: { id: this.announcementDetail.id }
+            })
+            this.$toasted.success('Successfully update announcement')
+            this.initialState()
+          }, () => {
+            this.$toasted.error('Fail to update announcement')
+          })
       } else {
-        this.createAnnouncement({ data })
-        this.$router.push({ name: 'announcements' })
+        this.createAnnouncement({ data }).then(() => {
+          this.initialState()
+          this.$router.push({ name: 'announcements' })
+          this.$toasted.success('Successfully created new announcement')
+        }, () => {
+          this.$toasted.error('Fail to create new announcement')
+        })
       }
     },
     cancel () {

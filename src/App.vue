@@ -81,6 +81,15 @@
     color: #FF0000;
   }
 
+  .toaster {
+    background-color: #02AAF3 !important;
+    font-family: Helvetica, Arial, sans-serif;
+  }
+
+  .error {
+    background-color: #cc0000 !important;
+  }
+
   @media only screen and (min-width: 875px) {
     .left-nav {
       width: 24vw;
