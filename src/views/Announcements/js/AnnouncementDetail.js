@@ -1,6 +1,5 @@
 import { mapActions, mapGetters } from 'vuex'
 import BaseCard from '@/components/BaseCard'
-import config from '@/config/index'
 
 export default {
   name: 'announcementDetail',
@@ -22,12 +21,15 @@ export default {
     getAnnouncementDetail () {
       let id = { 'id': this.$route.params.id }
       let data = { ...id }
-      this.fetchAnnouncementById({ data })
+      this.fetchAnnouncementById({ data }).then(() => {
+      }, () => {
+        this.$toasted.error('Fail to load announcement detail')
+      })
     },
     goToEditAnnouncement () {
       this.$router.push({
         name: 'editAnnouncement',
-        params: { id: this.announcement.id }
+        params: { id: this.$route.params.id }
       })
     }
   }
