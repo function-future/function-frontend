@@ -49,7 +49,11 @@ export default {
         })
     },
     setAnnouncementDetail () {
-      this.announcementDetail = { ...this.announcement }
+      this.announcementDetail = {
+        title: this.announcement.title || '',
+        summary: this.announcement.summary || '',
+        description: this.announcement.description || ''
+      }
     },
     sendAnnouncement () {
       this.setAnnouncementDetail()

@@ -8,6 +8,8 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import axios from 'axios'
 import config from '@/config/index'
 import Toasted from 'vue-toasted'
+import mavonEditor from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
 
 library.add(fas)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
@@ -19,6 +21,8 @@ Vue.use(Toasted, {
   duration: 4000,
   position: 'bottom-right'
 })
+
+Vue.use(mavonEditor)
 
 Vue.config.productionTip = false
 Vue.prototype.$http = axios

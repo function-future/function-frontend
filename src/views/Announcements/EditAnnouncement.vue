@@ -8,12 +8,15 @@
           v-model="announcement.title"
           placeholder="Announcement title"></BaseInput>
       </div>
-      <div class="description">
+      <div>
         <BaseTextArea
-          class="input-description"
-          v-model="announcement.description"
-          placeholder="Announcement summary"
-        ></BaseTextArea>
+          v-model="announcement.summary"
+          placeholder="Announcement summary">
+        </BaseTextArea>
+      </div>
+      <div class="description">
+        <mavon-editor class="editor" placeholder="Announcement description" language="en" v-model="announcement.description">
+        </mavon-editor>
       </div>
       <div class="action">
         <div class="action-button">
@@ -45,12 +48,16 @@
     font-size: 1.2em;
   }
 
-  .description {
-    height: 425px;
+  .input-error .input-box{
+    border-color: red;
   }
 
-  .input-description {
-    height: 400px;
+  .description {
+    margin: 10px 0 10px 0;
+  }
+
+  .editor {
+    height: 45vh;
   }
 
   .action-button {
