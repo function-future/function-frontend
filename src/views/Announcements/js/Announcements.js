@@ -92,7 +92,7 @@ export default {
         callback: () => {
           this.$router.push({ name: 'announcements' })
           this.$toasted.success('successfully delete announcement')
-          this.showDeleteConfirmationModal = false
+          this.closeDeleteConfirmationModal()
         },
         fail: () => {
           this.$toasted.error('Fail to delete announcement')
