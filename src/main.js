@@ -10,6 +10,7 @@ import config from '@/config/index'
 import Toasted from 'vue-toasted'
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
+import VeeValidate from 'vee-validate'
 
 library.add(fas)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
@@ -23,6 +24,7 @@ Vue.use(Toasted, {
 })
 
 Vue.use(mavonEditor)
+Vue.use(VeeValidate)
 
 Vue.config.productionTip = false
 Vue.prototype.$http = axios

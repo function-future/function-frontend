@@ -3,11 +3,15 @@
     <div class="edit-container">
       <div class="title">
         <BaseInput
+          autofocus
           class="input-title"
           inputType="title"
           v-model="announcement.title"
-          placeholder="Announcement title"></BaseInput>
+          placeholder="Announcement title"
+          v-validate.disable="'required'"
+          name="title"></BaseInput>
       </div>
+      <div v-if="errors.has('title')"><span class="input-invalid-message">{{ errors.first('title') }}</span></div>
       <div>
         <BaseTextArea
           v-model="announcement.summary"
@@ -15,9 +19,15 @@
         </BaseTextArea>
       </div>
       <div class="description">
-        <mavon-editor class="editor" placeholder="Announcement description" language="en" v-model="announcement.description">
+        <mavon-editor class="editor"
+                      placeholder="Announcement description"
+                      language="en"
+                      v-model="announcement.description"
+                      v-validate.disable="'required'"
+                      name="description">
         </mavon-editor>
       </div>
+      <div v-if="errors.has('description')"><span class="input-invalid-message">{{ errors.first('description') }}</span></div>
       <div class="action">
         <div class="action-button">
           <BaseButton type="cancel" buttonClass="button-cancel" @click="cancel">Cancel</BaseButton>
@@ -38,6 +48,7 @@
   }
 
   .action {
+    width: 100%;
     display: flex;
     justify-content: flex-end;
   }
@@ -48,8 +59,11 @@
     font-size: 1.2em;
   }
 
-  .input-error .input-box{
-    border-color: red;
+  .input-invalid-message {
+    color: #FF0000;
+    font-size: 0.75em;
+    float: left;
+    margin-left: 2vw;
   }
 
   .description {
