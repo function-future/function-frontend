@@ -53,7 +53,13 @@ export default {
     loadAnnouncementList () {
       this.paging = { ...this.paging }
       let data = { ...this.paging }
-      this.fetchAnnouncements({ data })
+      this.fetchAnnouncements({
+        data,
+        callback: () => {},
+        fail: () => {
+          this.$toasted.error('Fail to load announcement list')
+        }
+      })
     },
     textPreview: function (announcement) {
       if (announcement.summary) {
