@@ -14,7 +14,6 @@ export const actions = {
   fetchAssignmentList ({ commit }, { data, fail }) {
     assignmentApi.getAssignmentsList(({data: response}) => {
       commit('GET_ASSIGNMENT_LIST', response)
-      return this.assignmentList
     }, data, fail)
   }
 }
