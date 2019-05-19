@@ -6,7 +6,7 @@ import quizzes from '@/views/Quiz/Quiz'
 import feeds from '@/views/Feeds/Feeds.vue'
 import announcements from '@/views/Announcements/Announcements.vue'
 import announcementDetail from '@/views/Announcements/AnnouncementDetail.vue'
-import editAnnouncement from '@/views/Announcements/EditAnnouncement.vue'
+import announcementForm from '@/views/Announcements/AnnouncementForm.vue'
 import blogs from '@/views/ActivityBlogs/ActivityBlogs.vue'
 import users from '@/views/Users/Users.vue'
 import stickyNotes from '@/views/StickyNotes/StickyNotesDetail.vue'
@@ -54,7 +54,7 @@ export default new Router({
     {
       path: config.app.pages.announcements.edit,
       name: 'editAnnouncement',
-      component: editAnnouncement,
+      component: announcementForm,
       meta: {
         title: 'Edit Announcement'
       },
@@ -63,7 +63,7 @@ export default new Router({
     {
       path: config.app.pages.announcements.add,
       name: 'addAnnouncement',
-      component: editAnnouncement,
+      component: announcementForm,
       meta: {
         title: 'Add Announcement'
       },

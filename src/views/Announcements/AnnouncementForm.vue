@@ -40,7 +40,7 @@
   </div>
 </template>
 
-<script type="text/javascript" src="./js/EditAnnouncement.js"></script>
+<script type="text/javascript" src="./js/AnnouncementForm.js"></script>
 
 <style scoped>
   .edit-container {

@@ -4,7 +4,7 @@ import BaseButton from '@/components/BaseButton'
 import BaseTextArea from '@/components/BaseTextArea'
 
 export default {
-  name: 'editAnnouncement',
+  name: 'announcementForm',
   components: {
     BaseInput,
     BaseButton,
