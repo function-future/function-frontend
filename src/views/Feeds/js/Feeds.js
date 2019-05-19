@@ -16,7 +16,7 @@ export default {
     }
   },
   created () {
-    this.fetchStickyNotes()
+    this.loadStickyNote()
     this.loadAnnouncementList()
   },
   computed: {
@@ -42,10 +42,24 @@ export default {
         params: { id: id }
       })
     },
+    loadStickyNote () {
+      this.fetchStickyNotes({
+        callback: () => {},
+        fail: () => {
+          this.$toasted.error('Fail to load sticky note detail, please refresh the page')
+        }
+      })
+    },
     loadAnnouncementList () {
       this.paging = { ...this.paging }
       let data = { ...this.paging }
-      this.fetchAnnouncements({ data })
+      this.fetchAnnouncements({
+        data,
+        callback: () => {},
+        fail: () => {
+          this.$toasted.error('Fail to load announcement list')
+        }
+      })
     }
   }
 }

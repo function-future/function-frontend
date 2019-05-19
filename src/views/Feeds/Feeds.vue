@@ -2,7 +2,7 @@
   <div class="scrollable-container">
     <BaseCard class="sticky-notes-card" @click.native="goToStickyNotesDetail" cardClass="card-hover">
       <div class="sticky-notes-header sticky-notes-title">
-        <h3>{{ stickyNotes.noteTitle }}</h3>
+        <h3>{{ stickyNotes.noteTitle || 'Sticky Note' }}</h3>
       </div>
       <div class="sticky-notes-header sticky-notes-date">
         {{ stickyNotes.updatedAt | moment("dddd, MMMM Do YYYY") }}
