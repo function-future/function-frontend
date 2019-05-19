@@ -14,7 +14,7 @@ const getAnnouncementDetail = function (callback, data, errorHandler) {
 }
 
 const updateAnnouncement = function (callback, data, errorHandler) {
-  request.putRequest(config.api.core.announcements.detail.update(data.id), callback, errorHandler)
+  request.putRequest(config.api.core.announcements.detail.update(data.id), callback, data, errorHandler)
 }
 
 const deleteAnnouncement = function (callback, data, errorHandler) {

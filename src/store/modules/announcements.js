@@ -19,37 +19,29 @@ export const actions = {
     commit('SET_ANNOUNCEMENT_BY_ID', {})
     commit('SET_ANNOUNCEMENTS', [])
   },
-  fetchAnnouncements ({ commit }, { data, fail }) {
-    return new Promise((resolve, reject) => {
-      announcementApi.getAnnouncementList(({ data: response }) => {
-        commit('SET_ANNOUNCEMENTS', response)
-        resolve()
-      }, data, (fail) => { reject(fail) })
-    })
+  fetchAnnouncements ({ commit }, { data, callback, fail }) {
+    announcementApi.getAnnouncementList(({ data: response }) => {
+      commit('SET_ANNOUNCEMENTS', response)
+      callback()
+    }, data, fail)
   },
-  fetchAnnouncementById ({ commit }, { data, fail }) {
-    return new Promise((resolve, reject) => {
-      announcementApi.getAnnouncementDetail(({ data: response }) => {
-        commit('SET_ANNOUNCEMENT_BY_ID', response)
-        resolve()
-      }, data, (fail) => { reject(fail) })
-    })
+  fetchAnnouncementById ({ commit }, { data, callback, fail }) {
+    announcementApi.getAnnouncementDetail(({ data: response }) => {
+      commit('SET_ANNOUNCEMENT_BY_ID', response)
+      callback()
+    }, data, fail)
   },
-  createAnnouncement ({ commit }, { data, fail }) {
-    return new Promise((resolve, reject) => {
-      announcementApi.createAnnouncement(({ data: response }) => {
-        commit('SET_ANNOUNCEMENT_BY_ID', response)
-        resolve()
-      }, data, (fail) => { reject(fail) })
-    })
+  createAnnouncement ({ commit }, { data, callback, fail }) {
+    announcementApi.createAnnouncement(({ data: response }) => {
+      commit('SET_ANNOUNCEMENT_BY_ID', response)
+      callback()
+    }, data, fail)
   },
-  updateAnnouncement ({ commit }, { data, fail }) {
-    return new Promise((resolve, reject) => {
-      announcementApi.updateAnnouncement(({ data: response }) => {
-        commit('SET_ANNOUNCEMENT_BY_ID', response)
-        resolve()
-      }, data, (fail) => { reject(fail) })
-    })
+  updateAnnouncement ({ commit }, { data, callback, fail }) {
+    announcementApi.updateAnnouncement(({ data: response }) => {
+      commit('SET_ANNOUNCEMENT_BY_ID', response)
+      callback()
+    }, data, fail)
   }
 }
 

@@ -42,14 +42,19 @@ export default {
     getAnnouncementDetail () {
       let id = { 'id': this.$route.params.id }
       let data = { ...id }
-      this.fetchAnnouncementById({ data })
-        .then(() => {
-        }, () => {
+      this.fetchAnnouncementById({
+        data,
+        callback: () => {
+          console.log(this.announcement)
+        },
+        fail: () => {
           this.$toasted.error('Fail to load announcement detail')
-        })
+        }
+      })
     },
     setAnnouncementDetail () {
       this.announcementDetail = {
+        id: this.announcement.id || '',
         title: this.announcement.title || '',
         summary: this.announcement.summary || '',
         description: this.announcement.description || ''
@@ -73,26 +78,33 @@ export default {
       })
     },
     sendCreateAnnouncementData (data) {
-      this.createAnnouncement({ data }).then(() => {
-        this.initialState()
-        this.$router.push({ name: 'announcements' })
-        this.$toasted.success('Successfully created new announcement')
-      }, () => {
-        this.$toasted.error('Fail to create new announcement')
+      this.createAnnouncement({
+        data,
+        callback: () => {
+          this.initialState()
+          this.$router.push({ name: 'announcements' })
+          this.$toasted.success('Successfully created new announcement')
+        },
+        fail: () => {
+          this.$toasted.error('Fail to create new announcement')
+        }
       })
     },
     sendUpdateAnnouncementData (data) {
-      this.updateAnnouncement({ data })
-        .then(() => {
+      this.updateAnnouncement({
+        data,
+        callback: () => {
           this.$router.push({
             name: 'announcementDetail',
             params: { id: this.announcementDetail.id }
           })
           this.$toasted.success('Successfully update announcement')
           this.initialState()
-        }, () => {
+        },
+        fail: () => {
           this.$toasted.error('Fail to update announcement')
-        })
+        }
+      })
     },
     cancel () {
       this.$router.go(-1)
