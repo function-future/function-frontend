@@ -45,7 +45,6 @@ export default {
       this.fetchAnnouncementById({
         data,
         callback: () => {
-          console.log(this.announcement)
         },
         fail: () => {
           this.$toasted.error('Fail to load announcement detail')

@@ -40,8 +40,14 @@ const putRequest = function (path, callback, data, errorHandler, configuration) 
 
 const deleteRequest = function (path, callback, errorHandler, configuration) {
   axios.delete(path, configuration)
-    .then(callback)
-    .catch(errorHandler)
+    .then(({ data }) => {
+      callback(data.response)
+    })
+    .catch(error => {
+      if (typeof errorHandler === 'function') {
+        errorHandler(error)
+      }
+    })
 }
 
 export default {

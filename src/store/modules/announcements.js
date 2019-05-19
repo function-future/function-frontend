@@ -42,6 +42,11 @@ export const actions = {
       commit('SET_ANNOUNCEMENT_BY_ID', response)
       callback()
     }, data, fail)
+  },
+  deleteAnnouncement ({ commit }, { data, callback, fail }) {
+    announcementApi.deleteAnnouncement(({ data: response }) => {
+      callback()
+    }, data, fail)
   }
 }
 

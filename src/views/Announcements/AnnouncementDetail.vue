@@ -10,12 +10,18 @@
         </div>
         <div class="action">
           <span @click="goToEditAnnouncement"><font-awesome-icon icon="edit" class="icon blue" size="lg"></font-awesome-icon></span>
+          <span @click="openDeleteConfirmationModal"><font-awesome-icon icon="trash-alt" class="icon red" size="lg"></font-awesome-icon></span>
         </div>
       </div>
       <div class="description">
         <span>{{ announcement.description }}</span>
       </div>
     </BaseCard>
+    <modal-delete-confirmation v-if="showDeleteConfirmationModal"
+                               @close="showDeleteConfirmationModal = false"
+                               @clickDelete="deleteThisAnnouncement">
+      <div slot="description">Are you sure you want to delete this announcement?</div>
+    </modal-delete-confirmation>
   </div>
 </template>
 
