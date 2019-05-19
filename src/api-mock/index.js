@@ -5,6 +5,9 @@ import {
   announcements,
   announcementDetails
 } from '@/api-mock/mock/core-routes'
+import {
+  assignments
+} from '@/api-mock/mock/scoring-routes'
 
 const mock = new MockAdapter(axios)
 
@@ -16,4 +19,8 @@ const methodMap = {
 
 stickyNotes.forEach(data => {
   mock[methodMap[data.method]](data.url).reply(200, data)
+})
+
+assignments.forEach(data => {
+  mock[methodMap[data.method]] (data.url).reply(200, data)
 })

@@ -61,6 +61,13 @@ module.exports = {
       blogs: {
         get: '/api/core/activity-blogs'
       }
+    },
+    scoring: {
+      assignments: {
+        list(batchCode, page, pageSize) {
+          return `/api/scoring/batches/${batchCode}/assignments?page=${page}&size=${pageSize}`
+        }
+      }
     }
   },
   dev: {
