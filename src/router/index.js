@@ -86,7 +86,7 @@ export default new Router({
       name: 'editStickyNote',
       component: editStickyNote,
       meta: {
-        title: 'Edit Sticky Notes'
+        title: 'Edit Sticky Note'
       }
     },
     {
@@ -114,8 +114,8 @@ export default new Router({
       }
     },
     {
-      path: config.app.pages.finalComparisons,
-      name: 'finalComparisons',
+      path: config.app.pages.finalJudging,
+      name: 'finalJudging',
       component: feeds
     }
   ]
