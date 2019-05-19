@@ -42,7 +42,7 @@
     &__container {
       display: flex;
       flex-direction: column;
-      width: 50vw;
+      width: 35vw;
       margin: 0 auto;
       padding: 10px 20px;
       background-color: #fff;
