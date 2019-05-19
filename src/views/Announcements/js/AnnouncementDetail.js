@@ -24,7 +24,7 @@ export default {
   methods: {
     ...mapActions([
       'fetchAnnouncementById',
-      'deleteAnnouncement'
+      'deleteAnnouncementById'
     ]),
     getAnnouncementDetail () {
       let id = { 'id': this.$route.params.id }
@@ -51,7 +51,7 @@ export default {
       let id = { 'id': this.$route.params.id }
       let data = { ...id }
 
-      this.deleteAnnouncement({
+      this.deleteAnnouncementById({
         data,
         callback: () => {
           this.$router.push({ name: 'announcements' })

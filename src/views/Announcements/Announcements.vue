@@ -27,13 +27,21 @@
               @click.stop="goToEditAnnouncement(announcement.id)">
             </font-awesome-icon>
           </span>
-          <span><font-awesome-icon icon="trash-alt" class="icon red" size="lg"></font-awesome-icon></span>
+          <span><font-awesome-icon
+            icon="trash-alt"
+            class="icon red"
+            size="lg" @click.stop="openDeleteConfirmationModal(announcement.id)"></font-awesome-icon></span>
         </div>
       </div>
       <div class="announcement-preview">
         <span>{{ textPreview(announcement) }}</span>
       </div>
     </BaseCard>
+    <modal-delete-confirmation v-if="showDeleteConfirmationModal"
+                               @close="closeDeleteConfirmationModal"
+                               @clickDelete="deleteThisAnnouncement">
+      <div slot="description">{{selectedId}}</div>
+    </modal-delete-confirmation>
   </div>
 </template>
 

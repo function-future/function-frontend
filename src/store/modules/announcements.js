@@ -43,7 +43,7 @@ export const actions = {
       callback()
     }, data, fail)
   },
-  deleteAnnouncement ({ commit }, { data, callback, fail }) {
+  deleteAnnouncementById ({ commit }, { data, callback, fail }) {
     announcementApi.deleteAnnouncement(({ data: response }) => {
       callback()
     }, data, fail)

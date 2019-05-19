@@ -1,19 +1,23 @@
 import { mapActions, mapGetters } from 'vuex'
 import BaseCard from '@/components/BaseCard'
 import BaseButton from '@/components/BaseButton'
+import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
 
 export default {
   name: 'announcements',
   components: {
     BaseButton,
-    BaseCard
+    BaseCard,
+    ModalDeleteConfirmation
   },
   data () {
     return {
       paging: {
         page: 0,
         size: 10
-      }
+      },
+      selectedId: '',
+      showDeleteConfirmationModal: false
     }
   },
   created () {
@@ -26,7 +30,8 @@ export default {
   },
   methods: {
     ...mapActions([
-      'fetchAnnouncements'
+      'fetchAnnouncements',
+      'deleteAnnouncementById'
     ]),
     goToAnnouncementDetail (id) {
       this.$router.push({
@@ -63,6 +68,30 @@ export default {
         return text.slice(0, maximumCharacters) + '...'
       }
       return text
+    },
+    openDeleteConfirmationModal (id) {
+      this.selectedId = id
+      this.showDeleteConfirmationModal = true
+    },
+    closeDeleteConfirmationModal () {
+      this.selectedId = ''
+      this.showDeleteConfirmationModal = false
+    },
+    deleteThisAnnouncement () {
+      let id = { 'id': this.selectedId }
+      let data = { ...id }
+
+      this.deleteAnnouncementById({
+        data,
+        callback: () => {
+          this.$router.push({ name: 'announcements' })
+          this.$toasted.success('successfully delete announcement')
+          this.showDeleteConfirmationModal = false
+        },
+        fail: () => {
+          this.$toasted.error('Fail to delete announcement')
+        }
+      })
     }
   }
 }
