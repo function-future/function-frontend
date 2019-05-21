@@ -10,7 +10,23 @@ describe('actions', () => {
 
   test('fetchStickyNotes', async () => {
     api.getStickyNote = jest.fn()
-    api.getStickyNote.mockResolvedValue()
+    api.getStickyNote.mockResolvedValue({
+      'code': 200,
+      'status': 'OK',
+      'data': [
+        {
+          'id': 'sample-id',
+          'title': 'Sticky Note Title',
+          'description': 'Note noteDescription goes here. Length is undetermined.',
+          'updatedAt': 1555333551046
+        }
+      ],
+      'paging': {
+        'page': 1,
+        'size': 1,
+        'totalRecords': 100
+      }
+    })
     const commit = jest.fn()
     await store.actions.fetchStickyNotes({ commit })
     expect(commit).toHaveBeenCalledOnce
