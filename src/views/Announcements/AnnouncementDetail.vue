@@ -13,8 +13,11 @@
           <span @click="openDeleteConfirmationModal"><font-awesome-icon icon="trash-alt" class="icon red" size="lg"></font-awesome-icon></span>
         </div>
       </div>
+      <div class="summary">
+        <span>{{ announcement.summary }}</span>
+      </div>
       <div class="description">
-        <span>{{ announcement.description }}</span>
+        <span v-html="descriptionCompiledMarkdown"></span>
       </div>
     </BaseCard>
     <modal-delete-confirmation v-if="showDeleteConfirmationModal"
@@ -43,6 +46,13 @@
 
   .float-right {
     float: right;
+  }
+
+  .summary {
+    text-align: justify;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px #828282 solid;
   }
 
   .description {

@@ -15,6 +15,7 @@
     "@fortawesome/vue-fontawesome": "^0.1.6",
     "axios": "^0.18.0",
     "i": "^0.3.6",
+    "marked": "^0.6.2",
     "mavon-editor": "^2.7.4",
     "node-sass": "^4.12.0",
     "sass-loader": "^7.1.0",

@@ -1,6 +1,7 @@
 import { mapActions, mapGetters } from 'vuex'
 import BaseCard from '@/components/BaseCard'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
+let marked = require('marked')
 
 export default {
   name: 'announcementDetail',
@@ -9,22 +10,28 @@ export default {
     ModalDeleteConfirmation
   },
   created () {
+    this.initialState()
     this.getAnnouncementDetail()
   },
   data () {
     return {
-      showDeleteConfirmationModal: false
+      showDeleteConfirmationModal: false,
+      announcementDescriptionMarkdown: ''
     }
   },
   computed: {
     ...mapGetters([
       'announcement'
-    ])
+    ]),
+    descriptionCompiledMarkdown: function () {
+      return marked(this.announcementDescriptionMarkdown)
+    }
   },
   methods: {
     ...mapActions([
       'fetchAnnouncementById',
-      'deleteAnnouncementById'
+      'deleteAnnouncementById',
+      'initialState'
     ]),
     getAnnouncementDetail () {
       let id = { 'id': this.$route.params.id }
@@ -32,6 +39,7 @@ export default {
       this.fetchAnnouncementById({
         data,
         callback: () => {
+          this.announcementDescriptionMarkdown = this.announcement.description
         },
         fail: () => {
           this.$toasted.error('Fail to load announcement detail')
