@@ -44,6 +44,7 @@
 
   .input-box:focus {
     box-shadow: 2px 2px 10px rgba(0,0,0,0.1), 2px 2px 10px rgba(0,0,0,0.3);
+    width: 100%;
     outline: none;
   }
 </style>

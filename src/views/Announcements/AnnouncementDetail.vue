@@ -2,25 +2,30 @@
   <div class="scrollable-container">
     <BaseCard class="card" cardClass="card-hover">
       <div class="header">
-        <h3>{{ stickyNotes.noteTitle || 'Sticky Note' }}</h3>
+        <h3>{{ announcement.title }}</h3>
       </div>
       <div class="header float-right">
         <div class="date">
-          {{ stickyNotes.updatedAt | moment("dddd, MMMM Do YYYY") }}
+          {{ announcement.updatedAt | moment("dddd, MMMM Do YYYY") }}
         </div>
         <div class="action">
-          <span @click="goToAddStickyNote"><font-awesome-icon icon="edit" class="icon blue" size="lg"></font-awesome-icon></span>
+          <span @click="goToEditAnnouncement"><font-awesome-icon icon="edit" class="icon blue" size="lg"></font-awesome-icon></span>
+          <span @click="openDeleteConfirmationModal"><font-awesome-icon icon="trash-alt" class="icon red" size="lg"></font-awesome-icon></span>
         </div>
       </div>
-      <div class="preview">
-        <span>{{ stickyNotes.noteDescription }}</span>
+      <div class="description">
+        <span>{{ announcement.description }}</span>
       </div>
     </BaseCard>
+    <modal-delete-confirmation v-if="showDeleteConfirmationModal"
+                               @close="showDeleteConfirmationModal = false"
+                               @clickDelete="deleteThisAnnouncement">
+      <div slot="description">Are you sure you want to delete this announcement?</div>
+    </modal-delete-confirmation>
   </div>
 </template>
 
-<script type="text/javascript" src="./js/StickyNotesDetail.js">
-</script>
+<script type="text/javascript" src="./js/AnnouncementDetail.js"></script>
 
 <style scoped>
   .card {
@@ -40,7 +45,7 @@
     float: right;
   }
 
-  .preview {
+  .description {
     text-align: justify;
   }
 
