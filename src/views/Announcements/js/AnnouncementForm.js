@@ -63,6 +63,7 @@ export default {
       'initialState'
     ]),
     initPage () {
+      this.initialState()
       if (this.editMode) {
         this.getAnnouncementDetail()
         this.setAnnouncementDetail()
