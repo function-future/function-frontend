@@ -2,6 +2,7 @@ import { mapActions, mapGetters } from 'vuex'
 import BaseCard from '@/components/BaseCard'
 import BaseButton from '@/components/BaseButton'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
+let marked = require('marked')
 
 export default {
   name: 'activityBlogs',
@@ -42,6 +43,9 @@ export default {
           this.$toasted.error('Fail to load activity blogs list')
         }
       })
+    },
+    compileToMarkdown: function (description) {
+      return marked(description)
     },
     goToActivityBlogDetail (id) {
       this.$router.push({

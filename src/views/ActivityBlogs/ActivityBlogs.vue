@@ -26,7 +26,7 @@
         </div>
       </div>
       <div class="blog-preview">
-        <span>{{ activityBlog.description }}</span>
+        <span v-html="compileToMarkdown(activityBlog.description)"></span>
       </div>
     </BaseCard>
   </div>

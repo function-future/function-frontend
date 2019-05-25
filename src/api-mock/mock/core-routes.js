@@ -327,7 +327,7 @@ export const activityBlogs = [
         {
           "id": "sample-id-1",
           "title": "Activity Blog Title 5",
-          "description": "Description in markdown format goes here",
+          "description": "**Description** in markdown format goes here",
           "files": [
             {
               "id": "sample-id",
