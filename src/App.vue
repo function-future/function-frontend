@@ -11,20 +11,6 @@
         <div class="user-section">
           <UserBar></UserBar>
         </div>
-        <!--<BaseCard>-->
-          <!--<h3 class="sticky-notes-title">-->
-            <!--Sticky Notes Title Goes Here...-->
-          <!--</h3>-->
-          <!--<div class="buttons">-->
-            <!--<BaseButton type="reset" buttonClass="button-cancel">Cancel</BaseButton>-->
-            <!--<BaseButton type="submit" buttonClass="button-save">Save</BaseButton>-->
-            <!--<BaseButton type="submit" buttonClass="button-edit">Edit</BaseButton>-->
-            <!--<BaseButton type="submit" buttonClass="button-delete">Delete</BaseButton>-->
-          <!--</div>-->
-          <!--<div class="inputs">-->
-            <!--<BaseInput label="Test Input"></BaseInput>-->
-          <!--</div>-->
-        <!--</BaseCard>-->
         <router-view/>
       </div>
     </div>
@@ -93,6 +79,27 @@
 
   .red {
     color: #FF0000;
+  }
+
+  .toaster {
+    background-color: #02AAF3 !important;
+    font-family: Helvetica, Arial, sans-serif;
+  }
+
+  .error {
+    background-color: #cc0000 !important;
+  }
+
+  .v-note-wrapper {
+    min-height: 100%;
+  }
+
+  .v-note-op {
+    border-radius: 10px 10px 0 0;
+  }
+
+  .v-note-panel {
+    border-radius: 0 0 10px 10px;
   }
 
   @media only screen and (min-width: 875px) {

@@ -1,3 +1,4 @@
+import { mapActions, mapGetters } from 'vuex'
 import BaseInput from '@/components/BaseInput'
 import BaseButton from '@/components/BaseButton'
 import BaseTextArea from '@/components/BaseTextArea'
@@ -11,28 +12,64 @@ export default {
   },
   data () {
     return {
-      stickyNotes: {
-        noteTitle: '',
-        noteDescription: '',
-        updatedAt: ''
+      stickyNote: {
+        title: '',
+        description: ''
       }
     }
   },
   created () {
-    this.$http.get(config.api.core.stickyNotes.get)
-      .then(res => (this.stickyNotes = res.data.data))
-      .catch(err => console.log(err))
+    this.initPage()
+  },
+  computed: {
+    ...mapGetters([
+      'stickyNotes'
+    ])
   },
   methods: {
+    ...mapActions([
+      'fetchStickyNotes',
+      'postStickyNotes',
+      'initialState'
+    ]),
+    initPage () {
+      this.getStickyNoteDetail()
+      this.setStickyNote()
+    },
+    getStickyNoteDetail () {
+      this.fetchStickyNotes({
+        callback: () => {},
+        fail: () => {
+          this.$toasted.error('Fail to load sticky note detail, , please refresh the page')
+        }
+      })
+    },
+    setStickyNote () {
+      this.stickyNote = { ...this.stickyNotes }
+    },
+    validateBeforeSubmit (callback) {
+      this.$validator.validateAll().then((result) => {
+        if (result) {
+          return callback()
+        }
+      })
+    },
     postStickyNote () {
-      let payload = {
-        noteTitle: this.stickyNotes.noteTitle,
-        noteDescription: this.stickyNotes.noteDescription
-      }
+      this.setStickyNote()
+      let data = { ...this.stickyNote }
 
-      this.$http.post(config.api.core.stickyNotes.post, payload)
-        .then(res => { this.$router.push({ name: 'stickyNotes' }) })
-        .catch(err => console.log(err)) // TODO: add error modal
+      this.validateBeforeSubmit(() => {
+        this.postStickyNotes({
+          data,
+          callback: () => {
+            this.initialState()
+            this.$router.push({ name: 'stickyNotes' })
+            this.$toasted.success('Successfully created new sticky note')
+          },
+          fail: () => {
+            this.$toasted.error('Fail to create new sticky note')
+          } })
+      })
     },
     cancel () {
       this.$router.go(-1)

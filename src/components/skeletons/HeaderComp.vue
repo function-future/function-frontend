@@ -10,7 +10,21 @@
       <li><router-link :to="{ name: 'courses' }" class="navbar-link">Courses</router-link></li>
       <li><router-link :to="{ name: 'files' }" class="navbar-link">Files</router-link></li>
       <li><router-link :to="{ name: 'users' }" class="navbar-link">Users</router-link></li>
-      <li><router-link :to="{ name: 'grades' }" class="navbar-link">Grades</router-link></li>
+      <li class="navbar-link grades-menu" @click="toggleGradesMenu" v-if="!showGrades">
+        <span>Grades</span>
+        <font-awesome-icon icon="chevron-down" class="icon"/>
+      </li>
+      <li class="navbar-link grades-menu" @click="toggleGradesMenu" v-else>
+        <span>Grades</span>
+        <font-awesome-icon icon="chevron-up" class="icon"/>
+      </li>
+      <transition name="fade">
+        <ul v-if="showGrades" class="grades-submenu">
+          <li><router-link :to="{ name: 'quizzes' }" class="navbar-link">Quizzes</router-link></li>
+          <li><router-link :to="{ name: 'assignments' }" class="navbar-link">Assignments</router-link></li>
+          <li><router-link :to="{ name: 'finalComparisons' }" class="navbar-link">Comparisons</router-link></li>
+        </ul>
+      </transition>
     </ul>
   </nav>
 </template>
@@ -18,7 +32,7 @@
 <script type="text/javascript" src="./js/HeaderComp.js">
 </script>
 
-<style>
+<style scoped>
   .navbar {
     z-index: 1;
     background-color: #02AAF3;
@@ -65,6 +79,28 @@
     font-weight: bold;
   }
 
+  .grades-menu {
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+  }
+
+  .grades-submenu {
+    list-style-type: none;
+  }
+
+  .fade-enter-active {
+    transition: opacity 1s;
+  }
+
+  .fade-leave-active {
+    transition: opacity .1s;
+  }
+
+  .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
+  }
+
   @media only screen and (min-width: 800px) {
     img {
       width: 150px;
@@ -74,6 +110,10 @@
       padding-left: 10px;
       font-size: 1.2em;
       margin-left: 25px;
+    }
+
+    .grades-submenu {
+      font-size: 0.8em;
     }
   }
 
@@ -86,6 +126,10 @@
       padding-left: 10px;
       font-size: 1.4em;
       padding-top: 10px;
+    }
+
+    .grades-submenu {
+      font-size: 0.6em;
     }
 
   }

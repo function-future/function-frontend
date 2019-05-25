@@ -2,11 +2,23 @@
   <div class="scrollable-container">
     <div class="edit-container">
       <div class="title">
-        <BaseInput class="input-title" inputType="title" v-model="stickyNotes.noteTitle"></BaseInput>
+        <BaseInput autofocus
+                   class="input-title"
+                   inputType="title"
+                   v-model="stickyNotes.noteTitle"
+                   placeholder="Sticky Note Title"
+                   v-validate.disable="'required'"
+                   name="title"></BaseInput>
       </div>
+      <div v-if="errors.has('title')"><span class="input-invalid-message">{{ errors.first('title') }}</span></div>
       <div class="description">
-        <BaseTextArea class="input-description" v-model="stickyNotes.noteDescription"></BaseTextArea>
+        <mavon-editor class="editor"
+                      placeholder="Sticky Note Description"
+                      language="en"
+                      v-model="stickyNotes.noteDescription" v-validate.disable="'required'"
+                      name="description"></mavon-editor>
       </div>
+      <div v-if="errors.has('description')"><span class="input-invalid-message">{{ errors.first('description') }}</span></div>
       <div class="action">
         <div class="action-button">
           <BaseButton type="cancel" buttonClass="button-cancel" @click="cancel">Cancel</BaseButton>
@@ -34,11 +46,19 @@
   }
 
   .description {
-    height: 425px;
+    margin: 10px 0 10px 0;
   }
 
-  .input-description {
-    height: 400px;
+  .editor {
+    height: 55vh;
+    width: 100%;
+  }
+
+  .input-invalid-message {
+    color: #FF0000;
+    font-size: 0.75em;
+    float: left;
+    margin-left: 2vw;
   }
 
   .action {
