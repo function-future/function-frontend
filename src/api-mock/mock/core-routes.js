@@ -423,3 +423,14 @@ export const activityBlogs = [
     }
   }
 ]
+
+export const activityBlogDetail = [
+  {
+    method: 'DELETE',
+    url: '/api/core/activity-blogs/sample-id-1',
+    response: {
+      "code": 200,
+      "status": "OK"
+    }
+  }
+]

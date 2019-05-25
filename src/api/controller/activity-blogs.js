@@ -5,6 +5,11 @@ const getActivityBlogList = function (callback, data, errorHandler) {
   request.getRequest(config.api.core.activityBlogs.get(data.page, data.size), callback, errorHandler)
 }
 
+const deleteActivityBlog = function (callback, data, errorHandler) {
+  request.deleteRequest(config.api.core.activityBlogs.detail.delete(data.id), callback, errorHandler)
+}
+
 export default {
-  getActivityBlogList
+  getActivityBlogList,
+  deleteActivityBlog
 }

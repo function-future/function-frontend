@@ -22,13 +22,19 @@
           <span @click.stop="goToEditActivityBlog(activityBlog.id)">
             <font-awesome-icon icon="edit" class="icon blue" size="lg"></font-awesome-icon>
           </span>
-          <span><font-awesome-icon icon="trash-alt" class="icon red" size="lg"></font-awesome-icon></span>
+          <span><font-awesome-icon icon="trash-alt" class="icon red"
+                                   size="lg" @click.stop="openDeleteConfirmationModal(activityBlog.id)"></font-awesome-icon></span>
         </div>
       </div>
       <div class="blog-preview">
         <span v-html="compileToMarkdown(activityBlog.description)"></span>
       </div>
     </BaseCard>
+    <modal-delete-confirmation v-if="showDeleteConfirmationModal"
+                               @close="closeDeleteConfirmationModal"
+                               @clickDelete="deleteThisActivityBlog">
+      <div slot="description">Delete this activity blog?</div>
+    </modal-delete-confirmation>
   </div>
 </template>
 

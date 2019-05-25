@@ -31,7 +31,8 @@ export default {
   },
   methods: {
     ...mapActions([
-      'fetchActivityBlogs'
+      'fetchActivityBlogs',
+      'deleteActivityBlogById'
     ]),
     loadActivityBlogList () {
       this.paging = { ...this.paging }
@@ -53,11 +54,35 @@ export default {
         params: { id: id }
       })
     },
-
     goToEditActivityBlog (id) {
       this.$router.push({
         name: 'editActivityBlog',
         params: { id: id }
+      })
+    },
+    openDeleteConfirmationModal (id) {
+      this.selectedId = id
+      this.showDeleteConfirmationModal = true
+    },
+    closeDeleteConfirmationModal () {
+      this.selectedId = ''
+      this.showDeleteConfirmationModal = false
+    },
+    deleteThisActivityBlog () {
+      let id = { 'id': this.selectedId }
+      let data = { ...id }
+
+      this.deleteActivityBlogById({
+        data,
+        callback: () => {
+          this.$router.push({ name: 'activityBlogs' })
+          this.$toasted.success('successfully delete activity blog')
+          this.closeDeleteConfirmationModal()
+        },
+        fail: () => {
+          this.$toasted.error('Fail to delete activity blog')
+          this.closeDeleteConfirmationModal()
+        }
       })
     }
   }

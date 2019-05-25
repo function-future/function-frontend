@@ -4,7 +4,8 @@ import {
   stickyNotes,
   announcements,
   announcementDetails,
-  activityBlogs
+  activityBlogs,
+  activityBlogDetail
 } from '@/api-mock/mock/core-routes'
 
 const mock = new MockAdapter(axios)
@@ -29,5 +30,9 @@ announcementDetails.forEach(data => {
 })
 
 activityBlogs.forEach(data => {
+  mock[methodMap[data.method]](data.url).reply(200, data)
+})
+
+activityBlogDetail.forEach(data => {
   mock[methodMap[data.method]](data.url).reply(200, data)
 })

@@ -24,6 +24,11 @@ export const actions = {
       commit('SET_ACTIVITY_BLOGS', response)
       callback()
     }, data, fail)
+  },
+  deleteActivityBlogById ({ commit }, { data, callback, fail }) {
+    activityBlogApi.deleteActivityBlog(({ data: response }) => {
+      callback()
+    }, data, fail)
   }
 }
 
