@@ -67,8 +67,20 @@ module.exports = {
         get: '/api/core/user/profile',
         change_password: '/api/core/user/password'
       },
-      blogs: {
-        get: '/api/core/activity-blogs'
+      activityBlogs: {
+        get (page, size) { return `/api/core/activity-blogs?page=${page}&size=${size}` },
+        post: 'api/core/activity-blogs',
+        detail: {
+          get (id) {
+            return `/api/core/activity-blogs/${id}`
+          },
+          update (id) {
+            return `/api/core/activity-blogs/${id}`
+          },
+          delete (id) {
+            return `/api/core/activity-blogs/${id}`
+          }
+        }
       }
     }
   },

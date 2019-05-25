@@ -312,5 +312,114 @@ export const announcementDetails = [
         "updatedAt": 1555980050616
       }
     }
-  },
+  }
+]
+
+export const activityBlogs = [
+  {
+    // Get list of announcements
+    method: 'GET',
+    url: '/api/core/activity-blogs?page=0&size=10',
+    response: {
+      "code": 200,
+      "status": "OK",
+      "data": [
+        {
+          "id": "sample-id-1",
+          "title": "Activity Blog Title 5",
+          "description": "Description in markdown format goes here",
+          "files": [
+            {
+              "id": "sample-id",
+              "file": {
+                "full": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png",
+                "thumbnail": null
+              }
+            }
+          ],
+          "author": {
+            "id": "sample-id",
+            "name": "Student 1"
+          }
+        },
+        {
+          "id": "sample-id-2",
+          "title": "Activity Blog Title 5",
+          "description": "Description in markdown format goes here",
+          "files": [
+            {
+              "id": "sample-id",
+              "file": {
+                "full": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png",
+                "thumbnail": null
+              }
+            }
+          ],
+          "author": {
+            "id": "sample-id-3",
+            "name": "Student 1"
+          }
+        },
+        {
+          "id": "sample-id-3",
+          "title": "Activity Blog Title 5",
+          "description": "Description in markdown format goes here",
+          "files": [
+            {
+              "id": "sample-id",
+              "file": {
+                "full": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png",
+                "thumbnail": null
+              }
+            }
+          ],
+          "author": {
+            "id": "sample-id-4",
+            "name": "Student 1"
+          }
+        },
+        {
+          "id": "sample-id-4",
+          "title": "Activity Blog Title 5",
+          "description": "Description in markdown format goes here",
+          "files": [
+            {
+              "id": "sample-id",
+              "file": {
+                "full": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png",
+                "thumbnail": null
+              }
+            }
+          ],
+          "author": {
+            "id": "sample-id",
+            "name": "Student 1"
+          }
+        },
+        {
+          "id": "sample-id-5",
+          "title": "Activity Blog Title 5",
+          "description": "Description in markdown format goes here",
+          "files": [
+            {
+              "id": "sample-id",
+              "file": {
+                "full": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png",
+                "thumbnail": null
+              }
+            }
+          ],
+          "author": {
+            "id": "sample-id",
+            "name": "Student 1"
+          }
+        }
+      ],
+      "paging": {
+        "page": 1,
+        "size": 5,
+        "totalRecords": 24
+      }
+    }
+  }
 ]

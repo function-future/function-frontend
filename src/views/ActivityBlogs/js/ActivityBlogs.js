@@ -1,69 +1,48 @@
+import { mapActions, mapGetters } from 'vuex'
 import BaseCard from '@/components/BaseCard'
 import BaseButton from '@/components/BaseButton'
+import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
 
 export default {
   name: 'activityBlogs',
   components: {
     BaseButton,
-    BaseCard
+    BaseCard,
+    ModalDeleteConfirmation
   },
   data () {
     return {
-      activityBlogs: [
-        {
-          "id": "f532e5f8-1036-42cd-8f22-d10fd7fd6bb2",
-          "title": "Activity Blog Title 1",
-          "thumbnailUrl": "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
-          "description": "description",
-          "author": {
-            "email": "student@student.com",
-            "name": "Student 1"
-          }
-        },
-        {
-          "id": "f532e5f8-1036-42cd-8f22-d10fd7fd6bb3",
-          "title": "Activity Blog Title 2",
-          "thumbnailUrl": "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
-          "description": "",
-          "author": {
-            "email": "student@student.com",
-            "name": "Student 1"
-          }
-        },
-        {
-          "id": "f532e5f8-1036-42cd-8f22-d10fd7fd6bb4",
-          "title": "Activity Blog Title 3",
-          "thumbnailUrl": "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
-          "description": "",
-          "author": {
-            "email": "student@student.com",
-            "name": "Student 1"
-          }
-        },
-        {
-          "id": "f532e5f8-1036-42cd-8f22-d10fd7fd6bb5",
-          "title": "Activity Blog Title 4",
-          "thumbnailUrl": "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
-          "description": "",
-          "author": {
-            "email": "student@student.com",
-            "name": "Student 1"
-          }
-        },
-        {
-          "id": "f532e5f8-1036-42cd-8f22-d10fd7fd6bb6",
-          "title": "Activity Blog Title 5",
-          "thumbnailUrl": "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
-          "description": "",
-          "author": {
-            "email": "student@student.com",
-            "name": "Student 1"
-          }
-        }
-      ]
+      paging: {
+        page: 0,
+        size: 10
+      },
+      selectedId: '',
+      showDeleteConfirmationModal: false
     }
   },
+  created () {
+    this.loadActivityBlogList()
+  },
+  computed: {
+    ...mapGetters([
+      'activityBlogs'
+    ])
+  },
   methods: {
+    ...mapActions([
+      'fetchActivityBlogs'
+    ]),
+    loadActivityBlogList () {
+      this.paging = { ...this.paging }
+      let data = { ...this.paging }
+      this.fetchActivityBlogs({
+        data,
+        callback: () => {},
+        fail: () => {
+          this.$toasted.error('Fail to load activity blogs list')
+        }
+      })
+    },
     goToActivityBlogDetail (id) {
       this.$router.push({
         name: 'activityBlogDetail',
