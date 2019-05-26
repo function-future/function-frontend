@@ -4,8 +4,8 @@ module.exports = {
       feeds: '/',
       activityBlogs: {
         list: '/activity-blogs',
-        detail: '/activity-blogs/:id',
         add: '/activity-blogs/add',
+        detail: '/activity-blogs/:id/detail',
         edit: '/activity-blogs/:id/edit'
       },
       announcements: {

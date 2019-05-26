@@ -453,7 +453,7 @@ export const activityBlogDetail = [
   },
   {
     method: 'POST',
-    url: '/api/core/activity-blogs/sample-id-1',
+    url: '/api/core/activity-blogs',
     response: {
       "code": 200,
       "status": "OK",

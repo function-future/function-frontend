@@ -53,6 +53,15 @@
 
   .editor {
     height: 60vh;
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  .input-invalid-message {
+    color: #FF0000;
+    font-size: 0.75em;
+    float: left;
+    margin-left: 2vw;
   }
 
   .action {

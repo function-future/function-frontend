@@ -54,6 +54,11 @@ export default {
         params: { id: id }
       })
     },
+    goToAddActivityBlog () {
+      this.$router.push({
+        name: 'addActivityBlog'
+      })
+    },
     goToEditActivityBlog (id) {
       this.$router.push({
         name: 'editActivityBlog',
