@@ -6,7 +6,12 @@
       </div>
       <div class="assignment-body">
         <div class="description">
-          <BaseTextArea class="input-description" placeholder="Question Goes Here" v-model="assignment.description"></BaseTextArea>
+          <mavon-editor class="input-description"
+                        placeholder="Question Goes Here"
+                        language="en"
+                        v-model="assignment.description"
+                        v-validate.disable="'required'"
+                        name="description"/>
         </div>
         <div class="assignment-detail">
           <div class="assignment-detail-batch">
@@ -54,7 +59,7 @@
 
   .assignment-body {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     padding: 0 0 20px 0;
   }
 
@@ -68,7 +73,7 @@
   }
 
   .assignment-detail {
-    width: 20%;
+    width: 22%;
     display: flex;
     flex-direction: column;
     justify-content: space-around;

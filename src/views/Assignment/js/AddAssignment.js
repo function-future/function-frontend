@@ -49,6 +49,7 @@ export default {
         callback: () => {
           this.$router.push({name: 'assignments'})
           this.$toasted.success('Successfully created new assignment')
+          console.log(this.assignment)
         },
         fail: () => {
           this.$toasted.error('Fail to create new assignment')

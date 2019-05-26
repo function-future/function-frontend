@@ -29,7 +29,6 @@
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.25);
     border-radius: 40px;
     padding: 10px 20px 10px 20px;
-    margin: 10px;
     font-size: 1em;
     width: 100%;
   }
