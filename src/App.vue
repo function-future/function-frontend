@@ -81,6 +81,27 @@
     color: #FF0000;
   }
 
+  .toaster {
+    background-color: #02AAF3 !important;
+    font-family: Helvetica, Arial, sans-serif;
+  }
+
+  .error {
+    background-color: #cc0000 !important;
+  }
+
+  .v-note-wrapper {
+    min-height: 100%;
+  }
+
+  .v-note-op {
+    border-radius: 10px 10px 0 0;
+  }
+
+  .v-note-panel {
+    border-radius: 0 0 10px 10px;
+  }
+
   @media only screen and (min-width: 875px) {
     .left-nav {
       width: 24vw;

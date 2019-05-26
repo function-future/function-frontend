@@ -2,7 +2,7 @@
   <div class="scrollable-container">
     <BaseCard class="sticky-notes-card" @click.native="goToStickyNotesDetail" cardClass="card-hover">
       <div class="sticky-notes-header sticky-notes-title">
-        <h3>{{ stickyNotes.noteTitle }}</h3>
+        <h3>{{ stickyNotes.noteTitle || 'Sticky Note' }}</h3>
       </div>
       <div class="sticky-notes-header sticky-notes-date">
         {{ stickyNotes.updatedAt | moment("dddd, MMMM Do YYYY") }}
@@ -11,37 +11,16 @@
         <span>{{ stickyNotes.noteDescription }}</span>
       </div>
     </BaseCard>
-    <BaseCard class="announcement-card">
+    <BaseCard class="announcement-card" @click.native="goToAnnouncementPage" cardClass="card-hover no-pointer">
       <h3>Announcements</h3>
       <div class="announcement-card-scrollable">
-        <BaseCard class="announcement-box">
-          <h4>Title</h4>
+        <BaseCard class="announcement-box"
+                  v-for="announcement in announcementList"
+                  v-bind:key="announcement.id"
+                  @click.native.stop="goToAnnouncementDetail(announcement.id)">
+          <h4>{{ announcement.title }}</h4>
           <div class="announcement-box-content">
-            <span>est pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat vivamus at augue eget arcu dictum varius duis at consectetur lorem donec massa sapien faucibus et molestie ac feugiat sed lectus vestibulum mattis ullamcorper velit sed ullamcorper morbi tincidunt ornare massa eget egestas purus viverra accumsan in nisl nisi scelerisque eu ultrices vitae auctor eu augue ut lectus arcu bibendum at varius vel pharetra vel turpis nunc eget lorem dolor sed viverra ipsum nunc aliquet bibendum</span>
-          </div>
-        </BaseCard>
-        <BaseCard class="announcement-box">
-          <h4>Title</h4>
-          <div class="announcement-box-content">
-            <span>est pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat vivamus at augue eget arcu dictum varius duis at consectetur lorem donec massa sapien faucibus et molestie ac feugiat sed lectus vestibulum mattis ullamcorper velit sed ullamcorper morbi tincidunt ornare massa eget egestas purus viverra accumsan in nisl nisi scelerisque eu ultrices vitae auctor eu augue ut lectus arcu bibendum at varius vel pharetra vel turpis nunc eget lorem dolor sed viverra ipsum nunc aliquet bibendum</span>
-          </div>
-        </BaseCard>
-        <BaseCard class="announcement-box">
-          <h4>Title</h4>
-          <div class="announcement-box-content">
-            <span>est pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat vivamus at augue eget arcu dictum varius duis at consectetur lorem donec massa sapien faucibus et molestie ac feugiat sed lectus vestibulum mattis ullamcorper velit sed ullamcorper morbi tincidunt ornare massa eget egestas purus viverra accumsan in nisl nisi scelerisque eu ultrices vitae auctor eu augue ut lectus arcu bibendum at varius vel pharetra vel turpis nunc eget lorem dolor sed viverra ipsum nunc aliquet bibendum</span>
-          </div>
-        </BaseCard>
-        <BaseCard class="announcement-box">
-          <h4>Title</h4>
-          <div class="announcement-box-content">
-            <span>est pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat vivamus at augue eget arcu dictum varius duis at consectetur lorem donec massa sapien faucibus et molestie ac feugiat sed lectus vestibulum mattis ullamcorper velit sed ullamcorper morbi tincidunt ornare massa eget egestas purus viverra accumsan in nisl nisi scelerisque eu ultrices vitae auctor eu augue ut lectus arcu bibendum at varius vel pharetra vel turpis nunc eget lorem dolor sed viverra ipsum nunc aliquet bibendum</span>
-          </div>
-        </BaseCard>
-        <BaseCard class="announcement-box">
-          <h4>Title</h4>
-          <div class="announcement-box-content">
-            <span>est pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat vivamus at augue eget arcu dictum varius duis at consectetur lorem donec massa sapien faucibus et molestie ac feugiat sed lectus vestibulum mattis ullamcorper velit sed ullamcorper morbi tincidunt ornare massa eget egestas purus viverra accumsan in nisl nisi scelerisque eu ultrices vitae auctor eu augue ut lectus arcu bibendum at varius vel pharetra vel turpis nunc eget lorem dolor sed viverra ipsum nunc aliquet bibendum</span>
+            <span>{{ announcement.description }}</span>
           </div>
         </BaseCard>
       </div>
@@ -96,5 +75,6 @@
     box-shadow: none;
     margin: 0 0 15px 0;
     border: 1px solid #828282;
+    cursor: pointer;
   }
 </style>
