@@ -1,20 +1,9 @@
 <template>
-  <div>
+  <div class="scrollable-container">
     <div class="page-header">
-      <BaseButton type="submit" buttonClass="button-save" @click="addAssignment">
-        <font-awesome-icon icon="plus" class="icon"/> New
+      <BaseButton class="add-btn" type="submit" buttonClass="button-save" @click="addAssignment">
+        <font-awesome-icon icon="plus" class="icon"/> Add
       </BaseButton>
-      <BaseSelect
-        v-model="selectedFilter"
-        :options="filters"></BaseSelect>
-      <BaseSelect
-        v-model="selectedSort"
-        :options="sorts"></BaseSelect>
-      <BaseInput
-        class="search-box"
-        v-model="searchValue"
-        :placeholder="'Search'">
-      </BaseInput>
     </div>
     <div v-for="assignment in assignmentList" :key="assignment.id">
       <BaseCard class="assignment-card">
@@ -47,7 +36,7 @@
 
 <style scoped>
   .page-header {
-    padding: 0 15px;
+    margin-right: 20px;
   }
   .assignment-card {
     min-height: 175px;
@@ -65,7 +54,7 @@
     align-items: center;
     justify-content: flex-start;
   }
-  .search-box {
+  .add-btn {
     justify-self: flex-end;
     margin-left: auto;
   }

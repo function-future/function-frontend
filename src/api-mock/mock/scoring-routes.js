@@ -21,6 +21,22 @@ export const assignments = [
           "deadline": 30000000,
           "batch": 3,
           "uploadedDate": 30000000000
+        },
+        {
+          "id": "ASG0003",
+          "title": "Assignment 3",
+          "description": "Description Number 3",
+          "deadline": 60000000,
+          "batch": 3,
+          "uploadedDate": 60000000000
+        },
+        {
+          "id": "ASG0004",
+          "title": "Assignment 4",
+          "description": "Description Number 4",
+          "deadline": 90000000,
+          "batch": 3,
+          "uploadedDate": 90000000000
         }
       ],
       "paging": {
