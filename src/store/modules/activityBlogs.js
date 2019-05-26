@@ -38,10 +38,10 @@ export const actions = {
     }, data, fail)
   },
   updateActivityBlog ({ commit }, { data, callback, fail }) {
-    activityBlogApi.updateActivityBlog(({data: response}) => {
+    activityBlogApi.updateActivityBlog(({ data: response }) => {
       commit('SET_ACTIVITY_BLOG_BY_ID', response)
       callback()
-    })
+    }, data, fail)
   },
   deleteActivityBlogById ({ commit }, { data, callback, fail }) {
     activityBlogApi.deleteActivityBlog(({ data: response }) => {

@@ -10,11 +10,11 @@ const getActivityBlogDetail = function (callback, data, errorHandler) {
 }
 
 const createActivityBlog = function (callback, data, errorHandler) {
-  request.postRequest(config.api.core.activityBlogs.post, callback, errorHandler)
+  request.postRequest(config.api.core.activityBlogs.post, callback, data, errorHandler)
 }
 
 const updateActivityBlog = function (callback, data, errorHandler) {
-  request.putRequest(config.api.core.activityBlogs.detail.update(data.id), callback, errorHandler)
+  request.putRequest(config.api.core.activityBlogs.detail.update(data.id), callback, data, errorHandler)
 }
 
 const deleteActivityBlog = function (callback, data, errorHandler) {

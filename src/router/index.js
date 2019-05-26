@@ -9,7 +9,7 @@ import announcementDetail from '@/views/Announcements/AnnouncementDetail.vue'
 import announcementForm from '@/views/Announcements/AnnouncementForm.vue'
 import activityBlogs from '@/views/ActivityBlogs/ActivityBlogs.vue'
 import activityBlogDetail from '@/views/ActivityBlogs/ActivityBlogDetail.vue'
-import editActivityBlog from '@/views/ActivityBlogs/EditActivityBlog.vue'
+import ActivityBlogForm from '@/views/ActivityBlogs/ActivityBlogForm.vue'
 import users from '@/views/Users/Users.vue'
 import stickyNotes from '@/views/StickyNotes/StickyNotesDetail.vue'
 import editStickyNote from '@/views/StickyNotes/EditStickyNote.vue'
@@ -46,12 +46,22 @@ export default new Router({
       }
     },
     {
+      path: config.app.pages.activityBlogs.add,
+      name: 'addActivityBlog',
+      component: ActivityBlogForm,
+      meta: {
+        title: 'Add Activity Blog'
+      },
+      props: { editMode: false }
+    },
+    {
       path: config.app.pages.activityBlogs.edit,
       name: 'editActivityBlog',
-      component: editActivityBlog,
+      component: ActivityBlogForm,
       meta: {
         title: 'Edit Activity Blog'
-      }
+      },
+      props: { editMode: true }
     },
     {
       path: config.app.pages.announcements.list,

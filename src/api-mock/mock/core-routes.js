@@ -432,7 +432,59 @@ export const activityBlogDetail = [
       "code": 200,
       "status": "OK",
       "data": {
-        "id": "sample-id",
+        "id": "sample-id-1",
+        "title": "Activity Blog Title 5",
+        "description": "**Description** in markdown format goes here",
+        "files": [
+          {
+            "id": "sample-id",
+            "file": {
+              "full": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png",
+              "thumbnail": null
+            }
+          }
+        ],
+        "author": {
+          "id": "sample-id",
+          "name": "Student 1"
+        }
+      }
+    }
+  },
+  {
+    method: 'POST',
+    url: '/api/core/activity-blogs/sample-id-1',
+    response: {
+      "code": 200,
+      "status": "OK",
+      "data": {
+        "id": "sample-id-1",
+        "title": "Activity Blog Title 5",
+        "description": "**Description** in markdown format goes here",
+        "files": [
+          {
+            "id": "sample-id",
+            "file": {
+              "full": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png",
+              "thumbnail": null
+            }
+          }
+        ],
+        "author": {
+          "id": "sample-id",
+          "name": "Student 1"
+        }
+      }
+    }
+  },
+  {
+    method: 'PUT',
+    url: '/api/core/activity-blogs/sample-id-1',
+    response: {
+      "code": 200,
+      "status": "OK",
+      "data": {
+        "id": "sample-id-1",
         "title": "Activity Blog Title 5",
         "description": "**Description** in markdown format goes here",
         "files": [
