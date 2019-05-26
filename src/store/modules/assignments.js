@@ -20,10 +20,11 @@ export const actions = {
       commit('GET_ASSIGNMENT_LIST', response)
     }, data, fail)
   },
-  createAssignment ({ commit }, { payload, data, fail }) {
+  createAssignment ({ commit }, { payload, data, callback, fail }) {
     assignmentApi.createAssignment(() => {
       commit('SET_ASSIGNMENT', payload)
       console.log(state.assignment)
+      callback()
     }, data, payload, fail)
   }
 }

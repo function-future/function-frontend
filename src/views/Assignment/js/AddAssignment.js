@@ -46,8 +46,12 @@ export default {
           page: 0,
           pageSize: 10
         },
+        callback: () => {
+          this.$router.push({name: 'assignments'})
+          this.$toasted.success('Successfully created new assignment')
+        },
         fail: () => {
-          console.log('Can\'t save data')
+          this.$toasted.error('Fail to create new assignment')
         }
       })
     }
