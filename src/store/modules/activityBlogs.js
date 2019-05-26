@@ -25,6 +25,24 @@ export const actions = {
       callback()
     }, data, fail)
   },
+  fetchActivityBlogById ({ commit }, { data, callback, fail }) {
+    activityBlogApi.getActivityBlogDetail(({ data: response }) => {
+      commit('SET_ACTIVITY_BLOG_BY_ID', response)
+      callback()
+    }, data, fail)
+  },
+  createActivityBlog ({ commit }, { data, callback, fail }) {
+    activityBlogApi.createActivityBlog(({ data: response }) => {
+      commit('SET_ACTIVITY_BLOG_BY_ID', response)
+      callback()
+    }, data, fail)
+  },
+  updateActivityBlog ({ commit }, { data, callback, fail }) {
+    activityBlogApi.updateActivityBlog(({data: response}) => {
+      commit('SET_ACTIVITY_BLOG_BY_ID', response)
+      callback()
+    })
+  },
   deleteActivityBlogById ({ commit }, { data, callback, fail }) {
     activityBlogApi.deleteActivityBlog(({ data: response }) => {
       callback()

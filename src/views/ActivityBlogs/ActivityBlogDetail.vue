@@ -9,15 +9,23 @@
           {{ activityBlog.createdAt | moment("dddd, MMMM Do YYYY") }}
         </div>
         <div class="action">
-          <span @click="goToEditActivityBlog(activityBlog.id)">
+          <span @click="goToEditActivityBlog">
             <font-awesome-icon icon="edit" class="icon blue" size="lg"></font-awesome-icon>
+          </span>
+          <span @click="openDeleteConfirmationModal">
+            <font-awesome-icon icon="trash-alt" class="icon red" size="lg"></font-awesome-icon>
           </span>
         </div>
       </div>
       <div class="preview">
-        <span>{{ activityBlog.description }}</span>
+        <span v-html="descriptionCompiledMarkdown"></span>
       </div>
     </BaseCard>
+    <modal-delete-confirmation v-if="showDeleteConfirmationModal"
+                               @close="showDeleteConfirmationModal = false"
+                               @clickDelete="deleteThisActivityBlog">
+      <div slot="description">Are you sure you want to delete this activity blog?</div>
+    </modal-delete-confirmation>
   </div>
 </template>
 

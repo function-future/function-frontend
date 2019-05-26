@@ -1,32 +1,77 @@
+import { mapActions, mapGetters } from 'vuex'
 import BaseCard from '@/components/BaseCard'
 import BaseButton from '@/components/BaseButton'
+import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
+let marked = require('marked')
 
 export default {
   name: 'activityBlogDetail',
   components: {
     BaseButton,
-    BaseCard
+    BaseCard,
+    ModalDeleteConfirmation
+  },
+  created () {
+    this.initialState()
+    this.getActivityBlogDetail()
   },
   data () {
     return {
-      activityBlog:
-        {
-          "id": "f532e5f8-1036-42cd-8f22-d10fd7fd6bb2",
-          "title": "Activity Blog Title 1",
-          "thumbnailUrl": "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
-          "description": "description",
-          "author": {
-            "email": "student@student.com",
-            "name": "Student 1"
-          }
-        }
+      showDeleteConfirmationModal: false,
+      activityBlogDescriptionMarkdown: ''
+    }
+  },
+  computed: {
+    ...mapGetters([
+      'activityBlog'
+    ]),
+    descriptionCompiledMarkdown: function () {
+      return marked(this.activityBlogDescriptionMarkdown)
     }
   },
   methods: {
-    goToEditActivityBlog (id) {
+    ...mapActions([
+      'initialState',
+      'fetchActivityBlogById',
+      'deleteActivityBlogById'
+    ]),
+    getActivityBlogDetail () {
+      let id = { 'id': this.$route.params.id }
+      let data = { ...id }
+
+      this.fetchActivityBlogById({
+        data,
+        callback: () => {
+          this.activityBlogDescriptionMarkdown = this.activityBlog.description
+        },
+        fail: () => {
+          this.$toasted.error('Fail to load activity blog detail')
+        }
+      })
+    },
+    goToEditActivityBlog () {
       this.$router.push({
         name: 'editActivityBlog',
-        params: { id: id }
+        params: { id: this.$route.params.id }
+      })
+    },
+    openDeleteConfirmationModal () {
+      this.showDeleteConfirmationModal = true
+    },
+    deleteThisActivityBlog () {
+      let id = { 'id': this.$route.params.id }
+      let data = { ...id }
+
+      this.deleteActivityBlogById({
+        data,
+        callback: () => {
+          this.$router.push({ name: 'activityBlogs' })
+          this.$toasted.success('successfully delete activity blog')
+        },
+        fail: () => {
+          this.$toasted.error('Fail to delete activity blog')
+          this.showDeleteConfirmationModal = false
+        }
       })
     }
   }
