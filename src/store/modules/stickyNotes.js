@@ -16,7 +16,9 @@ export const mutations = {
 
 export const actions = {
   fetchStickyNotes ({ commit }, fail) {
+    console.log('fetch sticky notes')
     stickyNotesApi.getStickyNote(({ data: response }) => {
+      console.log('success fetch sticky notes')
       const data = {
         noteTitle: response[0].title,
         noteDescription: response[0].description,

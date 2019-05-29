@@ -7,7 +7,7 @@
     "dev": "cross-env BABEL_ENV=development webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "test:unit": "vue-cli-service test:unit --coverage"
+    "test:unit": "vue-cli-service test:unit --coverage && node tests/post-unit-test.js"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.17",
@@ -39,6 +39,7 @@
     "inject-loader": "^4.0.1",
     "jest": "^24.8.0",
     "npm": "^6.9.0",
+    "replace-in-file": "^4.1.0",
     "vue-jest": "^3.0.4",
     "vue-template-compiler": "^2.5.21",
     "webpack": "^4.29.6",

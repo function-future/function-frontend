@@ -16,9 +16,19 @@ module.exports = {
   snapshotSerializers: [
     'jest-serializer-vue'
   ],
+  'collectCoverage': true,
+  'collectCoverageFrom': [
+    'src/**/*.js',
+    'src/**/*.vue',
+    '!**/node_modules/**'
+  ],
+  'coverageDirectory': 'test/unit/coverage',
+  'coverageReporters': [
+    'lcov',
+    'text'
+  ],
   testMatch: [
-    '**/tests/unit/**/*.spec.(js|jsx|ts|tsx)|**/__tests__/*.(js|jsx|ts|tsx)',
-    '**/tests/store/modules/*.spec.js'
+    '**/tests/unit/**/*.spec.(js|jsx|ts|tsx)|**/__tests__/*.(js|jsx|ts|tsx)'
   ],
   testURL: 'http://localhost/'
 }
