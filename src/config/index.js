@@ -44,6 +44,9 @@ module.exports = {
         },
         menuList: '/api/core/menu-list'
       },
+      resources: {
+        post (source) { return `api/core/resources?source=${source}` }
+      },
       users: {},
       stickyNotes: {
         get: '/api/core/sticky-notes',

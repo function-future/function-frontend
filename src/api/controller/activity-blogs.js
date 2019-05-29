@@ -21,10 +21,15 @@ const deleteActivityBlog = function (callback, data, errorHandler) {
   request.deleteRequest(config.api.core.activityBlogs.detail.delete(data.id), callback, errorHandler)
 }
 
+const uploadResource = function (callback, data, errorHandler, configuration) {
+  request.postRequest(config.api.core.resources.post('activity-blog'), data, errorHandler, configuration)
+}
+
 export default {
   getActivityBlogList,
   getActivityBlogDetail,
   createActivityBlog,
   updateActivityBlog,
-  deleteActivityBlog
+  deleteActivityBlog,
+  uploadResource
 }

@@ -17,7 +17,10 @@
                       language="en"
                       v-model="activityBlog.description"
                       v-validate.disable="'required'"
-                      name="description">
+                      name="description"
+                      ref=md
+                      @imgAdd="$imgAdd"
+                      @imgDel="$imgDel">
         </mavon-editor>
       </div>
       <div v-if="errors.has('description')"><span class="input-invalid-message">{{ errors.first('description') }}</span></div>

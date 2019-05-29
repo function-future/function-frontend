@@ -47,6 +47,11 @@ export const actions = {
     activityBlogApi.deleteActivityBlog(({ data: response }) => {
       callback()
     }, data, fail)
+  },
+  uploadResource ({ commit }, { data, configuration, callback, fail }) {
+    activityBlogApi.uploadResource(({ data: response }) => {
+      callback(response)
+    }, data, fail, configuration)
   }
 }
 

@@ -30,7 +30,8 @@ export default {
       'initialState',
       'fetchActivityBlogById',
       'createActivityBlog',
-      'updateActivityBlog'
+      'updateActivityBlog',
+      'uploadResource'
     ]),
     initPage () {
       this.initialState()
@@ -56,6 +57,20 @@ export default {
         title: this.activityBlog.title || '',
         description: this.activityBlog.description || ''
       }
+    },
+    $imgAdd (pos, $file) {
+      let data = new FormData()
+      data.append('image', $file)
+      let configuration = { headers: { 'Content-Type': 'multipart/form-data' } }
+
+      this.uploadResource({
+        data,
+        callback: (response) => {
+          $vm.$img2Url(pos, response.data.file.full)
+        },
+        fail: () => {},
+        configuration
+      })
     },
     validateBeforeSubmit (callback) {
       this.$validator.validateAll().then(callback)
