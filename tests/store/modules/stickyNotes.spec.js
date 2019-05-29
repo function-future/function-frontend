@@ -28,9 +28,15 @@ describe('actions', () => {
       }
     })
     const commit = jest.fn()
-    await store.actions.fetchStickyNotes({ commit })
-    expect(commit).toHaveBeenCalledOnce
-    // expect(commit).toHaveBeenCalledWith('actionName', mockResolvedValue.data)
+    store.actions.fetchStickyNotes({ commit })
+    expect(commit).toHaveBeenCalledWith('SET_STICKY_NOTES_INFO', [
+      {
+        'id': 'sample-id',
+        'title': 'Sticky Note Title',
+        'description': 'Note noteDescription goes here. Length is undetermined.',
+        'updatedAt': 1555333551046
+      }
+    ])
   })
 
   test('postStickyNotes', async () => {
