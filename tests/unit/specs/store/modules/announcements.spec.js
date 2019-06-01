@@ -347,10 +347,11 @@ describe('actions', () => {
         "updatedAt": 1555980050616
       })
     }
+    const state = {}
     const data = {'id': 'sample-id'}
     const callback = jest.fn()
     const fail = jest.fn()
-    store.actions.deleteAnnouncementById({ data, callback, fail })
+    store.actions.deleteAnnouncementById({ state }, { data, callback, fail })
     expect(fail).toBeCalledTimes(0)
     expect(callback).toBeCalledTimes(1)
   })
