@@ -4,8 +4,14 @@ import api from '@/api/controller/sticky-notes'
 jest.mock('@/api/controller/sticky-notes')
 
 describe('actions', () => {
-  test('test', () => {
+  test('Sanity test', () => {
     expect(true).toBe(true)
+  })
+
+  test('initialState', () => {
+    const commit = jest.fn()
+    store.actions.initialState({ commit })
+    expect(commit).toHaveBeenCalledWith('SET_STICKY_NOTES_INFO', {})
   })
 
   test('fetchStickyNotes', async () => {
@@ -30,7 +36,8 @@ describe('actions', () => {
     }
     const commit = jest.fn()
     const fail = jest.fn()
-    store.actions.fetchStickyNotes({ commit }, fail)
+    const callback = jest.fn()
+    store.actions.fetchStickyNotes({ commit }, { callback, fail })
     expect(fail).toHaveBeenCalledTimes(0)
     expect(commit).toHaveBeenCalledTimes(1)
     expect(commit).toHaveBeenCalledWith('SET_STICKY_NOTES_INFO', {
@@ -38,19 +45,43 @@ describe('actions', () => {
       'noteDescription': 'Note noteDescription goes here. Length is undetermined.',
       'updatedAt': 1555333551046
     })
+    expect(callback).toBeCalledTimes(1)
   })
 
   test('postStickyNotes', async () => {
-    api.createStickyNote = jest.fn()
+    api.createStickyNote = (success) => {
+      success({
+        'method': 'POST',
+        'url': '/api/core/sticky-notes',
+        'response': {
+          "code": 201,
+          "status": "CREATED",
+          "data": {
+            "id": "507f1f77bcf86cd799439011",
+            "title": "Sticky Note Title",
+            "description": "Note description goes here. Length is undetermined.",
+            "updatedAt": 1555333551046
+          }
+        }
+      })
+    }
     const data = {
       'title': 'Sticky Note Title',
       'description': 'Note description goes here. Length is undetermined.',
       'updatedAt': 1555333551046
     }
+    const commit = jest.fn()
     const fail = jest.fn()
-    store.actions.postStickyNotes(data, fail)
+    const callback = jest.fn()
+    store.actions.postStickyNotes({ commit }, { data, callback, fail })
     expect(fail).toBeCalledTimes(0)
-    expect(api.createStickyNote).toBeCalledTimes(1)
+    expect(commit).toHaveBeenCalledWith('SET_STICKY_NOTES_INFO', {
+      'title': 'Sticky Note Title',
+      'description': 'Note description goes here. Length is undetermined.',
+      'updatedAt': 1555333551046
+    })
+    expect(callback).toBeCalledTimes(1)
+
   })
 })
 
