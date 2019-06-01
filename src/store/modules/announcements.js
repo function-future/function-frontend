@@ -43,7 +43,7 @@ export const actions = {
       callback()
     }, data, fail)
   },
-  deleteAnnouncementById ({ data, callback, fail }) {
+  deleteAnnouncementById ({ state }, { data, callback, fail }) {
     announcementApi.deleteAnnouncement(() => {
       callback()
     }, data, fail)
