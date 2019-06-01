@@ -6,24 +6,47 @@ export const state = {
 }
 
 export const mutations = {
-  GET_ANNOUNCEMENTS (state, payload) {
+  SET_ANNOUNCEMENTS (state, payload) {
     state.announcementList = { ...payload }
   },
-  GET_ANNOUNCEMENT_BY_ID (state, payload) {
+  SET_ANNOUNCEMENT_BY_ID (state, payload) {
     state.announcement = { ...payload }
   }
 }
 
 export const actions = {
-  fetchAnnouncements ({ commit }, { data, fail }) {
-    announcementApi.getAnnouncementList(({ data: response }) => {
-      commit('GET_ANNOUNCEMENTS', data)
-    }, fail)
+  initialState ({ commit }) {
+    commit('SET_ANNOUNCEMENT_BY_ID', {})
+    commit('SET_ANNOUNCEMENTS', [])
   },
-  fetchAnnouncementById ({ commit }, { data, fail }) {
-    announcementApi.getAnnouncementDetail(({ data: response }) => { // TODO: Learn how to pass announcement ID to API calls
-      commit('GET_ANNOUNCEMENT_BY_ID', data)
-    }, fail)
+  fetchAnnouncements ({ commit }, { data, callback, fail }) {
+    announcementApi.getAnnouncementList(({ data: response }) => {
+      commit('SET_ANNOUNCEMENTS', response)
+      callback()
+    }, data, fail)
+  },
+  fetchAnnouncementById ({ commit }, { data, callback, fail }) {
+    announcementApi.getAnnouncementDetail(({ data: response }) => {
+      commit('SET_ANNOUNCEMENT_BY_ID', response)
+      callback()
+    }, data, fail)
+  },
+  createAnnouncement ({ commit }, { data, callback, fail }) {
+    announcementApi.createAnnouncement(({ data: response }) => {
+      commit('SET_ANNOUNCEMENT_BY_ID', response)
+      callback()
+    }, data, fail)
+  },
+  updateAnnouncement ({ commit }, { data, callback, fail }) {
+    announcementApi.updateAnnouncement(({ data: response }) => {
+      commit('SET_ANNOUNCEMENT_BY_ID', response)
+      callback()
+    }, data, fail)
+  },
+  deleteAnnouncementById ({ commit }, { data, callback, fail }) {
+    announcementApi.deleteAnnouncement(({ data: response }) => {
+      callback()
+    }, data, fail)
   }
 }
 

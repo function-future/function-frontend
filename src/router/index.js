@@ -5,6 +5,8 @@ import addAssignment from '@/views/Assignment/AddAssignment'
 import quizzes from '@/views/Quiz/Quiz'
 import feeds from '@/views/Feeds/Feeds.vue'
 import announcements from '@/views/Announcements/Announcements.vue'
+import announcementDetail from '@/views/Announcements/AnnouncementDetail.vue'
+import announcementForm from '@/views/Announcements/AnnouncementForm.vue'
 import blogs from '@/views/ActivityBlogs/ActivityBlogs.vue'
 import users from '@/views/Users/Users.vue'
 import stickyNotes from '@/views/StickyNotes/StickyNotesDetail.vue'
@@ -34,12 +36,38 @@ export default new Router({
       }
     },
     {
-      path: config.app.pages.announcements,
+      path: config.app.pages.announcements.list,
       name: 'announcements',
       component: announcements,
       meta: {
         title: 'Announcements'
       }
+    },
+    {
+      path: config.app.pages.announcements.detail,
+      name: 'announcementDetail',
+      component: announcementDetail,
+      meta: {
+        title: 'Announcement Detail'
+      }
+    },
+    {
+      path: config.app.pages.announcements.edit,
+      name: 'editAnnouncement',
+      component: announcementForm,
+      meta: {
+        title: 'Edit Announcement'
+      },
+      props: { editMode: true }
+    },
+    {
+      path: config.app.pages.announcements.add,
+      name: 'addAnnouncement',
+      component: announcementForm,
+      meta: {
+        title: 'Add Announcement'
+      },
+      props: { editMode: false }
     },
     {
       path: config.app.pages.courses,

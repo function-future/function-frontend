@@ -16,8 +16,8 @@ const getRequest = function (path, callback, errorHandler, configuration) {
 
 const postRequest = function (path, callback, data, errorHandler, configuration) {
   axios.post(path, data, configuration)
-    .then((response) => {
-      callback(response)
+    .then(({ data }) => {
+      callback(data.response)
     })
     .catch(error => {
       if (typeof errorHandler === 'function') {
@@ -28,14 +28,26 @@ const postRequest = function (path, callback, data, errorHandler, configuration)
 
 const putRequest = function (path, callback, data, errorHandler, configuration) {
   axios.put(path, data, configuration)
-    .then(callback)
-    .catch(errorHandler)
+    .then(({ data }) => {
+      callback(data.response)
+    })
+    .catch(error => {
+      if (typeof errorHandler === 'function') {
+        errorHandler(error)
+      }
+    })
 }
 
 const deleteRequest = function (path, callback, errorHandler, configuration) {
   axios.delete(path, configuration)
-    .then(callback)
-    .catch(errorHandler)
+    .then(({ data }) => {
+      callback(data.response)
+    })
+    .catch(error => {
+      if (typeof errorHandler === 'function') {
+        errorHandler(error)
+      }
+    })
 }
 
 export default {

@@ -1,6 +1,5 @@
 import { mapActions, mapGetters } from 'vuex'
 import BaseCard from '@/components/BaseCard'
-import config from '@/config/index'
 
 export default {
   name: 'stickyNotes',
@@ -20,7 +19,12 @@ export default {
       'fetchStickyNotes'
     ]),
     initPage () {
-      this.fetchStickyNotes()
+      this.fetchStickyNotes({
+        callback: () => {},
+        fail: () => {
+          this.$toasted.error('Fail to load sticky note detail, please refresh the page')
+        }
+      })
     },
     goToAddStickyNote () {
       this.$router.push({ name: 'editStickyNote' })

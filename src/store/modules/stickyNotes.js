@@ -15,20 +15,25 @@ export const mutations = {
 }
 
 export const actions = {
-  fetchStickyNotes ({ commit }, fail) {
-    console.log('fetch sticky notes')
+  initialState ({ commit }) {
+    commit('SET_STICKY_NOTES_INFO', {})
+  },
+  fetchStickyNotes ({ commit }, { callback, fail }) {
     stickyNotesApi.getStickyNote(({ data: response }) => {
-      console.log('success fetch sticky notes')
       const data = {
         noteTitle: response[0].title,
         noteDescription: response[0].description,
         updatedAt: response[0].updatedAt
       }
       commit('SET_STICKY_NOTES_INFO', data)
+      callback()
     }, fail)
   },
-  postStickyNotes ({ commit }, { data, fail }) {
-    stickyNotesApi.createStickyNote(({ data }), data, fail)
+  postStickyNotes ({ commit }, { data, callback, fail }) {
+    stickyNotesApi.createStickyNote(({ data: response }) => {
+      commit('SET_STICKY_NOTES_INFO', data)
+      callback()
+    }, data, fail)
   }
 }
 

@@ -3,7 +3,12 @@ module.exports = {
     pages: {
       feeds: '/',
       blogs: '/blogs',
-      announcements: '/announcements',
+      announcements: {
+        list: '/announcements',
+        add: '/announcements/add',
+        detail: '/announcements/:id/detail',
+        edit: '/announcements/:id/edit'
+      },
       courses: '/courses',
       files: '/files',
       users: '/users',
@@ -29,8 +34,8 @@ module.exports = {
         logout: '/api/core/auth'
       },
       access: {
-        accessList (url) {
-          return `/api/core/user/access-list?${url}`
+        accessList(url) {
+          return `/api/core/user/access-list?url=${url}`
         },
         menuList: '/api/core/menu-list'
       },
@@ -40,17 +45,17 @@ module.exports = {
         post: '/api/core/sticky-notes'
       },
       announcements: {
-        get: '/api/core/announcements',
+        get (page, size) { return `/api/core/announcements?page=${page}&size=${size}` },
         post: '/api/core/announcements',
         detail: {
-          get (announcementId) {
-            return `/api/core/announcements/${announcementId}`
+          get (id) {
+            return `/api/core/announcements/${id}`
           },
-          update (announcementId) {
-            return `/api/core/announcements/${announcementId}`
+          update (id) {
+            return `/api/core/announcements/${id}`
           },
-          delete (announcementId) {
-            return `/api/core/announcements/${announcementId}`
+          delete (id) {
+            return `/api/core/announcements/${id}`
           }
         }
       },
@@ -62,9 +67,6 @@ module.exports = {
         get: '/api/core/activity-blogs'
       }
     }
-  },
-  getApiPath: (apiPath) => {
-    return this.api.base_path + apiPath
   },
   dev: {
     assetsSubDirectory: 'static',
