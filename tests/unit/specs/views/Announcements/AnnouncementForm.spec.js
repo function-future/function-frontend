@@ -1,31 +1,39 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
-import AnnouncementDetail from '@/views/Announcements/AnnouncementDetail'
+import AnnouncementForm from '@/views/Announcements/AnnouncementForm'
 import Vuex from 'vuex'
 import VueRouter from 'vue-router'
 import config from '@/config/index'
+import VeeValidate from 'vee-validate'
+import mavonEditor from 'mavon-editor'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
 localVue.use(VueRouter)
+localVue.use(VeeValidate)
+localVue.use(mavonEditor)
 
 const routes = [
   {
-    path: config.app.pages.announcements.detail,
-    component: AnnouncementDetail,
-    name: 'announcementDetail'
+    path: config.app.pages.announcements.edit,
+    component: AnnouncementForm,
+    name: 'editAnnouncement',
+    props: { editMode: true }
+  },
+  {
+    path: config.app.pages.announcements.add,
+    name: 'addAnnouncement',
+    component: AnnouncementForm,
+    meta: {
+      title: 'Add Announcement'
+    },
+    props: { editMode: false }
   }
 ]
 const router = new VueRouter({
   routes
 })
-router.push({
-  name: 'announcementDetail',
-  params: {
-    id: 'sample-id'
-  }
-})
 
-describe('AnnouncementDetail.vue', () => {
+describe('AnnouncementForm.vue on edit mode', () => {
   let actions
   let getters
   let state
@@ -66,41 +74,51 @@ describe('AnnouncementDetail.vue', () => {
         }
       }
     })
+    router.push({
+      name: 'editAnnouncement',
+      params: {
+        id: 'sample-id'
+      }
+    })
+  })
+
+  test('route url is /edit', () => {
+    const wrapper = shallowMount(AnnouncementForm, {
+      store,
+      localVue,
+      router,
+      sync: false
+    })
+    expect(wrapper.vm.$route.path).toBe('/announcements/sample-id/edit')
   })
 
   test('Is an instance', () => {
-    const wrapper = shallowMount(AnnouncementDetail, {
+    const wrapper = shallowMount(AnnouncementForm, {
       store,
       localVue,
-      router
+      router,
+      sync: false
     })
     expect(wrapper.isVueInstance()).toBe(true)
   })
 
-  test('route url is correct with params', () => {
-    const wrapper = shallowMount(AnnouncementDetail, {
-      store,
-      localVue,
-      router
-    })
-    expect(wrapper.vm.$route.path).toBe('/announcements/sample-id/detail')
-  })
-
-  test('Render template correctly', () => {
-    const wrapper = shallowMount(AnnouncementDetail, {
-      store,
-      localVue,
-      router
-    })
-    expect(wrapper.find('.header').text()).toBe('Announcement 1')
-  })
-
   test('Render components correctly', () => {
-    const wrapper = shallowMount(AnnouncementDetail, {
+    const wrapper = shallowMount(AnnouncementForm, {
       store,
       localVue,
-      router
+      router,
+      sync: false
     })
-    expect(wrapper.html()).toContain('basecard')
+    expect(wrapper.html()).toContain('scrollable-container')
   })
+
+  // test('Render data to input title box correctly', () => {
+  //   const wrapper = shallowMount(AnnouncementForm, {
+  //     store,
+  //     localVue,
+  //     router,
+  //     sync: false
+  //   })
+  //   expect(wrapper.find('.input-title').text()).toBe('Announcement 1')
+  // })
 })
