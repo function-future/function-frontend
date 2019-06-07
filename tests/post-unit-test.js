@@ -24,15 +24,3 @@ const replaceOpts = {
 replace.sync(replaceOpts)
 
 console.log(chalk.green('Post unit test script done.'))
-
-
-
-
-
-
-
-
-
-
-
-
