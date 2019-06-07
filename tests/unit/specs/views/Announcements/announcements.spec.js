@@ -182,39 +182,38 @@ describe('actions', () => {
           'updatedAt': 1555980050616
         }
       })
-
-      const commit = jest.fn()
-      const callback = jest.fn()
-      const fail = jest.fn()
-
-      const announcement = {
-        'title': 'Announcement 1',
-        'summary': 'Summary goes here. Maximum 70 characters?',
-        'description': 'Description goes here. Currently there is no limit to description length.',
-      }
-      const data = { ...announcement }
-      store.actions.createAnnouncement({ commit }, { data, callback, fail })
-
-      expect(fail).toHaveBeenCalledTimes(0)
-      expect(callback).toHaveBeenCalledTimes(1)
-      expect(commit).toHaveBeenCalledTimes(1)
-      expect(commit).toHaveBeenCalledWith('SET_ANNOUNCEMENT_BY_ID', {
-        'id': 'sample-id',
-        'title': 'Announcement 1',
-        'summary': 'Summary goes here. Maximum 70 characters?',
-        'description': 'Description goes here. Currently there is no limit to description length.',
-        'files': [
-          {
-            'id': 'sample-id',
-            'file': {
-              'full': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png',
-              'thumbnail': null
-            }
-          }
-        ],
-        'updatedAt': 1555980050616
-      })
     }
+    const commit = jest.fn()
+    const callback = jest.fn()
+    const fail = jest.fn()
+
+    const announcement = {
+      'title': 'Announcement 1',
+      'summary': 'Summary goes here. Maximum 70 characters?',
+      'description': 'Description goes here. Currently there is no limit to description length.'
+    }
+    const data = { ...announcement }
+    store.actions.createAnnouncement({ commit }, { data, callback, fail })
+
+    expect(fail).toHaveBeenCalledTimes(0)
+    expect(callback).toHaveBeenCalledTimes(1)
+    expect(commit).toHaveBeenCalledTimes(1)
+    expect(commit).toHaveBeenCalledWith('SET_ANNOUNCEMENT_BY_ID', {
+      'id': 'sample-id',
+      'title': 'Announcement 1',
+      'summary': 'Summary goes here. Maximum 70 characters?',
+      'description': 'Description goes here. Currently there is no limit to description length.',
+      'files': [
+        {
+          'id': 'sample-id',
+          'file': {
+            'full': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png',
+            'thumbnail': null
+          }
+        }
+      ],
+      'updatedAt': 1555980050616
+    })
   })
 
   test('updateAnnouncement', async () => {
@@ -239,40 +238,75 @@ describe('actions', () => {
           'updatedAt': 1555980050616
         }
       })
+    }
+    const commit = jest.fn()
+    const callback = jest.fn()
+    const fail = jest.fn()
 
-      const commit = jest.fn()
-      const callback = jest.fn()
-      const fail = jest.fn()
+    const announcement = {
+      'id': 'sample-id',
+      'title': 'Announcement 1',
+      'summary': 'Summary goes here. Maximum 70 characters?',
+      'description': 'Description goes here. Currently there is no limit to description length.'
+    }
+    const data = { ...announcement }
+    store.actions.updateAnnouncement({ commit }, { data, callback, fail })
 
-      const announcement = {
-        'id': 'sample-id',
-        'title': 'Announcement 1',
-        'summary': 'Summary goes here. Maximum 70 characters?',
-        'description': 'Description goes here. Currently there is no limit to description length.',
-      }
-      const data = { ...announcement }
-      store.actions.updateAnnouncement({ commit }, { data, callback, fail })
-
-      expect(fail).toHaveBeenCalledTimes(0)
-      expect(callback).toHaveBeenCalledTimes(1)
-      expect(commit).toHaveBeenCalledTimes(1)
-      expect(commit).toHaveBeenCalledWith('SET_ANNOUNCEMENT_BY_ID', {
-        'id': 'sample-id',
-        'title': 'Announcement 1 Edited',
-        'summary': 'Summary goes here. Maximum 70 characters?',
-        'description': 'Description goes here. Currently there is no limit to description length.',
-        'files': [
-          {
-            'id': 'sample-id',
-            'file': {
-              'full': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png',
-              'thumbnail': null
-            }
+    expect(fail).toHaveBeenCalledTimes(0)
+    expect(callback).toHaveBeenCalledTimes(1)
+    expect(commit).toHaveBeenCalledTimes(1)
+    expect(commit).toHaveBeenCalledWith('SET_ANNOUNCEMENT_BY_ID', {
+      'id': 'sample-id',
+      'title': 'Announcement 1 Edited',
+      'summary': 'Summary goes here. Maximum 70 characters?',
+      'description': 'Description goes here. Currently there is no limit to description length.',
+      'files': [
+        {
+          'id': 'sample-id',
+          'file': {
+            'full': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png',
+            'thumbnail': null
           }
-        ],
-        'updatedAt': 1555980050616
+        }
+      ],
+      'updatedAt': 1555980050616
+    })
+  })
+
+  test('deleteAnnouncementById', async () => {
+    api.deleteAnnouncement = (success) => {
+      success({
+        'code': 200,
+        'status': 'OK',
+        'data': {
+          'id': 'sample-id',
+          'title': 'Announcement 1',
+          'summary': 'Summary goes here. Maximum 70 characters?',
+          'description': 'Description goes here. Currently there is no limit to description length.',
+          'files': [
+            {
+              'id': 'sample-id',
+              'file': {
+                'full': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png',
+                'thumbnail': null
+              }
+            }
+          ],
+          'updatedAt': 1555980050616
+        }
       })
     }
+
+    const commit = jest.fn()
+    const callback = jest.fn()
+    const fail = jest.fn()
+
+    const id = { 'id': 'sample-id' }
+    const data = { ...id }
+    store.actions.deleteAnnouncementById({ commit }, { data, callback, fail })
+
+    expect(fail).toHaveBeenCalledTimes(0)
+    expect(callback).toHaveBeenCalledTimes(1)
   })
 })
 
