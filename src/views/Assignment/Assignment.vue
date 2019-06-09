@@ -16,32 +16,30 @@
         :placeholder="'Search'">
       </BaseInput>
     </div>
-    <BaseCard class="assignment-card">
-      <div class="card-header">
-        Lorem Ipsum
-      </div>
-      <div class="card-body">
-        <div class="assignment-description">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam blanditiis debitis doloremque enim eveniet laudantium maiores molestiae necessitatibus non officia omnis, quasi quisquam quos repudiandae similique sint ullam vel vero!
+    <div v-for="assignment in assignmentList" :key="assignment.id">
+      <BaseCard class="assignment-card">
+        <div class="card-header">
+          {{assignment.title}}
         </div>
-      </div>
-      <div class="card-footer">
-        <div class="completion-status">
-          <div class="completion-status--box"
-               :class="[isComplete ? 'complete ': 'pending']">
+        <div class="card-body">
+          <div class="assignment-description">
+            {{assignment.description}}
           </div>
-          <span class="completion-status--text">Completed</span>
         </div>
-        <div class="room-count">
-          <font-awesome-icon icon="users"></font-awesome-icon>
-          <span>10</span>
+        <div class="card-footer">
+          <div class="completion-status">
+            <div class="completion-status--box"
+                 :class="isComplete(assignment.deadline)">
+            </div>
+            <span class="completion-status--text">{{isComplete(assignment.deadline)}}</span>
+          </div>
+          <div class="assignment-deadline">
+            <font-awesome-icon icon="calendar"></font-awesome-icon>
+            {{assignment.deadline | moment("dddd, MMMM Do YYYY")}}
+          </div>
         </div>
-        <div class="assignment-deadline">
-          <font-awesome-icon icon="calendar"></font-awesome-icon>
-          DD/MM/YYYY
-        </div>
-      </div>
-    </BaseCard>
+      </BaseCard>
+    </div>
   </div>
 </template>
 
@@ -100,10 +98,10 @@
     width: 20px;
     margin-right: 5px;
   }
-  .complete {
+  .Ongoing {
     background-color: limegreen;
   }
-  .pending {
+  .Done {
     background-color: red;
   }
   .room-count {

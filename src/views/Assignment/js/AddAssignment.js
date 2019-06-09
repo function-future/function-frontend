@@ -4,6 +4,7 @@ import BaseButton from '@/components/BaseButton'
 import BaseSelect from '@/components/BaseSelect'
 import Vue from 'vue'
 import VCalendar from 'v-calendar'
+import { mapActions } from 'vuex'
 
 Vue.use(VCalendar)
 
@@ -19,8 +20,8 @@ export default {
     return {
       assignment: {
         title: '',
-        question: '',
-        date: new Date(),
+        description: '',
+        deadline: new Date(),
         batch: 'Batch 3',
         // file: ''
       },
@@ -31,11 +32,24 @@ export default {
     }
   },
   methods: {
+    ...mapActions([
+      'createAssignment'
+    ]),
     cancel () {
       this.$router.go(-1)
     },
     saveAssignment () {
-      // console.log(this.assignment)
+      this.createAssignment({
+        payload: {...this.assignment},
+        data: {
+          batchCode: 'futur3',
+          page: 0,
+          pageSize: 10
+        },
+        fail: () => {
+          console.log('Can\'t save data')
+        }
+      })
     }
   }
 }
