@@ -4,15 +4,13 @@ import api from '@/api/controller/sticky-notes'
 jest.mock('@/api/controller/sticky-notes')
 
 describe('actions', () => {
-  test('test', () => {
+  test('Sanity test', () => {
     expect(true).toBe(true)
   })
 
-  test('initialState', async () => {
+  test('initialState', () => {
     const commit = jest.fn()
-
     store.actions.initialState({ commit })
-    expect(commit).toHaveBeenCalledTimes(1)
     expect(commit).toHaveBeenCalledWith('SET_STICKY_NOTES_INFO', {})
   })
 
@@ -37,17 +35,17 @@ describe('actions', () => {
       })
     }
     const commit = jest.fn()
-    const callback = jest.fn()
     const fail = jest.fn()
+    const callback = jest.fn()
     store.actions.fetchStickyNotes({ commit }, { callback, fail })
     expect(fail).toHaveBeenCalledTimes(0)
-    expect(callback).toHaveBeenCalledTimes(1)
     expect(commit).toHaveBeenCalledTimes(1)
     expect(commit).toHaveBeenCalledWith('SET_STICKY_NOTES_INFO', {
       'noteTitle': 'Sticky Note Title',
       'noteDescription': 'Note noteDescription goes here. Length is undetermined.',
       'updatedAt': 1555333551046
     })
+    expect(callback).toBeCalledTimes(1)
   })
 
   test('postStickyNotes', async () => {
@@ -59,7 +57,7 @@ describe('actions', () => {
           {
             'id': 'sample-id',
             'title': 'Sticky Note Title',
-            'description': 'Note noteDescription goes here. Length is undetermined.',
+            'description': 'Note description goes here. Length is undetermined.',
             'updatedAt': 1555333551046
           }
         ],
@@ -76,18 +74,17 @@ describe('actions', () => {
       'updatedAt': 1555333551046
     }
     const commit = jest.fn()
-    const callback = jest.fn()
     const fail = jest.fn()
+    const callback = jest.fn()
     store.actions.postStickyNotes({ commit }, { data, callback, fail })
     expect(fail).toBeCalledTimes(0)
-    expect(callback).toHaveBeenCalledTimes(1)
-    expect(commit).toHaveBeenCalledTimes(1)
     expect(commit).toHaveBeenCalledWith('SET_STICKY_NOTES_INFO', [{
       'id': 'sample-id',
       'title': 'Sticky Note Title',
-      'description': 'Note noteDescription goes here. Length is undetermined.',
+      'description': 'Note description goes here. Length is undetermined.',
       'updatedAt': 1555333551046
     }])
+    expect(callback).toBeCalledTimes(1)
   })
 })
 

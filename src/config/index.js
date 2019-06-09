@@ -68,9 +68,6 @@ module.exports = {
       }
     }
   },
-  getApiPath: (apiPath) => {
-    return this.api.base_path + apiPath
-  },
   dev: {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',

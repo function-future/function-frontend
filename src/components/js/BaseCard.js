@@ -4,13 +4,5 @@ export default {
     cardClass: {
       type: String
     }
-  },
-  data () {
-    return {
-
-    }
-  },
-  methods: {
-
   }
 }

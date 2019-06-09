@@ -4,309 +4,356 @@ import api from '@/api/controller/announcements'
 jest.mock('@/api/controller/announcements')
 
 describe('actions', () => {
-  test('initialState', async () => {
-    const commit = jest.fn()
+  test('Sanity test', () => {
+    expect(true).toBe(true)
+  })
 
+  test('Initial state', () => {
+    const commit = jest.fn()
     store.actions.initialState({ commit })
     expect(commit).toHaveBeenCalledTimes(2)
     expect(commit).toHaveBeenCalledWith('SET_ANNOUNCEMENT_BY_ID', {})
     expect(commit).toHaveBeenCalledWith('SET_ANNOUNCEMENTS', [])
   })
 
-  test('fetchAnnouncementById', async () => {
-    api.getAnnouncementDetail = (success) => {
-      success({
-        'code': 200,
-        'status': 'OK',
-        'data': {
-          'id': 'sample-id',
-          'title': 'Announcement 1',
-          'summary': 'Summary goes here. Maximum 70 characters?',
-          'description': 'Description goes here. Currently there is no limit to description length.',
-          'files': [
-            {
-              'id': 'sample-id',
-              'file': {
-                'full': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png',
-                'thumbnail': null
-              }
-            }
-          ],
-          'updatedAt': 1555980050616
-        }
-      })
-    }
-
-    const commit = jest.fn()
-    const callback = jest.fn()
-    const fail = jest.fn()
-
-    const id = { id: 'sample-id' }
-    const data = { ...id }
-    store.actions.fetchAnnouncementById({ commit }, { data, callback, fail })
-
-    expect(fail).toHaveBeenCalledTimes(0)
-    expect(callback).toHaveBeenCalledTimes(1)
-    expect(commit).toHaveBeenCalledTimes(1)
-    expect(commit).toHaveBeenCalledWith('SET_ANNOUNCEMENT_BY_ID', {
-      'id': 'sample-id',
-      'title': 'Announcement 1',
-      'summary': 'Summary goes here. Maximum 70 characters?',
-      'description': 'Description goes here. Currently there is no limit to description length.',
-      'files': [
-        {
-          'id': 'sample-id',
-          'file': {
-            'full': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png',
-            'thumbnail': null
-          }
-        }
-      ],
-      'updatedAt': 1555980050616
-    })
-  })
-
-  test('fetchAnnouncements', async () => {
+  test('fetchAnnouncements', () => {
     api.getAnnouncementList = (success) => {
       success({
-        'code': 200,
-        'status': 'OK',
-        'data': [
+        "code": 200,
+        "status": "OK",
+        "data": [
           {
-            'id': 'sample-id',
-            'title': 'Announcement 1',
-            'summary': 'Summary goes here. Maximum 70 characters?',
-            'description': 'Description goes here. Currently there is no limit to description length.',
-            'files': [
+            "id": "sample-id-1",
+            "title": "Announcements 1",
+            "summary": "Summary goes here. Maximum 70 characters?",
+            "description": "Description goes here. Currently there is no limit to description length.",
+            "files": [
               {
-                'id': 'sample-id',
-                'file': {
-                  'full': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png',
-                  'thumbnail': null
+                "id": "sample-id",
+                "file": {
+                  "full": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png",
+                  "thumbnail": null
                 }
               }
             ],
-            'updatedAt': 1555980050616
+            "updatedAt": 1555980050616
           },
           {
-            'id': 'sample-id',
-            'title': 'Announcement 1',
-            'summary': 'Summary goes here. Maximum 70 characters?',
-            'description': 'Description goes here. Currently there is no limit to description length.',
-            'files': [
+            "id": "sample-id-2",
+            "title": "Announcements 2",
+            "summary": "Summary goes here. Maximum 70 characters?",
+            "description": "Description goes here. Currently there is no limit to description length.",
+            "files": [
               {
-                'id': 'sample-id',
-                'file': {
-                  'full': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png',
-                  'thumbnail': null
+                "id": "sample-id",
+                "file": {
+                  "full": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png",
+                  "thumbnail": null
                 }
               }
             ],
-            'updatedAt': 1555980050616
+            "updatedAt": 1555980050616
+          },
+          {
+            "id": "sample-id-3",
+            "title": "Announcements 3",
+            "summary": "Summary goes here. Maximum 70 characters?",
+            "description": "Description goes here. Currently there is no limit to description length.",
+            "files": [
+              {
+                "id": "sample-id",
+                "file": {
+                  "full": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png",
+                  "thumbnail": null
+                }
+              }
+            ],
+            "updatedAt": 1555980050616
+          },
+          {
+            "id": "sample-id-4",
+            "title": "Announcements 4",
+            "summary": "Summary goes here. Maximum 70 characters?",
+            "description": "Description goes here. Currently there is no limit to description length.",
+            "files": [
+              {
+                "id": "sample-id",
+                "file": {
+                  "full": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png",
+                  "thumbnail": null
+                }
+              }
+            ],
+            "updatedAt": 1555980050616
           }
         ],
-        'paging': {
-          'page': 1,
-          'size': 2,
-          'totalRecords': 100
+        "paging": {
+          "page": 1,
+          "size": 4,
+          "totalRecords": 100
         }
       })
     }
-
+    const data = {
+      'paging': {
+        'page': 1,
+        'size': 4
+      }
+    }
     const commit = jest.fn()
     const callback = jest.fn()
     const fail = jest.fn()
-
-    const paging = { page: 0, size: 2 }
-    const data = { ...paging }
     store.actions.fetchAnnouncements({ commit }, { data, callback, fail })
-
     expect(fail).toHaveBeenCalledTimes(0)
-    expect(callback).toHaveBeenCalledTimes(1)
-    expect(commit).toHaveBeenCalledTimes(1)
     expect(commit).toHaveBeenCalledWith('SET_ANNOUNCEMENTS', [
       {
-        'id': 'sample-id',
-        'title': 'Announcement 1',
-        'summary': 'Summary goes here. Maximum 70 characters?',
-        'description': 'Description goes here. Currently there is no limit to description length.',
-        'files': [
+        "id": "sample-id-1",
+        "title": "Announcements 1",
+        "summary": "Summary goes here. Maximum 70 characters?",
+        "description": "Description goes here. Currently there is no limit to description length.",
+        "files": [
           {
-            'id': 'sample-id',
-            'file': {
-              'full': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png',
-              'thumbnail': null
+            "id": "sample-id",
+            "file": {
+              "full": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png",
+              "thumbnail": null
             }
           }
         ],
-        'updatedAt': 1555980050616
+        "updatedAt": 1555980050616
       },
       {
-        'id': 'sample-id',
-        'title': 'Announcement 1',
-        'summary': 'Summary goes here. Maximum 70 characters?',
-        'description': 'Description goes here. Currently there is no limit to description length.',
-        'files': [
+        "id": "sample-id-2",
+        "title": "Announcements 2",
+        "summary": "Summary goes here. Maximum 70 characters?",
+        "description": "Description goes here. Currently there is no limit to description length.",
+        "files": [
           {
-            'id': 'sample-id',
-            'file': {
-              'full': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png',
-              'thumbnail': null
+            "id": "sample-id",
+            "file": {
+              "full": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png",
+              "thumbnail": null
             }
           }
         ],
-        'updatedAt': 1555980050616
+        "updatedAt": 1555980050616
+      },
+      {
+        "id": "sample-id-3",
+        "title": "Announcements 3",
+        "summary": "Summary goes here. Maximum 70 characters?",
+        "description": "Description goes here. Currently there is no limit to description length.",
+        "files": [
+          {
+            "id": "sample-id",
+            "file": {
+              "full": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png",
+              "thumbnail": null
+            }
+          }
+        ],
+        "updatedAt": 1555980050616
+      },
+      {
+        "id": "sample-id-4",
+        "title": "Announcements 4",
+        "summary": "Summary goes here. Maximum 70 characters?",
+        "description": "Description goes here. Currently there is no limit to description length.",
+        "files": [
+          {
+            "id": "sample-id",
+            "file": {
+              "full": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png",
+              "thumbnail": null
+            }
+          }
+        ],
+        "updatedAt": 1555980050616
       }
     ])
+    expect(callback).toHaveBeenCalledTimes(1)
   })
 
-  test('createAnnouncement', async () => {
+  test('fetchAnnouncementById ', () => {
+    api.getAnnouncementDetail = (success) => {
+      success({
+        "code": 200,
+        "status": "OK",
+        "data": {
+          "id": "sample-id-1",
+          "title": "Announcements 1",
+          "summary": "Summary goes here. Maximum 70 characters?",
+          "description": "Description goes here. Currently there is no limit to description length.",
+          "files": [
+            {
+              "id": "sample-id",
+              "file": {
+                "full": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png",
+                "thumbnail": null
+              }
+            }
+          ],
+          "updatedAt": 1555980050616
+        }
+      })
+    }
+    const data = {'id': 'sample-id-1'}
+    const commit = jest.fn()
+    const callback = jest.fn()
+    const fail = jest.fn()
+    store.actions.fetchAnnouncementById({ commit }, { data, callback, fail })
+    expect(fail).toHaveBeenCalledTimes(0)
+    expect(commit).toHaveBeenCalledWith('SET_ANNOUNCEMENT_BY_ID', {
+      "id": "sample-id-1",
+      "title": "Announcements 1",
+      "summary": "Summary goes here. Maximum 70 characters?",
+      "description": "Description goes here. Currently there is no limit to description length.",
+      "files": [
+      {
+        "id": "sample-id",
+        "file": {
+          "full": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png",
+          "thumbnail": null
+        }
+      }
+    ],
+      "updatedAt": 1555980050616
+    })
+    expect(callback).toHaveBeenCalledTimes(1)
+  })
+
+  test('createAnnouncement', () => {
     api.createAnnouncement = (success) => {
       success({
-        'code': 201,
-        'status': 'CREATED',
-        'data': {
-          'id': 'sample-id',
-          'title': 'Announcement 1',
-          'summary': 'Summary goes here. Maximum 70 characters?',
-          'description': 'Description goes here. Currently there is no limit to description length.',
-          'files': [
+        "code": 201,
+        "status": "CREATED",
+        "data": {
+          "id": "sample-id",
+          "title": "Announcements 1",
+          "summary": "Summary goes here. Maximum 70 characters?",
+          "description": "Description goes here. Currently there is no limit to description length.",
+          "files": [
             {
-              'id': 'sample-id',
-              'file': {
-                'full': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png',
-                'thumbnail': null
+              "id": "sample-id",
+              "file": {
+                "full": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png",
+                "thumbnail": null
               }
             }
           ],
-          'updatedAt': 1555980050616
+          "updatedAt": 1555980050616
         }
       })
+    }
+    const data = {
+      id: 'sample-id',
+      title: 'sample title',
+      summary: 'sample summary',
+      description: 'sample announcement for testing purpose'
     }
     const commit = jest.fn()
     const callback = jest.fn()
     const fail = jest.fn()
-
-    const announcement = {
-      'title': 'Announcement 1',
-      'summary': 'Summary goes here. Maximum 70 characters?',
-      'description': 'Description goes here. Currently there is no limit to description length.'
-    }
-    const data = { ...announcement }
-    store.actions.createAnnouncement({ commit }, { data, callback, fail })
-
+    store.actions.createAnnouncement({ commit }, { data, callback, fail})
     expect(fail).toHaveBeenCalledTimes(0)
-    expect(callback).toHaveBeenCalledTimes(1)
-    expect(commit).toHaveBeenCalledTimes(1)
     expect(commit).toHaveBeenCalledWith('SET_ANNOUNCEMENT_BY_ID', {
-      'id': 'sample-id',
-      'title': 'Announcement 1',
-      'summary': 'Summary goes here. Maximum 70 characters?',
-      'description': 'Description goes here. Currently there is no limit to description length.',
-      'files': [
+      "id": "sample-id",
+      "title": "Announcements 1",
+      "summary": "Summary goes here. Maximum 70 characters?",
+      "description": "Description goes here. Currently there is no limit to description length.",
+      "files": [
         {
-          'id': 'sample-id',
-          'file': {
-            'full': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png',
-            'thumbnail': null
+          "id": "sample-id",
+          "file": {
+            "full": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png",
+            "thumbnail": null
           }
         }
       ],
-      'updatedAt': 1555980050616
+      "updatedAt": 1555980050616
     })
+    expect(callback).toHaveBeenCalledTimes(1)
   })
 
-  test('updateAnnouncement', async () => {
+  test('updateAnnouncement', () => {
     api.updateAnnouncement = (success) => {
       success({
-        'code': 200,
-        'status': 'OK',
-        'data': {
-          'id': 'sample-id',
-          'title': 'Announcement 1 Edited',
-          'summary': 'Summary goes here. Maximum 70 characters?',
-          'description': 'Description goes here. Currently there is no limit to description length.',
-          'files': [
+        "code": 200,
+        "status": "OK",
+        "data": {
+          "id": "sample-id",
+          "title": "Announcements 1",
+          "summary": "Summary goes here. Maximum 70 characters?",
+          "description": "Description goes here. Currently there is no limit to description length.",
+          "files": [
             {
-              'id': 'sample-id',
-              'file': {
-                'full': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png',
-                'thumbnail': null
+              "id": "sample-id",
+              "file": {
+                "full": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png",
+                "thumbnail": null
               }
             }
           ],
-          'updatedAt': 1555980050616
+          "updatedAt": 1555980050616
         }
       })
+    }
+    const data = {
+      id: 'sample-id',
+      title: 'Announcements 1',
+      summary: 'Summary goes here. Maximum 70 characters?',
+      description: 'Description goes here. Currently there is no limit to description length.'
     }
     const commit = jest.fn()
     const callback = jest.fn()
     const fail = jest.fn()
-
-    const announcement = {
-      'id': 'sample-id',
-      'title': 'Announcement 1',
-      'summary': 'Summary goes here. Maximum 70 characters?',
-      'description': 'Description goes here. Currently there is no limit to description length.'
-    }
-    const data = { ...announcement }
     store.actions.updateAnnouncement({ commit }, { data, callback, fail })
-
-    expect(fail).toHaveBeenCalledTimes(0)
-    expect(callback).toHaveBeenCalledTimes(1)
-    expect(commit).toHaveBeenCalledTimes(1)
+    expect(fail).toBeCalledTimes(0)
     expect(commit).toHaveBeenCalledWith('SET_ANNOUNCEMENT_BY_ID', {
-      'id': 'sample-id',
-      'title': 'Announcement 1 Edited',
-      'summary': 'Summary goes here. Maximum 70 characters?',
-      'description': 'Description goes here. Currently there is no limit to description length.',
-      'files': [
+      "id": "sample-id",
+      "title": "Announcements 1",
+      "summary": "Summary goes here. Maximum 70 characters?",
+      "description": "Description goes here. Currently there is no limit to description length.",
+      "files": [
         {
-          'id': 'sample-id',
-          'file': {
-            'full': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png',
-            'thumbnail': null
+          "id": "sample-id",
+          "file": {
+            "full": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png",
+            "thumbnail": null
           }
         }
       ],
-      'updatedAt': 1555980050616
+      "updatedAt": 1555980050616
     })
+    expect(callback).toHaveBeenCalledTimes(1)
   })
 
-  test('deleteAnnouncementById', async () => {
+  test('deleteAnnouncement', () => {
     api.deleteAnnouncement = (success) => {
       success({
-        'code': 200,
-        'status': 'OK',
-        'data': {
-          'id': 'sample-id',
-          'title': 'Announcement 1',
-          'summary': 'Summary goes here. Maximum 70 characters?',
-          'description': 'Description goes here. Currently there is no limit to description length.',
-          'files': [
-            {
-              'id': 'sample-id',
-              'file': {
-                'full': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png',
-                'thumbnail': null
-              }
+        "id": "sample-id",
+        "title": "Announcements 1",
+        "summary": "Summary goes here. Maximum 70 characters?",
+        "description": "Description goes here. Currently there is no limit to description length.",
+        "files": [
+          {
+            "id": "sample-id",
+            "file": {
+              "full": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png",
+              "thumbnail": null
             }
-          ],
-          'updatedAt': 1555980050616
-        }
+          }
+        ],
+        "updatedAt": 1555980050616
       })
     }
-
-    const commit = jest.fn()
+    const state = {}
+    const data = {'id': 'sample-id'}
     const callback = jest.fn()
     const fail = jest.fn()
-
-    const id = { 'id': 'sample-id' }
-    const data = { ...id }
-    store.actions.deleteAnnouncementById({ commit }, { data, callback, fail })
-
-    expect(fail).toHaveBeenCalledTimes(0)
-    expect(callback).toHaveBeenCalledTimes(1)
+    store.actions.deleteAnnouncementById({ state }, { data, callback, fail })
+    expect(fail).toBeCalledTimes(0)
+    expect(callback).toBeCalledTimes(1)
   })
 })
 
@@ -332,64 +379,171 @@ describe('mutations', () => {
   }
 
   test('SET_ANNOUNCEMENTS', () => {
-    const list = [
+    store.mutations.SET_ANNOUNCEMENTS(state, [
       {
-        'id': 'sample-id',
-        'title': 'Announcement 1',
-        'summary': 'Summary goes here. Maximum 70 characters?',
-        'description': 'Description goes here. Currently there is no limit to description length.',
-        'files': [
+        "id": "sample-id-1",
+        "title": "Announcements 1",
+        "summary": "Summary goes here. Maximum 70 characters?",
+        "description": "Description goes here. Currently there is no limit to description length.",
+        "files": [
           {
-            'id': 'sample-id',
-            'file': {
-              'full': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png',
-              'thumbnail': null
+            "id": "sample-id",
+            "file": {
+              "full": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png",
+              "thumbnail": null
             }
           }
         ],
-        'updatedAt': 1555980050616
+        "updatedAt": 1555980050616
       },
       {
-        'id': 'sample-id',
-        'title': 'Announcement 1',
-        'summary': 'Summary goes here. Maximum 70 characters?',
-        'description': 'Description goes here. Currently there is no limit to description length.',
-        'files': [
+        "id": "sample-id-2",
+        "title": "Announcements 2",
+        "summary": "Summary goes here. Maximum 70 characters?",
+        "description": "Description goes here. Currently there is no limit to description length.",
+        "files": [
           {
-            'id': 'sample-id',
-            'file': {
-              'full': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png',
-              'thumbnail': null
+            "id": "sample-id",
+            "file": {
+              "full": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png",
+              "thumbnail": null
             }
           }
         ],
-        'updatedAt': 1555980050616
+        "updatedAt": 1555980050616
+      },
+      {
+        "id": "sample-id-3",
+        "title": "Announcements 3",
+        "summary": "Summary goes here. Maximum 70 characters?",
+        "description": "Description goes here. Currently there is no limit to description length.",
+        "files": [
+          {
+            "id": "sample-id",
+            "file": {
+              "full": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png",
+              "thumbnail": null
+            }
+          }
+        ],
+        "updatedAt": 1555980050616
+      },
+      {
+        "id": "sample-id-4",
+        "title": "Announcements 4",
+        "summary": "Summary goes here. Maximum 70 characters?",
+        "description": "Description goes here. Currently there is no limit to description length.",
+        "files": [
+          {
+            "id": "sample-id",
+            "file": {
+              "full": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png",
+              "thumbnail": null
+            }
+          }
+        ],
+        "updatedAt": 1555980050616
       }
-    ]
-
-    store.mutations.SET_ANNOUNCEMENTS(state, list)
-    expect(state.announcementList).toEqual({ ...list })
+    ])
+    expect(state.announcementList).toEqual([
+      {
+        "id": "sample-id-1",
+        "title": "Announcements 1",
+        "summary": "Summary goes here. Maximum 70 characters?",
+        "description": "Description goes here. Currently there is no limit to description length.",
+        "files": [
+          {
+            "id": "sample-id",
+            "file": {
+              "full": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png",
+              "thumbnail": null
+            }
+          }
+        ],
+        "updatedAt": 1555980050616
+      },
+      {
+        "id": "sample-id-2",
+        "title": "Announcements 2",
+        "summary": "Summary goes here. Maximum 70 characters?",
+        "description": "Description goes here. Currently there is no limit to description length.",
+        "files": [
+          {
+            "id": "sample-id",
+            "file": {
+              "full": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png",
+              "thumbnail": null
+            }
+          }
+        ],
+        "updatedAt": 1555980050616
+      },
+      {
+        "id": "sample-id-3",
+        "title": "Announcements 3",
+        "summary": "Summary goes here. Maximum 70 characters?",
+        "description": "Description goes here. Currently there is no limit to description length.",
+        "files": [
+          {
+            "id": "sample-id",
+            "file": {
+              "full": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png",
+              "thumbnail": null
+            }
+          }
+        ],
+        "updatedAt": 1555980050616
+      },
+      {
+        "id": "sample-id-4",
+        "title": "Announcements 4",
+        "summary": "Summary goes here. Maximum 70 characters?",
+        "description": "Description goes here. Currently there is no limit to description length.",
+        "files": [
+          {
+            "id": "sample-id",
+            "file": {
+              "full": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png",
+              "thumbnail": null
+            }
+          }
+        ],
+        "updatedAt": 1555980050616
+      }
+    ])
   })
 
   test('SET_ANNOUNCEMENT_BY_ID', () => {
-    const announcementDetail = {
-      'id': 'sample-id',
-      'title': 'Announcement 1',
-      'summary': 'Summary goes here. Maximum 70 characters?',
-      'description': 'Description goes here. Currently there is no limit to description length.',
-      'files': [
+    store.mutations.SET_ANNOUNCEMENT_BY_ID(state, {"id": "sample-id",
+      "title": "Announcements 1",
+      "summary": "Summary goes here. Maximum 70 characters?",
+      "description": "Description goes here. Currently there is no limit to description length.",
+      "files": [
         {
-          'id': 'sample-id',
-          'file': {
-            'full': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png',
-            'thumbnail': null
+          "id": "sample-id",
+          "file": {
+            "full": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png",
+            "thumbnail": null
           }
         }
       ],
-      'updatedAt': 1555980050616
-    }
-
-    store.mutations.SET_ANNOUNCEMENT_BY_ID(state, announcementDetail)
-    expect(state.announcement).toEqual(announcementDetail)
+      "updatedAt": 1555980050616
+    })
+    expect(state.announcement).toEqual({
+      "id": "sample-id",
+      "title": "Announcements 1",
+      "summary": "Summary goes here. Maximum 70 characters?",
+      "description": "Description goes here. Currently there is no limit to description length.",
+      "files": [
+        {
+          "id": "sample-id",
+          "file": {
+            "full": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png",
+            "thumbnail": null
+          }
+        }
+      ],
+      "updatedAt": 1555980050616
+    })
   })
 })
