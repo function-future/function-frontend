@@ -115,7 +115,7 @@ export const announcements = [
       "data": [
         {
           "id": "sample-id-1",
-          "title": "Announcement 1",
+          "title": "Announcements 1",
           "summary": "Summary goes here. Maximum 70 characters?",
           "description": "Description goes here. Currently there is no limit to description length.",
           "files": [
@@ -131,7 +131,7 @@ export const announcements = [
         },
         {
           "id": "sample-id-2",
-          "title": "Announcement 2",
+          "title": "Announcements 2",
           "summary": "Summary goes here. Maximum 70 characters?",
           "description": "Description goes here. Currently there is no limit to description length.",
           "files": [
@@ -147,7 +147,7 @@ export const announcements = [
         },
         {
           "id": "sample-id-3",
-          "title": "Announcement 3",
+          "title": "Announcements 3",
           "summary": "Summary goes here. Maximum 70 characters?",
           "description": "Description goes here. Currently there is no limit to description length.",
           "files": [
@@ -163,7 +163,7 @@ export const announcements = [
         },
         {
           "id": "sample-id-4",
-          "title": "Announcement 4",
+          "title": "Announcements 4",
           "summary": "Summary goes here. Maximum 70 characters?",
           "description": "Description goes here. Currently there is no limit to description length.",
           "files": [
@@ -194,7 +194,7 @@ export const announcements = [
       "status": "CREATED",
       "data": {
         "id": "sample-id",
-        "title": "Announcement 1",
+        "title": "Announcements 1",
         "summary": "Summary goes here. Maximum 70 characters?",
         "description": "Description goes here. Currently there is no limit to description length.",
         "files": [
@@ -222,7 +222,7 @@ export const announcementDetails = [
       "status": "OK",
       "data": {
         "id": "sample-id-1",
-        "title": "Announcement 1",
+        "title": "Announcements 1",
         "summary": "Summary goes here. Maximum 70 characters?",
         "description": "Description goes here. Currently there is no limit to description length.",
         "files": [
@@ -239,7 +239,7 @@ export const announcementDetails = [
     }
   },
   {
-    // Update Announcement
+    // Update Announcements
     method: 'POST',
     url: '/api/core/announcements/sample-id-1',
     response: {
@@ -247,7 +247,7 @@ export const announcementDetails = [
       "status": "OK",
       "data": {
         "id": "sample-id",
-        "title": "Announcement 1",
+        "title": "Announcements 1",
         "summary": "Summary goes here. Maximum 70 characters?",
         "description": "Description goes here. Currently there is no limit to description length.",
         "files": [
@@ -272,7 +272,7 @@ export const announcementDetails = [
       "status": "OK",
       "data": {
         "id": "sample-id",
-        "title": "Announcement 1",
+        "title": "Announcements 1",
         "summary": "Summary goes here. Maximum 70 characters?",
         "description": "Description goes here. Currently there is no limit to description length.",
         "files": [
@@ -289,7 +289,7 @@ export const announcementDetails = [
     }
   },
   {
-    // Update Announcement
+    // Update Announcements
     method: 'PUT',
     url: '/api/core/announcements/sample-id-1',
     response: {
@@ -297,7 +297,7 @@ export const announcementDetails = [
       "status": "OK",
       "data": {
         "id": "sample-id",
-        "title": "Announcement 1 Edited",
+        "title": "Announcements 1 Edited",
         "summary": "Summary goes here. Maximum 70 characters?",
         "description": "Description goes here. Currently there is no limit to description length.",
         "files": [

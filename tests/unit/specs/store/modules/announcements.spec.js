@@ -24,7 +24,7 @@ describe('actions', () => {
         "data": [
           {
             "id": "sample-id-1",
-            "title": "Announcement 1",
+            "title": "Announcements 1",
             "summary": "Summary goes here. Maximum 70 characters?",
             "description": "Description goes here. Currently there is no limit to description length.",
             "files": [
@@ -40,7 +40,7 @@ describe('actions', () => {
           },
           {
             "id": "sample-id-2",
-            "title": "Announcement 2",
+            "title": "Announcements 2",
             "summary": "Summary goes here. Maximum 70 characters?",
             "description": "Description goes here. Currently there is no limit to description length.",
             "files": [
@@ -56,7 +56,7 @@ describe('actions', () => {
           },
           {
             "id": "sample-id-3",
-            "title": "Announcement 3",
+            "title": "Announcements 3",
             "summary": "Summary goes here. Maximum 70 characters?",
             "description": "Description goes here. Currently there is no limit to description length.",
             "files": [
@@ -72,7 +72,7 @@ describe('actions', () => {
           },
           {
             "id": "sample-id-4",
-            "title": "Announcement 4",
+            "title": "Announcements 4",
             "summary": "Summary goes here. Maximum 70 characters?",
             "description": "Description goes here. Currently there is no limit to description length.",
             "files": [
@@ -108,7 +108,7 @@ describe('actions', () => {
     expect(commit).toHaveBeenCalledWith('SET_ANNOUNCEMENTS', [
       {
         "id": "sample-id-1",
-        "title": "Announcement 1",
+        "title": "Announcements 1",
         "summary": "Summary goes here. Maximum 70 characters?",
         "description": "Description goes here. Currently there is no limit to description length.",
         "files": [
@@ -124,7 +124,7 @@ describe('actions', () => {
       },
       {
         "id": "sample-id-2",
-        "title": "Announcement 2",
+        "title": "Announcements 2",
         "summary": "Summary goes here. Maximum 70 characters?",
         "description": "Description goes here. Currently there is no limit to description length.",
         "files": [
@@ -140,7 +140,7 @@ describe('actions', () => {
       },
       {
         "id": "sample-id-3",
-        "title": "Announcement 3",
+        "title": "Announcements 3",
         "summary": "Summary goes here. Maximum 70 characters?",
         "description": "Description goes here. Currently there is no limit to description length.",
         "files": [
@@ -156,7 +156,7 @@ describe('actions', () => {
       },
       {
         "id": "sample-id-4",
-        "title": "Announcement 4",
+        "title": "Announcements 4",
         "summary": "Summary goes here. Maximum 70 characters?",
         "description": "Description goes here. Currently there is no limit to description length.",
         "files": [
@@ -181,7 +181,7 @@ describe('actions', () => {
         "status": "OK",
         "data": {
           "id": "sample-id-1",
-          "title": "Announcement 1",
+          "title": "Announcements 1",
           "summary": "Summary goes here. Maximum 70 characters?",
           "description": "Description goes here. Currently there is no limit to description length.",
           "files": [
@@ -205,7 +205,7 @@ describe('actions', () => {
     expect(fail).toHaveBeenCalledTimes(0)
     expect(commit).toHaveBeenCalledWith('SET_ANNOUNCEMENT_BY_ID', {
       "id": "sample-id-1",
-      "title": "Announcement 1",
+      "title": "Announcements 1",
       "summary": "Summary goes here. Maximum 70 characters?",
       "description": "Description goes here. Currently there is no limit to description length.",
       "files": [
@@ -229,7 +229,7 @@ describe('actions', () => {
         "status": "CREATED",
         "data": {
           "id": "sample-id",
-          "title": "Announcement 1",
+          "title": "Announcements 1",
           "summary": "Summary goes here. Maximum 70 characters?",
           "description": "Description goes here. Currently there is no limit to description length.",
           "files": [
@@ -258,7 +258,7 @@ describe('actions', () => {
     expect(fail).toHaveBeenCalledTimes(0)
     expect(commit).toHaveBeenCalledWith('SET_ANNOUNCEMENT_BY_ID', {
       "id": "sample-id",
-      "title": "Announcement 1",
+      "title": "Announcements 1",
       "summary": "Summary goes here. Maximum 70 characters?",
       "description": "Description goes here. Currently there is no limit to description length.",
       "files": [
@@ -282,7 +282,7 @@ describe('actions', () => {
         "status": "OK",
         "data": {
           "id": "sample-id",
-          "title": "Announcement 1",
+          "title": "Announcements 1",
           "summary": "Summary goes here. Maximum 70 characters?",
           "description": "Description goes here. Currently there is no limit to description length.",
           "files": [
@@ -300,7 +300,7 @@ describe('actions', () => {
     }
     const data = {
       id: 'sample-id',
-      title: 'Announcement 1',
+      title: 'Announcements 1',
       summary: 'Summary goes here. Maximum 70 characters?',
       description: 'Description goes here. Currently there is no limit to description length.'
     }
@@ -311,7 +311,7 @@ describe('actions', () => {
     expect(fail).toBeCalledTimes(0)
     expect(commit).toHaveBeenCalledWith('SET_ANNOUNCEMENT_BY_ID', {
       "id": "sample-id",
-      "title": "Announcement 1",
+      "title": "Announcements 1",
       "summary": "Summary goes here. Maximum 70 characters?",
       "description": "Description goes here. Currently there is no limit to description length.",
       "files": [
@@ -332,7 +332,7 @@ describe('actions', () => {
     api.deleteAnnouncement = (success) => {
       success({
         "id": "sample-id",
-        "title": "Announcement 1",
+        "title": "Announcements 1",
         "summary": "Summary goes here. Maximum 70 characters?",
         "description": "Description goes here. Currently there is no limit to description length.",
         "files": [
@@ -382,7 +382,7 @@ describe('mutations', () => {
     store.mutations.SET_ANNOUNCEMENTS(state, [
       {
         "id": "sample-id-1",
-        "title": "Announcement 1",
+        "title": "Announcements 1",
         "summary": "Summary goes here. Maximum 70 characters?",
         "description": "Description goes here. Currently there is no limit to description length.",
         "files": [
@@ -398,7 +398,7 @@ describe('mutations', () => {
       },
       {
         "id": "sample-id-2",
-        "title": "Announcement 2",
+        "title": "Announcements 2",
         "summary": "Summary goes here. Maximum 70 characters?",
         "description": "Description goes here. Currently there is no limit to description length.",
         "files": [
@@ -414,7 +414,7 @@ describe('mutations', () => {
       },
       {
         "id": "sample-id-3",
-        "title": "Announcement 3",
+        "title": "Announcements 3",
         "summary": "Summary goes here. Maximum 70 characters?",
         "description": "Description goes here. Currently there is no limit to description length.",
         "files": [
@@ -430,7 +430,7 @@ describe('mutations', () => {
       },
       {
         "id": "sample-id-4",
-        "title": "Announcement 4",
+        "title": "Announcements 4",
         "summary": "Summary goes here. Maximum 70 characters?",
         "description": "Description goes here. Currently there is no limit to description length.",
         "files": [
@@ -448,7 +448,7 @@ describe('mutations', () => {
     expect(state.announcementList).toEqual([
       {
         "id": "sample-id-1",
-        "title": "Announcement 1",
+        "title": "Announcements 1",
         "summary": "Summary goes here. Maximum 70 characters?",
         "description": "Description goes here. Currently there is no limit to description length.",
         "files": [
@@ -464,7 +464,7 @@ describe('mutations', () => {
       },
       {
         "id": "sample-id-2",
-        "title": "Announcement 2",
+        "title": "Announcements 2",
         "summary": "Summary goes here. Maximum 70 characters?",
         "description": "Description goes here. Currently there is no limit to description length.",
         "files": [
@@ -480,7 +480,7 @@ describe('mutations', () => {
       },
       {
         "id": "sample-id-3",
-        "title": "Announcement 3",
+        "title": "Announcements 3",
         "summary": "Summary goes here. Maximum 70 characters?",
         "description": "Description goes here. Currently there is no limit to description length.",
         "files": [
@@ -496,7 +496,7 @@ describe('mutations', () => {
       },
       {
         "id": "sample-id-4",
-        "title": "Announcement 4",
+        "title": "Announcements 4",
         "summary": "Summary goes here. Maximum 70 characters?",
         "description": "Description goes here. Currently there is no limit to description length.",
         "files": [
@@ -515,7 +515,7 @@ describe('mutations', () => {
 
   test('SET_ANNOUNCEMENT_BY_ID', () => {
     store.mutations.SET_ANNOUNCEMENT_BY_ID(state, {"id": "sample-id",
-      "title": "Announcement 1",
+      "title": "Announcements 1",
       "summary": "Summary goes here. Maximum 70 characters?",
       "description": "Description goes here. Currently there is no limit to description length.",
       "files": [
@@ -531,7 +531,7 @@ describe('mutations', () => {
     })
     expect(state.announcement).toEqual({
       "id": "sample-id",
-      "title": "Announcement 1",
+      "title": "Announcements 1",
       "summary": "Summary goes here. Maximum 70 characters?",
       "description": "Description goes here. Currently there is no limit to description length.",
       "files": [

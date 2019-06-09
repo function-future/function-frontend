@@ -9,7 +9,7 @@
           {{ stickyNotes.updatedAt | moment("dddd, MMMM Do YYYY") }}
         </div>
         <div class="action">
-          <span @click="goToAddStickyNote"><font-awesome-icon icon="edit" class="icon blue" size="lg"></font-awesome-icon></span>
+          <span class="add-btn" @click="goToAddStickyNote"><font-awesome-icon icon="edit" class="icon blue" size="lg"></font-awesome-icon></span>
         </div>
       </div>
       <div class="preview">
@@ -19,7 +19,41 @@
   </div>
 </template>
 
-<script type="text/javascript" src="./js/StickyNotesDetail.js">
+<script>
+  import { mapActions, mapGetters } from 'vuex'
+  import BaseCard from '@/components/BaseCard'
+
+  export default {
+    name: 'stickyNotes',
+    components: {
+      BaseCard
+    },
+    created () {
+      this.initPage()
+    },
+    computed: {
+      ...mapGetters([
+        'stickyNotes'
+      ])
+    },
+    methods: {
+      ...mapActions([
+        'fetchStickyNotes'
+      ]),
+      initPage () {
+        this.fetchStickyNotes({
+          callback: () => {},
+          fail: () => {
+            this.$toasted.error('Fail to load sticky note detail, please refresh the page')
+          }
+        })
+      },
+      goToAddStickyNote () {
+        this.$router.push({ name: 'editStickyNote' })
+      }
+    }
+  }
+
 </script>
 
 <style scoped>

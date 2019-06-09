@@ -5,13 +5,5 @@ export default {
     buttonClass: {
       type: String
     }
-  },
-  data () {
-    return {
-
-    }
-  },
-  methods: {
-
   }
 }
