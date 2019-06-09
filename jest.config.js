@@ -11,7 +11,7 @@ module.exports = {
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
     '@mock-api(.*)$': '<rootDir>/src/api-mock/',
-    '@test/(.*)$': '<rootDir>/test/$1'
+    '@test/(.*)$': '<rootDir>/tests/$1'
   },
   snapshotSerializers: [
     'jest-serializer-vue'
@@ -22,7 +22,7 @@ module.exports = {
     'src/**/*.vue',
     '!**/node_modules/**'
   ],
-  'coverageDirectory': 'test/unit/coverage',
+  'coverageDirectory': 'tests/unit/coverage',
   'coverageReporters': [
     'lcov',
     'text'
