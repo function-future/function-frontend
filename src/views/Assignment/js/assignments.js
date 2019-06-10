@@ -47,11 +47,12 @@ export default {
           page: 0,
           pageSize: 10
         },
-        fail: (error) => {
-          console.log('Something went wrong')
-          console.log(error)
-        }
+        fail: this.failFetchingAssignmentList
       })
+    },
+    failFetchingAssignmentList ({ error }) {
+      this.$toasted.error('Something went wrong')
+      console.log(error)
     },
     addAssignment () {
       this.$router.push({name: 'addAssignment'})

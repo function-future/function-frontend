@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import assignments from '@/views/Assignment/Assignment'
+import assignments from '@/views/Assignment/Assignments'
 import addAssignment from '@/views/Assignment/AddAssignment'
 import quizzes from '@/views/Quiz/Quiz'
 import feeds from '@/views/Feeds/Feeds.vue'
