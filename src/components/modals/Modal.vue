@@ -17,7 +17,7 @@
   </div>
 </template>
 
-<script type="text/javascript" src="./js/Modal.js"></script>
+<script type="text/javascript" src="./js/modal.js"></script>
 
 <style lang="scss" scoped>
   .modal {

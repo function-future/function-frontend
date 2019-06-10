@@ -9,7 +9,7 @@
           {{ stickyNotes.updatedAt | moment("dddd, MMMM Do YYYY") }}
         </div>
         <div class="action">
-          <span @click="goToAddStickyNote"><font-awesome-icon icon="edit" class="icon blue" size="lg"></font-awesome-icon></span>
+          <span class="add-btn" @click="goToAddStickyNote"><font-awesome-icon icon="edit" class="icon blue" size="lg"></font-awesome-icon></span>
         </div>
       </div>
       <div class="preview">
@@ -19,7 +19,7 @@
   </div>
 </template>
 
-<script type="text/javascript" src="./js/StickyNotesDetail.js">
+<script type="text/javascript" src="./js/sticky-notes-detail.js">
 </script>
 
 <style scoped>

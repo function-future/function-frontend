@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import assignments from '@/views/Assignment/Assignment'
+import assignments from '@/views/Assignment/Assignments'
 import addAssignment from '@/views/Assignment/AddAssignment'
 import quizzes from '@/views/Quiz/Quiz'
 import feeds from '@/views/Feeds/Feeds.vue'
@@ -76,7 +76,7 @@ export default new Router({
       name: 'announcementDetail',
       component: announcementDetail,
       meta: {
-        title: 'Announcement Detail'
+        title: 'Announcements Detail'
       }
     },
     {
@@ -84,7 +84,7 @@ export default new Router({
       name: 'editAnnouncement',
       component: announcementForm,
       meta: {
-        title: 'Edit Announcement'
+        title: 'Edit Announcements'
       },
       props: { editMode: true }
     },
@@ -93,7 +93,7 @@ export default new Router({
       name: 'addAnnouncement',
       component: announcementForm,
       meta: {
-        title: 'Add Announcement'
+        title: 'Add Announcements'
       },
       props: { editMode: false }
     },
@@ -118,7 +118,7 @@ export default new Router({
       name: 'users',
       component: users,
       meta: {
-        title: 'Users'
+        title: 'users'
       }
     },
     {

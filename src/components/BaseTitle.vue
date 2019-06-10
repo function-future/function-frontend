@@ -4,7 +4,7 @@
   </div>
 </template>
 
-<script type="text/javascript" src="./js/BaseTitle.js">
+<script type="text/javascript" src="./js/base-title.js">
 </script>
 
 <style scoped>

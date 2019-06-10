@@ -8,6 +8,9 @@ import {
   activityBlogDetail,
   resources
 } from '@/api-mock/mock/core-routes'
+import {
+  assignments
+} from '@/api-mock/mock/scoring-routes'
 
 const mock = new MockAdapter(axios)
 
@@ -40,4 +43,8 @@ activityBlogDetail.forEach(data => {
 
 resources.forEach(data => {
   mock[methodMap[data.method]](data.url).reply(200, data)
+})
+
+assignments.forEach(data => {
+  mock[methodMap[data.method]] (data.url).reply(200, data)
 })

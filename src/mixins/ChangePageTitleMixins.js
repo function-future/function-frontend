@@ -13,6 +13,8 @@ export default {
     }
   },
   watch: {
-    '$route': 'fetchTitle'
+    $route () {
+      this.title = this.$route.meta.title
+    }
   }
 }

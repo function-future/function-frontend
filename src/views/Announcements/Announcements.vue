@@ -45,7 +45,7 @@
   </div>
 </template>
 
-<script type="text/javascript" src="./js/Announcements.js"></script>
+<script type="text/javascript" src="./js/announcements.js"></script>
 
 <style scoped>
   .announcement-card {

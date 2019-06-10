@@ -7,7 +7,7 @@ export const state = {
 
 export const mutations = {
   SET_ANNOUNCEMENTS (state, payload) {
-    state.announcementList = { ...payload }
+    state.announcementList = [ ...payload ]
   },
   SET_ANNOUNCEMENT_BY_ID (state, payload) {
     state.announcement = { ...payload }
@@ -43,8 +43,8 @@ export const actions = {
       callback()
     }, data, fail)
   },
-  deleteAnnouncementById ({ commit }, { data, callback, fail }) {
-    announcementApi.deleteAnnouncement(({ data: response }) => {
+  deleteAnnouncementById ({ state }, { data, callback, fail }) {
+    announcementApi.deleteAnnouncement(() => {
       callback()
     }, data, fail)
   }

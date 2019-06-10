@@ -29,7 +29,7 @@
   </nav>
 </template>
 
-<script type="text/javascript" src="./js/HeaderComp.js">
+<script type="text/javascript" src="./js/header-comp.js">
 </script>
 
 <style scoped>

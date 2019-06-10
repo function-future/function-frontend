@@ -9,8 +9,8 @@
           {{ announcement.updatedAt | moment("dddd, MMMM Do YYYY") }}
         </div>
         <div class="action">
-          <span @click="goToEditAnnouncement"><font-awesome-icon icon="edit" class="icon blue" size="lg"></font-awesome-icon></span>
-          <span @click="openDeleteConfirmationModal"><font-awesome-icon icon="trash-alt" class="icon red" size="lg"></font-awesome-icon></span>
+          <span class="edit-btn" @click="goToEditAnnouncement"><font-awesome-icon icon="edit" class="icon blue" size="lg"></font-awesome-icon></span>
+          <span class="delete-btn" @click="openDeleteConfirmationModal"><font-awesome-icon icon="trash-alt" class="icon red" size="lg"></font-awesome-icon></span>
         </div>
       </div>
       <div class="summary">
@@ -28,7 +28,7 @@
   </div>
 </template>
 
-<script type="text/javascript" src="./js/AnnouncementDetail.js"></script>
+<script type="text/javascript" src="./js/announcement-detail.js"></script>
 
 <style scoped>
   .card {
