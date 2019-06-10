@@ -66,6 +66,12 @@ describe('AnnouncementDetail.vue', () => {
         }
       }
     })
+    router.push({
+      name: 'announcementDetail',
+      params: {
+        id: 'sample-id'
+      }
+    })
   })
 
   test('Is an instance', () => {
@@ -103,4 +109,89 @@ describe('AnnouncementDetail.vue', () => {
     })
     expect(wrapper.html()).toContain('basecard')
   })
+
+  test('goToEditAnnouncement', async () => {
+    const push = jest.fn()
+    const $route = {
+      params: {
+        id: 'sample-id'
+      }
+    }
+    const $router = {
+      push: jest.fn()
+    }
+    const localVue = createLocalVue()
+    localVue.use(Vuex)
+    const wrapper = shallowMount(AnnouncementDetail, {
+      store,
+      localVue,
+      mocks: {
+        $route,
+        $router
+      },
+      sync: false
+    })
+    wrapper.vm.$router.push = push
+    wrapper.find('.edit-btn').trigger('click')
+    await wrapper.vm.$nextTick()
+    expect(push).toBeCalledWith({
+      name: 'editAnnouncement',
+      params: { id: 'sample-id' }
+    })
+  })
+
+  test('openDeleteConfirmationModal', async () => {
+    const wrapper = shallowMount(AnnouncementDetail, {
+      store,
+      localVue,
+      router
+    })
+    wrapper.vm.openDeleteConfirmationModal()
+    expect(wrapper.vm.showDeleteConfirmationModal).toBeTruthy()
+  })
+
+  test('deleteThisAnnouncement, deleteAnnouncementById is called', async () => {
+    const spy = jest.spyOn(AnnouncementDetail.methods, 'deleteAnnouncementById')
+    const $route = {
+      params: {
+        id: 'sample-id'
+      }
+    }
+    const localVue = createLocalVue()
+    localVue.use(Vuex)
+    const wrapper = shallowMount(AnnouncementDetail, {
+      store,
+      localVue,
+      mocks: {
+        $route
+      }
+    })
+    wrapper.vm.deleteThisAnnouncement()
+    expect(spy).toBeCalledTimes(1)
+  })
+
+  // test('deleteThisAnnouncement, router.push is called', async () => {
+  //   const push = jest.fn()
+  //   const $route = {
+  //     params: {
+  //       id: 'sample-id'
+  //     }
+  //   }
+  //   const $router = {
+  //     push: jest.fn()
+  //   }
+  //   const localVue = createLocalVue()
+  //   localVue.use(Vuex)
+  //   const wrapper = shallowMount(AnnouncementDetail, {
+  //     store,
+  //     localVue,
+  //     mocks: {
+  //       $route,
+  //       $router
+  //     }
+  //   })
+  //   wrapper.vm.$router.push = push
+  //   wrapper.vm.deleteThisAnnouncement()
+  //   expect(push).toBeCalledWith({ name: 'announcements' })
+  // })
 })
