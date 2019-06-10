@@ -10,7 +10,7 @@
     </div>
 </template>
 
-<script type="text/javascript" src="./js/BaseTextArea.js">
+<script type="text/javascript" src="./js/base-text-area.js">
 </script>
 
 <style scoped>

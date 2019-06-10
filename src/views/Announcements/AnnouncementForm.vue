@@ -42,7 +42,7 @@
   </div>
 </template>
 
-<script type="text/javascript" src="./js/AnnouncementForm.js"></script>
+<script type="text/javascript" src="./js/announcement-form.js"></script>
 
 <style scoped>
   .edit-container {

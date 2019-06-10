@@ -46,7 +46,7 @@
   </div>
 </template>
 
-<script type="text/javascript" src="./js/Comparisons.js"/>
+<script type="text/javascript" src="./js/comparisons.js"/>
 
 <style scoped>
   .page-header {

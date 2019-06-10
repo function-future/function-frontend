@@ -28,7 +28,7 @@
   </div>
 </template>
 
-<script type="text/javascript" src="./js/AnnouncementDetail.js"></script>
+<script type="text/javascript" src="./js/announcement-detail.js"></script>
 
 <style scoped>
   .card {

@@ -31,7 +31,7 @@
   </div>
 </template>
 
-<script type="text/javascript" src="./js/EditStickyNote.js">
+<script type="text/javascript" src="./js/edit-sticky-note.js">
 </script>
 
 <style scoped>

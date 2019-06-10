@@ -18,7 +18,7 @@
   </div>
 </template>
 
-<script type="text/javascript" src="./js/ModalDeleteConfirmation.js"></script>
+<script type="text/javascript" src="./js/modal-delete-confirmation.js"></script>
 
 <style lang="scss" scoped>
   .modal {

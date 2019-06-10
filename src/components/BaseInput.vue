@@ -10,7 +10,7 @@
     </div>
 </template>
 
-<script type="text/javascript" src="./js/BaseInput.js">
+<script type="text/javascript" src="./js/base-input.js">
 </script>
 
 <style scoped>

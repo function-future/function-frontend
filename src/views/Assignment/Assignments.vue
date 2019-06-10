@@ -43,7 +43,7 @@
   </div>
 </template>
 
-<script type="text/javascript" src="./js/Assignment.js"/>
+<script type="text/javascript" src="./js/assignments.js"/>
 
 <style scoped>
   .page-header {

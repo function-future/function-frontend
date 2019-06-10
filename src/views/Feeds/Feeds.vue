@@ -28,7 +28,7 @@
   </div>
 </template>
 
-<script type="text/javascript" src="./js/Feeds.js">
+<script type="text/javascript" src="./js/feeds.js">
 </script>
 
 <style scoped>
