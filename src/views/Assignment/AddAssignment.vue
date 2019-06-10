@@ -6,13 +6,13 @@
       </div>
       <div class="assignment-body">
         <div class="description">
-          <BaseTextArea class="input-description" placeholder="Question Goes Here" v-model="assignment.question"></BaseTextArea>
+          <BaseTextArea class="input-description" placeholder="Question Goes Here" v-model="assignment.description"></BaseTextArea>
         </div>
         <div class="assignment-detail">
           <div class="assignment-detail-batch">
             <BaseSelect v-model="assignment.batch" :options="batches"></BaseSelect>
           </div>
-          <v-date-picker class="assignment-detail-deadline" v-model="assignment.date" is-inline/>
+          <v-date-picker class="assignment-detail-deadline" v-model="assignment.deadline" is-inline/>
           <div class="assignment-detail-file">
             <span class="assignment-detail-file-name">File.txt</span>
             <div class="assignment-detail-file-actions">

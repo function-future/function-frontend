@@ -1,6 +1,6 @@
 sonar.projectKey=function-frontend
 sonar.projectName=function-frontend
-sonar.projectVersion=0.1.0
+sonar.projectVersion={{APP_VERSION}}
 
 sonar.sources=src
 sonar.sourceEncoding=UTF-8
