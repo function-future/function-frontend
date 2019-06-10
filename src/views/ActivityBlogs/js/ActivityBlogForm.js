@@ -11,7 +11,8 @@ export default {
   },
   data () {
     return {
-      activityBlogDetail: {}
+      activityBlogDetail: {},
+      img_file: {}
     }
   },
   props: [
@@ -61,16 +62,22 @@ export default {
     $imgAdd (pos, $file) {
       let data = new FormData()
       data.append('image', $file)
+      this.img_file[pos] = $file
       let configuration = { headers: { 'Content-Type': 'multipart/form-data' } }
 
       this.uploadResource({
         data,
+        configuration,
         callback: (response) => {
-          $vm.$img2Url(pos, response.data.file.full)
+          this.$refs.md.$img2Url(pos, response.file.full)
         },
-        fail: () => {},
-        configuration
+        fail: () => {
+          this.$toasted.error('Fail to upload image, please delete the image and re-upload')
+        }
       })
+    },
+    $imgDel (pos) {
+      delete this.img_file[pos]
     },
     validateBeforeSubmit (callback) {
       this.$validator.validateAll().then(callback)
