@@ -46,7 +46,7 @@
   </div>
 </template>
 
-<script type="text/javascript" src="./js/Quiz.js"/>
+<script type="text/javascript" src="./js/quiz.js"/>
 
 <style scoped>
 .page-header {

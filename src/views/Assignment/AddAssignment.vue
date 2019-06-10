@@ -38,8 +38,7 @@
   </div>
 </template>
 
-<script type="text/javascript" src="./js/AddAssignment.js"/>
-
+<script type="text/javascript" src="./js/add-assignment.js"/>
 
 <style scoped>
   .edit-container {
