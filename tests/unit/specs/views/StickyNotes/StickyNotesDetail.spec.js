@@ -98,7 +98,7 @@ describe('StickyNotesDetail.js', () => {
     })
   })
 
-  test('initPage', async () => {
+  test('initPage', () => {
     const initSpy = jest.spyOn(StickyNotesDetail.methods, 'initPage')
     wrapper = shallowMount(StickyNotesDetail, {
       store,
@@ -107,6 +107,16 @@ describe('StickyNotesDetail.js', () => {
     })
     expect(initSpy).toHaveBeenCalled()
   })
+
+  // test('fetchStickyNoteFailed', () => {
+  //   wrapper = shallowMount(StickyNotesDetail, {
+  //     store,
+  //     localVue,
+  //     sync: false
+  //   })
+  //   wrapper.vm.fetchStickyNoteFailed()
+  //   expect().toBeCalledTimes(1)
+  // })
 
   test('goToAddStickyNotes', async () => {
     const $route = {
