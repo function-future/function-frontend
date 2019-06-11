@@ -29,7 +29,7 @@
   </div>
 </template>
 
-<script type="text/javascript" src="./js/ActivityBlogDetail.js">
+<script type="text/javascript" src="./js/activity-blog-detail.js">
 </script>
 
 <style scoped>

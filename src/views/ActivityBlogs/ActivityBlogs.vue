@@ -38,7 +38,7 @@
   </div>
 </template>
 
-<script type="text/javascript" src="./js/ActivityBlogs.js">
+<script type="text/javascript" src="./js/activity-blogs.js">
 </script>
 
 <style scoped>

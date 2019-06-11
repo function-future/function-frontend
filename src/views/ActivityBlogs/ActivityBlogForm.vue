@@ -36,7 +36,7 @@
   </div>
 </template>
 
-<script type="text/javascript" src="./js/ActivityBlogForm.js">
+<script type="text/javascript" src="./js/activity-blog-form.js">
 </script>
 
 <style scoped>
