@@ -9,7 +9,7 @@
             :lineClass="'default-tabs__active-line'"
             @onClick="changeTab">
       </tabs>
-      <BaseButton type="submit" buttonClass="button-save">
+      <BaseButton type="submit" buttonClass="button-save" @click="goToAddUser">
         <span><font-awesome-icon icon="plus" class="icon"/> New</span>
       </BaseButton>
     </div>

@@ -73,6 +73,9 @@ export default {
   methods: {
     changeTab (destinationTab) {
       this.currentTab = destinationTab
+    },
+    goToAddUser () {
+      this.$router.push({ name: 'addUser' })
     }
   }
 }
