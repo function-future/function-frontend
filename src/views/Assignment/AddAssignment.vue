@@ -12,7 +12,8 @@
           <div class="assignment-detail-batch">
             <BaseSelect v-model="assignment.batch" :options="batches"></BaseSelect>
           </div>
-          <v-date-picker class="assignment-detail-deadline" v-model="assignment.deadline" is-inline/>
+          <v-date-picker class="assignment-detail-deadline" v-model="assignment.deadline" is-inline>
+          </v-date-picker>
           <div class="assignment-detail-file">
             <span class="assignment-detail-file-name">File.txt</span>
             <div class="assignment-detail-file-actions">
