@@ -47,9 +47,7 @@ export default {
       this.fetchActivityBlogById({
         data,
         callback: () => {},
-        fail: () => {
-          this.$toasted.error('Fail to load activity blog detail')
-        }
+        fail: this.failFetchActivityBlogById
       })
     },
     setActivityBlogDetail () {
@@ -99,34 +97,41 @@ export default {
     sendCreateActivityBlogData (data) {
       this.createActivityBlog({
         data,
-        callback: () => {
-          this.initialState()
-          this.$router.push({ name: 'activityBlogs' })
-          this.$toasted.success('Successfully created new activity blog')
-        },
-        fail: () => {
-          this.$toasted.error('Fail to create new activity blog')
-        }
+        callback: this.successCreateActivityBlog,
+        fail: this.failCreateActivityBlog
       })
     },
     sendUpdateActivityBlogData (data) {
       this.updateActivityBlog({
         data,
-        callback: () => {
-          this.$router.push({
-            name: 'activityBlogDetail',
-            params: { id: this.activityBlogDetail.id }
-          })
-          this.$toasted.success('Successfully update activity blog')
-          this.initialState()
-        },
-        fail: () => {
-          this.$toasted.error('Fail to update activity blog')
-        }
+        callback: this.successUpdateActivityBlog,
+        fail: this.failUpdateActivityBlog
       })
     },
     cancel () {
       this.$router.go(-1)
+    },
+    failFetchActivityBlogById () {
+      this.$toasted.error('Fail to load activity blog detail')
+    },
+    successCreateActivityBlog () {
+      this.initialState()
+      this.$router.push({ name: 'activityBlogs' })
+      this.$toasted.success('Successfully created new activity blog')
+    },
+    failCreateActivityBlog () {
+      this.$toasted.error('Fail to create new activity blog')
+    },
+    successUpdateActivityBlog () {
+      this.$router.push({
+        name: 'activityBlogDetail',
+        params: { id: this.activityBlogDetail.id }
+      })
+      this.$toasted.success('Successfully update activity blog')
+      this.initialState()
+    },
+    failUpdateActivityBlog () {
+      this.$toasted.error('Fail to update activity blog')
     }
   }
 }

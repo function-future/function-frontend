@@ -41,12 +41,8 @@ export default {
 
       this.fetchActivityBlogById({
         data,
-        callback: () => {
-          this.activityBlogDescriptionMarkdown = this.activityBlog.description
-        },
-        fail: () => {
-          this.$toasted.error('Fail to load activity blog detail')
-        }
+        callback: this.successFetchActivityBlogById,
+        fail: this.failFetchActivityBlogById
       })
     },
     goToEditActivityBlog () {
@@ -64,15 +60,23 @@ export default {
 
       this.deleteActivityBlogById({
         data,
-        callback: () => {
-          this.$router.push({ name: 'activityBlogs' })
-          this.$toasted.success('successfully delete activity blog')
-        },
-        fail: () => {
-          this.$toasted.error('Fail to delete activity blog')
-          this.showDeleteConfirmationModal = false
-        }
+        callback: this.successDeleteActivityBlogById,
+        fail: this.failDeleteActivityBlogById
       })
+    },
+    successFetchActivityBlogById () {
+      this.activityBlogDescriptionMarkdown = this.activityBlog.description
+    },
+    failFetchActivityBlogById () {
+      this.$toasted.error('Fail to load activity blog detail')
+    },
+    successDeleteActivityBlogById () {
+      this.$router.push({ name: 'activityBlogs' })
+      this.$toasted.success('successfully delete activity blog')
+    },
+    failDeleteActivityBlogById () {
+      this.$toasted.error('Fail to delete activity blog')
+      this.showDeleteConfirmationModal = false
     }
   }
 }

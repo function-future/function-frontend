@@ -40,9 +40,7 @@ export default {
       this.fetchActivityBlogs({
         data,
         callback: () => {},
-        fail: () => {
-          this.$toasted.error('Fail to load activity blogs list')
-        }
+        fail: this.failFetchActivityBlogs
       })
     },
     compileToMarkdown: function (description) {
@@ -79,16 +77,21 @@ export default {
 
       this.deleteActivityBlogById({
         data,
-        callback: () => {
-          this.$router.push({ name: 'activityBlogs' })
-          this.$toasted.success('successfully delete activity blog')
-          this.closeDeleteConfirmationModal()
-        },
-        fail: () => {
-          this.$toasted.error('Fail to delete activity blog')
-          this.closeDeleteConfirmationModal()
-        }
+        callback: this.successDeleteActivityBlogById,
+        fail: this.failDeleteActivityBlogById
       })
+    },
+    failFetchActivityBlogs () {
+      this.$toasted.error('Fail to load activity blogs list')
+    },
+    successDeleteActivityBlogById () {
+      this.$router.push({ name: 'activityBlogs' })
+      this.$toasted.success('successfully delete activity blog')
+      this.closeDeleteConfirmationModal()
+    },
+    failDeleteActivityBlogById () {
+      this.$toasted.error('Fail to delete activity blog')
+      this.closeDeleteConfirmationModal()
     }
   }
 }
