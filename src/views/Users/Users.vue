@@ -38,7 +38,7 @@
   </div>
 </template>
 
-<script type="text/javascript" src="./js/Users.js">
+<script type="text/javascript" src="./js/users.js">
 </script>
 
 <style>
