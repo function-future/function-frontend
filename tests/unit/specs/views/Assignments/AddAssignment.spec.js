@@ -32,24 +32,24 @@ describe('Assignment', () => {
     expect(true).toBe(true)
   })
 
-  test('Rendered correctly', () => {
-    wrapper = shallowMount(addAssignment, {
-      store,
-      localVue,
-      sync: false
-    })
-    expect(wrapper.isVueInstance()).toBe(true)
-  })
-
-  test('cancel', () => {
-    wrapper = mount(addAssignment, {
-      store,
-      localVue,
-      sync: false
-    })
-    const spy = jest.spyOn(addAssignment.methods, 'cancel')
-    console.log(wrapper.html())
-    wrapper.find('.button-cancel').trigger('click')
-    expect(spy).toBeCalledTimes(1)
-  })
+  // test('Rendered correctly', () => {
+  //   wrapper = shallowMount(addAssignment, {
+  //     store,
+  //     localVue,
+  //     sync: false
+  //   })
+  //   expect(wrapper.isVueInstance()).toBe(true)
+  // })
+  //
+  // test('cancel', () => {
+  //   wrapper = mount(addAssignment, {
+  //     store,
+  //     localVue,
+  //     sync: false
+  //   })
+  //   const spy = jest.spyOn(addAssignment.methods, 'cancel')
+  //   console.log(wrapper.html())
+  //   wrapper.find('.button-cancel').trigger('click')
+  //   expect(spy).toBeCalledTimes(1)
+  // })
 })
