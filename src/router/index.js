@@ -6,6 +6,7 @@ import blogs from '@/views/ActivityBlogs/ActivityBlogs.vue'
 import users from '@/views/Users/Users.vue'
 import stickyNotes from '@/views/StickyNotes/StickyNotesDetail.vue'
 import editStickyNote from '@/views/StickyNotes/EditStickyNote.vue'
+import UserForm from '@/views/Users/UserForm.vue'
 import config from '@/config/index'
 
 Vue.use(Router)
@@ -84,6 +85,14 @@ export default new Router({
       component: editStickyNote,
       meta: {
         title: 'Edit Sticky Notes'
+      }
+    },
+    {
+      path: '/users/add',
+      name: 'addUser',
+      component: UserForm,
+      meta: {
+        title: 'Add User'
       }
     }
   ]

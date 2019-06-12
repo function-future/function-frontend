@@ -12,6 +12,7 @@ export default {
   data () {
     return {
       user: {
+        image: '',
         name: '',
         phone: '',
         email: '',
@@ -20,6 +21,24 @@ export default {
         batch: '',
         division: ''
       }
+    }
+  },
+  methods: {
+    onFileChange (user, e) {
+      let files = e.target.files || e.dataTransfer.files
+      if (!files.length) {
+        return
+      }
+      this.createImage(user, files[0])
+    },
+    createImage (user, file) {
+      let image = new Image()
+      let reader = new FileReader()
+
+      reader.onload = (e) => {
+        user.image = e.target.result
+      }
+      reader.readAsDataURL(file)
     }
   }
 }

@@ -3,8 +3,9 @@
     <div class="form-container">
       <div class="row">
         <div class="column image-column">
-          <div class="image">
-            <div class="image-edit"><font-awesome-icon icon="pencil-alt" class="icon"/> edit</div>
+          <div class="image" :style="{ backgroundImage: 'url(' + user.image + ')' }">
+            <input type="file" name="image" id="upload-image" @change="onFileChange(user, $event)" style="display: none"/>
+            <label for="upload-image" class="image-edit"><font-awesome-icon icon="pencil-alt" class="icon"/> edit</label>
           </div>
         </div>
         <div class="column input-column">
@@ -99,6 +100,9 @@
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
     padding-top: 100%;
     position: relative;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
   }
 
   .image-edit {
@@ -107,7 +111,7 @@
     color: #FFFFFF;
     padding: 5px 10px;
     border-radius: 5px;
-    opacity: 0.5;
+    opacity: 0.9;
     position: absolute;
     right: 10px;
     bottom: 10px;
