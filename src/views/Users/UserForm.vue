@@ -3,8 +3,8 @@
     <div class="form-container">
       <div class="row">
         <div class="column image-column">
-          <div class="image" :style="{ backgroundImage: 'url(' + user.image + ')' }">
-            <input type="file" name="image" id="upload-image" @change="onFileChange(user, $event)" style="display: none"/>
+          <div class="image" :style="{ backgroundImage: 'url(' + imagePreview + ')' }">
+            <input type="file" name="image" id="upload-image" @change="onFileChange($event)" style="display: none"/>
             <label for="upload-image" class="image-edit"><font-awesome-icon icon="pencil-alt" class="icon"/> edit</label>
           </div>
         </div>
@@ -58,7 +58,7 @@
           <BaseButton type="cancel" buttonClass="button-cancel" @click="cancel">Cancel</BaseButton>
         </div>
         <div class="action-button">
-          <BaseButton type="submit" buttonClass="button-save" @click="postStickyNote">Save</BaseButton>
+          <BaseButton type="submit" buttonClass="button-save" @click="createUser">Save</BaseButton>
         </div>
       </div>
     </div>

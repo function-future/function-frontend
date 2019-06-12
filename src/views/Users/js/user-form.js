@@ -11,6 +11,7 @@ export default {
   },
   data () {
     return {
+      imagePreview: '',
       user: {
         image: '',
         name: '',
@@ -24,21 +25,26 @@ export default {
     }
   },
   methods: {
-    onFileChange (user, e) {
+    onFileChange (e) {
+      this.user.image = e.target.files[0]
       let files = e.target.files || e.dataTransfer.files
       if (!files.length) {
         return
       }
-      this.createImage(user, files[0])
+      this.createImage(files[0])
     },
-    createImage (user, file) {
-      let image = new Image()
+    createImage (file) {
       let reader = new FileReader()
 
       reader.onload = (e) => {
-        user.image = e.target.result
+        this.imagePreview = e.target.result
       }
       reader.readAsDataURL(file)
+    },
+    imageUpload () {
+      let formData = new FormData()
+      formData.append('myFile', this.user.image, this.user.image.name)
+      //continue post logic
     }
   }
 }
