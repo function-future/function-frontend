@@ -13,7 +13,6 @@ const getRequest = function (path, callback, errorHandler, configuration) {
       }
     })
 }
-module.exports.getRequest = getRequest
 
 const postRequest = function (path, callback, data, errorHandler, configuration) {
   axios.post(path, data, configuration)
@@ -26,7 +25,6 @@ const postRequest = function (path, callback, data, errorHandler, configuration)
       }
     })
 }
-module.exports.postRequest = postRequest
 
 const putRequest = function (path, callback, data, errorHandler, configuration) {
   axios.put(path, data, configuration)
@@ -39,7 +37,6 @@ const putRequest = function (path, callback, data, errorHandler, configuration) 
       }
     })
 }
-module.exports.putRequest = putRequest
 
 const deleteRequest = function (path, callback, errorHandler, configuration) {
   axios.delete(path, configuration)
@@ -52,7 +49,6 @@ const deleteRequest = function (path, callback, errorHandler, configuration) {
       }
     })
 }
-module.exports.deleteRequest = deleteRequest
 
 export default {
   getRequest,

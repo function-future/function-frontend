@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import assignments from '@/views/Assignment/Assignments'
-import addAssignment from '@/views/Assignment/AddAssignment'
+import assignments from '@/views/Assignments/Assignments'
+import addAssignment from '@/views/Assignments/AddAssignment'
 import quizzes from '@/views/Quiz/Quiz'
 import feeds from '@/views/Feeds/Feeds.vue'
 import announcements from '@/views/Announcements/Announcements.vue'
@@ -138,7 +138,7 @@ export default new Router({
       name: 'addAssignment',
       component: addAssignment,
       meta: {
-        title: 'Add Assignment'
+        title: 'Add Assignments'
       }
     },
     {

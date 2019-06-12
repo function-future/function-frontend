@@ -16,7 +16,7 @@ describe('actions', () => {
         'data': [
           {
             'id': 'ASG0001',
-            'title': 'Assignment 1',
+            'title': 'Assignments 1',
             'description': 'Description Number 1',
             'deadline': 15000000,
             'batch': 3,
@@ -24,7 +24,7 @@ describe('actions', () => {
           },
           {
             'id': 'ASG0002',
-            'title': 'Assignment 2',
+            'title': 'Assignments 2',
             'description': 'Description Number 2',
             'deadline': 30000000,
             'batch': 3,
@@ -51,7 +51,7 @@ describe('actions', () => {
     expect(commit).toHaveBeenCalledWith('GET_ASSIGNMENT_LIST', [
       {
         'id': 'ASG0001',
-        'title': 'Assignment 1',
+        'title': 'Assignments 1',
         'description': 'Description Number 1',
         'deadline': 15000000,
         'batch': 3,
@@ -59,7 +59,7 @@ describe('actions', () => {
       },
       {
         'id': 'ASG0002',
-        'title': 'Assignment 2',
+        'title': 'Assignments 2',
         'description': 'Description Number 2',
         'deadline': 30000000,
         'batch': 3,
@@ -75,7 +75,7 @@ describe('actions', () => {
         'status': 'CREATED',
         'data': {
           'id': 'ASG0001',
-          'title': 'Assignment 1',
+          'title': 'Assignments 1',
           'description': 'Description Number 1',
           'deadline': 1500000000,
           'file': 'function-static.com/fileName.docx',
@@ -85,7 +85,7 @@ describe('actions', () => {
     }
     const payload = {
       'id': 'ASG0001',
-      'title': 'Assignment 1',
+      'title': 'Assignments 1',
       'description': 'Description Number 1',
       'deadline': 1500000000,
       'file': 'function-static.com/fileName.docx',
@@ -125,7 +125,7 @@ describe('mutations', () => {
     store.mutations.GET_ASSIGNMENT_LIST(state, [
       {
         'id': 'ASG0001',
-        'title': 'Assignment 1',
+        'title': 'Assignments 1',
         'description': 'Description Number 1',
         'deadline': 15000000,
         'batch': 3,
@@ -133,7 +133,7 @@ describe('mutations', () => {
       },
       {
         'id': 'ASG0002',
-        'title': 'Assignment 2',
+        'title': 'Assignments 2',
         'description': 'Description Number 2',
         'deadline': 30000000,
         'batch': 3,
@@ -143,7 +143,7 @@ describe('mutations', () => {
     expect(state.assignmentList).toEqual([
       {
         'id': 'ASG0001',
-        'title': 'Assignment 1',
+        'title': 'Assignments 1',
         'description': 'Description Number 1',
         'deadline': 15000000,
         'batch': 3,
@@ -151,7 +151,7 @@ describe('mutations', () => {
       },
       {
         'id': 'ASG0002',
-        'title': 'Assignment 2',
+        'title': 'Assignments 2',
         'description': 'Description Number 2',
         'deadline': 30000000,
         'batch': 3,
@@ -163,7 +163,7 @@ describe('mutations', () => {
   test('SET_ASSIGNMENT', () => {
     store.mutations.SET_ASSIGNMENT(state, {
       'id': 'ASG0001',
-      'title': 'Assignment 1',
+      'title': 'Assignments 1',
       'description': 'Description Number 1',
       'deadline': 1500000000,
       'file': 'function-static.com/fileName.docx',
@@ -171,7 +171,7 @@ describe('mutations', () => {
     })
     expect(state.assignment).toEqual({
       'id': 'ASG0001',
-      'title': 'Assignment 1',
+      'title': 'Assignments 1',
       'description': 'Description Number 1',
       'deadline': 1500000000,
       'file': 'function-static.com/fileName.docx',
