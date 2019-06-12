@@ -4,7 +4,7 @@
     </div>
 </template>
 
-<script type="text/javascript" src="./js/BaseCard.js">
+<script type="text/javascript" src="./js/base-card.js">
 </script>
 
 <style scoped>
@@ -23,5 +23,9 @@
     cursor: pointer;
     transition: all .3s ease;
     box-shadow: 2px 2px 10px rgba(0,0,0,0.1), 2px 2px 10px rgba(0,0,0,0.3);
+  }
+
+  .no-pointer:hover {
+    cursor: default;
   }
 </style>

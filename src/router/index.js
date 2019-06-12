@@ -1,7 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import assignments from '@/views/Assignments/Assignments'
+import addAssignment from '@/views/Assignments/AddAssignment'
+import quizzes from '@/views/Quiz/Quiz'
 import feeds from '@/views/Feeds/Feeds.vue'
 import announcements from '@/views/Announcements/Announcements.vue'
+import announcementDetail from '@/views/Announcements/AnnouncementDetail.vue'
+import announcementForm from '@/views/Announcements/AnnouncementForm.vue'
 import blogs from '@/views/ActivityBlogs/ActivityBlogs.vue'
 import users from '@/views/Users/Users.vue'
 import stickyNotes from '@/views/StickyNotes/StickyNotesDetail.vue'
@@ -32,12 +37,38 @@ export default new Router({
       }
     },
     {
-      path: config.app.pages.announcements,
+      path: config.app.pages.announcements.list,
       name: 'announcements',
       component: announcements,
       meta: {
         title: 'Announcements'
       }
+    },
+    {
+      path: config.app.pages.announcements.detail,
+      name: 'announcementDetail',
+      component: announcementDetail,
+      meta: {
+        title: 'Announcements Detail'
+      }
+    },
+    {
+      path: config.app.pages.announcements.edit,
+      name: 'editAnnouncement',
+      component: announcementForm,
+      meta: {
+        title: 'Edit Announcements'
+      },
+      props: { editMode: true }
+    },
+    {
+      path: config.app.pages.announcements.add,
+      name: 'addAnnouncement',
+      component: announcementForm,
+      meta: {
+        title: 'Add Announcements'
+      },
+      props: { editMode: false }
     },
     {
       path: config.app.pages.courses,
@@ -84,8 +115,37 @@ export default new Router({
       name: 'editStickyNote',
       component: editStickyNote,
       meta: {
-        title: 'Edit Sticky Notes'
+        title: 'Edit Sticky Note'
       }
+    },
+    {
+      path: config.app.pages.quizzes,
+      name: 'quizzes',
+      component: quizzes,
+      meta: {
+        title: 'Quizzes'
+      }
+    },
+    {
+      path: config.app.pages.assignments.list,
+      name: 'assignments',
+      component: assignments,
+      meta: {
+        title: 'Assignments'
+      }
+    },
+    {
+      path: config.app.pages.assignments.add,
+      name: 'addAssignment',
+      component: addAssignment,
+      meta: {
+        title: 'Add Assignments'
+      }
+    },
+    {
+      path: config.app.pages.finalJudging,
+      name: 'finalJudging',
+      component: feeds
     },
     {
       path: '/users/add',

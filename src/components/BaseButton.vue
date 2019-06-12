@@ -6,7 +6,7 @@
   </div>
 </template>
 
-<script type="text/javascript" src="./js/BaseButton.js">
+<script type="text/javascript" src="./js/base-button.js">
 </script>
 
 <style scoped>
@@ -34,6 +34,10 @@
     box-shadow: 2px 2px 8px rgba(0,0,0,0.08), 2px 2px 10px rgba(0,0,0,0.15);
   }
 
+  .button:focus {
+    outline:none;
+  }
+
   .button-save {
     background: #02AAF3;
   }
@@ -48,5 +52,10 @@
 
   .button-edit {
     background: #45C92F;
+  }
+
+  .button-icon {
+    width: unset;
+    background: #02AAF3;
   }
 </style>

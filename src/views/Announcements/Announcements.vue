@@ -1,43 +1,51 @@
 <template>
   <div class="scrollable-container">
     <div class="button-div">
-      <BaseButton type="submit" buttonClass="button-save">
+      <BaseButton type="submit" buttonClass="button-save" @click="goToAddAnnouncement">
         <span><font-awesome-icon icon="plus" class="icon"/> Add</span>
       </BaseButton>
     </div>
-    <BaseCard class="announcement-card" cardClass="card-hover">
+    <BaseCard
+      v-for="announcement in announcementList"
+      v-bind:key="announcement.id"
+      class="announcement-card"
+      cardClass="card-hover"
+      @click.native="goToAnnouncementDetail(announcement.id)">
       <div class="announcement-header announcement-title">
-        <h3>Announcement Title Goes Here...</h3>
+        <h3>{{ announcement.title }}</h3>
       </div>
       <div class="announcement-header float-right">
         <div class="announcement-date">
-          January 19, 2019
+          {{ announcement.updatedAt |  moment("dddd, MMMM Do YYYY") }}
         </div>
         <div class="announcement-action">
-          <span><font-awesome-icon icon="edit" class="icon blue" size="lg"></font-awesome-icon></span>
-          <span><font-awesome-icon icon="trash-alt" class="icon red" size="lg"></font-awesome-icon></span>
+          <span>
+            <font-awesome-icon
+              icon="edit"
+              class="icon blue"
+              size="lg"
+              @click.stop="goToEditAnnouncement(announcement.id)">
+            </font-awesome-icon>
+          </span>
+          <span><font-awesome-icon
+            icon="trash-alt"
+            class="icon red"
+            size="lg" @click.stop="openDeleteConfirmationModal(announcement.id)"></font-awesome-icon></span>
         </div>
       </div>
       <div class="announcement-preview">
-        <span>est pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat vivamus at augue eget arcu dictum varius duis at consectetur lorem donec massa sapien faucibus et molestie ac feugiat sed lectus vestibulum mattis ullamcorper velit sed ullamcorper morbi tincidunt ornare massa eget egestas purus viverra accumsan in nisl nisi scelerisque eu ultrices vitae auctor eu augue ut lectus arcu bibendum at varius vel pharetra vel turpis nunc eget lorem dolor sed viverra ipsum nunc aliquet bibendum</span>
+        <span>{{ textPreview(announcement) }}</span>
       </div>
     </BaseCard>
+    <modal-delete-confirmation v-if="showDeleteConfirmationModal"
+                               @close="closeDeleteConfirmationModal"
+                               @clickDelete="deleteThisAnnouncement">
+      <div slot="description">{{selectedId}}</div>
+    </modal-delete-confirmation>
   </div>
 </template>
 
-<script>
-// @ is an alias to /src
-import BaseCard from '@/components/BaseCard'
-import BaseButton from '@/components/BaseButton'
-
-export default {
-  name: 'announcements',
-  components: {
-    BaseButton,
-    BaseCard
-  }
-}
-</script>
+<script type="text/javascript" src="./js/announcements.js"></script>
 
 <style scoped>
   .announcement-card {

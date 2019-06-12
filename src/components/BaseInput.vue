@@ -10,7 +10,7 @@
     </div>
 </template>
 
-<script type="text/javascript" src="./js/BaseInput.js">
+<script type="text/javascript" src="./js/base-input.js">
 </script>
 
 <style scoped>
@@ -44,5 +44,7 @@
 
   .input-box:focus {
     box-shadow: 2px 2px 10px rgba(0,0,0,0.1), 2px 2px 10px rgba(0,0,0,0.3);
+    width: 100%;
+    outline: none;
   }
 </style>

@@ -17,7 +17,7 @@
   </BaseCard>
 </template>
 
-<script type="text/javascript" src="./js/UserCard.js">
+<script type="text/javascript" src="./js/user-card.js">
 </script>
 
 <style scoped>
