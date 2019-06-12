@@ -1,4 +1,4 @@
-import assignment from '@/views/Assignments/Assignments'
+import assignment from '@/views/Assignment/Assignments'
 import {createLocalVue, shallowMount} from '@vue/test-utils'
 import Vuex from 'vuex'
 import VueRouter from 'vue-router'
