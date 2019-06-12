@@ -108,15 +108,21 @@ describe('StickyNotesDetail.js', () => {
     expect(initSpy).toHaveBeenCalled()
   })
 
-  // test('fetchStickyNoteFailed', () => {
-  //   wrapper = shallowMount(StickyNotesDetail, {
-  //     store,
-  //     localVue,
-  //     sync: false
-  //   })
-  //   wrapper.vm.fetchStickyNoteFailed()
-  //   expect().toBeCalledTimes(1)
-  // })
+  test('fetchStickyNoteFailed', () => {
+    const $toasted = {
+      error: jest.fn()
+    }
+    wrapper = shallowMount(StickyNotesDetail, {
+      store,
+      localVue,
+      mocks: {
+        $toasted
+      },
+      sync: false
+    })
+    wrapper.vm.fetchStickyNoteFailed()
+    expect($toasted.error).toBeCalledTimes(1)
+  })
 
   test('goToAddStickyNotes', async () => {
     const $route = {

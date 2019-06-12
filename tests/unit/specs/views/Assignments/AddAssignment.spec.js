@@ -1,4 +1,4 @@
-import addAssignment from '@/views/Assignments/AddAssignment'
+import addAssignment from '@/views/Assignment/AddAssignment'
 import { shallowMount, mount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import VCalendar from 'v-calendar'
@@ -94,13 +94,9 @@ describe('AddAssignment', () => {
   })
 
   test('saveAssignment', () => {
-    const createAssignment = jest.fn()
     const wrapper = shallowMount(addAssignment, {
       store,
       localVue,
-      methods: {
-        createAssignment
-      },
       stubs: [
         'BaseInput',
         'BaseTextArea',
@@ -113,11 +109,15 @@ describe('AddAssignment', () => {
       sync: false
     })
     wrapper.vm.saveAssignment()
-    expect(createAssignment).toBeCalledTimes(1)
+    expect(actions.createAssignment.mock.calls).toHaveLength(1)
+    expect(actions.createAssignment).toHaveBeenCalled()
   })
 
   test('failCreatingAssignment', () => {
-    const error = jest.fn()
+    const response = {
+      'code': '500',
+      'status': 'Internal server error'
+    }
     const $toasted = {
       error: jest.fn()
     }
@@ -138,8 +138,7 @@ describe('AddAssignment', () => {
       ],
       sync: false
     })
-    console.log(addAssignment.methods)
-    wrapper.vm.failCreatingAssignment()
-    expect(error).toBeCalledTimes(1)
+    wrapper.vm.failCreatingAssignment({response})
+    expect($toasted.error).toBeCalledTimes(1)
   })
 })

@@ -35,12 +35,8 @@ export default {
       this.$router.go(-1)
     },
     failCreatingAssignment ({ response }) {
-      this.newFunction()
       this.$toasted.error('Something went wrong')
       console.log(response)
-    },
-    newFunction () {
-      alert('asd')
     },
     saveAssignment () {
       this.createAssignment({

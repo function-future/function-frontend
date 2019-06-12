@@ -39,7 +39,7 @@
   </div>
 </template>
 
-<script type="text/javascript" src="./js/add-assignment.js"></script>
+<script type="text/javascript" src="js/add-assignment.js"></script>
 
 <style scoped>
   .edit-container {
