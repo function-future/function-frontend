@@ -17,7 +17,7 @@
   </div>
 </template>
 
-<script type="text/javascript" src="@/index.js">
+<script type="text/javascript" src="./index.js">
 </script>
 
 <style>
