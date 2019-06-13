@@ -60,14 +60,16 @@ describe('AnnouncementForm.vue on edit mode', () => {
     }
     actions = {
       initialState: jest.fn(),
-      fetchAnnouncementById: jest.fn()
+      fetchAnnouncementById: jest.fn(),
+      createAnnouncement: jest.fn(),
+      updateAnnouncement: jest.fn()
     }
     getters = {
       announcement: state => state.announcement
     }
     store = new Vuex.Store({
       modules: {
-        stickyNotes: {
+        announcements: {
           state,
           actions,
           getters
@@ -112,13 +114,192 @@ describe('AnnouncementForm.vue on edit mode', () => {
     expect(wrapper.html()).toContain('scrollable-container')
   })
 
-  // test('Render data to input title box correctly', () => {
+  test('initPage', () => {
+    const spy = jest.spyOn(AnnouncementForm.methods, 'getAnnouncementDetail')
+    const editMode = true
+    const wrapper = shallowMount(AnnouncementForm, {
+      store,
+      localVue,
+      router,
+      stubs: [
+        'BaseInput',
+        'BaseTextArea',
+        'BaseButton',
+        'BaseSelect',
+        'font-awesome-icon',
+        'v-date-picker',
+        'v-calendar'
+      ],
+      sync: false,
+      propsData: { editMode }
+    })
+    wrapper.vm.initPage()
+    expect(spy).toHaveBeenCalled()
+  })
+
+  test('successFetchAnnouncementById', () => {
+    const spy = jest.spyOn(AnnouncementForm.methods, 'setAnnouncementDetail')
+    const wrapper = shallowMount(AnnouncementForm, {
+      store,
+      localVue,
+      router,
+      stubs: [
+        'BaseInput',
+        'BaseTextArea',
+        'BaseButton',
+        'BaseSelect',
+        'font-awesome-icon',
+        'v-date-picker',
+        'v-calendar'
+      ],
+      sync: false
+    })
+    wrapper.vm.successFetchAnnouncementById()
+    expect(spy).toHaveBeenCalled()
+  })
+
+  test('failFetchAnnouncementById', () => {
+    const $toasted = {
+      error: jest.fn()
+    }
+    const wrapper = shallowMount(AnnouncementForm, {
+      store,
+      localVue,
+      router,
+      mocks: {
+        $toasted
+      },
+      stubs: [
+        'BaseInput',
+        'BaseTextArea',
+        'BaseButton',
+        'BaseSelect',
+        'font-awesome-icon',
+        'v-date-picker',
+        'v-calendar'
+      ],
+      sync: false
+    })
+    wrapper.vm.failFetchAnnouncementById()
+    expect($toasted.error).toHaveBeenCalled()
+  })
+
+  // test('sendAnnouncement', () => {
   //   const wrapper = shallowMount(AnnouncementForm, {
   //     store,
   //     localVue,
   //     router,
+  //     stubs: [
+  //       'BaseInput',
+  //       'BaseTextArea',
+  //       'BaseButton',
+  //       'BaseSelect',
+  //       'font-awesome-icon',
+  //       'v-date-picker',
+  //       'v-calendar'
+  //     ],
   //     sync: false
   //   })
-  //   expect(wrapper.find('.input-title').text()).toBe('Announcement 1')
+  //   wrapper.vm.sendAnnouncement()
+  // })
+
+  test('sendCreateAnnouncementData', () => {
+    const wrapper = shallowMount(AnnouncementForm, {
+      store,
+      localVue,
+      router,
+      stubs: [
+        'BaseInput',
+        'BaseTextArea',
+        'BaseButton',
+        'BaseSelect',
+        'font-awesome-icon',
+        'v-date-picker',
+        'v-calendar'
+      ],
+      sync: false
+    })
+    const spy = jest.spyOn(wrapper.vm, 'createAnnouncement')
+    wrapper.vm.sendCreateAnnouncementData()
+    expect(spy).toBeCalled()
+  })
+
+  test('sendUpdateAnnouncementData', () => {
+    const wrapper = shallowMount(AnnouncementForm, {
+      store,
+      localVue,
+      router,
+      stubs: [
+        'BaseInput',
+        'BaseTextArea',
+        'BaseButton',
+        'BaseSelect',
+        'font-awesome-icon',
+        'v-date-picker',
+        'v-calendar'
+      ],
+      sync: false
+    })
+    const spy = jest.spyOn(wrapper.vm, 'updateAnnouncement')
+    wrapper.vm.sendUpdateAnnouncementData()
+    expect(spy).toBeCalled()
+  })
+
+  // test('successSendCreateAnnouncementData', () => {
+  //   const $toasted = {
+  //     success: jest.fn()
+  //   }
+  //   const $router = {
+  //     push: jest.fn()
+  //   }
+  //   const wrapper = shallowMount(AnnouncementForm, {
+  //     store,
+  //     localVue,
+  //     mocks: {
+  //       $toasted,
+  //       $router
+  //     },
+  //     stubs: [
+  //       'BaseInput',
+  //       'BaseTextArea',
+  //       'BaseButton',
+  //       'BaseSelect',
+  //       'font-awesome-icon',
+  //       'v-date-picker',
+  //       'v-calendar'
+  //     ],
+  //     sync: false
+  //   })
+  //   const spy = jest.spyOn(wrapper.vm, 'initialState')
+  //   wrapper.vm.successSendCreateAnnouncementData()
+  //   expect($toasted.success).toHaveBeenCalledWith('Successfully created new announcement')
+  //   expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'announcements' })
+  //   expect(spy).toBeCalled()
+  // })
+
+  // test('failSendCreateAnnouncementData', () => {
+  //   const $toasted = {
+  //     error: jest.fn()
+  //   }
+  //   const wrapper = shallowMount(AnnouncementForm, {
+  //     store,
+  //     localVue,
+  //     router,
+  //     mocks: {
+  //       $toasted
+  //     },
+  //     stubs: [
+  //       'BaseInput',
+  //       'BaseTextArea',
+  //       'BaseButton',
+  //       'BaseSelect',
+  //       'font-awesome-icon',
+  //       'v-date-picker',
+  //       'v-calendar'
+  //     ],
+  //     sync: false
+  //   })
+  //   wrapper.vm.failSendCreateAnnouncementData()
+  //   expect($toasted.error).toHaveBeenCalled()
   // })
 })
