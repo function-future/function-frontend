@@ -148,6 +148,7 @@ describe('EditStickyNotes', () => {
   test('successPostStickyNote', () => {
     initComponent()
     const spy = jest.spyOn(wrapper.vm, 'initialState')
+    wrapper.vm.$router.push = jest.fn()
     wrapper.vm.successPostStickyNotes()
     expect(spy).toHaveBeenCalledTimes(1)
     expect(wrapper.vm.$router.push).toHaveBeenCalledTimes(1)

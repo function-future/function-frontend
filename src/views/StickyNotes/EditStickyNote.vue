@@ -8,7 +8,8 @@
                    v-model="stickyNote.noteTitle"
                    placeholder="Sticky Note Title"
                    v-validate.disable="'required'"
-                   name="title"></BaseInput>
+                   name="title">
+        </BaseInput>
       </div>
       <div v-if="errors.has('title')"><span class="input-invalid-message">{{ errors.first('title') }}</span></div>
       <div class="description">
