@@ -427,12 +427,60 @@ describe('Announcements', () => {
     wrapper.vm.selectedId = 'sample-id-1'
     wrapper.vm.deleteThisAnnouncement()
     expect(spy).toBeCalledTimes(1)
-    // expect(spy).toBeCalledWith({
-    //   data: {
-    //     id: 'sample-id-1'
-    //   },
-    //   callback: () => true,
-    //   fail: () => false
-    // })
+  })
+
+  test('failLoadingAnnouncementList', () => {
+    const $toasted = {
+      error: jest.fn()
+    }
+    wrapper = shallowMount(announcements, {
+      store,
+      localVue,
+      mocks: {
+        $toasted
+      },
+      sync: false
+    })
+    wrapper.vm.failLoadingAnnouncementList()
+    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+  })
+
+  test('successDeleteAnnouncementById', () => {
+    const $router = {
+      push: jest.fn()
+    }
+    const $toasted = {
+      success: jest.fn()
+    }
+    wrapper = shallowMount(announcements, {
+      store,
+      localVue,
+      mocks: {
+        $toasted,
+        $router
+      },
+      sync: false
+    })
+    const spy = jest.spyOn(wrapper.vm, 'closeDeleteConfirmationModal')
+    wrapper.vm.successDeleteAnnouncementById()
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({name : 'announcements'})
+    expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('failDeleteAnnouncementById', () => {
+    const $toasted = {
+      error: jest.fn()
+    }
+    wrapper = shallowMount(announcements, {
+      store,
+      localVue,
+      mocks: {
+        $toasted
+      },
+      sync: false
+    })
+    wrapper.vm.failDeleteAnnouncementById()
+    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
   })
 })

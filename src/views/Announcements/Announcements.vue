@@ -27,7 +27,8 @@
               @click.stop="goToEditAnnouncement(announcement.id)">
             </font-awesome-icon>
           </span>
-          <span><font-awesome-icon
+          <span>
+            <font-awesome-icon
             icon="trash-alt"
             class="icon red"
             size="lg" @click.stop="openDeleteConfirmationModal(announcement.id)"></font-awesome-icon></span>
