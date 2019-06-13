@@ -73,13 +73,15 @@ export default {
       let data = { ...id }
       this.fetchAnnouncementById({
         data,
-        callback: () => {
-          this.setAnnouncementDetail()
-        },
-        fail: () => {
-          this.$toasted.error('Fail to load announcement detail')
-        }
+        callback: this.successFetchAnnouncementById,
+        fail: this.failFetchAnnouncementById
       })
+    },
+    successFetchAnnouncementById () {
+      this.setAnnouncementDetail()
+    },
+    failFetchAnnouncementById () {
+      this.$toasted.error('Fail to load announcement detail')
     },
     setAnnouncementDetail () {
       this.announcementDetail = {
