@@ -66,7 +66,6 @@ export default {
       this.initialState()
       if (this.editMode) {
         this.getAnnouncementDetail()
-        this.setAnnouncementDetail()
       }
     },
     getAnnouncementDetail () {
@@ -75,6 +74,7 @@ export default {
       this.fetchAnnouncementById({
         data,
         callback: () => {
+          this.setAnnouncementDetail()
         },
         fail: () => {
           this.$toasted.error('Fail to load announcement detail')
@@ -93,7 +93,6 @@ export default {
       this.$validator.validateAll().then(callback)
     },
     sendAnnouncement () {
-      this.setAnnouncementDetail()
       let data = { ...this.announcementDetail }
 
       this.validateBeforeSubmit((result) => {
