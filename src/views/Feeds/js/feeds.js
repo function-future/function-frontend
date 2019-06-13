@@ -1,3 +1,4 @@
+
 import { mapActions, mapGetters } from 'vuex'
 import BaseCard from '@/components/BaseCard.vue'
 import config from '@/config/index'
