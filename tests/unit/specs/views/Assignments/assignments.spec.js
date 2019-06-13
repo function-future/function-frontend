@@ -121,19 +121,18 @@ describe('Assignment', () => {
     expect(push).toHaveBeenLastCalledWith({ name: 'addAssignment' })
   })
 
-  // test('failFetchingAssignmentList', () => {
-  //   initComponent()
-  //   const error = jest.fn()
-  //   const response = {
-  //     'code': 500,
-  //     'status': 'Internal server error',
-  //     'data': []
-  //   }
-  //   const spy = jest.spyOn(assignment.methods, 'failFetchingAssignmentList')
-  //   wrapper.vm.$toasted.error = error
-  //   wrapper.vm.failFetchingAssignmentList({response })
-  //   expect(spy).toHaveBeenCalledTimes(1)
-  // })
+  test('failFetchingAssignmentList', () => {
+    initComponent()
+    const response = {
+      'code': 500,
+      'status': 'Internal server error',
+      'data': []
+    }
+    const spy = jest.spyOn(assignment.methods, 'failFetchingAssignmentList')
+    wrapper.vm.$toasted.error = jest.fn()
+    wrapper.vm.failFetchingAssignmentList({response})
+    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+  })
 
   test('isComplete true', () => {
     initComponent()

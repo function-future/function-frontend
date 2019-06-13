@@ -52,8 +52,6 @@ export default {
     },
     failFetchingAssignmentList ({ response }) {
       this.$toasted.error('Something went wrong')
-      console.log(response)
-      console.log('asdfasdfasdf')
     },
     addAssignment () {
       this.$router.push({name: 'addAssignment'})
