@@ -110,31 +110,35 @@ export default {
     sendCreateAnnouncementData (data) {
       this.createAnnouncement({
         data,
-        callback: () => {
-          this.initialState()
-          this.$router.push({ name: 'announcements' })
-          this.$toasted.success('Successfully created new announcement')
-        },
-        fail: () => {
-          this.$toasted.error('Fail to create new announcement')
-        }
+        callback: this.successSendCreateAnnouncementData,
+        fail: this.failSendCreateAnnouncementData
       })
+    },
+    successSendCreateAnnouncementData () {
+      this.initialState()
+      this.$router.push({ name: 'announcements' })
+      this.$toasted.success('Successfully created new announcement')
+    },
+    failSendCreateAnnouncementData () {
+      this.$toasted.error('Fail to create new announcement')
     },
     sendUpdateAnnouncementData (data) {
       this.updateAnnouncement({
         data,
-        callback: () => {
-          this.$router.push({
-            name: 'announcementDetail',
-            params: { id: this.announcementDetail.id }
-          })
-          this.$toasted.success('Successfully update announcement')
-          this.initialState()
-        },
-        fail: () => {
-          this.$toasted.error('Fail to update announcement')
-        }
+        callback: this.successSendUpdateAnnouncementData,
+        fail: this.failSendUpdateAnnouncementData
       })
+    },
+    successSendUpdateAnnouncementData () {
+      this.$router.push({
+        name: 'announcementDetail',
+        params: { id: this.announcementDetail.id }
+      })
+      this.$toasted.success('Successfully update announcement')
+      this.initialState()
+    },
+    failSendUpdateAnnouncementData () {
+      this.$toasted.error('Fail to update announcement')
     },
     cancel () {
       this.$router.go(-1)
