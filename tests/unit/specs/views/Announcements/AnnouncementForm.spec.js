@@ -245,61 +245,61 @@ describe('AnnouncementForm.vue on edit mode', () => {
     expect(spy).toBeCalled()
   })
 
-  // test('successSendCreateAnnouncementData', () => {
-  //   const $toasted = {
-  //     success: jest.fn()
-  //   }
-  //   const $router = {
-  //     push: jest.fn()
-  //   }
-  //   const wrapper = shallowMount(AnnouncementForm, {
-  //     store,
-  //     localVue,
-  //     mocks: {
-  //       $toasted,
-  //       $router
-  //     },
-  //     stubs: [
-  //       'BaseInput',
-  //       'BaseTextArea',
-  //       'BaseButton',
-  //       'BaseSelect',
-  //       'font-awesome-icon',
-  //       'v-date-picker',
-  //       'v-calendar'
-  //     ],
-  //     sync: false
-  //   })
-  //   const spy = jest.spyOn(wrapper.vm, 'initialState')
-  //   wrapper.vm.successSendCreateAnnouncementData()
-  //   expect($toasted.success).toHaveBeenCalledWith('Successfully created new announcement')
-  //   expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'announcements' })
-  //   expect(spy).toBeCalled()
-  // })
+  test('successSendCreateAnnouncementData', () => {
+    const $toasted = {
+      success: jest.fn()
+    }
+    const $router = {
+      push: jest.fn()
+    }
+    const wrapper = shallowMount(AnnouncementForm, {
+      store,
+      localVue,
+      mocks: {
+        $toasted,
+        $router
+      },
+      stubs: [
+        'BaseInput',
+        'BaseTextArea',
+        'BaseButton',
+        'BaseSelect',
+        'font-awesome-icon',
+        'v-date-picker',
+        'v-calendar'
+      ],
+      sync: false
+    })
+    const spy = jest.spyOn(wrapper.vm, 'initialState')
+    wrapper.vm.successSendCreateAnnouncementData()
+    expect($toasted.success).toHaveBeenCalledWith('Successfully created new announcement')
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'announcements' })
+    expect(spy).toBeCalled()
+  })
 
-  // test('failSendCreateAnnouncementData', () => {
-  //   const $toasted = {
-  //     error: jest.fn()
-  //   }
-  //   const wrapper = shallowMount(AnnouncementForm, {
-  //     store,
-  //     localVue,
-  //     router,
-  //     mocks: {
-  //       $toasted
-  //     },
-  //     stubs: [
-  //       'BaseInput',
-  //       'BaseTextArea',
-  //       'BaseButton',
-  //       'BaseSelect',
-  //       'font-awesome-icon',
-  //       'v-date-picker',
-  //       'v-calendar'
-  //     ],
-  //     sync: false
-  //   })
-  //   wrapper.vm.failSendCreateAnnouncementData()
-  //   expect($toasted.error).toHaveBeenCalled()
-  // })
+  test('failSendCreateAnnouncementData', () => {
+    const $toasted = {
+      error: jest.fn()
+    }
+    const wrapper = shallowMount(AnnouncementForm, {
+      sync: true,
+      store,
+      localVue,
+      router,
+      mocks: {
+        $toasted
+      }
+      stubs: [
+        'BaseInput',
+        'BaseTextArea',
+        'BaseButton',
+        'BaseSelect',
+        'font-awesome-icon',
+        'v-date-picker',
+        'v-calendar'
+      ],
+    })
+    wrapper.vm.failSendCreateAnnouncementData()
+    expect($toasted.error).toHaveBeenCalled()
+  })
 })
