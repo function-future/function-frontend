@@ -184,24 +184,26 @@ describe('AnnouncementForm.vue on edit mode', () => {
     expect($toasted.error).toHaveBeenCalled()
   })
 
-  // test('sendAnnouncement', () => {
-  //   const wrapper = shallowMount(AnnouncementForm, {
-  //     store,
-  //     localVue,
-  //     router,
-  //     stubs: [
-  //       'BaseInput',
-  //       'BaseTextArea',
-  //       'BaseButton',
-  //       'BaseSelect',
-  //       'font-awesome-icon',
-  //       'v-date-picker',
-  //       'v-calendar'
-  //     ],
-  //     sync: false
-  //   })
-  //   wrapper.vm.sendAnnouncement()
-  // })
+  test('sendAnnouncement', () => {
+    const wrapper = shallowMount(AnnouncementForm, {
+      store,
+      localVue,
+      router,
+      stubs: [
+        'BaseInput',
+        'BaseTextArea',
+        'BaseButton',
+        'BaseSelect',
+        'font-awesome-icon',
+        'v-date-picker',
+        'v-calendar'
+      ],
+      sync: false
+    })
+    const spy = jest.spyOn(wrapper.vm, 'validateBeforeSubmit')
+    wrapper.vm.sendAnnouncement()
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
 
   test('sendCreateAnnouncementData', () => {
     const wrapper = shallowMount(AnnouncementForm, {
@@ -249,15 +251,12 @@ describe('AnnouncementForm.vue on edit mode', () => {
     const $toasted = {
       success: jest.fn()
     }
-    const $router = {
-      push: jest.fn()
-    }
     const wrapper = shallowMount(AnnouncementForm, {
       store,
       localVue,
+      router,
       mocks: {
         $toasted,
-        $router
       },
       stubs: [
         'BaseInput',
@@ -271,6 +270,7 @@ describe('AnnouncementForm.vue on edit mode', () => {
       sync: false
     })
     const spy = jest.spyOn(wrapper.vm, 'initialState')
+    wrapper.vm.$router.push = jest.fn()
     wrapper.vm.successSendCreateAnnouncementData()
     expect($toasted.success).toHaveBeenCalledWith('Successfully created new announcement')
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'announcements' })
@@ -282,13 +282,12 @@ describe('AnnouncementForm.vue on edit mode', () => {
       error: jest.fn()
     }
     const wrapper = shallowMount(AnnouncementForm, {
-      sync: true,
       store,
       localVue,
       router,
       mocks: {
         $toasted
-      }
+      },
       stubs: [
         'BaseInput',
         'BaseTextArea',
@@ -298,8 +297,86 @@ describe('AnnouncementForm.vue on edit mode', () => {
         'v-date-picker',
         'v-calendar'
       ],
+      sync: false
     })
     wrapper.vm.failSendCreateAnnouncementData()
     expect($toasted.error).toHaveBeenCalled()
+  })
+
+  test('successSendUpdateAnnouncementData', () => {
+    const $toasted = {
+      success: jest.fn()
+    }
+    const wrapper = shallowMount(AnnouncementForm, {
+      store,
+      localVue,
+      router,
+      mocks: {
+        $toasted
+      },
+      stubs: [
+        'BaseInput',
+        'BaseTextArea',
+        'BaseButton',
+        'BaseSelect',
+        'font-awesome-icon',
+        'v-date-picker',
+        'v-calendar'
+      ],
+      sync: false
+    })
+    wrapper.vm.$router.push = jest.fn()
+    const spy = jest.spyOn(wrapper.vm, 'initialState')
+    wrapper.vm.successSendUpdateAnnouncementData()
+    expect(wrapper.vm.$router.push).toHaveBeenCalledTimes(1)
+    expect($toasted.success).toHaveBeenCalledTimes(1)
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('failSendUpdateAnnouncementData', () => {
+    const $toasted = {
+      error: jest.fn()
+    }
+    const wrapper = shallowMount(AnnouncementForm, {
+      store,
+      localVue,
+      router,
+      mocks: {
+        $toasted
+      },
+      stubs: [
+        'BaseInput',
+        'BaseTextArea',
+        'BaseButton',
+        'BaseSelect',
+        'font-awesome-icon',
+        'v-date-picker',
+        'v-calendar'
+      ],
+      sync: false
+    })
+    wrapper.vm.failSendUpdateAnnouncementData()
+    expect($toasted.error).toHaveBeenCalledTimes(1)
+  })
+
+  test('cancel', () => {
+    const wrapper = shallowMount(AnnouncementForm, {
+      store,
+      localVue,
+      router,
+      stubs: [
+        'BaseInput',
+        'BaseTextArea',
+        'BaseButton',
+        'BaseSelect',
+        'font-awesome-icon',
+        'v-date-picker',
+        'v-calendar'
+      ],
+      sync: false
+    })
+    wrapper.vm.$router.go  = jest.fn()
+    wrapper.vm.cancel()
+    expect(wrapper.vm.$router.go).toHaveBeenCalledTimes(1)
   })
 })

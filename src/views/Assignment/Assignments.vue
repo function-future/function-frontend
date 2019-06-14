@@ -31,7 +31,9 @@
             <div class="completion-status--box"
                  :class="isComplete(assignment.deadline)">
             </div>
-            <span class="completion-status--text">{{isComplete(assignment.deadline)}}</span>
+            <span class="completion-status--text">
+              {{isComplete(assignment.deadline)}}
+            </span>
           </div>
           <div class="assignment-deadline">
             <font-awesome-icon icon="calendar"></font-awesome-icon>

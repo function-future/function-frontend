@@ -5,17 +5,18 @@
         <BaseInput autofocus
                    class="input-title"
                    inputType="title"
-                   v-model="stickyNotes.noteTitle"
+                   v-model="stickyNote.noteTitle"
                    placeholder="Sticky Note Title"
                    v-validate.disable="'required'"
-                   name="title"></BaseInput>
+                   name="title">
+        </BaseInput>
       </div>
       <div v-if="errors.has('title')"><span class="input-invalid-message">{{ errors.first('title') }}</span></div>
       <div class="description">
         <mavon-editor class="editor"
                       placeholder="Sticky Note Description"
                       language="en"
-                      v-model="stickyNotes.noteDescription" v-validate.disable="'required'"
+                      v-model="stickyNote.noteDescription" v-validate.disable="'required'"
                       name="description"></mavon-editor>
       </div>
       <div v-if="errors.has('description')"><span class="input-invalid-message">{{ errors.first('description') }}</span></div>
