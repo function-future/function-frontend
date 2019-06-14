@@ -128,9 +128,8 @@ describe('Assignment', () => {
       'status': 'Internal server error',
       'data': []
     }
-    const spy = jest.spyOn(assignment.methods, 'failFetchingAssignmentList')
     wrapper.vm.$toasted.error = jest.fn()
-    wrapper.vm.failFetchingAssignmentList({response})
+    wrapper.vm.failFetchingAssignmentList({ response })
     expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
   })
 
