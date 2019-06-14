@@ -9,6 +9,8 @@ export default {
   },
   data () {
     return {
+      stickyNote: {},
+      announcements: [],
       paging: {
         page: 0,
         size: 10
@@ -44,22 +46,30 @@ export default {
     },
     loadStickyNote () {
       this.fetchStickyNotes({
-        callback: () => {},
-        fail: () => {
-          this.$toasted.error('Fail to load sticky note detail, please refresh the page')
-        }
+        callback: this.successLoadStickyNote,
+        fail: this.failLoadStickyNote
       })
+    },
+    successLoadStickyNote () {
+      this.stickyNote = this.stickyNotes
+    },
+    failLoadStickyNote () {
+      this.$toasted.error('Fail to load sticky note detail, please refresh the page')
     },
     loadAnnouncementList () {
       this.paging = { ...this.paging }
       let data = { ...this.paging }
       this.fetchAnnouncements({
         data,
-        callback: () => {},
-        fail: () => {
-          this.$toasted.error('Fail to load announcement list')
-        }
+        callback: this.successLoadAnnouncementList,
+        fail: this.failLoadAnnouncementList
       })
+    },
+    successLoadAnnouncementList () {
+      this.announcements = this.announcementList
+    },
+    failLoadAnnouncementList () {
+      this.$toasted.error('Fail to load announcement list')
     }
   }
 }
