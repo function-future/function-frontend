@@ -18,6 +18,7 @@
           placeholder="Announcement summary">
         </BaseTextArea>
       </div>
+      <div></div>
       <div class="description">
         <mavon-editor class="editor"
                       placeholder="Announcement description"
