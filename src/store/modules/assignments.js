@@ -26,12 +26,21 @@ export const actions = {
       console.log(state.assignment)
       callback()
     }, data, payload, fail)
+  },
+  fetchAssignmentDetail ({ commit }, { data, callback, fail }) {
+    assignmentApi.getAssignmentById(({data: response}) => {
+      commit('SET_ASSIGNMENT', response)
+      callback()
+    }, data, fail)
   }
 }
 
 export const getters = {
   assignmentList (state) {
     return state.assignmentList
+  },
+  assignment (state) {
+    return state.assignment
   }
 }
 

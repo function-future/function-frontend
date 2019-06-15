@@ -76,6 +76,9 @@ module.exports = {
         },
         create(batchCode, page, pageSize) {
           return `/api/scoring/batches/${batchCode}/assignments?page=${page}&size=${pageSize}`
+        },
+        detail(batchCode, id) {
+          return `/api/scoring/batches/${batchCode}/assignments/${id}`
         }
       }
     }
