@@ -44,16 +44,15 @@ module.exports = {
         logout: '/api/core/auth'
       },
       access: {
-        accessList(url) {
+        accessList (url) {
           return `/api/core/user/access-list?url=${url}`
         },
         menuList: '/api/core/menu-list'
       },
       users: {
-        get (page, size) { return `/api/core/users?page=${page}&size=${size}` },
+        get (page, size, role) { return `/api/core/users?page=${page}&size=${size}&role=${role}` },
         post: '/api/core/users',
         detail (id) { return `/api/core/users/${id}` }
-        }
       },
       stickyNotes: {
         get: '/api/core/sticky-notes',
@@ -74,22 +73,22 @@ module.exports = {
           }
         }
       },
-      profile: {
-        get: '/api/core/user/profile',
-        change_password: '/api/core/user/password'
-      },
-      blogs: {
-        get: '/api/core/activity-blogs'
-      }
     },
-    scoring: {
-      assignments: {
-        list(batchCode, page, pageSize) {
-          return `/api/scoring/batches/${batchCode}/assignments?page=${page}&size=${pageSize}`
-        },
-        create(batchCode, page, pageSize) {
-          return `/api/scoring/batches/${batchCode}/assignments?page=${page}&size=${pageSize}`
-        }
+    profile: {
+      get: '/api/core/user/profile',
+      change_password: '/api/core/user/password'
+    },
+    blogs: {
+      get: '/api/core/activity-blogs'
+    }
+  },
+  scoring: {
+    assignments: {
+      list (batchCode, page, pageSize) {
+        return `/api/scoring/batches/${batchCode}/assignments?page=${page}&size=${pageSize}`
+      },
+      create (batchCode, page, pageSize) {
+        return `/api/scoring/batches/${batchCode}/assignments?page=${page}&size=${pageSize}`
       }
     }
   },

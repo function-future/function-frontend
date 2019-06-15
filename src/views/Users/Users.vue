@@ -10,31 +10,36 @@
             @onClick="changeTab">
       </tabs>
       <BaseButton type="submit" buttonClass="button-save" @click="goToAddUser">
-        <span><font-awesome-icon icon="plus" class="icon"/> New</span>
+        <span><font-awesome-icon icon="plus" class="icon"/> {{ addUserButtonLabel }}</span>
       </BaseButton>
     </div>
     <div class="tab-container">
-      <div class="scrollable-tab" v-if="currentTab === 'students'">
+      <div class="scrollable-tab" v-if="currentTab === 'student'">
         <div v-for="student in students" :key="student.id">
-          <UserCard :user="student"></UserCard>
+          <UserCard :user="student" @edit="goToEditUser" @delete="openDeleteConfirmationModal"></UserCard>
         </div>
       </div>
-      <div class="scrollable-tab" v-if="currentTab === 'admins'">
+      <div class="scrollable-tab" v-if="currentTab === 'admin'">
         <div v-for="admin in admins" :key="admin.id">
-          <UserCard :user="admin"></UserCard>
+          <UserCard :user="admin" @edit="goToEditUser" @delete="openDeleteConfirmationModal"></UserCard>
         </div>
       </div>
-      <div class="scrollable-tab" v-if="currentTab === 'mentors'">
+      <div class="scrollable-tab" v-if="currentTab === 'mentor'">
         <div v-for="mentor in mentors" :key="mentor.id">
-          <UserCard :user="mentor"></UserCard>
+          <UserCard :user="mentor" @edit="goToEditUser" @delete="openDeleteConfirmationModal"></UserCard>
         </div>
       </div>
-      <div class="scrollable-tab" v-if="currentTab === 'judges'">
+      <div class="scrollable-tab" v-if="currentTab === 'judge'">
         <div v-for="judge in judges" :key="judge.id">
-          <UserCard :user="judge"></UserCard>
+          <UserCard :user="judge" @edit="goToEditUser" @delete="openDeleteConfirmationModal"></UserCard>
         </div>
       </div>
     </div>
+    <modal-delete-confirmation v-if="showDeleteConfirmationModal"
+                               @close="closeDeleteConfirmationModal"
+                               @clickDelete="deleteThisUser">
+      <div slot="description">{{selectedId}}</div>
+    </modal-delete-confirmation>
   </div>
 </template>
 

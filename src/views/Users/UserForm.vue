@@ -3,7 +3,7 @@
     <div class="form-container">
       <div class="row">
         <div class="column image-column">
-          <div class="image" :style="{ backgroundImage: 'url(' + user.image + ')' }">
+          <div class="image" :style="{ backgroundImage: 'url(' + userDetail.avatar + ')' }">
             <input type="file"
                    name="image"
                    accept="image/*"
@@ -20,43 +20,45 @@
           <div class="input-wrapper">
             <div class="input-label inline">Name</div>
             <div class="input inline">
-              <BaseInput v-model="user.name"></BaseInput>
+              <BaseInput v-model="userDetail.name"></BaseInput>
             </div>
           </div>
           <div class="input-wrapper">
             <div class="input-label inline">Phone</div>
             <div class="input inline">
-              <BaseInput v-model="user.phone"></BaseInput>
+              <BaseInput v-model="userDetail.phone"></BaseInput>
             </div>
           </div>
           <div class="input-wrapper">
             <div class="input-label inline">Email</div>
             <div class="input inline">
-              <BaseInput v-model="user.email"></BaseInput>
+              <BaseInput v-model="userDetail.email"></BaseInput>
             </div>
           </div>
-          <div class="input-wrapper">
+          <div class="input-wrapper" v-if="studentMode">
             <div class="input-label inline">University</div>
             <div class="input inline">
-              <BaseInput v-model="user.university"></BaseInput>
+              <BaseInput v-model="userDetail.university"></BaseInput>
+            </div>
+          </div>
+          <div class="input-wrapper" v-if="!studentMode">
+            <div class="input-label inline">Role</div>
+            <div class="input inline">
+              <BaseSelect
+                v-model="userDetail.role"
+                :options="roles"></BaseSelect>
             </div>
           </div>
           <div class="input-wrapper">
             <div class="input-label inline">Address</div>
             <div class="input inline">
-              <BaseInput v-model="user.address"></BaseInput>
+              <BaseInput v-model="userDetail.address"></BaseInput>
             </div>
           </div>
-          <div class="input-wrapper">
+          <div class="input-wrapper" v-if="studentMode">
             <div class="input-label inline">Batch</div>
             <div class="input inline">
-              <BaseInput v-model="user.batch"></BaseInput>
-            </div>
-          </div>
-          <div class="input-wrapper">
-            <div class="input-label inline">Division</div>
-            <div class="input inline">
-              <BaseInput v-model="user.division"></BaseInput>
+              <BaseInput v-model="userDetail.batch.code"></BaseInput>
             </div>
           </div>
         </div>
@@ -70,12 +72,12 @@
         </div>
       </div>
     </div>
-    <ModalProfilePicturePreview v-if="visibleModal === true"
-                                :newImage="imagePreview"
-                                @close="visibleModal = false"
-                                @save="imageUpload">
-      <slot name="title">Confirm your new profile picture</slot>
-    </ModalProfilePicturePreview>
+<!--    <ModalProfilePicturePreview v-if="visibleModal === true"-->
+<!--                                :newImage="imagePreview"-->
+<!--                                @close="visibleModal = false"-->
+<!--                                @save="imageUpload">-->
+<!--      <slot name="title">Confirm your new profile picture</slot>-->
+<!--    </ModalProfilePicturePreview>-->
   </div>
 </template>
 

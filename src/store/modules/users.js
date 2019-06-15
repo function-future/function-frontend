@@ -7,7 +7,7 @@ export const state = {
 
 export const mutations = {
   SET_USERS (state, payload) {
-    state.announcementList = [ ...payload ]
+    state.userList = [ ...payload ]
   },
   SET_USER_BY_ID (state, payload) {
     state.user = { ...payload }
@@ -20,9 +20,9 @@ export const actions = {
     commit('SET_USERS', [])
   },
   fetchUsers ({ commit }, { data, callback, fail }) {
-    userApi.getUserList(({ data: response }) => {
-      commit('SET_USERS', response)
-      callback()
+    userApi.getUserList((response) => {
+      // commit('SET_USERS', response)
+      callback(response)
     }, data, fail)
   },
   fetchUserById ({ commit }, { data, callback, fail }) {
@@ -51,11 +51,11 @@ export const actions = {
 }
 
 export const getters = {
-  announcementList (state) {
-    return state.announcementList
+  userList (state) {
+    return state.userList
   },
-  announcement (state) {
-    return state.announcement
+  user (state) {
+    return state.user
   }
 }
 

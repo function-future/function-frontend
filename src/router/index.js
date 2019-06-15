@@ -119,6 +119,30 @@ export default new Router({
       }
     },
     {
+      path: config.app.pages.users.edit.student,
+      name: 'editStudent',
+      component: UserForm,
+      meta: {
+        title: 'Edit Student'
+      },
+      props: {
+        studentMode: true,
+        editMode: true
+      }
+    },
+    {
+      path: config.app.pages.users.edit.user,
+      name: 'editUser',
+      component: UserForm,
+      meta: {
+        title: 'Edit User'
+      },
+      props: {
+        studentMode: false,
+        editMode: true
+      }
+    },
+    {
       path: config.app.pages.grades,
       name: 'grades',
       component: feeds,
