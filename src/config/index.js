@@ -16,7 +16,8 @@ module.exports = {
       assignments: {
         list: '/assignments',
         add: '/assignments/add',
-        rooms: '/assignments/:id/rooms'
+        rooms: '/assignments/:id/rooms',
+        detail: '/assignments/:id/detail'
       },
       finalJudging: '/final-judging',
       grades: '/grades',

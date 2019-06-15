@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import assignments from '@/views/Assignment/Assignments'
 import addAssignment from '@/views/Assignment/AddAssignment'
 import assignmentRooms from '@/views/Assignment/AssignmentRooms'
+import assignmentDetail from '@/views/Assignment/AssignmentDetail'
 import quizzes from '@/views/Quiz/Quiz'
 import feeds from '@/views/Feeds/Feeds.vue'
 import announcements from '@/views/Announcements/Announcements.vue'
@@ -132,6 +133,14 @@ export default new Router({
       component: assignments,
       meta: {
         title: 'Assignments'
+      }
+    },
+    {
+      path: config.app.pages.assignments.detail,
+      name: 'assignmentDetail',
+      component: assignmentDetail,
+      meta: {
+        title: 'Assignment Detail'
       }
     },
     {

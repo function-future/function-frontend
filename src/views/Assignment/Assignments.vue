@@ -5,32 +5,34 @@
         <font-awesome-icon icon="plus" class="icon"/> Add
       </BaseButton>
     </div>
-    <div v-for="assignment in assignmentList" :key="assignment.id">
-      <BaseCard class="assignment-card">
-        <div class="card-header">
-          {{assignment.title}}
+    <BaseCard class="assignment-card"
+              v-for="assignment in assignmentList"
+              :key="assignment.id"
+              @click.native="goToAssignmentDetail(assignment.id)"
+              cardClass="card-hover">
+      <div class="card-header">
+        {{assignment.title}}
+      </div>
+      <div class="card-body">
+        <div class="assignment-description">
+          {{assignment.description}}
         </div>
-        <div class="card-body">
-          <div class="assignment-description">
-            {{assignment.description}}
+      </div>
+      <div class="card-footer">
+        <div class="completion-status">
+          <div class="completion-status--box"
+               :class="isComplete(assignment.deadline)">
           </div>
+          <span class="completion-status--text">
+            {{isComplete(assignment.deadline)}}
+          </span>
         </div>
-        <div class="card-footer">
-          <div class="completion-status">
-            <div class="completion-status--box"
-                 :class="isComplete(assignment.deadline)">
-            </div>
-            <span class="completion-status--text">
-              {{isComplete(assignment.deadline)}}
-            </span>
-          </div>
-          <div class="assignment-deadline">
-            <font-awesome-icon icon="calendar"></font-awesome-icon>
-            {{assignment.deadline | moment("dddd, MMMM Do YYYY")}}
-          </div>
+        <div class="assignment-deadline">
+          <font-awesome-icon icon="calendar"></font-awesome-icon>
+          {{assignment.deadline | moment("dddd, MMMM Do YYYY")}}
         </div>
-      </BaseCard>
-    </div>
+      </div>
+    </BaseCard>
   </div>
 </template>
 

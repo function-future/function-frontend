@@ -50,7 +50,7 @@ export default {
         fail: this.failFetchingAssignmentList
       })
     },
-    failFetchingAssignmentList ({ response }) {
+    failFetchingAssignmentList () {
       this.$toasted.error('Something went wrong')
     },
     addAssignment () {
@@ -58,6 +58,14 @@ export default {
     },
     isComplete(deadline) {
       return deadline < new Date() ? 'Done' : 'Ongoing'
+    },
+    goToAssignmentDetail (id) {
+      this.$router.push({
+        name: 'assignmentDetail',
+        params: {
+          id: id
+        }
+      })
     }
   }
 }

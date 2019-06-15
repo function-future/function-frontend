@@ -142,4 +142,16 @@ describe('Assignment', () => {
     initComponent()
     expect(wrapper.vm.isComplete(new Date())).toBe('Ongoing')
   })
+
+  test('goToAssignmentDetail', () => {
+    initComponent()
+    wrapper.vm.$router.push = jest.fn()
+    wrapper.vm.goToAssignmentDetail(3)
+    expect(wrapper.vm.$router.push).toBeCalledWith({
+      name: 'assignmentDetail',
+      params: {
+        id: 3
+      }
+    })
+  })
 })
