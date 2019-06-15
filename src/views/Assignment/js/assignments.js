@@ -50,9 +50,8 @@ export default {
         fail: this.failFetchingAssignmentList
       })
     },
-    failFetchingAssignmentList ({ error }) {
+    failFetchingAssignmentList ({ response }) {
       this.$toasted.error('Something went wrong')
-      console.log(error)
     },
     addAssignment () {
       this.$router.push({name: 'addAssignment'})

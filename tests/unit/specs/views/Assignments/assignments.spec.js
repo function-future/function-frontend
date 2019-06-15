@@ -1,5 +1,5 @@
 import assignment from '@/views/Assignment/Assignments'
-import {createLocalVue, shallowMount} from '@vue/test-utils'
+import { createLocalVue, shallowMount } from '@vue/test-utils'
 import Vuex from 'vuex'
 import VueRouter from 'vue-router'
 
@@ -8,31 +8,31 @@ describe('Assignment', () => {
   let wrapper
   let localVue
 
-  function generateLocalVue() {
+  function generateLocalVue () {
     const lv = createLocalVue()
     lv.use(Vuex)
     lv.use(VueRouter)
     return lv
   }
 
-  function initStore() {
+  function initStore () {
     const state = {
       asssignmentList: [
         {
-          "id": "ASG0001",
-          "title": "Assignment 1",
-          "description": "Description Number 1",
-          "deadline": 15000000,
-          "batch": 3,
-          "uploadedDate": 15000000000
+          'id': 'ASG0001',
+          'title': 'Assignment 1',
+          'description': 'Description Number 1',
+          'deadline': 15000000,
+          'batch': 3,
+          'uploadedDate': 15000000000
         },
         {
-          "id": "ASG0002",
-          "title": "Assignment 2",
-          "description": "Description Number 2",
-          "deadline": 30000000,
-          "batch": 3,
-          "uploadedDate": 30000000000
+          'id': 'ASG0002',
+          'title': 'Assignment 2',
+          'description': 'Description Number 2',
+          'deadline': 30000000,
+          'batch': 3,
+          'uploadedDate': 30000000000
         }
       ]
     }
@@ -63,6 +63,9 @@ describe('Assignment', () => {
 
   function createWrapper (store, options) {
     const router = new VueRouter([])
+    const $toasted = {
+      error: jest.fn()
+    }
     return shallowMount(assignment, {
       ...options,
       store,
@@ -76,6 +79,9 @@ describe('Assignment', () => {
         'font-awesome-icon',
         'vue-toasted'
       ],
+      mocks: {
+        $toasted
+      },
       sync: false
     })
   }
@@ -112,24 +118,20 @@ describe('Assignment', () => {
     initComponent()
     wrapper.vm.$router.push = push
     wrapper.vm.addAssignment()
-    expect(push).toHaveBeenLastCalledWith({name: 'addAssignment'})
+    expect(push).toHaveBeenLastCalledWith({ name: 'addAssignment' })
   })
 
-  // test('failFetchingAssignmentList', () => {
-  //   initComponent()
-  //   const spy = {
-  //     error: jest.fn()
-  //   }
-  //   const error = {
-  //     'code': 200,
-  //     'status': 'OK',
-  //     'data': []
-  //   }
-  //   wrapper.vm.$toasted = spy
-  //   console.log(wrapper.vm.$toasted)
-  //   wrapper.vm.failFetchingAssignmentList({ error })
-  //   expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
-  // })
+  test('failFetchingAssignmentList', () => {
+    initComponent()
+    const response = {
+      'code': 500,
+      'status': 'Internal server error',
+      'data': []
+    }
+    wrapper.vm.$toasted.error = jest.fn()
+    wrapper.vm.failFetchingAssignmentList({ response })
+    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+  })
 
   test('isComplete true', () => {
     initComponent()

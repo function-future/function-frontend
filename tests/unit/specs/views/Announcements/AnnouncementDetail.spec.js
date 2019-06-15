@@ -170,28 +170,96 @@ describe('AnnouncementDetail.vue', () => {
     expect(spy).toBeCalledTimes(1)
   })
 
-  // test('deleteThisAnnouncement, router.push is called', async () => {
-  //   const push = jest.fn()
-  //   const $route = {
-  //     params: {
-  //       id: 'sample-id'
-  //     }
-  //   }
-  //   const $router = {
-  //     push: jest.fn()
-  //   }
-  //   const localVue = createLocalVue()
-  //   localVue.use(Vuex)
-  //   const wrapper = shallowMount(AnnouncementDetail, {
-  //     store,
-  //     localVue,
-  //     mocks: {
-  //       $route,
-  //       $router
-  //     }
-  //   })
-  //   wrapper.vm.$router.push = push
-  //   wrapper.vm.deleteThisAnnouncement()
-  //   expect(push).toBeCalledWith({ name: 'announcements' })
-  // })
+  test('successGetAnnouncementDetail', () => {
+    const localVue = createLocalVue()
+    const $route = {
+      params: {
+        id: 'sample-id'
+      }
+    }
+    localVue.use(Vuex)
+    const wrapper = shallowMount(AnnouncementDetail, {
+      store,
+      localVue,
+      mocks: {
+        $route
+      }
+    })
+    wrapper.vm.successGetAnnouncementDetail()
+    expect(wrapper.vm.announcementDescriptionMarkdown).toEqual('Description goes here. Currently there is no limit to description length.')
+  })
+
+  test('failGetAnnouncementDetail', () => {
+    const localVue = createLocalVue()
+    const $route = {
+      params: {
+        id: 'sample-id'
+      }
+    }
+    const $toasted = {
+      error: jest.fn()
+    }
+    localVue.use(Vuex)
+    const wrapper = shallowMount(AnnouncementDetail, {
+      store,
+      localVue,
+      mocks: {
+        $route,
+        $toasted
+      }
+    })
+    wrapper.vm.failGetAnnouncementDetail()
+    expect(wrapper.vm.$toasted.error).toBeCalledTimes(1)
+  })
+
+  test('successDeleteAnnouncementById', () => {
+    const localVue = createLocalVue()
+    const $route = {
+      params: {
+        id: 'sample-id'
+      }
+    }
+    const $router = {
+      push: jest.fn()
+    }
+    const $toasted = {
+      success: jest.fn()
+    }
+    localVue.use(Vuex)
+    const wrapper = shallowMount(AnnouncementDetail, {
+      store,
+      localVue,
+      mocks: {
+        $route,
+        $router,
+        $toasted
+      }
+    })
+    wrapper.vm.successDeleteAnnouncementById()
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({name: 'announcements'})
+    expect(wrapper.vm.$toasted.success).toBeCalledTimes(1)
+  })
+
+  test('failDeleteAnnouncementById', () => {
+    const localVue = createLocalVue()
+    const $route = {
+      params: {
+        id: 'sample-id'
+      }
+    }
+    const $toasted = {
+      error: jest.fn()
+    }
+    localVue.use(Vuex)
+    const wrapper = shallowMount(AnnouncementDetail, {
+      store,
+      localVue,
+      mocks: {
+        $route,
+        $toasted
+      }
+    })
+    wrapper.vm.failDeleteAnnouncementById()
+    expect(wrapper.vm.$toasted.error).toBeCalledTimes(1)
+  })
 })

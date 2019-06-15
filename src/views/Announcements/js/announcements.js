@@ -56,10 +56,11 @@ export default {
       this.fetchAnnouncements({
         data,
         callback: () => {},
-        fail: () => {
-          this.$toasted.error('Fail to load announcement list')
-        }
+        fail: this.failLoadingAnnouncementList
       })
+    },
+    failLoadingAnnouncementList () {
+      this.$toasted.error('Fail to load announcement list')
     },
     textPreview: function (announcement) {
       if (announcement.summary) {
@@ -89,15 +90,17 @@ export default {
 
       this.deleteAnnouncementById({
         data,
-        callback: () => {
-          this.$router.push({ name: 'announcements' })
-          this.$toasted.success('successfully delete announcement')
-          this.closeDeleteConfirmationModal()
-        },
-        fail: () => {
-          this.$toasted.error('Fail to delete announcement')
-        }
+        callback: this.successDeleteAnnouncementById,
+        fail: this.failDeleteAnnouncementById
       })
+    },
+    successDeleteAnnouncementById () {
+      this.$router.push({ name: 'announcements' })
+      this.$toasted.success('successfully delete announcement')
+      this.closeDeleteConfirmationModal()
+    },
+    failDeleteAnnouncementById () {
+      this.$toasted.error('Fail to delete announcement')
     }
   }
 }

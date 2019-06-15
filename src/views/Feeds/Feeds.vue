@@ -2,20 +2,20 @@
   <div class="scrollable-container">
     <BaseCard class="sticky-notes-card" @click.native="goToStickyNotesDetail" cardClass="card-hover">
       <div class="sticky-notes-header sticky-notes-title">
-        <h3>{{ stickyNotes.noteTitle || 'Sticky Note' }}</h3>
+        <h3>{{ stickyNote.noteTitle || 'Sticky Note' }}</h3>
       </div>
       <div class="sticky-notes-header sticky-notes-date">
-        {{ stickyNotes.updatedAt | moment("dddd, MMMM Do YYYY") }}
+        {{ stickyNote.updatedAt | moment("dddd, MMMM Do YYYY") }}
       </div>
       <div class="sticky-notes-content">
-        <span>{{ stickyNotes.noteDescription }}</span>
+        <span>{{ stickyNote.noteDescription }}</span>
       </div>
     </BaseCard>
     <BaseCard class="announcement-card" @click.native="goToAnnouncementPage" cardClass="card-hover no-pointer">
       <h3>Announcements</h3>
       <div class="announcement-card-scrollable">
         <BaseCard class="announcement-box"
-                  v-for="announcement in announcementList"
+                  v-for="announcement in announcements"
                   v-bind:key="announcement.id"
                   @click.native.stop="goToAnnouncementDetail(announcement.id)">
           <h4>{{ announcement.title }}</h4>

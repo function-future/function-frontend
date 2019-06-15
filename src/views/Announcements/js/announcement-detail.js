@@ -38,13 +38,15 @@ export default {
       let data = { ...id }
       this.fetchAnnouncementById({
         data,
-        callback: () => {
-          this.announcementDescriptionMarkdown = this.announcement.description
-        },
-        fail: () => {
-          this.$toasted.error('Fail to load announcement detail')
-        }
+        callback: this.successGetAnnouncementDetail,
+        fail: this.failGetAnnouncementDetail
       })
+    },
+    successGetAnnouncementDetail () {
+      this.announcementDescriptionMarkdown = this.announcement.description
+    },
+    failGetAnnouncementDetail () {
+      this.$toasted.error('Fail to load announcement detail')
     },
     goToEditAnnouncement () {
       this.$router.push({
@@ -61,14 +63,16 @@ export default {
 
       this.deleteAnnouncementById({
         data,
-        callback: () => {
-          this.$router.push({ name: 'announcements' })
-          this.$toasted.success('successfully delete announcement')
-        },
-        fail: () => {
-          this.$toasted.error('Fail to delete announcement')
-        }
+        callback: this.successDeleteAnnouncementById,
+        fail: this.failDeleteAnnouncementById
       })
+    },
+    successDeleteAnnouncementById () {
+      this.$router.push({ name: 'announcements' })
+      this.$toasted.success('successfully delete announcement')
+    },
+    failDeleteAnnouncementById () {
+      this.$toasted.error('Fail to delete announcement')
     }
   }
 }
