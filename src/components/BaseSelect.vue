@@ -28,6 +28,9 @@
     box-sizing: border-box;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.25);
     border-radius: 40px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
     padding: 10px 20px 10px 20px;
     margin: 10px 0 10px 0;
     font-size: 1em;
