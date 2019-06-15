@@ -20,25 +20,37 @@
           <div class="input-wrapper">
             <div class="input-label inline">Name</div>
             <div class="input inline">
-              <BaseInput v-model="userDetail.name"></BaseInput>
+              <BaseInput v-model="userDetail.name"
+                         v-validate.continues="'required|min:5'"
+                         name="name"></BaseInput>
+              <div v-if="errors.has('name')"><span class="input-invalid-message">{{ errors.first('name') }}</span></div>
             </div>
           </div>
           <div class="input-wrapper">
             <div class="input-label inline">Phone</div>
             <div class="input inline">
-              <BaseInput v-model="userDetail.phone"></BaseInput>
+              <BaseInput v-model="userDetail.phone"
+                         v-validate.continues="'required|min:9|max:14'"
+                         name="phone"></BaseInput>
+              <div v-if="errors.has('phone')"><span class="input-invalid-message">{{ errors.first('phone') }}</span></div>
             </div>
           </div>
           <div class="input-wrapper">
             <div class="input-label inline">Email</div>
             <div class="input inline">
-              <BaseInput v-model="userDetail.email"></BaseInput>
+              <BaseInput v-model="userDetail.email"
+                         v-validate.continues="'required|email'"
+                         name="email"></BaseInput>
+              <div v-if="errors.has('email')"><span class="input-invalid-message">{{ errors.first('email') }}</span></div>
             </div>
           </div>
           <div class="input-wrapper" v-if="studentMode">
             <div class="input-label inline">University</div>
             <div class="input inline">
-              <BaseInput v-model="userDetail.university"></BaseInput>
+              <BaseInput v-model="userDetail.university"
+                         v-validate.continues="'required|min:2'"
+                         name="university"></BaseInput>
+              <div v-if="errors.has('university')"><span class="input-invalid-message">{{ errors.first('university') }}</span></div>
             </div>
           </div>
           <div class="input-wrapper" v-if="!studentMode">
@@ -46,19 +58,28 @@
             <div class="input inline">
               <BaseSelect
                 v-model="userDetail.role"
+                v-validate.continues="'required'"
+                name="role"
                 :options="roles"></BaseSelect>
+              <div v-if="errors.has('roles')"><span class="input-invalid-message">{{ errors.first('roles') }}</span></div>
             </div>
           </div>
           <div class="input-wrapper">
             <div class="input-label inline">Address</div>
             <div class="input inline">
-              <BaseInput v-model="userDetail.address"></BaseInput>
+              <BaseInput v-model="userDetail.address"
+                         v-validate.continues="'required|min:10'"
+                         name="address"></BaseInput>
+              <div v-if="errors.has('address')"><span class="input-invalid-message">{{ errors.first('address') }}</span></div>
             </div>
           </div>
           <div class="input-wrapper" v-if="studentMode">
             <div class="input-label inline">Batch</div>
             <div class="input inline">
-              <BaseInput v-model="userDetail.batch.code"></BaseInput>
+              <BaseInput v-model="userDetail.batch.code"
+                         v-validate.continues="'required'"
+                         name="batch"></BaseInput>
+              <div v-if="errors.has('batch')"><span class="input-invalid-message">{{ errors.first('batch') }}</span></div>
             </div>
           </div>
         </div>
@@ -171,5 +192,12 @@
     display: inline-block;
     padding-left: 5px;
     padding-right: 5px;
+  }
+
+  .input-invalid-message {
+    color: #FF0000;
+    font-size: 0.75em;
+    float: left;
+    margin-left: 2vw;
   }
 </style>

@@ -118,44 +118,51 @@ export default {
     cancel () {
       this.$router.push({ name: 'users' })
     },
+    validateBeforeSubmit (callback) {
+      this.$validator.validateAll().then(callback)
+    },
     save () {
-      let user = {
-        id: this.userDetail.id || '',
-        role: this.userDetail.role,
-        email: this.userDetail.email,
-        name: this.userDetail.name,
-        phone: this.userDetail.phone,
-        address: this.userDetail.address,
-        avatarId: this.userDetail.avatarId
-      }
-      let student = {
-        id: this.userDetail.id || '',
-        role: 'STUDENT',
-        email: this.userDetail.email,
-        name: this.userDetail.name,
-        phone: this.userDetail.phone,
-        address: this.userDetail.address,
-        avatarId: this.userDetail.avatarId,
-        batchCode: this.userDetail.batch.code,
-        university: this.userDetail.university
-      }
+      this.validateBeforeSubmit((result) => {
+        if (result) {
+          let user = {
+            id: this.userDetail.id || '',
+            role: this.userDetail.role,
+            email: this.userDetail.email,
+            name: this.userDetail.name,
+            phone: this.userDetail.phone,
+            address: this.userDetail.address,
+            avatarId: this.userDetail.avatarId
+          }
+          let student = {
+            id: this.userDetail.id || '',
+            role: 'STUDENT',
+            email: this.userDetail.email,
+            name: this.userDetail.name,
+            phone: this.userDetail.phone,
+            address: this.userDetail.address,
+            avatarId: this.userDetail.avatarId,
+            batchCode: this.userDetail.batch.code,
+            university: this.userDetail.university
+          }
 
-      let data = {}
-      this.studentMode ? data = { ...student } : data = { ...user }
+          let data = {}
+          this.studentMode ? data = { ...student } : data = { ...user }
 
-      if (this.editMode) {
-        this.updateUser({
-          data,
-          callback: this.successCreateOrEditUser,
-          fail: this.failCreateOrEditUser
-        })
-      } else {
-        this.createUser({
-          data,
-          callback: this.successCreateOrEditUser,
-          fail: this.failCreateOrEditUser
-        })
-      }
+          if (this.editMode) {
+            this.updateUser({
+              data,
+              callback: this.successCreateOrEditUser,
+              fail: this.failCreateOrEditUser
+            })
+          } else {
+            this.createUser({
+              data,
+              callback: this.successCreateOrEditUser,
+              fail: this.failCreateOrEditUser
+            })
+          }
+        }
+      })
     },
     successCreateOrEditUser () {
       this.initialState()
