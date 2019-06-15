@@ -30,7 +30,7 @@
             <div class="input-label inline">Phone</div>
             <div class="input inline">
               <BaseInput v-model="userDetail.phone"
-                         v-validate.continues="'required|min:9|max:14'"
+                         v-validate.continues="'required|numeric|min:9|max:14'"
                          name="phone"></BaseInput>
               <div v-if="errors.has('phone')"><span class="input-invalid-message">{{ errors.first('phone') }}</span></div>
             </div>
