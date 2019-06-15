@@ -3,9 +3,17 @@
     <div class="form-container">
       <div class="row">
         <div class="column image-column">
-          <div class="image" :style="{ backgroundImage: 'url(' + imagePreview + ')' }">
-            <input type="file" name="image" id="upload-image" @change="onFileChange($event)" style="display: none"/>
+          <div class="image" :style="{ backgroundImage: 'url(' + user.image + ')' }">
+            <input type="file"
+                   name="image"
+                   accept="image/*"
+                   id="upload-image"
+                   @change="onFileChange($event)"
+                   style="display: none"/>
             <label for="upload-image" class="image-edit"><font-awesome-icon icon="pencil-alt" class="icon"/> edit</label>
+          </div>
+          <div class="alert" v-if="maximumSizeAlert">
+            <span>Please upload a picture smaller than 1 MB.</span>
           </div>
         </div>
         <div class="column input-column">
@@ -58,10 +66,16 @@
           <BaseButton type="cancel" buttonClass="button-cancel" @click="cancel">Cancel</BaseButton>
         </div>
         <div class="action-button">
-          <BaseButton type="submit" buttonClass="button-save" @click="createUser">Save</BaseButton>
+          <BaseButton type="submit" buttonClass="button-save" @click="save">Save</BaseButton>
         </div>
       </div>
     </div>
+    <ModalProfilePicturePreview v-if="visibleModal === true"
+                                :newImage="imagePreview"
+                                @close="visibleModal = false"
+                                @save="imageUpload">
+      <slot name="title">Confirm your new profile picture</slot>
+    </ModalProfilePicturePreview>
   </div>
 </template>
 
@@ -129,6 +143,12 @@
   .input-wrapper {
     text-align: right;
     width: 100%;
+  }
+
+  .alert {
+    margin-top: 10px;
+    text-align: left;
+    color: #cb2431 !important;
   }
 
   .input {

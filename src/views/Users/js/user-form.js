@@ -1,17 +1,22 @@
 import BaseInput from '@/components/BaseInput'
 import BaseButton from '@/components/BaseButton'
 import BaseTextArea from '@/components/BaseTextArea'
+import ModalProfilePicturePreview from '@/components/modals/ModalProfilePicturePreview'
 import config from '@/config/index'
 
 export default {
   components: {
     BaseButton,
     BaseInput,
-    BaseTextArea
+    BaseTextArea,
+    ModalProfilePicturePreview
   },
   data () {
     return {
       imagePreview: '',
+      newImage: '',
+      maximumSizeAlert: false,
+      visibleModal: false,
       user: {
         image: '',
         name: '',
@@ -26,12 +31,14 @@ export default {
   },
   methods: {
     onFileChange (e) {
-      this.user.image = e.target.files[0]
+      this.newImage = e.target.files[0]
       let files = e.target.files || e.dataTransfer.files
-      if (!files.length) {
-        return
+      if (files[0].size > 1000000) {
+        this.maximumSizeAlert = true
+      } else {
+        this.visibleModal = true
+        this.createImage(files[0])
       }
-      this.createImage(files[0])
     },
     createImage (file) {
       let reader = new FileReader()
@@ -43,8 +50,11 @@ export default {
     },
     imageUpload () {
       let formData = new FormData()
-      formData.append('myFile', this.user.image, this.user.image.name)
+      formData.append('image', this.newImage)
       //continue post logic
-    }
+    },
+    cancel () {
+    },
+    save () {}
   }
 }
