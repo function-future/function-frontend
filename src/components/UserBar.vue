@@ -26,7 +26,7 @@
   </div>
 </template>
 
-<script type="text/javascript" src="./js/UserBar.js">
+<script type="text/javascript" src="./js/user-bar.js">
 </script>
 
 <style scoped>

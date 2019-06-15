@@ -17,22 +17,7 @@
   </BaseCard>
 </template>
 
-<script>
-import BaseCard from '@/components/BaseCard'
-
-export default {
-  components: { BaseCard },
-  data () {
-    return {
-      user: {
-        name: 'Karnando Sepryan',
-        university: 'BINUS University',
-        batch: '3',
-        division: 'Development'
-      }
-    }
-  }
-}
+<script type="text/javascript" src="./js/user-card.js">
 </script>
 
 <style scoped>

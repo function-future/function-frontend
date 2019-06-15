@@ -14,7 +14,7 @@
   </div>
 </template>
 
-<script type="text/javascript" src="./js/BaseSelect.js">
+<script type="text/javascript" src="./js/base-select.js">
 </script>
 
 <style scoped>

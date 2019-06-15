@@ -2,7 +2,8 @@
   <div class="scrollable-container">
     <div class="edit-container">
       <div class="title">
-        <BaseInput class="input-title" placeholder="Insert Title" inputType="title" v-model="assignment.title"></BaseInput>
+        <BaseInput class="input-title" placeholder="Insert Title" inputType="title" v-model="assignment.title">
+        </BaseInput>
       </div>
       <div class="assignment-body">
         <div class="description">
@@ -17,7 +18,8 @@
           <div class="assignment-detail-batch">
             <BaseSelect v-model="assignment.batch" :options="batches"></BaseSelect>
           </div>
-          <v-date-picker class="assignment-detail-deadline" v-model="assignment.deadline" is-inline/>
+          <v-date-picker class="assignment-detail-deadline" v-model="assignment.deadline" is-inline>
+          </v-date-picker>
           <div class="assignment-detail-file">
             <span class="assignment-detail-file-name">File.txt</span>
             <div class="assignment-detail-file-actions">
@@ -43,8 +45,7 @@
   </div>
 </template>
 
-<script type="text/javascript" src="./js/AddAssignment.js"/>
-
+<script type="text/javascript" src="js/add-assignment.js"></script>
 
 <style scoped>
   .edit-container {

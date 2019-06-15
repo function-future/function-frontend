@@ -1,8 +1,6 @@
 module.exports = {
   moduleFileExtensions: [
     'js',
-    'jsx',
-    'json',
     'vue'
   ],
   transform: {
@@ -11,10 +9,23 @@ module.exports = {
     '^.+\\.jsx?$': 'babel-jest'
   },
   moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/src/$1'
+    '^@/(.*)$': '<rootDir>/src/$1',
+    '@mock-api(.*)$': '<rootDir>/src/api-mock/',
+    // '@test/(.*)$': '<rootDir>/tests/$1'
   },
   snapshotSerializers: [
     'jest-serializer-vue'
+  ],
+  'collectCoverage': true,
+  'collectCoverageFrom': [
+    'src/**/*.js',
+    'src/**/*.vue',
+    '!**/node_modules/**'
+  ],
+  'coverageDirectory': 'tests/unit/coverage',
+  'coverageReporters': [
+    'lcov',
+    'text'
   ],
   testMatch: [
     '**/tests/unit/**/*.spec.(js|jsx|ts|tsx)|**/__tests__/*.(js|jsx|ts|tsx)'

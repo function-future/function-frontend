@@ -6,7 +6,7 @@
   </div>
 </template>
 
-<script type="text/javascript" src="./js/BaseButton.js">
+<script type="text/javascript" src="./js/base-button.js">
 </script>
 
 <style scoped>

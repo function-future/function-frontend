@@ -4,7 +4,7 @@
     </div>
 </template>
 
-<script type="text/javascript" src="./js/BaseCard.js">
+<script type="text/javascript" src="./js/base-card.js">
 </script>
 
 <style scoped>

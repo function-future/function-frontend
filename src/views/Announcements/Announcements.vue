@@ -27,7 +27,8 @@
               @click.stop="goToEditAnnouncement(announcement.id)">
             </font-awesome-icon>
           </span>
-          <span><font-awesome-icon
+          <span>
+            <font-awesome-icon
             icon="trash-alt"
             class="icon red"
             size="lg" @click.stop="openDeleteConfirmationModal(announcement.id)"></font-awesome-icon></span>
@@ -45,7 +46,7 @@
   </div>
 </template>
 
-<script type="text/javascript" src="./js/Announcements.js"></script>
+<script type="text/javascript" src="./js/announcements.js"></script>
 
 <style scoped>
   .announcement-card {
