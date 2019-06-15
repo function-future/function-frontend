@@ -34,11 +34,11 @@ export default {
     cancel () {
       this.$router.go(-1)
     },
-    successCreateAssignment ({response}) {
+    successCreateAssignment () {
       this.$router.push({name: 'assignments'})
       this.$toasted.success('Successfully created new assignment')
     },
-    failCreatingAssignment ({ response }) {
+    failCreatingAssignment () {
       this.$toasted.error('Something went wrong')
     },
     saveAssignment () {
