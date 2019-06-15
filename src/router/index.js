@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import assignments from '@/views/Assignments/Assignments'
-import addAssignment from '@/views/Assignments/AddAssignment'
+import assignments from '@/views/Assignment/Assignments'
+import addAssignment from '@/views/Assignment/AddAssignment'
 import quizzes from '@/views/Quiz/Quiz'
 import feeds from '@/views/Feeds/Feeds.vue'
 import announcements from '@/views/Announcements/Announcements.vue'
@@ -87,11 +87,35 @@ export default new Router({
       }
     },
     {
-      path: config.app.pages.users,
+      path: config.app.pages.users.list,
       name: 'users',
       component: users,
       meta: {
         title: 'Users'
+      }
+    },
+    {
+      path: config.app.pages.users.add.student,
+      name: 'addStudent',
+      component: UserForm,
+      meta: {
+        title: 'Add Student'
+      },
+      props: {
+        studentMode: true,
+        editMode: false
+      }
+    },
+    {
+      path: config.app.pages.users.add.user,
+      name: 'addUser',
+      component: UserForm,
+      meta: {
+        title: 'Add User'
+      },
+      props: {
+        studentMode: false,
+        editMode: false
       }
     },
     {
@@ -146,14 +170,6 @@ export default new Router({
       path: config.app.pages.finalJudging,
       name: 'finalJudging',
       component: feeds
-    },
-    {
-      path: '/users/add',
-      name: 'addUser',
-      component: UserForm,
-      meta: {
-        title: 'Add User'
-      }
     }
   ]
 })

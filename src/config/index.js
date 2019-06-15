@@ -11,7 +11,17 @@ module.exports = {
       },
       courses: '/courses',
       files: '/files',
-      users: '/users',
+      users: {
+        list: '/users',
+        add: {
+          student: '/users/add/student',
+          user: '/users/add'
+        },
+        edit: {
+          student: '/users/:id/edit/student',
+          user: '/users/:id/edit'
+        }
+      },
       quizzes: '/quizzes',
       assignments: {
         list: '/assignments',
@@ -39,7 +49,12 @@ module.exports = {
         },
         menuList: '/api/core/menu-list'
       },
-      users: {},
+      users: {
+        get (page, size) { return `/api/core/users?page=${page}&size=${size}` },
+        post: '/api/core/users',
+        detail (id) { return `/api/core/users/${id}` }
+        }
+      },
       stickyNotes: {
         get: '/api/core/sticky-notes',
         post: '/api/core/sticky-notes'
