@@ -2,10 +2,7 @@
 
 </template>
 
-<script>
-  export default {
-    name: 'AssignmentDetail'
-  }
+<script type="text/javascript" src="./js/assignment-detail.js">
 </script>
 
 <style scoped>

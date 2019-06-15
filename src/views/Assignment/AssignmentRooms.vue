@@ -23,7 +23,7 @@
   </div>
 </template>
 
-<script src="./js/AssignmentRooms.js">
+<script src="./js/assignment-room.js">
 </script>
 
 <style scoped>
