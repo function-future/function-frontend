@@ -72,7 +72,7 @@ export default {
     },
     successDeleteActivityBlogById () {
       this.$router.push({ name: 'activityBlogs' })
-      this.$toasted.success('successfully delete activity blog')
+      this.$toasted.success('Successfully delete activity blog')
     },
     failDeleteActivityBlogById () {
       this.$toasted.error('Fail to delete activity blog')

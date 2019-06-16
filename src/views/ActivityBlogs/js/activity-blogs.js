@@ -86,7 +86,7 @@ export default {
     },
     successDeleteActivityBlogById () {
       this.$router.push({ name: 'activityBlogs' })
-      this.$toasted.success('successfully delete activity blog')
+      this.$toasted.success('Successfully delete activity blog')
       this.closeDeleteConfirmationModal()
     },
     failDeleteActivityBlogById () {
