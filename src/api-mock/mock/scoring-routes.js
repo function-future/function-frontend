@@ -61,7 +61,10 @@ export const assignments = [
         "batch": 3
       }
     }
-  },
+  }
+]
+
+export const assignmentDetails = [
   {
     method: 'GET',
     url: '/api/scoring/batches/3/assignments/ASG0001',
