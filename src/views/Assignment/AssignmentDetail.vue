@@ -3,7 +3,7 @@
     <div class="edit-container">
       <div class="title">
         <BaseInput class="input-title" placeholder="Insert Title" inputType="title" v-model="assignmentDetail.title"
-        disabled="editMode">
+        :disabled="!editMode">
         </BaseInput>
       </div>
       <div class="assignment-body">
@@ -18,9 +18,10 @@
         </div>
         <div class="assignment-detail">
           <div class="assignment-detail-batch">
-            <BaseSelect v-model="assignmentDetail.batch" :options="batches" disabled="editMode"></BaseSelect>
+            <BaseSelect v-model="assignmentDetail.batch" :options="batches" :disabled="!editMode"></BaseSelect>
           </div>
-          <v-date-picker class="assignment-detail-deadline" v-model="assignmentDetail.deadline" is-inline>
+          <v-calendar v-if="!editMode" class="assignment-detail-deadline" v-model="assignmentDetail.deadline" is-inline is-required></v-calendar>
+          <v-date-picker v-else class="assignment-detail-deadline" v-model="assignmentDetail.deadline" is-inline is-required>
           </v-date-picker>
           <div class="assignment-detail-file">
             <span class="assignment-detail-file-name">File.txt</span>
@@ -40,7 +41,7 @@
             <div class="action-button" v-if="editMode">
               <BaseButton type="submit" buttonClass="button-save" @click="saveAssignment">Save</BaseButton>
             </div>
-            <div class="action-button" v-if="editMode">
+            <div class="action-button" v-if="!editMode">
               <BaseButton type="submit" buttonClass="button-save" @click="editAssignment">Edit</BaseButton>
             </div>
           </div>

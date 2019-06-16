@@ -13,8 +13,13 @@ const createAssignment = function (callback, data, payload, errorHandler) {
   request.postRequest(config.api.scoring.assignments.create(data.batchCode, data.page, data.pageSize), callback, payload, errorHandler)
 }
 
+const updateAssignment = function (callback, data, payload, errorHandler) {
+  request.getRequest(config.api.scoring.assignments.update(data.batchCode, data.id), callback, payload, errorHandler)
+}
+
 export default {
   getAssignmentsList,
   getAssignmentById,
-  createAssignment
+  createAssignment,
+  updateAssignment
 }

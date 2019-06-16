@@ -146,11 +146,14 @@ describe('Assignment', () => {
   test('goToAssignmentDetail', () => {
     initComponent()
     wrapper.vm.$router.push = jest.fn()
-    wrapper.vm.goToAssignmentDetail(3)
+    wrapper.vm.goToAssignmentDetail(3, 3)
     expect(wrapper.vm.$router.push).toBeCalledWith({
       name: 'assignmentDetail',
       params: {
         id: 3
+      },
+      query: {
+        batchCode: 3
       }
     })
   })

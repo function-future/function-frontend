@@ -79,6 +79,9 @@ module.exports = {
         },
         detail(batchCode, id) {
           return `/api/scoring/batches/${batchCode}/assignments/${id}`
+        },
+        update(batchCode, id) {
+          return `/api/scoring/batches/${batchCode}/assignments/${id}`
         }
       }
     }

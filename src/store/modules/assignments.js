@@ -32,8 +32,15 @@ export const actions = {
       commit('SET_ASSIGNMENT', response)
       callback()
     }, data, fail)
+  },
+  updateAssignmentDetail ({ commit }, { payload, data, callback, fail }) {
+    assignmentApi.updateAssignment(() => {
+      commit('SET_ASSIGNMENT', payload)
+      callback()
+    }, data, payload, fail)
   }
 }
+
 
 export const getters = {
   assignmentList (state) {

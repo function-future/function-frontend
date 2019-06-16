@@ -59,11 +59,14 @@ export default {
     isComplete(deadline) {
       return deadline < new Date() ? 'Done' : 'Ongoing'
     },
-    goToAssignmentDetail (id) {
+    goToAssignmentDetail (id, batchCode) {
       this.$router.push({
         name: 'assignmentDetail',
         params: {
           id: id
+        },
+        query: {
+          batchCode: batchCode
         }
       })
     }
