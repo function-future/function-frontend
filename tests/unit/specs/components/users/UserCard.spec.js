@@ -7,7 +7,19 @@ describe('UserCard', () => {
   })
 
   test('Rendered correctly', () => {
-    const wrapper = shallowMount(userCard)
+    const user = {
+      name: 'aaa',
+      university: 'aaa',
+      division: 'aaa',
+      batch: {
+        name: 'asasd'
+      }
+    }
+    const wrapper = shallowMount(userCard, {
+      propsData: {
+        user
+      }
+    })
     expect(wrapper.isVueInstance()).toBe(true)
   })
 })

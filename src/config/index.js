@@ -75,23 +75,23 @@ module.exports = {
       },
       resources: {
         post (source) { return `api/core/resources?source=${source}` }
+      },
+      profile: {
+        get: '/api/core/user/profile',
+        change_password: '/api/core/user/password'
+      },
+      blogs: {
+        get: '/api/core/activity-blogs'
       }
     },
-    profile: {
-      get: '/api/core/user/profile',
-      change_password: '/api/core/user/password'
-    },
-    blogs: {
-      get: '/api/core/activity-blogs'
-    }
-  },
-  scoring: {
-    assignments: {
-      list (batchCode, page, pageSize) {
-        return `/api/scoring/batches/${batchCode}/assignments?page=${page}&size=${pageSize}`
-      },
-      create (batchCode, page, pageSize) {
-        return `/api/scoring/batches/${batchCode}/assignments?page=${page}&size=${pageSize}`
+    scoring: {
+      assignments: {
+        list (batchCode, page, pageSize) {
+          return `/api/scoring/batches/${batchCode}/assignments?page=${page}&size=${pageSize}`
+        },
+        create (batchCode, page, pageSize) {
+          return `/api/scoring/batches/${batchCode}/assignments?page=${page}&size=${pageSize}`
+        }
       }
     }
   },
