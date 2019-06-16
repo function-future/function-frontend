@@ -73,6 +73,9 @@ module.exports = {
           }
         }
       },
+      resources: {
+        post (source) { return `api/core/resources?source=${source}` }
+      }
     },
     profile: {
       get: '/api/core/user/profile',

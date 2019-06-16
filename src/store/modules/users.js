@@ -1,4 +1,5 @@
 import userApi from '@/api/controller/users'
+import resourceApi from '@/api/controller/resources'
 
 export const state = {
   userList: [],
@@ -47,6 +48,11 @@ export const actions = {
     userApi.deleteUser(() => {
       callback()
     }, data, fail)
+  },
+  uploadProfilePicture ({ commit }, { data, configuration, callback, fail }) {
+    resourceApi.uploadResource(({ data: response }) => {
+      callback(response)
+    }, data, fail, configuration)
   }
 }
 

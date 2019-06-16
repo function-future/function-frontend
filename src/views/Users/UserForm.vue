@@ -20,7 +20,8 @@
           <div class="input-wrapper">
             <div class="input-label inline">Name</div>
             <div class="input inline">
-              <BaseInput v-model="userDetail.name"
+              <BaseInput autofocus
+                         v-model="userDetail.name"
                          v-validate.continues="'required|min:5'"
                          name="name"></BaseInput>
               <div v-if="errors.has('name')"><span class="input-invalid-message">{{ errors.first('name') }}</span></div>

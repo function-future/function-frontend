@@ -65,7 +65,8 @@ export default {
       'initialState',
       'fetchUserById',
       'createUser',
-      'updateUser'
+      'updateUser',
+      'uploadProfilePicture'
     ]),
     initPage () {
       this.initialState()
@@ -97,23 +98,32 @@ export default {
       if (files[0].size > 1000000) {
         this.maximumSizeAlert = true
       } else {
-        this.createImage(files[0])
-        this.imageUpload()
+        this.maximumSizeAlert = false
+        this.imageUpload(files[0])
       }
-    },
-    createImage (file) {
-      let reader = new FileReader()
-
-      reader.onload = (e) => {
-        this.user.avatar = e.target.result
-      }
-      reader.readAsDataURL(file)
     },
     imageUpload () {
       let formData = new FormData()
       formData.append('image', this.newImage)
-      // continue post logic
-      this.user.avatarId = []
+      let data = {
+        source: 'user',
+        resources: formData
+      }
+      data = { ...data }
+      let configuration = { headers: { 'Content-Type': 'multipart/form-data' } }
+      this.uploadProfilePicture({
+        data,
+        configuration,
+        callback: this.successUploadProfilePicture,
+        fail: this.failUploadProfilePicture
+      })
+    },
+    successUploadProfilePicture (response) {
+      this.userDetail.avatarId = [ response.id ]
+      this.userDetail.avatar = response.file.full
+    },
+    failUploadProfilePicture () {
+      this.$toasted.error('Fail to upload image, please try again')
     },
     cancel () {
       this.$router.push({ name: 'users' })
