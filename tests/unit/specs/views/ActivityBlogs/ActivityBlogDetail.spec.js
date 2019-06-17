@@ -1,14 +1,13 @@
-import activityBlogs from '@/views/ActivityBlogs/ActivityBlogs'
+import ActivityBlogDetail from '@/views/ActivityBlogs/ActivityBlogDetail'
 import { createLocalVue, shallowMount } from '@vue/test-utils'
 import Vuex from 'vuex'
-import VueRouter from 'vue-router'
-import config from '@/config/index'
 import VeeValidate from 'vee-validate'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
+localVue.use(VeeValidate)
 
-describe('ActivityBlogs', () => {
+describe('ActivityBlogDetail', () => {
   let actions
   let getters
   let state
@@ -39,9 +38,18 @@ describe('ActivityBlogs', () => {
   })
 
   test('Rendered correctly', () => {
-    const wrapper = shallowMount(activityBlogs, {
+    // localVue.use(VueRouter)
+    const $route = {
+      params: {
+        id: 'sample-id'
+      }
+    }
+    const wrapper = shallowMount(ActivityBlogDetail, {
       store,
-      localVue
+      localVue,
+      mocks: {
+        $route
+      }
     })
     expect(wrapper.isVueInstance()).toBe(true)
   })

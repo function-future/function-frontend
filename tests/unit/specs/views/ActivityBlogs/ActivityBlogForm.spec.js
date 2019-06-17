@@ -1,14 +1,13 @@
-import activityBlogs from '@/views/ActivityBlogs/ActivityBlogs'
+import ActivityBlogForm from '@/views/ActivityBlogs/ActivityBlogForm'
 import { createLocalVue, shallowMount } from '@vue/test-utils'
 import Vuex from 'vuex'
-import VueRouter from 'vue-router'
-import config from '@/config/index'
 import VeeValidate from 'vee-validate'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
+localVue.use(VeeValidate)
 
-describe('ActivityBlogs', () => {
+describe('ActivityBlogForm', () => {
   let actions
   let getters
   let state
@@ -39,7 +38,7 @@ describe('ActivityBlogs', () => {
   })
 
   test('Rendered correctly', () => {
-    const wrapper = shallowMount(activityBlogs, {
+    const wrapper = shallowMount(ActivityBlogForm, {
       store,
       localVue
     })
