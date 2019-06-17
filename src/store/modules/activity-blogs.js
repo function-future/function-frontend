@@ -7,7 +7,7 @@ export const state = {
 
 export const mutations = {
   SET_ACTIVITY_BLOGS (state, payload) {
-    state.activityBlogs = { ...payload }
+    state.activityBlogs = [ ...payload ]
   },
   SET_ACTIVITY_BLOG_BY_ID (state, payload) {
     state.activityBlog = { ...payload }

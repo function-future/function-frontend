@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 
 import stickyNotes from './modules/stickyNotes.js'
 import announcements from './modules/announcements.js'
-import activityBlogs from './modules/activityBlogs.js'
+import activityBlogs from './modules/activity-blogs.js'
 import assignments from './modules/assignments.js'
 
 Vue.use(Vuex)
