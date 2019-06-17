@@ -25,16 +25,15 @@ export default {
         page: 0,
         size: 10
       },
-      showDeleteConfirmationModal: false,
-      students: [],
-      admins: [],
-      judges: [],
-      mentors: []
+      showDeleteConfirmationModal: false
     }
   },
   computed: {
     ...mapGetters([
-      'userList'
+      'students',
+      'admins',
+      'mentors',
+      'judges'
     ]),
     addUserButtonLabel () {
       if (this.currentTab === 'student') {
@@ -49,8 +48,12 @@ export default {
   },
   methods: {
     ...mapActions([
-      'fetchUsers',
-      'deleteUserById'
+      'fetchUsersByRole',
+      'deleteUserById',
+      'setStudentList',
+      'setAdminList',
+      'setMentorList',
+      'setJudgeList'
     ]),
     initPage () {
       this.fetchTabList()
@@ -65,7 +68,7 @@ export default {
         size: this.paging.size,
         role: this.currentTab
       }
-      this.fetchUsers({
+      this.fetchUsersByRole({
         data,
         callback: this.successGetUserList,
         fail: this.failGetUserList
@@ -74,19 +77,19 @@ export default {
     successGetUserList (response) {
       switch (this.currentTab) {
         case 'student': {
-          this.students = response
+          this.setStudentList({ data: response })
           break
         }
         case 'admin': {
-          this.admins = response
+          this.setAdminList({ data: response })
           break
         }
         case 'mentor': {
-          this.mentors = response
+          this.setMentorList({ data: response })
           break
         }
         case 'judge': {
-          this.judges = response
+          this.setJudgeList({ data: response })
           break
         }
       }

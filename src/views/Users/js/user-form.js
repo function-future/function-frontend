@@ -3,7 +3,6 @@ import BaseInput from '@/components/BaseInput'
 import BaseButton from '@/components/BaseButton'
 import BaseTextArea from '@/components/BaseTextArea'
 import BaseSelect from '@/components/BaseSelect'
-import ModalProfilePicturePreview from '@/components/modals/ModalProfilePicturePreview'
 import config from '@/config/index'
 
 export default {
@@ -11,8 +10,7 @@ export default {
     BaseButton,
     BaseInput,
     BaseTextArea,
-    BaseSelect,
-    ModalProfilePicturePreview
+    BaseSelect
   },
   props: [
     'studentMode',
