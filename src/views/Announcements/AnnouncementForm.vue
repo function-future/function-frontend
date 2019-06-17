@@ -25,8 +25,6 @@
                       language="en"
                       v-model="announcementDetail.description"
                       v-validate.disable="'required'"
-                      :toolbars="toolbars"
-                      imagelink="false"
                       name="description">
         </mavon-editor>
       </div>

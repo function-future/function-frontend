@@ -16,7 +16,9 @@
         <mavon-editor class="editor"
                       placeholder="Sticky Note Description"
                       language="en"
-                      v-model="stickyNote.noteDescription" v-validate.disable="'required'"
+                      v-model="stickyNote.noteDescription"
+                      :toolbars="toolbars"
+                      v-validate.disable="'required'"
                       name="description"></mavon-editor>
       </div>
       <div v-if="errors.has('description')"><span class="input-invalid-message">{{ errors.first('description') }}</span></div>
