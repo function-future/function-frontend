@@ -14,6 +14,11 @@ export default {
   },
   data () {
     return {
+      attrs: [{
+        key: 'Deadline',
+        highlight: true,
+        dates: new Date(15000),
+      }],
       assignmentDetail: {
         title: '',
         description: '',
@@ -30,7 +35,6 @@ export default {
     }
   },
   created () {
-    console.log(this.assignmentDetail.deadline)
     this.initPage()
     console.log(this.assignmentDetail.deadline)
   },
@@ -59,8 +63,8 @@ export default {
     successFetchingAssignmentDetail () {
       this.assignmentDetail = { ...this.assignment }
       this.assignmentDetail.deadline = new Date(this.assignmentDetail.deadline)
-      alert()
-      console.log(this.assignmentDetail.deadline)
+      this.attrs[0].dates = new Date(this.assignmentDetail.deadline)
+      console.log(this.attrs[0].dates)
     },
     failFetchingAssignmentDetail () {
       this.$toasted.error('Something went wrong')

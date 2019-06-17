@@ -20,8 +20,9 @@
           <div class="assignment-detail-batch">
             <BaseSelect v-model="assignmentDetail.batch" :options="batches" :disabled="!editMode"></BaseSelect>
           </div>
-          <v-calendar v-if="!editMode" class="assignment-detail-deadline" v-model="assignmentDetail.deadline" is-inline is-required></v-calendar>
-          <v-date-picker v-else class="assignment-detail-deadline" v-model="assignmentDetail.deadline" is-inline is-required>
+          <v-calendar v-if="!editMode" class="assignment-detail-deadline" :attributes='attrs'>
+          </v-calendar>
+          <v-date-picker v-else class="assignment-detail-deadline" v-model="assignmentDetail.deadline" is-required is-inline>
           </v-date-picker>
           <div class="assignment-detail-file">
             <span class="assignment-detail-file-name">File.txt</span>
