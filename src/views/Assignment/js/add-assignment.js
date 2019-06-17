@@ -2,11 +2,7 @@ import BaseInput from '@/components/BaseInput'
 import BaseTextArea from '@/components/BaseTextArea'
 import BaseButton from '@/components/BaseButton'
 import BaseSelect from '@/components/BaseSelect'
-import Vue from 'vue'
-import VCalendar from 'v-calendar'
 import { mapActions } from 'vuex'
-
-Vue.use(VCalendar)
 
 export default {
   name: 'AddAssignment',
@@ -38,6 +34,10 @@ export default {
     cancel () {
       this.$router.go(-1)
     },
+    failCreatingAssignment ({ response }) {
+      this.$toasted.error('Something went wrong')
+      console.log(response)
+    },
     saveAssignment () {
       this.createAssignment({
         payload: {...this.assignment},
@@ -46,9 +46,7 @@ export default {
           page: 0,
           pageSize: 10
         },
-        fail: () => {
-          console.log('Can\'t save data')
-        }
+        fail: this.failCreatingAssignment
       })
     }
   }

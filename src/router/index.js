@@ -166,7 +166,7 @@ export default new Router({
       name: 'addAssignment',
       component: addAssignment,
       meta: {
-        title: 'Add Assignment'
+        title: 'Add Assignments'
       }
     },
     {

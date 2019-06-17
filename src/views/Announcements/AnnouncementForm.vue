@@ -6,7 +6,7 @@
           autofocus
           class="input-title"
           inputType="title"
-          v-model="announcement.title"
+          v-model="announcementDetail.title"
           placeholder="Announcement title"
           v-validate.disable="'required'"
           name="title"></BaseInput>
@@ -14,18 +14,17 @@
       <div v-if="errors.has('title')"><span class="input-invalid-message">{{ errors.first('title') }}</span></div>
       <div>
         <BaseTextArea
-          v-model="announcement.summary"
+          v-model="announcementDetail.summary"
           placeholder="Announcement summary">
         </BaseTextArea>
       </div>
+      <div></div>
       <div class="description">
         <mavon-editor class="editor"
                       placeholder="Announcement description"
                       language="en"
-                      v-model="announcement.description"
+                      v-model="announcementDetail.description"
                       v-validate.disable="'required'"
-                      :toolbars="toolbars"
-                      imagelink="false"
                       name="description">
         </mavon-editor>
       </div>

@@ -12,35 +12,6 @@ export default {
   },
   data () {
     return {
-      toolbars: {
-        bold: true,
-        italic: true,
-        header: true,
-        underline: true,
-        strikethrough: true,
-        mark: true,
-        superscript: true,
-        subscript: true,
-        quote: true,
-        ol: true,
-        ul: true,
-        link: true,
-        imagelink: false,
-        code: true,
-        table: true,
-        fullscreen: true,
-        readmodel: true,
-        htmlcode: false,
-        help: true,
-        undo: false,
-        redo: false,
-        trash: false,
-        save: false,
-        navigation: true,
-        alignleft: true,
-        subfield: true,
-        preview: true
-      },
       announcementDetail: {}
     }
   },
@@ -66,7 +37,6 @@ export default {
       this.initialState()
       if (this.editMode) {
         this.getAnnouncementDetail()
-        this.setAnnouncementDetail()
       }
     },
     getAnnouncementDetail () {
@@ -74,12 +44,15 @@ export default {
       let data = { ...id }
       this.fetchAnnouncementById({
         data,
-        callback: () => {
-        },
-        fail: () => {
-          this.$toasted.error('Fail to load announcement detail')
-        }
+        callback: this.successFetchAnnouncementById,
+        fail: this.failFetchAnnouncementById
       })
+    },
+    successFetchAnnouncementById () {
+      this.setAnnouncementDetail()
+    },
+    failFetchAnnouncementById () {
+      this.$toasted.error('Fail to load announcement detail')
     },
     setAnnouncementDetail () {
       this.announcementDetail = {
@@ -93,7 +66,6 @@ export default {
       this.$validator.validateAll().then(callback)
     },
     sendAnnouncement () {
-      this.setAnnouncementDetail()
       let data = { ...this.announcementDetail }
 
       this.validateBeforeSubmit((result) => {
@@ -109,31 +81,35 @@ export default {
     sendCreateAnnouncementData (data) {
       this.createAnnouncement({
         data,
-        callback: () => {
-          this.initialState()
-          this.$router.push({ name: 'announcements' })
-          this.$toasted.success('Successfully created new announcement')
-        },
-        fail: () => {
-          this.$toasted.error('Fail to create new announcement')
-        }
+        callback: this.successSendCreateAnnouncementData,
+        fail: this.failSendCreateAnnouncementData
       })
+    },
+    successSendCreateAnnouncementData () {
+      this.initialState()
+      this.$router.push({ name: 'announcements' })
+      this.$toasted.success('Successfully created new announcement')
+    },
+    failSendCreateAnnouncementData () {
+      this.$toasted.error('Fail to create new announcement')
     },
     sendUpdateAnnouncementData (data) {
       this.updateAnnouncement({
         data,
-        callback: () => {
-          this.$router.push({
-            name: 'announcementDetail',
-            params: { id: this.announcementDetail.id }
-          })
-          this.$toasted.success('Successfully update announcement')
-          this.initialState()
-        },
-        fail: () => {
-          this.$toasted.error('Fail to update announcement')
-        }
+        callback: this.successSendUpdateAnnouncementData,
+        fail: this.failSendUpdateAnnouncementData
       })
+    },
+    successSendUpdateAnnouncementData () {
+      this.$router.push({
+        name: 'announcementDetail',
+        params: { id: this.announcementDetail.id }
+      })
+      this.$toasted.success('Successfully update announcement')
+      this.initialState()
+    },
+    failSendUpdateAnnouncementData () {
+      this.$toasted.error('Fail to update announcement')
     },
     cancel () {
       this.$router.go(-1)
