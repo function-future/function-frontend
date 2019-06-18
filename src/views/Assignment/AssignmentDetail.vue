@@ -2,8 +2,11 @@
   <div class="scrollable-container">
     <div class="edit-container">
       <div class="title">
-        <BaseInput class="input-title" placeholder="Insert Title" inputType="title" v-model="assignmentDetail.title"
-        :disabled="!editMode">
+        <BaseInput class="input-title"
+                   placeholder="Insert Title"
+                   inputType="title"
+                   v-model="assignmentDetail.title"
+                  :disabled="!editMode">
         </BaseInput>
       </div>
       <div class="assignment-body">
@@ -18,11 +21,17 @@
         </div>
         <div class="assignment-detail">
           <div class="assignment-detail-batch">
-            <BaseSelect v-model="assignmentDetail.batch" :options="batches" :disabled="!editMode"></BaseSelect>
+            <BaseSelect v-model="assignmentDetail.batch"
+                        :options="batches"
+                        :disabled="!editMode"></BaseSelect>
           </div>
-          <v-calendar v-if="!editMode" class="assignment-detail-deadline" :attributes='attrs'>
-          </v-calendar>
-          <v-date-picker v-else class="assignment-detail-deadline" v-model="assignmentDetail.deadline" is-required is-inline>
+            <v-date-picker class="assignment-detail-deadline"
+                         v-if="assignmentDetail.deadline"
+                         :value="assignmentDetail.deadline"
+                         v-model="assignmentDetail.deadline"
+                         :available-dates="{start: displayedDates.start, end: displayedDates.end}"
+                         is-required
+                         is-inline>
           </v-date-picker>
           <div class="assignment-detail-file">
             <span class="assignment-detail-file-name">File.txt</span>

@@ -30,7 +30,7 @@ export const actions = {
   fetchAssignmentDetail ({ commit }, { data, callback, fail }) {
     assignmentApi.getAssignmentById(({data: response}) => {
       commit('SET_ASSIGNMENT', response)
-      callback()
+      callback && callback()
     }, data, fail)
   },
   updateAssignmentDetail ({ commit }, { payload, data, callback, fail }) {

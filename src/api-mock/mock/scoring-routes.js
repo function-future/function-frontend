@@ -80,5 +80,21 @@ export const assignmentDetails = [
         "batch": 3
       }
     }
+  },
+  {
+    method: 'PUT',
+    urL: '/api/scoring/batches/3/assignments/ASG0001',
+    response: {
+      "code": 200,
+      "status": "OK",
+      "data": {
+        "id": "ASG0001",
+        "title": "Assignment 1",
+        "description": "Description Number 1",
+        "deadline": 15000000,
+        "file": "http://function-static.com/ASG0001/fileName.docx",
+        "batch": 3
+      }
+    }
   }
 ]

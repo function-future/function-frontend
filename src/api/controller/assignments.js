@@ -14,7 +14,7 @@ const createAssignment = function (callback, data, payload, errorHandler) {
 }
 
 const updateAssignment = function (callback, data, payload, errorHandler) {
-  request.getRequest(config.api.scoring.assignments.update(data.batchCode, data.id), callback, payload, errorHandler)
+  request.putRequest(config.api.scoring.assignments.update(data.batchCode, data.id), callback, payload, errorHandler)
 }
 
 export default {

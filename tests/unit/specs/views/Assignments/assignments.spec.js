@@ -17,7 +17,7 @@ describe('Assignment', () => {
 
   function initStore () {
     const state = {
-      asssignmentList: [
+      assignmentList: [
         {
           'id': 'ASG0001',
           'title': 'Assignment 1',
@@ -40,7 +40,7 @@ describe('Assignment', () => {
       fetchAssignmentList: jest.fn()
     }
     const getters = {
-      assignmentList: state => state.assignment
+      assignmentList: state => state.assignmentList
     }
     const store = new Vuex.Store({
       modules: {
