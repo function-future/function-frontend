@@ -152,11 +152,19 @@ export default new Router({
       }
     },
     {
-      path: config.app.pages.assignments.rooms,
+      path: config.app.pages.assignments.rooms.list,
       name: 'assignmentRooms',
       component: assignmentRooms,
       meta: {
         title: 'Rooms'
+      }
+    },
+    {
+      path: config.app.pages.assignments.rooms.detail,
+      name: 'assignmentRoomDetail',
+      // component: assignmentRoomDetail,
+      meta: {
+        title: 'Assignment'
       }
     },
     {

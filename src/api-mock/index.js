@@ -7,7 +7,8 @@ import {
 } from '@/api-mock/mock/core-routes'
 import {
   assignments,
-  assignmentDetails
+  assignmentDetails,
+  assignmentRooms
 } from '@/api-mock/mock/scoring-routes'
 
 const mock = new MockAdapter(axios)
@@ -36,5 +37,9 @@ assignments.forEach(data => {
 })
 
 assignmentDetails.forEach(data => {
+  mock[methodMap[data.method]] (data.url).reply(200, data)
+})
+
+assignmentRooms.forEach(data => {
   mock[methodMap[data.method]] (data.url).reply(200, data)
 })

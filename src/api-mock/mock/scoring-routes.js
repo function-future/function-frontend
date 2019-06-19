@@ -98,3 +98,44 @@ export const assignmentDetails = [
     }
   }
 ]
+
+export const assignmentRooms = [
+  {
+    method: 'GET',
+    url: '/api/scoring/batches/3/assignments/ASG0001/rooms?page=1&size=10',
+    response: {
+      "code": 200,
+      "status": "OK",
+      "data": [ // TODO Update API spec
+        {
+          "id": "ROM0001",
+          "point": 80,
+          "student": "USR0001"
+        },
+        {
+          "id": "ROM0002",
+          "point": 90,
+          "student": "USR0002"
+        }
+      ],
+      "paging": {
+        "page": 1,
+        "size": 12,
+        "totalRecords": 13
+      }
+    }
+  },
+  {
+    method: 'GET',
+    url: 'api/scoring/batches/3/assignments/ASG0001/rooms/ROM0001',
+    response: {
+      "code": 200,
+      "status": "OK",
+      "data": {
+        "id": "ROM0001",
+        "point": 100,
+        "student": "USR0001"
+      }
+    }
+  }
+]
