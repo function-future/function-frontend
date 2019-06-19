@@ -69,10 +69,11 @@ export default {
         callback: (response) => {
           this.$refs.md.$img2Url(pos, response.file.full)
         },
-        fail: () => {
-          this.$toasted.error('Fail to upload image, please delete the image and re-upload')
-        }
+        fail: this.failUploadResource
       })
+    },
+    failUploadResource () {
+      this.$toasted.error('Fail to upload image, please delete the image and re-upload')
     },
     $imgDel (pos) {
       delete this.img_file[pos]
@@ -109,7 +110,7 @@ export default {
       })
     },
     cancel () {
-      this.$router.go(-1)
+      this.$router.push({ name: 'activityBlogs' })
     },
     failFetchActivityBlogById () {
       this.$toasted.error('Fail to load activity blog detail')

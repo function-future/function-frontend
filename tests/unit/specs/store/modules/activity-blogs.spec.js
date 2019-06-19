@@ -141,7 +141,7 @@ describe('actions activity-blogs', () => {
     const commit = jest.fn()
     const callback = jest.fn()
     const fail = jest.fn()
-    store.actions.fetchActivityBlogs({ commit }, { data, callback, fail })
+    store.actions.fetchActivityBlogs({ commit }, { callback, data, fail })
     expect(fail).toHaveBeenCalledTimes(0)
     expect(commit).toHaveBeenCalledWith('SET_ACTIVITY_BLOGS', response.data)
     expect(callback).toHaveBeenCalledTimes(1)
@@ -183,7 +183,7 @@ describe('actions activity-blogs', () => {
     const commit = jest.fn()
     const callback = jest.fn()
     const fail = jest.fn()
-    store.actions.fetchActivityBlogById({ commit }, { data, callback, fail })
+    store.actions.fetchActivityBlogById({ commit }, { callback, data, fail })
     expect(fail).toHaveBeenCalledTimes(0)
     expect(commit).toHaveBeenCalledWith('SET_ACTIVITY_BLOG_BY_ID', response.data)
     expect(callback).toHaveBeenCalledTimes(1)
@@ -236,7 +236,7 @@ describe('actions activity-blogs', () => {
     const commit = jest.fn()
     const callback = jest.fn()
     const fail = jest.fn()
-    store.actions.createActivityBlog({ commit }, { data, callback, fail })
+    store.actions.createActivityBlog({ commit }, { callback, data, fail })
     expect(fail).toHaveBeenCalledTimes(0)
     expect(commit).toHaveBeenCalledWith('SET_ACTIVITY_BLOG_BY_ID', response.data)
     expect(callback).toHaveBeenCalledTimes(1)
@@ -309,7 +309,35 @@ describe('actions activity-blogs', () => {
     const commit = jest.fn()
     const callback = jest.fn()
     const fail = jest.fn()
-    store.actions.deleteActivityBlogById({ commit }, { data, callback, fail })
+    store.actions.deleteActivityBlogById({ commit }, { callback, data, fail })
+    expect(fail).toHaveBeenCalledTimes(0)
+    expect(callback).toHaveBeenCalledTimes(1)
+  })
+
+  test('uploadResource', () => {
+    const response = {
+      "code": 201,
+      "status": "CREATED",
+      "data": {
+        "id": "sample-id",
+        "name": "File Name",
+        "file": {
+          "full": "https://i.pinimg.com/originals/8c/cf/ec/8ccfec7d5cb3c92265cbf153523eb9b5.jpg",
+          "thumbnail": null
+        }
+      }
+    }
+    api.uploadResource = (success) => {
+      success(response)
+    }
+
+    const data = new FormData()
+    let configuration = { headers: { 'Content-Type': 'multipart/form-data' } }
+
+    const commit = jest.fn()
+    const callback = jest.fn()
+    const fail = jest.fn()
+    store.actions.uploadResource({ commit }, { callback, data, fail, configuration })
     expect(fail).toHaveBeenCalledTimes(0)
     expect(callback).toHaveBeenCalledTimes(1)
   })

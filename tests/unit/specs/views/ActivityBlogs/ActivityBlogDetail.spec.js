@@ -3,26 +3,31 @@ import { createLocalVue, shallowMount } from '@vue/test-utils'
 import Vuex from 'vuex'
 import VeeValidate from 'vee-validate'
 
-const localVue = createLocalVue()
-localVue.use(Vuex)
-localVue.use(VeeValidate)
-
 describe('ActivityBlogDetail', () => {
-  let actions
-  let getters
-  let state
   let store
-  beforeEach(() => {
-    state = {
+  let wrapper
+  let localVue
+
+  function generateLocalVue () {
+    const lv = createLocalVue()
+    lv.use(Vuex)
+    lv.use(VeeValidate)
+    return lv
+  }
+
+  function initStore () {
+    const state = {
       activityBlog: {}
     }
-    actions = {
-      initialState: jest.fn()
+    const actions = {
+      initialState: jest.fn(),
+      fetchActivityBlogById: jest.fn()
+
     }
-    getters = {
+    const getters = {
       activityBlog: state => state.activityBlog
     }
-    store = new Vuex.Store({
+    const store = new Vuex.Store({
       modules: {
         activityBlogs: {
           state,
@@ -31,6 +36,60 @@ describe('ActivityBlogDetail', () => {
         }
       }
     })
+    return {
+      store,
+      state,
+      actions,
+      getters
+    }
+  }
+
+  function createWrapper (store, options) {
+    const $toasted = {
+      error: jest.fn(),
+      success: jest.fn()
+    }
+    const $route = {
+      params: {
+        id: 'sample-id'
+      }
+    }
+    const $router = {
+      push: jest.fn()
+    }
+    return shallowMount(ActivityBlogDetail, {
+      ...options,
+      store,
+      localVue,
+      stubs: [
+        'BaseCard',
+        'BaseButton',
+        'BaseInput',
+        'BaseSelect',
+        'font-awesome-icon',
+        'vue-toasted'
+      ],
+      mocks: {
+        $toasted,
+        $route,
+        $router
+      },
+      sync: false
+    })
+  }
+
+  function initComponent () {
+    localVue = generateLocalVue()
+    store = initStore()
+    wrapper = createWrapper(store.store)
+  }
+
+  beforeEach(() => {
+    initComponent()
+  })
+
+  afterEach(() => {
+    jest.restoreAllMocks()
   })
 
   test('Sanity test', () => {
@@ -38,19 +97,52 @@ describe('ActivityBlogDetail', () => {
   })
 
   test('Rendered correctly', () => {
-    // localVue.use(VueRouter)
-    const $route = {
-      params: {
-        id: 'sample-id'
-      }
-    }
-    const wrapper = shallowMount(ActivityBlogDetail, {
-      store,
-      localVue,
-      mocks: {
-        $route
-      }
-    })
     expect(wrapper.isVueInstance()).toBe(true)
+  })
+
+  test('goToEditActivityBlog', () => {
+    const push = jest.fn()
+    wrapper.vm.$router.push = push
+    wrapper.vm.goToEditActivityBlog()
+    expect(push).toBeCalled()
+  })
+
+  test('openDeleteConfirmationModal', () => {
+    wrapper.vm.showDeleteConfirmationModal = false
+    wrapper.vm.openDeleteConfirmationModal()
+    expect(wrapper.vm.showDeleteConfirmationModal).toEqual(true)
+  })
+
+  test('deleteThisActivityBlog', async () => {
+    const spy = jest.spyOn(ActivityBlogDetail.methods, 'deleteActivityBlogById')
+    initComponent()
+    wrapper.vm.deleteThisActivityBlog()
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('openDeleteConfirmationModal', () => {
+    wrapper.vm.activityBlog.description = 'this is the description'
+    wrapper.vm.successFetchActivityBlogById()
+    expect(wrapper.vm.activityBlog.description).toEqual('this is the description')
+  })
+
+  test('failFetchActivityBlogById', () => {
+    wrapper.vm.failFetchActivityBlogById()
+    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+  })
+
+  test('successDeleteActivityBlogById', () => {
+    const push = jest.fn()
+    wrapper.vm.$router.push = push
+    wrapper.vm.successDeleteActivityBlogById()
+    expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
+    expect(push).toBeCalled()
+  })
+
+  test('failDeleteActivityBlogById', () => {
+    wrapper.vm.showDeleteConfirmationModal = true
+    wrapper.vm.failDeleteActivityBlogById()
+    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(wrapper.vm.showDeleteConfirmationModal).toEqual(false)
   })
 })
