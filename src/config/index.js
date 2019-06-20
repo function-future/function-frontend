@@ -22,7 +22,8 @@ module.exports = {
       stickyNotes: {
         detail: '/sticky-notes',
         edit: '/sticky-notes/edit'
-      }
+      },
+      chatrooms: '/chatrooms'
     }
   },
   api: {
@@ -74,6 +75,29 @@ module.exports = {
         },
         create(batchCode, page, pageSize) {
           return `/api/scoring/batches/${batchCode}/assignments?page=${page}&size=${pageSize}`
+        }
+      }
+    },
+    communication: {
+      chatrooms: {
+        list(type, search, page, size) {
+          return `/api/communication/chatrooms?type=${type}&search=${search}&page=${page}&size=${size}`
+        },
+        getDetails(chatroomId) {
+          return `/api/communication/chatrooms/${chatroomId}`
+        },
+        getMessages(chatroomId, page, size) {
+          return `/api/communication/chatrooms/${chatroomId}/messages?page=${page}&size=${size}`
+        },
+        create: '/api/communication/chatrooms/',
+        createMessage(chatroomId) {
+          return `/api/communication/chatrooms/${chatroomId}/messages`
+        },
+        update(chatroomId) {
+          return `/api/communication/chatrooms/${chatroomId}`
+        },
+        updateReadStatus(chatroomId, messageId) {
+          return `/api/ccommunication/chatrooms/${chatroomId}/messages/${messageId}/_read`
         }
       }
     }
