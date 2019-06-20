@@ -1,6 +1,6 @@
 import config from '../../config/index'
 
-export const chatroom = [
+export const chatrooms = [
   {
     // get all private chatrooms
     method: 'GET',
@@ -284,43 +284,43 @@ export const chatroom = [
     method: 'POST',
     url: config.api.communication.chatrooms.create,
     response: {
-      "code" : 200,
-      "status" : "OK",
-      "data" : {
-        "id" : "63dc9f59-a579-4b69-a80c-a3c48d794f22",
-        "name" : "Tim Future Bandung",
-        "members" : [
+      'code' : 200,
+      'status' : 'OK',
+      'data' : {
+        'id' : '63dc9f59-a579-4b69-a80c-a3c48d794f22',
+        'name' : 'Tim Future Bandung',
+        'members' : [
           {
-            "id" : "63dc9f59-a579-4b69-a80c-a3c48d794f16",
-            "name" : "Priagung Satyagama",
-            "avatar" : "https://dummyimage.com/600x400/000/ff0",
-            "university" : "Institut Teknologi Bandung",
-            "batch": {
-              "id": "sample-id",
-              "name": "Batch Name",
-              "code": "3"
+            'id' : '63dc9f59-a579-4b69-a80c-a3c48d794f16',
+            'name' : 'Priagung Satyagama',
+            'avatar' : 'https://dummyimage.com/600x400/000/ff0',
+            'university' : 'Institut Teknologi Bandung',
+            'batch': {
+              'id': 'sample-id',
+              'name': 'Batch Name',
+              'code': '3'
             },
-            "type" : "STUDENT"
+            'type' : 'STUDENT'
           },
           {
-            "id" : "63dc9f59-a579-4b69-a80c-a3c48d794f17",
-            "name" : "Ricky Kennedy",
-            "avatar" : "https://dummyimage.com/600x400/000/ff0",
-            "university" : "Institut Teknologi Bandung",
-            "batch": {
-              "id": "sample-id",
-              "name": "Batch Name",
-              "code": "3"
+            'id' : '63dc9f59-a579-4b69-a80c-a3c48d794f17',
+            'name' : 'Ricky Kennedy',
+            'avatar' : 'https://dummyimage.com/600x400/000/ff0',
+            'university' : 'Institut Teknologi Bandung',
+            'batch': {
+              'id': 'sample-id',
+              'name': 'Batch Name',
+              'code': '3'
             },
-            "type" : "STUDENT"
+            'type' : 'STUDENT'
           },
           {
-            "id" : "63dc9f59-a579-4b69-a80c-a3c48d794f15",
-            "name" : "Felix Wimpy W",
-            "avatar" : "https://dummyimage.com/600x400/000/ff0",
-            "university" : null,
-            "batch" : null,
-            "type" : "MENTOR"
+            'id' : '63dc9f59-a579-4b69-a80c-a3c48d794f15',
+            'name' : 'Felix Wimpy W',
+            'avatar' : 'https://dummyimage.com/600x400/000/ff0',
+            'university' : null,
+            'batch' : null,
+            'type' : 'MENTOR'
           }
         ]
       }
@@ -331,8 +331,8 @@ export const chatroom = [
     method: 'POST',
     url: config.api.communication.chatrooms.createMessage('63dc9f59-a579-4b69-a80c-a3c48d794f22'),
     response: {
-      "code" : 201,
-      "status" : "CREATED"
+      'code' : 201,
+      'status' : 'CREATED'
     }
   },
   {
@@ -340,43 +340,43 @@ export const chatroom = [
     method: 'PUT',
     url: config.api.communication.chatrooms.update('63dc9f59-a579-4b69-a80c-a3c48d794f22'),
     response: {
-      "code" : 200,
-      "status" : "OK",
-      "data" : {
-        "id" : "63dc9f59-a579-4b69-a80c-a3c48d794f22",
-        "name" : "Tim Future Bandung",
-        "members" : [
+      'code' : 200,
+      'status' : 'OK',
+      'data' : {
+        'id' : '63dc9f59-a579-4b69-a80c-a3c48d794f22',
+        'name' : 'Tim Future Bandung',
+        'members' : [
           {
-            "id" : "63dc9f59-a579-4b69-a80c-a3c48d794f16",
-            "name" : "Priagung Satyagama",
-            "avatar" : "https://dummyimage.com/600x400/000/ff0",
-            "university" : "Institut Teknologi Bandung",
-            "batch": {
-              "id": "sample-id",
-              "name": "Batch Name",
-              "code": "3"
+            'id' : '63dc9f59-a579-4b69-a80c-a3c48d794f16',
+            'name' : 'Priagung Satyagama',
+            'avatar' : 'https://dummyimage.com/600x400/000/ff0',
+            'university' : 'Institut Teknologi Bandung',
+            'batch': {
+              'id': 'sample-id',
+              'name': 'Batch Name',
+              'code': '3'
             },
-            "type" : "STUDENT"
+            'type' : 'STUDENT'
           },
           {
-            "id" : "63dc9f59-a579-4b69-a80c-a3c48d794f17",
-            "name" : "Ricky Kennedy",
-            "avatar" : "https://dummyimage.com/600x400/000/ff0",
-            "university" : "Institut Teknologi Bandung",
-            "batch": {
-              "id": "sample-id",
-              "name": "Batch Name",
-              "code": "3"
+            'id' : '63dc9f59-a579-4b69-a80c-a3c48d794f17',
+            'name' : 'Ricky Kennedy',
+            'avatar' : 'https://dummyimage.com/600x400/000/ff0',
+            'university' : 'Institut Teknologi Bandung',
+            'batch': {
+              'id': 'sample-id',
+              'name': 'Batch Name',
+              'code': '3'
             },
-            "type" : "STUDENT"
+            'type' : 'STUDENT'
           },
           {
-            "id" : "63dc9f59-a579-4b69-a80c-a3c48d794f15",
-            "name" : "Felix Wimpy W",
-            "avatar" : "https://dummyimage.com/600x400/000/ff0",
-            "university" : null,
-            "batch" : null,
-            "type" : "MENTOR"
+            'id' : '63dc9f59-a579-4b69-a80c-a3c48d794f15',
+            'name' : 'Felix Wimpy W',
+            'avatar' : 'https://dummyimage.com/600x400/000/ff0',
+            'university' : null,
+            'batch' : null,
+            'type' : 'MENTOR'
           }
         ]
       }
@@ -387,8 +387,8 @@ export const chatroom = [
     method: 'PUT',
     url: config.api.communication.chatrooms.updateReadStatus('63dc9f59-a579-4b69-a80c-a3c48d794f22', '63dc9f59-a579-4b69-a80c-a3c48d794f26'),
     response: {
-      "code" : 200,
-      "status" : "OK"
+      'code' : 200,
+      'status' : 'OK'
     }
   }
 ]

@@ -8,6 +8,9 @@ import {
 import {
   assignments
 } from '@/api-mock/mock/scoring-routes'
+import {
+  chatrooms
+} from '@/api-mock/mock/communication-routes'
 
 const mock = new MockAdapter(axios)
 
@@ -32,4 +35,8 @@ announcementDetails.forEach(data => {
 
 assignments.forEach(data => {
   mock[methodMap[data.method]] (data.url).reply(200, data)
+})
+
+chatrooms.forEach(data => {
+  mock[methodMap[data.method]](data.url).reply(200, data)
 })
