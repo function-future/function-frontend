@@ -2,7 +2,20 @@
   <div class="chatroom-outer">
     <BaseCard class="chatroom-card">
       <div class="chatroom-container">
-        <div class="chatroom-left"><SearchBar @click="changeText" class="search"></SearchBar></div>
+        <div class="chatroom-left">
+          <SearchBar @click="changeText"/>
+          <div class="chatroom-menu">
+            <h3>Public Chatroom</h3>
+          </div>
+          <div class="chatroom-menu">
+            <h3>Group Chatroom</h3>
+            <font-awesome-icon icon="chevron-right"/>
+          </div>
+          <div class="chatroom-menu">
+            <h3>Private Chatroom</h3>
+            <font-awesome-icon icon="chevron-right"/>
+          </div>
+        </div>
         <div class="chatroom-separator"></div>
         <div class="chatroom-right">{{ text }}</div>
       </div>
@@ -49,6 +62,17 @@
     display: grid;
     grid-template-columns: 30% 5px auto;
     height: 100%;
+  }
+
+  .chatroom-menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 15px 0;
+  }
+
+  .chatroom-menu > h3, .chatroom-menu > font-awesome-icon {
+    margin: 0
   }
 
   .chatroom-separator {

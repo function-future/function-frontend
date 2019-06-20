@@ -41,9 +41,11 @@
   }
 
   .search-outer {
+    display: block;
     position: relative;
     z-index: 0;
     width: 100%;
+    height: 60px;
   }
   .search-button {
     display: flex;
