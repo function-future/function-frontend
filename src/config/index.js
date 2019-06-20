@@ -113,6 +113,9 @@ module.exports = {
         },
         update(batchCode, id) {
           return `/api/scoring/batches/${batchCode}/quizzes/${id}`
+        },
+        delete(batchCode, id) {
+          return `/api/scoring/batches/${batchCode}/quizzes/${id}`
         }
       }
     }

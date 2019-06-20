@@ -302,3 +302,57 @@ export const quizzes = [
     }
   }
 ]
+
+export const quizDetail = [
+  {
+    method: 'GET',
+    url: '/api/scoring/batches/futur3/quizzes/QZ0001',
+    response: {
+      "code": 200,
+      "status": "OK",
+      "data": {
+        "id": "QZ0001",
+        "title": "Quiz Title 1",
+        "description": "Description Number 1",
+        "startDate": 15000000,
+        "endDate": 15000000,
+        "timeLimit": 3600,
+        "trials": 3,
+        "questionCount": 10,
+        "questionBanks": [
+          "QNK00001"
+        ],
+        "batch": 3
+      }
+    }
+  },
+  {
+    method: 'PUT',
+    url: '/api/scoring/batches/futur3/quizzes/QZ0001',
+    response: {
+      "code": 200,
+      "status": "OK",
+      "data": {
+        "id": "QZ0001",
+        "title": "Quiz 1",
+        "description": "Description Number 1",
+        "startDate": 15000000,
+        "endDate": 15000000,
+        "timeLimit": 6000,
+        "trials": 2,
+        "questionBankId": [
+          "QNK0002"
+        ],
+        "questions": 15
+      }
+    }
+  },
+  {
+    method: 'DELETE',
+    url: '/api/scoring/batches/futur3/quizzes/QZ0001',
+    response: {
+      "code": 200,
+      "status": "OK"
+    }
+  }
+]
