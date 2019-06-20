@@ -110,6 +110,7 @@ module.exports = {
         target: 'http://localhost:8080',
         changeOrigin: true
       }
-    }
+    },
+    defaultPageSize: 10
   }
 }
