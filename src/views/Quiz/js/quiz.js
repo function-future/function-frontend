@@ -45,5 +45,16 @@ export default {
     isComplete(deadline) {
       return deadline < new Date() ? 'Done' : 'Ongoing'
     },
+    goToQuizDetail (id, batch) {
+      this.$router.push({
+        name: 'quizDetail',
+        params: {
+          quizId: id
+        },
+        query: {
+          batchCode: batch
+        }
+      })
+    }
   }
 }

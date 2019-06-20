@@ -5,7 +5,7 @@
         <font-awesome-icon icon="plus" class="icon"/> Add
       </BaseButton>
     </div>
-    <BaseCard class="quiz-card" v-for="quiz in quizList">
+    <BaseCard class="quiz-card" v-for="quiz in quizList" @click.native="goToQuizDetail(quiz.id, quiz.batch)"> <!-- TODO verifiy API spe for batch field !-->
       <div class="card-header">
         {{quiz.title}}
       </div>

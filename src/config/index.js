@@ -14,7 +14,8 @@ module.exports = {
       users: '/users',
       quizzes: {
         list: '/quizzes',
-        add: '/quizzes/add'
+        add: '/quizzes/add',
+        detail: '/quizzes/:quizId/detail'
       },
       assignments: {
         list: '/assignments',
