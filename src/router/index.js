@@ -5,6 +5,7 @@ import addAssignment from '@/views/Assignment/AddAssignment'
 import assignmentRooms from '@/views/Assignment/AssignmentRooms'
 import assignmentDetail from '@/views/Assignment/AssignmentDetail'
 import quizzes from '@/views/Quiz/Quiz'
+import addQuiz from '@/views/Quiz/AddQuiz'
 import feeds from '@/views/Feeds/Feeds.vue'
 import announcements from '@/views/Announcements/Announcements.vue'
 import announcementDetail from '@/views/Announcements/AnnouncementDetail.vue'
@@ -120,11 +121,19 @@ export default new Router({
       }
     },
     {
-      path: config.app.pages.quizzes,
+      path: config.app.pages.quizzes.list,
       name: 'quizzes',
       component: quizzes,
       meta: {
         title: 'Quizzes'
+      }
+    },
+    {
+      path: config.app.pages.quizzes.add,
+      name: 'addQuiz',
+      component: addQuiz,
+      meta: {
+        title: 'Add Quiz'
       }
     },
     {

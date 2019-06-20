@@ -12,7 +12,10 @@ module.exports = {
       courses: '/courses',
       files: '/files',
       users: '/users',
-      quizzes: '/quizzes',
+      quizzes: {
+        list: '/quizzes',
+        add: '/quizzes/add'
+      },
       assignments: {
         list: '/assignments',
         add: '/assignments/add',
@@ -96,6 +99,20 @@ module.exports = {
           update(batchCode, assignmentId, roomId) {
             return `api/scoring/batches/${batchCode}/assignments/${assignmentId}/rooms/${roomId}`
           }
+        }
+      },
+      quiz: {
+        list(batchCode, page, pageSize) {
+          return `/api/scoring/batches/${batchCode}/quizzes?page=${page}&size=${pageSize}`
+        },
+        create(batchCode, page, pageSize) {
+          return `/api/scoring/batches/${batchCode}/quizzes?page=${page}&size=${pageSize}`
+        },
+        detail(batchCode, id) {
+          return `/api/scoring/batches/${batchCode}/quizzes/${id}`
+        },
+        update(batchCode, id) {
+          return `/api/scoring/batches/${batchCode}/quizzes/${id}`
         }
       }
     }

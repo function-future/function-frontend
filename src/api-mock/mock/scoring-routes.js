@@ -205,3 +205,100 @@ export const assignmentRooms = [
     }
   }
 ]
+
+export const quizzes = [
+  {
+    method: 'GET',
+    url: '/api/scoring/batches/futur3/quizzes?page=0&size=10',
+    response: {
+      "code": 200,
+      "status": "OK",
+      "data": {
+        "quizzes": [
+          {
+            "id": "QZ00001",
+            "title": "Quiz Number 1",
+            "description": "Description Number 1",
+            "startDate": 15000000,
+            "endDate": 15000000,
+            "timeLimit": 3600,
+            "trials": 3,
+            "questionCount": 10,
+            "questionBanks": [
+              "QNK00001"
+            ],
+            "batch": 3
+          },
+          {
+            "id": "QZ00002",
+            "title": "Quiz Number 2",
+            "description": "Description Number 2",
+            "startDate": 15000000,
+            "endDate": 15000000,
+            "timeLimit": 3600,
+            "trials": 3,
+            "questionCount": 10,
+            "questionBanks": [
+              "QNK00001"
+            ],
+            "batch": 3
+          },
+          {
+            "id": "QZ00003",
+            "title": "Quiz Number 3",
+            "description": "Description Number 3",
+            "startDate": 15000000,
+            "endDate": 15000000,
+            "timeLimit": 3600,
+            "trials": 3,
+            "questionCount": 10,
+            "questionBanks": [
+              "QNK00001"
+            ],
+            "batch": 3
+          },
+          {
+            "id": "QZ00004",
+            "title": "Quiz Number 4",
+            "description": "Description Number 4",
+            "startDate": 15000000,
+            "endDate": 15000000,
+            "timeLimit": 3600,
+            "trials": 3,
+            "questionCount": 10,
+            "questionBanks": [
+              "QNK00001"
+            ],
+            "batch": 3
+          }
+        ]
+      },
+      "paging": {
+        "page": 1,
+        "size": 12,
+        "totalRecords": 13
+      }
+    }
+  },
+  {
+    method: 'POST',
+    url: '/api/scoring/batches/batchCode/quizzes?page=0&size=10',
+    response: {
+      "code": 201,
+      "status": "CREATED",
+      "data": {
+        "id": "QZ00002",
+        "title": "Quiz 1",
+        "description": "Description Number 1",
+        "startDate": 15000000,
+        "endDate": 15000000,
+        "timeLimit": 3600,
+        "trials": 5,
+        "questionBankId": [
+          "QNK0001"
+        ],
+        "questions": 10
+      }
+    }
+  }
+]
