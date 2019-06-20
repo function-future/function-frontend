@@ -168,4 +168,19 @@ describe('Quiz', () => {
     const deadline = new Date(2077, 7, 7)
     expect(wrapper.vm.isComplete(deadline)).toEqual('Ongoing')
   })
+
+  test('goToQuizDetail', () => {
+    initComponent()
+    wrapper.vm.$router.push = jest.fn()
+    wrapper.vm.goToQuizDetail('QZ0001', 'futur3')
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
+      name: 'quizDetail',
+      params: {
+        quizId: 'QZ0001'
+      },
+      query: {
+        batchCode: 'futur3'
+      }
+    })
+  })
 })
