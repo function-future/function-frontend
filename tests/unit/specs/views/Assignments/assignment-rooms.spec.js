@@ -88,4 +88,44 @@ describe('AssignmentRoom', () => {
     wrapper.vm.failFetchingRoomList()
     expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
   })
+
+  test('goToRoomDetail', () => {
+    initComponent()
+    wrapper.vm.$router.push = jest.fn()
+    const room = {
+      "id": "ROM0001",
+      "point": 80,
+      "student": {
+        "id": "sample-id",
+        "role": "STUDENT",
+        "email": "user@user.com",
+        "name": "John Doe",
+        "phone": "088888888888",
+        "address": "Jl. Address 1 Address 2",
+        "avatar": "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
+        "batch": {
+          "id": "sample-id",
+          "name": "Batch Name",
+          "code": "3"
+        },
+        "university": "Bina Nusantara University"
+      },
+      "assignment": {
+        "id": "ASG0001",
+        "title": "Assignment 1",
+        "description": "Description Number 1",
+        "deadline": 15000000,
+        "file": "http://function-static.com/ASG0001/fileName.docx",
+        "batch": 3
+      }
+    }
+    wrapper.vm.goToRoomDetail(room)
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
+      name: 'assignmentRoomDetail',
+      params: {
+        id: 'ASG0001',
+        roomId: 'ROM0001'
+      }
+    })
+  })
 })

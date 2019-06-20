@@ -110,12 +110,56 @@ export const assignmentRooms = [
         {
           "id": "ROM0001",
           "point": 80,
-          "student": "USR0001"
+          "student": {
+            "id": "sample-id",
+            "role": "STUDENT",
+            "email": "user@user.com",
+            "name": "John Doe",
+            "phone": "088888888888",
+            "address": "Jl. Address 1 Address 2",
+            "avatar": "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
+            "batch": {
+              "id": "sample-id",
+              "name": "Batch Name",
+              "code": "3"
+            },
+            "university": "Bina Nusantara University"
+          },
+          "assignment": {
+            "id": "ASG0001",
+            "title": "Assignment 1",
+            "description": "Description Number 1",
+            "deadline": 15000000,
+            "file": "http://function-static.com/ASG0001/fileName.docx",
+            "batch": 3
+          }
         },
         {
           "id": "ROM0002",
           "point": 90,
-          "student": "USR0002"
+          "student": {
+            "id": "sample-id-2",
+            "role": "STUDENT",
+            "email": "user2@user.com",
+            "name": "Jane Doe",
+            "phone": "088888888888",
+            "address": "Jl. Address 1 Address 2",
+            "avatar": "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
+            "batch": {
+              "id": "sample-id",
+              "name": "Batch Name",
+              "code": "3"
+            },
+            "university": "Bina Nusantara University"
+          },
+          "assignment": {
+            "id": "ASG0001",
+            "title": "Assignment 1",
+            "description": "Description Number 1",
+            "deadline": 15000000,
+            "file": "http://function-static.com/ASG0001/fileName.docx",
+            "batch": 3
+          }
         }
       ],
       "paging": {
@@ -133,8 +177,30 @@ export const assignmentRooms = [
       "status": "OK",
       "data": {
         "id": "ROM0001",
+        "student": {
+          "id": "sample-id",
+          "role": "STUDENT",
+          "email": "user@user.com",
+          "name": "User Name",
+          "phone": "088888888888",
+          "address": "Jl. Address 1 Address 2",
+          "avatar": "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
+          "batch": {
+            "id": "sample-id",
+            "name": "Batch Name",
+            "code": "3"
+          },
+          "university": "Bina Nusantara University"
+        },
         "point": 100,
-        "student": "USR0001"
+        "assignment": {
+          "id": "ASG0001",
+          "title": "Assignment 1",
+          "description": "Description Number 1",
+          "deadline": 15000000,
+          "file": "http://function-static.com/ASG0001/fileName.docx",
+          "batch": 3
+        }
       }
     }
   }

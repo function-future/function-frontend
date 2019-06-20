@@ -2,12 +2,11 @@
   <div class="container">
     <div class="card-container">
       <div class="detail-card" v-for="room in roomList" @click="goToRoomDetail(room)">
-        <div class="detail-card__photo">
-
+        <div class="detail-card__photo" :style="{backgroundImage: 'url('+room.student.avatar+')', backgroundSize: 'cover'}">
         </div>
         <div class="detail-card__title">
-          <span>David William</span>
-          <span>Jakarta - Team A</span>
+          <span>{{room.student.name}}</span>
+          <span>{{room.student.university}}</span>
         </div>
       </div>
     </div>
@@ -40,6 +39,9 @@
     &__photo {
       height: 80%;
       border-bottom: 1px solid black;
+      &__img {
+        height: 100%;
+      }
     }
     &__title {
       height: 20%;

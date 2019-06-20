@@ -32,15 +32,13 @@ export default {
       this.$toasted.error('Something went wrong while fetching room list')
     },
     goToRoomDetail (room) {
-      // this.$router.push(config.app.pages.assignments.rooms.detail({
-      //   name: 'assignmentRoomDetail',
-      //   params: {
-      //     id: room.assignment.id,
-      //     roomId: room.id
-      //   }
-      // }))
-      alert('Should push to ' + room.id)
-      // TODO add the actual after api-mock is updated and add the component for assginmentRoomDetail
+      this.$router.push({
+        name: 'assignmentRoomDetail',
+        params: {
+          id: room.assignment.id,
+          roomId: room.id
+        }
+      })
     }
   }
 }
