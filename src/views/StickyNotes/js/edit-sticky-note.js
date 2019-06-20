@@ -63,11 +63,10 @@ export default {
     ]),
     initPage () {
       this.getStickyNoteDetail()
-      this.setStickyNote()
     },
     getStickyNoteDetail () {
       this.fetchStickyNotes({
-        callback: () => {},
+        callback: this.setStickyNote,
         fail: this.failFetchingStickyNotes
       })
     },
@@ -78,24 +77,20 @@ export default {
       this.stickyNote = { ...this.stickyNotes }
     },
     validateBeforeSubmit (callback) {
-      this.$validator.validateAll().then((result) => {
-        if (result) {
-          callback()
-        }
-      })
+      this.$validator.validateAll().then(callback)
     },
     postStickyNote () {
-      this.setStickyNote()
-      let data = { ...this.stickyNote }
-
-      this.validateBeforeSubmit(this.validationSuccess(data))
+      this.validateBeforeSubmit(this.validationSuccess)
     },
-    validationSuccess (data) {
-      this.postStickyNotes({
-        data,
-        callback: this.successPostStickyNotes,
-        fail: this.failPostStickyNotes
-      })
+    validationSuccess (result) {
+      if (result) {
+        let data = { ...this.stickyNote }
+        this.postStickyNotes({
+          data,
+          callback: this.successPostStickyNotes,
+          fail: this.failPostStickyNotes
+        })
+      }
     },
     successPostStickyNotes () {
       this.initialState()
