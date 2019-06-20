@@ -12,21 +12,7 @@ export default {
     BaseSelect
   },
   data () {
-    return {
-      filters: [
-        'Batch 1',
-        'Batch 2',
-        'Batch 3'
-      ],
-      sorts: [
-        'Title',
-        'Deadline',
-        'Upload Date'
-      ],
-      selectedFilter: '',
-      selectedSort: '',
-      searchValue: ''
-    }
+    return {}
   },
   created () {
     this.initPage()
