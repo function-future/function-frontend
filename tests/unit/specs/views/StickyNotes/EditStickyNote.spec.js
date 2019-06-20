@@ -33,15 +33,14 @@ describe('EditStickyNotes', () => {
       initialState: jest.fn()
     }
     const getters = {
-      stickyNotes: state => state.stickyNote
+      stickyNotes: state => state.stickyNotes
     }
     const store = new Vuex.Store({
       modules: {
         stickyNotes: {
           state,
           actions,
-          getters,
-          namespaced: true
+          getters
         }
       }
     })
@@ -109,6 +108,12 @@ describe('EditStickyNotes', () => {
     initComponent()
     wrapper.vm.failFetchingStickyNotes()
     expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+  })
+
+  test('setStickyNote', () => {
+    initComponent()
+    wrapper.vm.setStickyNote()
+    expect(wrapper.vm.stickyNote).toEqual(store.state.stickyNotes)
   })
 
   test('validateBeforeSubmit is resolved', (done) => {
