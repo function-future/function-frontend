@@ -1,5 +1,7 @@
 <template>
-  <div class="chatroom-card__outer" :class="{'chatroom-card__outer--with-avatar': avatar}">
+  <div class="chatroom-card__outer"
+       :class="{'chatroom-card__outer--with-avatar': avatar}"
+        @click="$emit('click')">
     <div v-if="avatar" class="chatroom-card__avatar">
       <img :src="avatar">
     </div>
@@ -37,14 +39,15 @@
     background: #FFFFFF;
     border: 1px solid #F2F2F2;
     box-sizing: border-box;
-    -webkit-box-shadow: 0px 0px 40px 5px rgba(0,0,0,0.1);
-    -moz-box-shadow: 0px 0px 40px 5px rgba(0,0,0,0.1);
-    box-shadow: 0px 0px 40px 5px rgba(0,0,0,0.1);
+    -webkit-box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.1);
+    -moz-box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.1);
+    box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.1);
     border-radius: 10px;
     padding: 5px 5px 5px 5px;
     text-align: left;
     height: 50px;
     margin: 5px 0;
+    cursor: pointer;
   }
 
   .chatroom-card__outer--with-avatar {
