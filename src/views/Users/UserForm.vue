@@ -3,7 +3,7 @@
     <div class="form-container">
       <div class="row">
         <div class="column image-column">
-          <div class="image" :style="{ backgroundImage: 'url(' + userDetail.avatarPreview + ')' }">
+          <div class="image" :style="{ backgroundImage: 'url(' + avatarPreview + ')' }">
             <input type="file"
                    name="image"
                    accept="image/*"
@@ -94,12 +94,6 @@
         </div>
       </div>
     </div>
-<!--    <ModalProfilePicturePreview v-if="visibleModal === true"-->
-<!--                                :newImage="imagePreview"-->
-<!--                                @close="visibleModal = false"-->
-<!--                                @save="imageUpload">-->
-<!--      <slot name="title">Confirm your new profile picture</slot>-->
-<!--    </ModalProfilePicturePreview>-->
   </div>
 </template>
 

@@ -19,13 +19,13 @@ export default {
   data () {
     return {
       maximumSizeAlert: false,
+      avatarPreview: '',
       userDetail: {
         role: '',
         email: '',
         name: '',
         phone: '',
         address: '',
-        avatarPreview: '',
         avatar: [],
         university: '',
         batch: {
@@ -88,6 +88,7 @@ export default {
       this.$toasted.error('Fail to load user detail')
     },
     setUserDetail () {
+      this.avatarPreview = this.user.avatar
       this.userDetail = this.user
     },
     onFileChange (e) {
@@ -118,7 +119,7 @@ export default {
     },
     successUploadProfilePicture (response) {
       this.userDetail.avatar = [ response.id ]
-      this.userDetail.avatarPreview = response.file.full
+      this.avatarPreview = response.file.full
     },
     failUploadProfilePicture () {
       this.$toasted.error('Fail to upload image, please try again')
