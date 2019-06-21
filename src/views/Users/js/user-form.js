@@ -25,8 +25,8 @@ export default {
         name: '',
         phone: '',
         address: '',
-        avatar: '',
-        avatarId: [],
+        avatarPreview: '',
+        avatar: [],
         university: '',
         batch: {
           code: '',
@@ -117,8 +117,8 @@ export default {
       })
     },
     successUploadProfilePicture (response) {
-      this.userDetail.avatarId = [ response.id ]
-      this.userDetail.avatar = response.file.full
+      this.userDetail.avatar = [ response.id ]
+      this.userDetail.avatarPreview = response.file.full
     },
     failUploadProfilePicture () {
       this.$toasted.error('Fail to upload image, please try again')
@@ -127,50 +127,49 @@ export default {
       this.$router.push({ name: 'users' })
     },
     validateBeforeSubmit (callback) {
-      this.$validator.validateAll().then(callback)
-    },
-    save () {
-      this.validateBeforeSubmit((result) => {
+      this.$validator.validateAll().then((result) => {
         if (result) {
-          let user = {
-            id: this.userDetail.id || '',
-            role: this.userDetail.role,
-            email: this.userDetail.email,
-            name: this.userDetail.name,
-            phone: this.userDetail.phone,
-            address: this.userDetail.address,
-            avatarId: this.userDetail.avatarId
-          }
-          let student = {
-            id: this.userDetail.id || '',
-            role: 'STUDENT',
-            email: this.userDetail.email,
-            name: this.userDetail.name,
-            phone: this.userDetail.phone,
-            address: this.userDetail.address,
-            avatarId: this.userDetail.avatarId,
-            batchCode: this.userDetail.batch.code,
-            university: this.userDetail.university
-          }
-
-          let data = {}
-          this.studentMode ? data = { ...student } : data = { ...user }
-
-          if (this.editMode) {
-            this.updateUser({
-              data,
-              callback: this.successCreateOrEditUser,
-              fail: this.failCreateOrEditUser
-            })
-          } else {
-            this.createUser({
-              data,
-              callback: this.successCreateOrEditUser,
-              fail: this.failCreateOrEditUser
-            })
-          }
+          callback()
         }
       })
+    },
+    save () {
+      this.validateBeforeSubmit(this.validationSuccess())
+    },
+    validationSuccess () {
+      let userData = {
+        id: this.userDetail.id || '',
+        role: this.userDetail.role,
+        email: this.userDetail.email,
+        name: this.userDetail.name,
+        phone: this.userDetail.phone,
+        address: this.userDetail.address,
+        avatar: this.userDetail.avatar
+      }
+      let studentData = {
+        ...userData,
+        role: 'STUDENT',
+        batchCode: this.userDetail.batch.code,
+        university: this.userDetail.university
+      }
+      let data = {}
+      this.studentMode ? data = { ...studentData } : data = { ...userData }
+      this.sendData(data)
+    },
+    sendData (data) {
+      if (this.editMode) {
+        this.updateUser({
+          data,
+          callback: this.successCreateOrEditUser,
+          fail: this.failCreateOrEditUser
+        })
+      } else {
+        this.createUser({
+          data,
+          callback: this.successCreateOrEditUser,
+          fail: this.failCreateOrEditUser
+        })
+      }
     },
     successCreateOrEditUser () {
       this.initialState()

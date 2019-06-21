@@ -3,7 +3,7 @@
     <div class="form-container">
       <div class="row">
         <div class="column image-column">
-          <div class="image" :style="{ backgroundImage: 'url(' + userDetail.avatar + ')' }">
+          <div class="image" :style="{ backgroundImage: 'url(' + userDetail.avatarPreview + ')' }">
             <input type="file"
                    name="image"
                    accept="image/*"
