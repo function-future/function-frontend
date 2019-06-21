@@ -4,16 +4,16 @@
       <div class="chatroom-container">
         <div class="chatroom-left">
           <SearchBar @click="changeText"/>
-          <div class="chatroom-menu">
+          <div @click="changeTypeChoosen('PUBLIC')" class="chatroom-menu" :class="{'chatroom-menu-blue': typeChoosen === 'PUBLIC'}">
             <h3>Public Chatroom</h3>
           </div>
-          <div class="chatroom-menu">
+          <div @click="changeTypeChoosen('GROUP')" class="chatroom-menu" :class="{'chatroom-menu-blue': typeChoosen === 'GROUP'}">
             <h3>Group Chatroom</h3>
-            <font-awesome-icon icon="chevron-right"/>
           </div>
-          <div class="chatroom-menu">
+
+          <ChatroomCard v-for="i in 5" avatar="https://www.w3schools.com/howto/img_avatar.png"/>
+          <div @click="changeTypeChoosen('PRIVATE')" class="chatroom-menu" :class="{'chatroom-menu-blue': typeChoosen === 'PRIVATE'}">
             <h3>Private Chatroom</h3>
-            <font-awesome-icon icon="chevron-right"/>
           </div>
         </div>
         <div class="chatroom-separator"></div>
@@ -26,20 +26,26 @@
 <script>
   import BaseCard from '@/components/BaseCard'
   import SearchBar from '@/components/SearchBar'
+  import ChatroomCard from './ChatroomCard'
   export default {
     name: 'Chatrooms',
     components: {
       BaseCard,
-      SearchBar
+      SearchBar,
+      ChatroomCard
     },
     data() {
       return {
-        text: ''
+        text: '',
+        typeChoosen: 'PUBLIC'
       }
     },
     methods: {
       changeText(value) {
         this.text = value;
+      },
+      changeTypeChoosen(type) {
+        this.typeChoosen = type
       }
     }
   }
@@ -69,6 +75,7 @@
     justify-content: space-between;
     align-items: center;
     margin: 15px 0;
+    cursor: pointer;
   }
 
   .chatroom-menu > h3, .chatroom-menu > font-awesome-icon {
@@ -92,5 +99,9 @@
     margin-left: 20px;
     margin-top: 20px;
     margin-bottom: 20px;
+  }
+  
+  .chatroom-menu-blue {
+    color: #02AAF3;
   }
 </style>

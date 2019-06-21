@@ -47,4 +47,8 @@
     width: 100%;
     outline: none;
   }
+
+  .search-box {
+    height: 30px;
+  }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="search-outer" :class="searchClass">
-    <BaseInput inputType="text" class="search-input" @input="updateValue"/>
+    <BaseInput inputType="search-box" class="search-input" @input="updateValue"/>
     <div @click="emitClick" class="search-button"><font-awesome-icon icon="search" class="search-icon" /></div>
   </div>
 </template>
@@ -38,10 +38,12 @@
     position: absolute;
     z-index: 1;
     width: 83%;
+    margin: auto;
   }
 
   .search-outer {
-    display: block;
+    display: flex;
+    align-items: center;
     position: relative;
     z-index: 0;
     width: 100%;
@@ -54,8 +56,8 @@
     right: 0;
     position: absolute;
     z-index: 2;
-    height: 60px;
-    width: 60px;
+    height: 55px;
+    width: 55px;
     background-color: #02AAF3;
     border-radius: 50%;
     margin-right: 0;
