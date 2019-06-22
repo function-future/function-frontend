@@ -135,7 +135,7 @@ export default {
       })
     },
     save () {
-      this.validateBeforeSubmit(this.validationSuccess())
+      this.validateBeforeSubmit(this.validationSuccess)
     },
     validationSuccess () {
       let userData = {
