@@ -14,6 +14,7 @@ import users from '@/views/Users/Users.vue'
 import stickyNotes from '@/views/StickyNotes/StickyNotesDetail.vue'
 import editStickyNote from '@/views/StickyNotes/EditStickyNote.vue'
 import courses from '@/views/Courses/Courses.vue'
+import courseDetail from '@/views/Courses/CourseDetail.vue'
 import config from '@/config/index'
 
 Vue.use(Router)
@@ -104,6 +105,14 @@ export default new Router({
       component: courses,
       meta: {
         title: 'Courses'
+      }
+    },
+    {
+      path: config.app.pages.courses.detail,
+      name: 'courseDetail',
+      component: courseDetail,
+      meta: {
+        title: 'Course Detail'
       }
     },
     {

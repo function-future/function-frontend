@@ -90,6 +90,21 @@ module.exports = {
             return `/api/core/activity-blogs/${id}`
           }
         }
+      },
+      courses: {
+        get (page, size) { return `/api/core/courses?page=${page}&size=${size}` },
+        post: 'api/core/courses',
+        detail: {
+          get (id) {
+            return `/api/core/courses/${id}`
+          },
+          update (id) {
+            return `/api/core/courses/${id}`
+          },
+          delete (id) {
+            return `/api/core/courses/${id}`
+          }
+        }
       }
     },
     scoring: {
