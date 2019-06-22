@@ -18,14 +18,13 @@
           placeholder="Announcement summary">
         </BaseTextArea>
       </div>
+      <div></div>
       <div class="description">
         <mavon-editor class="editor"
                       placeholder="Announcement description"
                       language="en"
                       v-model="announcementDetail.description"
                       v-validate.disable="'required'"
-                      :toolbars="toolbars"
-                      imagelink="false"
                       name="description">
         </mavon-editor>
       </div>

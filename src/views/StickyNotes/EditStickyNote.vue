@@ -5,7 +5,7 @@
         <BaseInput autofocus
                    class="input-title"
                    inputType="title"
-                   v-model="stickyNote.noteTitle"
+                   v-model="stickyNote.title"
                    placeholder="Sticky Note Title"
                    v-validate.disable="'required'"
                    name="title">
@@ -16,7 +16,9 @@
         <mavon-editor class="editor"
                       placeholder="Sticky Note Description"
                       language="en"
-                      v-model="stickyNote.noteDescription" v-validate.disable="'required'"
+                      v-model="stickyNote.description"
+                      :toolbars="toolbars"
+                      v-validate.disable="'required'"
                       name="description"></mavon-editor>
       </div>
       <div v-if="errors.has('description')"><span class="input-invalid-message">{{ errors.first('description') }}</span></div>
@@ -60,6 +62,7 @@
     font-size: 0.75em;
     float: left;
     margin-left: 2vw;
+    margin-bottom: 10px;
   }
 
   .action {

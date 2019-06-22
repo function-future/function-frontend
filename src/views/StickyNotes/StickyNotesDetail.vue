@@ -2,7 +2,7 @@
   <div class="scrollable-container">
     <BaseCard class="card" cardClass="card-hover">
       <div class="header">
-        <h3>{{ stickyNotes.noteTitle || 'Sticky Note' }}</h3>
+        <h3>{{ stickyNotes.title || 'Sticky Note' }}</h3>
       </div>
       <div class="header float-right">
         <div class="date">
@@ -13,7 +13,7 @@
         </div>
       </div>
       <div class="preview">
-        <span>{{ stickyNotes.noteDescription }}</span>
+        <span>{{ stickyNotes.description }}</span>
       </div>
     </BaseCard>
   </div>
