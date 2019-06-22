@@ -4,6 +4,7 @@ import assignments from '@/views/Assignment/Assignments'
 import addAssignment from '@/views/Assignment/AddAssignment'
 import assignmentRooms from '@/views/Assignment/AssignmentRooms'
 import assignmentDetail from '@/views/Assignment/AssignmentDetail'
+import questionBanks from '@/views/QuestionBank/QuestionBanks'
 import quizzes from '@/views/Quiz/Quiz'
 import addQuiz from '@/views/Quiz/AddQuiz'
 import quizDetail from '@/views/Quiz/QuizDetail'
@@ -119,6 +120,14 @@ export default new Router({
       component: editStickyNote,
       meta: {
         title: 'Edit Sticky Note'
+      }
+    },
+    {
+      path: config.app.pages.questionBanks.list,
+      name: 'questionBanks',
+      component: questionBanks,
+      meta: {
+        title: 'Question Banks'
       }
     },
     {

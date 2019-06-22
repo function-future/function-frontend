@@ -356,3 +356,31 @@ export const quizDetail = [
     }
   }
 ]
+
+export const questionBanks = [
+  {
+    method: 'GET',
+    url: '/api/scoring/question-banks?page=0&size=10',
+    response: {
+      "code" : 200,
+      "status" : "OK",
+      "data" : [
+        {
+          "id" : "QNK0001",
+          "title" : "Question Bank 1",
+          "description" : "Question Bank Number 1"
+        },
+        {
+          "id" : "QNK0002",
+          "title" : "Question Bank 2",
+          "description" : "Question Bank Number 2"
+        }
+      ],
+      "paging" : {
+        "page" : 1,
+        "size" : 12,
+        "totalRecords" : 13
+      }
+    }
+  }
+]

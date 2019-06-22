@@ -12,6 +12,11 @@ module.exports = {
       courses: '/courses',
       files: '/files',
       users: '/users',
+      questionBanks: {
+        list: '/question-banks',
+        add: '/question-banks/add',
+        detail: '/question-banks/:id/detail'
+      },
       quizzes: {
         list: '/quizzes',
         add: '/quizzes/add',
@@ -99,6 +104,40 @@ module.exports = {
           },
           update(batchCode, assignmentId, roomId) {
             return `api/scoring/batches/${batchCode}/assignments/${assignmentId}/rooms/${roomId}`
+          }
+        }
+      },
+      questionBanks: {
+        list (page, pageSize) {
+          return `/api/scoring/question-banks?page=${page}&size=${pageSize}`
+        },
+        create (page, pageSize) {
+          return `/api/scoring/question-banks?page=${page}&size=${pageSize}`
+        },
+        detail (id) {
+          return `/api/scoring/question-banks/${id}`
+        },
+        update (id) {
+          return `/api/scoring/question-banks/${id}`
+        },
+        delete (id) {
+          return `/api/scoring/question-banks/${id}`
+        },
+        question: {
+          list (bankId) {
+            return `/api/scoring/question-banks/${bankId}/questions`
+          },
+          create (bankId) {
+            return `/api/scoring/question-banks/${bankId}/questions`
+          },
+          detail (bankId, questionId) {
+            return `/api/scoring/question-banks/${bankId}/questions/${questionId}`
+          },
+          update (bankId, questionId) {
+            return `/api/scoring/question-banks/${bankId}/questions/${questionId}`
+          },
+          delete (bankId, questionId) {
+            return `/api/scoring/question-banks/${bankId}/questions/${questionId}`
           }
         }
       },

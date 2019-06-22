@@ -6,6 +6,7 @@ import announcements from './modules/announcements.js'
 import assignments from './modules/assignments.js'
 import assignmentRooms from './modules/assignment-rooms'
 import quizzes from './modules/quizzes'
+import questionBanks from './modules/question-banks'
 
 Vue.use(Vuex)
 
@@ -15,6 +16,7 @@ export default new Vuex.Store({
     announcements,
     assignments,
     assignmentRooms,
-    quizzes
+    quizzes,
+    questionBanks
   }
 })
