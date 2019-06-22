@@ -12,6 +12,35 @@ export default {
   },
   data () {
     return {
+      toolbars: {
+        bold: true,
+        italic: true,
+        header: true,
+        underline: true,
+        strikethrough: true,
+        mark: true,
+        superscript: true,
+        subscript: true,
+        quote: true,
+        ol: true,
+        ul: true,
+        link: true,
+        imagelink: false,
+        code: true,
+        table: true,
+        fullscreen: true,
+        readmodel: true,
+        htmlcode: false,
+        help: true,
+        undo: false,
+        redo: false,
+        trash: false,
+        save: false,
+        navigation: true,
+        alignleft: true,
+        subfield: true,
+        preview: true
+      },
       stickyNote: {
         title: '',
         description: ''
@@ -34,11 +63,10 @@ export default {
     ]),
     initPage () {
       this.getStickyNoteDetail()
-      this.setStickyNote()
     },
     getStickyNoteDetail () {
       this.fetchStickyNotes({
-        callback: () => {},
+        callback: this.setStickyNote,
         fail: this.failFetchingStickyNotes
       })
     },
@@ -49,24 +77,20 @@ export default {
       this.stickyNote = { ...this.stickyNotes }
     },
     validateBeforeSubmit (callback) {
-      this.$validator.validateAll().then((result) => {
-        if (result) {
-          callback()
-        }
-      })
+      this.$validator.validateAll().then(callback)
     },
     postStickyNote () {
-      this.setStickyNote()
-      let data = { ...this.stickyNote }
-
-      this.validateBeforeSubmit(this.validationSuccess(data))
+      this.validateBeforeSubmit(this.validationSuccess)
     },
-    validationSuccess (data) {
-      this.postStickyNotes({
-        data,
-        callback: this.successPostStickyNotes,
-        fail: this.failPostStickyNotes
-      })
+    validationSuccess (result) {
+      if (result) {
+        let data = { ...this.stickyNote }
+        this.postStickyNotes({
+          data,
+          callback: this.successPostStickyNotes,
+          fail: this.failPostStickyNotes
+        })
+      }
     },
     successPostStickyNotes () {
       this.initialState()

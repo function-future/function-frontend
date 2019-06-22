@@ -2,30 +2,25 @@
   <div class="scrollable-container">
     <div class="edit-container">
       <div class="title">
-        <BaseInput
-          autofocus
-          class="input-title"
-          inputType="title"
-          v-model="announcementDetail.title"
-          placeholder="Announcement title"
-          v-validate.disable="'required'"
-          name="title"></BaseInput>
+        <BaseInput autofocus
+                   class="input-title"
+                   inputType="title"
+                   v-model="activityBlog.title"
+                   placeholder="Activity Blog Title"
+                   v-validate.disable="'required'"
+                   name="title"></BaseInput>
       </div>
       <div v-if="errors.has('title')"><span class="input-invalid-message">{{ errors.first('title') }}</span></div>
-      <div>
-        <BaseTextArea
-          v-model="announcementDetail.summary"
-          placeholder="Announcement summary">
-        </BaseTextArea>
-      </div>
-      <div></div>
       <div class="description">
         <mavon-editor class="editor"
-                      placeholder="Announcement description"
+                      placeholder="Activity Blog Description"
                       language="en"
-                      v-model="announcementDetail.description"
+                      v-model="activityBlog.description"
                       v-validate.disable="'required'"
-                      name="description">
+                      name="description"
+                      ref=md
+                      @imgAdd="$imgAdd"
+                      @imgDel="$imgDel">
         </mavon-editor>
       </div>
       <div v-if="errors.has('description')"><span class="input-invalid-message">{{ errors.first('description') }}</span></div>
@@ -34,30 +29,35 @@
           <BaseButton type="cancel" buttonClass="button-cancel" @click="cancel">Cancel</BaseButton>
         </div>
         <div class="action-button">
-          <BaseButton type="submit" buttonClass="button-save" @click="sendAnnouncement">Save</BaseButton>
+          <BaseButton type="submit" buttonClass="button-save" @click="sendActivityBlog">Save</BaseButton>
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<script type="text/javascript" src="./js/announcement-form.js"></script>
+<script type="text/javascript" src="./js/activity-blog-form.js">
+</script>
 
 <style scoped>
   .edit-container {
     margin: 10px;
   }
 
-  .action {
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-  }
-
   .input-title {
     margin-right: 10px;
     width: 100%;
     font-size: 1.2em;
+  }
+
+  .description {
+    margin: 10px 0 10px 0;
+  }
+
+  .editor {
+    height: 60vh;
+    width: 100%;
+    margin-top: 20px;
   }
 
   .input-invalid-message {
@@ -67,12 +67,9 @@
     margin-left: 2vw;
   }
 
-  .description {
-    margin: 10px 0 10px 0;
-  }
-
-  .editor {
-    height: 45vh;
+  .action {
+    display: flex;
+    justify-content: flex-end;
   }
 
   .action-button {

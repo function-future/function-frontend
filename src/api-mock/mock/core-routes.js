@@ -314,3 +314,220 @@ export const announcementDetails = [
     }
   }
 ]
+
+export const activityBlogs = [
+  {
+    // Get list of announcements
+    method: 'GET',
+    url: '/api/core/activity-blogs?page=0&size=10',
+    response: {
+      "code": 200,
+      "status": "OK",
+      "data": [
+        {
+          "id": "sample-id-1",
+          "title": "Activity Blog Title 5",
+          "description": "**Description** in markdown format goes here",
+          "files": [
+            {
+              "id": "sample-id",
+              "file": {
+                "full": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png",
+                "thumbnail": null
+              }
+            }
+          ],
+          "author": {
+            "id": "sample-id",
+            "name": "Student 1"
+          }
+        },
+        {
+          "id": "sample-id-2",
+          "title": "Activity Blog Title 5",
+          "description": "Description in markdown format goes here",
+          "files": [
+            {
+              "id": "sample-id",
+              "file": {
+                "full": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png",
+                "thumbnail": null
+              }
+            }
+          ],
+          "author": {
+            "id": "sample-id-3",
+            "name": "Student 1"
+          }
+        },
+        {
+          "id": "sample-id-3",
+          "title": "Activity Blog Title 5",
+          "description": "Description in markdown format goes here",
+          "files": [
+            {
+              "id": "sample-id",
+              "file": {
+                "full": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png",
+                "thumbnail": null
+              }
+            }
+          ],
+          "author": {
+            "id": "sample-id-4",
+            "name": "Student 1"
+          }
+        },
+        {
+          "id": "sample-id-4",
+          "title": "Activity Blog Title 5",
+          "description": "Description in markdown format goes here",
+          "files": [
+            {
+              "id": "sample-id",
+              "file": {
+                "full": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png",
+                "thumbnail": null
+              }
+            }
+          ],
+          "author": {
+            "id": "sample-id",
+            "name": "Student 1"
+          }
+        },
+        {
+          "id": "sample-id-5",
+          "title": "Activity Blog Title 5",
+          "description": "Description in markdown format goes here",
+          "files": [
+            {
+              "id": "sample-id",
+              "file": {
+                "full": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png",
+                "thumbnail": null
+              }
+            }
+          ],
+          "author": {
+            "id": "sample-id",
+            "name": "Student 1"
+          }
+        }
+      ],
+      "paging": {
+        "page": 1,
+        "size": 5,
+        "totalRecords": 24
+      }
+    }
+  }
+]
+
+export const activityBlogDetail = [
+  {
+    method: 'GET',
+    url: '/api/core/activity-blogs/sample-id-1',
+    response: {
+      "code": 200,
+      "status": "OK",
+      "data": {
+        "id": "sample-id-1",
+        "title": "Activity Blog Title 5",
+        "description": "**Description** in markdown format goes here",
+        "files": [
+          {
+            "id": "sample-id",
+            "file": {
+              "full": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png",
+              "thumbnail": null
+            }
+          }
+        ],
+        "author": {
+          "id": "sample-id",
+          "name": "Student 1"
+        }
+      }
+    }
+  },
+  {
+    method: 'POST',
+    url: '/api/core/activity-blogs',
+    response: {
+      "code": 200,
+      "status": "OK",
+      "data": {
+        "id": "sample-id-1",
+        "title": "Activity Blog Title 5",
+        "description": "**Description** in markdown format goes here",
+        "files": [
+          {
+            "id": "sample-id",
+            "file": {
+              "full": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png",
+              "thumbnail": null
+            }
+          }
+        ],
+        "author": {
+          "id": "sample-id",
+          "name": "Student 1"
+        }
+      }
+    }
+  },
+  {
+    method: 'PUT',
+    url: '/api/core/activity-blogs/sample-id-1',
+    response: {
+      "code": 200,
+      "status": "OK",
+      "data": {
+        "id": "sample-id-1",
+        "title": "Activity Blog Title 5",
+        "description": "**Description** in markdown format goes here",
+        "files": [
+          {
+            "id": "sample-id",
+            "file": {
+              "full": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png",
+              "thumbnail": null
+            }
+          }
+        ],
+        "author": {
+          "id": "sample-id",
+          "name": "Student 1"
+        }
+      }
+    }
+  },
+  {
+    method: 'DELETE',
+    url: '/api/core/activity-blogs/sample-id-1',
+    response: {
+      "code": 200,
+      "status": "OK"
+    }
+  }
+]
+
+export const resources = [
+  {
+    method: 'POST',
+    url: '/api/core/resources?source=activity-blog',
+    response: {
+      "code": 201,
+      "status": "CREATED",
+      "data": {
+        "id": "sample-id",
+        "name": "File Name",
+        "file": {
+          "full": "https://i.pinimg.com/originals/8c/cf/ec/8ccfec7d5cb3c92265cbf153523eb9b5.jpg",
+          "thumbnail": null
+        }
+      }
+    }
+  }
+]

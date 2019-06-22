@@ -41,8 +41,8 @@ describe('actions', () => {
     expect(fail).toHaveBeenCalledTimes(0)
     expect(commit).toHaveBeenCalledTimes(1)
     expect(commit).toHaveBeenCalledWith('SET_STICKY_NOTES_INFO', {
-      'noteTitle': 'Sticky Note Title',
-      'noteDescription': 'Note noteDescription goes here. Length is undetermined.',
+      'title': 'Sticky Note Title',
+      'description': 'Note noteDescription goes here. Length is undetermined.',
       'updatedAt': 1555333551046
     })
     expect(callback).toBeCalledTimes(1)
@@ -91,16 +91,16 @@ describe('actions', () => {
 describe('getters', () => {
   const state = {
     stickyNote: {
-      noteTitle: '',
-      noteDescription: '',
+      title: '',
+      description: '',
       updatedAt: ''
     }
   }
 
   test('stickyNotes', () => {
     expect(store.getters.stickyNotes(state)).toEqual({
-      noteTitle: state.stickyNote.noteTitle,
-      noteDescription: state.stickyNote.noteDescription,
+      title: state.stickyNote.title,
+      description: state.stickyNote.description,
       updatedAt: state.stickyNote.updatedAt
     })
   })
@@ -109,8 +109,8 @@ describe('getters', () => {
 describe('mutations', () => {
   const state = {
     stickyNote: {
-      noteTitle: '',
-      noteDescription: '',
+      title: '',
+      description: '',
       updatedAt: ''
     }
   }
