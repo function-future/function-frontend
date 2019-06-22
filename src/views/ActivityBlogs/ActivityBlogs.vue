@@ -1,42 +1,44 @@
 <template>
   <div class="scrollable-container">
     <div class="button-div">
-      <BaseButton type="submit" buttonClass="button-save">
+      <BaseButton type="submit" buttonClass="button-save" @click="goToAddActivityBlog">
         <span><font-awesome-icon icon="plus" class="icon"/> New</span>
       </BaseButton>
     </div>
-    <BaseCard class="blog-card" cardClass="card-hover">
+    <BaseCard
+      v-for="activityBlog in activityBlogs"
+      v-bind:key="activityBlog.id"
+      @click.native="goToActivityBlogDetail(activityBlog.id)"
+      class="blog-card"
+      cardClass="card-hover">
       <div class="blog-header blog-title">
-        <h3>Blog Title Goes Here...</h3>
+        <h3>{{ activityBlog.title }}</h3>
       </div>
       <div class="blog-header float-right">
         <div class="blog-date">
-          January 19, 2019
+          {{ activityBlog.createdAt | moment("dddd, MMMM Do YYYY") }}
         </div>
-        <div class="blog-action">
-          <span><font-awesome-icon icon="edit" class="icon blue" size="lg"></font-awesome-icon></span>
-          <span><font-awesome-icon icon="trash-alt" class="icon red" size="lg"></font-awesome-icon></span>
+        <div class="blog-actions">
+          <span @click.stop="goToEditActivityBlog(activityBlog.id)">
+            <font-awesome-icon icon="edit" class="icon blue" size="lg"></font-awesome-icon>
+          </span>
+          <span><font-awesome-icon icon="trash-alt" class="icon red"
+                                   size="lg" @click.stop="openDeleteConfirmationModal(activityBlog.id)"></font-awesome-icon></span>
         </div>
       </div>
       <div class="blog-preview">
-        <span>est pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat vivamus at augue eget arcu dictum varius duis at consectetur lorem donec massa sapien faucibus et molestie ac feugiat sed lectus vestibulum mattis ullamcorper velit sed ullamcorper morbi tincidunt ornare massa eget egestas purus viverra accumsan in nisl nisi scelerisque eu ultrices vitae auctor eu augue ut lectus arcu bibendum at varius vel pharetra vel turpis nunc eget lorem dolor sed viverra ipsum nunc aliquet bibendum</span>
+        <span v-html="compileToMarkdown(activityBlog.description)"></span>
       </div>
     </BaseCard>
+    <modal-delete-confirmation v-if="showDeleteConfirmationModal"
+                               @close="closeDeleteConfirmationModal"
+                               @clickDelete="deleteThisActivityBlog">
+      <div slot="description">Delete this activity blog?</div>
+    </modal-delete-confirmation>
   </div>
 </template>
 
-<script>
-// @ is an alias to /src
-import BaseCard from '@/components/BaseCard'
-import BaseButton from '@/components/BaseButton'
-
-export default {
-  name: 'announcements',
-  components: {
-    BaseButton,
-    BaseCard
-  }
-}
+<script type="text/javascript" src="./js/activity-blogs.js">
 </script>
 
 <style scoped>
@@ -53,22 +55,22 @@ export default {
     display: inline-block;
   }
 
-  .blog-action {
+  .blog-actions {
     display: inline-block;
     padding-left: 15px;
     border-left: 1px solid #BDBDBD;
   }
 
-  .blog-action span {
+  .blog-actions span {
     padding: 5px;
     transition: all .2s ease;
   }
 
-  .blog-action span:hover {
+  .blog-actions span:hover {
     opacity: 0.8;
   }
 
-  .blog-action span:active {
+  .blog-actions span:active {
     opacity: 0.9;
   }
 
