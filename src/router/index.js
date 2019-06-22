@@ -6,6 +6,7 @@ import assignmentRooms from '@/views/Assignment/AssignmentRooms'
 import assignmentDetail from '@/views/Assignment/AssignmentDetail'
 import questionBanks from '@/views/QuestionBank/QuestionBanks'
 import addQuestionBank from '@/views/QuestionBank/AddQuestionBank'
+import questionBankQuestionList from '@/views/QuestionBank/QuestionBankQuestionList'
 import quizzes from '@/views/Quiz/Quiz'
 import addQuiz from '@/views/Quiz/AddQuiz'
 import quizDetail from '@/views/Quiz/QuizDetail'
@@ -137,6 +138,14 @@ export default new Router({
       component: addQuestionBank,
       meta: {
         title: 'Add Question Bank'
+      }
+    },
+    {
+      path: config.app.pages.questionBanks.questions.list,
+      name: 'questionBankQuestionList',
+      component: questionBankQuestionList,
+      meta: {
+        title: 'Question List'
       }
     },
     {

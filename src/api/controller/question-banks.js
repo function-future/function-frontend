@@ -9,6 +9,10 @@ const getQuestionBankById = function (callback, data, errorHandler) {
   request.getRequest(config.api.scoring.questionBanks.detail(data.id), callback, errorHandler)
 }
 
+const getQuestionList = function (callback, data, errorHandler) {
+  request.getRequest(config.api.scoring.questionBanks.question.list(data.id), callback, errorHandler)
+}
+
 const createQuestionBank = function (callback, data, payload, errorHandler) {
   request.postRequest(config.api.scoring.questionBanks.create(data.page, data.pageSize), callback, payload, errorHandler)
 }
@@ -24,6 +28,7 @@ const deleteQuestionBank = function (callback, data, payload, errorHandler) {
 export default {
   getQuestionBankList,
   getQuestionBankById,
+  getQuestionList,
   createQuestionBank,
   updateQuestionBank,
   deleteQuestionBank

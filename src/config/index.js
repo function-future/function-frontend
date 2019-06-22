@@ -15,7 +15,11 @@ module.exports = {
       questionBanks: {
         list: '/question-banks',
         add: '/question-banks/add',
-        detail: '/question-banks/:id/detail'
+        detail: '/question-banks/:id/detail',
+        questions: {
+          list: '/question-banks/:bankId/questions',
+          add: '/question-banks/:bankId/questions/add'
+        }
       },
       quizzes: {
         list: '/quizzes',

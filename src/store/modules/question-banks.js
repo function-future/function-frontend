@@ -2,7 +2,8 @@ import questionBankApi from '@/api/controller/question-banks'
 
 export const state = {
   questionBanks: [],
-  questionBank: {}
+  questionBank: {},
+  questionList: []
 }
 
 export const mutations = {
@@ -11,6 +12,9 @@ export const mutations = {
   },
   SET_QUESTION_BANK (state, payload) {
     state.questionBank = payload
+  },
+  SET_QUESTIONS (state, payload) {
+    state.questionList = payload
   }
 }
 
@@ -37,6 +41,11 @@ export const actions = {
       commit('SET_QUESTION_BANK', payload)
       callback()
     }, data, payload, fail)
+  },
+  fetchQuestionBankQuestionList ({ commit }, { data, fail }) {
+    questionBankApi.getQuestionList(({data: response}) => {
+      commit('SET_QUESTIONS', response)
+    }, data, fail)
   }
 }
 
@@ -47,6 +56,9 @@ export const getters = {
   },
   questionBank (state) {
     return state.questionBank
+  },
+  questionList (state) {
+    return state.questionList
   }
 }
 
