@@ -13,6 +13,7 @@ import ActivityBlogForm from '@/views/ActivityBlogs/ActivityBlogForm.vue'
 import users from '@/views/Users/Users.vue'
 import stickyNotes from '@/views/StickyNotes/StickyNotesDetail.vue'
 import editStickyNote from '@/views/StickyNotes/EditStickyNote.vue'
+import courses from '@/views/Courses/Courses.vue'
 import config from '@/config/index'
 
 Vue.use(Router)
@@ -98,9 +99,9 @@ export default new Router({
       props: { editMode: false }
     },
     {
-      path: config.app.pages.courses,
+      path: config.app.pages.courses.list,
       name: 'courses',
-      component: feeds,
+      component: courses,
       meta: {
         title: 'Courses'
       }

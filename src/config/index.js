@@ -14,7 +14,12 @@ module.exports = {
         detail: '/announcements/:id/detail',
         edit: '/announcements/:id/edit'
       },
-      courses: '/courses',
+      courses: {
+        list: '/courses',
+        add: '/courses/add',
+        detail: '/courses/:id/detail',
+        edit: '/courses/:id/edit'
+      },
       files: '/files',
       users: '/users',
       quizzes: '/quizzes',
