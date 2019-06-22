@@ -17,14 +17,12 @@ export const mutations = {
 export const actions = {
   fetchQuizList ({ commit }, { data, fail }) {
     quizApi.getQuizList(({data: response}) => {
-      console.log(response.quizzes)
       commit('GET_QUIZ_LIST', response.quizzes)
     }, data, fail)
   },
   createQuiz ({ commit }, { payload, data, callback, fail }) {
     quizApi.createQuiz(() => {
       commit('SET_QUIZ', payload)
-      console.log(state.assignment)
       callback()
     }, data, payload, fail)
   },

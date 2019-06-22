@@ -23,7 +23,6 @@ export const actions = {
   createAssignment ({ commit }, { payload, data, callback, fail }) {
     assignmentApi.createAssignment(() => {
       commit('SET_ASSIGNMENT', payload)
-      console.log(state.assignment)
       callback()
     }, data, payload, fail)
   },

@@ -306,12 +306,12 @@ export const quizzes = [
 export const quizDetail = [
   {
     method: 'GET',
-    url: '/api/scoring/batches/futur3/quizzes/QZ0001',
+    url: '/api/scoring/batches/3/quizzes/QZ00001',
     response: {
       "code": 200,
       "status": "OK",
       "data": {
-        "id": "QZ0001",
+        "id": "QZ00001",
         "title": "Quiz Title 1",
         "description": "Description Number 1",
         "startDate": 15000000,

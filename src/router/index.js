@@ -180,7 +180,7 @@ export default new Router({
     {
       path: config.app.pages.assignments.rooms.detail,
       name: 'assignmentRoomDetail',
-      // component: assignmentRoomDetail,
+      component: quizDetail,
       meta: {
         title: 'Assignment'
       }

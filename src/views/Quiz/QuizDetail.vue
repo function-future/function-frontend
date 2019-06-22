@@ -1,47 +1,80 @@
 <template>
   <div class="quiz-detail-container">
     <div class="description-container">
-      <BaseTextArea :disabled="true" placeholder="Description here" :style="{height: '90%'}"></BaseTextArea>
+      <BaseInput v-model="quizDetail.title"
+                 :placeholder="'Quiz Title'"
+                 :disabled="!editMode">
+      </BaseInput>
+      <BaseTextArea v-model="quizDetail.description"
+                    :disabled="!editMode"
+                    placeholder="Description here"
+                    :style="{height: '70%'}"
+                    :placeholder="'Quiz description'">
+      </BaseTextArea>
     </div>
     <div class="detail-container">
       <div class="detail-container__info">
         <div class="detail-container__info-time">
-          <BaseCard :style="{height: '100%', margin: 0}" class="detail-card">
+          <BaseCard :style="{height: '100%', margin: 0}"
+                    class="detail-card">
             <div class="detail-card__caption">Given Time</div>
-            <input type="number" class="detail-card__content"/>
+            <input type="number"
+                   class="detail-card__content"
+                   v-model="quizDetail.timeLimit"
+                   :disabled="!editMode"/>
           </BaseCard>
         </div>
         <div class="detail-container__info-deadline">
-          <BaseCard :style="{height: '100%', margin: 0}" class="detail-card">
+          <BaseCard :style="{height: '100%', margin: 0}"
+                    class="detail-card">
             <div class="detail-card__caption">Due Date</div>
-            <v-date-picker :popover="{ placement: 'bottom', visibility: 'click' }">
-              <div class="detail-card__content" style="width: 250px; height: 60px;"></div>
+            <v-date-picker :class="editMode ? 'quiz-calendar__editable' : 'quiz-calendar'"
+                           :popover="isCalendarDisabled"
+                           v-model="quizDetail.endDate"
+                           v-if="quizDetail.endDate"
+                           :value="quizDetail.endDate">
+              <div class="detail-card__content"
+                   style="width: 250px; height: 60px;"
+                   v-if="quizDetail.endDate">
+                {{quizDetail.endDate | moment('MMM, Do YYYY')}}</div>
             </v-date-picker>
           </BaseCard>
         </div>
         <div class="detail-container__info-trials">
-          <BaseCard :style="{height: '100%', margin: 0}" class="detail-card">
+          <BaseCard :style="{height: '100%', margin: 0}"
+                    class="detail-card">
             <div class="detail-card__caption">Trials</div>
-            <input type="number" class="detail-card__content"/>
+            <input type="number"
+                   class="detail-card__content"
+                   v-model="quizDetail.trials"
+                   :disabled="!editMode"/>
           </BaseCard>
         </div>
         <div class="detail-container__info-batch">
-          <BaseCard :style="{height: '100%', margin: 0}" class="detail-card">
+          <BaseCard :style="{height: '100%', margin: 0}"
+                    class="detail-card">
             <div class="detail-card__caption">Participant</div>
-            <input type="text" class="detail-card__content"/>
+            <input type="text"
+                   class="detail-card__content"
+                   v-model="quizDetail.batch"
+                   :disabled="!editMode"/>
           </BaseCard>
         </div>
       </div>
       <div class="detail-container__question">
         <div class="detail-container__question-card">
-          <BaseCard :style="{height: '100%', margin: 0}" class="question-info">
+          <BaseCard :style="{height: '100%', margin: 0}"
+                    class="question-info">
             <div class="question-info__caption">Question</div>
-            <input type="text" class="question-info__content"/>
+            <input type="text"
+                   class="question-info__content"
+                   v-model="quizDetail.questionCount"
+                   :disabled="!editMode"/>
           </BaseCard>
         </div>
         <div class="detail-container__action">
-          <BaseButton buttonClass="button-cancel">Cancel</BaseButton>
-          <BaseButton buttonClass="button-save">Save</BaseButton>
+          <BaseButton buttonClass="button-cancel" @click="returnButtonClicked()">{{ cancelButtonText }}</BaseButton>
+          <BaseButton buttonClass="button-save" @click="actionButtonClicked()">{{ actionButtonText }}</BaseButton>
         </div>
       </div>
     </div>
@@ -119,8 +152,19 @@
       border: none;
       width: 100%;
       text-align: right;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
       &:focus {
         outline: none;
+      }
+      &:disabled {
+        background-color: #ffffff;
+      }
+      &:enabled {
+        &:hover {
+          cursor: pointer;
+        }
       }
       /* TODO Find good font */
     }
@@ -148,7 +192,24 @@
       &:focus {
         outline: none;
       }
+      &:disabled {
+        background-color: #ffffff;
+      }
+      &:enabled {
+        &:hover {
+          cursor: pointer;
+        }
+      }
       /* TODO Find good font */
+    }
+  }
+
+  .quiz-calendar {
+    cursor: default;
+    &__editable {
+      &:hover {
+        cursor: pointer;
+      }
     }
   }
 </style>
