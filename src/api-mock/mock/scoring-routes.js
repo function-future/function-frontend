@@ -382,5 +382,18 @@ export const questionBanks = [
         "totalRecords" : 13
       }
     }
+  },
+  {
+    method: 'POST',
+    url: '/api/scoring/question-banks?page=0&size=10',
+    response: {
+      "code": 201,
+      "status": "CREATED",
+      "data": {
+        "id": "QNK0001",
+        "title": "Question Bank #2",
+        "description": "Question Bank Number 2"
+      }
+    }
   }
 ]

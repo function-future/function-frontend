@@ -23,7 +23,7 @@ export const actions = {
   createQuestionBank ({ commit }, { payload, data, callback, fail }) {
     questionBankApi.createQuestionBank(() => {
       commit('SET_QUESTION_BANK', payload)
-      callback()
+      callback && callback()
     }, data, payload, fail)
   },
   fetchQuestionBankDetail ({ commit }, { data, callback, fail }) {
