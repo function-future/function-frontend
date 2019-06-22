@@ -5,7 +5,7 @@ import Tabs from 'vue-tabs-with-active-line'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
 
 export default {
-  name: 'announcements',
+  name: 'users',
   components: {
     UserCard,
     BaseButton,

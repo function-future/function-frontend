@@ -6,6 +6,7 @@ import BaseSelect from '@/components/BaseSelect'
 import config from '@/config/index'
 
 export default {
+  name: 'userForm',
   components: {
     BaseButton,
     BaseInput,
