@@ -5,7 +5,11 @@
         <span><font-awesome-icon icon="plus" class="icon"/> Add</span>
       </BaseButton>
     </div>
-    <CourseCard :course="courses[0]" @edit="editThisCourse" @delete="deleteThisCourse"></CourseCard>
+    <div v-for="course in courses" :key="course.id">
+      <CourseCard :course="course" @click.native="goToThisCourseDetail(course.id)"
+                @edit="editThisCourse(course.id)" @delete="deleteThisCourse(course.id)">
+      </CourseCard>
+    </div>
   </div>
 </template>
 

@@ -12,17 +12,45 @@ export default {
   },
   data () {
     return {
-      courses: [
-        {
-          'id': 'sample-id',
-          'title': 'Course Title',
-          'description': 'Course Description Goes Here',
-          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
-        }
-      ]
+      paging: {
+        page: 0,
+        size: 10
+      },
+      courses: []
     }
   },
+  computed: {
+    ...mapGetters([
+      'courseList'
+    ])
+  },
+  created () {
+    this.initPage()
+  },
   methods: {
+    ...mapActions([
+      'fetchCourses'
+    ]),
+    initPage () {
+      let data = { ...this.paging }
+      this.fetchCourses({
+        data,
+        callback: this.successFetchCourses,
+        fail: this.failFetchCourses
+      })
+    },
+    successFetchCourses () {
+      this.courses = this.courseList
+    },
+    failFetchCourses () {
+      this.$toasted.error('Fail to load course list')
+    },
+    goToThisCourseDetail (id) {
+      this.$router.push({
+        name: 'courseDetail',
+        params: { id: id }
+      })
+    },
     goToAddCourse () {},
     editThisCourse () {},
     deleteThisCourse () {}
