@@ -21,7 +21,7 @@ export default {
         endDate: new Date(),
         timeLimit: 0,
         trials: 0,
-        batch: 'q',
+        batch: '',
         questionCount: 0
       }
     }

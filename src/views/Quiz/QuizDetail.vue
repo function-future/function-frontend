@@ -59,6 +59,7 @@
                    v-model="quizDetail.batch"
                    :disabled="!editMode"/>
           </BaseCard>
+          <!--TODO Change this to baseSelect after core team made API call for batches-->
         </div>
       </div>
       <div class="detail-container__question">
