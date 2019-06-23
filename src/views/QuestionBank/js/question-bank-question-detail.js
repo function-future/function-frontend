@@ -51,7 +51,8 @@ export default {
   },
   methods: {
     ...mapActions([
-      'fetchQuestionDetail'
+      'fetchQuestionDetail',
+      'updateQuestion'
     ]),
     initPage () {
       this.fetchQuestionDetail({
@@ -71,9 +72,35 @@ export default {
     },
     actionButtonClicked () {
       if (this.editMode) {
-        //Update Action
+        const selectedIndex = document.querySelector('input[name="correct-answer"]:checked').value
+        let defaultIndex
+        this.question.options.find((option, index) => {if (option.correct) defaultIndex = index })
+        delete this.questionDetail.options[defaultIndex].correct
+        this.submittedQuestion = JSON.parse(JSON.stringify(this.question))
+        this.submittedQuestion.options[selectedIndex].correct = true
+        this.updateQuestion({
+          payload: {...this.submittedQuestion},
+          data: {
+            bankId: this.$route.params.bankId,
+            questionId: this.$route.params.questionId
+          },
+          callback: this.successUpdatingQuestion,
+          fail: this.failUpdatingQuestion
+        })
       }
       this.editMode = !this.editMode
+    },
+    successUpdatingQuestion () {
+      this.$toasted.success(`Success updating question ${this.$route.params.questionId}`)
+      this.$router.push({
+        name: 'questionBankQuestionList',
+        params: {
+          bankId: this.$route.params.bankId
+        }
+      })
+    },
+    failUpdatingQuestion () {
+      this.$toasted.error('Something went wrong')
     },
     cancelButtonClicked () {
       if (this.editMode) {

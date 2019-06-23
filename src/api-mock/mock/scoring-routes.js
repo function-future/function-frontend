@@ -501,5 +501,39 @@ export const questionBankQuestionDetail = [
         ]
       }
     }
+  },
+  {
+    method: 'POST',
+    url: '/api/scoring/question-banks/QNK0001/questions/QST0001',
+    response: {
+      "code": 200,
+      "status": "OK",
+      "data": {
+        "id": "QST0001",
+        "questionText": "Question Example 1",
+        "options": [
+          {
+            "id": "OPT0001",
+            "optionText": "Answer Example 1-1",
+            "correct": false
+          },
+          {
+            "id": "OPT0002",
+            "optionText": "Answer Example 1-2",
+            "correct": false
+          },
+          {
+            "id": "OPT0003",
+            "optionText": "Answer Example 1-3",
+            "correct": true
+          },
+          {
+            "id": "OPT0004",
+            "optionText": "Answer Example 1-4",
+            "correct": false
+          }
+        ]
+      }
+    }
   }
 ]

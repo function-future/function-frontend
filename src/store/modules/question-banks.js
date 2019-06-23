@@ -62,6 +62,12 @@ export const actions = {
       commit('SET_QUESTION', response)
       callback && callback()
     }, data, fail)
+  },
+  updateQuestion ({ commit }, { payload, data, callback, fail }) {
+    questionBankApi.updateQuestion(() => {
+      commit('SET_QUESTION', payload)
+      callback && callback()
+    }, data, payload, fail)
   }
 }
 
