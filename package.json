@@ -7,7 +7,7 @@
     "dev": "webpack-dev-server --inline --progress --config webpack-dev-server.js",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "test:unit": "vue-cli-service test:unit --coverage && node tests/post-unit-test.js"
+    "test:unit": "vue-cli-service test:unit --no-cache --coverage && node tests/post-unit-test.js"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.17",
