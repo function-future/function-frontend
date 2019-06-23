@@ -588,6 +588,60 @@ export const courses = [
   }
 ]
 
+export const discussions = [
+  {
+    method: 'GET',
+    url: '/api/core/batches/1/courses/sample-id-1/discussions',
+    response: {
+      'code': 200,
+      'status': 'OK',
+      'data': [
+        {
+          'id': 'sample-id-1',
+          'author': {
+            'id': 'sample-id',
+            'name': 'Oliver Sebastian'
+          },
+          'comment': 'Comment Example 1',
+          'createdAt': 1500000000
+        },
+        {
+          'id': 'sample-id-2',
+          'author': {
+            'id': 'sample-id',
+            'name': 'David William Kurnia'
+          },
+          'comment': 'Comment Example 1',
+          'createdAt': 1500000000
+        },
+        {
+          'id': 'sample-id-3',
+          'author': {
+            'id': 'sample-id',
+            'name': 'Jonathan'
+          },
+          'comment': 'Comment Example 1',
+          'createdAt': 1500000000
+        },
+        {
+          'id': 'sample-id-4',
+          'author': {
+            'id': 'sample-id',
+            'name': 'Stelli'
+          },
+          'comment': 'Comment Example 1',
+          'createdAt': 1500000000
+        }
+      ],
+      'paging': {
+        'page': 1,
+        'size': 4,
+        'totalRecords': 20
+      }
+    }
+  }
+]
+
 export const users = [
   {
     method: 'GET',
