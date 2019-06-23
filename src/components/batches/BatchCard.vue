@@ -1,6 +1,6 @@
 <template>
     <BaseCard cardClass="card-hover"
-              class="batch-card" @click.native="goToCourse(batch.batchCode)">
+              class="batch-card">
       <div class="col">
         <div class="row"><font-awesome-icon icon="users" class="icon"/></div>
         <div class="row"><h4>{{ batch.name }}</h4></div>
