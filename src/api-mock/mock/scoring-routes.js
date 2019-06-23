@@ -469,3 +469,37 @@ export const questionBankQuestions = [
     }
   }
 ]
+
+export const questionBankQuestionDetail = [
+  {
+    method: 'GET',
+    url: '/api/scoring/question-banks/QNK0001/questions/QST0001',
+    response: {
+      "code": 200,
+      "status": "OK",
+      "data": {
+        "id": "QST0001",
+        "text": "Question Example 1",
+        "options": [
+          {
+            "id": "OPT0001",
+            "label": "Answer Example 1-1"
+          },
+          {
+            "id": "OPT0002",
+            "label": "Answer Example 1-2"
+          },
+          {
+            "id": "OPT0003",
+            "label": "Answer Example 1-3",
+            "correct": true
+          },
+          {
+            "id": "OPT0004",
+            "label": "Answer Example 1-4"
+          }
+        ]
+      }
+    }
+  }
+]

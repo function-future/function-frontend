@@ -18,7 +18,8 @@ module.exports = {
         detail: '/question-banks/:id/detail',
         questions: {
           list: '/question-banks/:bankId/questions',
-          add: '/question-banks/:bankId/questions/add'
+          add: '/question-banks/:bankId/questions/add',
+          detail: '/question-banks/:bankId/questions/:questionId'
         }
       },
       quizzes: {

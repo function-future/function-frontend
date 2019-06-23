@@ -13,6 +13,10 @@ const getQuestionList = function (callback, data, errorHandler) {
   request.getRequest(config.api.scoring.questionBanks.question.list(data.id), callback, errorHandler)
 }
 
+const getQuestionById = function (callback, data, errorHandler) {
+  request.getRequest(config.api.scoring.questionBanks.question.detail(data.bankId, data.questionId), callback, errorHandler)
+}
+
 const createQuestionBank = function (callback, data, payload, errorHandler) {
   request.postRequest(config.api.scoring.questionBanks.create(data.page, data.pageSize), callback, payload, errorHandler)
 }
@@ -33,6 +37,7 @@ export default {
   getQuestionBankList,
   getQuestionBankById,
   getQuestionList,
+  getQuestionById,
   createQuestionBank,
   createQuestion,
   updateQuestionBank,

@@ -8,6 +8,7 @@ import questionBanks from '@/views/QuestionBank/QuestionBanks'
 import addQuestionBank from '@/views/QuestionBank/AddQuestionBank'
 import questionBankQuestionList from '@/views/QuestionBank/QuestionBankQuestionList'
 import questionBankAddQuestion from '@/views/QuestionBank/QuestionBankAddQuestion'
+import questionBankQuestionDetail from '@/views/QuestionBank/QuestionBankQuestionDetail'
 import quizzes from '@/views/Quiz/Quiz'
 import addQuiz from '@/views/Quiz/AddQuiz'
 import quizDetail from '@/views/Quiz/QuizDetail'
@@ -155,6 +156,14 @@ export default new Router({
       component: questionBankAddQuestion,
       meta: {
         title: 'Add Question'
+      }
+    },
+    {
+      path: config.app.pages.questionBanks.questions.detail,
+      name: 'questionBankQuestionDetail',
+      component: questionBankQuestionDetail,
+      meta: {
+        title: 'Question Detail'
       }
     },
     {

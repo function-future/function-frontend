@@ -56,6 +56,12 @@ export const actions = {
       commit('SET_QUESTION', payload)
       callback && callback()
     }, data, payload, fail)
+  },
+  fetchQuestionDetail ({ commit }, { data, callback, fail }) {
+    questionBankApi.getQuestionById(({data: response}) => {
+      commit('SET_QUESTION', response)
+      callback && callback()
+    }, data, fail)
   }
 }
 
