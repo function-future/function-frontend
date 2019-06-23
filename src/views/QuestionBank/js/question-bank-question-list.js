@@ -26,7 +26,7 @@ export default {
     initPage () {
       this.fetchQuestionBankQuestionList({
         data: {
-          id: this.$route.params.bankId
+          bankId: this.$route.params.bankId
         },
         fail: this.failFetchingQuestionBankQuestionList
       })

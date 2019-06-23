@@ -38,15 +38,21 @@ export default {
     addQuestionBank () {
       this.$router.push({name: 'addQuestionBank'})
     },
-    // TODO: Make component for the above method
-    goToQuestionBankDetail (id) {
+    goToQuestionBankQuestions (id) {
       this.$router.push({
         name: 'questionBankQuestionList',
         params: {
           bankId: id
         }
       })
+    },
+    goToQuestionBankDetail (id) {
+      this.$router.push({
+        name: 'questionBankDetail',
+        params: {
+          bankId: id
+        }
+      })
     }
-    // TODO: Make component for the above method
   }
 }

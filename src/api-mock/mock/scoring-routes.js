@@ -398,6 +398,35 @@ export const questionBanks = [
   }
 ]
 
+export const questionBankDetail = [
+  {
+    method: 'GET',
+    url: '/api/scoring/question-banks/QNK0001',
+    response: {
+      "code": 200,
+      "status": "OK",
+      "data": {
+        "id": "QNK0001",
+        "title": "Question Bank #2",
+        "description": "Question Bank Number 2"
+      }
+    }
+  },
+  {
+    method: 'PUT',
+    url: '/api/scoring/question-banks/QNK0001',
+    response: {
+      "code": 200,
+      "status": "OK",
+      "data": {
+        "id": "QNK0001",
+        "title": "Question Bank #2",
+        "description": "Question Bank Number 2"
+      }
+    }
+  }
+]
+
 export const questionBankQuestions = [
   {
     method: 'GET',

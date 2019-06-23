@@ -19,7 +19,9 @@
         </div>
       </div>
       <div class="question-bank__card-footer">
-        <div></div>
+        <div>
+          <BaseButton buttonClass="button-save" @click.stop="goToQuestionBankQuestions(questionBank.id)">View Questions</BaseButton>
+        </div>
       </div>
     </BaseCard>
   </div>
@@ -57,6 +59,7 @@
         font-size: 0.8em;
         display: flex;
         align-items: center;
+        justify-content: flex-end;
       }
     }
   }

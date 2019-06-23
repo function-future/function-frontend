@@ -12,6 +12,7 @@ import {
   quizzes,
   quizDetail,
   questionBanks,
+  questionBankDetail,
   questionBankQuestions,
   questionBankQuestionDetail
 } from '@/api-mock/mock/scoring-routes'
@@ -58,6 +59,10 @@ quizDetail.forEach(data => {
 })
 
 questionBanks.forEach(data => {
+  mock[methodMap[data.method]] (data.url).reply(200, data)
+})
+
+questionBankDetail.forEach(data => {
   mock[methodMap[data.method]] (data.url).reply(200, data)
 })
 

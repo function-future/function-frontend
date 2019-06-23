@@ -5,6 +5,7 @@ import addAssignment from '@/views/Assignment/AddAssignment'
 import assignmentRooms from '@/views/Assignment/AssignmentRooms'
 import assignmentDetail from '@/views/Assignment/AssignmentDetail'
 import questionBanks from '@/views/QuestionBank/QuestionBanks'
+import questionBankDetail from '@/views/QuestionBank/QuestionBankDetail'
 import addQuestionBank from '@/views/QuestionBank/AddQuestionBank'
 import questionBankQuestionList from '@/views/QuestionBank/QuestionBankQuestionList'
 import questionBankAddQuestion from '@/views/QuestionBank/QuestionBankAddQuestion'
@@ -132,6 +133,14 @@ export default new Router({
       component: questionBanks,
       meta: {
         title: 'Question Banks'
+      }
+    },
+    {
+      path: config.app.pages.questionBanks.detail,
+      name: 'questionBankDetail',
+      component: questionBankDetail,
+      meta: {
+        title: 'Question Bank Detail'
       }
     },
     {
