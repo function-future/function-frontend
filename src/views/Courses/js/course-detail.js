@@ -40,6 +40,7 @@ export default {
   },
   computed: {
     ...mapGetters([
+      'course',
       'courseDiscussions'
     ]),
     descriptionCompiledMarkdown: function () {
@@ -60,7 +61,7 @@ export default {
     },
     initCourse () {
       let data = {
-        batchCode: '3',
+        batchCode: this.$route.params.batchCode,
         courseId: this.$route.params.id
       }
       this.fetchCourseById({
