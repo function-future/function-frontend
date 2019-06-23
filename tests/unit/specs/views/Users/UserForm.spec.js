@@ -165,7 +165,7 @@ describe('UserForm', () => {
     initComponent()
     wrapper.vm.successUploadProfilePicture(response)
     expect(wrapper.vm.userDetail.avatar).toEqual([ response.id ])
-    expect(wrapper.vm.userDetail.avatarPreview).toEqual(response.file.full)
+    expect(wrapper.vm.avatarPreview).toEqual(response.file.full)
   })
 
   test('failUploadProfilePicture', () => {
