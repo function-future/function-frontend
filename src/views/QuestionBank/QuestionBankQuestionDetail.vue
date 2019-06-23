@@ -9,28 +9,28 @@
       <div class="answer-container">
         <div class="answer-container__option">
           <label class="answer-container__option-label">Option A
-            <input type="radio" name="correct-answer" value="0" :checked="question.options[0].correct || false" :disabled="!editMode">
+            <input type="radio" name="correct-answer" value="0" :checked="questionDetail.options[0].correct || false" :disabled="!editMode">
             <span class="checkmark"></span>
           </label>
           <BaseInput class="answer-container__option-input" v-model="questionDetail.options[0].label" :disabled="!editMode"></BaseInput>
         </div>
         <div class="answer-container__option">
           <label class="answer-container__option-label">Option B
-            <input type="radio" name="correct-answer" value="1" :checked="question.options[1].correct || false" :disabled="!editMode">
+            <input type="radio" name="correct-answer" value="1" :checked="questionDetail.options[1].correct || false" :disabled="!editMode">
             <span class="checkmark"></span>
           </label>
           <BaseInput class="answer-container__option-input" v-model="questionDetail.options[1].label" :disabled="!editMode"></BaseInput>
         </div>
         <div class="answer-container__option">
           <label class="answer-container__option-label">Option C
-            <input type="radio" name="correct-answer" value="2" :checked="question.options[2].correct || false" :disabled="!editMode">
+            <input type="radio" name="correct-answer" value="2" :checked="questionDetail.options[2].correct || false" :disabled="!editMode">
             <span class="checkmark"></span>
           </label>
           <BaseInput class="answer-container__option-input" v-model="questionDetail.options[2].label" :disabled="!editMode"></BaseInput>
         </div>
         <div class="answer-container__option">
           <label class="answer-container__option-label">Option D
-            <input type="radio" name="correct-answer" value="3" :checked="question.options[3].correct || false" :disabled="!editMode">
+            <input type="radio" name="correct-answer" value="3" :checked="questionDetail.options[3].correct || false" :disabled="!editMode">
             <span class="checkmark"></span>
           </label>
           <BaseInput class="answer-container__option-input" v-model="questionDetail.options[3].label" :disabled="!editMode"></BaseInput>

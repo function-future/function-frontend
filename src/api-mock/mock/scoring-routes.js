@@ -532,7 +532,7 @@ export const questionBankQuestionDetail = [
     }
   },
   {
-    method: 'POST',
+    method: 'PUT',
     url: '/api/scoring/question-banks/QNK0001/questions/QST0001',
     response: {
       "code": 200,
