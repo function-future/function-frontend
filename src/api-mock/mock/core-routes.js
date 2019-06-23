@@ -535,7 +535,7 @@ export const resources = [
 export const courses = [
   {
     method: 'GET',
-    url: '/api/core/courses?page=0&size=10',
+    url: '/api/core/batches/1/courses?page=0&size=10',
     response: {
       'code': 200,
       'status': 'OK',
