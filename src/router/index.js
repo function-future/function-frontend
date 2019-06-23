@@ -106,7 +106,10 @@ export default new Router({
       name: 'courseBatches',
       component: courseBatch,
       meta: {
-        title: 'Select Course Batch'
+        title: 'Select Course Batch',
+        breadcrumb: [
+          { name: 'Batches', link: 'courseBatches' }
+        ]
       }
     },
     {
@@ -114,7 +117,11 @@ export default new Router({
       name: 'courses',
       component: courses,
       meta: {
-        title: 'Courses'
+        title: 'Courses',
+        breadcrumb: [
+          { name: 'Batches', link: 'courseBatches' },
+          { name: 'Courses', link: 'courses' }
+        ]
       }
     },
     {
@@ -122,7 +129,12 @@ export default new Router({
       name: 'courseDetail',
       component: courseDetail,
       meta: {
-        title: 'Course Detail'
+        title: 'Course Detail',
+        breadcrumb: [
+          { name: 'Batches', link: 'courseBatches' },
+          { name: 'Courses', link: 'courses' },
+          { name: 'Course Detail', link: 'courseDetail' }
+        ]
       }
     },
     {
