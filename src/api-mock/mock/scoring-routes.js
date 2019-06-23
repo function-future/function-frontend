@@ -436,5 +436,36 @@ export const questionBankQuestions = [
         "totalRecords": 13
       }
     }
+  },
+  {
+    method: 'POST',
+    url: '/api/scoring/question-banks/QNK0001/questions',
+    response: {
+      "code": 201,
+      "status": "CREATED",
+      "data": {
+        "id": "QST0001",
+        "text": "Question Sample 1",
+        "options": [
+          {
+            "id": "OPT0001",
+            "label": "Answer Sample 1-1"
+          },
+          {
+            "id": "OPT0002",
+            "label": "Answer Sample 1-2"
+          },
+          {
+            "id": "OPT0003",
+            "label": "Answer Sample 1-3",
+            "correct": true
+          },
+          {
+            "id": "OPT0004",
+            "label": "Answer Sample 1-4"
+          }
+        ]
+      }
+    }
   }
 ]
