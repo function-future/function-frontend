@@ -15,10 +15,11 @@ module.exports = {
         edit: '/announcements/:id/edit'
       },
       courses: {
-        list: 'batches/:batchCode/courses',
-        add: 'batches/:batchCode/courses/add',
-        detail: 'batches/:batchCode/courses/:id/detail',
-        edit: 'batches/:batchCode/courses/:id/detail'
+        batches: '/batches',
+        list: '/batches/:batchCode/courses',
+        add: '/batches/:batchCode/courses/add',
+        detail: '/batches/:batchCode/courses/:id/detail',
+        edit: '/batches/:batchCode/courses/:id/detail'
       },
       files: '/files',
       users: '/users',
@@ -93,7 +94,7 @@ module.exports = {
       },
       courses: {
         get (batchCode, page, size) { return `/api/core/batches/${batchCode}/courses?page=${page}&size=${size}` },
-        post (batchCode) { return `api/batches/${batchCode}/core/courses` },
+        post (batchCode) { return `api/core/batches/${batchCode}/courses` },
         detail: {
           get (batchCode, id) {
             return `/api/core/batches/${batchCode}/courses/${id}`

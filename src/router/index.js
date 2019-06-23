@@ -13,6 +13,7 @@ import ActivityBlogForm from '@/views/ActivityBlogs/ActivityBlogForm.vue'
 import users from '@/views/Users/Users.vue'
 import stickyNotes from '@/views/StickyNotes/StickyNotesDetail.vue'
 import editStickyNote from '@/views/StickyNotes/EditStickyNote.vue'
+import courseBatch from '@/views/Courses/CourseBatch.vue'
 import courses from '@/views/Courses/Courses.vue'
 import courseDetail from '@/views/Courses/CourseDetail.vue'
 import config from '@/config/index'
@@ -98,6 +99,14 @@ export default new Router({
         title: 'Add Announcements'
       },
       props: { editMode: false }
+    },
+    {
+      path: config.app.pages.courses.batches,
+      name: 'courseBatches',
+      component: courseBatch,
+      meta: {
+        title: 'Select Course Batch'
+      }
     },
     {
       path: config.app.pages.courses.list,
