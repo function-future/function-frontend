@@ -8,6 +8,7 @@ import {
   activityBlogDetail,
   courses,
   discussions,
+  batches,
   resources,
   users
 
@@ -54,6 +55,10 @@ users.forEach(data => {
 })
 
 courses.forEach(data => {
+  mock[methodMap[data.method]](data.url).reply(200, data)
+})
+
+batches.forEach(data => {
   mock[methodMap[data.method]](data.url).reply(200, data)
 })
 

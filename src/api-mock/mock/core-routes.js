@@ -588,6 +588,44 @@ export const courses = [
   }
 ]
 
+export const batches = [
+  {
+    method: 'GET',
+    url: '/api/core/batches',
+    response: {
+      'code': 200,
+      'status': 'OK',
+      'data': [
+        {
+          'id': 'sample-id-1',
+          'code': '1',
+          'name': 'Batch 1'
+        },
+        {
+          'id': 'sample-id-2',
+          'code': '2',
+          'name': 'Batch 2'
+        },
+        {
+          'id': 'sample-id-3',
+          'code': '3',
+          'name': 'Batch 3'
+        },
+        {
+          'id': 'sample-id-4',
+          'code': '4',
+          'name': 'Batch 3'
+        }
+      ],
+      'paging': {
+        'page': 0,
+        'size': 4,
+        'totalRecords': 4
+      }
+    }
+  }
+]
+
 export const discussions = [
   {
     method: 'GET',
