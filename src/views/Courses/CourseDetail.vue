@@ -15,6 +15,9 @@
         </div>
       </div>
       <div class="scrollable">
+        <div v-if="courseDetail.material !== ''" @click="downloadMaterial(courseDetail.material)" class="download-button">
+            <font-awesome-icon icon="download" class="icon"></font-awesome-icon>Download material
+        </div>
         <span v-html="descriptionCompiledMarkdown"></span>
       </div>
     </BaseCard>
@@ -137,6 +140,18 @@
   .discussion-button {
     display: flex;
     justify-content: flex-end;
+  }
+
+  .download-button {
+    border: 1px solid #828282;
+    border-radius: 10px;
+    padding: 10px 20px;
+    color: #505050;
+    cursor: pointer;
+  }
+
+  .download-button:hover {
+    background-color: #F2F2F2;
   }
 
   h3 {

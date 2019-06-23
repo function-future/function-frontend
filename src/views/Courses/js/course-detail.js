@@ -2,6 +2,7 @@ import { mapActions, mapGetters } from 'vuex'
 import BaseCard from '@/components/BaseCard'
 import BaseButton from '@/components/BaseButton'
 import BaseTextArea from '@/components/BaseTextArea'
+import axios from 'axios'
 let marked = require('marked')
 
 export default {
@@ -101,7 +102,19 @@ export default {
     failSubmitCourseDiscussion () {
       this.$toasted.error('Fail to post course discussion, please try again')
     },
+    downloadMaterial (url) {
+      axios({ method: 'get', url: url, responseType: 'arraybuffer' })
+        .then(response => { this.forceFileDownload(response) })
+        .catch(() => console.log('error occurred'))
+    },
     goToEditCourse () {},
-    deleteCourse () {}
+    deleteCourse () {},
+    forceFileDownload (response) {
+      const url = window.URL.createObjectURL(new Blob([response.data]))
+      const link = document.createElement('a')
+      link.href = url
+      document.body.appendChild(link)
+      link.click()
+    }
   }
 }
