@@ -16,10 +16,10 @@ module.exports = {
       },
       courses: {
         batches: '/batches',
-        list: '/batches/:batchCode/courses',
-        add: '/batches/:batchCode/courses/add',
-        detail: '/batches/:batchCode/courses/:id/detail',
-        edit: '/batches/:batchCode/courses/:id/detail'
+        list: '/batches/:code/courses',
+        add: '/batches/:code/courses/add',
+        detail: '/batches/:code/courses/:id/detail',
+        edit: '/batches/:code/courses/:id/detail'
       },
       files: '/files',
       users: {
@@ -106,25 +106,28 @@ module.exports = {
           }
         }
       },
+      batches: {
+        get: '/api/core/batches'
+      },
       courses: {
-        get (batchCode, page, size) { return `/api/core/batches/${batchCode}/courses?page=${page}&size=${size}` },
-        post (batchCode) { return `api/core/batches/${batchCode}/courses` },
+        get (code, page, size) { return `/api/core/batches/${code}/courses?page=${page}&size=${size}` },
+        post (code) { return `api/core/batches/${code}/courses` },
         detail: {
-          get (batchCode, id) {
-            return `/api/core/batches/${batchCode}/courses/${id}`
+          get (code, id) {
+            return `/api/core/batches/${code}/courses/${id}`
           },
-          update (batchCode, id) {
-            return `/api/core/batches/${batchCode}/courses/${id}`
+          update (code, id) {
+            return `/api/core/batches/${code}/courses/${id}`
           },
-          delete (batchCode, id) {
-            return `/api/core/batches/${batchCode}/courses/${id}`
+          delete (code, id) {
+            return `/api/core/batches/${code}/courses/${id}`
           }
         }
       },
       discussions: {
         courses: {
-          get (batchCode, courseId) { return `/api/core/batches/${batchCode}/courses/${courseId}/discussions` },
-          post (batchCode, courseId) { return `/api/core/batches/${batchCode}/courses/${courseId}/discussions` }
+          get (code, id) { return `/api/core/batches/${code}/courses/${id}/discussions` },
+          post (code, id) { return `/api/core/batches/${code}/courses/${id}/discussions` }
         }
       }
     },

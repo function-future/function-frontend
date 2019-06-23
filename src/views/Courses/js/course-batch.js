@@ -12,44 +12,41 @@ export default {
   },
   data () {
     return {
-      batches: [
-        {
-          id: '1',
-          name: 'Batch 1',
-          batchCode: '1'
-        },
-        {
-          id: '2',
-          name: 'Batch 2',
-          batchCode: '2'
-        },
-        {
-          id: '3',
-          name: 'Batch 3',
-          batchCode: '3'
-        },
-        {
-          id: '4',
-          name: 'Batch 4',
-          batchCode: '4'
-        },
-        {
-          id: '5',
-          name: 'Batch 5',
-          batchCode: '5'
-        }
-      ]
+      batches: []
     }
   },
+  computed: {
+    ...mapGetters([
+      'batchList'
+    ])
+  },
+  created () {
+    this.initPage()
+  },
   methods: {
-    goToCourse (batchCode) {
+    ...mapActions([
+      'fetchBatches'
+    ]),
+    goToCourse (code) {
       this.$router.push({
         name: 'courses',
         params: {
-          batchCode: batchCode
+          code: code
         }
       })
     },
-    createNewBatch () {}
+    createNewBatch () {},
+    initPage () {
+      this.fetchBatches({
+        callback: this.successFetchBatches,
+        fail: this.failFetchBatches
+      })
+    },
+    successFetchBatches () {
+      this.batches = this.batchList
+    },
+    failFetchBatches () {
+      this.$toasted.error('Fail to fetch batches, please try again')
+    }
   }
 }

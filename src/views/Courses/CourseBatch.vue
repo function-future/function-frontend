@@ -7,7 +7,7 @@
     </div>
     <div class="batch-div">
       <div class="batch" v-for="batch in batches" :key="batch.id">
-        <BatchCard :batch="batch" @click.native="goToCourse(batch.batchCode)"></BatchCard>
+        <BatchCard :batch="batch" @click.native="goToCourse(batch.code)"></BatchCard>
       </div>
     </div>
   </div>

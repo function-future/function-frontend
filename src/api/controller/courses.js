@@ -2,23 +2,23 @@ import request from '../default-request'
 import config from '@/config/index'
 
 const getCourseList = function (callback, data, errorHandler) {
-  request.getRequest(config.api.core.courses.get(data.batchCode, data.page, data.size), callback, errorHandler)
+  request.getRequest(config.api.core.courses.get(data.code, data.page, data.size), callback, errorHandler)
 }
 
 const createCourse = function (callback, data, errorHandler) {
-  request.postRequest(config.api.core.courses.post(data.batchCode), callback, data, errorHandler)
+  request.postRequest(config.api.core.courses.post(data.code), callback, data, errorHandler)
 }
 
 const getCourseDetail = function (callback, data, errorHandler) {
-  request.getRequest(config.api.core.courses.detail.get(data.batchCode, data.courseId), callback, errorHandler)
+  request.getRequest(config.api.core.courses.detail.get(data.code, data.id), callback, errorHandler)
 }
 
 const updateCourse = function (callback, data, errorHandler) {
-  request.putRequest(config.api.core.courses.detail.update(data.batchCode, data.courseId), callback, data, errorHandler)
+  request.putRequest(config.api.core.courses.detail.update(data.code, data.id), callback, data, errorHandler)
 }
 
 const deleteCourse = function (callback, data, errorHandler) {
-  request.deleteRequest(config.api.core.courses.detail.delete(data.batchCode, data.courseId), callback, errorHandler)
+  request.deleteRequest(config.api.core.courses.detail.delete(data.code, data.id), callback, errorHandler)
 }
 
 export default {

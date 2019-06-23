@@ -33,7 +33,7 @@ export default {
     ]),
     initPage () {
       let data = {
-        batchCode: this.$route.params.batchCode,
+        code: this.$route.params.code,
         ...this.paging
       }
       this.fetchCourses({

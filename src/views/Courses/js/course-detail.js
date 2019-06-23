@@ -50,8 +50,8 @@ export default {
     },
     initCourse () {
       let data = {
-        batchCode: this.$route.params.batchCode,
-        courseId: this.$route.params.id
+        code: this.$route.params.code,
+        id: this.$route.params.id
       }
       this.fetchCourseById({
         data,
@@ -61,8 +61,8 @@ export default {
     },
     initDiscussion () {
       let data = {
-        batchCode: this.$route.params.batchCode,
-        courseId: this.$route.params.id
+        code: this.$route.params.code,
+        id: this.$route.params.id
       }
       this.fetchCourseDiscussions({
         data,
@@ -84,8 +84,8 @@ export default {
     },
     postDiscussion () {
       const data = {
-        batchCode: this.$route.params.batchCode,
-        courseId: this.$route.params.id,
+        code: this.$route.params.code,
+        id: this.$route.params.id,
         content: { ...this.discussion }
       }
       this.submitCourseDiscussion({
