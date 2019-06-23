@@ -105,6 +105,12 @@ module.exports = {
             return `/api/core/courses/${id}`
           }
         }
+      },
+      discussions: {
+        courses: {
+          get (batchCode, courseId) { return `/api/core/batches/${batchCode}/courses/${courseId}/discussions` },
+          post (batchCode, courseId) { return `/api/core/batches/${batchCode}/courses/${courseId}/discussions` }
+        }
       }
     },
     scoring: {
