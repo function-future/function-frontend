@@ -14,28 +14,12 @@ export default {
   data () {
     return {
       courseDetail: {
-        'id': 'sample-id',
-        'title': 'Course Title',
-        'description': 'Course Description Goes Here Course Description Goes Here Course Description Goes Here Course Description Goes HereCourse Description Goes HereCourse Description Goes Here Course Description Goes Here Course Description Goes Here Course Description Goes Here Course Description Goes Here Course Description Goes Here Course Description Goes HereCourse Description Goes HereCourse Description Goes Here Course Description Goes Here Course Description Goes Here Course Description Goes Here Course Description Goes Here Course Description Goes Here Course Description Goes HereCourse Description Goes HereCourse Description Goes Here Course Description Goes Here Course Description Goes Here Course Description Goes Here Course Description Goes Here Course Description Goes Here Course Description Goes HereCourse Description Goes HereCourse Description Goes Here Course Description Goes Here Course Description Goes Here Course Description Goes Here Course Description Goes Here Course Description Goes Here Course Description Goes HereCourse Description Goes HereCourse Description Goes Here Course Description Goes Here Course Description Goes Here',
-        'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+        id: '',
+        title: '',
+        description: '',
+        material: ''
       },
-      discussions: [
-        {
-          id: 'sample-id-1'
-        },
-        {
-          id: 'sample-id-2'
-        },
-        {
-          id: 'sample-id-3'
-        },
-        {
-          id: 'sample-id-4'
-        },
-        {
-          id: 'sample-id-5'
-        }
-      ]
+      discussions: []
     }
   },
   computed: {
@@ -72,7 +56,7 @@ export default {
     },
     initDiscussion () {
       let data = {
-        batchCode: '3',
+        batchCode: this.$route.params.batchCode,
         courseId: this.$route.params.id
       }
       this.fetchCourseDiscussions({
@@ -85,7 +69,7 @@ export default {
       this.courseDetail = this.course
     },
     successFetchCourseDiscussions () {
-      this.courseDiscussions = this.discussions
+      this.discussions = this.courseDiscussions
     },
     failFetchCourseById () {
       this.$toasted.error('Fail to load course detail, please refresh the page')

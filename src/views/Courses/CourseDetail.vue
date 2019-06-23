@@ -30,7 +30,15 @@
           </div>
         </div>
         <div v-for="discussion in discussions" :key="discussion.id">
-          <BaseCard class="discussion-card"></BaseCard>
+          <BaseCard class="discussion-card">
+            <div class="discussion-info">
+              <span>{{ discussion.author.name }}</span>
+              <span class="discussion-date">{{ discussion.createdAt | moment("dddd, MMMM Do YYYY") }}</span>
+            </div>
+            <div class="discussion-content">
+              <span>{{ discussion.comment }}</span>
+            </div>
+          </BaseCard>
         </div>
       </div>
     </BaseCard>
@@ -43,7 +51,7 @@
   .scrollable {
     overflow: auto;
     margin-bottom: 5px;
-    height: 80%;
+    height: 85%;
     padding: 0 10px 5px 5px;
   }
 
@@ -56,12 +64,30 @@
   }
 
   .discussion-card {
-    min-height: 100px;
+    min-height: 85px;
     width: 100%;
     box-shadow: none;
     margin: 0 0 15px 0;
     border: 1px solid #828282;
     cursor: pointer;
+  }
+
+  .discussion-info {
+    font-size: 0.8rem;
+    margin-bottom: 10px;
+    color: #828282;
+  }
+
+  .discussion-date {
+    border-left: 1px solid #BDBDBD;
+    padding-left: 5px;
+    margin-left: 5px;
+    font-size: 0.7rem;
+  }
+
+  .discussion-content {
+    margin: 5px 0;
+    text-align: justify;
   }
 
   .discussion-input-wrapper {
@@ -115,5 +141,9 @@
   h3 {
     margin: 5px 0 15px 0;
     text-align: left;
+  }
+
+  .icon {
+    margin-right: 5px;
   }
 </style>
