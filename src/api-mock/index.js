@@ -4,8 +4,11 @@ import {
   stickyNotes,
   announcements,
   announcementDetails,
-  users,
-  resources
+  activityBlogs,
+  activityBlogDetail,
+  resources,
+  users
+
 } from '@/api-mock/mock/core-routes'
 import {
   assignments
@@ -32,11 +35,19 @@ announcementDetails.forEach(data => {
   mock[methodMap[data.method]](data.url).reply(200, data)
 })
 
-users.forEach(data => {
+activityBlogs.forEach(data => {
+  mock[methodMap[data.method]](data.url).reply(200, data)
+})
+
+activityBlogDetail.forEach(data => {
   mock[methodMap[data.method]](data.url).reply(200, data)
 })
 
 resources.forEach(data => {
+  mock[methodMap[data.method]](data.url).reply(200, data)
+})
+
+users.forEach(data => {
   mock[methodMap[data.method]](data.url).reply(200, data)
 })
 

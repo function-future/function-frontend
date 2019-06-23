@@ -7,7 +7,9 @@ import feeds from '@/views/Feeds/Feeds.vue'
 import announcements from '@/views/Announcements/Announcements.vue'
 import announcementDetail from '@/views/Announcements/AnnouncementDetail.vue'
 import announcementForm from '@/views/Announcements/AnnouncementForm.vue'
-import blogs from '@/views/ActivityBlogs/ActivityBlogs.vue'
+import activityBlogs from '@/views/ActivityBlogs/ActivityBlogs.vue'
+import activityBlogDetail from '@/views/ActivityBlogs/ActivityBlogDetail.vue'
+import ActivityBlogForm from '@/views/ActivityBlogs/ActivityBlogForm.vue'
 import users from '@/views/Users/Users.vue'
 import stickyNotes from '@/views/StickyNotes/StickyNotesDetail.vue'
 import editStickyNote from '@/views/StickyNotes/EditStickyNote.vue'
@@ -29,12 +31,38 @@ export default new Router({
       }
     },
     {
-      path: config.app.pages.blogs,
-      name: 'blogs',
-      component: blogs,
+      path: config.app.pages.activityBlogs.list,
+      name: 'activityBlogs',
+      component: activityBlogs,
       meta: {
         title: 'Activity Blogs'
       }
+    },
+    {
+      path: config.app.pages.activityBlogs.detail,
+      name: 'activityBlogDetail',
+      component: activityBlogDetail,
+      meta: {
+        title: 'Activity Blog Detail'
+      }
+    },
+    {
+      path: config.app.pages.activityBlogs.add,
+      name: 'addActivityBlog',
+      component: ActivityBlogForm,
+      meta: {
+        title: 'Add Activity Blog'
+      },
+      props: { editMode: false }
+    },
+    {
+      path: config.app.pages.activityBlogs.edit,
+      name: 'editActivityBlog',
+      component: ActivityBlogForm,
+      meta: {
+        title: 'Edit Activity Blog'
+      },
+      props: { editMode: true }
     },
     {
       path: config.app.pages.announcements.list,

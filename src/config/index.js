@@ -2,7 +2,12 @@ module.exports = {
   app: {
     pages: {
       feeds: '/',
-      blogs: '/blogs',
+      activityBlogs: {
+        list: '/activity-blogs',
+        add: '/activity-blogs/add',
+        detail: '/activity-blogs/:id/detail',
+        edit: '/activity-blogs/:id/edit'
+      },
       announcements: {
         list: '/announcements',
         add: '/announcements/add',
@@ -54,6 +59,9 @@ module.exports = {
         post: '/api/core/users',
         detail (id) { return `/api/core/users/${id}` }
       },
+      resources: {
+        post (source) { return `api/core/resources?source=${source}` }
+      },
       stickyNotes: {
         get: '/api/core/sticky-notes',
         post: '/api/core/sticky-notes'
@@ -80,8 +88,20 @@ module.exports = {
         get: '/api/core/user/profile',
         change_password: '/api/core/user/password'
       },
-      blogs: {
-        get: '/api/core/activity-blogs'
+      activityBlogs: {
+        get (page, size) { return `/api/core/activity-blogs?page=${page}&size=${size}` },
+        post: 'api/core/activity-blogs',
+        detail: {
+          get (id) {
+            return `/api/core/activity-blogs/${id}`
+          },
+          update (id) {
+            return `/api/core/activity-blogs/${id}`
+          },
+          delete (id) {
+            return `/api/core/activity-blogs/${id}`
+          }
+        }
       }
     },
     scoring: {
