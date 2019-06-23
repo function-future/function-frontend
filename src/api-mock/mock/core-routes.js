@@ -639,6 +639,23 @@ export const discussions = [
         'totalRecords': 20
       }
     }
+  },
+  {
+    method: 'POST',
+    url: '/api/core/batches/1/courses/sample-id-1/discussions',
+    response: {
+      'code': 200,
+      'status': 'OK',
+      'data': {
+        'id': 'sample-id',
+        'author': {
+          'id': 'sample-id',
+          'name': 'User 1'
+        },
+        'comment': 'Comment Example 1',
+        'createdAt': 1500000000
+      }
+    }
   }
 ]
 

@@ -16,6 +16,11 @@ export const actions = {
       commit('SET_COURSE_DISCUSSIONS', response)
       callback()
     }, data, fail)
+  },
+  submitCourseDiscussion ({ commit }, { data, callback, fail }) {
+    discussionApi.postCourseDiscussion(({ data: response }) => {
+      callback()
+    }, data, fail)
   }
 }
 
