@@ -28,11 +28,11 @@ export const actions = {
       commit('GET_QUESTION_BANK_LIST', response)
     }, data, fail)
   },
-  createQuestionBank ({ commit }, { payload, data, callback, fail }) {
+  createQuestionBank ({ commit }, { payload, callback, fail }) {
     questionBankApi.createQuestionBank(() => {
       commit('SET_QUESTION_BANK', payload)
       callback && callback()
-    }, data, payload, fail)
+    }, payload, fail)
   },
   fetchQuestionBankDetail ({ commit }, { data, callback, fail }) {
     questionBankApi.getQuestionBankById(({data: response}) => {

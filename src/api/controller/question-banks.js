@@ -17,8 +17,8 @@ const getQuestionById = function (callback, data, errorHandler) {
   request.getRequest(config.api.scoring.questionBanks.question.detail(data.bankId, data.questionId), callback, errorHandler)
 }
 
-const createQuestionBank = function (callback, data, payload, errorHandler) {
-  request.postRequest(config.api.scoring.questionBanks.create(data.page, data.pageSize), callback, payload, errorHandler)
+const createQuestionBank = function (callback, payload, errorHandler) {
+  request.postRequest(config.api.scoring.questionBanks.create, callback, payload, errorHandler)
 }
 
 const createQuestion = function (callback, data, payload, errorHandler) {

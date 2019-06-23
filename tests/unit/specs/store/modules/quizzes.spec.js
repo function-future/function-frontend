@@ -184,9 +184,7 @@ describe('actions', () => {
       "questions": 10
     }
     const data = {
-      batchCode: 'futur3',
-      page: 0,
-      pageSize: 10
+      batchCode: 'futur3'
     }
     const commit = jest.fn()
     const callback = jest.fn()

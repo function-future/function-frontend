@@ -10,7 +10,7 @@ const getQuizById = function (callback, data, errorHandler) {
 }
 
 const createQuiz = function (callback, data, payload, errorHandler) {
-  request.postRequest(config.api.scoring.quiz.create(data.batchCode, data.page, data.pageSize), callback, payload, errorHandler)
+  request.postRequest(config.api.scoring.quiz.create(data.batchCode), callback, payload, errorHandler)
 }
 
 const updateQuiz = function (callback, data, payload, errorHandler) {

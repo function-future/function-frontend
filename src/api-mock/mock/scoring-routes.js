@@ -48,7 +48,7 @@ export const assignments = [
   },
   {
     method: 'POST',
-    url: '/api/scoring/batches/futur3/assignments?page=0&size=10',
+    url: '/api/scoring/batches/futur3/assignment',
     response: {
       "code": 201,
       "status": "CREATED",
@@ -282,7 +282,7 @@ export const quizzes = [
   },
   {
     method: 'POST',
-    url: '/api/scoring/batches/batchCode/quizzes?page=0&size=10',
+    url: '/api/scoring/batches/batchCode/quizzes',
     response: {
       "code": 201,
       "status": "CREATED",
@@ -385,7 +385,7 @@ export const questionBanks = [
   },
   {
     method: 'POST',
-    url: '/api/scoring/question-banks?page=0&size=10',
+    url: '/api/scoring/question-banks',
     response: {
       "code": 201,
       "status": "CREATED",

@@ -10,7 +10,7 @@ const getAssignmentById = function (callback, data, errorHandler) {
 }
 
 const createAssignment = function (callback, data, payload, errorHandler) {
-  request.postRequest(config.api.scoring.assignments.create(data.batchCode, data.page, data.pageSize), callback, payload, errorHandler)
+  request.postRequest(config.api.scoring.assignments.create(data.batchCode), callback, payload, errorHandler)
 }
 
 const updateAssignment = function (callback, data, payload, errorHandler) {

@@ -33,10 +33,6 @@ export default {
     },
     saveButtonClicked () {
       this.createQuestionBank({
-        data: {
-          page: 0,
-          pageSize: 10
-        },
         payload: this.questionBankDetail,
         callback: this.successCreatingQuestionBank,
         fail: this.failCreatingQuestionBank
