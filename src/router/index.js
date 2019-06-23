@@ -13,6 +13,7 @@ import ActivityBlogForm from '@/views/ActivityBlogs/ActivityBlogForm.vue'
 import users from '@/views/Users/Users.vue'
 import stickyNotes from '@/views/StickyNotes/StickyNotesDetail.vue'
 import editStickyNote from '@/views/StickyNotes/EditStickyNote.vue'
+import UserForm from '@/views/Users/UserForm.vue'
 import config from '@/config/index'
 
 Vue.use(Router)
@@ -114,11 +115,59 @@ export default new Router({
       }
     },
     {
-      path: config.app.pages.users,
+      path: config.app.pages.users.list,
       name: 'users',
       component: users,
       meta: {
-        title: 'users'
+        title: 'Users'
+      }
+    },
+    {
+      path: config.app.pages.users.add.student,
+      name: 'addStudent',
+      component: UserForm,
+      meta: {
+        title: 'Add Student'
+      },
+      props: {
+        studentMode: true,
+        editMode: false
+      }
+    },
+    {
+      path: config.app.pages.users.add.user,
+      name: 'addUser',
+      component: UserForm,
+      meta: {
+        title: 'Add User'
+      },
+      props: {
+        studentMode: false,
+        editMode: false
+      }
+    },
+    {
+      path: config.app.pages.users.edit.student,
+      name: 'editStudent',
+      component: UserForm,
+      meta: {
+        title: 'Edit Student'
+      },
+      props: {
+        studentMode: true,
+        editMode: true
+      }
+    },
+    {
+      path: config.app.pages.users.edit.user,
+      name: 'editUser',
+      component: UserForm,
+      meta: {
+        title: 'Edit User'
+      },
+      props: {
+        studentMode: false,
+        editMode: true
       }
     },
     {

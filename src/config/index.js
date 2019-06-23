@@ -16,7 +16,17 @@ module.exports = {
       },
       courses: '/courses',
       files: '/files',
-      users: '/users',
+      users: {
+        list: '/users',
+        add: {
+          student: '/users/add/student',
+          user: '/users/add'
+        },
+        edit: {
+          student: '/users/:id/edit/student',
+          user: '/users/:id/edit'
+        }
+      },
       quizzes: '/quizzes',
       assignments: {
         list: '/assignments',
@@ -39,15 +49,19 @@ module.exports = {
         logout: '/api/core/auth'
       },
       access: {
-        accessList(url) {
+        accessList (url) {
           return `/api/core/user/access-list?url=${url}`
         },
         menuList: '/api/core/menu-list'
       },
+      users: {
+        get (page, size, role) { return `/api/core/users?page=${page}&size=${size}&role=${role}` },
+        post: '/api/core/users',
+        detail (id) { return `/api/core/users/${id}` }
+      },
       resources: {
         post (source) { return `api/core/resources?source=${source}` }
       },
-      users: {},
       stickyNotes: {
         get: '/api/core/sticky-notes',
         post: '/api/core/sticky-notes'
@@ -66,6 +80,9 @@ module.exports = {
             return `/api/core/announcements/${id}`
           }
         }
+      },
+      resources: {
+        post (source) { return `api/core/resources?source=${source}` }
       },
       profile: {
         get: '/api/core/user/profile',
@@ -89,10 +106,10 @@ module.exports = {
     },
     scoring: {
       assignments: {
-        list(batchCode, page, pageSize) {
+        list (batchCode, page, pageSize) {
           return `/api/scoring/batches/${batchCode}/assignments?page=${page}&size=${pageSize}`
         },
-        create(batchCode, page, pageSize) {
+        create (batchCode, page, pageSize) {
           return `/api/scoring/batches/${batchCode}/assignments?page=${page}&size=${pageSize}`
         }
       }
