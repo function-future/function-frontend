@@ -83,6 +83,7 @@ export default {
     returnButtonClicked () {
       if (this.editMode) {
         this.initPage()
+        this.editMode = !this.editMode
         return
       }
       this.$router.push({name: 'quizzes'})
