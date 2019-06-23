@@ -7,7 +7,9 @@ import {
   activityBlogs,
   activityBlogDetail,
   courses,
-  resources
+  resources,
+  users
+
 } from '@/api-mock/mock/core-routes'
 import {
   assignments
@@ -43,6 +45,10 @@ activityBlogDetail.forEach(data => {
 })
 
 resources.forEach(data => {
+  mock[methodMap[data.method]](data.url).reply(200, data)
+})
+
+users.forEach(data => {
   mock[methodMap[data.method]](data.url).reply(200, data)
 })
 
