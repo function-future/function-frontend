@@ -1,10 +1,9 @@
 <template>
     <BaseCard cardClass="card-hover"
               class="batch-card" @click.native="goToCourse(batch.batchCode)">
-      <div class="row">
-        <div class="description">
-          <h4><font-awesome-icon icon="users" class="icon"/> {{ batch.name }}</h4>
-        </div>
+      <div class="col">
+        <div class="row"><font-awesome-icon icon="users" class="icon"/></div>
+        <div class="row"><h4>{{ batch.name }}</h4></div>
       </div>
     </BaseCard>
 </template>
@@ -24,7 +23,11 @@
     margin-right: 15px;
   }
 
-  .description {
+  .col {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
     flex-grow: 2;
+    align-items: center;
   }
 </style>
