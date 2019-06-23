@@ -19,7 +19,10 @@ export default {
         description: '',
         material: ''
       },
-      discussions: []
+      discussions: [],
+      discussion: {
+        comment: ''
+      }
     }
   },
   computed: {
@@ -37,7 +40,8 @@ export default {
   methods: {
     ...mapActions([
       'fetchCourseById',
-      'fetchCourseDiscussions'
+      'fetchCourseDiscussions',
+      'submitCourseDiscussion'
     ]),
     initPage () {
       this.initCourse()
@@ -77,7 +81,26 @@ export default {
     failFetchCourseDiscussions () {
       this.$toasted.error('Fail to load course discussion, please refresh the page')
     },
-    postDiscussion () {},
+    postDiscussion () {
+      const data = {
+        batchCode: this.$route.params.batchCode,
+        courseId: this.$route.params.id,
+        content: { ...this.discussion }
+      }
+      this.submitCourseDiscussion({
+        data,
+        callback: this.successSubmitCourseDiscussion,
+        fail: this.failSubmitCourseDiscussion
+      })
+    },
+    successSubmitCourseDiscussion () {
+      this.$toasted.success('Successfully added course discussion')
+      this.discussion.comment = ''
+      this.initDiscussion()
+    },
+    failSubmitCourseDiscussion () {
+      this.$toasted.error('Fail to post course discussion, please try again')
+    },
     goToEditCourse () {},
     deleteCourse () {}
   }

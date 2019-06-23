@@ -23,7 +23,8 @@
       <div class="scrollable">
         <div class="discussion-input-wrapper">
           <div class="discussion-input">
-            <BaseTextArea class="discussion-input-box" placeholder="Ask a question..."></BaseTextArea>
+            <BaseTextArea class="discussion-input-box" placeholder="Ask a question..."
+                          v-model="discussion.comment"></BaseTextArea>
           </div>
           <div class="discussion-button">
             <BaseButton type="submit" buttonClass="button-save" @click="postDiscussion">Post</BaseButton>
