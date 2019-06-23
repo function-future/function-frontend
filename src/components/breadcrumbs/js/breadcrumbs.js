@@ -18,11 +18,9 @@ export default {
       this.breadcrumbList = this.$route.meta.breadcrumb
     },
     routeTo (index) {
-      if (this.breadcrumbList[index].link) {
-        this.$router.push({
-          name: this.breadcrumbList[index].link
-        })
-      }
+      this.$router.push({
+        name: this.breadcrumbList[index].link
+      })
     }
   },
   watch: {
