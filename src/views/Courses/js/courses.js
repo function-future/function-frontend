@@ -32,7 +32,10 @@ export default {
       'fetchCourses'
     ]),
     initPage () {
-      let data = { ...this.paging }
+      let data = {
+        batchCode: this.$route.params.batchCode,
+        ...this.paging
+      }
       this.fetchCourses({
         data,
         callback: this.successFetchCourses,
