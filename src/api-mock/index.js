@@ -13,7 +13,13 @@ import {
 import {
   assignments,
   assignmentDetails,
-  assignmentRooms
+  assignmentRooms,
+  quizzes,
+  quizDetail,
+  questionBanks,
+  questionBankDetail,
+  questionBankQuestions,
+  questionBankQuestionDetail
 } from '@/api-mock/mock/scoring-routes'
 
 const mock = new MockAdapter(axios)
@@ -62,5 +68,29 @@ assignmentDetails.forEach(data => {
 })
 
 assignmentRooms.forEach(data => {
+  mock[methodMap[data.method]] (data.url).reply(200, data)
+})
+
+quizzes.forEach(data => {
+  mock[methodMap[data.method]] (data.url).reply(200, data)
+})
+
+quizDetail.forEach(data => {
+  mock[methodMap[data.method]] (data.url).reply(200, data)
+})
+
+questionBanks.forEach(data => {
+  mock[methodMap[data.method]] (data.url).reply(200, data)
+})
+
+questionBankDetail.forEach(data => {
+  mock[methodMap[data.method]] (data.url).reply(200, data)
+})
+
+questionBankQuestions.forEach(data => {
+  mock[methodMap[data.method]] (data.url).reply(200, data)
+})
+
+questionBankQuestionDetail.forEach(data => {
   mock[methodMap[data.method]] (data.url).reply(200, data)
 })

@@ -7,6 +7,8 @@ import activityBlogs from './modules/activity-blogs.js'
 import users from './modules/users.js'
 import assignments from './modules/assignments.js'
 import assignmentRooms from './modules/assignment-rooms'
+import quizzes from './modules/quizzes'
+import questionBanks from './modules/question-banks'
 
 Vue.use(Vuex)
 
@@ -17,6 +19,8 @@ export default new Vuex.Store({
     activityBlogs,
     users,
     assignments,
-    assignmentRooms
+    assignmentRooms,
+    quizzes,
+    questionBanks
   }
 })

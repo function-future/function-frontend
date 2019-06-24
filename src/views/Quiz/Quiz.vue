@@ -1,41 +1,31 @@
 <template>
-  <div>
+  <div class="scrollable-container">
     <div class="page-header">
-      <BaseButton type="submit" buttonClass="button-save">
-        <font-awesome-icon icon="plus" class="icon"/> New
+      <BaseButton class="add-btn" type="submit" buttonClass="button-save" @click="addQuiz">
+        <font-awesome-icon icon="plus" class="icon"/> Add
       </BaseButton>
-      <BaseSelect
-      v-model="selectedFilter"
-      :options="filters"></BaseSelect>
-      <BaseSelect
-      v-model="selectedSort"
-      :options="sorts"></BaseSelect>
-      <BaseInput
-      class="search-box"
-      v-model="searchValue"
-      :placeholder="'Search'">
-      </BaseInput>
     </div>
-    <BaseCard class="quiz-card">
+    <BaseCard class="quiz-card" v-for="quiz in quizList" @click.native="goToQuizDetail(quiz.id, quiz.batch)"> <!-- TODO verifiy API spe for batch field !-->
       <div class="card-header">
-        Lorem Ipsum
+        {{quiz.title}}
       </div>
       <div class="card-body">
         <div class="quiz-description">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam blanditiis debitis doloremque enim eveniet laudantium maiores molestiae necessitatibus non officia omnis, quasi quisquam quos repudiandae similique sint ullam vel vero!
-        </div>
-        <div class="quiz-deadline">
-          <font-awesome-icon icon="calendar-alt"></font-awesome-icon>Deadline
-          <span class="quiz-deadline-date">
-            31 May 2019
-          </span>
+          {{quiz.description}}
         </div>
       </div>
       <div class="card-footer">
         <div class="completion-status">
-          <div class="completion-status--box"
-               :class="[isComplete ? 'complete ': 'pending']"></div>
-          <span>Completed</span>
+          <div class="completion-status__box"
+               :class="isComplete(quiz.endDate)">
+          </div>
+          <span class="completion-status__text">
+            {{isComplete(quiz.endDate)}}
+          </span>
+        </div>
+        <div class="quiz-deadline">
+          <font-awesome-icon icon="calendar"></font-awesome-icon>
+          {{quiz.endDate | moment("dddd, MMMM Do YYYY")}}
         </div>
         <div class="retry-count">
           <font-awesome-icon icon="redo"></font-awesome-icon>
@@ -48,9 +38,9 @@
 
 <script type="text/javascript" src="./js/quiz.js"/>
 
-<style scoped>
+<style lang="scss" scoped>
 .page-header {
-  padding: 0 15px;
+  margin-right: 20px;
 }
 .quiz-card {
   min-height: 175px;
@@ -68,7 +58,7 @@
   align-items: center;
   justify-content: flex-start;
 }
-.search-box {
+.add-btn {
   justify-self: flex-end;
   margin-left: auto;
 }
@@ -93,22 +83,24 @@
 }
 
 .completion-status {
-  margin-right: 20px;
   display: flex;
   align-items: center;
+  margin-right: 20px;
+  &__box {
+    height: 20px;
+    width: 20px;
+    margin-right: 5px;
+  }
 }
 
-.completion-status--box {
-  height: 20px;
-  width: 20px;
-  margin-right: 5px;
+.quiz-deadline {
+  margin-right: 20px;
 }
 
-.complete {
+.Ongoing {
   background-color: limegreen;
 }
-
-.pending {
+.Done {
   background-color: red;
 }
 

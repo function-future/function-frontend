@@ -27,7 +27,21 @@ module.exports = {
           user: '/users/:id/edit'
         }
       },
-      quizzes: '/quizzes',
+      questionBanks: {
+        list: '/question-banks',
+        add: '/question-banks/add',
+        detail: '/question-banks/:bankId/detail',
+        questions: {
+          list: '/question-banks/:bankId/questions',
+          add: '/question-banks/:bankId/questions/add',
+          detail: '/question-banks/:bankId/questions/:questionId'
+        }
+      },
+      quizzes: {
+        list: '/quizzes',
+        add: '/quizzes/add',
+        detail: '/quizzes/:quizId/detail'
+      },
       assignments: {
         list: '/assignments',
         add: '/assignments/add',
@@ -111,8 +125,8 @@ module.exports = {
         list (batchCode, page, pageSize) {
           return `/api/scoring/batches/${batchCode}/assignments?page=${page}&size=${pageSize}`
         },
-        create (batchCode, page, pageSize) {
-          return `/api/scoring/batches/${batchCode}/assignments?page=${page}&size=${pageSize}`
+        create(batchCode, page, pageSize) {
+          return `/api/scoring/batches/${batchCode}/assignments`
         },
         detail(batchCode, id) {
           return `/api/scoring/batches/${batchCode}/assignments/${id}`
@@ -130,6 +144,57 @@ module.exports = {
           update(batchCode, assignmentId, roomId) {
             return `api/scoring/batches/${batchCode}/assignments/${assignmentId}/rooms/${roomId}`
           }
+        }
+      },
+      questionBanks: {
+        list (page, pageSize) {
+          return `/api/scoring/question-banks?page=${page}&size=${pageSize}`
+        },
+        create (page, pageSize) {
+          return `/api/scoring/question-banks`
+        },
+        detail (id) {
+          return `/api/scoring/question-banks/${id}`
+        },
+        update (id) {
+          return `/api/scoring/question-banks/${id}`
+        },
+        delete (id) {
+          return `/api/scoring/question-banks/${id}`
+        },
+        question: {
+          list (bankId) {
+            return `/api/scoring/question-banks/${bankId}/questions`
+          },
+          create (bankId) {
+            return `/api/scoring/question-banks/${bankId}/questions`
+          },
+          detail (bankId, questionId) {
+            return `/api/scoring/question-banks/${bankId}/questions/${questionId}`
+          },
+          update (bankId, questionId) {
+            return `/api/scoring/question-banks/${bankId}/questions/${questionId}`
+          },
+          delete (bankId, questionId) {
+            return `/api/scoring/question-banks/${bankId}/questions/${questionId}`
+          }
+        }
+      },
+      quiz: {
+        list(batchCode, page, pageSize) {
+          return `/api/scoring/batches/${batchCode}/quizzes?page=${page}&size=${pageSize}`
+        },
+        create(batchCode, page, pageSize) {
+          return `/api/scoring/batches/${batchCode}/quizzes`
+        },
+        detail(batchCode, id) {
+          return `/api/scoring/batches/${batchCode}/quizzes/${id}`
+        },
+        update(batchCode, id) {
+          return `/api/scoring/batches/${batchCode}/quizzes/${id}`
+        },
+        delete(batchCode, id) {
+          return `/api/scoring/batches/${batchCode}/quizzes/${id}`
         }
       }
     }

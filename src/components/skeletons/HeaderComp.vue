@@ -20,6 +20,7 @@
       </li>
       <transition name="fade">
         <ul v-if="showGrades" class="grades-submenu">
+          <li><router-link :to="{ name: 'questionBanks' }" class="navbar-link">Question Banks</router-link></li>
           <li><router-link :to="{ name: 'quizzes' }" class="navbar-link">Quizzes</router-link></li>
           <li><router-link :to="{ name: 'assignments' }" class="navbar-link">Assignments</router-link></li>
           <li><router-link :to="{ name: 'finalComparisons' }" class="navbar-link">Comparisons</router-link></li>

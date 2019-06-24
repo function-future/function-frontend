@@ -45,9 +45,7 @@ export default {
       this.createAssignment({
         payload: {...this.assignment},
         data: {
-          batchCode: 'futur3',
-          page: 0,
-          pageSize: 10
+          batchCode: 'futur3'
         },
         callback: this.successCreateAssignment,
         fail: this.failCreatingAssignment
