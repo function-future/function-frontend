@@ -23,7 +23,7 @@ export const actions = {
   createQuiz ({ commit }, { payload, data, callback, fail }) {
     quizApi.createQuiz(() => {
       commit('SET_QUIZ', payload)
-      callback()
+      callback && callback()
     }, data, payload, fail)
   },
   fetchQuizById ({ commit }, { data, callback, fail }) {
@@ -35,7 +35,7 @@ export const actions = {
   updateQuizDetail ({ commit }, { payload, data, callback, fail }) {
     quizApi.updateQuiz(() => {
       commit('SET_QUIZ', payload)
-      callback()
+      callback && callback()
     }, data, payload, fail)
   }
 }
