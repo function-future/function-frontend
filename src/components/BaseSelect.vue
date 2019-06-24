@@ -7,9 +7,9 @@
       v-bind="$attrs"><!-- Binding attrs allows attribute inheritance such as type="text" , etc! -->
       <option
         v-for="option in options"
-        :key="option"
-        :value="option"
-        :selected="option === value">{{option}}</option>
+        :key="option.value"
+        :value="option.value"
+        :selected="option.value === value">{{option.name}}</option>
     </select>
   </div>
 </template>
@@ -28,7 +28,11 @@
     box-sizing: border-box;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.25);
     border-radius: 40px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
     padding: 10px 20px 10px 20px;
+    margin: 10px 0 10px 0;
     font-size: 1em;
     width: 100%;
   }

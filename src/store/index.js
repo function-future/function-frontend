@@ -4,6 +4,7 @@ import Vuex from 'vuex'
 import stickyNotes from './modules/stickyNotes.js'
 import announcements from './modules/announcements.js'
 import activityBlogs from './modules/activity-blogs.js'
+import users from './modules/users.js'
 import assignments from './modules/assignments.js'
 import assignmentRooms from './modules/assignment-rooms'
 
@@ -14,6 +15,7 @@ export default new Vuex.Store({
     stickyNotes,
     announcements,
     activityBlogs,
+    users,
     assignments,
     assignmentRooms
   }

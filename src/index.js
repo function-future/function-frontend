@@ -4,6 +4,7 @@ import BaseInput from '@/components/BaseInput'
 import BaseCard from '@/components/BaseCard'
 import BaseTitle from '@/components/BaseTitle'
 import UserBar from '@/components/UserBar'
+import Breadcrumbs from '@/components/breadcrumbs/Breadcrumbs'
 import ChangePageTitleMixins from '@/mixins/ChangePageTitleMixins'
 
 export default {
@@ -14,7 +15,8 @@ export default {
     BaseButton,
     BaseInput,
     BaseCard,
-    UserBar
+    UserBar,
+    Breadcrumbs
   },
   mixins: [
     ChangePageTitleMixins
