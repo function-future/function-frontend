@@ -51,4 +51,15 @@
   .search-box {
     height: 30px;
   }
+
+  .message-box {
+    margin: 0;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    border: 2px solid #02AAF3;
+  }
 </style>

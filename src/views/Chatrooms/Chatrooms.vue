@@ -26,7 +26,14 @@
           </div>
         </div>
         <div class="chatroom-separator"></div>
-        <div class="chatroom-right">{{ text }}</div>
+        <div class="chatroom-right">
+          <div class="chatroom-title"><h2>Public</h2></div>
+          <div class="chatroom-messages"></div>
+          <div class="chatroom-input">
+            <BaseInput placeholder="Type a message" class="chatroom-message-box" inputType="message-box"/>
+            <font-awesome-icon icon="chevron-circle-right" class="chatroom-send-button" />
+          </div>
+        </div>
       </div>
     </BaseCard>
   </div>
@@ -36,16 +43,18 @@
 import BaseCard from '@/components/BaseCard'
 import SearchBar from '@/components/SearchBar'
 import ChatroomCard from './ChatroomCard'
+import BaseInput from '@/components/BaseInput'
 export default {
   name: 'Chatrooms',
   components: {
+    BaseInput,
     BaseCard,
     SearchBar,
     ChatroomCard
   },
   data () {
     return {
-      text: '',
+      searchText: '',
       typeChoosen: 'PUBLIC'
     }
   },
@@ -125,10 +134,39 @@ export default {
 
   .chatroom-right {
     grid-column: 3;
-    margin-left: 20px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin: 10px 15px 10px 15px;
     height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .chatroom-title {
+    height: 6vh;
+  }
+
+  .chatroom-title > h2 {
+    margin: 1vh 0 0 0;
+  }
+
+  .chatroom-input {
+    height: 6vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+  .chatroom-message-box {
+    width: 85%;
+  }
+
+  .chatroom-send-button {
+    font-size: 2.5rem;
+    color: #02AAF3;
+    cursor: pointer;
+  }
+
+  .chatroom-messages {
+    height: calc(68vh - 30px);
   }
 
   .chatroom-menu-blue {
