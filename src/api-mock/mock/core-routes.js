@@ -535,7 +535,7 @@ export const resources = [
 export const courses = [
   {
     method: 'GET',
-    url: '/api/core/batches/1/courses?page=0&size=10',
+    url: '/api/core/batches/1/courses?page=1&size=10',
     response: {
       'code': 200,
       'status': 'OK',
@@ -566,9 +566,36 @@ export const courses = [
         }
       ],
       'paging': {
+        'page': 0,
+        'size': 10,
+        'totalRecords': 40
+      }
+    }
+  },
+  {
+    method: 'GET',
+    url: '/api/core/batches/1/courses?page=2&size=10',
+    response: {
+      'code': 200,
+      'status': 'OK',
+      'data': [
+        {
+          'id': 'sample-id-1',
+          'title': 'Course Title 1',
+          'description': 'Course Description Goes Here',
+          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+        },
+        {
+          'id': 'sample-id-2',
+          'title': 'Course Title 2',
+          'description': 'Course Description Goes Here',
+          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+        }
+      ],
+      'paging': {
         'page': 1,
         'size': 10,
-        'totalRecords': 20
+        'totalRecords': 40
       }
     }
   },
