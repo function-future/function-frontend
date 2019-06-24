@@ -19,22 +19,22 @@
 </template>
 
 <script>
-  const MAX_CHAR_GROUP_NAME = 20;
-  const MAX_CHAR_PRIVATE_NAME = 17;
-  const MAX_CHAR_PRIVATE_LASTMESSAGE = 18;
-  const MAX_CHAR_GROUP_LASTMESSAGE = 25;
+const MAX_CHAR_GROUP_NAME = 20
+const MAX_CHAR_PRIVATE_NAME = 17
+const MAX_CHAR_PRIVATE_LASTMESSAGE = 18
+const MAX_CHAR_GROUP_LASTMESSAGE = 25
 
-  export default {
-    name: "ChatroomCard",
-    props: {
-      name: String,
-      isSeen: Boolean,
-      time: Number,
-      lastMessage: String,
-      avatar: String,
-      chatroomId: String
-    }
+export default {
+  name: 'ChatroomCard',
+  props: {
+    name: String,
+    isSeen: Boolean,
+    time: Number,
+    lastMessage: String,
+    avatar: String,
+    chatroomId: String
   }
+}
 </script>
 
 <style scoped>

@@ -6,28 +6,28 @@
 </template>
 
 <script>
-  import BaseInput from './BaseInput'
-  export default {
-    name: "SearchBar",
-    components: {
-      BaseInput
-    },
-    props: {
-      searchClass: {
-        type: String
-      }
-    },
-    data() {
-      return {
+import BaseInput from './BaseInput'
+export default {
+  name: 'SearchBar',
+  components: {
+    BaseInput
+  },
+  props: {
+    searchClass: {
+      type: String
+    }
+  },
+  data () {
+    return {
 
-      }
-    },
-    methods: {
-      emitValue(value) {
-        this.$emit('input', value)
-      }
+    }
+  },
+  methods: {
+    emitValue (value) {
+      this.$emit('input', value)
     }
   }
+}
 </script>
 
 <style scoped>
@@ -53,8 +53,8 @@
     right: 0;
     position: absolute;
     z-index: 2;
-    height: 55px;
-    width: 55px;
+    height: 60px;
+    width: 60px;
     background-color: #02AAF3;
     border-radius: 50%;
     margin-right: 0;

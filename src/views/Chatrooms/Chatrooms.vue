@@ -3,23 +3,27 @@
     <BaseCard class="chatroom-card">
       <div class="chatroom-container">
         <div class="chatroom-left">
-          <SearchBar @input="changeText"/>
-          <div @click="changeTypeChoosen('PUBLIC')" class="chatroom-menu" :class="{'chatroom-menu-blue': typeChoosen === 'PUBLIC'}">
-            <h3>Public Chatroom</h3>
+          <div class="chatroom-left-container">
+            <SearchBar @input="changeText"/>
+            <div @click="changeTypeChoosen('PUBLIC')" class="chatroom-menu" :class="{'chatroom-menu-blue': typeChoosen === 'PUBLIC'}">
+              <h3>Public Chatroom</h3>
+            </div>
+            <div @click="changeTypeChoosen('GROUP')" class="chatroom-menu" :class="{'chatroom-menu-blue': typeChoosen === 'GROUP'}">
+              <h3>Group Chatroom</h3>
+            </div>
+            <div @scroll="scrollGroup" v-if="typeChoosen === 'GROUP'" class="chatroom-card-wrapper">
+              <ChatroomCard v-for="i in 10"/>
+            </div>
+            <div @click="changeTypeChoosen('PRIVATE')" class="chatroom-menu" :class="{'chatroom-menu-blue': typeChoosen === 'PRIVATE'}">
+              <h3>Private Chatroom</h3>
+            </div>
+            <div @scroll="scrollPrivate" v-if="typeChoosen === 'PRIVATE'" class="chatroom-card-wrapper">
+              <ChatroomCard v-for="i in 10" avatar="https://www.w3schools.com/howto/img_avatar.png"/>
+            </div>
           </div>
-          <div @click="changeTypeChoosen('GROUP')" class="chatroom-menu" :class="{'chatroom-menu-blue': typeChoosen === 'GROUP'}">
-            <h3>Group Chatroom</h3>
+          <div class="chatroom-button-add-container">
+            <font-awesome-icon icon="plus" class="chatroom-button-add"/>
           </div>
-          <div @scroll="scrollGroup" v-if="typeChoosen === 'GROUP'" class="chatroom-card-wrapper">
-            <ChatroomCard v-for="i in 10"/>
-          </div>
-          <div @click="changeTypeChoosen('PRIVATE')" class="chatroom-menu" :class="{'chatroom-menu-blue': typeChoosen === 'PRIVATE'}">
-            <h3>Private Chatroom</h3>
-          </div>
-          <div @scroll="scrollPrivate" v-if="typeChoosen === 'PRIVATE'" class="chatroom-card-wrapper">
-            <ChatroomCard v-for="i in 10" avatar="https://www.w3schools.com/howto/img_avatar.png"/>
-          </div>
-          <font-awesome-icon icon="plus"/>
         </div>
         <div class="chatroom-separator"></div>
         <div class="chatroom-right">{{ text }}</div>
@@ -29,44 +33,44 @@
 </template>
 
 <script>
-  import BaseCard from '@/components/BaseCard'
-  import SearchBar from '@/components/SearchBar'
-  import ChatroomCard from './ChatroomCard'
-  export default {
-    name: 'Chatrooms',
-    components: {
-      BaseCard,
-      SearchBar,
-      ChatroomCard
+import BaseCard from '@/components/BaseCard'
+import SearchBar from '@/components/SearchBar'
+import ChatroomCard from './ChatroomCard'
+export default {
+  name: 'Chatrooms',
+  components: {
+    BaseCard,
+    SearchBar,
+    ChatroomCard
+  },
+  data () {
+    return {
+      text: '',
+      typeChoosen: 'PUBLIC'
+    }
+  },
+  methods: {
+    changeText (value) {
+      console.log(value)
+      this.text = value
     },
-    data() {
-      return {
-        text: '',
-        typeChoosen: 'PUBLIC'
-      }
+    changeTypeChoosen (type) {
+      this.typeChoosen = type
     },
-    methods: {
-      changeText(value) {
-        console.log(value);
-        this.text = value;
-      },
-      changeTypeChoosen(type) {
-        this.typeChoosen = type
-      },
-      scrollGroup(event) {
-        console.log(event);
-      },
-      scrollPrivate(event) {
-        console.log(event);
-      }
+    scrollGroup (event) {
+      console.log(event)
+    },
+    scrollPrivate (event) {
+      console.log(event)
     }
   }
+}
 </script>
 
 <style scoped>
 
   .chatroom-card-wrapper {
-    height: 50%;
+    height: 40vh;
     overflow: auto;
     padding: 10px;
   }
@@ -74,7 +78,7 @@
   .chatroom-outer {
     display: flex;
     justify-content: center;
-    height: 90%;
+    height: 80vh;
   }
 
   .chatroom-card {
@@ -114,6 +118,9 @@
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
   .chatroom-right {
@@ -123,9 +130,20 @@
     margin-bottom: 20px;
     height: 100%;
   }
-  
+
   .chatroom-menu-blue {
     color: #02AAF3;
+  }
+
+  .chatroom-button-add {
+    color: #02AAF3;
+    font-size: 1.4rem;
+    cursor: pointer;
+  }
+
+  .chatroom-button-add-container {
+    display: flex;
+    justify-content: center;
   }
 
   ::-webkit-scrollbar {
