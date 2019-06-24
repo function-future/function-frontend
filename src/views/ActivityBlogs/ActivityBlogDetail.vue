@@ -2,24 +2,34 @@
   <div class="scrollable-container">
     <BaseCard class="card" cardClass="card-hover">
       <div class="header">
-        <h3>{{ stickyNotes.title || 'Sticky Note' }}</h3>
+        <h3>{{ activityBlog.title }}</h3>
       </div>
       <div class="header float-right">
         <div class="date">
-          {{ stickyNotes.updatedAt | moment("dddd, MMMM Do YYYY") }}
+          {{ activityBlog.createdAt | moment("dddd, MMMM Do YYYY") }}
         </div>
         <div class="action">
-          <span class="add-btn" @click="goToAddStickyNote"><font-awesome-icon icon="edit" class="icon blue" size="lg"></font-awesome-icon></span>
+          <span @click="goToEditActivityBlog">
+            <font-awesome-icon icon="edit" class="icon blue" size="lg"></font-awesome-icon>
+          </span>
+          <span @click="openDeleteConfirmationModal">
+            <font-awesome-icon icon="trash-alt" class="icon red" size="lg"></font-awesome-icon>
+          </span>
         </div>
       </div>
       <div class="preview">
-        <span>{{ stickyNotes.description }}</span>
+        <span v-html="descriptionCompiledMarkdown"></span>
       </div>
     </BaseCard>
+    <modal-delete-confirmation v-if="showDeleteConfirmationModal"
+                               @close="showDeleteConfirmationModal = false"
+                               @clickDelete="deleteThisActivityBlog">
+      <div slot="description">Are you sure you want to delete this activity blog?</div>
+    </modal-delete-confirmation>
   </div>
 </template>
 
-<script type="text/javascript" src="./js/sticky-notes-detail.js">
+<script type="text/javascript" src="./js/activity-blog-detail.js">
 </script>
 
 <style scoped>

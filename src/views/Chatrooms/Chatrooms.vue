@@ -19,6 +19,7 @@
           <div @scroll="scrollPrivate" v-if="typeChoosen === 'PRIVATE'" class="chatroom-card-wrapper">
             <ChatroomCard v-for="i in 10" avatar="https://www.w3schools.com/howto/img_avatar.png"/>
           </div>
+          <font-awesome-icon icon="plus"/>
         </div>
         <div class="chatroom-separator"></div>
         <div class="chatroom-right">{{ text }}</div>
@@ -65,7 +66,7 @@
 <style scoped>
 
   .chatroom-card-wrapper {
-    max-height: 400px;
+    height: 50%;
     overflow: auto;
     padding: 10px;
   }

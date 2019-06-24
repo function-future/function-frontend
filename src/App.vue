@@ -4,9 +4,10 @@
       <HeaderComp></HeaderComp>
     </div>
     <div class="content">
-      <div class="chatroom-container">
+      <div class="container">
         <div class="title">
           <BaseTitle>{{ title }}</BaseTitle>
+          <Breadcrumbs></Breadcrumbs>
         </div>
         <div class="user-section">
           <UserBar></UserBar>
@@ -55,7 +56,7 @@
     overflow: hidden;
   }
 
-  .chatroom-container {
+  .container {
     margin: 0 20px 20px 20px;
     height: 95vh;
   }

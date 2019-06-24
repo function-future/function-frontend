@@ -5,21 +5,23 @@
         <BaseInput autofocus
                    class="input-title"
                    inputType="title"
-                   v-model="stickyNote.title"
-                   placeholder="Sticky Note Title"
+                   v-model="activityBlog.title"
+                   placeholder="Activity Blog Title"
                    v-validate.disable="'required'"
-                   name="title">
-        </BaseInput>
+                   name="title"></BaseInput>
       </div>
       <div v-if="errors.has('title')"><span class="input-invalid-message">{{ errors.first('title') }}</span></div>
       <div class="description">
         <mavon-editor class="editor"
-                      placeholder="Sticky Note Description"
+                      placeholder="Activity Blog Description"
                       language="en"
-                      v-model="stickyNote.description"
-                      :toolbars="toolbars"
+                      v-model="activityBlog.description"
                       v-validate.disable="'required'"
-                      name="description"></mavon-editor>
+                      name="description"
+                      ref=md
+                      @imgAdd="$imgAdd"
+                      @imgDel="$imgDel">
+        </mavon-editor>
       </div>
       <div v-if="errors.has('description')"><span class="input-invalid-message">{{ errors.first('description') }}</span></div>
       <div class="action">
@@ -27,14 +29,14 @@
           <BaseButton type="cancel" buttonClass="button-cancel" @click="cancel">Cancel</BaseButton>
         </div>
         <div class="action-button">
-          <BaseButton type="submit" buttonClass="button-save" @click="postStickyNote">Save</BaseButton>
+          <BaseButton type="submit" buttonClass="button-save" @click="sendActivityBlog">Save</BaseButton>
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<script type="text/javascript" src="./js/edit-sticky-note.js">
+<script type="text/javascript" src="./js/activity-blog-form.js">
 </script>
 
 <style scoped>
@@ -53,8 +55,9 @@
   }
 
   .editor {
-    height: 55vh;
+    height: 60vh;
     width: 100%;
+    margin-top: 20px;
   }
 
   .input-invalid-message {
@@ -62,7 +65,6 @@
     font-size: 0.75em;
     float: left;
     margin-left: 2vw;
-    margin-bottom: 10px;
   }
 
   .action {

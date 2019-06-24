@@ -6,7 +6,7 @@
       <img :src="avatar">
     </div>
     <div class="chatroom-card__content">
-      <p><strong>Priagung Satya...</strong></p>
+      <p><strong>Priagung Satyag...</strong></p>
       <p class="chatroom-card__content--message">Halo semuanya</p>
     </div>
     <div class="chatroom-card__status">
@@ -19,6 +19,11 @@
 </template>
 
 <script>
+  const MAX_CHAR_GROUP_NAME = 20;
+  const MAX_CHAR_PRIVATE_NAME = 17;
+  const MAX_CHAR_PRIVATE_LASTMESSAGE = 18;
+  const MAX_CHAR_GROUP_LASTMESSAGE = 25;
+
   export default {
     name: "ChatroomCard",
     props: {
