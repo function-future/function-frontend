@@ -34,9 +34,12 @@ export default {
     cancel () {
       this.$router.go(-1)
     },
-    failCreatingAssignment ({ response }) {
+    successCreateAssignment () {
+      this.$router.push({name: 'assignments'})
+      this.$toasted.success('Successfully created new assignment')
+    },
+    failCreatingAssignment () {
       this.$toasted.error('Something went wrong')
-      console.log(response)
     },
     saveAssignment () {
       this.createAssignment({
@@ -46,6 +49,7 @@ export default {
           page: 0,
           pageSize: 10
         },
+        callback: this.successCreateAssignment,
         fail: this.failCreatingAssignment
       })
     }

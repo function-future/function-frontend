@@ -2,7 +2,11 @@
   <div class="scrollable-container">
     <div class="edit-container">
       <div class="title">
-        <BaseInput class="input-title" placeholder="Insert Title" inputType="title" v-model="assignment.title">
+        <BaseInput class="input-title"
+                   placeholder="Insert Title"
+                   inputType="title"
+                   v-model="assignmentDetail.title"
+                  :disabled="!editMode">
         </BaseInput>
       </div>
       <div class="assignment-body">
@@ -10,15 +14,24 @@
           <mavon-editor class="input-description"
                         placeholder="Question Goes Here"
                         language="en"
-                        v-model="assignment.description"
+                        v-model="assignmentDetail.description"
                         v-validate.disable="'required'"
-                        name="description"/>
+                        name="description"
+                        :editable="editMode"/>
         </div>
         <div class="assignment-detail">
           <div class="assignment-detail-batch">
-            <BaseSelect v-model="assignment.batch" :options="batches"></BaseSelect>
+            <BaseSelect v-model="assignmentDetail.batch"
+                        :options="batches"
+                        :disabled="!editMode"></BaseSelect>
           </div>
-          <v-date-picker class="assignment-detail-deadline" v-model="assignment.deadline" is-inline>
+            <v-date-picker class="assignment-detail-deadline"
+                         v-if="assignmentDetail.deadline"
+                         :value="assignmentDetail.deadline"
+                         v-model="assignmentDetail.deadline"
+                         :available-dates="{start: displayedDates.start, end: displayedDates.end}"
+                         is-required
+                         is-inline>
           </v-date-picker>
           <div class="assignment-detail-file">
             <span class="assignment-detail-file-name">File.txt</span>
@@ -32,11 +45,14 @@
             </div>
           </div>
           <div class="action">
-            <div class="action-button">
+            <div class="action-button" v-if="editMode">
               <BaseButton type="cancel" buttonClass="button-cancel" @click="cancel">Cancel</BaseButton>
             </div>
-            <div class="action-button">
+            <div class="action-button" v-if="editMode">
               <BaseButton type="submit" buttonClass="button-save" @click="saveAssignment">Save</BaseButton>
+            </div>
+            <div class="action-button" v-if="!editMode">
+              <BaseButton type="submit" buttonClass="button-save" @click="editAssignment">Edit</BaseButton>
             </div>
           </div>
         </div>
@@ -45,7 +61,8 @@
   </div>
 </template>
 
-<script type="text/javascript" src="./js/add-assignment.js"></script>
+<script type="text/javascript" src="./js/assignment-detail.js">
+</script>
 
 <style scoped>
   .edit-container {

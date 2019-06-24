@@ -30,7 +30,12 @@ module.exports = {
       quizzes: '/quizzes',
       assignments: {
         list: '/assignments',
-        add: '/assignments/add'
+        add: '/assignments/add',
+        rooms: {
+          list: '/assignments/:id/rooms',
+          detail: '/assignments/:id/rooms/:roomId'
+        },
+        detail: '/assignments/:id/detail'
       },
       finalJudging: '/final-judging',
       grades: '/grades',
@@ -108,6 +113,23 @@ module.exports = {
         },
         create (batchCode, page, pageSize) {
           return `/api/scoring/batches/${batchCode}/assignments?page=${page}&size=${pageSize}`
+        },
+        detail(batchCode, id) {
+          return `/api/scoring/batches/${batchCode}/assignments/${id}`
+        },
+        update(batchCode, id) {
+          return `/api/scoring/batches/${batchCode}/assignments/${id}`
+        },
+        rooms: {
+          list(batchCode, assignmentId, page, pageSize) {
+            return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/rooms?page=${page}&size=${pageSize}`
+          },
+          detail(batchCode, assignmentId, roomId) {
+            return `api/scoring/batches/${batchCode}/assignments/${assignmentId}/rooms/${roomId}`
+          },
+          update(batchCode, assignmentId, roomId) {
+            return `api/scoring/batches/${batchCode}/assignments/${assignmentId}/rooms/${roomId}`
+          }
         }
       }
     }

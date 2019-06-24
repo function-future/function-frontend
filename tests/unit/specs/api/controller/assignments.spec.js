@@ -5,7 +5,7 @@ jest.mock('@/api/default-request')
 
 describe('Assignment Controller', () => {
   afterEach(() => {
-    jest.restoreAllMocks()
+    jest.resetAllMocks()
   })
 
   test('Sanity test', () => {
@@ -21,6 +21,15 @@ describe('Assignment Controller', () => {
     expect(spy).toBeCalledTimes(1)
   })
 
+  test('getAssignmentById', () => {
+    const spy = jest.spyOn(request, 'getRequest')
+    const data = {}
+    const callback = jest.fn()
+    const errorHandler = jest.fn()
+    api.getAssignmentById(callback, data, errorHandler)
+    expect(spy).toBeCalledTimes(1)
+  })
+
   test('createAssignment', () => {
     const spy = jest.spyOn(request, 'postRequest')
     const data = {}
@@ -28,6 +37,16 @@ describe('Assignment Controller', () => {
     const callback = jest.fn()
     const errorHandler = jest.fn()
     api.createAssignment(callback, data, payload, errorHandler)
+    expect(spy).toBeCalledTimes(1)
+  })
+
+  test('updateAssignment', () => {
+    const spy = jest.spyOn(request, 'putRequest')
+    const data = {}
+    const payload = {}
+    const callback = jest.fn()
+    const errorHandler = jest.fn()
+    api.updateAssignment(callback, data, payload, errorHandler)
     expect(spy).toBeCalledTimes(1)
   })
 })

@@ -1,47 +1,38 @@
 <template>
-  <div>
+  <div class="scrollable-container">
     <div class="page-header">
-      <BaseButton type="submit" buttonClass="button-save" @click="addAssignment">
-        <font-awesome-icon icon="plus" class="icon"/> New
+      <BaseButton class="add-btn" type="submit" buttonClass="button-save" @click="addAssignment">
+        <font-awesome-icon icon="plus" class="icon"/> Add
       </BaseButton>
-      <BaseSelect
-        v-model="selectedFilter"
-        :options="filters"></BaseSelect>
-      <BaseSelect
-        v-model="selectedSort"
-        :options="sorts"></BaseSelect>
-      <BaseInput
-        class="search-box"
-        v-model="searchValue"
-        :placeholder="'Search'">
-      </BaseInput>
     </div>
-    <div v-for="assignment in assignmentList" :key="assignment.id">
-      <BaseCard class="assignment-card">
-        <div class="card-header">
-          {{assignment.title}}
+    <BaseCard class="assignment-card"
+              v-for="assignment in assignmentList"
+              :key="assignment.id"
+              @click.native="goToAssignmentDetail(assignment.id, assignment.batch)"
+              cardClass="card-hover">
+      <div class="card-header">
+        {{assignment.title}}
+      </div>
+      <div class="card-body">
+        <div class="assignment-description">
+          {{assignment.description}}
         </div>
-        <div class="card-body">
-          <div class="assignment-description">
-            {{assignment.description}}
+      </div>
+      <div class="card-footer">
+        <div class="completion-status">
+          <div class="completion-status--box"
+               :class="isComplete(assignment.deadline)">
           </div>
+          <span class="completion-status--text">
+            {{isComplete(assignment.deadline)}}
+          </span>
         </div>
-        <div class="card-footer">
-          <div class="completion-status">
-            <div class="completion-status--box"
-                 :class="isComplete(assignment.deadline)">
-            </div>
-            <span class="completion-status--text">
-              {{isComplete(assignment.deadline)}}
-            </span>
-          </div>
-          <div class="assignment-deadline">
-            <font-awesome-icon icon="calendar"></font-awesome-icon>
-            {{assignment.deadline | moment("dddd, MMMM Do YYYY")}}
-          </div>
+        <div class="assignment-deadline">
+          <font-awesome-icon icon="calendar"></font-awesome-icon>
+          {{assignment.deadline | moment("dddd, MMMM Do YYYY")}}
         </div>
-      </BaseCard>
-    </div>
+      </div>
+    </BaseCard>
   </div>
 </template>
 
@@ -49,7 +40,7 @@
 
 <style scoped>
   .page-header {
-    padding: 0 15px;
+    margin-right: 20px;
   }
   .assignment-card {
     min-height: 175px;
@@ -67,7 +58,7 @@
     align-items: center;
     justify-content: flex-start;
   }
-  .search-box {
+  .add-btn {
     justify-self: flex-end;
     margin-left: auto;
   }
