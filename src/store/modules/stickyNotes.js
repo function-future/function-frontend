@@ -21,8 +21,8 @@ export const actions = {
   fetchStickyNotes ({ commit }, { callback, fail }) {
     stickyNotesApi.getStickyNote(({ data: response }) => {
       const data = {
-        noteTitle: response[0].title,
-        noteDescription: response[0].description,
+        title: response[0].title,
+        description: response[0].description,
         updatedAt: response[0].updatedAt
       }
       commit('SET_STICKY_NOTES_INFO', data)

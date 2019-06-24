@@ -22,8 +22,8 @@ describe('EditStickyNotes', () => {
   function initStore () {
     const state = {
       stickyNotes: {
-        noteTitle: 'Mock Note',
-        noteDescription: 'Note for testing purpose',
+        title: 'Mock Note',
+        description: 'Note for testing purpose',
         updatedAt: '123456789'
       }
     }
@@ -33,15 +33,14 @@ describe('EditStickyNotes', () => {
       initialState: jest.fn()
     }
     const getters = {
-      stickyNotes: state => state.stickyNote
+      stickyNotes: state => state.stickyNotes
     }
     const store = new Vuex.Store({
       modules: {
         stickyNotes: {
           state,
           actions,
-          getters,
-          namespaced: true
+          getters
         }
       }
     })
@@ -111,6 +110,12 @@ describe('EditStickyNotes', () => {
     expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
   })
 
+  test('setStickyNote', () => {
+    initComponent()
+    wrapper.vm.setStickyNote()
+    expect(wrapper.vm.stickyNote).toEqual(store.state.stickyNotes)
+  })
+
   test('validateBeforeSubmit is resolved', (done) => {
     initComponent()
     const callback = jest.fn()
@@ -131,10 +136,8 @@ describe('EditStickyNotes', () => {
 
   test('postStickyNote', () => {
     initComponent()
-    const setSpy = jest.spyOn(wrapper.vm, 'setStickyNote')
     const validateSpy = jest.spyOn(wrapper.vm, 'validateBeforeSubmit')
     wrapper.vm.postStickyNote()
-    expect(setSpy).toHaveBeenCalledTimes(1)
     expect(validateSpy).toHaveBeenCalledTimes(1)
   })
 

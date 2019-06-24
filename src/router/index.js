@@ -17,10 +17,13 @@ import feeds from '@/views/Feeds/Feeds.vue'
 import announcements from '@/views/Announcements/Announcements.vue'
 import announcementDetail from '@/views/Announcements/AnnouncementDetail.vue'
 import announcementForm from '@/views/Announcements/AnnouncementForm.vue'
-import blogs from '@/views/ActivityBlogs/ActivityBlogs.vue'
+import activityBlogs from '@/views/ActivityBlogs/ActivityBlogs.vue'
+import activityBlogDetail from '@/views/ActivityBlogs/ActivityBlogDetail.vue'
+import ActivityBlogForm from '@/views/ActivityBlogs/ActivityBlogForm.vue'
 import users from '@/views/Users/Users.vue'
 import stickyNotes from '@/views/StickyNotes/StickyNotesDetail.vue'
 import editStickyNote from '@/views/StickyNotes/EditStickyNote.vue'
+import UserForm from '@/views/Users/UserForm.vue'
 import config from '@/config/index'
 
 Vue.use(Router)
@@ -38,12 +41,38 @@ export default new Router({
       }
     },
     {
-      path: config.app.pages.blogs,
-      name: 'blogs',
-      component: blogs,
+      path: config.app.pages.activityBlogs.list,
+      name: 'activityBlogs',
+      component: activityBlogs,
       meta: {
         title: 'Activity Blogs'
       }
+    },
+    {
+      path: config.app.pages.activityBlogs.detail,
+      name: 'activityBlogDetail',
+      component: activityBlogDetail,
+      meta: {
+        title: 'Activity Blog Detail'
+      }
+    },
+    {
+      path: config.app.pages.activityBlogs.add,
+      name: 'addActivityBlog',
+      component: ActivityBlogForm,
+      meta: {
+        title: 'Add Activity Blog'
+      },
+      props: { editMode: false }
+    },
+    {
+      path: config.app.pages.activityBlogs.edit,
+      name: 'editActivityBlog',
+      component: ActivityBlogForm,
+      meta: {
+        title: 'Edit Activity Blog'
+      },
+      props: { editMode: true }
     },
     {
       path: config.app.pages.announcements.list,
@@ -96,11 +125,59 @@ export default new Router({
       }
     },
     {
-      path: config.app.pages.users,
+      path: config.app.pages.users.list,
       name: 'users',
       component: users,
       meta: {
-        title: 'users'
+        title: 'Users'
+      }
+    },
+    {
+      path: config.app.pages.users.add.student,
+      name: 'addStudent',
+      component: UserForm,
+      meta: {
+        title: 'Add Student'
+      },
+      props: {
+        studentMode: true,
+        editMode: false
+      }
+    },
+    {
+      path: config.app.pages.users.add.user,
+      name: 'addUser',
+      component: UserForm,
+      meta: {
+        title: 'Add User'
+      },
+      props: {
+        studentMode: false,
+        editMode: false
+      }
+    },
+    {
+      path: config.app.pages.users.edit.student,
+      name: 'editStudent',
+      component: UserForm,
+      meta: {
+        title: 'Edit Student'
+      },
+      props: {
+        studentMode: true,
+        editMode: true
+      }
+    },
+    {
+      path: config.app.pages.users.edit.user,
+      name: 'editUser',
+      component: UserForm,
+      meta: {
+        title: 'Edit User'
+      },
+      props: {
+        studentMode: false,
+        editMode: true
       }
     },
     {

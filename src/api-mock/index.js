@@ -3,7 +3,12 @@ import MockAdapter from 'axios-mock-adapter'
 import {
   stickyNotes,
   announcements,
-  announcementDetails
+  announcementDetails,
+  activityBlogs,
+  activityBlogDetail,
+  resources,
+  users
+
 } from '@/api-mock/mock/core-routes'
 import {
   assignments,
@@ -35,6 +40,22 @@ announcements.forEach(data => {
 })
 
 announcementDetails.forEach(data => {
+  mock[methodMap[data.method]](data.url).reply(200, data)
+})
+
+activityBlogs.forEach(data => {
+  mock[methodMap[data.method]](data.url).reply(200, data)
+})
+
+activityBlogDetail.forEach(data => {
+  mock[methodMap[data.method]](data.url).reply(200, data)
+})
+
+resources.forEach(data => {
+  mock[methodMap[data.method]](data.url).reply(200, data)
+})
+
+users.forEach(data => {
   mock[methodMap[data.method]](data.url).reply(200, data)
 })
 
