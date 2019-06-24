@@ -16,9 +16,9 @@ export const mutations = {
 
 export const actions = {
   fetchCourses ({ commit }, { data, callback, fail }) {
-    courseApi.getCourseList(({ data: response }) => {
+    courseApi.getCourseList(({ data: response, paging }) => {
       commit('SET_COURSES', response)
-      callback()
+      callback(paging)
     }, data, fail)
   },
   fetchCourseById ({ commit }, { data, callback, fail }) {
