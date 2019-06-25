@@ -5,10 +5,13 @@
         <span><font-awesome-icon icon="plus" class="icon"/> New</span>
       </BaseButton>
     </div>
-    <div class="batch-div">
+    <div class="batch-div master">
       <div class="batch">
         <BatchCard :batch="masterCourse" @click.native="goToMasterCourse"></BatchCard>
       </div>
+    </div>
+    <h3 class="title">Batches</h3>
+    <div class="batch-div">
       <div class="batch" v-for="batch in batches" :key="batch.id">
         <BatchCard :batch="batch" @click.native="goToCourse(batch.code)"></BatchCard>
       </div>
@@ -25,6 +28,16 @@
     flex-wrap: wrap;
     justify-content: flex-start;
     margin-right: 15px;
+  }
+
+  .title {
+    text-align: left;
+    margin: 20px 0 5px 0;
+    padding-left: 15px;
+  }
+
+  .master {
+    margin-bottom: 15px;
   }
 
   .batch {
