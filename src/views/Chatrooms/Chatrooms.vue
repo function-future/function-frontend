@@ -28,11 +28,20 @@
         <div class="chatroom-separator"></div>
         <div class="chatroom-right">
           <div class="chatroom-title"><h2>Public</h2></div>
-          <div class="chatroom-messages"></div>
-          <div class="chatroom-input">
-            <BaseInput placeholder="Type a message" class="chatroom-message-box" inputType="message-box"/>
-            <font-awesome-icon icon="chevron-circle-right" class="chatroom-send-button" />
+          <div class="chatroom-messages">
+            <MessageBubbleReceived
+              v-for="i in 2"
+              avatar="https://www.w3schools.com/howto/img_avatar.png"
+              name="Priagung Satyagama"
+              message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis laoreet diam at quam suscipit, ac scelerisque ipsum scelerisque. Vestibulum luctus ex ornare purus maximus fermentum. Morbi leo massa, convallis at sagittis ut, tincidunt quis nulla. Curabitur euismod dui at lacus venenatis tincidunt."
+              :clock="Date.now()"
+              class="chatroom-message-bubble"/>
+            <MessageBubbleSent
+              message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis laoreet diam at quam suscipit, ac scelerisque ipsum scelerisque. Vestibulum luctus ex ornare purus maximus fermentum. Morbi leo massa, convallis at sagittis ut, tincidunt quis nulla. Curabitur euismod dui at lacus venenatis tincidunt."
+              :clock="Date.now()"
+              class="chatroom-message-bubble"/>
           </div>
+          <BaseInput placeholder="Type a message" class="chatroom-message-box" inputType="message-box"/>
         </div>
       </div>
     </BaseCard>
@@ -44,9 +53,13 @@ import BaseCard from '@/components/BaseCard'
 import SearchBar from '@/components/SearchBar'
 import ChatroomCard from './ChatroomCard'
 import BaseInput from '@/components/BaseInput'
+import MessageBubbleReceived from './MessageBubbleReceived'
+import MessageBubbleSent from './MessageBubbleSent'
 export default {
   name: 'Chatrooms',
   components: {
+    MessageBubbleSent,
+    MessageBubbleReceived,
     BaseInput,
     BaseCard,
     SearchBar,
@@ -93,14 +106,14 @@ export default {
   .chatroom-card {
     width: 900px;
     padding: 0;
-    height: 100%;
+    height: 80vh;
   }
 
   .chatroom-container {
     display: grid;
     grid-template-columns: 33% 5px auto;
     margin-left: 0;
-    height: 100%;
+    height: 80vh;
   }
 
   .chatroom-menu {
@@ -126,7 +139,7 @@ export default {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    height: 100%;
+    height: 80vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -134,8 +147,11 @@ export default {
 
   .chatroom-right {
     grid-column: 3;
-    margin: 10px 15px 10px 15px;
-    height: 100%;
+    padding: 15px;
+    height: 80vh;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
   }
@@ -148,25 +164,23 @@ export default {
     margin: 1vh 0 0 0;
   }
 
-  .chatroom-input {
-    height: 6vh;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-  }
 
   .chatroom-message-box {
-    width: 85%;
-  }
 
-  .chatroom-send-button {
-    font-size: 2.5rem;
-    color: #02AAF3;
-    cursor: pointer;
   }
 
   .chatroom-messages {
     height: calc(68vh - 30px);
+    margin: 10px 0;
+    padding: 0 10px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    overflow: auto;
+  }
+
+  .chatroom-message-bubble {
+    margin: 15px 0;
   }
 
   .chatroom-menu-blue {
