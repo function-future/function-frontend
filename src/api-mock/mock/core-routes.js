@@ -627,6 +627,21 @@ export const courses = [
       }
     }
   },
+  // master course detail
+  {
+    method: 'GET',
+    url: '/api/core/courses/sample-id-1',
+    response: {
+      'code': 200,
+      'status': 'OK',
+      'data': {
+        'id': 'sample-id-1',
+        'title': 'Master Course Title',
+        'description': '**Course** Description Goes Here',
+        'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+      }
+    }
+  },
   {
     method: 'GET',
     url: '/api/core/batches/1/courses/sample-id-1',
