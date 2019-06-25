@@ -10,7 +10,7 @@ export const chatrooms = [
       'status' : 'OK',
       'data' : [
         {
-          'id' : '63dc9f59-a579-4b69-a80c-a3c48d794f16',
+          'id' : '63dc9f59-a579-4b69-a80c-a3aa8d794f16',
           'name' : null,
           'participants' : [
             {

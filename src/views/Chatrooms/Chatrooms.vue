@@ -11,14 +11,30 @@
             <div @click="changeTypeChoosen('GROUP')" class="chatroom-menu" :class="{'chatroom-menu-blue': typeChoosen === 'GROUP'}">
               <h3>Group Chatroom</h3>
             </div>
-            <div @scroll="scrollGroup" v-if="typeChoosen === 'GROUP'" class="chatroom-card-wrapper">
-              <ChatroomCard v-for="i in 10"/>
+            <div v-if="typeChoosen === 'GROUP'" class="chatroom-card-wrapper">
+              <ChatroomCard v-for="chatroom in chatrooms"
+                            :type="chatroom.type"
+                            :name="chatroom.name"
+                            :is-seen="chatroom.lastMessage.isSeen"
+                            :time="chatroom.lastMessage.time"
+                            :last-message="chatroom.lastMessage.message"
+                            :chatroom-id="chatroom.id"
+                            :key="chatroom.id"/>
             </div>
             <div @click="changeTypeChoosen('PRIVATE')" class="chatroom-menu" :class="{'chatroom-menu-blue': typeChoosen === 'PRIVATE'}">
               <h3>Private Chatroom</h3>
             </div>
-            <div @scroll="scrollPrivate" v-if="typeChoosen === 'PRIVATE'" class="chatroom-card-wrapper">
-              <ChatroomCard v-for="i in 10" avatar="https://www.w3schools.com/howto/img_avatar.png"/>
+            <div v-if="typeChoosen === 'PRIVATE'" class="chatroom-card-wrapper">
+<!-- TODO: Change avatar to participant who are not authenticated user -->
+              <ChatroomCard v-for="chatroom in chatrooms"
+                            :avatar="chatroom.participants[0].avatar"
+                            :type="chatroom.type"
+                            :name="chatroom.participants[0].name"
+                            :is-seen="chatroom.lastMessage.isSeen"
+                            :time="chatroom.lastMessage.time"
+                            :last-message="chatroom.lastMessage.message"
+                            :chatroom-id="chatroom.id"
+                            :key="chatroom.id" />
             </div>
           </div>
           <div class="chatroom-button-add-container">
@@ -37,6 +53,14 @@
               :clock="Date.now()"
               class="chatroom-message-bubble"/>
             <MessageBubbleSent
+              v-for="i in 3"
+              message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis laoreet diam at quam suscipit, ac scelerisque ipsum scelerisque. Vestibulum luctus ex ornare purus maximus fermentum. Morbi leo massa, convallis at sagittis ut, tincidunt quis nulla. Curabitur euismod dui at lacus venenatis tincidunt."
+              :clock="Date.now()"
+              class="chatroom-message-bubble"/>
+            <MessageBubbleReceived
+              v-for="i in 2"
+              avatar="https://www.w3schools.com/howto/img_avatar.png"
+              name="Priagung Satyagama"
               message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis laoreet diam at quam suscipit, ac scelerisque ipsum scelerisque. Vestibulum luctus ex ornare purus maximus fermentum. Morbi leo massa, convallis at sagittis ut, tincidunt quis nulla. Curabitur euismod dui at lacus venenatis tincidunt."
               :clock="Date.now()"
               class="chatroom-message-bubble"/>
@@ -55,6 +79,10 @@ import ChatroomCard from './ChatroomCard'
 import BaseInput from '@/components/BaseInput'
 import MessageBubbleReceived from './MessageBubbleReceived'
 import MessageBubbleSent from './MessageBubbleSent'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
+
+const POLL_INTERVAL = 1000
+
 export default {
   name: 'Chatrooms',
   components: {
@@ -68,23 +96,80 @@ export default {
   data () {
     return {
       searchText: '',
-      typeChoosen: 'PUBLIC'
+      typeChoosen: 'PUBLIC',
+      chatroomId: '',
+      chatroomPage: 1,
+      chatroomIntervalObject: '',
+      messageIntervalObject: ''
     }
   },
+  computed: {
+    ...mapGetters([
+      'chatrooms',
+      'messages'
+    ])
+  },
   methods: {
+    ...mapActions([
+      'fetchChatrooms',
+      'fetchMessages'
+    ]),
+    ...mapMutations([
+      'resetMessages',
+      'resetChatrooms'
+    ]),
     changeText (value) {
       console.log(value)
       this.text = value
     },
     changeTypeChoosen (type) {
       this.typeChoosen = type
+      this.fetchChatrooms({
+        data: {
+          params: {
+            page: this.chatroomPage,
+            type: this.typeChoosen,
+            search: this.searchText
+          }
+        },
+        fail: (err) => {
+          console.log(err)
+        }
+      })
+      this.resetChatrooms()
+      this.resetChatroomPoll()
     },
-    scrollGroup (event) {
-      console.log(event)
+    stopPolling () {
+      clearInterval(this.chatroomIntervalObject)
+      clearInterval(this.messageIntervalObject)
     },
-    scrollPrivate (event) {
-      console.log(event)
+    resetChatroomPoll () {
+      clearInterval(this.chatroomIntervalObject)
+      this.initChatroomPoll()
+    },
+    initChatroomPoll () {
+      this.chatroomIntervalObject = setInterval(() => {
+        console.log(this.typeChoosen)
+        this.fetchChatrooms({
+          data: {
+            params: {
+              page: this.chatroomPage,
+              type: this.typeChoosen,
+              search: this.searchText
+            }
+          },
+          fail: (err) => {
+            console.log(err)
+          }
+        })
+      }, POLL_INTERVAL)
     }
+  },
+  created () {
+    this.initChatroomPoll()
+  },
+  destroyed () {
+    this.stopPolling()
   }
 }
 </script>
@@ -163,7 +248,6 @@ export default {
   .chatroom-title > h2 {
     margin: 1vh 0 0 0;
   }
-
 
   .chatroom-message-box {
 

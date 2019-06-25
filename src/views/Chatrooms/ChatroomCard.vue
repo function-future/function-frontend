@@ -6,11 +6,11 @@
       <img :src="avatar">
     </div>
     <div class="chatroom-card__content">
-      <p><strong>Priagung Satyag...</strong></p>
-      <p class="chatroom-card__content--message">Halo semuanya</p>
+      <p><strong>{{ computedName }}</strong></p>
+      <p class="chatroom-card__content--message">{{ computedLastMessage }}</p>
     </div>
     <div class="chatroom-card__status">
-      <p>8.00 pm</p>
+      <p>{{ convertClock }}</p>
       <div class="chatroom-card__status__seen-wrapper">
         <div v-if="!isSeen" class="chatroom-card__status--seen-status"></div>
       </div>
@@ -19,10 +19,12 @@
 </template>
 
 <script>
-const MAX_CHAR_GROUP_NAME = 20
+import moment from 'moment'
+
+const MAX_CHAR_GROUP_NAME = 25
 const MAX_CHAR_PRIVATE_NAME = 17
-const MAX_CHAR_PRIVATE_LASTMESSAGE = 18
-const MAX_CHAR_GROUP_LASTMESSAGE = 25
+const MAX_CHAR_PRIVATE_LASTMESSAGE = 24
+const MAX_CHAR_GROUP_LASTMESSAGE = 31
 
 export default {
   name: 'ChatroomCard',
@@ -32,7 +34,35 @@ export default {
     time: Number,
     lastMessage: String,
     avatar: String,
-    chatroomId: String
+    chatroomId: String,
+    type: String
+  },
+  computed: {
+    computedName () {
+      console.log(this.name.length)
+      if (this.type === 'PRIVATE' && this.name.length > MAX_CHAR_PRIVATE_NAME) {
+        return this.name.substring(0, MAX_CHAR_PRIVATE_NAME - 3) + '...'
+      } else if (this.type === 'GROUP' && this.name.length > MAX_CHAR_GROUP_NAME) {
+        return this.name.substring(0, MAX_CHAR_GROUP_NAME - 3) + '...'
+      } else {
+        return this.name
+      }
+    },
+    computedLastMessage () {
+      if (this.type === 'PRIVATE' && this.lastMessage.length > MAX_CHAR_PRIVATE_LASTMESSAGE) {
+        return this.lastMessage.substring(0, MAX_CHAR_PRIVATE_LASTMESSAGE - 3) + '...'
+      } else if (this.type === 'GROUP' && this.lastMessage.length > MAX_CHAR_GROUP_LASTMESSAGE) {
+        return this.lastMessage.substring(0, MAX_CHAR_GROUP_LASTMESSAGE - 3) + '...'
+      } else {
+        return this.lastMessage
+      }
+    },
+    convertClock () {
+      if (moment.duration(Date.now() - this.clock).asDays() >= 1) {
+        return moment(this.clock).format('DD MMM')
+      }
+      return moment(this.clock).format('HH:mm')
+    }
   }
 }
 </script>
@@ -69,6 +99,7 @@ export default {
   .chatroom-card__avatar > img {
     border-radius: 100%;
     height: 35px;
+    width: 35px;
   }
 
   .chatroom-card__content {

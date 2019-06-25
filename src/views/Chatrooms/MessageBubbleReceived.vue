@@ -22,7 +22,7 @@ export default {
     avatar: String,
     name: String,
     message: String,
-    clock: Number,
+    clock: Number
   },
   methods: {
     convertClock () {
