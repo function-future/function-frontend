@@ -49,14 +49,14 @@ export default {
     failFetchMasterCourses () {
       this.$toasted.error('Fail to load course list')
     },
-    goToThisCourseDetail (id) {
+    goToThisMasterCourseDetail (id) {
       this.$router.push({
-        name: 'courseDetail',
+        name: 'masterCourseDetail',
         params: { id: id }
       })
     },
     goToAddMasterCourse () {},
-    editThisCourse () {},
-    deleteThisCourse () {}
+    editThisMasterCourse () {},
+    deleteThisMasterCourse () {}
   }
 }

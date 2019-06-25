@@ -3,7 +3,8 @@ import courseApi from '@/api/controller/courses'
 export const state = {
   courseList: [],
   masterCourseList: [],
-  course: {}
+  course: {},
+  masterCourse: {}
 }
 
 export const mutations = {
@@ -15,6 +16,9 @@ export const mutations = {
   },
   SET_COURSE_BY_ID (state, payload) {
     state.course = { ...payload }
+  },
+  SET_MASTER_COURSE_BY_ID (state, payload) {
+    state.masterCourse = { ...payload }
   }
 }
 
@@ -36,6 +40,12 @@ export const actions = {
       commit('SET_COURSE_BY_ID', response)
       callback()
     }, data, fail)
+  },
+  fetchMasterCourseById ({ commit }, { data, callback, fail }) {
+    courseApi.getMasterCourseDetail(({ data: response }) => {
+      commit('SET_MASTER_COURSE_BY_ID', response)
+      callback()
+    }, data, fail)
   }
 }
 
@@ -48,6 +58,9 @@ export const getters = {
   },
   course (state) {
     return state.course
+  },
+  masterCourse (state) {
+    return state.masterCourse
   }
 }
 

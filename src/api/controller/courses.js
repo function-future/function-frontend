@@ -17,6 +17,10 @@ const getCourseDetail = function (callback, data, errorHandler) {
   request.getRequest(config.api.core.courses.detail.get(data.code, data.id), callback, errorHandler)
 }
 
+const getMasterCourseDetail = function (callback, data, errorHandler) {
+  request.getRequest(config.api.core.courses.master.detail.get(data.code, data.id), callback, errorHandler)
+}
+
 const updateCourse = function (callback, data, errorHandler) {
   request.putRequest(config.api.core.courses.detail.update(data.code, data.id), callback, data, errorHandler)
 }
@@ -30,6 +34,7 @@ export default {
   getMasterCourseList,
   createCourse,
   getCourseDetail,
+  getMasterCourseDetail,
   updateCourse,
   deleteCourse
 }

@@ -16,9 +16,72 @@ describe('Quiz', () => {
   }
 
   function initStore() {
-    const state = {}
-    const actions = {}
-    const getters = {}
+    const state = {
+      quizList: [
+        {
+          "id": "QZ00001",
+          "title": "Quiz Number 1",
+          "description": "Description Number 1",
+          "startDate": 15000000,
+          "endDate": 15000000,
+          "timeLimit": 3600,
+          "trials": 3,
+          "questionCount": 10,
+          "questionBanks": [
+            "QNK00001"
+          ],
+          "batch": 3
+        },
+        {
+          "id": "QZ00002",
+          "title": "Quiz Number 2",
+          "description": "Description Number 2",
+          "startDate": 15000000,
+          "endDate": 15000000,
+          "timeLimit": 3600,
+          "trials": 3,
+          "questionCount": 10,
+          "questionBanks": [
+            "QNK00001"
+          ],
+          "batch": 3
+        },
+        {
+          "id": "QZ00003",
+          "title": "Quiz Number 3",
+          "description": "Description Number 3",
+          "startDate": 15000000,
+          "endDate": 15000000,
+          "timeLimit": 3600,
+          "trials": 3,
+          "questionCount": 10,
+          "questionBanks": [
+            "QNK00001"
+          ],
+          "batch": 3
+        },
+        {
+          "id": "QZ00004",
+          "title": "Quiz Number 4",
+          "description": "Description Number 4",
+          "startDate": 15000000,
+          "endDate": 15000000,
+          "timeLimit": 3600,
+          "trials": 3,
+          "questionCount": 10,
+          "questionBanks": [
+            "QNK00001"
+          ],
+          "batch": 3
+        }
+      ]
+    }
+    const actions = {
+      fetchQuizList: jest.fn()
+    }
+    const getters = {
+      quizList: state => state.quizList
+    }
     const store = new Vuex.Store({
       modules: {
         quizzes: {
@@ -40,6 +103,9 @@ describe('Quiz', () => {
 
   function createWrapper(store, options) {
     const router = new VueRouter([])
+    const $toasted = {
+      error: jest.fn()
+    }
     return shallowMount(Quiz, {
       ...options,
       store,
@@ -48,10 +114,11 @@ describe('Quiz', () => {
       stubs: [
         'BaseCard',
         'BaseButton',
-        'BaseInput',
-        'BaseSelect',
         'font-awesome-icon'
       ],
+      mocks: {
+        $toasted
+      },
       sync: false
     })
   }
@@ -73,5 +140,47 @@ describe('Quiz', () => {
   test('Rendered correctly', () => {
     initComponent()
     expect(wrapper.isVueInstance()).toBe(true)
+  })
+
+  test('failFetchingQuizList', () => {
+    initComponent()
+    wrapper.vm.failFetchingQuizList()
+    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+  })
+
+  test('addQuiz', () => {
+    initComponent()
+    wrapper.vm.$router.push = jest.fn()
+    wrapper.vm.addQuiz()
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
+      name: 'addQuiz'
+    })
+  })
+
+  test('isComplete Done', () => {
+    initComponent()
+    const deadline = new Date(2000, 5, 10)
+    expect(wrapper.vm.isComplete(deadline)).toEqual('Done')
+  })
+
+  test('isComplete Ongoing', () => {
+    initComponent()
+    const deadline = new Date(2077, 7, 7)
+    expect(wrapper.vm.isComplete(deadline)).toEqual('Ongoing')
+  })
+
+  test('goToQuizDetail', () => {
+    initComponent()
+    wrapper.vm.$router.push = jest.fn()
+    wrapper.vm.goToQuizDetail('QZ0001', 'futur3')
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
+      name: 'quizDetail',
+      params: {
+        quizId: 'QZ0001'
+      },
+      query: {
+        batchCode: 'futur3'
+      }
+    })
   })
 })

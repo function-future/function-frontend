@@ -7,6 +7,7 @@
       <div class="container">
         <div class="title">
           <BaseTitle>{{ title }}</BaseTitle>
+          <Breadcrumbs></Breadcrumbs>
         </div>
         <div class="user-section">
           <UserBar></UserBar>
