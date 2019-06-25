@@ -48,6 +48,6 @@
   .button-div {
     text-align: right;
     margin-right: 30px;
-    margin-bottom: 10px;
+    margin-bottom: 0;
   }
 </style>
