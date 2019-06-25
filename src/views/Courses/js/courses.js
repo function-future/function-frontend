@@ -34,7 +34,8 @@ export default {
     initPage () {
       let data = {
         code: this.$route.params.code,
-        ...this.paging
+        ...this.paging,
+        page: this.paging.page + 1
       }
       this.fetchCourses({
         data,
