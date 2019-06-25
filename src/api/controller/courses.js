@@ -18,7 +18,7 @@ const getCourseDetail = function (callback, data, errorHandler) {
 }
 
 const getMasterCourseDetail = function (callback, data, errorHandler) {
-  request.getRequest(config.api.core.courses.master.detail.get(data.code, data.id), callback, errorHandler)
+  request.getRequest(config.api.core.courses.master.detail.get(data.id), callback, errorHandler)
 }
 
 const updateCourse = function (callback, data, errorHandler) {
