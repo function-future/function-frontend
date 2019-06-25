@@ -15,6 +15,9 @@ module.exports = {
         edit: '/announcements/:id/edit'
       },
       courses: {
+        master: {
+          list: '/courses'
+        },
         batches: '/batches',
         list: '/batches/:code/courses',
         add: '/batches/:code/courses/add',
@@ -110,6 +113,9 @@ module.exports = {
         get: '/api/core/batches'
       },
       courses: {
+        master: {
+          get (page, size) { return `/api/core/courses?page=${page}&size=${size}` }
+        },
         get (code, page, size) { return `/api/core/batches/${code}/courses?page=${page}&size=${size}` },
         post (code) { return `api/core/batches/${code}/courses` },
         detail: {

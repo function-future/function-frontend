@@ -6,6 +6,9 @@
       </BaseButton>
     </div>
     <div class="batch-div">
+      <div class="batch">
+        <BatchCard :batch="masterCourse" @click.native="goToMasterCourse"></BatchCard>
+      </div>
       <div class="batch" v-for="batch in batches" :key="batch.id">
         <BatchCard :batch="batch" @click.native="goToCourse(batch.code)"></BatchCard>
       </div>

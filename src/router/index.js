@@ -16,6 +16,7 @@ import editStickyNote from '@/views/StickyNotes/EditStickyNote.vue'
 import UserForm from '@/views/Users/UserForm.vue'
 import courseBatch from '@/views/Courses/CourseBatch.vue'
 import courses from '@/views/Courses/Courses.vue'
+import masterCourses from '@/views/Courses/MasterCourses.vue'
 import courseDetail from '@/views/Courses/CourseDetail.vue'
 import config from '@/config/index'
 
@@ -109,6 +110,18 @@ export default new Router({
         title: 'Select Course Batch',
         breadcrumb: [
           { name: 'Batches', link: 'courseBatches' }
+        ]
+      }
+    },
+    {
+      path: config.app.pages.courses.master.list,
+      name: 'masterCourses',
+      component: masterCourses,
+      meta: {
+        title: 'Master Courses',
+        breadcrumb: [
+          { name: 'Batches', link: 'courseBatches' },
+          { name: 'Master Courses', link: 'masterCourses' }
         ]
       }
     },

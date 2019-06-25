@@ -5,6 +5,10 @@ const getCourseList = function (callback, data, errorHandler) {
   request.getRequest(config.api.core.courses.get(data.code, data.page, data.size), callback, errorHandler)
 }
 
+const getMasterCourseList = function (callback, data, errorHandler) {
+  request.getRequest(config.api.core.courses.master.get(data.page, data.size), callback, errorHandler)
+}
+
 const createCourse = function (callback, data, errorHandler) {
   request.postRequest(config.api.core.courses.post(data.code), callback, data, errorHandler)
 }
@@ -23,6 +27,7 @@ const deleteCourse = function (callback, data, errorHandler) {
 
 export default {
   getCourseList,
+  getMasterCourseList,
   createCourse,
   getCourseDetail,
   updateCourse,

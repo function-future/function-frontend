@@ -12,6 +12,11 @@ export default {
   },
   data () {
     return {
+      masterCourse: {
+        id: 'master',
+        code: 'master',
+        name: 'Master Course'
+      },
       batches: []
     }
   },
@@ -33,6 +38,11 @@ export default {
         params: {
           code: code
         }
+      })
+    },
+    goToMasterCourse () {
+      this.$router.push({
+        name: 'masterCourses'
       })
     },
     createNewBatch () {},
