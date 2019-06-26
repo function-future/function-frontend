@@ -12,6 +12,12 @@ export const mutations = {
   UPDATE_MESSAGES (state, payload) {
     state.messages = payload
   },
+  PUSH_CHATROOMS (state, payload) {
+    state.chatrooms.push(...payload)
+  },
+  PUSH_MESSAGES (state, payload) {
+    state.messages.push(...payload)
+  },
   resetMessages (state) {
     state.messages = []
   },
@@ -24,60 +30,73 @@ export const actions = {
   fetchChatrooms (state, { data, fail }) {
     chatroomApi.getChatrooms(response => {
       console.log(response.data)
-      let additionalChatrooms = []
-      let chatrooms = state.chatrooms
-      if (state.chatrooms && state.chatrooms.length > response.data.length) {
-        for (const chatroom of response.data) {
-          if (chatroom.id === state.chatrooms[0].id) {
-            break
+      if (data.params.page === 1) {
+        let additionalChatrooms = []
+        let chatrooms = state.chatrooms
+        if (state.chatrooms && state.chatrooms.length > response.data.length) {
+          for (const chatroom of response.data) {
+            if (chatroom.id === state.chatrooms[0].id) {
+              break
+            }
+            additionalChatrooms.push(chatroom)
           }
-          additionalChatrooms.push(chatroom)
+          chatrooms.unshift(...additionalChatrooms)
+        } else {
+          chatrooms = response.data
         }
-        chatrooms.unshift(...additionalChatrooms)
+        state.commit('UPDATE_CHATROOMS', chatrooms)
       } else {
-        chatrooms = response.data
+        state.commit('PUSH_CHATROOMS', response.data)
       }
-      state.commit('UPDATE_CHATROOMS', chatrooms)
+
     }, fail, data)
   },
   fetchMessages (state, { data, fail }) {
     chatroomApi.getMessages(response => {
       console.log(response)
-      let additionalMessages = []
-      let messages = state.messages
-      if (state.messages && state.messages.length > response.data.length) {
-        for (const message of response.data) {
-          if (message.id === state.messages[0].id) {
-            break
+      if (data.params.page === 1) {
+        let additionalMessages = []
+        let messages = state.messages
+        if (state.messages && state.messages.length > response.data.length) {
+          for (const message of response.data) {
+            if (message.id === state.messages[0].id) {
+              break
+            }
+            additionalMessages.push(message)
           }
-          additionalMessages.push(message)
+          messages.unshift(additionalMessages)
+        } else {
+          messages = response.data
         }
-        messages.unshift(additionalMessages)
+        state.commit('UPDATE_MESSAGES', messages)
       } else {
-        messages = response.data
+        state.commit('PUSH_MESSAGES', response.data)
       }
-      state.commit('UPDATE_MESSAGES', messages)
     }, fail, data)
   },
   fetchPublicMessages (state, { data, fail }) {
     chatroomApi.getPublicMessages(response => {
       console.log(response)
-      let additionalMessages = []
-      let messages = state.messages
-      if (state.messages && state.messages.length > response.data.length) {
-        for (const message of response.data) {
-          if (message.id === state.messages[0].id) {
-            break
+      if (data.params.page === 1) {
+        let additionalMessages = []
+        let messages = state.messages
+        if (state.messages && state.messages.length > response.data.length) {
+          for (const message of response.data) {
+            if (message.id === state.messages[0].id) {
+              break
+            }
+            additionalMessages.push(message)
           }
-          additionalMessages.push(message)
+          messages.unshift(additionalMessages)
+        } else {
+          messages = response.data
         }
-        messages.unshift(additionalMessages)
+        console.log('messages')
+        console.log(messages)
+        state.commit('UPDATE_MESSAGES', messages)
       } else {
-        messages = response.data
+        state.commit('PUSH_MESSAGES', response.data)
       }
-      console.log('messages')
-      console.log(messages)
-      state.commit('UPDATE_MESSAGES', messages)
     }, fail, data)
   }
 }

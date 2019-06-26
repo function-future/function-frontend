@@ -20,17 +20,33 @@ export const actions = {
       commit('GET_ASSIGNMENT_LIST', response)
     }, data, fail)
   },
-  createAssignment ({ commit }, { payload, data, fail }) {
+  createAssignment ({ commit }, { payload, data, callback, fail }) {
     assignmentApi.createAssignment(() => {
       commit('SET_ASSIGNMENT', payload)
-      console.log(state.assignment)
+      callback && callback()
+    }, data, payload, fail)
+  },
+  fetchAssignmentDetail ({ commit }, { data, callback, fail }) {
+    assignmentApi.getAssignmentById(({data: response}) => {
+      commit('SET_ASSIGNMENT', response)
+      callback && callback()
+    }, data, fail)
+  },
+  updateAssignmentDetail ({ commit }, { payload, data, callback, fail }) {
+    assignmentApi.updateAssignment(() => {
+      commit('SET_ASSIGNMENT', payload)
+      callback && callback()
     }, data, payload, fail)
   }
 }
 
+
 export const getters = {
   assignmentList (state) {
     return state.assignmentList
+  },
+  assignment (state) {
+    return state.assignment
   }
 }
 

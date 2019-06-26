@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "dev": "webpack-dev-server --inline --progress --config webpack-dev-server.js",
+    "serve-nomock": "cross-env NODE_ENV=dev-nomock vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit --no-cache --coverage && node tests/post-unit-test.js"
@@ -14,6 +14,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.8.1",
     "@fortawesome/vue-fontawesome": "^0.1.6",
     "axios": "^0.18.0",
+    "cross-env": "^5.2.0",
     "i": "^0.3.6",
     "marked": "^0.6.2",
     "mavon-editor": "^2.7.4",
@@ -21,7 +22,7 @@
     "node-sass": "^4.12.0",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
-    "v-calendar": "^1.0.0-beta.8",
+    "v-calendar": "^1.0.0-beta.14",
     "vee-validate": "^2.2.7",
     "vue": "^2.5.21",
     "vue-infinite-loading": "^2.4.4",

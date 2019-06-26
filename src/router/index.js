@@ -2,7 +2,17 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import assignments from '@/views/Assignment/Assignments'
 import addAssignment from '@/views/Assignment/AddAssignment'
+import assignmentRooms from '@/views/Assignment/AssignmentRooms'
+import assignmentDetail from '@/views/Assignment/AssignmentDetail'
+import questionBanks from '@/views/QuestionBank/QuestionBanks'
+import questionBankDetail from '@/views/QuestionBank/QuestionBankDetail'
+import addQuestionBank from '@/views/QuestionBank/AddQuestionBank'
+import questionBankQuestionList from '@/views/QuestionBank/QuestionBankQuestionList'
+import questionBankAddQuestion from '@/views/QuestionBank/QuestionBankAddQuestion'
+import questionBankQuestionDetail from '@/views/QuestionBank/QuestionBankQuestionDetail'
 import quizzes from '@/views/Quiz/Quiz'
+import addQuiz from '@/views/Quiz/AddQuiz'
+import quizDetail from '@/views/Quiz/QuizDetail'
 import feeds from '@/views/Feeds/Feeds.vue'
 import announcements from '@/views/Announcements/Announcements.vue'
 import announcementDetail from '@/views/Announcements/AnnouncementDetail.vue'
@@ -196,11 +206,75 @@ export default new Router({
       }
     },
     {
-      path: config.app.pages.quizzes,
+      path: config.app.pages.questionBanks.list,
+      name: 'questionBanks',
+      component: questionBanks,
+      meta: {
+        title: 'Question Banks'
+      }
+    },
+    {
+      path: config.app.pages.questionBanks.detail,
+      name: 'questionBankDetail',
+      component: questionBankDetail,
+      meta: {
+        title: 'Question Bank Detail'
+      }
+    },
+    {
+      path: config.app.pages.questionBanks.add,
+      name: 'addQuestionBank',
+      component: addQuestionBank,
+      meta: {
+        title: 'Add Question Bank'
+      }
+    },
+    {
+      path: config.app.pages.questionBanks.questions.list,
+      name: 'questionBankQuestionList',
+      component: questionBankQuestionList,
+      meta: {
+        title: 'Question List'
+      }
+    },
+    {
+      path: config.app.pages.questionBanks.questions.add,
+      name: 'questionBankAddQuestion',
+      component: questionBankAddQuestion,
+      meta: {
+        title: 'Add Question'
+      }
+    },
+    {
+      path: config.app.pages.questionBanks.questions.detail,
+      name: 'questionBankQuestionDetail',
+      component: questionBankQuestionDetail,
+      meta: {
+        title: 'Question Detail'
+      }
+    },
+    {
+      path: config.app.pages.quizzes.list,
       name: 'quizzes',
       component: quizzes,
       meta: {
         title: 'Quizzes'
+      }
+    },
+    {
+      path: config.app.pages.quizzes.add,
+      name: 'addQuiz',
+      component: addQuiz,
+      meta: {
+        title: 'Add Quiz'
+      }
+    },
+    {
+      path: config.app.pages.quizzes.detail,
+      name: 'quizDetail',
+      component: quizDetail,
+      meta: {
+        title: 'Quiz Detail'
       }
     },
     {
@@ -209,6 +283,14 @@ export default new Router({
       component: assignments,
       meta: {
         title: 'Assignments'
+      }
+    },
+    {
+      path: config.app.pages.assignments.detail,
+      name: 'assignmentDetail',
+      component: assignmentDetail,
+      meta: {
+        title: 'Assignment Detail'
       }
     },
     {
@@ -225,6 +307,22 @@ export default new Router({
       component: chatrooms,
       meta: {
         title: 'Chatrooms'
+      }
+    },
+    {
+      path: config.app.pages.assignments.rooms.list,
+      name: 'assignmentRooms',
+      component: assignmentRooms,
+      meta: {
+        title: 'Rooms'
+      }
+    },
+    {
+      path: config.app.pages.assignments.rooms.detail,
+      name: 'assignmentRoomDetail',
+      component: quizDetail,
+      meta: {
+        title: 'Assignment'
       }
     },
     {

@@ -1,6 +1,8 @@
 import axios from 'axios'
 
-require('@mock-api')
+if (process.env.NODE_ENV === 'development') {
+  require('@mock-api')
+}
 
 const getRequest = function (path, callback, errorHandler, configuration) {
   axios.get(path, configuration)

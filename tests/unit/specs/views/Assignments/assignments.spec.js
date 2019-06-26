@@ -17,7 +17,7 @@ describe('Assignment', () => {
 
   function initStore () {
     const state = {
-      asssignmentList: [
+      assignmentList: [
         {
           'id': 'ASG0001',
           'title': 'Assignment 1',
@@ -40,7 +40,7 @@ describe('Assignment', () => {
       fetchAssignmentList: jest.fn()
     }
     const getters = {
-      assignmentList: state => state.assignment
+      assignmentList: state => state.assignmentList
     }
     const store = new Vuex.Store({
       modules: {
@@ -141,5 +141,20 @@ describe('Assignment', () => {
   test('isComplete false', () => {
     initComponent()
     expect(wrapper.vm.isComplete(new Date())).toBe('Ongoing')
+  })
+
+  test('goToAssignmentDetail', () => {
+    initComponent()
+    wrapper.vm.$router.push = jest.fn()
+    wrapper.vm.goToAssignmentDetail(3, 3)
+    expect(wrapper.vm.$router.push).toBeCalledWith({
+      name: 'assignmentDetail',
+      params: {
+        id: 3
+      },
+      query: {
+        batchCode: 3
+      }
+    })
   })
 })
