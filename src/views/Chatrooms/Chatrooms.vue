@@ -45,7 +45,8 @@
         <div class="chatroom-separator"></div>
         <div class="chatroom-right">
           <div class="chatroom-title"><h2>Public</h2></div>
-          <div class="chatroom-messages">
+          <div id="messages-container" class="chatroom-messages">
+            <infinite-loading direction="top" @infinite="infiniteMessageHandler"></infinite-loading>
             <div v-for="message in messages" :key="message.id">
               <MessageBubbleSent v-if="message.sender.id === userId"
                                  :message="message.text"
@@ -75,6 +76,7 @@ import BaseInput from '@/components/BaseInput'
 import MessageBubbleReceived from './MessageBubbleReceived'
 import MessageBubbleSent from './MessageBubbleSent'
 import chatroomApi from '@/api/controller/chatrooms'
+import InfiniteLoading from 'vue-infinite-loading'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 
 const POLL_INTERVAL = 1000
@@ -87,7 +89,8 @@ export default {
     BaseInput,
     BaseCard,
     SearchBar,
-    ChatroomCard
+    ChatroomCard,
+    InfiniteLoading
   },
   data () {
     return {
@@ -115,23 +118,32 @@ export default {
       'fetchMessages'
     ]),
     ...mapMutations([
-      'resetMessages',
-      'resetChatrooms'
+      'RESET_MESSAGES',
+      'RESET_CHATROOMS',
+      'PUSH_CHATROOMS',
+      'UNSHIFT_MESSAGES'
     ]),
+    infiniteMessageHandler ($state) {
+      chatroomApi.getMessages(response => {
+        if (response.data.length) {
+          this.messagePage += 1
+          this.UNSHIFT_MESSAGES(response.data.reverse())
+          $state.loaded()
+        } else {
+          $state.complete()
+        }
+      }, error => console.log(error), {
+        params: {
+          chatroomId: this.activeChatroomId,
+          page: this.messagePage
+        }
+      })
+    },
     submitMessage (event) {
       if (event.keyCode === 13 && this.messageText) {
         chatroomApi.createMessage(response => {
           this.messageText = ''
           console.log(response)
-          this.fetchMessages({
-            data: {
-              params: {
-                chatroomId: this.activeChatroomId,
-                page: 1
-              }
-            },
-            fail: err => console.log(err)
-          })
         }, error => {
           console.log(error)
           this.messageText = ''
@@ -146,6 +158,10 @@ export default {
           }
         })
       }
+    },
+    scrollMessageToBottom () {
+      let container = this.$el.querySelector('#messages-container')
+      container.scrollTop = container.scrollHeight
     },
     getAvatarAndName (participants) {
       for (const participant of participants) {
@@ -176,13 +192,13 @@ export default {
             console.log(err)
           }
         })
-        this.resetChatrooms()
+        this.RESET_CHATROOMS()
         this.resetChatroomPoll()
       } else {
         this.activeChatroomId = 'PUBLIC'
         this.stopPolling()
-        this.resetChatrooms()
-        this.resetMessages()
+        this.RESET_CHATROOMS()
+        this.RESET_MESSAGES()
         this.fetchMessages({
           data: {
             params: {
@@ -192,7 +208,7 @@ export default {
           },
           fail: err => console.log(err)
         })
-        this.initPublicMessagesPoll()
+        this.initMessagesPoll()
       }
     },
     stopPolling () {
@@ -229,20 +245,10 @@ export default {
               page: 1
             }
           },
-          fail: err => console.log(err)
-        })
-      }, POLL_INTERVAL)
-    },
-    initPublicMessagesPoll () {
-      this.messageIntervalObject = setInterval(() => {
-        this.fetchMessages({
-          data: {
-            params: {
-              page: 1,
-              chatroomId: this.activeChatroomId
-            }
-          },
-          fail: err => console.log(err)
+          fail: err => console.log(err),
+          cb: () => {
+            this.scrollMessageToBottom()
+          }
         })
       }, POLL_INTERVAL)
     }
@@ -250,10 +256,8 @@ export default {
   watch: {
     activeChatroomId: function (newId, oldId) {
       clearInterval(this.messageIntervalObject)
-      this.resetMessages()
-      if (!newId) {
-        this.initPublicMessagesPoll()
-      } else {
+      this.RESET_MESSAGES()
+      if (newId) {
         this.fetchMessages({
           data: {
             params: {
@@ -263,21 +267,14 @@ export default {
           },
           fail: err => console.log(err)
         })
-        this.initMessagesPoll()
       }
+      this.initMessagesPoll()
     }
   },
   mounted () {
-    this.fetchMessages({
-      data: {
-        params: {
-          page: 1,
-          chatroomId: this.activeChatroomId
-        }
-      },
-      fail: err => console.log(err)
-    })
-    this.initPublicMessagesPoll()
+    this.initMessagesPoll()
+    this.messagePage = 1
+    this.chatroomPage = 1
   },
   updated () {
     console.log('updated')
