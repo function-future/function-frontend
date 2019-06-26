@@ -33,7 +33,7 @@ describe('actions', () => {
       })
     }
     const data = {
-      page: 0,
+      page: 1,
       pageSize: 10
     }
     const commit = jest.fn()
