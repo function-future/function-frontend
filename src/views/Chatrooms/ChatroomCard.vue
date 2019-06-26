@@ -34,7 +34,6 @@ export default {
     time: Number,
     lastMessage: String,
     avatar: String,
-    chatroomId: String,
     type: String
   },
   computed: {

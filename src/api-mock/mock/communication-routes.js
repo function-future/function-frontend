@@ -258,18 +258,18 @@ export const chatrooms = [
             'name' : 'Priagung Satyagama',
             'avatar' : 'https://dummyimage.com/600x400/000/fff'
           },
-          'text' : 'Lorem ipsum dolor sit amet, consectetur adipiscing',
+          'text' : 'Lorem ipsum dolor sit amet, consectetur adipiscing last message',
           'time' : 1561500940093,
         },
         {
           'id': '63dc9f59-a579-4b69-a80c-a3c48d794f26',
           'sender' : {
-            'id' : '63dc9f59-a579-4b69-a80c-a3c48d794f16',
+            'id' : '63dc9f59-a579-4b69-a80c-a3c48d733f16',
             'name' : 'Ricky Kennedy',
             'avatar' : 'https://dummyimage.com/600x400/000/ff0'
           },
-          'text' : 'Ini Last Message',
-          'time' : 1561500940093,
+          'text' : 'consectetur adipiscing',
+          'time' : 1561500740093,
         }
       ],
       'paging' : {
