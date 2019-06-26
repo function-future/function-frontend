@@ -72,6 +72,7 @@ export default {
     -moz-border-radius: 100%;
     border-radius: 100%;
     height: 35px;
+    width: 35px;
   }
 
   .message-time {

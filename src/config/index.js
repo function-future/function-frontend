@@ -123,6 +123,9 @@ module.exports = {
         getMessages(chatroomId, page, size) {
           return `/api/communication/chatrooms/${chatroomId}/messages?page=${page}&size=${size}`
         },
+        getPublicMessages(page, size) {
+          return `/api/communication/chatrooms/public/messages?page=${page}&size=${size}`
+        },
         create: '/api/communication/chatrooms/',
         createMessage(chatroomId) {
           return `/api/communication/chatrooms/${chatroomId}/messages`

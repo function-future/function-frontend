@@ -45,25 +45,19 @@
         <div class="chatroom-right">
           <div class="chatroom-title"><h2>Public</h2></div>
           <div class="chatroom-messages">
-            <MessageBubbleReceived
-              v-for="i in 2"
-              avatar="https://www.w3schools.com/howto/img_avatar.png"
-              name="Priagung Satyagama"
-              message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis laoreet diam at quam suscipit, ac scelerisque ipsum scelerisque. Vestibulum luctus ex ornare purus maximus fermentum. Morbi leo massa, convallis at sagittis ut, tincidunt quis nulla. Curabitur euismod dui at lacus venenatis tincidunt."
-              :clock="Date.now()"
-              class="chatroom-message-bubble"/>
-            <MessageBubbleSent
-              v-for="i in 3"
-              message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis laoreet diam at quam suscipit, ac scelerisque ipsum scelerisque. Vestibulum luctus ex ornare purus maximus fermentum. Morbi leo massa, convallis at sagittis ut, tincidunt quis nulla. Curabitur euismod dui at lacus venenatis tincidunt."
-              :clock="Date.now()"
-              class="chatroom-message-bubble"/>
-            <MessageBubbleReceived
-              v-for="i in 2"
-              avatar="https://www.w3schools.com/howto/img_avatar.png"
-              name="Priagung Satyagama"
-              message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis laoreet diam at quam suscipit, ac scelerisque ipsum scelerisque. Vestibulum luctus ex ornare purus maximus fermentum. Morbi leo massa, convallis at sagittis ut, tincidunt quis nulla. Curabitur euismod dui at lacus venenatis tincidunt."
-              :clock="Date.now()"
-              class="chatroom-message-bubble"/>
+            <div v-for="message in messages" :key="message.id">
+              <MessageBubbleSent v-if="message.sender.id === userId"
+                                 :message="message.text"
+                                 :clock="message.time"
+                                 class="chatroom-message-bubble" />
+
+              <MessageBubbleReceived v-else
+                                     :message="message.text"
+                                     :clock="message.time"
+                                     :name="message.sender.name"
+                                     :avatar="message.sender.avatar"
+                                     class="chatroom-message-bubble" />
+            </div>
           </div>
           <BaseInput placeholder="Type a message" class="chatroom-message-box" inputType="message-box"/>
         </div>
@@ -95,10 +89,13 @@ export default {
   },
   data () {
     return {
+      // TODO: change userId to authenticated user
+      userId: '63dc9f59-a579-4b69-a80c-a3c48d794f16',
       searchText: '',
       typeChoosen: 'PUBLIC',
       chatroomId: '',
       chatroomPage: 1,
+      messagePage: 1,
       chatroomIntervalObject: '',
       messageIntervalObject: ''
     }
@@ -112,7 +109,8 @@ export default {
   methods: {
     ...mapActions([
       'fetchChatrooms',
-      'fetchMessages'
+      'fetchMessages',
+      'fetchPublicMessages'
     ]),
     ...mapMutations([
       'resetMessages',
@@ -124,20 +122,35 @@ export default {
     },
     changeTypeChoosen (type) {
       this.typeChoosen = type
-      this.fetchChatrooms({
-        data: {
-          params: {
-            page: this.chatroomPage,
-            type: this.typeChoosen,
-            search: this.searchText
+      if (type !== 'PUBLIC') {
+        this.fetchChatrooms({
+          data: {
+            params: {
+              page: 1,
+              type: this.typeChoosen,
+              search: this.searchText
+            }
+          },
+          fail: (err) => {
+            console.log(err)
           }
-        },
-        fail: (err) => {
-          console.log(err)
-        }
-      })
-      this.resetChatrooms()
-      this.resetChatroomPoll()
+        })
+        this.resetChatrooms()
+        this.resetChatroomPoll()
+      } else {
+        this.stopPolling()
+        this.resetChatrooms()
+        this.resetMessages()
+        this.fetchPublicMessages({
+          data: {
+            params: {
+              page: 1
+            }
+          },
+          fail: err => console.log(err)
+        })
+        this.initPublicMessagesPoll()
+      }
     },
     stopPolling () {
       clearInterval(this.chatroomIntervalObject)
@@ -153,7 +166,7 @@ export default {
         this.fetchChatrooms({
           data: {
             params: {
-              page: this.chatroomPage,
+              page: 1,
               type: this.typeChoosen,
               search: this.searchText
             }
@@ -163,10 +176,30 @@ export default {
           }
         })
       }, POLL_INTERVAL)
+    },
+    initPublicMessagesPoll () {
+      this.messageIntervalObject = setInterval(() => {
+        this.fetchPublicMessages({
+          data: {
+            params: {
+              page: 1
+            }
+          },
+          fail: err => console.log(err)
+        })
+      }, POLL_INTERVAL)
     }
   },
-  created () {
-    this.initChatroomPoll()
+  mounted () {
+    this.fetchPublicMessages({
+      data: {
+        params: {
+          page: 1
+        }
+      },
+      fail: err => console.log(err)
+    })
+    this.initPublicMessagesPoll()
   },
   destroyed () {
     this.stopPolling()
@@ -177,7 +210,7 @@ export default {
 <style scoped>
 
   .chatroom-card-wrapper {
-    height: 40vh;
+    max-height: 40vh;
     overflow: auto;
     padding: 10px;
   }

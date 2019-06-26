@@ -25,6 +25,14 @@ const getMessages = function(callback, error, data) {
   )
 }
 
+const getPublicMessages = function(callback, error, data) {
+  request.getRequest(
+    config.api.communication.chatrooms.getPublicMessages(data.params.page, config.dev.defaultPageSize),
+    callback,
+    error
+  )
+}
+
 const createChatroom = function(callback, error, data) {
   request.postRequest(
     config.api.communication.chatrooms.create,
@@ -65,6 +73,7 @@ export default {
   getChatrooms,
   getChatroomDetails,
   getMessages,
+  getPublicMessages,
   createChatroom,
   createMessage,
   updateChatroom,

@@ -27,7 +27,7 @@ export const chatrooms = [
           'type' : 'PRIVATE',
           'lastMessage' : {
             'message' : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sit amet sollicitudin justo',
-            'time' : 1558667802,
+            'time' : 1561500940093,
             'isSeen' : false
           }
         },
@@ -49,7 +49,7 @@ export const chatrooms = [
           'type' : 'PRIVATE',
           'lastMessage' : {
             'message' : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sit amet sollicitudin justo',
-            'time' : 1558667802,
+            'time' : 1561300940093,
             'isSeen' : false
           }
         },
@@ -92,7 +92,7 @@ export const chatrooms = [
           'type' : 'GROUP',
           'lastMessage' : {
             'message' : 'Ini Last Message',
-            'time' : 1558667802,
+            'time' : 1561500940093,
             'isSeen' : false
           }
         },
@@ -119,7 +119,7 @@ export const chatrooms = [
           'type' : 'GROUP',
           'lastMessage' : {
             'message' : 'Selamat siang semuanya',
-            'time' : 1558667900,
+            'time' : 1561500940093,
             'isSeen' : false
           }
         },
@@ -162,7 +162,7 @@ export const chatrooms = [
           'type' : 'GROUP',
           'lastMessage' : {
             'message' : 'Selamat siang semuanya',
-            'time' : 1558667900,
+            'time' : 1561500940093,
             'isSeen' : false
           }
         },
@@ -184,7 +184,7 @@ export const chatrooms = [
           'type' : 'PRIVATE',
           'lastMessage' : {
             'message' : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sit amet sollicitudin justo',
-            'time' : 1558667802,
+            'time' : 1561500940093,
             'isSeen' : true
           }
         }
@@ -259,7 +259,7 @@ export const chatrooms = [
             'avatar' : 'https://dummyimage.com/600x400/000/fff'
           },
           'text' : 'Lorem ipsum dolor sit amet, consectetur adipiscing',
-          'time' : 1558667802,
+          'time' : 1561500940093,
         },
         {
           'id': '63dc9f59-a579-4b69-a80c-a3c48d794f26',
@@ -269,7 +269,43 @@ export const chatrooms = [
             'avatar' : 'https://dummyimage.com/600x400/000/ff0'
           },
           'text' : 'Ini Last Message',
-          'time' : 1558667802,
+          'time' : 1561500940093,
+        }
+      ],
+      'paging' : {
+        'page' : 1,
+        'size' : 12,
+        'totalRecords' : 13
+      }
+    }
+  },
+  {
+    // get messages in a public chatroom
+    method: 'GET',
+    url: config.api.communication.chatrooms.getPublicMessages(1, 10),
+    response: {
+      'code' : 200,
+      'status' : 'OK',
+      'data' : [
+        {
+          'id': '63dc9f59-a579-4b69-a80c-a3c48d794f46',
+          'sender' : {
+            'id' : '63dc9f59-a579-4b69-a80c-a3c48d794f16',
+            'name' : 'Priagung Satyagama',
+            'avatar' : 'https://dummyimage.com/600x400/000/fff'
+          },
+          'text' : 'Lorem ipsum dolor sit amet, consectetur adipiscing',
+          'time' : 1561500940093,
+        },
+        {
+          'id': '63dc9f59-a579-4b69-a80c-a3c48d794f26',
+          'sender' : {
+            'id' : '63dc9f59-a579-4b69-a80c-a3c48d794f33',
+            'name' : 'Ricky Kennedy',
+            'avatar' : 'https://dummyimage.com/600x400/000/ff0'
+          },
+          'text' : 'Ini Last Message',
+          'time' : 1561500940093,
         }
       ],
       'paging' : {

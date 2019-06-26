@@ -40,12 +40,12 @@ export const actions = {
       state.commit('UPDATE_CHATROOMS', chatrooms)
     }, fail, data)
   },
-  fetchMessages ({ commit }, { data, fail }) {
+  fetchMessages (state, { data, fail }) {
     chatroomApi.getMessages(response => {
       console.log(response)
       let additionalMessages = []
       let messages = state.messages
-      if (state.messages.length > response.data.length) {
+      if (state.messages && state.messages.length > response.data.length) {
         for (const message of response.data) {
           if (message.id === state.messages[0].id) {
             break
@@ -56,6 +56,27 @@ export const actions = {
       } else {
         messages = response.data
       }
+      state.commit('UPDATE_MESSAGES', messages)
+    }, fail, data)
+  },
+  fetchPublicMessages (state, { data, fail }) {
+    chatroomApi.getPublicMessages(response => {
+      console.log(response)
+      let additionalMessages = []
+      let messages = state.messages
+      if (state.messages && state.messages.length > response.data.length) {
+        for (const message of response.data) {
+          if (message.id === state.messages[0].id) {
+            break
+          }
+          additionalMessages.push(message)
+        }
+        messages.unshift(additionalMessages)
+      } else {
+        messages = response.data
+      }
+      console.log('messages')
+      console.log(messages)
       state.commit('UPDATE_MESSAGES', messages)
     }, fail, data)
   }
