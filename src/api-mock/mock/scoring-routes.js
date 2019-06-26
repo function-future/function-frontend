@@ -1,7 +1,7 @@
 export const assignments = [
   {
     method: 'GET',
-    url: '/api/scoring/batches/futur3/assignments?page=0&size=10',
+    url: '/api/scoring/batches/futur3/assignments?page=1&size=10',
     response: {
       "code": 200,
       "status": "OK",
@@ -209,7 +209,7 @@ export const assignmentRooms = [
 export const quizzes = [
   {
     method: 'GET',
-    url: '/api/scoring/batches/futur3/quizzes?page=0&size=10',
+    url: '/api/scoring/batches/futur3/quizzes?page=1&size=10',
     response: {
       "code": 200,
       "status": "OK",
@@ -360,7 +360,7 @@ export const quizDetail = [
 export const questionBanks = [
   {
     method: 'GET',
-    url: '/api/scoring/question-banks?page=0&size=10',
+    url: '/api/scoring/question-banks?page=1&size=10',
     response: {
       "code" : 200,
       "status" : "OK",
