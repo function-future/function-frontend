@@ -7,10 +7,10 @@ export default {
   },
   computed: {
     previousButtonDisabled () {
-      return this.paging.page === 0
+      return this.paging.page === 1
     },
     nextButtonDisabled () {
-      return this.paging.page + 1 === this.totalPage
+      return this.paging.page === this.totalPage
     },
     totalPage () {
       return Math.ceil(this.paging.totalRecords / this.paging.size)
@@ -59,7 +59,7 @@ export default {
   },
   methods: {
     activePage (page) {
-      return this.paging.page + 1 === page
+      return this.paging.page === page
     },
     previousPage () {
       this.$emit('previousPage')
@@ -68,7 +68,7 @@ export default {
       this.$emit('nextPage')
     },
     goToPage (page) {
-      this.$emit('loadPage', page - 1)
+      this.$emit('loadPage', page)
     }
   }
 }

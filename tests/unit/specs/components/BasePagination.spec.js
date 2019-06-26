@@ -33,7 +33,7 @@ describe('BasePagination', () => {
     initComponent()
     wrapper.setProps({
       paging: {
-        page: 0
+        page: 1
       }
     })
     expect(wrapper.vm.previousButtonDisabled).toEqual(true)
@@ -43,7 +43,7 @@ describe('BasePagination', () => {
     initComponent()
     wrapper.setProps({
       paging: {
-        page: 1
+        page: 2
       }
     })
     expect(wrapper.vm.previousButtonDisabled).toEqual(false)
@@ -53,7 +53,7 @@ describe('BasePagination', () => {
     initComponent()
     wrapper.setProps({
       paging: {
-        page: 9,
+        page: 10,
         totalRecords: 100,
         size: 10
       }
@@ -137,7 +137,7 @@ describe('BasePagination', () => {
     initComponent()
     wrapper.setProps({
       paging: {
-        page: 0,
+        page: 1,
         totalRecords: 30,
         size: 10
       }
@@ -149,7 +149,7 @@ describe('BasePagination', () => {
     initComponent()
     wrapper.setProps({
       paging: {
-        page: 0,
+        page: 1,
         totalRecords: 30,
         size: 10
       }
@@ -162,7 +162,7 @@ describe('BasePagination', () => {
     initComponent()
     wrapper.setProps({
       paging: {
-        page: 0,
+        page: 1,
         totalRecords: 30,
         size: 10
       }
@@ -175,12 +175,12 @@ describe('BasePagination', () => {
     initComponent()
     wrapper.setProps({
       paging: {
-        page: 0,
+        page: 1,
         totalRecords: 30,
         size: 10
       }
     })
     wrapper.vm.goToPage(10)
-    expect(wrapper.emitted().loadPage[0]).toEqual([9])
+    expect(wrapper.emitted().loadPage[0]).toEqual([10])
   })
 })
