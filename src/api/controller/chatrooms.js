@@ -43,7 +43,7 @@ const createChatroom = function(callback, error, data) {
   )
 }
 
-const createMessage = function(callback, error, data) {
+const createMessage = function (callback, error, data) {
   request.postRequest(
     config.api.communication.chatrooms.createMessage(data.params.chatroomId),
     callback,

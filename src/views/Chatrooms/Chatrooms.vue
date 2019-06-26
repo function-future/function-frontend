@@ -60,7 +60,7 @@
                                      class="chatroom-message-bubble" />
             </div>
           </div>
-          <BaseInput placeholder="Type a message" class="chatroom-message-box" inputType="message-box"/>
+          <BaseInput v-model="messageText" placeholder="Type a message" class="chatroom-message-box" inputType="message-box"/>
         </div>
       </div>
     </BaseCard>
@@ -74,6 +74,7 @@ import ChatroomCard from './ChatroomCard'
 import BaseInput from '@/components/BaseInput'
 import MessageBubbleReceived from './MessageBubbleReceived'
 import MessageBubbleSent from './MessageBubbleSent'
+import chatroomApi from '@/api/controller/chatrooms'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 
 const POLL_INTERVAL = 1000
@@ -91,10 +92,11 @@ export default {
   data () {
     return {
       // TODO: change userId to authenticated user
-      userId: '5d119940047e5e37a8986220',
+      userId: '5d12a2ed32a1893cec242e73',
       searchText: '',
       typeChoosen: 'PUBLIC',
-      activeChatroomId: '',
+      messageText: '',
+      activeChatroomId: 'PUBLIC',
       chatroomPage: 1,
       messagePage: 1,
       chatroomIntervalObject: '',
@@ -110,16 +112,39 @@ export default {
   methods: {
     ...mapActions([
       'fetchChatrooms',
-      'fetchMessages',
-      'fetchPublicMessages'
+      'fetchMessages'
     ]),
     ...mapMutations([
       'resetMessages',
       'resetChatrooms'
     ]),
-    getAvatarAndName(participants) {
+    submitMessage (event) {
+      if (event.keyCode === 13 && this.messageText) {
+        chatroomApi.createMessage(response => {
+          console.log(response)
+          this.fetchMessages({
+            data: {
+              params: {
+                chatroomId: this.activeChatroomId,
+                page: 1
+              }
+            },
+            fail: err => console.log(err)
+          })
+        }, error => console.log(error),
+        {
+          params: {
+            chatroomId: this.activeChatroomId
+          },
+          body: {
+            message: this.messageText
+          }
+        })
+      }
+    },
+    getAvatarAndName (participants) {
       for (const participant of participants) {
-        if (participant.id != userId) {
+        if (participant.id !== this.userId) {
           return {
             avatar: participant.avatar,
             name: participant.name
@@ -149,14 +174,15 @@ export default {
         this.resetChatrooms()
         this.resetChatroomPoll()
       } else {
-        this.activeChatroomId = ''
+        this.activeChatroomId = 'PUBLIC'
         this.stopPolling()
         this.resetChatrooms()
         this.resetMessages()
-        this.fetchPublicMessages({
+        this.fetchMessages({
           data: {
             params: {
-              page: 1
+              page: 1,
+              chatroomId: this.activeChatroomId
             }
           },
           fail: err => console.log(err)
@@ -204,10 +230,11 @@ export default {
     },
     initPublicMessagesPoll () {
       this.messageIntervalObject = setInterval(() => {
-        this.fetchPublicMessages({
+        this.fetchMessages({
           data: {
             params: {
-              page: 1
+              page: 1,
+              chatroomId: this.activeChatroomId
             }
           },
           fail: err => console.log(err)
@@ -236,15 +263,19 @@ export default {
     }
   },
   mounted () {
-    this.fetchPublicMessages({
+    this.fetchMessages({
       data: {
         params: {
-          page: 1
+          page: 1,
+          chatroomId: this.activeChatroomId
         }
       },
       fail: err => console.log(err)
     })
     this.initPublicMessagesPoll()
+  },
+  updated () {
+    console.log('updated')
   },
   destroyed () {
     this.stopPolling()

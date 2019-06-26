@@ -7,7 +7,7 @@ if (process.env.NODE_ENV === 'development') {
 const getRequest = function (path, callback, errorHandler, configuration) {
   axios.get(path, configuration)
     .then(({ data }) => {
-      callback(data.response)
+      callback(data)
     })
     .catch(error => {
       if (typeof errorHandler === 'function') {
@@ -19,7 +19,7 @@ const getRequest = function (path, callback, errorHandler, configuration) {
 const postRequest = function (path, callback, data, errorHandler, configuration) {
   axios.post(path, data, configuration)
     .then(({ data }) => {
-      callback(data.response)
+      callback(data)
     })
     .catch(error => {
       if (typeof errorHandler === 'function') {
@@ -31,7 +31,7 @@ const postRequest = function (path, callback, data, errorHandler, configuration)
 const putRequest = function (path, callback, data, errorHandler, configuration) {
   axios.put(path, data, configuration)
     .then(({ data }) => {
-      callback(data.response)
+      callback(data)
     })
     .catch(error => {
       if (typeof errorHandler === 'function') {
@@ -43,7 +43,7 @@ const putRequest = function (path, callback, data, errorHandler, configuration) 
 const deleteRequest = function (path, callback, errorHandler, configuration) {
   axios.delete(path, configuration)
     .then(({ data }) => {
-      callback(data.response)
+      callback(data)
     })
     .catch(error => {
       if (typeof errorHandler === 'function') {

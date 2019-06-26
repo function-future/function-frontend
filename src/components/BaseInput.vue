@@ -3,6 +3,7 @@
       <label v-if="label" class="input-label">{{ label }}</label>
       <input
         @input="updateValue"
+        @keyup="emitKeyUp"
         class="input-box"
         v-bind="$attrs"
         :value="value"

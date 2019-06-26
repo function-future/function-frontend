@@ -28,8 +28,8 @@ export const mutations = {
 
 export const actions = {
   fetchChatrooms (state, { data, fail }) {
-    chatroomApi.getChatrooms( response => {
-      console.log("chatrooms " + response)
+    chatroomApi.getChatrooms(response => {
+      console.log('chatrooms ' + response)
       if (data.params.page === 1) {
         let additionalChatrooms = []
         let chatrooms = state.chatrooms
@@ -48,7 +48,6 @@ export const actions = {
       } else {
         state.commit('PUSH_CHATROOMS', response.data)
       }
-
     }, fail, data)
   },
   fetchMessages (state, { data, fail }) {
@@ -68,31 +67,6 @@ export const actions = {
         } else {
           messages = response.data
         }
-        state.commit('UPDATE_MESSAGES', messages)
-      } else {
-        state.commit('PUSH_MESSAGES', response.data)
-      }
-    }, fail, data)
-  },
-  fetchPublicMessages (state, { data, fail }) {
-    chatroomApi.getPublicMessages(response => {
-      console.log(response)
-      if (data.params.page === 1) {
-        let additionalMessages = []
-        let messages = state.messages
-        if (state.messages && state.messages.length > response.data.length) {
-          for (const message of response.data) {
-            if (message.id === state.messages[0].id) {
-              break
-            }
-            additionalMessages.push(message)
-          }
-          messages.unshift(additionalMessages)
-        } else {
-          messages = response.data
-        }
-        console.log('messages')
-        console.log(messages)
         state.commit('UPDATE_MESSAGES', messages)
       } else {
         state.commit('PUSH_MESSAGES', response.data)
