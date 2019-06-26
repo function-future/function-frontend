@@ -57,10 +57,14 @@ export default {
       }
     },
     convertClock () {
-      if (moment.duration(Date.now() - this.time).asDays() >= 1) {
-        return moment(this.time).format('DD MMM')
+      if (this.time) {
+        if (moment.duration(Date.now() - this.time).asDays() >= 1) {
+          return moment(this.time).format('DD MMM')
+        }
+        return moment(this.time).format('HH:mm')
+      } else {
+        return ""
       }
-      return moment(this.time).format('HH:mm')
     }
   }
 }

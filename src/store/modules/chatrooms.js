@@ -28,8 +28,8 @@ export const mutations = {
 
 export const actions = {
   fetchChatrooms (state, { data, fail }) {
-    chatroomApi.getChatrooms(response => {
-      console.log(response.data)
+    chatroomApi.getChatrooms( response => {
+      console.log("chatrooms " + response)
       if (data.params.page === 1) {
         let additionalChatrooms = []
         let chatrooms = state.chatrooms

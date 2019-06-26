@@ -15,9 +15,9 @@
               <ChatroomCard v-for="chatroom in chatrooms"
                             :type="chatroom.type"
                             :name="chatroom.name"
-                            :is-seen="chatroom.lastMessage.isSeen"
-                            :time="chatroom.lastMessage.time"
-                            :last-message="chatroom.lastMessage.message"
+                            :is-seen="chatroom.lastMessage ? chatroom.lastMessage.seen : true"
+                            :time="chatroom.lastMessage ? chatroom.lastMessage.time : null"
+                            :last-message="chatroom.lastMessage ? chatroom.lastMessage.message : 'No Message'"
                             :key="chatroom.id"
                             @click="activeChatroomId = chatroom.id" />
             </div>
@@ -27,12 +27,12 @@
             <div v-if="typeChoosen === 'PRIVATE'" class="chatroom-card-wrapper">
 <!-- TODO: Change avatar to participant who are not authenticated user -->
               <ChatroomCard v-for="chatroom in chatrooms"
-                            :avatar="chatroom.participants[0].avatar"
+                            :avatar="getAvatarAndName(chatroom.participants).avatar"
                             :type="chatroom.type"
-                            :name="chatroom.participants[0].name"
-                            :is-seen="chatroom.lastMessage.isSeen"
-                            :time="chatroom.lastMessage.time"
-                            :last-message="chatroom.lastMessage.message"
+                            :name="getAvatarAndName(chatroom.participants).name"
+                            :is-seen="chatroom.lastMessage ? chatroom.lastMessage.seen : true"
+                            :time="chatroom.lastMessage ? chatroom.lastMessage.time : null"
+                            :last-message="chatroom.lastMessage ? chatroom.lastMessage.message : 'No Message'"
                             @click="activeChatroomId = chatroom.id"
                             :key="chatroom.id" />
 
@@ -91,7 +91,7 @@ export default {
   data () {
     return {
       // TODO: change userId to authenticated user
-      userId: '63dc9f59-a579-4b69-a80c-a3c48d794f16',
+      userId: '5d119940047e5e37a8986220',
       searchText: '',
       typeChoosen: 'PUBLIC',
       activeChatroomId: '',
@@ -117,6 +117,16 @@ export default {
       'resetMessages',
       'resetChatrooms'
     ]),
+    getAvatarAndName(participants) {
+      for (const participant of participants) {
+        if (participant.id != userId) {
+          return {
+            avatar: participant.avatar,
+            name: participant.name
+          }
+        }
+      }
+    },
     changeText (value) {
       console.log(value)
       this.text = value

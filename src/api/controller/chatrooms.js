@@ -26,6 +26,7 @@ const getMessages = function(callback, error, data) {
 }
 
 const getPublicMessages = function(callback, error, data) {
+  console.log(config.api.communication.chatrooms.getPublicMessages(data.params.page, config.dev.defaultPageSize),)
   request.getRequest(
     config.api.communication.chatrooms.getPublicMessages(data.params.page, config.dev.defaultPageSize),
     callback,
