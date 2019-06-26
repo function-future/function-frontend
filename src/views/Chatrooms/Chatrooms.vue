@@ -60,7 +60,7 @@
                                      class="chatroom-message-bubble" />
             </div>
           </div>
-          <BaseInput v-model="messageText" placeholder="Type a message" class="chatroom-message-box" inputType="message-box"/>
+          <BaseInput v-model="messageText" @keyup="submitMessage" placeholder="Type a message" class="chatroom-message-box" inputType="message-box"/>
         </div>
       </div>
     </BaseCard>
@@ -121,6 +121,7 @@ export default {
     submitMessage (event) {
       if (event.keyCode === 13 && this.messageText) {
         chatroomApi.createMessage(response => {
+          this.messageText = ''
           console.log(response)
           this.fetchMessages({
             data: {
@@ -131,7 +132,11 @@ export default {
             },
             fail: err => console.log(err)
           })
-        }, error => console.log(error),
+        }, error => {
+          console.log(error)
+          this.messageText = ''
+          this.$toasted.error('Fail to send message')
+        },
         {
           params: {
             chatroomId: this.activeChatroomId
