@@ -149,7 +149,8 @@ module.exports = {
           post: 'api/core/courses',
           detail: {
             get (id) { return `/api/core/courses/${id}` },
-            update (id) { return `/api/core/courses/${id}` }
+            update (id) { return `/api/core/courses/${id}` },
+            delete (id) { return `/api/core/courses/${id}` }
           }
         },
         get (code, page, size) { return `/api/core/batches/${code}/courses?page=${page}&size=${size}` },
