@@ -52,7 +52,10 @@ export default {
     goToThisCourseDetail (id) {
       this.$router.push({
         name: 'courseDetail',
-        params: { id: id }
+        params: {
+          id: id,
+          code: this.$route.params.code
+        }
       })
     },
     goToAddCourse () {
@@ -63,7 +66,10 @@ export default {
     goToEditCourse (id) {
       this.$router.push({
         name: 'editCourse',
-        params: { id: id }
+        params: {
+          id: id,
+          code: this.$route.params.code
+        }
       })
     },
     deleteThisCourse () {}

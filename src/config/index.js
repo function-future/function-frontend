@@ -29,7 +29,7 @@ module.exports = {
         list: '/batches/:code/courses',
         add: '/batches/:code/courses/add',
         detail: '/batches/:code/courses/:id/detail',
-        edit: '/batches/:code/courses/:id/detail'
+        edit: '/batches/:code/courses/:id/edit'
       },
       files: '/files',
       users: {
