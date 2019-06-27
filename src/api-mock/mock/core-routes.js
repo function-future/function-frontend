@@ -693,6 +693,32 @@ export const batches = [
         'totalRecords': 4
       }
     }
+  },
+  {
+    method: 'GET',
+    url: '/api/core/batches/sample-id-1',
+    response: {
+      'code': 200,
+      'status': 'OK',
+      'data': {
+        'id': 'sample-id-1',
+        'code': 'Batch Code 1',
+        'name': 'Batch Name'
+      }
+    }
+  },
+  {
+    method: 'POST',
+    url: '/api/core/batches',
+    response: {
+      'code': 200,
+      'status': 'OK',
+      'data': {
+        'id': 'sample-id-1',
+        'code': 'Batch Code 1',
+        'name': 'Batch Name'
+      }
+    }
   }
 ]
 
