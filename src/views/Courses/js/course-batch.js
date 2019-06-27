@@ -45,7 +45,11 @@ export default {
         name: 'masterCourses'
       })
     },
-    createNewBatch () {},
+    createNewBatch () {
+      this.$router.push({
+        name: 'addBatch'
+      })
+    },
     initPage () {
       this.fetchBatches({
         callback: this.successFetchBatches,
@@ -57,6 +61,14 @@ export default {
     },
     failFetchBatches () {
       this.$toasted.error('Fail to fetch batches, please try again')
+    },
+    editBatch (id) {
+      this.$router.push({
+        name: 'editBatch',
+        params: { id: id }
+      })
+    },
+    deleteBatch (id) {
     }
   }
 }

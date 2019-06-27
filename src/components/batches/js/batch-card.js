@@ -7,5 +7,13 @@ export default {
   },
   props: [
     'batch'
-  ]
+  ],
+  methods: {
+    edit () {
+      this.$emit('edit', this.batch.id)
+    },
+    deleteBatch () {
+      this.$emit('delete', this.batch.id)
+    }
+  }
 }

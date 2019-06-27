@@ -13,7 +13,7 @@
     <h3 class="title">Batches</h3>
     <div class="batch-div">
       <div class="batch" v-for="batch in batches" :key="batch.id">
-        <BatchCard :batch="batch" @click.native="goToCourse(batch.code)"></BatchCard>
+        <BatchCard :batch="batch" @click.native="goToCourse(batch.code)" @edit="editBatch" @delete="deleteBatch"></BatchCard>
       </div>
     </div>
   </div>
@@ -41,8 +41,13 @@
   }
 
   .batch {
-    flex: 0 0 33%;
+    flex: 0 0 50%;
+  }
 
+  @media only screen and (min-width: 1050px) {
+    .batch {
+      flex: 0 0 33%;
+    }
   }
 
   .button-div {
