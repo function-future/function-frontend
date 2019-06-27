@@ -30,7 +30,7 @@ export default {
       this.fetchAssignmentList({
         data: {
           batchCode: 'futur3',
-          page: 0,
+          page: 1,
           pageSize: 10
         },
         fail: this.failFetchingAssignmentList
