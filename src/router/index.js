@@ -29,6 +29,7 @@ import batchForm from '@/views/Courses/BatchForm.vue'
 import courses from '@/views/Courses/Courses.vue'
 import masterCourses from '@/views/Courses/MasterCourses.vue'
 import courseDetail from '@/views/Courses/CourseDetail.vue'
+import courseForm from '@/views/Courses/CourseForm.vue'
 import masterCourseDetail from '@/views/Courses/MasterCourseDetail.vue'
 import masterCourseForm from '@/views/Courses/MasterCourseForm.vue'
 import config from '@/config/index'
@@ -188,6 +189,34 @@ export default new Router({
           { name: 'Course Detail', link: 'courseDetail' }
         ]
       }
+    },
+    {
+      path: config.app.pages.courses.add,
+      name: 'addCourse',
+      component: courseForm,
+      meta: {
+        title: 'Add Course',
+        breadcrumb: [
+          { name: 'Batches', link: 'courseBatches' },
+          { name: 'Courses', link: 'courses' },
+          { name: 'Add Course', link: 'addCourse' }
+        ]
+      },
+      props: { editMode: false }
+    },
+    {
+      path: config.app.pages.courses.master.edit,
+      name: 'editCourse',
+      component: courseForm,
+      meta: {
+        title: 'Edit Course',
+        breadcrumb: [
+          { name: 'Batches', link: 'courseBatches' },
+          { name: 'Courses', link: 'courses' },
+          { name: 'Edit Course', link: 'editCourse' }
+        ]
+      },
+      props: { editMode: true }
     },
     {
       path: config.app.pages.courses.master.detail,
