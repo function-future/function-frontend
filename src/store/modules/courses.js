@@ -68,6 +68,11 @@ export const actions = {
       callback()
     }, data, fail)
   },
+  deleteMasterCourseById ({ commit }, { data, callback, fail }) {
+    courseApi.deleteMasterCourse(({ data: response }) => {
+      callback()
+    }, data, fail)
+  },
   uploadMaterial ({ commit }, { data, configuration, callback, fail }) {
     resourceApi.uploadResource(({ data: response }) => {
       callback(response)

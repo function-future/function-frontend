@@ -7,9 +7,14 @@
     </div>
     <div v-for="course in masterCourses" :key="course.id">
       <CourseCard :course="course" @click.native="goToThisMasterCourseDetail(course.id)"
-                  @edit="goToEditMasterCourse(course.id)" @delete="deleteThisMasterCourse(course.id)">
+                  @edit="goToEditMasterCourse(course.id)" @delete="openDeleteConfirmationModal(course.id)">
       </CourseCard>
     </div>
+    <modal-delete-confirmation v-if="showDeleteConfirmationModal"
+                               @close="showDeleteConfirmationModal = false"
+                               @clickDelete="deleteThisMasterCourse">
+      <div slot="description">Are you sure you want to delete this master course?</div>
+    </modal-delete-confirmation>
   </div>
 </template>
 

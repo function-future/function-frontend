@@ -37,6 +37,10 @@ const deleteCourse = function (callback, data, errorHandler) {
   request.deleteRequest(config.api.core.courses.detail.delete(data.code, data.id), callback, errorHandler)
 }
 
+const deleteMasterCourse = function (callback, data, errorHandler) {
+  request.deleteRequest(config.api.core.courses.master.detail.delete(data.id), callback, errorHandler)
+}
+
 export default {
   getCourseList,
   getMasterCourseList,
@@ -46,5 +50,6 @@ export default {
   getMasterCourseDetail,
   updateCourse,
   updateMasterCourse,
-  deleteCourse
+  deleteCourse,
+  deleteMasterCourse
 }
