@@ -2,6 +2,7 @@ import { mapActions, mapGetters } from 'vuex'
 import BaseCard from '@/components/BaseCard'
 import BaseButton from '@/components/BaseButton'
 import BaseTextArea from '@/components/BaseTextArea'
+import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
 import axios from 'axios'
 let marked = require('marked')
 
@@ -10,7 +11,8 @@ export default {
   components: {
     BaseCard,
     BaseButton,
-    BaseTextArea
+    BaseTextArea,
+    ModalDeleteConfirmation
   },
   data () {
     return {
@@ -19,7 +21,8 @@ export default {
         title: '',
         description: '',
         material: ''
-      }
+      },
+      showDeleteConfirmationModal: false
     }
   },
   computed: {
@@ -35,7 +38,8 @@ export default {
   },
   methods: {
     ...mapActions([
-      'fetchMasterCourseById'
+      'fetchMasterCourseById',
+      'deleteMasterCourseById'
     ]),
     initPage () {
       this.initMasterCourse()
@@ -61,14 +65,39 @@ export default {
         .then(response => { this.forceFileDownload(response) })
         .catch(() => console.log('error occurred'))
     },
-    goToEditCourse () {},
-    deleteCourse () {},
     forceFileDownload (response) {
       const url = window.URL.createObjectURL(new Blob([response.data]))
       const link = document.createElement('a')
       link.href = url
       document.body.appendChild(link)
       link.click()
-    }
+    },
+    goToEditMasterCourse () {
+      this.$router.push({
+        name: 'editMasterCourse',
+        params: { id: this.$route.params.id }
+      })
+    },
+    openDeleteConfirmationModal () {
+      this.showDeleteConfirmationModal = true
+    },
+    deleteMasterCourse () {
+      let data = { id: this.$route.params.id }
+
+      this.deleteMasterCourseById({
+        data,
+        callback: this.successDeleteMasterById,
+        fail: this.failDeleteMasterById
+      })
+    },
+    successDeleteMasterById () {
+      this.$router.push({ name: 'masterCourses' })
+      this.$toasted.success('Successfully delete master course')
+      this.showDeleteConfirmationModal = false
+    },
+    failDeleteMasterById () {
+      this.$toasted.error('Fail to delete master course')
+      this.showDeleteConfirmationModal = false
+    },
   }
 }

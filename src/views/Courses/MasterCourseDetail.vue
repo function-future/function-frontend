@@ -6,10 +6,10 @@
       </div>
       <div class="header float-right">
         <div class="action">
-          <span class="edit-btn" @click="goToEditCourse">
+          <span class="edit-btn" @click.stop="goToEditMasterCourse">
             <font-awesome-icon icon="edit" class="icon blue" size="lg"></font-awesome-icon>
           </span>
-          <span class="delete-btn" @click="deleteCourse">
+          <span class="delete-btn" @click.stop="openDeleteConfirmationModal">
             <font-awesome-icon icon="trash-alt" class="icon red" size="lg"></font-awesome-icon>
           </span>
         </div>
@@ -21,6 +21,11 @@
         <span v-html="descriptionCompiledMarkdown"></span>
       </div>
     </BaseCard>
+    <modal-delete-confirmation v-if="showDeleteConfirmationModal"
+                               @close="showDeleteConfirmationModal = false"
+                               @clickDelete="deleteMasterCourse">
+      <div slot="description">Are you sure you want to delete this master course?</div>
+    </modal-delete-confirmation>
   </div>
 </template>
 
