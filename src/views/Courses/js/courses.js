@@ -55,8 +55,17 @@ export default {
         params: { id: id }
       })
     },
-    goToAddCourse () {},
-    editThisCourse () {},
+    goToAddCourse () {
+      this.$router.push({
+        name: 'addCourse'
+      })
+    },
+    goToEditCourse (id) {
+      this.$router.push({
+        name: 'editCourse',
+        params: { id: id }
+      })
+    },
     deleteThisCourse () {}
   }
 }
