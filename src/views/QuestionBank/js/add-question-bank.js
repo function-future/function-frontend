@@ -26,7 +26,7 @@ export default {
       this.$router.push({
         name: 'questionBanks',
         queries: {
-          page: 0,
+          page: 1,
           pageSize: 10
         }
       })
@@ -43,7 +43,7 @@ export default {
       this.$router.push({
         name: 'questionBanks',
         queries: {
-          page: 0,
+          page: 1,
           pageSize: 10
         }
       })

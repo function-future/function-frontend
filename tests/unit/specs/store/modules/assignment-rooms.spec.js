@@ -35,7 +35,7 @@ describe('actions', () => {
     const data = {
       batchCode: 'futur3',
       assignmentId: 'ASG0001',
-      page: 0,
+      page: 1,
       pageSize: 10
     }
     const commit = jest.fn()

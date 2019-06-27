@@ -108,7 +108,7 @@ export const announcements = [
   {
     // Get list of announcements
     method: 'GET',
-    url: '/api/core/announcements?page=0&size=10',
+    url: '/api/core/announcements?page=1&size=10',
     response: {
       'code': 200,
       'status': 'OK',
@@ -319,7 +319,7 @@ export const activityBlogs = [
   {
     // Get list of announcements
     method: 'GET',
-    url: '/api/core/activity-blogs?page=0&size=10',
+    url: '/api/core/activity-blogs?page=1&size=10',
     response: {
       "code": 200,
       "status": "OK",
@@ -535,7 +535,7 @@ export const resources = [
 export const users = [
   {
     method: 'GET',
-    url: '/api/core/users?page=0&size=10&role=student',
+    url: '/api/core/users?page=1&size=10&role=student',
     response: [
       {
         'id': 'sample-id-student',
@@ -636,7 +636,7 @@ export const users = [
   },
   {
     method: 'GET',
-    url: '/api/core/users?page=0&size=10&role=mentor',
+    url: '/api/core/users?page=1&size=10&role=mentor',
     response: [
       {
         'id': 'sample-id-mentor-1',
@@ -665,7 +665,7 @@ export const users = [
   },
   {
     method: 'GET',
-    url: '/api/core/users?page=0&size=10&role=judge',
+    url: '/api/core/users?page=1&size=10&role=judge',
     response: [
       {
         'id': 'sample-id-judge-1',
@@ -685,7 +685,7 @@ export const users = [
   },
   {
     method: 'GET',
-    url: '/api/core/users?page=0&size=10&role=admin',
+    url: '/api/core/users?page=1&size=10&role=admin',
     response: [
       {
         'id': 'sample-id-admin',

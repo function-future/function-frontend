@@ -22,7 +22,7 @@ export default {
       ],
       currentTab: 'student',
       paging: {
-        page: 0,
+        page: 1,
         size: 10
       },
       showDeleteConfirmationModal: false
