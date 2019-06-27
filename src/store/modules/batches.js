@@ -16,6 +16,21 @@ export const actions = {
       commit('SET_BATCHES', response)
       callback()
     }, fail)
+  },
+  fetchBatchById ({ commit }, { data, callback, fail }) {
+    batchApi.getBatchDetail(({ data: response }) => {
+      callback(response)
+    }, data, fail)
+  },
+  createBatch ({ commit }, { data, callback, fail }) {
+    batchApi.createBatch(({ data: response }) => {
+      callback(response)
+    }, data, fail)
+  },
+  updateBatch ({ commit }, { data, callback, fail }) {
+    batchApi.updateBatch(({ data: response }) => {
+      callback(response)
+    }, data, fail)
   }
 }
 
