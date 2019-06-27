@@ -14,7 +14,7 @@ export default {
   data () {
     return {
       paging: {
-        page: 0,
+        page: 1,
         size: 10
       },
       selectedId: '',
