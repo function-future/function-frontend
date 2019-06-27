@@ -90,8 +90,6 @@ export default {
     successFetchMasterCourseById () {
       this.masterCourseData = this.masterCourse
       this.filePreviewName = this.masterCourse.material
-      console.log(this.masterCourseData.title)
-      console.log(this.masterCourse)
     },
     failFetchMasterCourseById () {
       this.$toasted.error('Fail to load master course detail, please refresh the page')
