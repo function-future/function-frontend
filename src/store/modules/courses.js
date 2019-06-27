@@ -1,4 +1,5 @@
 import courseApi from '@/api/controller/courses'
+import resourceApi from '@/api/controller/resources'
 
 export const state = {
   courseList: [],
@@ -46,6 +47,34 @@ export const actions = {
       commit('SET_MASTER_COURSE_BY_ID', response)
       callback()
     }, data, fail)
+  },
+  createCourse ({ commit }, { data, callback, fail }) {
+    courseApi.createCourse(({ data: response }) => {
+      callback()
+    }, data, fail)
+  },
+  updateCourse ({ commit }, { data, callback, fail }) {
+    courseApi.updateCourse(({ data: response }) => {
+      callback()
+    }, data, fail)
+  },
+  createMasterCourse ({ commit }, { data, callback, fail }) {
+    courseApi.createMasterCourse(({ data: response }) => {
+      callback()
+    }, data, fail)
+  },
+  updateMasterCourse ({ commit }, { data, callback, fail }) {
+    courseApi.updateMasterCourse(({ data: response }) => {
+      callback()
+    }, data, fail)
+  },
+  uploadMaterial ({ commit }, { data, configuration, callback, fail }) {
+    resourceApi.uploadResource(({ data: response }) => {
+      callback(response)
+    }, data, fail, configuration)
+  },
+  resetCourse ({ commit }) {
+    commit('SET_COURSE_BY_ID', {})
   }
 }
 

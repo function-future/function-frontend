@@ -17,7 +17,9 @@ module.exports = {
       courses: {
         master: {
           list: '/courses',
-          detail: '/courses/:id/detail'
+          detail: '/courses/:id/detail',
+          add: '/courses/add',
+          edit: '/courses/:id/edit'
         },
         batches: '/batches',
         list: '/batches/:code/courses',
@@ -135,8 +137,10 @@ module.exports = {
       courses: {
         master: {
           get (page, size) { return `/api/core/courses?page=${page}&size=${size}` },
+          post: 'api/core/courses',
           detail: {
-            get (id) { return `/api/core/courses/${id}` }
+            get (id) { return `/api/core/courses/${id}` },
+            update: 'api/core/courses'
           }
         },
         get (code, page, size) { return `/api/core/batches/${code}/courses?page=${page}&size=${size}` },

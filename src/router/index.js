@@ -29,6 +29,7 @@ import courses from '@/views/Courses/Courses.vue'
 import masterCourses from '@/views/Courses/MasterCourses.vue'
 import courseDetail from '@/views/Courses/CourseDetail.vue'
 import masterCourseDetail from '@/views/Courses/MasterCourseDetail.vue'
+import masterCourseForm from '@/views/Courses/MasterCourseForm.vue'
 import config from '@/config/index'
 
 Vue.use(Router)
@@ -173,6 +174,34 @@ export default new Router({
           { name: 'Master Course Detail', link: 'masterCourseDetail' }
         ]
       }
+    },
+    {
+      path: config.app.pages.courses.master.add,
+      name: 'addMasterCourse',
+      component: masterCourseForm,
+      meta: {
+        title: 'Add Master Course',
+        breadcrumb: [
+          { name: 'Batches', link: 'courseBatches' },
+          { name: 'Master Courses', link: 'masterCourses' },
+          { name: 'Add Master Course', link: 'addMasterCourse' }
+        ]
+      },
+      props: { editMode: false }
+    },
+    {
+      path: config.app.pages.courses.master.edit,
+      name: 'editMasterCourse',
+      component: masterCourseForm,
+      meta: {
+        title: 'Edit Master Course',
+        breadcrumb: [
+          { name: 'Batches', link: 'courseBatches' },
+          { name: 'Master Courses', link: 'masterCourses' },
+          { name: 'Edit Master Course', link: 'editMasterCourse' }
+        ]
+      },
+      props: { editMode: true }
     },
     {
       path: config.app.pages.files,
