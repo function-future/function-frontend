@@ -205,7 +205,7 @@ export default new Router({
       props: { editMode: false }
     },
     {
-      path: config.app.pages.courses.master.edit,
+      path: config.app.pages.courses.edit,
       name: 'editCourse',
       component: courseForm,
       meta: {
