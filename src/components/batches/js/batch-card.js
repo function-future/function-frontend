@@ -6,7 +6,8 @@ export default {
     BaseCard
   },
   props: [
-    'batch'
+    'batch',
+    'masterBatch'
   ],
   methods: {
     edit () {
