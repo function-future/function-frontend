@@ -7,7 +7,7 @@
     </div>
     <div v-for="course in masterCourses" :key="course.id">
       <CourseCard :course="course" @click.native="goToThisMasterCourseDetail(course.id)"
-                  @edit="editThisMasterCourse(course.id)" @delete="deleteThisMasterCourse(course.id)">
+                  @edit="goToEditMasterCourse(course.id)" @delete="deleteThisMasterCourse(course.id)">
       </CourseCard>
     </div>
   </div>

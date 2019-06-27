@@ -54,8 +54,17 @@ export default {
         params: { id: id }
       })
     },
-    goToAddMasterCourse () {},
-    editThisMasterCourse () {},
+    goToAddMasterCourse () {
+      this.$router.push({
+        name: 'addMasterCourse'
+      })
+    },
+    goToEditMasterCourse (id) {
+      this.$router.push({
+        name: 'editMasterCourse',
+        params: { id: id }
+      })
+    },
     deleteThisMasterCourse () {}
   }
 }
