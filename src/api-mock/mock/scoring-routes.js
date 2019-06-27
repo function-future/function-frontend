@@ -374,6 +374,21 @@ export const questionBanks = [
           "id" : "QNK0002",
           "title" : "Question Bank 2",
           "description" : "Question Bank Number 2"
+        },
+        {
+          "id" : "QNK0003",
+          "title" : "Question Bank 2",
+          "description" : "Question Bank Number 2"
+        },
+        {
+          "id" : "QNK0004",
+          "title" : "Question Bank 2",
+          "description" : "Question Bank Number 2"
+        },
+        {
+          "id" : "QNK0005",
+          "title" : "Question Bank 2",
+          "description" : "Question Bank Number 2"
         }
       ],
       "paging" : {
