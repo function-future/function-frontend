@@ -25,6 +25,7 @@ import stickyNotes from '@/views/StickyNotes/StickyNotesDetail.vue'
 import editStickyNote from '@/views/StickyNotes/EditStickyNote.vue'
 import UserForm from '@/views/Users/UserForm.vue'
 import courseBatch from '@/views/Courses/CourseBatch.vue'
+import batchForm from '@/views/Courses/BatchForm.vue'
 import courses from '@/views/Courses/Courses.vue'
 import masterCourses from '@/views/Courses/MasterCourses.vue'
 import courseDetail from '@/views/Courses/CourseDetail.vue'
@@ -115,7 +116,7 @@ export default new Router({
       props: { editMode: false }
     },
     {
-      path: config.app.pages.courses.batches,
+      path: config.app.pages.courses.batches.list,
       name: 'courseBatches',
       component: courseBatch,
       meta: {
@@ -124,6 +125,32 @@ export default new Router({
           { name: 'Batches', link: 'courseBatches' }
         ]
       }
+    },
+    {
+      path: config.app.pages.courses.batches.add,
+      name: 'addBatch',
+      component: batchForm,
+      meta: {
+        title: 'Add Batch',
+        breadcrumb: [
+          { name: 'Batches', link: 'courseBatches' },
+          { name: 'Add Batch', link: 'addBatch' }
+        ]
+      },
+      props: { editMode: false }
+    },
+    {
+      path: config.app.pages.courses.batches.edit,
+      name: 'editBatch',
+      component: batchForm,
+      meta: {
+        title: 'Edit Batch',
+        breadcrumb: [
+          { name: 'Batches', link: 'courseBatches' },
+          { name: 'Edit Batch', link: 'editBatch' }
+        ]
+      },
+      props: { editMode: true }
     },
     {
       path: config.app.pages.courses.master.list,

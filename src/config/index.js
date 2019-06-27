@@ -21,7 +21,11 @@ module.exports = {
           add: '/courses/add',
           edit: '/courses/:id/edit'
         },
-        batches: '/batches',
+        batches: {
+          list: '/batches',
+          add: '/batches/add',
+          edit: '/batches/:id/edit'
+        },
         list: '/batches/:code/courses',
         add: '/batches/:code/courses/add',
         detail: '/batches/:code/courses/:id/detail',
@@ -132,7 +136,12 @@ module.exports = {
         }
       },
       batches: {
-        get: '/api/core/batches'
+        get: '/api/core/batches',
+        post: '/api/core/batches',
+        detail: {
+          get (id) { return `/api/core/batches/${id}` },
+          update (id) { return `/api/core/batches/${id}` }
+        }
       },
       courses: {
         master: {
