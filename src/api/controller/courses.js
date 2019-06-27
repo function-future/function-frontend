@@ -10,11 +10,11 @@ const getMasterCourseList = function (callback, data, errorHandler) {
 }
 
 const createCourse = function (callback, data, errorHandler) {
-  request.postRequest(config.api.core.courses.post(data.code), callback, data, errorHandler)
+  request.postRequest(config.api.core.courses.post(data.code), callback, data.content, errorHandler)
 }
 
 const createMasterCourse = function (callback, data, errorHandler) {
-  request.postRequest(config.api.core.courses.master.post, callback, data, errorHandler)
+  request.postRequest(config.api.core.courses.master.post, callback, data.content, errorHandler)
 }
 
 const getCourseDetail = function (callback, data, errorHandler) {
@@ -26,11 +26,11 @@ const getMasterCourseDetail = function (callback, data, errorHandler) {
 }
 
 const updateCourse = function (callback, data, errorHandler) {
-  request.putRequest(config.api.core.courses.detail.update(data.code, data.id), callback, data, errorHandler)
+  request.putRequest(config.api.core.courses.detail.update(data.code, data.id), callback, data.content, errorHandler)
 }
 
 const updateMasterCourse = function (callback, data, errorHandler) {
-  request.putRequest(config.api.core.courses.master.detail.update, callback, data, errorHandler)
+  request.putRequest(config.api.core.courses.master.detail.update(data.id), callback, data.content, errorHandler)
 }
 
 const deleteCourse = function (callback, data, errorHandler) {
