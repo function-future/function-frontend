@@ -154,18 +154,6 @@ export default new Router({
       props: { editMode: true }
     },
     {
-      path: config.app.pages.courses.master.list,
-      name: 'masterCourses',
-      component: masterCourses,
-      meta: {
-        title: 'Master Courses',
-        breadcrumb: [
-          { name: 'Batches', link: 'courseBatches' },
-          { name: 'Master Courses', link: 'masterCourses' }
-        ]
-      }
-    },
-    {
       path: config.app.pages.courses.list,
       name: 'courses',
       component: courses,
@@ -217,6 +205,18 @@ export default new Router({
         ]
       },
       props: { editMode: true }
+    },
+    {
+      path: config.app.pages.courses.master.list,
+      name: 'masterCourses',
+      component: masterCourses,
+      meta: {
+        title: 'Master Courses',
+        breadcrumb: [
+          { name: 'Batches', link: 'courseBatches' },
+          { name: 'Master Courses', link: 'masterCourses' }
+        ]
+      }
     },
     {
       path: config.app.pages.courses.master.detail,
