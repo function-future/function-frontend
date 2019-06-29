@@ -26,12 +26,12 @@ export default {
     }
   },
   computed: {
-    ...mapGetters([
+    ...mapGetters('questionBanks', [
       'selectedBank'
     ])
   },
   methods: {
-    ...mapActions([
+    ...mapActions('quizzes', [
       'createQuiz'
     ]),
     actionButtonClicked () {
@@ -39,9 +39,8 @@ export default {
         ...this.quizDetail,
         questionBankId: [...this.selectedBank]
       }
-      console.log(payload)
       this.createQuiz({
-        payload: this.quizDetail,
+        payload: payload,
         data: {
           batchCode: this.quizDetail.batch,
         },

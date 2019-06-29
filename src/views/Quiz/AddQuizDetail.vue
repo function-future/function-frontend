@@ -65,8 +65,10 @@
           </BaseCard>
         </div>
         <div class="detail-container__action">
-          <BaseButton buttonClass="button-cancel" @click="returnButtonClicked()">Cancel</BaseButton>
-          <BaseButton buttonClass="button-save" @click="actionButtonClicked()">Save</BaseButton>
+          <BaseButton buttonClass="button-cancel"
+                      @click="returnButtonClicked()">Cancel</BaseButton>
+          <BaseButton buttonClass="button-save"
+                      @click="actionButtonClicked()">Save</BaseButton>
         </div>
       </div>
     </div>
@@ -95,12 +97,12 @@
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
-  &__info {
+    &__info {
      width: 30%;
      height: 100%;
      display: flex;
      flex-direction: column;
-  &-time, &-deadline, &-trials, &-batch {
+     &-time, &-deadline, &-trials, &-batch {
                                    height: 20%;
                                    margin: 10px 0;
                                  }
