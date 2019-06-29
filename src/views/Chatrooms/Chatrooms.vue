@@ -24,7 +24,7 @@
                             :time="chatroom.lastMessage ? chatroom.lastMessage.time : null"
                             :last-message="chatroom.lastMessage ? chatroom.lastMessage.message : 'No Message'"
                             :key="chatroom.id"
-                            @click="activeChatroomId = chatroom.id" />
+                            @click="selectChatroom(chatroom)" />
             </div>
             <div @click="changeTypeChoosen('PRIVATE')" class="chatroom-menu" :class="{'chatroom-menu-blue': typeChoosen === 'PRIVATE'}">
               <h3>Private Chatroom</h3>
@@ -42,7 +42,7 @@
                             :is-seen="chatroom.lastMessage ? chatroom.lastMessage.seen : true"
                             :time="chatroom.lastMessage ? chatroom.lastMessage.time : null"
                             :last-message="chatroom.lastMessage ? chatroom.lastMessage.message : 'No Message'"
-                            @click="activeChatroomId = chatroom.id"
+                            @click="selectChatroom(chatroom)"
                             :key="chatroom.id" />
 
             </div>
@@ -53,7 +53,7 @@
         </div>
         <div class="chatroom-separator"></div>
         <div class="chatroom-right">
-          <div class="chatroom-title"><h2>Public</h2></div>
+          <div class="chatroom-title"><h2>{{ chatroomTitle }}</h2></div>
           <div id="messages-container" class="chatroom-messages">
             <infinite-loading :identifier="activeChatroomId" direction="top" @infinite="infiniteMessageHandler">
               <div slot="no-more"></div>
@@ -114,6 +114,7 @@ export default {
       activeChatroomId: 'PUBLIC',
       chatroomPage: 1,
       messagePage: 1,
+      chatroomTitle: 'Public',
       chatroomIntervalObject: null,
       messageIntervalObject: null,
       messageReadIntervalObject: null,
@@ -139,6 +140,16 @@ export default {
       'UNSHIFT_CHATROOMS',
       'UNSHIFT_MESSAGES'
     ]),
+    selectChatroom (chatroom) {
+      this.activeChatroomId = chatroom.id
+      if (chatroom.type === 'PUBLIC') {
+        this.chatroomTitle = 'Public'
+      } else if (chatroom.type === 'GROUP') {
+        this.chatroomTitle = chatroom.name
+      } else {
+        this.chatroomTitle = this.getAvatarAndName(chatroom.participants).name
+      }
+    },
     infiniteChatroomHandler ($state) {
       chatroomApi.getChatrooms(response => {
         let additionalChatrooms = []
