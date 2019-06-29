@@ -114,8 +114,9 @@ export default {
       activeChatroomId: 'PUBLIC',
       chatroomPage: 1,
       messagePage: 1,
-      chatroomIntervalObject: '',
-      messageIntervalObject: '',
+      chatroomIntervalObject: null,
+      messageIntervalObject: null,
+      messageReadIntervalObject: null,
       sendingNewMessage: false,
       changingChatroom: false
     }
@@ -129,7 +130,8 @@ export default {
   methods: {
     ...mapActions([
       'fetchChatrooms',
-      'fetchMessages'
+      'fetchMessages',
+      'updateSeenStatus'
     ]),
     ...mapMutations([
       'RESET_MESSAGES',
@@ -315,12 +317,27 @@ export default {
           fail: err => console.log(err)
         })
       }, POLL_INTERVAL)
+    },
+    initReadMessagesPoll () {
+      this.messageReadIntervalObject = setInterval(() => {
+        if (this.messages.length > 0) {
+          chatroomApi.updateSeenStatus(response => {
+            console.log('UPDATE SEEN STATUS')
+            console.log(response)
+          }, err => console.log(err), {
+            params: {
+              chatroomId: this.activeChatroomId,
+              messageId: this.messages[this.messages.length - 1].id
+            }
+          })
+        }
+      }, POLL_INTERVAL)
     }
   },
   watch: {
     activeChatroomId: function (newId, oldId) {
       console.log('WATCHER')
-      // this.resetMessagesPoll()
+      this.updateSeenStatus(this.activeChatroomId)
       clearInterval(this.messageIntervalObject)
       this.messagePage = 1
       this.RESET_MESSAGES()
@@ -328,7 +345,7 @@ export default {
     }
   },
   mounted () {
-    // this.initMessagesPoll()
+    this.initReadMessagesPoll()
     this.messagePage = 1
     this.chatroomPage = 1
   },

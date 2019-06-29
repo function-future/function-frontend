@@ -201,27 +201,27 @@ module.exports = {
     },
     communication: {
       chatrooms: {
-        list(type, search, page, size) {
+        list (type, search, page, size) {
           return `/api/communication/chatrooms?type=${type}&search=${search}&page=${page}&size=${size}`
         },
-        getDetails(chatroomId) {
+        getDetails (chatroomId) {
           return `/api/communication/chatrooms/${chatroomId}`
         },
         getMessages(chatroomId, page, size) {
           return `/api/communication/chatrooms/${chatroomId}/messages?page=${page}&size=${size}`
         },
-        getPublicMessages(page, size) {
+        getPublicMessages (page, size) {
           return `/api/communication/chatrooms/public/messages?page=${page}&size=${size}`
         },
         create: '/api/communication/chatrooms/',
         createMessage(chatroomId) {
           return `/api/communication/chatrooms/${chatroomId}/messages`
         },
-        update(chatroomId) {
+        update (chatroomId) {
           return `/api/communication/chatrooms/${chatroomId}`
         },
         updateReadStatus(chatroomId, messageId) {
-          return `/api/ccommunication/chatrooms/${chatroomId}/messages/${messageId}/_read`
+          return `/api/communication/chatrooms/${chatroomId}/messages/${messageId}/_read`
         }
       }
     }

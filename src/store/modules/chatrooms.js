@@ -28,6 +28,12 @@ export const mutations = {
   }
 }
 
+const isChatroomEqual = function (chatroom1, chatroom2) {
+  return chatroom1.id === chatroom2.id &&
+    chatroom1.lastMessage.seen === chatroom2.lastMessage.seen &&
+    chatroom1.lastMessage.message === chatroom2.lastMessage.message
+}
+
 export const actions = {
   fetchChatrooms ({ state, commit }, { data, fail, cb }) {
     chatroomApi.getChatrooms(response => {
@@ -36,9 +42,10 @@ export const actions = {
       console.log('RESPONSE DATA CHATROOM')
       console.log(response)
       for (const chatroom of response.data) {
-        if (state.chatrooms[i] && chatroom.id !== state.chatrooms[i].id) {
+        if (state.chatrooms[i] && !isChatroomEqual(chatroom, state.chatrooms[i])) {
           shouldChange = true
         }
+        i += 1
       }
       if (shouldChange) {
         commit('RESET_CHATROOMS')
@@ -62,6 +69,13 @@ export const actions = {
       console.log(additionalMessages)
       commit('PUSH_MESSAGES', additionalMessages.reverse())
     }, fail, data)
+  },
+  updateSeenStatus ({ state, commit }, chatroomId) {
+    for (let chatroom of state.chatrooms) {
+      if (chatroomId === chatroom.id) {
+        chatroom.lastMessage.seen = true
+      }
+    }
   }
 }
 
