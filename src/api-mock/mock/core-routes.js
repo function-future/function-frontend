@@ -692,7 +692,7 @@ export const courses = [
         }
       ],
       'paging': {
-        'page': 1,
+        'page': 2,
         'size': 10,
         'totalRecords': 40
       }
