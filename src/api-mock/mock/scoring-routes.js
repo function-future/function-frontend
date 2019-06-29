@@ -282,7 +282,7 @@ export const quizzes = [
   },
   {
     method: 'POST',
-    url: '/api/scoring/batches/batchCode/quizzes',
+    url: '/api/scoring/batches/futur3/quizzes',
     response: {
       "code": 201,
       "status": "CREATED",

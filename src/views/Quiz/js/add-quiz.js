@@ -91,7 +91,7 @@ export default {
         payload: this.selectedBank
       })
       this.$router.push({
-        name: 'AddQuizDetail'
+        name: 'addQuizDetail'
       })
     }
   }

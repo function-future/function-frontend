@@ -40,6 +40,7 @@ module.exports = {
       quizzes: {
         list: '/quizzes',
         add: '/quizzes/add',
+        addDetail: '/quizzes/addDetail',
         detail: '/quizzes/:quizId/detail'
       },
       assignments: {
