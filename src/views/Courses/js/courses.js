@@ -15,7 +15,7 @@ export default {
   data () {
     return {
       paging: {
-        page: 0,
+        page: 1,
         size: 10
       },
       courses: [],
@@ -40,7 +40,7 @@ export default {
       let data = {
         code: this.$route.params.code,
         ...this.paging,
-        page: this.paging.page + 1
+        page: this.paging.page
       }
       this.fetchCourses({
         data,

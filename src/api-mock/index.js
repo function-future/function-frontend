@@ -63,15 +63,15 @@ users.forEach(data => {
 })
 
 courses.forEach(data => {
-  mock[methodMap[data.method]](data.url).reply(200, data)
+  mock[methodMap[data.method]](data.url).reply(200, data.response)
 })
 
 batches.forEach(data => {
-  mock[methodMap[data.method]](data.url).reply(200, data)
+  mock[methodMap[data.method]](data.url).reply(200, data.response)
 })
 
 discussions.forEach(data => {
-  mock[methodMap[data.method]](data.url).reply(200, data)
+  mock[methodMap[data.method]](data.url).reply(200, data.response)
 })
 
 assignments.forEach(data => {

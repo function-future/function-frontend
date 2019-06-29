@@ -15,7 +15,7 @@ export default {
   data () {
     return {
       paging: {
-        page: 0,
+        page: 1,
         size: 10
       },
       masterCourses: [],
@@ -39,7 +39,7 @@ export default {
     initPage () {
       let data = {
         ...this.paging,
-        page: this.paging.page + 1
+        page: this.paging.page
       }
       this.fetchMasterCourses({
         data,
