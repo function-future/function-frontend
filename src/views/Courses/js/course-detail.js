@@ -2,6 +2,7 @@ import { mapActions, mapGetters } from 'vuex'
 import BaseCard from '@/components/BaseCard'
 import BaseButton from '@/components/BaseButton'
 import BaseTextArea from '@/components/BaseTextArea'
+import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
 import axios from 'axios'
 let marked = require('marked')
 
@@ -10,7 +11,8 @@ export default {
   components: {
     BaseCard,
     BaseButton,
-    BaseTextArea
+    BaseTextArea,
+    ModalDeleteConfirmation
   },
   data () {
     return {
@@ -23,7 +25,8 @@ export default {
       discussions: [],
       discussion: {
         comment: ''
-      }
+      },
+      showDeleteConfirmationModal: false
     }
   },
   computed: {
@@ -42,7 +45,8 @@ export default {
     ...mapActions([
       'fetchCourseById',
       'fetchCourseDiscussions',
-      'submitCourseDiscussion'
+      'submitCourseDiscussion',
+      'deleteCourseById'
     ]),
     initPage () {
       this.initCourse()
@@ -107,14 +111,44 @@ export default {
         .then(response => { this.forceFileDownload(response) })
         .catch(() => console.log('error occurred'))
     },
-    goToEditCourse () {},
-    deleteCourse () {},
     forceFileDownload (response) {
       const url = window.URL.createObjectURL(new Blob([response.data]))
       const link = document.createElement('a')
       link.href = url
       document.body.appendChild(link)
       link.click()
+    },
+    goToEditCourse () {
+      this.$router.push({
+        name: 'editCourse',
+        params: {
+          id: this.$route.params.id,
+          code: this.$route.params.code
+        }
+      })
+    },
+    openDeleteConfirmationModal () {
+      this.showDeleteConfirmationModal = true
+    },
+    deleteCourse () {
+      let data = {
+        id: this.$route.params.id,
+        code: this.$route.params.code
+      }
+      this.deleteCourseById({
+        data,
+        callback: this.successDeleteCourseById,
+        fail: this.failDeleteCourseById
+      })
+    },
+    successDeleteCourseById () {
+      this.$router.push({ name: 'courseDetail' })
+      this.$toasted.success('Successfully delete course')
+      this.showDeleteConfirmationModal = false
+    },
+    failDeleteCourseById () {
+      this.$toasted.error('Fail to delete course')
+      this.showDeleteConfirmationModal = false
     }
   }
 }

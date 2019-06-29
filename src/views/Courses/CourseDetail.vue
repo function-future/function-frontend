@@ -9,7 +9,7 @@
           <span class="edit-btn" @click="goToEditCourse">
             <font-awesome-icon icon="edit" class="icon blue" size="lg"></font-awesome-icon>
           </span>
-          <span class="delete-btn" @click="deleteCourse">
+          <span class="delete-btn" @click="openDeleteConfirmationModal">
             <font-awesome-icon icon="trash-alt" class="icon red" size="lg"></font-awesome-icon>
           </span>
         </div>
@@ -46,6 +46,11 @@
         </div>
       </div>
     </BaseCard>
+    <modal-delete-confirmation v-if="showDeleteConfirmationModal"
+                               @close="showDeleteConfirmationModal = false"
+                               @clickDelete="deleteCourse">
+      <div slot="description">Are you sure you want to delete this course?</div>
+    </modal-delete-confirmation>
   </div>
 </template>
 
