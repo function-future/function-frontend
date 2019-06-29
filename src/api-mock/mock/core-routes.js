@@ -529,6 +529,22 @@ export const resources = [
         }
       }
     }
+  },
+  {
+    method: 'POST',
+    url: '/api/core/resources?source=course',
+    response: {
+      'code': 201,
+      'status': 'CREATED',
+      'data': {
+        'id': 'sample-id',
+        'name': 'File Name',
+        'file': {
+          'full': 'https://i.pinimg.com/originals/8c/cf/ec/8ccfec7d5cb3c92265cbf153523eb9b5.jpg',
+          'thumbnail': null
+        }
+      }
+    }
   }
 ]
 
@@ -561,6 +577,61 @@ export const courses = [
       }
     }
   },
+  // master course POST
+  {
+    method: 'POST',
+    url: '/api/core/courses',
+    response: {
+      'code': 200,
+      'status': 'OK',
+      'data': {
+        'id': 'sample-id-1',
+        'title': 'Master Course Title',
+        'description': '**Course** Description Goes Here',
+        'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+      }
+    }
+  },
+  // master course detail GET
+  {
+    method: 'GET',
+    url: '/api/core/courses/sample-id-1',
+    response: {
+      'code': 200,
+      'status': 'OK',
+      'data': {
+        'id': 'sample-id-1',
+        'title': 'Master Course Title',
+        'description': '**Course** Description Goes Here',
+        'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+      }
+    }
+  },
+  // master course detail EDIT
+  {
+    method: 'PUT',
+    url: '/api/core/courses/sample-id-1',
+    response: {
+      'code': 200,
+      'status': 'OK',
+      'data': {
+        'id': 'sample-id-1',
+        'title': 'Master Course Title',
+        'description': '**Course** Description Goes Here',
+        'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+      }
+    }
+  },
+  // master course DELETE
+  {
+    method: 'DELETE',
+    url: '/api/core/courses/sample-id-1',
+    response: {
+      'code': 200,
+      'status': 'OK'
+    }
+  },
+  // course list GET
   {
     method: 'GET',
     url: '/api/core/batches/1/courses?page=1&size=10',
@@ -627,45 +698,22 @@ export const courses = [
       }
     }
   },
-  // master course detail
+  // course POST
   {
-    method: 'GET',
-    url: '/api/core/courses/sample-id-1',
+    method: 'POST',
+    url: '/api/core/batches/1/courses',
     response: {
       'code': 200,
       'status': 'OK',
       'data': {
-        'id': 'sample-id-1',
-        'title': 'Master Course Title',
+        'id': 'sample-id',
+        'title': 'Course Title',
         'description': '**Course** Description Goes Here',
         'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
       }
     }
   },
-  // master course detail
-  {
-    method: 'PUT',
-    url: '/api/core/courses/sample-id-1',
-    response: {
-      'code': 200,
-      'status': 'OK',
-      'data': {
-        'id': 'sample-id-1',
-        'title': 'Master Course Title',
-        'description': '**Course** Description Goes Here',
-        'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
-      }
-    }
-  },
-  // master course delete
-  {
-    method: 'DELETE',
-    url: '/api/core/courses/sample-id-1',
-    response: {
-      'code': 200,
-      'status': 'OK'
-    }
-  },
+  // course detail GET
   {
     method: 'GET',
     url: '/api/core/batches/1/courses/sample-id-1',
@@ -678,6 +726,30 @@ export const courses = [
         'description': '**Course** Description Goes Here',
         'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
       }
+    }
+  },
+  // course detail PUT
+  {
+    method: 'PUT',
+    url: '/api/core/batches/1/courses/sample-id-1',
+    response: {
+      'code': 200,
+      'status': 'OK',
+      'data': {
+        'id': 'sample-id',
+        'title': 'Course Title',
+        'description': '**Course** Description Goes Here',
+        'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+      }
+    }
+  },
+  // course detail DELETE
+  {
+    method: 'DELETE',
+    url: '/api/core/batches/1/courses/sample-id-1',
+    response: {
+      'code': 200,
+      'status': 'OK'
     }
   }
 ]
