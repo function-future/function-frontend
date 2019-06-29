@@ -572,7 +572,7 @@ export const courses = [
       ],
       'paging': {
         'page': 1,
-        'size': 2,
+        'size': 10,
         'totalRecords': 20
       }
     }
@@ -665,7 +665,7 @@ export const courses = [
         }
       ],
       'paging': {
-        'page': 0,
+        'page': 1,
         'size': 10,
         'totalRecords': 40
       }
@@ -784,7 +784,7 @@ export const batches = [
         }
       ],
       'paging': {
-        'page': 0,
+        'page': 1,
         'size': 4,
         'totalRecords': 4
       }
