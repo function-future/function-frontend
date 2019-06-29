@@ -40,7 +40,7 @@ describe('actions', () => {
     }
     const data = {
       batchCode: 'futur3',
-      page: 0,
+      page: 1,
       pageSize: 10
     }
     const commit = jest.fn()
@@ -93,7 +93,7 @@ describe('actions', () => {
     }
     const data = {
       batchCode: 'futur3',
-      page: 0,
+      page: 1,
       pageSize: 10
     }
     const commit = jest.fn()

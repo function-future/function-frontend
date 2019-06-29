@@ -91,7 +91,7 @@ describe('AddQuestionBank', () => {
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
       name: 'questionBanks',
       queries: {
-        page: 0,
+        page: 1,
         pageSize: 10
       }
     })
@@ -112,7 +112,7 @@ describe('AddQuestionBank', () => {
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
       name: 'questionBanks',
       queries: {
-        page: 0,
+        page: 1,
         pageSize: 10
       }
     })
