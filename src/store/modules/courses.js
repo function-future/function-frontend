@@ -58,6 +58,11 @@ export const actions = {
       callback()
     }, data, fail)
   },
+  deleteCourseById ({ commit }, { data, callback, fail }) {
+    courseApi.deleteCourse(({ data: response }) => {
+      callback()
+    }, data, fail)
+  },
   createMasterCourse ({ commit }, { data, callback, fail }) {
     courseApi.createMasterCourse(({ data: response }) => {
       callback()
