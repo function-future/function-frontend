@@ -35,6 +35,11 @@ export default {
       'createQuiz'
     ]),
     actionButtonClicked () {
+      const payload = {
+        ...this.quizDetail,
+        questionBankId: [...this.selectedBank]
+      }
+      console.log(payload)
       this.createQuiz({
         payload: this.quizDetail,
         data: {

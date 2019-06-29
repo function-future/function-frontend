@@ -18,7 +18,7 @@
             <div class="detail-card__caption">Given Time</div>
             <input type="number"
                    class="detail-card__content"
-                   v-model="quizDetail.timeLimit"/>
+                   v-model.number="quizDetail.timeLimit"/>
           </BaseCard>
         </div>
         <div class="detail-container__info-deadline">
@@ -40,7 +40,7 @@
             <div class="detail-card__caption">Trials</div>
             <input type="number"
                    class="detail-card__content"
-                   v-model="quizDetail.trials"/>
+                   v-model.number="quizDetail.trials"/>
           </BaseCard>
         </div>
         <div class="detail-container__info-batch">
@@ -61,7 +61,7 @@
             <div class="question-info__caption">Question</div>
             <input type="text"
                    class="question-info__content"
-                   v-model="quizDetail.questionCount"/>
+                   v-model.number="quizDetail.questionCount"/>
           </BaseCard>
         </div>
         <div class="detail-container__action">
