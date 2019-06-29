@@ -1,6 +1,6 @@
 <template>
   <div class="chatroom-card__outer"
-       :class="{'chatroom-card__outer--with-avatar': avatar}"
+       :class="{'chatroom-card__outer--with-avatar': avatar, 'chatroom-card__outer--blue-border': isChoosen}"
         @click="$emit('click')">
     <div v-if="avatar" class="chatroom-card__avatar">
       <img :src="avatar">
@@ -34,7 +34,8 @@ export default {
     time: Number,
     lastMessage: String,
     avatar: String,
-    type: String
+    type: String,
+    isChoosen: Boolean
   },
   computed: {
     computedName () {
@@ -63,7 +64,7 @@ export default {
         }
         return moment(this.time).format('HH:mm')
       } else {
-        return ""
+        return ''
       }
     }
   }
@@ -103,6 +104,10 @@ export default {
     border-radius: 100%;
     height: 35px;
     width: 35px;
+  }
+
+  .chatroom-card__outer--blue-border {
+    border: 2px solid #02AAF3
   }
 
   .chatroom-card__content {
