@@ -10,6 +10,11 @@
                 @edit="goToEditCourse(course.id)" @delete="openDeleteConfirmationModal(course.id)">
       </CourseCard>
     </div>
+    <BasePagination :paging="paging"
+                    @loadPage="loadPage"
+                    @previousPage="loadPreviousPage"
+                    @nextPage="loadNextPage">
+    </BasePagination>
     <modal-delete-confirmation v-if="showDeleteConfirmationModal"
                                @close="showDeleteConfirmationModal = false"
                                @clickDelete="deleteThisCourse">

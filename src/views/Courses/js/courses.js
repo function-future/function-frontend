@@ -3,6 +3,7 @@ import BaseCard from '@/components/BaseCard.vue'
 import CourseCard from '@/components/courses/CourseCard.vue'
 import BaseButton from '@/components/BaseButton'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
+import BasePagination from '@/components/BasePagination'
 
 export default {
   name: 'courses',
@@ -10,7 +11,8 @@ export default {
     BaseCard,
     CourseCard,
     BaseButton,
-    ModalDeleteConfirmation
+    ModalDeleteConfirmation,
+    BasePagination
   },
   data () {
     return {
@@ -39,8 +41,7 @@ export default {
     initPage () {
       let data = {
         code: this.$route.params.code,
-        ...this.paging,
-        page: this.paging.page
+        ...this.paging
       }
       this.fetchCourses({
         data,
@@ -48,11 +49,24 @@ export default {
         fail: this.failFetchCourses
       })
     },
-    successFetchCourses () {
+    successFetchCourses (paging) {
       this.courses = this.courseList
+      this.paging = paging
     },
     failFetchCourses () {
       this.$toasted.error('Fail to load course list')
+    },
+    loadPage (page) {
+      this.paging.page = page
+      this.initPage()
+    },
+    loadPreviousPage () {
+      this.paging.page = this.paging.page - 1
+      this.initPage()
+    },
+    loadNextPage () {
+      this.paging.page = this.paging.page + 1
+      this.initPage()
     },
     goToThisCourseDetail (id) {
       this.$router.push({
