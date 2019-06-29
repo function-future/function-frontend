@@ -26,7 +26,7 @@ export default {
     initPage () {
       this.fetchQuestionBankList({
         data: {
-          page: 0,
+          page: 1,
           pageSize: 10
         },
         fail: this.failFetchingQuestionBankList
