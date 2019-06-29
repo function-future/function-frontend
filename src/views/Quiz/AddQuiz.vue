@@ -3,15 +3,20 @@
     <div class="page-header">
       <BaseButton :buttonClass="selectedBank.length === questionBankList.length ? 'button-save' : ''">
         <label class="add-quiz__select-section-label">{{selectedBank.length}} / {{questionBankList.length}}
-          <input type="checkbox" @change="toggleAllBank" :checked="selectedBank.length === questionBankList.length">
+          <input type="checkbox"
+                 @change="toggleAllBank"
+                 :checked="selectedBank.length === questionBankList.length">
           <span class="checkmark"></span>
         </label></BaseButton>
     </div>
     <div class="scrollable-container">
-      <BaseCard class="add-quiz__container" v-for="questionBank in questionBankList" :key="questionBank.id">
+      <BaseCard class="add-quiz__container"
+                v-for="questionBank in questionBankList" :key="questionBank.id">
         <div class="add-quiz__select-section">
           <label class="add-quiz__select-section-label">
-            <input type="checkbox" name="selected-banks" @click="questionBankSelected(questionBank.id)" :value="questionBank.id">
+            <input type="checkbox" name="selected-banks"
+                   @click="questionBankSelected(questionBank.id)"
+                   :value="questionBank.id">
             <span class="checkmark"></span>
           </label>
         </div>

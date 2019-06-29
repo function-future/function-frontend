@@ -28,12 +28,12 @@ export default {
     this.initPage()
   },
   computed: {
-    ...mapGetters([
+    ...mapGetters('questionBanks', [
       'questionBanks'
     ])
   },
   methods: {
-    ...mapActions([
+    ...mapActions('questionBanks', [
       'fetchQuestionBankList',
       'setSelectedBank'
     ]),
@@ -60,7 +60,6 @@ export default {
     questionBankSelected (id) {
       const idx = this.selectedBank.indexOf(id)
       idx !== -1 ? this.selectedBank.splice(idx, 1) : this.selectedBank.push(id)
-      console.log(this.selectedBank)
     },
     toggleAllBank () {
       this.selectedBank.length === this.questionBankList.length ? this.deselectAll() : this.selectAll()
@@ -71,10 +70,8 @@ export default {
         if (this.selectedBank.indexOf(items[i].value !== -1)) {
           items[i].checked = false
           this.selectedBank.splice(i, 1)
-          console.log(this.selectedBank)
         }
       }
-      console.log(this.selectedBank)
     },
     selectAll () {
       let items = document.getElementsByName('selected-banks')
@@ -84,7 +81,6 @@ export default {
           this.selectedBank.push(items[i].value)
         }
       }
-      console.log(this.selectedBank)
     },
     goToAddQuizDetail () {
       this.setSelectedBank({
