@@ -11,6 +11,7 @@ export const mutations = {
   },
   UNSHIFT_CHATROOMS (state, payload) {
     state.chatrooms.unshift(...payload)
+    console.log('STATE CHATROOM')
     console.log(state.chatrooms)
   },
   UNSHIFT_MESSAGES (state, payload) {
@@ -28,16 +29,22 @@ export const mutations = {
 }
 
 export const actions = {
-  fetchChatrooms ({ state, commit }, { data, fail }) {
+  fetchChatrooms ({ state, commit }, { data, fail, cb }) {
     chatroomApi.getChatrooms(response => {
-      let additionalChatrooms = []
+      let i = 0
+      let shouldChange = false
+      console.log('RESPONSE DATA CHATROOM')
+      console.log(response)
       for (const chatroom of response.data) {
-        if (state.chatrooms[0] && chatroom.id === state.chatrooms[0].id) {
-          break
+        if (state.chatrooms[i] && chatroom.id !== state.chatrooms[i].id) {
+          shouldChange = true
         }
-        additionalChatrooms.push(chatroom)
       }
-      commit('UNSHIFT_CHATROOMS', additionalChatrooms)
+      if (shouldChange) {
+        commit('RESET_CHATROOMS')
+        commit('UNSHIFT_CHATROOMS', response.data)
+        cb()
+      }
     }, fail, data)
   },
   fetchMessages ({ state, commit }, { data, fail }) {

@@ -11,7 +11,11 @@
             <div @click="changeTypeChoosen('GROUP')" class="chatroom-menu" :class="{'chatroom-menu-blue': typeChoosen === 'GROUP'}">
               <h3>Group Chatroom</h3>
             </div>
-            <div v-if="typeChoosen === 'GROUP'" class="chatroom-card-wrapper">
+            <div id="group-chatroom-container" v-if="typeChoosen === 'GROUP'" class="chatroom-card-wrapper">
+              <infinite-loading :identifier="typeChoosen" @infinite="infiniteChatroomHandler">
+                <div slot="no-more"></div>
+                <div slot="no-results"></div>
+              </infinite-loading>
               <ChatroomCard v-for="chatroom in chatrooms"
                             :type="chatroom.type"
                             :name="chatroom.name"
@@ -24,8 +28,11 @@
             <div @click="changeTypeChoosen('PRIVATE')" class="chatroom-menu" :class="{'chatroom-menu-blue': typeChoosen === 'PRIVATE'}">
               <h3>Private Chatroom</h3>
             </div>
-            <div v-if="typeChoosen === 'PRIVATE'" class="chatroom-card-wrapper">
-<!-- TODO: Change avatar to participant who are not authenticated user -->
+            <div id="private-chatroom-container" v-if="typeChoosen === 'PRIVATE'" class="chatroom-card-wrapper">
+              <infinite-loading :identifier="typeChoosen" @infinite="infiniteChatroomHandler">
+                <div slot="no-more"></div>
+                <div slot="no-results"></div>
+              </infinite-loading>
               <ChatroomCard v-for="chatroom in chatrooms"
                             :avatar="getAvatarAndName(chatroom.participants).avatar"
                             :type="chatroom.type"
@@ -46,7 +53,10 @@
         <div class="chatroom-right">
           <div class="chatroom-title"><h2>Public</h2></div>
           <div id="messages-container" class="chatroom-messages">
-            <infinite-loading :identifier="activeChatroomId" direction="top" @infinite="infiniteMessageHandler"></infinite-loading>
+            <infinite-loading :identifier="activeChatroomId" direction="top" @infinite="infiniteMessageHandler">
+              <div slot="no-more"></div>
+              <div slot="no-results"></div>
+            </infinite-loading>
             <div v-for="message in messages" :key="message.id">
               <MessageBubbleSent v-if="message.sender.id === userId"
                                  :message="message.text"
@@ -122,15 +132,51 @@ export default {
     ...mapMutations([
       'RESET_MESSAGES',
       'RESET_CHATROOMS',
-      'PUSH_CHATROOMS',
+      'UNSHIFT_CHATROOMS',
       'UNSHIFT_MESSAGES'
     ]),
+    infiniteChatroomHandler ($state) {
+      chatroomApi.getChatrooms(response => {
+        let additionalChatrooms = []
+        for (const chatroom of response.data) {
+          console.log('MASUK SINI')
+          console.log(this.chatrooms[this.chatrooms.length - 1])
+          if (this.chatrooms[this.chatrooms.length - 1] && this.chatrooms[this.chatrooms.length - 1].id === chatroom.id) {
+            continue
+          }
+          additionalChatrooms.push(chatroom)
+        }
+        console.log('RESPONSE ADDITIONAL CHATROOM')
+        console.log(additionalChatrooms)
+        if (additionalChatrooms.length) {
+          this.UNSHIFT_CHATROOMS(additionalChatrooms)
+          if (this.chatroomPage === 1) {
+            console.log('MASOOK')
+            this.resetChatroomPoll()
+          }
+          this.chatroomPage += 1
+          $state.loaded()
+        } else {
+          if (this.chatroomPage === 1) {
+            console.log('MASOOK')
+            this.resetChatroomPoll()
+          }
+          $state.complete()
+        }
+      }, error => console.log(error), {
+        params: {
+          page: this.chatroomPage,
+          type: this.typeChoosen,
+          search: ''
+        }
+      })
+    },
     infiniteMessageHandler ($state) {
       chatroomApi.getMessages(response => {
         let additionalMessages = []
         for (const message of response.data.reverse()) {
           if (this.messages[0] && this.messages[0].id === message.id) {
-            break
+            continue
           }
           additionalMessages.push(message)
         }
@@ -145,6 +191,10 @@ export default {
           this.messagePage += 1
           $state.loaded()
         } else {
+          if (this.messagePage === 1) {
+            console.log('MASOOK')
+            this.initMessagesPoll()
+          }
           $state.complete()
         }
       }, error => console.log(error), {
@@ -183,6 +233,15 @@ export default {
         this.sendingNewMessage = false
       }
     },
+    scrollChatroomToTop () {
+      if (this.typeChoosen === 'PRIVATE') {
+        let container1 = this.$el.querySelector('#private-chatroom-container')
+        container1.scrollTop = container1.scrollHeight
+      } else if (this.typeChoosen === 'GROUP') {
+        let container2 = this.$el.querySelector('#group-chatroom-container')
+        container2.scrollTop = container2.scrollHeight
+      }
+    },
     getAvatarAndName (participants) {
       for (const participant of participants) {
         if (participant.id !== this.userId) {
@@ -200,13 +259,15 @@ export default {
     changeTypeChoosen (type) {
       this.typeChoosen = type
       if (type !== 'PUBLIC') {
-        this.chatroomPage = 1
+        clearInterval(this.messageIntervalObject)
         this.RESET_CHATROOMS()
-        this.resetChatroomPoll()
+        this.chatroomPage = 1
+        // this.resetChatroomPoll()
       } else {
         if (this.activeChatroomId !== 'PUBLIC') {
           this.activeChatroomId = 'PUBLIC'
         }
+        this.chatroomPage = 1
         clearInterval(this.chatroomIntervalObject)
         this.RESET_CHATROOMS()
       }
@@ -218,10 +279,6 @@ export default {
     resetChatroomPoll () {
       clearInterval(this.chatroomIntervalObject)
       this.initChatroomPoll()
-    },
-    resetMessagesPoll () {
-      clearInterval(this.messageIntervalObject)
-      this.initMessagesPoll()
     },
     initChatroomPoll () {
       this.chatroomIntervalObject = setInterval(() => {
@@ -236,6 +293,10 @@ export default {
           },
           fail: (err) => {
             console.log(err)
+          },
+          cb: () => {
+            this.chatroomPage = 1
+            this.scrollChatroomToTop()
           }
         })
       }, POLL_INTERVAL)
