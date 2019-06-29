@@ -95,7 +95,7 @@ export default {
   data () {
     return {
       // TODO: change userId to authenticated user
-      userId: '5d119940047e5e37a8986220',
+      userId: '5d12a2ed32a1893cec242e73',
       searchText: '',
       typeChoosen: 'PUBLIC',
       messageText: '',
@@ -103,7 +103,9 @@ export default {
       chatroomPage: 1,
       messagePage: 1,
       chatroomIntervalObject: '',
-      messageIntervalObject: ''
+      messageIntervalObject: '',
+      sendingNewMessage: false,
+      changingChatroom: false
     }
   },
   computed: {
@@ -125,9 +127,22 @@ export default {
     ]),
     infiniteMessageHandler ($state) {
       chatroomApi.getMessages(response => {
-        if (response.data.length) {
+        let additionalMessages = []
+        for (const message of response.data.reverse()) {
+          if (this.messages[0] && this.messages[0].id === message.id) {
+            break
+          }
+          additionalMessages.push(message)
+        }
+        console.log('ADDITIONAL INFINITE')
+        console.log(additionalMessages)
+        if (additionalMessages.length) {
+          this.UNSHIFT_MESSAGES(additionalMessages)
+          if (this.messagePage === 1) {
+            console.log('MASOOK')
+            this.initMessagesPoll()
+          }
           this.messagePage += 1
-          this.UNSHIFT_MESSAGES(response.data.reverse())
           $state.loaded()
         } else {
           $state.complete()
@@ -143,6 +158,7 @@ export default {
       if (event.keyCode === 13 && this.messageText) {
         chatroomApi.createMessage(response => {
           this.messageText = ''
+          this.sendingNewMessage = true
           console.log(response)
         }, error => {
           console.log(error)
@@ -160,8 +176,12 @@ export default {
       }
     },
     scrollMessageToBottom () {
-      let container = this.$el.querySelector('#messages-container')
-      container.scrollTop = container.scrollHeight
+      console.log('SENDING NEW MESSAGE ' + this.sendingNewMessage)
+      if (this.sendingNewMessage) {
+        let container = this.$el.querySelector('#messages-container')
+        container.scrollTop = container.scrollHeight
+        this.sendingNewMessage = false
+      }
     },
     getAvatarAndName (participants) {
       for (const participant of participants) {
@@ -180,13 +200,12 @@ export default {
     changeTypeChoosen (type) {
       this.typeChoosen = type
       if (type !== 'PUBLIC') {
+        this.chatroomPage = 1
         this.RESET_CHATROOMS()
         this.resetChatroomPoll()
       } else {
         if (this.activeChatroomId !== 'PUBLIC') {
           this.activeChatroomId = 'PUBLIC'
-          this.RESET_MESSAGES()
-          this.resetMessagesPoll()
         }
         clearInterval(this.chatroomIntervalObject)
         this.RESET_CHATROOMS()
@@ -238,16 +257,20 @@ export default {
   watch: {
     activeChatroomId: function (newId, oldId) {
       console.log('WATCHER')
+      // this.resetMessagesPoll()
+      clearInterval(this.messageIntervalObject)
+      this.messagePage = 1
       this.RESET_MESSAGES()
-      this.resetMessagesPoll()
+      this.changingChatroom = true
     }
   },
   mounted () {
-    this.initMessagesPoll()
+    // this.initMessagesPoll()
     this.messagePage = 1
     this.chatroomPage = 1
   },
   updated () {
+    this.scrollMessageToBottom()
     console.log('updated')
   },
   destroyed () {

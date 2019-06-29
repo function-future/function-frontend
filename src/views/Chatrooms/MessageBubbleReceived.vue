@@ -4,7 +4,9 @@
     <div class="message-content">
       <p>{{ name }}</p>
       <div class="message-card">
-        <p>{{ message }}</p>
+        <div>
+          <p>{{ message }}</p>
+        </div>
       </div>
     </div>
     <div class="message-time">
@@ -58,7 +60,7 @@ export default {
     font-size: 0.8rem;
   }
 
-  .message-card {
+  .message-card > div {
     padding: 10px;
     margin-top: 5px;
     background: #F2F2F2;

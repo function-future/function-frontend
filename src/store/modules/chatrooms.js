@@ -46,13 +46,14 @@ export const actions = {
       console.log(state.messages[state.messages.length - 1])
       let additionalMessages = []
       for (const message of response.data) {
-        if (state.messages[state.messages.length - 1] && message.id === state.messages[state.messages.length - 1].id) {
+        if (!state.messages[state.messages.length - 1] || message.id === state.messages[state.messages.length - 1].id) {
           break
         }
         additionalMessages.push(message)
       }
+      console.log('ADDITIONAL POLL')
       console.log(additionalMessages)
-      commit('PUSH_MESSAGES', additionalMessages)
+      commit('PUSH_MESSAGES', additionalMessages.reverse())
     }, fail, data)
   }
 }
