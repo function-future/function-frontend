@@ -24,8 +24,9 @@ export default {
       },
       masterCourses: [],
       selectedId: '',
+      selectedIds: [],
       showDeleteConfirmationModal: false,
-      showCopyCourseModal: true
+      showCopyCourseModal: false
     }
   },
   computed: {
@@ -39,13 +40,13 @@ export default {
   methods: {
     ...mapActions([
       'fetchMasterCourses',
-      'deleteMasterCourseById'
+      'deleteMasterCourseById',
+      'copyCourse'
     ]),
     initPage () {
       let data = {
         ...this.paging
       }
-      console.log(data)
       this.fetchMasterCourses({
         data,
         callback: this.successFetchMasterCourses,
@@ -110,11 +111,37 @@ export default {
       this.$toasted.error('Fail to delete master course')
       this.showDeleteConfirmationModal = false
     },
-    openCopyCourseModal () {
+    openCopySelectedCourseModal () {
+      if (this.selectedIds.length) {
+        this.showCopyCourseModal = true
+      }
+    },
+    openCopyCourseModal (id) {
+      this.selectedIds = [ id ]
       this.showCopyCourseModal = true
     },
     submitCopyCourse (batchDestination) {
-      console.log(batchDestination)
+      let data = {
+        content: {
+          code: batchDestination,
+          originBatch: 'MASTER',
+          courses: [ ...this.selectedIds ]
+        }
+      }
+      this.copyCourse({
+        data,
+        callback: this.successSubmitCopyCourse,
+        fail: this.failSubmitCopyCourse
+      })
+    },
+    successSubmitCopyCourse () {
+      this.selectedIds = []
+      this.showCopyCourseModal = false
+    },
+    failSubmitCopyCourse () {
+      this.selectedIds = []
+      this.showCopyCourseModal = false
+      this.$toasted.error('Fail to copy course, please try again')
     }
   }
 }

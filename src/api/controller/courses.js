@@ -41,6 +41,10 @@ const deleteMasterCourse = function (callback, data, errorHandler) {
   request.deleteRequest(config.api.core.courses.master.detail.delete(data.id), callback, errorHandler)
 }
 
+const copyCourse = function (callback, data, errorHandler) {
+  request.postRequest(config.api.core.courses.post(data.code), callback, data.content, errorHandler)
+}
+
 export default {
   getCourseList,
   getMasterCourseList,
@@ -51,5 +55,6 @@ export default {
   updateCourse,
   updateMasterCourse,
   deleteCourse,
-  deleteMasterCourse
+  deleteMasterCourse,
+  copyCourse
 }

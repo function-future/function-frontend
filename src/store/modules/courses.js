@@ -85,6 +85,11 @@ export const actions = {
   },
   resetCourse ({ commit }) {
     commit('SET_COURSE_BY_ID', {})
+  },
+  copyCourse ({ commit }, { data, callback, fail }) {
+    courseApi.copyCourse(({ data: response }) => {
+      callback(response)
+    }, data, fail)
   }
 }
 
