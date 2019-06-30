@@ -78,7 +78,6 @@ export default {
     },
     fetchMasterCourse () {
       let data = {
-        code: this.$route.params.code,
         id: this.$route.params.id
       }
       this.fetchMasterCourseById({
