@@ -30,6 +30,11 @@
         <span v-html="compileToMarkdown(activityBlog.description)"></span>
       </div>
     </BaseCard>
+    <BasePagination :paging="paging"
+                    @loadPage="loadPage"
+                    @previousPage="loadPreviousPage"
+                    @nextPage="loadNextPage">
+    </BasePagination>
     <modal-delete-confirmation v-if="showDeleteConfirmationModal"
                                @close="closeDeleteConfirmationModal"
                                @clickDelete="deleteThisActivityBlog">
