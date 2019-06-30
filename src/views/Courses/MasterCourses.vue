@@ -1,6 +1,13 @@
 <template>
   <div class="scrollable-container">
     <div class="button-div">
+      <label class="select-all">
+        <input type="checkbox" v-model="allSelected" @click.stop="selectAll">
+        <span class="checkbox">
+          <font-awesome-icon icon="check" class="blue check" size="xs" v-if="allSelected"/>
+        </span>
+        <span>Select All</span>
+      </label>
       <BaseButton @click.stop="openCopySelectedCourseModal"
                   type="submit" buttonClass="button-save button-icon" class="copy" :disabled="!this.selectedIds.length">
         <font-awesome-icon icon="copy" class="icon"></font-awesome-icon> Copy Selected Course
@@ -11,7 +18,12 @@
     </div>
     <div v-for="course in masterCourses" :key="course.id" class="course__row">
       <div class="course__col">
-        <input type="checkbox" :value="course.id" v-model="selectedIds">
+        <label>
+          <input type="checkbox" :value="course.id" v-model="selectedIds">
+          <span class="checkbox">
+            <font-awesome-icon icon="check" class="blue check" size="xs" v-if="selectedIds.includes(course.id)"/>
+          </span>
+        </label>
       </div>
       <div class="course__col--courses">
         <CourseCard :course="course" @click.native="goToThisMasterCourseDetail(course.id)"
@@ -47,6 +59,7 @@
     justify-content: flex-end;
     margin-right: 20px;
     margin-bottom: 10px;
+    margin-top: 10px;
   }
 
   .course {
@@ -70,5 +83,45 @@
   .copy {
     font-size: 1em;
     margin-right: 5px;
+  }
+
+  .select-all {
+    display: flex;
+    font-size: 1em;
+    color: white;
+    background-color: #02AAF3;
+    border-radius: 50px;
+    padding: 7px 20px !important;
+    margin-right: auto;
+    margin-left: 2px;
+
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    span {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  input[type=checkbox] {
+    display: none;
+  }
+
+  .checkbox {
+    display: flex;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    cursor: pointer;
+    height: 20px;
+    width: 20px;
+    margin-right: 5px;
+  }
+
+  .check {
+    margin: auto;
   }
 </style>

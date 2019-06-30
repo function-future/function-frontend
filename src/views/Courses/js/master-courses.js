@@ -25,6 +25,7 @@ export default {
       masterCourses: [],
       selectedId: '',
       selectedIds: [],
+      allSelected: false,
       showDeleteConfirmationModal: false,
       showCopyCourseModal: false
     }
@@ -142,6 +143,14 @@ export default {
     failSubmitCopyCourse () {
       this.showCopyCourseModal = false
       this.$toasted.error('Fail to copy course, please try again')
+    },
+    selectAll () {
+      if (!this.allSelected) {
+        this.selectedIds = this.masterCourses.map(i => i.id)
+      } else {
+        this.selectedIds = []
+      }
+      console.log(this.selectedIds)
     }
   }
 }
