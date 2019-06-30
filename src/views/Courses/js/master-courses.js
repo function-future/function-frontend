@@ -124,7 +124,7 @@ export default {
       let data = {
         content: {
           code: batchDestination,
-          originBatch: 'MASTER',
+          originBatch: null,
           courses: [ ...this.selectedIds ]
         }
       }
