@@ -7,7 +7,7 @@
     </div>
     <div class="batch-div master">
       <div class="batch">
-        <BatchCard :batch="masterCourse" @click.native="goToMasterCourse" :masterBatch="true"></BatchCard>
+        <BatchCard :batch="masterCourse" @click.native="goToMasterCourse" :showAction="false"></BatchCard>
       </div>
     </div>
     <h3 class="title">Batches</h3>
