@@ -13,7 +13,8 @@
     <h3 class="title">Batches</h3>
     <div class="batch-div">
       <div class="batch" v-for="batch in batches" :key="batch.id">
-        <BatchCard :batch="batch" @click.native="goToCourse(batch.code)" @edit="editBatch" @delete="deleteBatch"></BatchCard>
+        <BatchCard :batch="batch" @click.native="goToCourse(batch.code)"
+                   @edit="editBatch" @delete="deleteBatch" :showAction="true"></BatchCard>
       </div>
     </div>
   </div>
