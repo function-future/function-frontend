@@ -5,21 +5,8 @@
   </div>
 </template>
 
-<script>
-import moment from 'moment'
+<script src="./js/MessageBubbleSent.js">
 
-export default {
-  name: 'MessageBubbleSent',
-  props: {
-    message: String,
-    clock: Number
-  },
-  methods: {
-    convertClock () {
-      return moment(this.clock).format('HH:mm')
-    }
-  }
-}
 </script>
 
 <style scoped>

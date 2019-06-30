@@ -12,10 +12,6 @@
               <h3>Group Chatroom</h3>
             </div>
             <div id="group-chatroom-container" v-if="typeChoosen === 'GROUP'" class="chatroom-card-wrapper">
-              <infinite-loading :identifier="typeChoosen" @infinite="infiniteChatroomHandler">
-                <div slot="no-more"></div>
-                <div slot="no-results"></div>
-              </infinite-loading>
               <ChatroomCard v-for="chatroom in chatrooms"
                             :type="chatroom.type"
                             :name="chatroom.name"
@@ -25,15 +21,15 @@
                             :last-message="chatroom.lastMessage ? chatroom.lastMessage.message : 'No Message'"
                             :key="chatroom.id"
                             @click="selectChatroom(chatroom)" />
+              <infinite-loading ref="chatroomInfiniteLoading" :identifier="typeChoosen" @infinite="infiniteChatroomHandler">
+                <div slot="no-more"></div>
+                <div slot="no-results"></div>
+              </infinite-loading>
             </div>
             <div @click="changeTypeChoosen('PRIVATE')" class="chatroom-menu" :class="{'chatroom-menu-blue': typeChoosen === 'PRIVATE'}">
               <h3>Private Chatroom</h3>
             </div>
             <div id="private-chatroom-container" v-if="typeChoosen === 'PRIVATE'" class="chatroom-card-wrapper">
-              <infinite-loading :identifier="typeChoosen" @infinite="infiniteChatroomHandler">
-                <div slot="no-more"></div>
-                <div slot="no-results"></div>
-              </infinite-loading>
               <ChatroomCard v-for="chatroom in chatrooms"
                             :avatar="getAvatarAndName(chatroom.participants).avatar"
                             :type="chatroom.type"
@@ -44,7 +40,10 @@
                             :last-message="chatroom.lastMessage ? chatroom.lastMessage.message : 'No Message'"
                             @click="selectChatroom(chatroom)"
                             :key="chatroom.id" />
-
+              <infinite-loading ref="chatroomInfiniteLoading" :identifier="typeChoosen" @infinite="infiniteChatroomHandler">
+                <div slot="no-more"></div>
+                <div slot="no-results"></div>
+              </infinite-loading>
             </div>
           </div>
           <div class="chatroom-button-add-container">
@@ -80,296 +79,7 @@
   </div>
 </template>
 
-<script>
-import BaseCard from '@/components/BaseCard'
-import SearchBar from '@/components/SearchBar'
-import ChatroomCard from './ChatroomCard'
-import BaseInput from '@/components/BaseInput'
-import MessageBubbleReceived from './MessageBubbleReceived'
-import MessageBubbleSent from './MessageBubbleSent'
-import chatroomApi from '@/api/controller/chatrooms'
-import InfiniteLoading from 'vue-infinite-loading'
-import { mapActions, mapGetters, mapMutations } from 'vuex'
-
-const POLL_INTERVAL = 1000
-
-export default {
-  name: 'Chatrooms',
-  components: {
-    MessageBubbleSent,
-    MessageBubbleReceived,
-    BaseInput,
-    BaseCard,
-    SearchBar,
-    ChatroomCard,
-    InfiniteLoading
-  },
-  data () {
-    return {
-      // TODO: change userId to authenticated user
-      userId: '5d12a2ed32a1893cec242e73',
-      searchText: '',
-      typeChoosen: 'PUBLIC',
-      messageText: '',
-      activeChatroomId: 'PUBLIC',
-      chatroomPage: 1,
-      messagePage: 1,
-      chatroomTitle: 'Public',
-      chatroomIntervalObject: null,
-      messageIntervalObject: null,
-      messageReadIntervalObject: null,
-      sendingNewMessage: false,
-      changingChatroom: false
-    }
-  },
-  computed: {
-    ...mapGetters([
-      'chatrooms',
-      'messages'
-    ])
-  },
-  methods: {
-    ...mapActions([
-      'fetchChatrooms',
-      'fetchMessages',
-      'updateSeenStatus'
-    ]),
-    ...mapMutations([
-      'RESET_MESSAGES',
-      'RESET_CHATROOMS',
-      'UNSHIFT_CHATROOMS',
-      'UNSHIFT_MESSAGES'
-    ]),
-    selectChatroom (chatroom) {
-      this.activeChatroomId = chatroom.id
-      if (chatroom.type === 'PUBLIC') {
-        this.chatroomTitle = 'Public'
-      } else if (chatroom.type === 'GROUP') {
-        this.chatroomTitle = chatroom.name
-      } else {
-        this.chatroomTitle = this.getAvatarAndName(chatroom.participants).name
-      }
-    },
-    infiniteChatroomHandler ($state) {
-      chatroomApi.getChatrooms(response => {
-        let additionalChatrooms = []
-        for (const chatroom of response.data) {
-          console.log('MASUK SINI')
-          console.log(this.chatrooms[this.chatrooms.length - 1])
-          if (this.chatrooms[this.chatrooms.length - 1] && this.chatrooms[this.chatrooms.length - 1].id === chatroom.id) {
-            continue
-          }
-          additionalChatrooms.push(chatroom)
-        }
-        console.log('RESPONSE ADDITIONAL CHATROOM')
-        console.log(additionalChatrooms)
-        if (additionalChatrooms.length) {
-          this.UNSHIFT_CHATROOMS(additionalChatrooms)
-          if (this.chatroomPage === 1) {
-            console.log('MASOOK')
-            this.resetChatroomPoll()
-          }
-          this.chatroomPage += 1
-          $state.loaded()
-        } else {
-          if (this.chatroomPage === 1) {
-            console.log('MASOOK')
-            this.resetChatroomPoll()
-          }
-          $state.complete()
-        }
-      }, error => console.log(error), {
-        params: {
-          page: this.chatroomPage,
-          type: this.typeChoosen,
-          search: ''
-        }
-      })
-    },
-    infiniteMessageHandler ($state) {
-      chatroomApi.getMessages(response => {
-        let additionalMessages = []
-        for (const message of response.data.reverse()) {
-          if (this.messages[0] && this.messages[0].id === message.id) {
-            continue
-          }
-          additionalMessages.push(message)
-        }
-        console.log('ADDITIONAL INFINITE')
-        console.log(additionalMessages)
-        if (additionalMessages.length) {
-          this.UNSHIFT_MESSAGES(additionalMessages)
-          if (this.messagePage === 1) {
-            console.log('MASOOK')
-            this.initMessagesPoll()
-          }
-          this.messagePage += 1
-          $state.loaded()
-        } else {
-          if (this.messagePage === 1) {
-            console.log('MASOOK')
-            this.initMessagesPoll()
-          }
-          $state.complete()
-        }
-      }, error => console.log(error), {
-        params: {
-          chatroomId: this.activeChatroomId,
-          page: this.messagePage
-        }
-      })
-    },
-    submitMessage (event) {
-      if (event.keyCode === 13 && this.messageText) {
-        chatroomApi.createMessage(response => {
-          this.messageText = ''
-          this.sendingNewMessage = true
-          console.log(response)
-        }, error => {
-          console.log(error)
-          this.messageText = ''
-          this.$toasted.error('Fail to send message')
-        },
-        {
-          params: {
-            chatroomId: this.activeChatroomId
-          },
-          body: {
-            message: this.messageText
-          }
-        })
-      }
-    },
-    scrollMessageToBottom () {
-      console.log('SENDING NEW MESSAGE ' + this.sendingNewMessage)
-      if (this.sendingNewMessage) {
-        let container = this.$el.querySelector('#messages-container')
-        container.scrollTop = container.scrollHeight
-        this.sendingNewMessage = false
-      }
-    },
-    scrollChatroomToTop () {
-      if (this.typeChoosen === 'PRIVATE') {
-        let container1 = this.$el.querySelector('#private-chatroom-container')
-        container1.scrollTop = container1.scrollHeight
-      } else if (this.typeChoosen === 'GROUP') {
-        let container2 = this.$el.querySelector('#group-chatroom-container')
-        container2.scrollTop = container2.scrollHeight
-      }
-    },
-    getAvatarAndName (participants) {
-      for (const participant of participants) {
-        if (participant.id !== this.userId) {
-          return {
-            avatar: participant.avatar,
-            name: participant.name
-          }
-        }
-      }
-    },
-    changeText (value) {
-      console.log(value)
-      this.text = value
-    },
-    changeTypeChoosen (type) {
-      this.typeChoosen = type
-      if (type !== 'PUBLIC') {
-        clearInterval(this.messageIntervalObject)
-        this.RESET_CHATROOMS()
-        this.chatroomPage = 1
-        // this.resetChatroomPoll()
-      } else {
-        if (this.activeChatroomId !== 'PUBLIC') {
-          this.activeChatroomId = 'PUBLIC'
-        }
-        this.chatroomPage = 1
-        clearInterval(this.chatroomIntervalObject)
-        this.RESET_CHATROOMS()
-      }
-    },
-    stopPolling () {
-      clearInterval(this.chatroomIntervalObject)
-      clearInterval(this.messageIntervalObject)
-    },
-    resetChatroomPoll () {
-      clearInterval(this.chatroomIntervalObject)
-      this.initChatroomPoll()
-    },
-    initChatroomPoll () {
-      this.chatroomIntervalObject = setInterval(() => {
-        console.log(this.typeChoosen)
-        this.fetchChatrooms({
-          data: {
-            params: {
-              page: 1,
-              type: this.typeChoosen,
-              search: this.searchText
-            }
-          },
-          fail: (err) => {
-            console.log(err)
-          },
-          cb: () => {
-            this.chatroomPage = 1
-            this.scrollChatroomToTop()
-          }
-        })
-      }, POLL_INTERVAL)
-    },
-    initMessagesPoll () {
-      this.messageIntervalObject = setInterval(() => {
-        this.fetchMessages({
-          data: {
-            params: {
-              chatroomId: this.activeChatroomId,
-              page: 1
-            }
-          },
-          fail: err => console.log(err)
-        })
-      }, POLL_INTERVAL)
-    },
-    initReadMessagesPoll () {
-      this.messageReadIntervalObject = setInterval(() => {
-        if (this.messages.length > 0) {
-          chatroomApi.updateSeenStatus(response => {
-            console.log('UPDATE SEEN STATUS')
-            console.log(response)
-          }, err => console.log(err), {
-            params: {
-              chatroomId: this.activeChatroomId,
-              messageId: this.messages[this.messages.length - 1].id
-            }
-          })
-        }
-      }, POLL_INTERVAL)
-    }
-  },
-  watch: {
-    activeChatroomId: function (newId, oldId) {
-      console.log('WATCHER')
-      this.updateSeenStatus(this.activeChatroomId)
-      clearInterval(this.messageIntervalObject)
-      this.messagePage = 1
-      this.RESET_MESSAGES()
-      this.changingChatroom = true
-    }
-  },
-  mounted () {
-    this.initReadMessagesPoll()
-    this.messagePage = 1
-    this.chatroomPage = 1
-  },
-  updated () {
-    this.scrollMessageToBottom()
-    console.log('updated')
-  },
-  destroyed () {
-    this.RESET_MESSAGES()
-    this.RESET_CHATROOMS()
-    this.stopPolling()
-  }
-}
+<script src="./js/Chatrooms.js">
 </script>
 
 <style scoped>

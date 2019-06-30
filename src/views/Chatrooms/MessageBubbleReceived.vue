@@ -4,34 +4,17 @@
     <div class="message-content">
       <p>{{ name }}</p>
       <div class="message-card">
-        <div>
-          <p>{{ message }}</p>
+        <p>{{ message }}</p>
+        <div class="message-time">
+          {{ convertClock() }}
         </div>
       </div>
-    </div>
-    <div class="message-time">
-      {{ convertClock() }}
     </div>
   </div>
 </template>
 
-<script>
-import moment from 'moment'
+<script src="./js/MessageBubbleReceived.js">
 
-export default {
-  name: 'MessageBubbleReceived',
-  props: {
-    avatar: String,
-    name: String,
-    message: String,
-    clock: Number
-  },
-  methods: {
-    convertClock () {
-      return moment(this.clock).format('HH:mm')
-    }
-  }
-}
 </script>
 
 <style scoped>
@@ -52,6 +35,10 @@ export default {
     margin: 0 10px;
   }
 
+  .message-card {
+    display: flex;
+  }
+
   .message-card > p {
     font-size: 0.9rem;
   }
@@ -60,7 +47,7 @@ export default {
     font-size: 0.8rem;
   }
 
-  .message-card > div {
+  .message-card > p {
     padding: 10px;
     margin-top: 5px;
     background: #F2F2F2;
@@ -81,5 +68,6 @@ export default {
     display: flex;
     align-items: flex-end;
     font-size: 0.8rem;
+    margin-left: 10px;
   }
 </style>

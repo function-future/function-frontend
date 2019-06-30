@@ -11,8 +11,6 @@ export const mutations = {
   },
   UNSHIFT_CHATROOMS (state, payload) {
     state.chatrooms.unshift(...payload)
-    console.log('STATE CHATROOM')
-    console.log(state.chatrooms)
   },
   UNSHIFT_MESSAGES (state, payload) {
     state.messages.unshift(...payload)
@@ -30,8 +28,10 @@ export const mutations = {
 
 const isChatroomEqual = function (chatroom1, chatroom2) {
   return chatroom1.id === chatroom2.id &&
+    ((!chatroom1.lastMessage && !chatroom2.lastMessage) ||
+    (chatroom1.lastMessage && chatroom2.lastMessage &&
     chatroom1.lastMessage.seen === chatroom2.lastMessage.seen &&
-    chatroom1.lastMessage.message === chatroom2.lastMessage.message
+    chatroom1.lastMessage.message === chatroom2.lastMessage.message))
 }
 
 export const actions = {
@@ -39,8 +39,6 @@ export const actions = {
     chatroomApi.getChatrooms(response => {
       let i = 0
       let shouldChange = false
-      console.log('RESPONSE DATA CHATROOM')
-      console.log(response)
       for (const chatroom of response.data) {
         if (state.chatrooms[i] && !isChatroomEqual(chatroom, state.chatrooms[i])) {
           shouldChange = true
@@ -49,30 +47,26 @@ export const actions = {
       }
       if (shouldChange) {
         commit('RESET_CHATROOMS')
-        commit('UNSHIFT_CHATROOMS', response.data)
         cb()
       }
     }, fail, data)
   },
-  fetchMessages ({ state, commit }, { data, fail }) {
+  fetchMessages ({ state, commit }, { data, fail, cb }) {
     chatroomApi.getMessages(response => {
-      console.log(response)
-      console.log(state.messages[state.messages.length - 1])
       let additionalMessages = []
       for (const message of response.data) {
-        if (!state.messages[state.messages.length - 1] || message.id === state.messages[state.messages.length - 1].id) {
+        if (state.messages[state.messages.length - 1] && message.id === state.messages[state.messages.length - 1].id) {
           break
         }
         additionalMessages.push(message)
       }
-      console.log('ADDITIONAL POLL')
-      console.log(additionalMessages)
       commit('PUSH_MESSAGES', additionalMessages.reverse())
+      cb()
     }, fail, data)
   },
   updateSeenStatus ({ state, commit }, chatroomId) {
     for (let chatroom of state.chatrooms) {
-      if (chatroomId === chatroom.id) {
+      if (chatroomId === chatroom.id && chatroom.lastMessage) {
         chatroom.lastMessage.seen = true
       }
     }
