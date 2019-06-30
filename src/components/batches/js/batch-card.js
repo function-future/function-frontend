@@ -7,7 +7,7 @@ export default {
   },
   props: [
     'batch',
-    'masterBatch'
+    'showAction'
   ],
   methods: {
     edit () {
