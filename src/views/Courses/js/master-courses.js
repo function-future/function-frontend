@@ -121,9 +121,10 @@ export default {
       this.showCopyCourseModal = true
     },
     submitCopyCourse (batchDestination) {
+      if (batchDestination === '') return
       let data = {
+        code: batchDestination,
         content: {
-          code: batchDestination,
           originBatch: null,
           courses: [ ...this.selectedIds ]
         }
@@ -139,7 +140,6 @@ export default {
       this.showCopyCourseModal = false
     },
     failSubmitCopyCourse () {
-      this.selectedIds = []
       this.showCopyCourseModal = false
       this.$toasted.error('Fail to copy course, please try again')
     }

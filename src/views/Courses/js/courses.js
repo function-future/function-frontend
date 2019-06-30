@@ -3,6 +3,7 @@ import BaseCard from '@/components/BaseCard.vue'
 import CourseCard from '@/components/courses/CourseCard.vue'
 import BaseButton from '@/components/BaseButton'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
+import ModalCopyCourse from '@/components/modals/ModalCopyCourse'
 import BasePagination from '@/components/BasePagination'
 
 export default {
@@ -12,6 +13,7 @@ export default {
     CourseCard,
     BaseButton,
     ModalDeleteConfirmation,
+    ModalCopyCourse,
     BasePagination
   },
   data () {
@@ -22,7 +24,9 @@ export default {
       },
       courses: [],
       selectedId: '',
-      showDeleteConfirmationModal: false
+      selectedIds: [],
+      showDeleteConfirmationModal: false,
+      showCopyCourseModal: false
     }
   },
   computed: {
@@ -36,7 +40,8 @@ export default {
   methods: {
     ...mapActions([
       'fetchCourses',
-      'deleteCourseById'
+      'deleteCourseById',
+      'copyCourse'
     ]),
     initPage () {
       let data = {
@@ -114,6 +119,38 @@ export default {
     failDeleteCourseById () {
       this.$toasted.error('Fail to delete course')
       this.showDeleteConfirmationModal = false
+    },
+    openCopySelectedCourseModal () {
+      if (this.selectedIds.length) {
+        this.showCopyCourseModal = true
+      }
+    },
+    openCopyCourseModal (id) {
+      this.selectedIds = [ id ]
+      this.showCopyCourseModal = true
+    },
+    submitCopyCourse (batchDestination) {
+      if (batchDestination === '') return
+      let data = {
+        code: batchDestination,
+        content: {
+          originBatch: this.$route.params.code,
+          courses: [ ...this.selectedIds ]
+        }
+      }
+      this.copyCourse({
+        data,
+        callback: this.successSubmitCopyCourse,
+        fail: this.failSubmitCopyCourse
+      })
+    },
+    successSubmitCopyCourse () {
+      this.selectedIds = []
+      this.showCopyCourseModal = false
+    },
+    failSubmitCopyCourse () {
+      this.showCopyCourseModal = false
+      this.$toasted.error('Fail to copy course, please try again')
     }
   }
 }

@@ -5,8 +5,6 @@
                   type="submit" buttonClass="button-save button-icon" class="copy" :disabled="!this.selectedIds.length">
         <font-awesome-icon icon="copy" class="icon"></font-awesome-icon> Copy Selected Course
       </BaseButton>
-      <span @click.stop="copy(course.id)" class="copy">
-      </span>
       <BaseButton type="submit" buttonClass="button-save" @click="goToAddMasterCourse">
         <span><font-awesome-icon icon="plus" class="icon"/> Add</span>
       </BaseButton>
