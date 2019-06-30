@@ -5,6 +5,9 @@
         <h3>{{ title }}</h3>
       </div>
       <div class="col actions-div" style="flex-grow: 1">
+        <span @click.stop="copy(course.id)" class="copy">
+          <font-awesome-icon icon="copy" class="icon" size="lg"></font-awesome-icon> Copy Course
+        </span>
         <span @click.stop="edit(course.id)"><font-awesome-icon icon="edit" class="icon blue" size="lg"></font-awesome-icon></span>
         <span @click.stop="deleteCourse(course.id)"><font-awesome-icon icon="trash-alt" class="icon red" size="lg"></font-awesome-icon></span>
       </div>
@@ -55,5 +58,18 @@
 
   .actions-div span:active {
     opacity: 0.9;
+  }
+
+  .icon {
+    margin-right: 5px;
+  }
+
+  .copy {
+    color: white;
+    font-size: 13px;
+    background-color: #02AAF3;
+    border-radius: 50px;
+    padding: 7px 20px !important;
+    margin-right: 15px;
   }
 </style>

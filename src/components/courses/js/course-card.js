@@ -7,6 +7,9 @@ export default {
     'course'
   ],
   methods: {
+    copy () {
+      this.$emit('copy', this.course.id)
+    },
     edit () {
       this.$emit('edit', this.course.id)
     },
