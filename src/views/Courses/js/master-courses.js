@@ -3,6 +3,7 @@ import BaseCard from '@/components/BaseCard.vue'
 import CourseCard from '@/components/courses/CourseCard.vue'
 import BaseButton from '@/components/BaseButton'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
+import ModalCopyCourse from '@/components/modals/ModalCopyCourse'
 import BasePagination from '@/components/BasePagination'
 
 export default {
@@ -12,6 +13,7 @@ export default {
     CourseCard,
     BaseButton,
     ModalDeleteConfirmation,
+    ModalCopyCourse,
     BasePagination
   },
   data () {
@@ -22,7 +24,8 @@ export default {
       },
       masterCourses: [],
       selectedId: '',
-      showDeleteConfirmationModal: false
+      showDeleteConfirmationModal: false,
+      showCopyCourseModal: true
     }
   },
   computed: {
@@ -106,6 +109,12 @@ export default {
     failDeleteMasterById () {
       this.$toasted.error('Fail to delete master course')
       this.showDeleteConfirmationModal = false
+    },
+    openCopyCourseModal () {
+      this.showCopyCourseModal = true
+    },
+    submitCopyCourse (batchDestination) {
+      console.log(batchDestination)
     }
   }
 }

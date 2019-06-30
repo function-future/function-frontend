@@ -7,7 +7,8 @@
     </div>
     <div v-for="course in masterCourses" :key="course.id">
       <CourseCard :course="course" @click.native="goToThisMasterCourseDetail(course.id)"
-                  @edit="goToEditMasterCourse(course.id)" @delete="openDeleteConfirmationModal(course.id)">
+                  @edit="goToEditMasterCourse(course.id)" @delete="openDeleteConfirmationModal(course.id)"
+                  @copy="openCopyCourseModal(course.id)">
       </CourseCard>
     </div>
     <BasePagination :paging="paging"
@@ -20,6 +21,7 @@
                                @clickDelete="deleteThisMasterCourse">
       <div slot="description">Are you sure you want to delete this master course?</div>
     </modal-delete-confirmation>
+    <modal-copy-course v-if="showCopyCourseModal" @close="showCopyCourseModal = false" @copy="submitCopyCourse"></modal-copy-course>
   </div>
 </template>
 
