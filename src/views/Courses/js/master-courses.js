@@ -144,6 +144,9 @@ export default {
       this.showCopyCourseModal = false
       this.$toasted.error('Fail to copy course, please try again')
     },
+    select () {
+      this.allSelected = false
+    },
     selectAll () {
       if (!this.allSelected) {
         this.selectedIds = this.masterCourses.map(i => i.id)

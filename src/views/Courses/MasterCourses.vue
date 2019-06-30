@@ -19,7 +19,7 @@
     <div v-for="course in masterCourses" :key="course.id" class="course__row">
       <div class="course__col">
         <label>
-          <input type="checkbox" :value="course.id" v-model="selectedIds">
+          <input type="checkbox" :value="course.id" v-model="selectedIds" @click="select">
           <span class="checkbox">
             <font-awesome-icon icon="check" class="blue check" size="xs" v-if="selectedIds.includes(course.id)"/>
           </span>
@@ -70,6 +70,8 @@
     }
 
     &__col {
+      margin-left: 9px;
+
       &--courses {
         flex-grow: 1;
       }
@@ -91,9 +93,8 @@
     color: white;
     background-color: #02AAF3;
     border-radius: 50px;
-    padding: 7px 20px !important;
+    padding: 7px 20px 7px 10px !important;
     margin-right: auto;
-    margin-left: 2px;
 
     -webkit-user-select: none;
     -moz-user-select: none;
