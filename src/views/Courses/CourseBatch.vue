@@ -14,9 +14,14 @@
     <div class="batch-div">
       <div class="batch" v-for="batch in batches" :key="batch.id">
         <BatchCard :batch="batch" @click.native="goToCourse(batch.code)"
-                   @edit="editBatch" @delete="deleteBatch" :showAction="true"></BatchCard>
+                   @edit="editBatch" @delete="openDeleteConfirmationModal(batch.id)" :showAction="true"></BatchCard>
       </div>
     </div>
+    <modal-delete-confirmation v-if="showDeleteConfirmationModal"
+                               @close="showDeleteConfirmationModal = false"
+                               @clickDelete="deleteThisBatch">
+      <div slot="description">Are you sure you want to delete this batch?</div>
+    </modal-delete-confirmation>
   </div>
 </template>
 
