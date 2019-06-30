@@ -43,6 +43,6 @@ export default {
     },
     failFetchBatches () {
       this.$toasted.error('Fail to fetch batches, please try again')
-    },
+    }
   }
 }
