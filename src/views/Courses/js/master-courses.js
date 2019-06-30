@@ -153,7 +153,6 @@ export default {
       } else {
         this.selectedIds = []
       }
-      console.log(this.selectedIds)
     }
   }
 }
