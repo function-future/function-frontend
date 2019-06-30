@@ -140,7 +140,8 @@ module.exports = {
         post: '/api/core/batches',
         detail: {
           get (id) { return `/api/core/batches/${id}` },
-          update (id) { return `/api/core/batches/${id}` }
+          update (id) { return `/api/core/batches/${id}` },
+          delete (id) { return `/api/core/batches/${id}` }
         }
       },
       courses: {

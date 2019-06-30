@@ -31,6 +31,11 @@ export const actions = {
     batchApi.updateBatch(({ data: response }) => {
       callback(response)
     }, data, fail)
+  },
+  deleteBatch ({ commit }, { data, callback, fail }) {
+    batchApi.deleteBatch(({ data: response }) => {
+      callback()
+    },data, fail)
   }
 }
 
