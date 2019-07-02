@@ -324,7 +324,6 @@ export default {
   },
   watch: {
     activeChatroomId: function (newId, oldId) {
-      console.log('masuk')
       clearInterval(this.messageIntervalObject)
       this.messagePage = 1
       this.RESET_MESSAGES()
