@@ -87,9 +87,6 @@ export default {
         return moment(message.time).format('DD MMM YY')
       }
     },
-    printDate(time) {
-      return moment(time).format('DD MMM YY')
-    },
     selectChatroom (chatroom) {
       this.activeChatroomId = chatroom.id
       if (chatroom.type === 'PUBLIC') {
@@ -195,7 +192,6 @@ export default {
     scrollMessageToBottom () {
       let container = this.$el.querySelector('#messages-container')
       container.scrollTop = container.scrollHeight
-      this.sendingNewMessage = false
     },
     getAvatarAndName (participants) {
       for (const participant of participants) {
@@ -229,6 +225,7 @@ export default {
     stopPolling () {
       clearInterval(this.chatroomIntervalObject)
       clearInterval(this.messageIntervalObject)
+      clearInterval(this.messageReadIntervalObject)
     },
     resetChatroomPoll () {
       clearInterval(this.chatroomIntervalObject)
@@ -296,7 +293,7 @@ export default {
       this.messagePage = 1
       this.RESET_MESSAGES()
       this.changingChatroom = true
-    }
+    },
   },
   mounted () {
     this.initReadMessagesPoll()
@@ -304,9 +301,9 @@ export default {
     this.chatroomPage = 1
   },
   updated () {
-    // this.currentMessageDate = null
     if (this.sendingNewMessage) {
       this.scrollMessageToBottom()
+      this.sendingNewMessage = false
     }
   },
   destroyed () {
