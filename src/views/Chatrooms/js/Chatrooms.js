@@ -37,20 +37,32 @@ export default {
       messageIntervalObject: null,
       messageReadIntervalObject: null,
       sendingNewMessage: false,
-      changingChatroom: false
+      changingChatroom: false,
+      isSearching: false
     }
   },
   computed: {
     ...mapGetters([
       'chatrooms',
       'messages'
-    ])
+    ]),
+    privateChatrooms () {
+      return this.chatrooms.filter(chatroom => {
+        return chatroom.type === 'PRIVATE'
+      })
+    },
+    groupChatrooms () {
+      return this.chatrooms.filter(chatroom => {
+        return chatroom.type === 'GROUP'
+      })
+    }
   },
   methods: {
     ...mapActions([
       'fetchChatrooms',
       'fetchMessages',
-      'updateSeenStatus'
+      'updateSeenStatus',
+      'fetchChatroomWithKeyword'
     ]),
     ...mapMutations([
       'RESET_MESSAGES',
@@ -208,22 +220,40 @@ export default {
         }
       }
     },
-    changeText (value) {
-      this.text = value
+    changeSearchText (value) {
+      this.searchText = value
+      if (value.length > 0) {
+        this.isSearching = true
+        this.fetchChatroomWithKeyword({
+          data: {
+            params: {
+              page: 1,
+              search: this.searchText
+            }
+          },
+          fail: (err) => {
+            console.log(err)
+          }
+        })
+      } else {
+        this.isSearching = false
+      }
     },
     changeTypeChoosen (type) {
-      this.typeChoosen = type
-      if (type !== 'PUBLIC') {
-        this.RESET_CHATROOMS()
-        this.chatroomPage = 1
-      } else {
-        this.chatroomTitle = 'Public'
-        if (this.activeChatroomId !== 'PUBLIC') {
-          this.activeChatroomId = 'PUBLIC'
+      if (type !== this.typeChoosen) {
+        this.typeChoosen = type
+        if (type !== 'PUBLIC') {
+          this.RESET_CHATROOMS()
+          this.chatroomPage = 1
+        } else {
+          this.chatroomTitle = 'Public'
+          if (this.activeChatroomId !== 'PUBLIC') {
+            this.activeChatroomId = 'PUBLIC'
+          }
+          this.chatroomPage = 1
+          clearInterval(this.chatroomIntervalObject)
+          this.RESET_CHATROOMS()
         }
-        this.chatroomPage = 1
-        clearInterval(this.chatroomIntervalObject)
-        this.RESET_CHATROOMS()
       }
     },
     stopPolling () {
@@ -299,6 +329,11 @@ export default {
       this.messagePage = 1
       this.RESET_MESSAGES()
       this.changingChatroom = true
+    },
+    isSearching: function (newVal, oldVal) {
+      this.chatroomPage = 1
+      clearInterval(this.chatroomIntervalObject)
+      this.RESET_CHATROOMS()
     }
   },
   mounted () {

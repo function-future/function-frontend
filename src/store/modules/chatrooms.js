@@ -66,6 +66,12 @@ export const actions = {
       }
     }, fail, data)
   },
+  fetchChatroomWithKeyword ({ commit }, { data, fail }) {
+    chatroomApi.getChatrooms(response => {
+      commit('RESET_CHATROOMS')
+      commit('PUSH_CHATROOMS', response.data)
+    }, fail, data)
+  },
   updateSeenStatus ({ state, commit }, chatroomId) {
     for (let chatroom of state.chatrooms) {
       if (chatroomId === chatroom.id && chatroom.lastMessage) {

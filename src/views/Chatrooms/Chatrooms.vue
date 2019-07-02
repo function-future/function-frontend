@@ -4,47 +4,72 @@
       <div class="chatroom-container">
         <div class="chatroom-left">
           <div class="chatroom-left-container">
-            <SearchBar @input="changeText"/>
-            <div @click="changeTypeChoosen('PUBLIC')" class="chatroom-menu" :class="{'chatroom-menu-blue': typeChoosen === 'PUBLIC'}">
-              <h3>Public Chatroom</h3>
-            </div>
-            <div @click="changeTypeChoosen('GROUP')" class="chatroom-menu" :class="{'chatroom-menu-blue': typeChoosen === 'GROUP'}">
-              <h3>Group Chatroom</h3>
-            </div>
-            <div id="group-chatroom-container" v-if="typeChoosen === 'GROUP'" class="chatroom-card-wrapper">
-              <ChatroomCard v-for="chatroom in chatrooms"
-                            :type="chatroom.type"
-                            :name="chatroom.name"
-                            :is-choosen="chatroom.id === activeChatroomId"
-                            :is-seen="chatroom.lastMessage ? chatroom.lastMessage.seen : true"
-                            :time="chatroom.lastMessage ? chatroom.lastMessage.time : null"
-                            :last-message="chatroom.lastMessage ? chatroom.lastMessage.message : 'No Message'"
-                            :key="chatroom.id"
-                            @click="selectChatroom(chatroom)"></ChatroomCard>
-              <infinite-loading ref="chatroomInfiniteLoading" :identifier="typeChoosen" @infinite="infiniteChatroomHandler">
-                <div slot="no-more"></div>
-                <div slot="no-results"></div>
-              </infinite-loading>
-            </div>
-            <div @click="changeTypeChoosen('PRIVATE')" class="chatroom-menu" :class="{'chatroom-menu-blue': typeChoosen === 'PRIVATE'}">
-              <h3>Private Chatroom</h3>
-            </div>
-            <div id="private-chatroom-container" v-if="typeChoosen === 'PRIVATE'" class="chatroom-card-wrapper">
-              <ChatroomCard v-for="chatroom in chatrooms"
-                            :avatar="getAvatarAndName(chatroom.participants).avatar"
-                            :type="chatroom.type"
-                            :is-choosen="chatroom.id === activeChatroomId"
-                            :name="getAvatarAndName(chatroom.participants).name"
-                            :is-seen="chatroom.lastMessage ? chatroom.lastMessage.seen : true"
-                            :time="chatroom.lastMessage ? chatroom.lastMessage.time : null"
-                            :last-message="chatroom.lastMessage ? chatroom.lastMessage.message : 'No Message'"
-                            @click="selectChatroom(chatroom)"
-                            :key="chatroom.id"></ChatroomCard>
-              <infinite-loading ref="chatroomInfiniteLoading" :identifier="typeChoosen" @infinite="infiniteChatroomHandler">
-                <div slot="no-more"></div>
-                <div slot="no-results"></div>
-              </infinite-loading>
-            </div>
+            <SearchBar @input="changeSearchText"/>
+            <template v-if="!isSearching">
+              <div @click="changeTypeChoosen('PUBLIC')" class="chatroom-menu" :class="{'chatroom-menu-blue': typeChoosen === 'PUBLIC'}">
+                <h3>Public Chatroom</h3>
+              </div>
+              <div @click="changeTypeChoosen('GROUP')" class="chatroom-menu" :class="{'chatroom-menu-blue': typeChoosen === 'GROUP'}">
+                <h3>Group Chatroom</h3>
+              </div>
+              <div id="group-chatroom-container" v-if="typeChoosen === 'GROUP'" class="chatroom-card-wrapper">
+                <ChatroomCard v-for="chatroom in chatrooms"
+                              :type="chatroom.type"
+                              :name="chatroom.name"
+                              :is-choosen="chatroom.id === activeChatroomId"
+                              :is-seen="chatroom.lastMessage ? chatroom.lastMessage.seen : true"
+                              :time="chatroom.lastMessage ? chatroom.lastMessage.time : null"
+                              :last-message="chatroom.lastMessage ? chatroom.lastMessage.message : 'No Message'"
+                              :key="chatroom.id"
+                              @click="selectChatroom(chatroom)"></ChatroomCard>
+                <infinite-loading ref="chatroomInfiniteLoading" :identifier="typeChoosen" @infinite="infiniteChatroomHandler">
+                  <div slot="no-more"></div>
+                  <div slot="no-results"></div>
+                </infinite-loading>
+              </div>
+              <div @click="changeTypeChoosen('PRIVATE')" class="chatroom-menu" :class="{'chatroom-menu-blue': typeChoosen === 'PRIVATE'}">
+                <h3>Private Chatroom</h3>
+              </div>
+              <div id="private-chatroom-container" v-if="typeChoosen === 'PRIVATE' && !isSearching" class="chatroom-card-wrapper">
+                <ChatroomCard v-for="chatroom in chatrooms"
+                              :avatar="getAvatarAndName(chatroom.participants).avatar"
+                              :type="chatroom.type"
+                              :is-choosen="chatroom.id === activeChatroomId"
+                              :name="getAvatarAndName(chatroom.participants).name"
+                              :is-seen="chatroom.lastMessage ? chatroom.lastMessage.seen : true"
+                              :time="chatroom.lastMessage ? chatroom.lastMessage.time : null"
+                              :last-message="chatroom.lastMessage ? chatroom.lastMessage.message : 'No Message'"
+                              @click="selectChatroom(chatroom)"
+                              :key="chatroom.id"></ChatroomCard>
+                <infinite-loading ref="chatroomInfiniteLoading" :identifier="typeChoosen" @infinite="infiniteChatroomHandler">
+                  <div slot="no-more"></div>
+                  <div slot="no-results"></div>
+                </infinite-loading>
+              </div>
+            </template>
+            <template v-else>
+              <div class="chatroom-card-searching-wrapper">
+                <ChatroomCard v-for="chatroom in privateChatrooms"
+                              :avatar="getAvatarAndName(chatroom.participants).avatar"
+                              :type="chatroom.type"
+                              :is-choosen="chatroom.id === activeChatroomId"
+                              :name="getAvatarAndName(chatroom.participants).name"
+                              :is-seen="chatroom.lastMessage ? chatroom.lastMessage.seen : true"
+                              :time="chatroom.lastMessage ? chatroom.lastMessage.time : null"
+                              :last-message="chatroom.lastMessage ? chatroom.lastMessage.message : 'No Message'"
+                              @click="selectChatroom(chatroom)"
+                              :key="chatroom.id"></ChatroomCard>
+                <ChatroomCard v-for="chatroom in groupChatrooms"
+                              :type="chatroom.type"
+                              :name="chatroom.name"
+                              :is-choosen="chatroom.id === activeChatroomId"
+                              :is-seen="chatroom.lastMessage ? chatroom.lastMessage.seen : true"
+                              :time="chatroom.lastMessage ? chatroom.lastMessage.time : null"
+                              :last-message="chatroom.lastMessage ? chatroom.lastMessage.message : 'No Message'"
+                              :key="chatroom.id"
+                              @click="selectChatroom(chatroom)"></ChatroomCard>
+              </div>
+            </template>
           </div>
           <div class="chatroom-button-add-container">
             <font-awesome-icon icon="plus" class="chatroom-button-add"/>
@@ -87,8 +112,20 @@
 
 <style scoped>
 
+  .chatroom-search-notfound {
+    margin: 0;
+    color: #AAAAAA;
+    font-size: 0.9rem;
+  }
+
   .chatroom-card-wrapper {
     max-height: 40vh;
+    overflow: auto;
+    padding: 10px;
+  }
+
+  .chatroom-card-searching-wrapper {
+    max-height: 60vh;
     overflow: auto;
     padding: 10px;
   }
