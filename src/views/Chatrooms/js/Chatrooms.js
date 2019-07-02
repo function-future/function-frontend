@@ -193,8 +193,8 @@ export default {
       }
     },
     scrollMessageToBottom () {
-      // let container = this.$el.querySelector('#messages-container')
-      // container.scrollTop = container.scrollHeight
+      let container = this.$el.querySelector('#messages-container')
+      container.scrollTop = container.scrollHeight
       this.sendingNewMessage = false
     },
     getAvatarAndName (participants) {
