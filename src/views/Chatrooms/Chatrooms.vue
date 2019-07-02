@@ -20,7 +20,7 @@
                             :time="chatroom.lastMessage ? chatroom.lastMessage.time : null"
                             :last-message="chatroom.lastMessage ? chatroom.lastMessage.message : 'No Message'"
                             :key="chatroom.id"
-                            @click="selectChatroom(chatroom)" />
+                            @click="selectChatroom(chatroom)"></ChatroomCard>
               <infinite-loading ref="chatroomInfiniteLoading" :identifier="typeChoosen" @infinite="infiniteChatroomHandler">
                 <div slot="no-more"></div>
                 <div slot="no-results"></div>
@@ -39,7 +39,7 @@
                             :time="chatroom.lastMessage ? chatroom.lastMessage.time : null"
                             :last-message="chatroom.lastMessage ? chatroom.lastMessage.message : 'No Message'"
                             @click="selectChatroom(chatroom)"
-                            :key="chatroom.id" />
+                            :key="chatroom.id"></ChatroomCard>
               <infinite-loading ref="chatroomInfiniteLoading" :identifier="typeChoosen" @infinite="infiniteChatroomHandler">
                 <div slot="no-more"></div>
                 <div slot="no-results"></div>
@@ -65,17 +65,17 @@
               <MessageBubbleSent v-if="message.sender.id === userId"
                                  :message="message.text"
                                  :clock="message.time"
-                                 class="chatroom-message-bubble" />
+                                 class="chatroom-message-bubble"></MessageBubbleSent>
 
               <MessageBubbleReceived v-else
                                      :message="message.text"
                                      :clock="message.time"
                                      :name="message.sender.name"
                                      :avatar="message.sender.avatar"
-                                     class="chatroom-message-bubble" />
+                                     class="chatroom-message-bubble"></MessageBubbleReceived>
             </div>
           </div>
-          <BaseInput v-model="messageText" @keyup="submitMessage" placeholder="Type a message" inputType="message-box"/>
+          <BaseInput v-model="messageText" @keyup="submitMessage" placeholder="Type a message" inputType="message-box"></BaseInput>
         </div>
       </div>
     </BaseCard>

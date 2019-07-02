@@ -25,7 +25,7 @@ export default {
   data () {
     return {
       // TODO: change userId to authenticated user
-      userId: '5d119940047e5e37a8986220',
+      userId: '5d12a2ed32a1893cec242e73',
       searchText: '',
       typeChoosen: 'PUBLIC',
       messageText: '',
@@ -37,7 +37,7 @@ export default {
       messageIntervalObject: null,
       messageReadIntervalObject: null,
       sendingNewMessage: false,
-      changingChatroom: false,
+      changingChatroom: false
     }
   },
   computed: {
@@ -59,10 +59,10 @@ export default {
       'PUSH_CHATROOMS',
       'UNSHIFT_MESSAGES'
     ]),
-    toDateList(time) {
+    toDateList (time) {
       return [moment(time).year(), moment(time).month(), moment(time).date()]
     },
-    computeMessagesDate(messages) {
+    computeMessagesDate (messages) {
       let dateSeparator = null
       messages.forEach(message => {
         if (!dateSeparator) {
@@ -190,8 +190,13 @@ export default {
       }
     },
     scrollMessageToBottom () {
-      let container = this.$el.querySelector('#messages-container')
-      container.scrollTop = container.scrollHeight
+      this.$nextTick(() => {
+        if (this.sendingNewMessage) {
+          let container = this.$el.querySelector('#messages-container')
+          container.scrollTop = container.scrollHeight
+          this.sendingNewMessage = false
+        }
+      })
     },
     getAvatarAndName (participants) {
       for (const participant of participants) {
@@ -209,7 +214,6 @@ export default {
     changeTypeChoosen (type) {
       this.typeChoosen = type
       if (type !== 'PUBLIC') {
-        clearInterval(this.messageIntervalObject)
         this.RESET_CHATROOMS()
         this.chatroomPage = 1
       } else {
@@ -266,6 +270,7 @@ export default {
           },
           fail: err => console.log(err),
           cb: () => {
+            this.scrollMessageToBottom()
             if (this.changingChatroom) {
               this.RESET_MESSAGES()
             }
@@ -289,22 +294,17 @@ export default {
   },
   watch: {
     activeChatroomId: function (newId, oldId) {
+      console.log('masuk')
       clearInterval(this.messageIntervalObject)
       this.messagePage = 1
       this.RESET_MESSAGES()
       this.changingChatroom = true
-    },
+    }
   },
   mounted () {
     this.initReadMessagesPoll()
     this.messagePage = 1
     this.chatroomPage = 1
-  },
-  updated () {
-    if (this.sendingNewMessage) {
-      this.scrollMessageToBottom()
-      this.sendingNewMessage = false
-    }
   },
   destroyed () {
     this.RESET_MESSAGES()

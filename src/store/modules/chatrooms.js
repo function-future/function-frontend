@@ -60,8 +60,10 @@ export const actions = {
         }
         additionalMessages.push(message)
       }
-      commit('PUSH_MESSAGES', additionalMessages.reverse())
-      cb()
+      if (additionalMessages.length > 0) {
+        commit('PUSH_MESSAGES', additionalMessages.reverse())
+        cb()
+      }
     }, fail, data)
   },
   updateSeenStatus ({ state, commit }, chatroomId) {
