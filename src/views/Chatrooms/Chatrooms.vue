@@ -49,25 +49,30 @@
             </template>
             <template v-else>
               <div class="chatroom-card-searching-wrapper">
-                <ChatroomCard v-for="chatroom in privateChatrooms"
-                              :avatar="getAvatarAndName(chatroom.participants).avatar"
-                              :type="chatroom.type"
-                              :is-choosen="chatroom.id === activeChatroomId"
-                              :name="getAvatarAndName(chatroom.participants).name"
-                              :is-seen="chatroom.lastMessage ? chatroom.lastMessage.seen : true"
-                              :time="chatroom.lastMessage ? chatroom.lastMessage.time : null"
-                              :last-message="chatroom.lastMessage ? chatroom.lastMessage.message : 'No Message'"
-                              @click="selectChatroom(chatroom)"
-                              :key="chatroom.id"></ChatroomCard>
-                <ChatroomCard v-for="chatroom in groupChatrooms"
-                              :type="chatroom.type"
-                              :name="chatroom.name"
-                              :is-choosen="chatroom.id === activeChatroomId"
-                              :is-seen="chatroom.lastMessage ? chatroom.lastMessage.seen : true"
-                              :time="chatroom.lastMessage ? chatroom.lastMessage.time : null"
-                              :last-message="chatroom.lastMessage ? chatroom.lastMessage.message : 'No Message'"
-                              :key="chatroom.id"
-                              @click="selectChatroom(chatroom)"></ChatroomCard>
+                <template v-if="groupChatrooms.length > 0 || privateChatrooms.length > 0">
+                  <ChatroomCard v-for="chatroom in privateChatrooms"
+                                :avatar="getAvatarAndName(chatroom.participants).avatar"
+                                :type="chatroom.type"
+                                :is-choosen="chatroom.id === activeChatroomId"
+                                :name="getAvatarAndName(chatroom.participants).name"
+                                :is-seen="chatroom.lastMessage ? chatroom.lastMessage.seen : true"
+                                :time="chatroom.lastMessage ? chatroom.lastMessage.time : null"
+                                :last-message="chatroom.lastMessage ? chatroom.lastMessage.message : 'No Message'"
+                                @click="selectChatroom(chatroom)"
+                                :key="chatroom.id"></ChatroomCard>
+                  <ChatroomCard v-for="chatroom in groupChatrooms"
+                                :type="chatroom.type"
+                                :name="chatroom.name"
+                                :is-choosen="chatroom.id === activeChatroomId"
+                                :is-seen="chatroom.lastMessage ? chatroom.lastMessage.seen : true"
+                                :time="chatroom.lastMessage ? chatroom.lastMessage.time : null"
+                                :last-message="chatroom.lastMessage ? chatroom.lastMessage.message : 'No Message'"
+                                :key="chatroom.id"
+                                @click="selectChatroom(chatroom)"></ChatroomCard>
+                </template>
+                <template v-else>
+                  <p class="chatroom-search-notfound">No chatroom found</p>
+                </template>
               </div>
             </template>
           </div>
