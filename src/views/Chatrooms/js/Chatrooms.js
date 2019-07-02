@@ -7,6 +7,7 @@ import MessageBubbleSent from '../MessageBubbleSent'
 import chatroomApi from '@/api/controller/chatrooms'
 import InfiniteLoading from 'vue-infinite-loading'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
+import moment from 'moment'
 
 const POLL_INTERVAL = 1000
 
@@ -24,7 +25,7 @@ export default {
   data () {
     return {
       // TODO: change userId to authenticated user
-      userId: '5d12a2ed32a1893cec242e73',
+      userId: '5d119940047e5e37a8986220',
       searchText: '',
       typeChoosen: 'PUBLIC',
       messageText: '',
@@ -36,7 +37,7 @@ export default {
       messageIntervalObject: null,
       messageReadIntervalObject: null,
       sendingNewMessage: false,
-      changingChatroom: false
+      changingChatroom: false,
     }
   },
   computed: {
@@ -58,6 +59,37 @@ export default {
       'PUSH_CHATROOMS',
       'UNSHIFT_MESSAGES'
     ]),
+    toDateList(time) {
+      return [moment(time).year(), moment(time).month(), moment(time).date()]
+    },
+    computeMessagesDate(messages) {
+      let dateSeparator = null
+      messages.forEach(message => {
+        if (!dateSeparator) {
+          message.isNewDate = true
+        } else if (moment(this.toDateList(message.time)).diff(this.toDateList(dateSeparator), 'days') >= 1) {
+          message.isNewDate = true
+        } else {
+          message.isNewDate = false
+        }
+        dateSeparator = message.time
+      })
+      return messages
+    },
+    printDateSeparator (message) {
+      let diffDayWithNow = moment(this.toDateList(Date.now()))
+        .diff(this.toDateList(message.time), 'days')
+      if (diffDayWithNow < 1) {
+        return 'Today'
+      } else if (diffDayWithNow < 2) {
+        return 'Yesterday'
+      } else {
+        return moment(message.time).format('DD MMM YY')
+      }
+    },
+    printDate(time) {
+      return moment(time).format('DD MMM YY')
+    },
     selectChatroom (chatroom) {
       this.activeChatroomId = chatroom.id
       if (chatroom.type === 'PUBLIC') {
@@ -161,11 +193,9 @@ export default {
       }
     },
     scrollMessageToBottom () {
-      if (this.sendingNewMessage) {
-        let container = this.$el.querySelector('#messages-container')
-        container.scrollTop = container.scrollHeight
-        this.sendingNewMessage = false
-      }
+      // let container = this.$el.querySelector('#messages-container')
+      // container.scrollTop = container.scrollHeight
+      this.sendingNewMessage = false
     },
     getAvatarAndName (participants) {
       for (const participant of participants) {
@@ -274,7 +304,10 @@ export default {
     this.chatroomPage = 1
   },
   updated () {
-    this.scrollMessageToBottom()
+    // this.currentMessageDate = null
+    if (this.sendingNewMessage) {
+      this.scrollMessageToBottom()
+    }
   },
   destroyed () {
     this.RESET_MESSAGES()

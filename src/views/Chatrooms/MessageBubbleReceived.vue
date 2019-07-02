@@ -1,6 +1,6 @@
 <template>
   <div class="message-container">
-    <div class="message-avatar"><img :src="avatar" alt=""></div>
+    <div class="message-avatar"><img :src="avatar" onerror="this.src='@/assets/avatar.png'"></div>
     <div class="message-content">
       <p>{{ name }}</p>
       <div class="message-card">

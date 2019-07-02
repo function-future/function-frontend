@@ -58,7 +58,10 @@
               <div slot="no-more"></div>
               <div slot="no-results"></div>
             </infinite-loading>
-            <div v-for="message in messages" :key="message.id">
+            <div v-for="message in computeMessagesDate(messages)" :key="message.id">
+              <template v-if="message.isNewDate">
+                <p class="chatroom-messages-dateseparator">{{ printDateSeparator(message) }}</p>
+              </template>
               <MessageBubbleSent v-if="message.sender.id === userId"
                                  :message="message.text"
                                  :clock="message.time"
@@ -72,7 +75,7 @@
                                      class="chatroom-message-bubble" />
             </div>
           </div>
-          <BaseInput v-model="messageText" @keyup="submitMessage" placeholder="Type a message" class="chatroom-message-box" inputType="message-box"/>
+          <BaseInput v-model="messageText" @keyup="submitMessage" placeholder="Type a message" inputType="message-box"/>
         </div>
       </div>
     </BaseCard>
@@ -157,10 +160,6 @@
     margin: 1vh 0 0 0;
   }
 
-  .chatroom-message-box {
-
-  }
-
   .chatroom-messages {
     height: calc(68vh - 30px);
     margin: 10px 0;
@@ -169,6 +168,11 @@
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     overflow: auto;
+  }
+
+  .chatroom-messages-dateseparator {
+    text-align: center;
+    font-size: 0.8rem;
   }
 
   .chatroom-message-bubble {
