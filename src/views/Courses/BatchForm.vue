@@ -7,7 +7,7 @@
                    inputType="title"
                    v-model="batch.code"
                    placeholder="Batch Code"
-                   v-validate.disable="'required'"
+                   v-validate.continues="'required|alpha_num'"
                    name="code"></BaseInput>
       </div>
       <div v-if="errors.has('code')"><span class="input-invalid-message">{{ errors.first('code') }}</span></div>
@@ -16,7 +16,7 @@
                    inputType="title"
                    v-model="batch.name"
                    placeholder="Batch Name"
-                   v-validate.disable="'required'"
+                   v-validate.continues="'required'"
                    name="name"></BaseInput>
       </div>
       <div v-if="errors.has('name')">
