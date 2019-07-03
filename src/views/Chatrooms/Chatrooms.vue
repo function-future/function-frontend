@@ -1,4 +1,4 @@
-<template>
+<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <div class="chatroom-outer">
     <BaseCard class="chatroom-card">
       <div class="chatroom-container">
@@ -110,16 +110,6 @@
       </div>
     </BaseCard>
     <ModalCreateChatroom @close="creatingChatroom = false" v-if="creatingChatroom">
-      <ChatroomCard v-for="chatroom in privateChatrooms"
-                    :avatar="getAvatarAndName(chatroom.participants).avatar"
-                    :type="chatroom.type"
-                    :is-choosen="chatroom.id === activeChatroomId"
-                    :name="getAvatarAndName(chatroom.participants).name"
-                    :is-seen="chatroom.lastMessage ? chatroom.lastMessage.seen : true"
-                    :time="chatroom.lastMessage ? chatroom.lastMessage.time : null"
-                    :last-message="chatroom.lastMessage ? chatroom.lastMessage.message : 'No Message'"
-                    @click="selectChatroom(chatroom)"
-                    :key="chatroom.id"></ChatroomCard>
     </ModalCreateChatroom>
   </div>
 </template>
@@ -128,6 +118,11 @@
 </script>
 
 <style scoped>
+
+  .chatroom-modal-title {
+    margin: 0;
+    font-size: 1.3rem;
+  }
 
   .chatroom-search-notfound {
     margin: 0;

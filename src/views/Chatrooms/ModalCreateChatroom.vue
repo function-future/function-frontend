@@ -3,11 +3,11 @@
     <div class="modal__wrapper">
       <div class="modal__container">
         <div class="modal__header">
-          <slot name="title" class="modal__header__title"></slot>
           <span class="modal__close"><font-awesome-icon icon="times" class="icon" @click="close" size="lg"></font-awesome-icon></span>
+          <p class="modal__header__title"><strong>Create Chatroom</strong></p>
         </div>
         <div class="modal__body">
-          <slot></slot>
+          <SearchBar />
         </div>
         <div class="modal__footer">
           <BaseButton class="modal__footer__button" buttonClass="button-save" @click="create">Create</BaseButton>
@@ -42,8 +42,9 @@
       display: flex;
       flex-direction: column;
       width: 20vw;
+      min-width: 280px;
       margin: 0 auto;
-      padding: 20px 30px;
+      padding: 10px;
       background-color: #fff;
       border-radius: 10px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
@@ -53,8 +54,8 @@
 
     &__header {
       display: flex;
-      align-items: flex-start;
-      margin-top: 0.5rem;
+      align-items: center;
+      flex-direction: column;
 
       &__title {
         padding: 0.3rem;
@@ -66,7 +67,7 @@
     }
 
     &__body {
-      margin: 20px 0;
+      margin: 5px 20px;
       text-align: left;
     }
 
@@ -84,7 +85,7 @@
 
     &__close {
       margin: 0 0 0 auto;
-      padding: 0.5rem;
+      padding: 0;
       top: 0;
       float: right;
       cursor: pointer;

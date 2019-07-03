@@ -51,6 +51,12 @@
 
   .search-box {
     height: 30px;
+    padding-right: 60px;
+  }
+
+  .search-box::placeholder {
+    text-align: right;
+    color: rgba(0, 0, 0, 0.2);
   }
 
   .message-box {
