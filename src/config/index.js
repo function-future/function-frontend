@@ -56,7 +56,8 @@ module.exports = {
       stickyNotes: {
         detail: '/sticky-notes',
         edit: '/sticky-notes/edit'
-      }
+      },
+      chatrooms: '/chatrooms'
     }
   },
   api: {
@@ -122,7 +123,7 @@ module.exports = {
     },
     scoring: {
       assignments: {
-        list (batchCode, page, pageSize) {
+        list(batchCode, page, pageSize) {
           return `/api/scoring/batches/${batchCode}/assignments?page=${page}&size=${pageSize}`
         },
         create(batchCode, page, pageSize) {
@@ -197,6 +198,32 @@ module.exports = {
           return `/api/scoring/batches/${batchCode}/quizzes/${id}`
         }
       }
+    },
+    communication: {
+      chatrooms: {
+        list (type, search, page, size) {
+          return `/api/communication/chatrooms?type=${type}&search=${search}&page=${page}&size=${size}`
+        },
+        getDetails (chatroomId) {
+          return `/api/communication/chatrooms/${chatroomId}`
+        },
+        getMessages(chatroomId, page, size) {
+          return `/api/communication/chatrooms/${chatroomId}/messages?page=${page}&size=${size}`
+        },
+        getPublicMessages (page, size) {
+          return `/api/communication/chatrooms/public/messages?page=${page}&size=${size}`
+        },
+        create: '/api/communication/chatrooms/',
+        createMessage(chatroomId) {
+          return `/api/communication/chatrooms/${chatroomId}/messages`
+        },
+        update (chatroomId) {
+          return `/api/communication/chatrooms/${chatroomId}`
+        },
+        updateReadStatus(chatroomId, messageId) {
+          return `/api/communication/chatrooms/${chatroomId}/messages/${messageId}/_read`
+        }
+      }
     }
   },
   dev: {
@@ -207,6 +234,7 @@ module.exports = {
         target: 'http://localhost:8080',
         changeOrigin: true
       }
-    }
+    },
+    defaultPageSize: 10
   }
 }

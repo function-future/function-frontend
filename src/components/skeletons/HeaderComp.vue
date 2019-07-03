@@ -26,6 +26,9 @@
           <li><router-link :to="{ name: 'finalComparisons' }" class="navbar-link">Comparisons</router-link></li>
         </ul>
       </transition>
+      <li>
+        <router-link class="navbar-link" :to="{ name: 'chatrooms' }">Chatrooms</router-link>
+      </li>
     </ul>
   </nav>
 </template>

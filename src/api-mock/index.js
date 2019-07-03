@@ -21,6 +21,9 @@ import {
   questionBankQuestions,
   questionBankQuestionDetail
 } from '@/api-mock/mock/scoring-routes'
+import {
+  chatrooms
+} from '@/api-mock/mock/communication-routes'
 
 const mock = new MockAdapter(axios)
 
@@ -41,6 +44,10 @@ announcements.forEach(data => {
 
 announcementDetails.forEach(data => {
   mock[methodMap[data.method]](data.url).reply(200, data.response)
+})
+
+chatrooms.forEach(data => {
+  mock[methodMap[data.method]](data.url).reply(200, data)
 })
 
 activityBlogs.forEach(data => {

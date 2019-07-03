@@ -25,6 +25,7 @@ import stickyNotes from '@/views/StickyNotes/StickyNotesDetail.vue'
 import editStickyNote from '@/views/StickyNotes/EditStickyNote.vue'
 import UserForm from '@/views/Users/UserForm.vue'
 import config from '@/config/index'
+import chatrooms from '@/views/Chatrooms/Chatrooms'
 
 Vue.use(Router)
 
@@ -298,6 +299,14 @@ export default new Router({
       component: addAssignment,
       meta: {
         title: 'Add Assignments'
+      }
+    },
+    {
+      path: config.app.pages.chatrooms,
+      name: 'chatrooms',
+      component: chatrooms,
+      meta: {
+        title: 'Chatrooms'
       }
     },
     {
