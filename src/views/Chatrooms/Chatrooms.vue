@@ -77,7 +77,7 @@
             </template>
           </div>
           <div class="chatroom-button-add-container">
-            <font-awesome-icon icon="plus" class="chatroom-button-add"/>
+            <font-awesome-icon icon="plus" @click="openCreateChatroomModal" class="chatroom-button-add"/>
           </div>
         </div>
         <div class="chatroom-separator"></div>
@@ -109,6 +109,18 @@
         </div>
       </div>
     </BaseCard>
+    <ModalCreateChatroom @close="creatingChatroom = false" v-if="creatingChatroom">
+      <ChatroomCard v-for="chatroom in privateChatrooms"
+                    :avatar="getAvatarAndName(chatroom.participants).avatar"
+                    :type="chatroom.type"
+                    :is-choosen="chatroom.id === activeChatroomId"
+                    :name="getAvatarAndName(chatroom.participants).name"
+                    :is-seen="chatroom.lastMessage ? chatroom.lastMessage.seen : true"
+                    :time="chatroom.lastMessage ? chatroom.lastMessage.time : null"
+                    :last-message="chatroom.lastMessage ? chatroom.lastMessage.message : 'No Message'"
+                    @click="selectChatroom(chatroom)"
+                    :key="chatroom.id"></ChatroomCard>
+    </ModalCreateChatroom>
   </div>
 </template>
 

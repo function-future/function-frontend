@@ -4,6 +4,7 @@ import ChatroomCard from '../ChatroomCard'
 import BaseInput from '@/components/BaseInput'
 import MessageBubbleReceived from '../MessageBubbleReceived'
 import MessageBubbleSent from '../MessageBubbleSent'
+import ModalCreateChatroom from '../ModalCreateChatroom'
 import chatroomApi from '@/api/controller/chatrooms'
 import InfiniteLoading from 'vue-infinite-loading'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
@@ -20,7 +21,8 @@ export default {
     BaseCard,
     SearchBar,
     ChatroomCard,
-    InfiniteLoading
+    InfiniteLoading,
+    ModalCreateChatroom
   },
   data () {
     return {
@@ -38,6 +40,7 @@ export default {
       messageReadIntervalObject: null,
       sendingNewMessage: false,
       changingChatroom: false,
+      creatingChatroom: false,
       isSearching: false
     }
   },
@@ -71,6 +74,9 @@ export default {
       'PUSH_CHATROOMS',
       'UNSHIFT_MESSAGES'
     ]),
+    openCreateChatroomModal () {
+      this.creatingChatroom = true
+    },
     toDateList (time) {
       return [moment(time).year(), moment(time).month(), moment(time).date()]
     },
