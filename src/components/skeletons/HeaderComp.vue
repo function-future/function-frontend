@@ -29,6 +29,9 @@
       <li>
         <router-link class="navbar-link" :to="{ name: 'chatrooms' }">Chatrooms</router-link>
       </li>
+      <li>
+        <router-link class="navbar-link" :to="{ name: 'questionnaireUser'}" >Questionnaire</router-link>
+      </li>
     </ul>
   </nav>
 </template>

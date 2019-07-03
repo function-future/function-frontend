@@ -57,7 +57,8 @@ module.exports = {
         detail: '/sticky-notes',
         edit: '/sticky-notes/edit'
       },
-      chatrooms: '/chatrooms'
+      chatrooms: '/chatrooms',
+      questionnaireUser: '/my-questionnaire'
     }
   },
   api: {

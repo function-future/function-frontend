@@ -26,6 +26,7 @@ import editStickyNote from '@/views/StickyNotes/EditStickyNote.vue'
 import UserForm from '@/views/Users/UserForm.vue'
 import config from '@/config/index'
 import chatrooms from '@/views/Chatrooms/Chatrooms'
+import questionnaireUser from '@/views/Questionnaire/QuestionnaireUser'
 
 Vue.use(Router)
 
@@ -329,6 +330,14 @@ export default new Router({
       path: config.app.pages.finalJudging,
       name: 'finalJudging',
       component: feeds
+    },
+    {
+      path: config.app.pages.questionnaireUser,
+      name: 'questionnaireUser',
+      component : questionnaireUser,
+      meta: {
+        title: 'QuestionnaireUser'
+      }
     }
   ]
 })
