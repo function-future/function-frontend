@@ -4,7 +4,8 @@ export default {
     name: String,
     role: String,
     batch: String,
-    university: String
+    university: String,
+    customClass: String
   },
   computed: {
     userType() {
