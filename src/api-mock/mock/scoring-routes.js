@@ -566,3 +566,58 @@ export const questionBankQuestionDetail = [
     }
   }
 ]
+
+export const points = [
+  {
+    method: 'GET',
+    url: '/api/students/sample-id/points',
+    response: {
+      "code": 200,
+      "status": "OK",
+      "data": {
+        "id": "USR0001",
+        "email": "student@gmail.com",
+        "name": "Student 1",
+        "university": "University 1",
+        "totalPoint": 300,
+        "quizzes": [
+          {
+            "id": "QZ0001",
+            "title": "Quiz 1",
+            "point": 80
+          },
+          {
+            "id": "QZ0002",
+            "title": "Quiz 2",
+            "point": 100
+          },
+          {
+            "id": "QZ0003",
+            "title": "Quiz 3",
+            "point": 70
+          }
+        ],
+        "assignments": [
+          {
+            "assignmentId": "ASG0001",
+            "title": "Assignment 1",
+            "roomId": "ROM0002",
+            "point": 80
+          },
+          {
+            "id": "ASG0002",
+            "title": "Assignment 2",
+            "roomId": "ROM0005",
+            "point": 30
+          },
+          {
+            "id": "ASG0003",
+            "title": "Assignment 3",
+            "roomId": "ROM0008",
+            "point": 100
+          }
+        ]
+      }
+    }
+  }
+]

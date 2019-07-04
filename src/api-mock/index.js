@@ -19,7 +19,8 @@ import {
   questionBanks,
   questionBankDetail,
   questionBankQuestions,
-  questionBankQuestionDetail
+  questionBankQuestionDetail,
+  points
 } from '@/api-mock/mock/scoring-routes'
 import {
   chatrooms
@@ -99,5 +100,9 @@ questionBankQuestions.forEach(data => {
 })
 
 questionBankQuestionDetail.forEach(data => {
+  mock[methodMap[data.method]] (data.url).reply(200, data.response)
+})
+
+points.forEach(data => {
   mock[methodMap[data.method]] (data.url).reply(200, data.response)
 })

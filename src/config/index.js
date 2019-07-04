@@ -14,6 +14,9 @@ module.exports = {
         detail: '/announcements/:id/detail',
         edit: '/announcements/:id/edit'
       },
+      points: {
+        list: '/points'
+      },
       courses: '/courses',
       files: '/files',
       users: {
@@ -196,6 +199,11 @@ module.exports = {
         },
         delete(batchCode, id) {
           return `/api/scoring/batches/${batchCode}/quizzes/${id}`
+        }
+      },
+      points: {
+        list(studentId) {
+          return `/api/students/${studentId}/points`
         }
       }
     },

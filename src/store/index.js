@@ -10,6 +10,7 @@ import chatrooms from './modules/chatrooms'
 import assignmentRooms from './modules/assignment-rooms'
 import quizzes from './modules/quizzes'
 import questionBanks from './modules/question-banks'
+import points from './modules/points'
 
 Vue.use(Vuex)
 
@@ -23,6 +24,7 @@ export default new Vuex.Store({
     chatrooms,
     assignmentRooms,
     quizzes,
-    questionBanks
+    questionBanks,
+    points
   }
 })
