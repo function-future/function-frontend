@@ -27,7 +27,7 @@ export default {
   data () {
     return {
       // TODO: change userId to authenticated user
-      userId: '5d119940047e5e37a8986220',
+      userId: '5d12a2ed32a1893cec242e73',
       searchText: '',
       typeChoosen: 'PUBLIC',
       messageText: '',
@@ -74,6 +74,22 @@ export default {
       'PUSH_CHATROOMS',
       'UNSHIFT_MESSAGES'
     ]),
+    submitNewChatroom (data) {
+      console.log(data)
+      chatroomApi.createChatroom(response => {
+        console.log(response)
+        this.activeChatroomId = response.data.id
+        if (response.data.type === 'PRIVATE') {
+          this.changeTypeChoosen('PRIVATE')
+          this.chatroomTitle = this.getAvatarAndName(response.data.members).name
+        } else {
+          this.changeTypeChoosen('GROUP')
+          this.chatroomTitle = response.data.name
+        }
+      }, err => console.log(err), {
+        body: data
+      })
+    },
     openCreateChatroomModal () {
       this.creatingChatroom = true
     },

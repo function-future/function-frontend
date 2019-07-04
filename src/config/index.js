@@ -77,7 +77,8 @@ module.exports = {
       users: {
         get (page, size, role) { return `/api/core/users?page=${page}&size=${size}&role=${role}` },
         post: '/api/core/users',
-        detail (id) { return `/api/core/users/${id}` }
+        detail (id) { return `/api/core/users/${id}` },
+        search (page, size, name) { return `/api/core/users/search?name=${name}&page=${page}&size=${size}` }
       },
       resources: {
         post (source) { return `api/core/resources?source=${source}` }

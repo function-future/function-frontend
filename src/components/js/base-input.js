@@ -18,6 +18,9 @@ export default {
     },
     emitKeyUp (event) {
       this.$emit('keyup', event)
+    },
+    emitFocus (event) {
+      this.$emit('focus', event)
     }
   }
 }

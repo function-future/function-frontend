@@ -109,7 +109,7 @@
         </div>
       </div>
     </BaseCard>
-    <ModalCreateChatroom @close="creatingChatroom = false" v-if="creatingChatroom">
+    <ModalCreateChatroom @submit="submitNewChatroom" @close="creatingChatroom = false" v-if="creatingChatroom">
     </ModalCreateChatroom>
   </div>
 </template>

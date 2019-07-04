@@ -8,31 +8,36 @@
         </div>
         <div class="modal__body">
           <SearchBar @input="changeKeyword" />
-          <div class="modal__body__result">
-            <UserListCard v-for="i in 20" name="Priagung Satyagama"
-                          university="Institut Teknologi Bandung"
-                          role="STUDENT"
-                          batch="3"
-                          class="modal__body__card"></UserListCard>
+          <div v-if="usersWithoutSelectedOne.length > 0" class="modal__body__result">
             <template v-for="user in usersWithoutSelectedOne">
               <UserListCard :name="user.name"
                             :university="user.university"
                             :role="user.role"
                             :batch="user.batch.name"
                             :key="user.id"
+                            :avatar="user.avatar"
+                            @click="selectedUsers.push(user)"
                             class="modal__body__card"></UserListCard>
             </template>
 
           </div>
           <p>{{ selectedUsers.length }} selected</p>
           <div class="selected-user">
-            <template v-for="user in selectedUsers">
-              <div class="selected-user-card">
+            <template v-for="(user, index) in selectedUsers">
+              <div class="selected-user-card" :key="user.id">
                 <p>{{ user.name }}</p>
-                <font-awesome-icon icon="times" class="selected-user-remove" @click="" size="lg" />
+                <font-awesome-icon icon="times" class="selected-user-remove" @click="selectedUsers.splice(index, 1)" size="lg" />
               </div>
             </template>
           </div>
+          <BaseInput
+            v-model="name"
+            v-if="selectedUsers.length > 1"
+            placeholder="Group Name"
+            @focus="wrongName = false"
+            @keyup="enterPressed"
+            class="group-name-input"
+            :inputType="wrongName ? 'wrong-input' : ''" />
         </div>
         <div class="modal__footer">
           <BaseButton class="modal__footer__button" buttonClass="button-save" @click="create">Create</BaseButton>
@@ -48,6 +53,7 @@
 
   .selected-user {
     display: flex;
+    flex-wrap: wrap;
   }
 
   .selected-user-card {
@@ -73,6 +79,7 @@
 
   .selected-user-remove {
     margin-left: 10px;
+    cursor: pointer;
   }
 
   .modal {
