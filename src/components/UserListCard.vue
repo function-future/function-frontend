@@ -1,11 +1,12 @@
 <template>
-  <div class="user-list-card__container" @click="$emit('click')">
+  <div :class="customClass" class="user-list-card__container" @click="$emit('click')">
     <img class="user-list-card__avatar" src="https://www.w3schools.com/howto/img_avatar.png" alt="">
     <div class="user-list-card__info">
       <p class="user-list-card__info__name"><strong>{{ name }}</strong></p>
       <p class="user-list-card__info__university" v-if="this.role === 'STUDENT'">{{ university }}</p>
       <p class="user-list-card__info__role">{{ userType }}</p>
     </div>
+    <slot></slot>
   </div>
 </template>
 
