@@ -1,6 +1,6 @@
 <template>
   <div :class="customClass" class="user-list-card__container" @click="$emit('click')">
-    <img class="user-list-card__avatar" src="https://www.w3schools.com/howto/img_avatar.png" alt="">
+    <img class="user-list-card__avatar" :src="avatar" alt="">
     <div class="user-list-card__info">
       <p class="user-list-card__info__name"><strong>{{ name }}</strong></p>
       <p class="user-list-card__info__university" v-if="this.role === 'STUDENT'">{{ university }}</p>
