@@ -14,7 +14,17 @@ export default {
     return {
       chatroomData: {},
       users: [],
+      selectedUsers: [{name: 'Priagung Satyagama'}, {name: 'Ricky Kennedy'}],
       keyword: ''
+    }
+  },
+  computed: {
+    usersWithoutSelectedOne () {
+      return this.users.filter(user => {
+        return !this.selectedUsers.map(usr => {
+          return usr.id
+        }).includes(user.id)
+      })
     }
   },
   methods: {

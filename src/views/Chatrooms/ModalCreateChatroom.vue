@@ -8,15 +8,31 @@
         </div>
         <div class="modal__body">
           <SearchBar @input="changeKeyword" />
-          <UserListCard name="Priagung Satyagama"
-                        university="Institut Teknologi Bandung"
-                        role="STUDENT"
-                        batch="3"></UserListCard>
+          <div class="modal__body__result">
+            <UserListCard v-for="i in 20" name="Priagung Satyagama"
+                          university="Institut Teknologi Bandung"
+                          role="STUDENT"
+                          batch="3"
+                          class="modal__body__card"></UserListCard>
+            <template v-for="user in usersWithoutSelectedOne">
+              <UserListCard :name="user.name"
+                            :university="user.university"
+                            :role="user.role"
+                            :batch="user.batch.name"
+                            :key="user.id"
+                            class="modal__body__card"></UserListCard>
+            </template>
 
-          <UserListCard name="Priagung Satyagama"
-                        university="Institut Teknologi Bandung"
-                        role="MENTOR"
-                        batch="3"></UserListCard>
+          </div>
+          <p>{{ selectedUsers.length }} selected</p>
+          <div class="selected-user">
+            <template v-for="user in selectedUsers">
+              <div class="selected-user-card">
+                <p>{{ user.name }}</p>
+                <font-awesome-icon icon="times" class="selected-user-remove" @click="" size="lg" />
+              </div>
+            </template>
+          </div>
         </div>
         <div class="modal__footer">
           <BaseButton class="modal__footer__button" buttonClass="button-save" @click="create">Create</BaseButton>
@@ -29,6 +45,36 @@
 <script type="text/javascript" src="./js/ModalCreateChatroom.js"></script>
 
 <style lang="scss" scoped>
+
+  .selected-user {
+    display: flex;
+  }
+
+  .selected-user-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 3px;
+    padding: 5px;
+    border-radius: 10px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.1);
+    -moz-box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.1);
+    box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.1);
+  }
+
+  .selected-user-card > p, .selected-user-remove {
+    margin: 0;
+    font-size: 0.8rem;
+  }
+
+  .selected-user-remove {
+    margin-left: 10px;
+  }
+
   .modal {
     &__mask {
       position: fixed;
@@ -38,19 +84,20 @@
       width: 100%;
       height: 100%;
       background-color: rgba(0, 0, 0, .5);
-      display: table;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       transition: opacity .3s ease;
     }
 
     &__wrapper {
       display: table-cell;
-      padding-top: 30vh;
     }
 
     &__container {
       display: flex;
       flex-direction: column;
-      width: 20vw;
+      width: 30vw;
       min-width: 350px;
       margin: 0 auto;
       padding: 10px;
@@ -78,6 +125,16 @@
     &__body {
       margin: 5px 30px;
       text-align: left;
+
+      &__result {
+        max-height: 45vh;
+        overflow: auto;
+        padding: 15px;
+      }
+
+      &__card {
+        cursor: pointer;
+      }
     }
 
     &__footer {
@@ -121,5 +178,24 @@
       -webkit-transform: scale(1.1);
       transform: scale(1.1);
     }
+  }
+
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #FFF;
+    -webkit-box-shadow: inset 1px 1px 2px rgba(0,0,0,0.1);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #CCC;
+    -webkit-box-shadow: inset 1px 1px 2px rgba(0,0,0,0.2);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #AAA;
+  }
+  ::-webkit-scrollbar-thumb:active {
+    background: #888;
+    -webkit-box-shadow: inset 1px 1px 2px rgba(0,0,0,0.3);
   }
 </style>
