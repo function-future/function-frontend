@@ -3,9 +3,10 @@ import BaseInput from '@/components/BaseInput'
 import SearchBar from '@/components/SearchBar'
 import UserListCard from '@/components/UserListCard'
 import usersApi from '@/api/controller/users'
+import chatroomApi from '@/api/controller/chatrooms'
 
 export default {
-  name: 'modal',
+  name: 'ModalChatroom',
   components: {
     BaseButton,
     SearchBar,
@@ -21,6 +22,9 @@ export default {
       name: null,
       wrongName: false
     }
+  },
+  props: {
+    chatroomId: String
   },
   computed: {
     usersWithoutSelectedOne () {
@@ -65,8 +69,7 @@ export default {
       }, err => console.log(err))
     },
     enterPressed (event) {
-      if (event.keyCode === 13 && ((this.selectedUsers.length > 1 && this.name) ||
-        (this.selectedUsers.length > 0))) {
+      if (event.keyCode === 13 && (this.selectedUsers.length > 1 && this.name)) {
         this.$emit('submit', {
           name: this.name,
           members: this.convertToListUserId(this.selectedUsers)
@@ -76,6 +79,20 @@ export default {
     }
   },
   created () {
-    this.callSearchUserApi('')
+    if (this.chatroomId) {
+      chatroomApi.getChatroomDetails(response => {
+        this.callSearchUserApi('')
+        if (response.data.type === 'GROUP') {
+          this.name = response.data.name
+        }
+        this.selectedUsers = response.data.members.filter(user => user.id !== this.userId)
+      }, err => console.log(err), {
+        params: {
+          chatroomId: this.chatroomId
+        }
+      })
+    } else {
+      this.callSearchUserApi('')
+    }
   }
 }

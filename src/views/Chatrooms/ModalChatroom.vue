@@ -4,7 +4,7 @@
       <div class="modal__container">
         <div class="modal__header">
           <span class="modal__close"><font-awesome-icon icon="times" class="icon" @click="close" size="lg"></font-awesome-icon></span>
-          <p class="modal__header__title"><strong>Create Chatroom</strong></p>
+          <p class="modal__header__title"><strong>{{ chatroomId ? 'Update Chatroom' : 'Create Chatroom' }}</strong></p>
         </div>
         <div class="modal__body">
           <SearchBar @input="changeKeyword" />
@@ -32,7 +32,7 @@
           </div>
           <BaseInput
             v-model="name"
-            v-if="selectedUsers.length > 1"
+            v-if="selectedUsers.length > 1 || chatroomId"
             placeholder="Group Name"
             @focus="wrongName = false"
             @keyup="enterPressed"
@@ -40,14 +40,14 @@
             :inputType="wrongName ? 'wrong-input' : ''" />
         </div>
         <div class="modal__footer">
-          <BaseButton class="modal__footer__button" buttonClass="button-save" @click="create">Create</BaseButton>
+          <BaseButton class="modal__footer__button" buttonClass="button-save" @click="create">{{ chatroomId ? 'Update' : 'Create' }}</BaseButton>
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<script type="text/javascript" src="./js/ModalCreateChatroom.js"></script>
+<script type="text/javascript" src="./js/ModalChatroom.js"></script>
 
 <style lang="scss" scoped>
 
