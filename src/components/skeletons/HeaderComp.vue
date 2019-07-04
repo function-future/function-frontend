@@ -30,8 +30,22 @@
         <router-link class="navbar-link" :to="{ name: 'chatrooms' }">Chatrooms</router-link>
       </li>
       <li>
-        <router-link class="navbar-link" :to="{ name: 'questionnaireUser'}" >Questionnaire</router-link>
+        <router-link class="navbar-link" :to="{ name: 'myQuestionnaire'}" >My Questionnaire</router-link>
       </li>
+      <li class="navbar-link questionnaire-menu" @click="toggleQuestionnaireMenu" v-if="!showQuestionnaire">
+        <span>Questionnaire Setup</span>
+        <font-awesome-icon icon="chevron-down" class="icon"/>
+      </li>
+      <li class="navbar-link questionnaire-menu" @click="toggleQuestionnaireMenu" v-else>
+        <span>Questionnaire Setup</span>
+        <font-awesome-icon icon="chevron-up" class="icon"/>
+      </li>
+      <transition name="fade">
+        <ul v-if="showQuestionnaire" class="questionnaire-submenu">
+          <li><router-link :to="{ name: 'questionBanks' }" class="navbar-link">Setting</router-link></li>
+          <li><router-link :to="{ name: 'quizzes' }" class="navbar-link">Results</router-link></li>
+        </ul>
+      </transition>
     </ul>
   </nav>
 </template>
@@ -86,13 +100,13 @@
     font-weight: bold;
   }
 
-  .grades-menu {
+  .grades-menu, .questionnaire-menu {
     display: flex;
     justify-content: space-between;
     cursor: pointer;
   }
 
-  .grades-submenu {
+  .grades-submenu, .questionnaire-submenu {
     list-style-type: none;
   }
 
@@ -119,7 +133,7 @@
       margin-left: 25px;
     }
 
-    .grades-submenu {
+    .grades-submenu, .questionnaire-submenu {
       font-size: 0.8em;
     }
   }
