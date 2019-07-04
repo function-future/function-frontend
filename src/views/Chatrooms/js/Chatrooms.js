@@ -290,7 +290,9 @@ export default {
           },
           cb: () => {
             this.chatroomPage = 1
-            this.$refs.chatroomInfiniteLoading.stateChanger.reset()
+            this.$nextTick(() => {
+              this.$refs.chatroomInfiniteLoading.stateChanger.reset()
+            })
           }
         })
       }, POLL_INTERVAL)

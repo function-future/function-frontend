@@ -7,7 +7,16 @@
           <p class="modal__header__title"><strong>Create Chatroom</strong></p>
         </div>
         <div class="modal__body">
-          <SearchBar />
+          <SearchBar @input="changeKeyword" />
+          <UserListCard name="Priagung Satyagama"
+                        university="Institut Teknologi Bandung"
+                        role="STUDENT"
+                        batch="3"></UserListCard>
+
+          <UserListCard name="Priagung Satyagama"
+                        university="Institut Teknologi Bandung"
+                        role="MENTOR"
+                        batch="3"></UserListCard>
         </div>
         <div class="modal__footer">
           <BaseButton class="modal__footer__button" buttonClass="button-save" @click="create">Create</BaseButton>
@@ -42,7 +51,7 @@
       display: flex;
       flex-direction: column;
       width: 20vw;
-      min-width: 280px;
+      min-width: 350px;
       margin: 0 auto;
       padding: 10px;
       background-color: #fff;
@@ -67,7 +76,7 @@
     }
 
     &__body {
-      margin: 5px 20px;
+      margin: 5px 30px;
       text-align: left;
     }
 
