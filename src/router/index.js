@@ -33,6 +33,7 @@ import courseForm from '@/views/Courses/CourseForm.vue'
 import masterCourseDetail from '@/views/Courses/MasterCourseDetail.vue'
 import masterCourseForm from '@/views/Courses/MasterCourseForm.vue'
 import config from '@/config/index'
+import chatrooms from '@/views/Chatrooms/Chatrooms'
 
 Vue.use(Router)
 
@@ -441,6 +442,14 @@ export default new Router({
       component: addAssignment,
       meta: {
         title: 'Add Assignments'
+      }
+    },
+    {
+      path: config.app.pages.chatrooms,
+      name: 'chatrooms',
+      component: chatrooms,
+      meta: {
+        title: 'Chatrooms'
       }
     },
     {

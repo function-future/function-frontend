@@ -9,6 +9,7 @@ import batches from './modules/batches.js'
 import courses from './modules/courses.js'
 import discussions from './modules/discussions.js'
 import assignments from './modules/assignments.js'
+import chatrooms from './modules/chatrooms'
 import assignmentRooms from './modules/assignment-rooms'
 import quizzes from './modules/quizzes'
 import questionBanks from './modules/question-banks'
@@ -25,6 +26,7 @@ export default new Vuex.Store({
     courses,
     discussions,
     assignments,
+    chatrooms,
     assignmentRooms,
     quizzes,
     questionBanks
