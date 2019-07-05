@@ -180,7 +180,7 @@ export const announcements = [
       ],
       'paging': {
         'page': 1,
-        'size': 4,
+        'size': 10,
         'totalRecords': 100
       }
     }
@@ -417,7 +417,7 @@ export const activityBlogs = [
       ],
       "paging": {
         "page": 1,
-        "size": 5,
+        "size": 10,
         "totalRecords": 24
       }
     }
