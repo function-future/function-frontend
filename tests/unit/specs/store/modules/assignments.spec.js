@@ -40,7 +40,7 @@ describe('actions', () => {
     }
     const data = {
       batchCode: 'futur3',
-      page: 0,
+      page: 1,
       pageSize: 10
     }
     const commit = jest.fn()
@@ -93,13 +93,88 @@ describe('actions', () => {
     }
     const data = {
       batchCode: 'futur3',
-      page: 0,
+      page: 1,
       pageSize: 10
     }
     const commit = jest.fn()
+    const callback = jest.fn()
     const fail = jest.fn()
-    store.actions.createAssignment({ commit }, { payload, data, fail })
+    store.actions.createAssignment({ commit }, { payload, callback, data, fail })
     expect(fail).not.toHaveBeenCalled()
+    expect(callback).toHaveBeenCalledTimes(1)
+    expect(commit).toHaveBeenCalledTimes(1)
+    expect(commit).toHaveBeenLastCalledWith('SET_ASSIGNMENT', payload)
+  })
+
+  test('fetchAssignmentDetail', () => {
+    api.getAssignmentById = (success) => {
+      success({
+        "code": 200,
+        "status": "OK",
+        "data": {
+          "id": "ASG0001",
+          "title": "Assignment 1",
+          "description": "Description Number 1",
+          "deadline": 15000000,
+          "file": "http://function-static.com/ASG0001/fileName.docx",
+          "batch": 3
+        }
+      })
+    }
+    const data = {
+      id: 'ASG001',
+      batchCode: '3'
+    }
+    const commit = jest.fn()
+    const callback = jest.fn()
+    const fail = jest.fn()
+    store.actions.fetchAssignmentDetail({ commit }, { data, callback, fail })
+    expect(callback).toHaveBeenCalledTimes(1)
+    expect(fail).not.toBeCalled()
+    expect(commit).toBeCalledTimes(1)
+    expect(commit).toHaveBeenCalledWith('SET_ASSIGNMENT', {
+      "id": "ASG0001",
+      "title": "Assignment 1",
+      "description": "Description Number 1",
+      "deadline": 15000000,
+      "file": "http://function-static.com/ASG0001/fileName.docx",
+      "batch": 3
+    })
+  })
+
+  test('updateAssignmentDetail', () => {
+    api.updateAssignment = (success) => {
+      success({
+        'code': 201,
+        'status': 'CREATED',
+        'data': {
+          'id': 'ASG0001',
+          'title': 'Assignments 1',
+          'description': 'Description Number 1',
+          'deadline': 1500000000,
+          'file': 'function-static.com/fileName.docx',
+          'batch': 3
+        }
+      })
+    }
+    const payload = {
+      "id": "ASG0001",
+      "title": "Assignment 1",
+      "description": "Description Number 1",
+      "deadline": 15000000,
+      "file": "http://function-static.com/ASG0001/fileName.docx",
+      "batch": 3
+    }
+    const data = {
+      id: 'ASG001',
+      batchCode: '3'
+    }
+    const commit = jest.fn()
+    const callback = jest.fn()
+    const fail = jest.fn()
+    store.actions.updateAssignmentDetail({ commit }, { payload, callback, data, fail })
+    expect(fail).not.toHaveBeenCalled()
+    expect(callback).toHaveBeenCalledTimes(1)
     expect(commit).toHaveBeenCalledTimes(1)
     expect(commit).toHaveBeenLastCalledWith('SET_ASSIGNMENT', payload)
   })
@@ -107,11 +182,16 @@ describe('actions', () => {
 
 describe('getters', () => {
   const state = {
-    assignmentList: []
+    assignmentList: [],
+    assignment: {}
   }
 
   test('assignmentList', () => {
     expect(store.getters.assignmentList(state)).toEqual(state.assignmentList)
+  })
+
+  test('assignment', () => {
+    expect(store.getters.assignment(state)).toEqual(state.assignment)
   })
 })
 

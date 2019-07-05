@@ -16,8 +16,8 @@ describe('StickyNotesDetail.vue', () => {
   beforeEach(() => {
     state = {
       stickyNote: {
-        noteTitle: 'Mock Note',
-        noteDescription: 'Note for testing purpose',
+        title: 'Mock Note',
+        description: 'Note for testing purpose',
         updatedAt: '123456789'
       }
     }
@@ -76,8 +76,8 @@ describe('StickyNotesDetail.js', () => {
   beforeEach(() => {
     state = {
       stickyNote: {
-        noteTitle: 'Mock Note',
-        noteDescription: 'Note for testing purpose',
+        title: 'Mock Note',
+        description: 'Note for testing purpose',
         updatedAt: '123456789'
       }
     }

@@ -6,7 +6,7 @@
     <ul class="menu">
       <li><router-link :to="{ name: 'feeds' }" class="navbar-link">Feeds</router-link></li>
       <li><router-link :to="{ name: 'announcements' }" class="navbar-link">Announcements</router-link></li>
-      <li><router-link :to="{ name: 'blogs' }" class="navbar-link">Blogs</router-link></li>
+      <li><router-link :to="{ name: 'activityBlogs' }" class="navbar-link">Blogs</router-link></li>
       <li><router-link :to="{ name: 'courses' }" class="navbar-link">Courses</router-link></li>
       <li><router-link :to="{ name: 'files' }" class="navbar-link">Files</router-link></li>
       <li><router-link :to="{ name: 'users' }" class="navbar-link">Users</router-link></li>
@@ -20,9 +20,30 @@
       </li>
       <transition name="fade">
         <ul v-if="showGrades" class="grades-submenu">
+          <li><router-link :to="{ name: 'questionBanks' }" class="navbar-link">Question Banks</router-link></li>
           <li><router-link :to="{ name: 'quizzes' }" class="navbar-link">Quizzes</router-link></li>
           <li><router-link :to="{ name: 'assignments' }" class="navbar-link">Assignments</router-link></li>
           <li><router-link :to="{ name: 'finalComparisons' }" class="navbar-link">Comparisons</router-link></li>
+        </ul>
+      </transition>
+      <li>
+        <router-link class="navbar-link" :to="{ name: 'chatrooms' }">Chatrooms</router-link>
+      </li>
+      <li>
+        <router-link class="navbar-link" :to="{ name: 'myQuestionnaire'}" >My Questionnaire</router-link>
+      </li>
+      <li class="navbar-link questionnaire-menu" @click="toggleQuestionnaireMenu" v-if="!showQuestionnaire">
+        <span>Admin Questionnaire</span>
+        <font-awesome-icon icon="chevron-down" class="icon"/>
+      </li>
+      <li class="navbar-link questionnaire-menu" @click="toggleQuestionnaireMenu" v-else>
+        <span>Admin Questionnaire</span>
+        <font-awesome-icon icon="chevron-up" class="icon"/>
+      </li>
+      <transition name="fade">
+        <ul v-if="showQuestionnaire" class="questionnaire-submenu">
+          <li><router-link :to="{ name: 'questionnaires' }" class="navbar-link">Questionnaires</router-link></li>
+          <li><router-link :to="{ name: 'questionnaireResults' }" class="navbar-link">Results</router-link></li>
         </ul>
       </transition>
     </ul>
@@ -79,13 +100,13 @@
     font-weight: bold;
   }
 
-  .grades-menu {
+  .grades-menu, .questionnaire-menu {
     display: flex;
     justify-content: space-between;
     cursor: pointer;
   }
 
-  .grades-submenu {
+  .grades-submenu, .questionnaire-submenu {
     list-style-type: none;
   }
 
@@ -112,7 +133,7 @@
       margin-left: 25px;
     }
 
-    .grades-submenu {
+    .grades-submenu, .questionnaire-submenu {
       font-size: 0.8em;
     }
   }

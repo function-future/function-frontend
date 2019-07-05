@@ -12,21 +12,7 @@ export default {
     BaseSelect
   },
   data () {
-    return {
-      filters: [
-        'Batch 1',
-        'Batch 2',
-        'Batch 3'
-      ],
-      sorts: [
-        'Title',
-        'Deadline',
-        'Upload Date'
-      ],
-      selectedFilter: '',
-      selectedSort: '',
-      searchValue: ''
-    }
+    return {}
   },
   created () {
     this.initPage()
@@ -44,13 +30,13 @@ export default {
       this.fetchAssignmentList({
         data: {
           batchCode: 'futur3',
-          page: 0,
+          page: 1,
           pageSize: 10
         },
         fail: this.failFetchingAssignmentList
       })
     },
-    failFetchingAssignmentList ({ response }) {
+    failFetchingAssignmentList () {
       this.$toasted.error('Something went wrong')
     },
     addAssignment () {
@@ -58,6 +44,17 @@ export default {
     },
     isComplete(deadline) {
       return deadline < new Date() ? 'Done' : 'Ongoing'
+    },
+    goToAssignmentDetail (id, batchCode) {
+      this.$router.push({
+        name: 'assignmentDetail',
+        params: {
+          id: id
+        },
+        query: {
+          batchCode: batchCode
+        }
+      })
     }
   }
 }
