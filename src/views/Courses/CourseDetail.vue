@@ -23,7 +23,7 @@
     </BaseCard>
     <BaseCard class="discussion-wrapper" cardClass="no-pointer">
       <h3>Discussion</h3>
-      <div class="scrollable">
+      <div class="scrollable discussion-scrollable">
         <div v-for="discussion in discussions" :key="discussion.id">
           <BaseCard class="discussion-card">
             <div class="discussion-info">
@@ -71,8 +71,13 @@
     max-height: 60%;
     padding: 0 10px 5px 5px;
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
     align-content: center;
+  }
+
+  .discussion-scrollable {
+    display: flex;
+    flex-direction: column-reverse;
   }
 
   .course-card {
