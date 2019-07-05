@@ -27,7 +27,7 @@ export default {
   data () {
     return {
       // TODO: change userId to authenticated user
-      userId: '5d119940047e5e37a8986220',
+      userId: '5d12a2ed32a1893cec242e73',
       searchText: '',
       typeChoosen: 'PUBLIC',
       messageText: '',
