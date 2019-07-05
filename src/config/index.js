@@ -171,7 +171,7 @@ module.exports = {
       },
       discussions: {
         courses: {
-          get (code, id) { return `/api/core/batches/${code}/courses/${id}/discussions` },
+          get (code, id, page) { return `/api/core/batches/${code}/courses/${id}/discussions?page=${page}` },
           post (code, id) { return `/api/core/batches/${code}/courses/${id}/discussions` }
         }
       }

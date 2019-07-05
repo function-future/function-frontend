@@ -35,6 +35,7 @@
             </div>
           </BaseCard>
         </div>
+        <infinite-loading direction="top" @infinite="infiniteHandler"></infinite-loading>
       </div>
       <div class="discussion-input-wrapper">
         <div class="discussion-input">

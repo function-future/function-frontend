@@ -14,7 +14,7 @@ export const actions = {
   fetchCourseDiscussions ({ commit }, { data, callback, fail }) {
     discussionApi.getCourseDiscussions(({ data: response }) => {
       commit('SET_COURSE_DISCUSSIONS', response)
-      callback()
+      callback(response)
     }, data, fail)
   },
   submitCourseDiscussion ({ commit }, { data, callback, fail }) {

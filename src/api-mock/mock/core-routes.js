@@ -821,7 +821,7 @@ export const batches = [
 export const discussions = [
   {
     method: 'GET',
-    url: '/api/core/batches/1/courses/sample-id-1/discussions',
+    url: '/api/core/batches/1/courses/sample-id-1/discussions?page=1',
     response: {
       'code': 200,
       'status': 'OK',
@@ -865,6 +865,57 @@ export const discussions = [
       ],
       'paging': {
         'page': 1,
+        'size': 4,
+        'totalRecords': 20
+      }
+    }
+  },
+  {
+    method: 'GET',
+    url: '/api/core/batches/1/courses/sample-id-1/discussions?page=2',
+    response: {
+      'code': 200,
+      'status': 'OK',
+      'data': [
+        {
+          'id': 'sample-id-5',
+          'author': {
+            'id': 'sample-id',
+            'name': 'Oliver Sebastian'
+          },
+          'comment': 'Comment Example 1',
+          'createdAt': 1580000000
+        },
+        {
+          'id': 'sample-id-6',
+          'author': {
+            'id': 'sample-id',
+            'name': 'David William Kurnia'
+          },
+          'comment': 'Comment Example 1',
+          'createdAt': 1570000000
+        },
+        {
+          'id': 'sample-id-7',
+          'author': {
+            'id': 'sample-id',
+            'name': 'Jonathan'
+          },
+          'comment': 'Comment Example 1',
+          'createdAt': 1560000000
+        },
+        {
+          'id': 'sample-id-8',
+          'author': {
+            'id': 'sample-id',
+            'name': 'Stelli'
+          },
+          'comment': 'Comment Example 1',
+          'createdAt': 1550000000
+        }
+      ],
+      'paging': {
+        'page': 2,
         'size': 4,
         'totalRecords': 20
       }

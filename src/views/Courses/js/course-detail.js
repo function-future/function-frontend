@@ -28,6 +28,10 @@ export default {
       discussion: {
         comment: ''
       },
+      discussionPaging: {
+        page: 1,
+        size: 4
+      },
       showDeleteConfirmationModal: false
     }
   },
@@ -68,7 +72,8 @@ export default {
     initDiscussion () {
       let data = {
         code: this.$route.params.code,
-        id: this.$route.params.id
+        id: this.$route.params.id,
+        page: this.discussionPaging.page
       }
       this.fetchCourseDiscussions({
         data,
@@ -79,8 +84,8 @@ export default {
     successFetchCourseById () {
       this.courseDetail = this.course
     },
-    successFetchCourseDiscussions () {
-      this.discussions = this.courseDiscussions
+    successFetchCourseDiscussions (response) {
+      this.discussions.unshift(...response.reverse())
     },
     failFetchCourseById () {
       this.$toasted.error('Fail to load course detail, please refresh the page')
@@ -151,6 +156,13 @@ export default {
     failDeleteCourseById () {
       this.$toasted.error('Fail to delete course')
       this.showDeleteConfirmationModal = false
+    },
+    infiniteHandler ($state) {
+      this.discussionPaging.page++
+      console.log(this.discussionPaging.page)
+      this.initDiscussion()
+      // $state.loaded()
+      // $state.complete()
     }
   }
 }
