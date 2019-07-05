@@ -35,7 +35,14 @@
             </div>
           </BaseCard>
         </div>
-        <infinite-loading direction="top" @infinite="infiniteHandler"></infinite-loading>
+        <infinite-loading direction="top"
+                          @infinite="initDiscussion"
+                          spinner="spiral"
+                          force-use-infinite-wrapper=".scrollable">
+          <div slot="spinner">Loading...</div>
+          <div slot="no-more">No more discussions</div>
+          <div slot="no-results">Start a discussion</div>
+        </infinite-loading>
       </div>
       <div class="discussion-input-wrapper">
         <div class="discussion-input">

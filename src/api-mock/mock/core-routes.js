@@ -832,8 +832,8 @@ export const discussions = [
             'id': 'sample-id',
             'name': 'Oliver Sebastian'
           },
-          'comment': 'Comment Example 1',
-          'createdAt': 1540000000
+          'comment': 'Comment Example 12',
+          'createdAt': 1580000000
         },
         {
           'id': 'sample-id-2',
@@ -841,8 +841,8 @@ export const discussions = [
             'id': 'sample-id',
             'name': 'David William Kurnia'
           },
-          'comment': 'Comment Example 1',
-          'createdAt': 1530000000
+          'comment': 'Comment Example 11',
+          'createdAt': 1570000000
         },
         {
           'id': 'sample-id-3',
@@ -850,8 +850,8 @@ export const discussions = [
             'id': 'sample-id',
             'name': 'Jonathan'
           },
-          'comment': 'Comment Example 1',
-          'createdAt': 1520000000
+          'comment': 'Comment Example 10',
+          'createdAt': 1560000000
         },
         {
           'id': 'sample-id-4',
@@ -859,14 +859,14 @@ export const discussions = [
             'id': 'sample-id',
             'name': 'Stelli'
           },
-          'comment': 'Comment Example 1',
-          'createdAt': 1510000000
+          'comment': 'Comment Example 9',
+          'createdAt': 1550000000
         }
       ],
       'paging': {
         'page': 1,
         'size': 4,
-        'totalRecords': 20
+        'totalRecords': 16
       }
     }
   },
@@ -883,8 +883,8 @@ export const discussions = [
             'id': 'sample-id',
             'name': 'Oliver Sebastian'
           },
-          'comment': 'Comment Example 1',
-          'createdAt': 1580000000
+          'comment': 'Comment Example 8',
+          'createdAt': 1540000000
         },
         {
           'id': 'sample-id-6',
@@ -892,8 +892,8 @@ export const discussions = [
             'id': 'sample-id',
             'name': 'David William Kurnia'
           },
-          'comment': 'Comment Example 1',
-          'createdAt': 1570000000
+          'comment': 'Comment Example 7',
+          'createdAt': 1530000000
         },
         {
           'id': 'sample-id-7',
@@ -901,8 +901,8 @@ export const discussions = [
             'id': 'sample-id',
             'name': 'Jonathan'
           },
-          'comment': 'Comment Example 1',
-          'createdAt': 1560000000
+          'comment': 'Comment Example 6',
+          'createdAt': 1520000000
         },
         {
           'id': 'sample-id-8',
@@ -910,14 +910,116 @@ export const discussions = [
             'id': 'sample-id',
             'name': 'Stelli'
           },
-          'comment': 'Comment Example 1',
-          'createdAt': 1550000000
+          'comment': 'Comment Example 5',
+          'createdAt': 1510000000
         }
       ],
       'paging': {
         'page': 2,
         'size': 4,
-        'totalRecords': 20
+        'totalRecords': 16
+      }
+    }
+  },
+  {
+    method: 'GET',
+    url: '/api/core/batches/1/courses/sample-id-1/discussions?page=3',
+    response: {
+      'code': 200,
+      'status': 'OK',
+      'data': [
+        {
+          'id': 'sample-id-9',
+          'author': {
+            'id': 'sample-id',
+            'name': 'Oliver Sebastian'
+          },
+          'comment': 'Comment Example 4',
+          'createdAt': 1500000000
+        },
+        {
+          'id': 'sample-id-10',
+          'author': {
+            'id': 'sample-id',
+            'name': 'David William Kurnia'
+          },
+          'comment': 'Comment Example 3',
+          'createdAt': 1490000000
+        },
+        {
+          'id': 'sample-id-11',
+          'author': {
+            'id': 'sample-id',
+            'name': 'Jonathan'
+          },
+          'comment': 'Comment Example 2',
+          'createdAt': 1480000000
+        },
+        {
+          'id': 'sample-id-12',
+          'author': {
+            'id': 'sample-id',
+            'name': 'Stelli'
+          },
+          'comment': 'Comment Example 1',
+          'createdAt': 1470000000
+        }
+      ],
+      'paging': {
+        'page': 3,
+        'size': 4,
+        'totalRecords': 16
+      }
+    }
+  },
+  {
+    method: 'GET',
+    url: '/api/core/batches/1/courses/sample-id-1/discussions?page=4',
+    response: {
+      'code': 200,
+      'status': 'OK',
+      'data': [
+        {
+          'id': 'sample-id-13',
+          'author': {
+            'id': 'sample-id',
+            'name': 'Oliver Sebastian'
+          },
+          'comment': 'Comment Example 0',
+          'createdAt': 1460000000
+        },
+        {
+          'id': 'sample-id-14',
+          'author': {
+            'id': 'sample-id',
+            'name': 'David William Kurnia'
+          },
+          'comment': 'Comment Example -1',
+          'createdAt': 1450000000
+        },
+        {
+          'id': 'sample-id-15',
+          'author': {
+            'id': 'sample-id',
+            'name': 'Jonathan'
+          },
+          'comment': 'Comment Example -2',
+          'createdAt': 1440000000
+        },
+        {
+          'id': 'sample-id-16',
+          'author': {
+            'id': 'sample-id',
+            'name': 'Stelli'
+          },
+          'comment': 'Comment Example -3',
+          'createdAt': 1430000000
+        }
+      ],
+      'paging': {
+        'page': 4,
+        'size': 4,
+        'totalRecords': 16
       }
     }
   },

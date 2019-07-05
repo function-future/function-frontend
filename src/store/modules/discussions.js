@@ -12,9 +12,9 @@ export const mutations = {
 
 export const actions = {
   fetchCourseDiscussions ({ commit }, { data, callback, fail }) {
-    discussionApi.getCourseDiscussions(({ data: response }) => {
+    discussionApi.getCourseDiscussions(({ data: response, paging }) => {
       commit('SET_COURSE_DISCUSSIONS', response)
-      callback(response)
+      callback(response, paging)
     }, data, fail)
   },
   submitCourseDiscussion ({ commit }, { data, callback, fail }) {

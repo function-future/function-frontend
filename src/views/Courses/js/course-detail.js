@@ -30,9 +30,11 @@ export default {
       },
       discussionPaging: {
         page: 1,
-        size: 4
+        size: 4,
+        totalRecords: 0
       },
-      showDeleteConfirmationModal: false
+      showDeleteConfirmationModal: false,
+      state: ''
     }
   },
   computed: {
@@ -42,6 +44,9 @@ export default {
     ]),
     descriptionCompiledMarkdown: function () {
       return marked(this.courseDetail.description)
+    },
+    isMaximumPage () {
+      return this.discussionPaging.totalRecords / this.discussionPaging.size !== this.discussionPaging.page
     }
   },
   created () {
@@ -56,7 +61,6 @@ export default {
     ]),
     initPage () {
       this.initCourse()
-      this.initDiscussion()
     },
     initCourse () {
       let data = {
@@ -69,7 +73,14 @@ export default {
         fail: this.failFetchCourseById
       })
     },
-    initDiscussion () {
+    successFetchCourseById () {
+      this.courseDetail = this.course
+    },
+    failFetchCourseById () {
+      this.$toasted.error('Fail to load course detail, please refresh the page')
+    },
+    initDiscussion ($state) {
+      this.state = $state
       let data = {
         code: this.$route.params.code,
         id: this.$route.params.id,
@@ -81,14 +92,15 @@ export default {
         fail: this.failFetchCourseDiscussions
       })
     },
-    successFetchCourseById () {
-      this.courseDetail = this.course
-    },
-    successFetchCourseDiscussions (response) {
-      this.discussions.unshift(...response.reverse())
-    },
-    failFetchCourseById () {
-      this.$toasted.error('Fail to load course detail, please refresh the page')
+    successFetchCourseDiscussions (response, paging) {
+      this.discussionPaging = paging
+      this.discussions.push(...response)
+      if (this.isMaximumPage) {
+        this.discussionPaging.page++
+        this.state.loaded()
+      } else {
+        this.state.complete()
+      }
     },
     failFetchCourseDiscussions () {
       this.$toasted.error('Fail to load course discussion, please refresh the page')
@@ -156,13 +168,6 @@ export default {
     failDeleteCourseById () {
       this.$toasted.error('Fail to delete course')
       this.showDeleteConfirmationModal = false
-    },
-    infiniteHandler ($state) {
-      this.discussionPaging.page++
-      console.log(this.discussionPaging.page)
-      this.initDiscussion()
-      // $state.loaded()
-      // $state.complete()
     }
   }
 }
