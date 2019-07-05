@@ -78,7 +78,6 @@ export default {
     ]),
     submitNewChatroom (data) {
       chatroomApi.createChatroom(response => {
-        console.log(response)
         this.activeChatroomId = response.data.id
         this.activeChatroomType = response.data.type
         if (response.data.type === 'PRIVATE') {
