@@ -1,9 +1,9 @@
 import moment from 'moment'
 
-const MAX_CHAR_GROUP_NAME = 24
-const MAX_CHAR_PRIVATE_NAME = 17
-const MAX_CHAR_PRIVATE_LASTMESSAGE = 24
-const MAX_CHAR_GROUP_LASTMESSAGE = 31
+const MAX_CHAR_GROUP_NAME = 20
+const MAX_CHAR_PRIVATE_NAME = 15
+const MAX_CHAR_PRIVATE_LASTMESSAGE = 20
+const MAX_CHAR_GROUP_LASTMESSAGE = 30
 
 export default {
   name: 'ChatroomCard',
@@ -37,7 +37,7 @@ export default {
     },
     convertClock () {
       if (this.time) {
-        if (moment.duration(Date.now() - this.time).asDays() >= 1) {
+        if (moment(this.toDateList(Date.now())).diff(this.toDateList(this.time), 'days') >= 1) {
           return moment(this.time).format('DD MMM')
         }
         return moment(this.time).format('HH:mm')
@@ -45,5 +45,10 @@ export default {
         return ''
       }
     }
+  },
+  methods: {
+    toDateList (time) {
+      return [moment(time).year(), moment(time).month(), moment(time).date()]
+    },
   }
 }

@@ -1,4 +1,4 @@
-<template>
+<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <div class="chatroom-outer">
     <BaseCard class="chatroom-card">
       <div class="chatroom-container">
@@ -77,12 +77,15 @@
             </template>
           </div>
           <div class="chatroom-button-add-container">
-            <font-awesome-icon icon="plus" class="chatroom-button-add"/>
+            <font-awesome-icon icon="plus" @click="openCreateChatroomModal" class="chatroom-button-add"/>
           </div>
         </div>
         <div class="chatroom-separator"></div>
         <div class="chatroom-right">
-          <div class="chatroom-title"><h2>{{ chatroomTitle }}</h2></div>
+          <div class="chatroom-title">
+            <h2>{{ chatroomTitle }}</h2>
+            <font-awesome-icon @click="updatingChatroom = true" v-if="activeChatroomType === 'GROUP'" icon="cog" class="chatroom-button-settings"/>
+          </div>
           <div id="messages-container" class="chatroom-messages">
             <infinite-loading :identifier="activeChatroomId" direction="top" @infinite="infiniteMessageHandler">
               <div slot="no-more"></div>
@@ -109,6 +112,10 @@
         </div>
       </div>
     </BaseCard>
+    <ModalChatroom @submit="submitNewChatroom" @close="creatingChatroom = false" v-if="creatingChatroom">
+    </ModalChatroom>
+    <ModalChatroom @submit="updateChatroom" @close="updatingChatroom = false" v-if="updatingChatroom" :chatroomId="activeChatroomId">
+    </ModalChatroom>
   </div>
 </template>
 
@@ -116,6 +123,11 @@
 </script>
 
 <style scoped>
+
+  .chatroom-modal-title {
+    margin: 0;
+    font-size: 1.3rem;
+  }
 
   .chatroom-search-notfound {
     margin: 0;
@@ -196,6 +208,9 @@
 
   .chatroom-title {
     height: 6vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .chatroom-title > h2 {
@@ -234,6 +249,12 @@
   .chatroom-button-add-container {
     display: flex;
     justify-content: center;
+  }
+
+  .chatroom-button-settings {
+    font-size: 1.4rem;
+    margin-right: 15px;
+    cursor: pointer;
   }
 
   ::-webkit-scrollbar {

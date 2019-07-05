@@ -4,6 +4,7 @@ import ChatroomCard from '../ChatroomCard'
 import BaseInput from '@/components/BaseInput'
 import MessageBubbleReceived from '../MessageBubbleReceived'
 import MessageBubbleSent from '../MessageBubbleSent'
+import ModalChatroom from '../ModalChatroom'
 import chatroomApi from '@/api/controller/chatrooms'
 import InfiniteLoading from 'vue-infinite-loading'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
@@ -20,16 +21,18 @@ export default {
     BaseCard,
     SearchBar,
     ChatroomCard,
-    InfiniteLoading
+    InfiniteLoading,
+    ModalChatroom
   },
   data () {
     return {
       // TODO: change userId to authenticated user
-      userId: '5d12a2ed32a1893cec242e73',
+      userId: '5d119940047e5e37a8986220',
       searchText: '',
       typeChoosen: 'PUBLIC',
       messageText: '',
       activeChatroomId: 'PUBLIC',
+      activeChatroomType: 'PUBLIC',
       chatroomPage: 1,
       messagePage: 1,
       chatroomTitle: 'Public',
@@ -38,6 +41,8 @@ export default {
       messageReadIntervalObject: null,
       sendingNewMessage: false,
       changingChatroom: false,
+      creatingChatroom: false,
+      updatingChatroom: false,
       isSearching: false
     }
   },
@@ -71,6 +76,42 @@ export default {
       'PUSH_CHATROOMS',
       'UNSHIFT_MESSAGES'
     ]),
+    submitNewChatroom (data) {
+      chatroomApi.createChatroom(response => {
+        console.log(response)
+        this.activeChatroomId = response.data.id
+        this.activeChatroomType = response.data.type
+        if (response.data.type === 'PRIVATE') {
+          this.changeTypeChoosen('PRIVATE')
+          this.chatroomTitle = this.getAvatarAndName(response.data.members).name
+        } else {
+          this.changeTypeChoosen('GROUP')
+          this.chatroomTitle = response.data.name
+        }
+      }, err => console.log(err), {
+        body: data
+      })
+    },
+    updateChatroom (data) {
+      chatroomApi.updateChatroom(response => {
+        this.selectChatroom(response.data)
+        this.chatroomPage = 1
+        this.RESET_CHATROOMS()
+        this.activeChatroomId = response.data.id
+        this.activeChatroomType = response.data.type
+        this.$nextTick(() => {
+          this.$refs.chatroomInfiniteLoading.stateChanger.reset()
+        })
+      }, err => console.log(err), {
+        params: {
+          chatroomId: this.activeChatroomId
+        },
+        body: data
+      })
+    },
+    openCreateChatroomModal () {
+      this.creatingChatroom = true
+    },
     toDateList (time) {
       return [moment(time).year(), moment(time).month(), moment(time).date()]
     },
@@ -101,6 +142,7 @@ export default {
     },
     selectChatroom (chatroom) {
       this.activeChatroomId = chatroom.id
+      this.activeChatroomType = chatroom.type
       if (chatroom.type === 'PUBLIC') {
         this.chatroomTitle = 'Public'
       } else if (chatroom.type === 'GROUP') {
@@ -249,6 +291,7 @@ export default {
           this.chatroomTitle = 'Public'
           if (this.activeChatroomId !== 'PUBLIC') {
             this.activeChatroomId = 'PUBLIC'
+            this.activeChatroomType = 'PUBLIC'
           }
           this.chatroomPage = 1
           clearInterval(this.chatroomIntervalObject)
@@ -284,7 +327,9 @@ export default {
           },
           cb: () => {
             this.chatroomPage = 1
-            this.$refs.chatroomInfiniteLoading.stateChanger.reset()
+            this.$nextTick(() => {
+              this.$refs.chatroomInfiniteLoading.stateChanger.reset()
+            })
           }
         })
       }, POLL_INTERVAL)

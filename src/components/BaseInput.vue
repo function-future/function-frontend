@@ -4,6 +4,7 @@
       <input
         @input="updateValue"
         @keyup="emitKeyUp"
+        @focus="emitFocus"
         class="input-box"
         v-bind="$attrs"
         :value="value"
@@ -51,6 +52,12 @@
 
   .search-box {
     height: 30px;
+    padding-right: 60px;
+  }
+
+  .search-box::placeholder {
+    text-align: right;
+    color: rgba(0, 0, 0, 0.2);
   }
 
   .message-box {
@@ -62,5 +69,9 @@
     -moz-border-radius: 10px;
     border-radius: 10px;
     border: 2px solid #02AAF3;
+  }
+
+  .wrong-input {
+    border: 2px solid #cb2431;
   }
 </style>

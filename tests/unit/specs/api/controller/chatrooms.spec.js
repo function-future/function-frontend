@@ -5,7 +5,7 @@ jest.mock('@/api/default-request')
 
 describe('Chatroom Controller', () => {
   afterEach(() => {
-    jest.restoreAllMocks()
+    jest.resetAllMocks()
   })
 
   test('Sanity test', () => {
@@ -15,7 +15,7 @@ describe('Chatroom Controller', () => {
   test('getChatrooms', () => {
     const spy = jest.spyOn(request, 'getRequest')
     const callback = jest.fn()
-    const data = {params: {}}
+    const data = { params: {} }
     const errorHandler = jest.fn()
     api.getChatrooms(callback, errorHandler, data)
     expect(spy).toBeCalledTimes(1)
@@ -24,7 +24,7 @@ describe('Chatroom Controller', () => {
   test('getChatroomDetails', () => {
     const spy = jest.spyOn(request, 'getRequest')
     const callback = jest.fn()
-    const data = {params: {}}
+    const data = { params: {} }
     const errorHandler = jest.fn()
     api.getChatroomDetails(callback, errorHandler, data)
     expect(spy).toBeCalledTimes(1)
@@ -33,7 +33,7 @@ describe('Chatroom Controller', () => {
   test('getMessages', () => {
     const spy = jest.spyOn(request, 'getRequest')
     const callback = jest.fn()
-    const data = {params: {}}
+    const data = { params: {} }
     const errorHandler = jest.fn()
     api.getMessages(callback, errorHandler, data)
     expect(spy).toBeCalledTimes(1)
@@ -42,7 +42,7 @@ describe('Chatroom Controller', () => {
   test('createChatroom', () => {
     const spy = jest.spyOn(request, 'postRequest')
     const callback = jest.fn()
-    const data = {params: {}}
+    const data = { params: {} }
     const errorHandler = jest.fn()
     api.createChatroom(callback, errorHandler, data)
     expect(spy).toBeCalledTimes(1)
@@ -51,7 +51,7 @@ describe('Chatroom Controller', () => {
   test('createMessage', () => {
     const spy = jest.spyOn(request, 'postRequest')
     const callback = jest.fn()
-    const data = {params: {}}
+    const data = { params: {} }
     const errorHandler = jest.fn()
     api.createMessage(callback, errorHandler, data)
     expect(spy).toBeCalledTimes(1)
@@ -60,7 +60,7 @@ describe('Chatroom Controller', () => {
   test('updateChatroom', () => {
     const spy = jest.spyOn(request, 'putRequest')
     const callback = jest.fn()
-    const data = {params: {}}
+    const data = { params: {} }
     const errorHandler = jest.fn()
     api.updateChatroom(callback, errorHandler, data)
     expect(spy).toBeCalledTimes(1)
@@ -69,7 +69,7 @@ describe('Chatroom Controller', () => {
   test('updateSeenStatus', () => {
     const spy = jest.spyOn(request, 'putRequest')
     const callback = jest.fn()
-    const data = {params: {}}
+    const data = { params: {} }
     const errorHandler = jest.fn()
     api.updateSeenStatus(callback, errorHandler, data)
     expect(spy).toBeCalledTimes(1)
