@@ -3,6 +3,7 @@ import BaseCard from '@/components/BaseCard'
 import BaseButton from '@/components/BaseButton'
 import BaseTextArea from '@/components/BaseTextArea'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
+import InfiniteLoading from 'vue-infinite-loading'
 import axios from 'axios'
 let marked = require('marked')
 
@@ -12,7 +13,8 @@ export default {
     BaseCard,
     BaseButton,
     BaseTextArea,
-    ModalDeleteConfirmation
+    ModalDeleteConfirmation,
+    InfiniteLoading
   },
   data () {
     return {

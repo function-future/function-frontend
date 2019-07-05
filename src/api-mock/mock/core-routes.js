@@ -833,7 +833,7 @@ export const discussions = [
             'name': 'Oliver Sebastian'
           },
           'comment': 'Comment Example 1',
-          'createdAt': 1500000000
+          'createdAt': 1540000000
         },
         {
           'id': 'sample-id-2',
@@ -842,7 +842,7 @@ export const discussions = [
             'name': 'David William Kurnia'
           },
           'comment': 'Comment Example 1',
-          'createdAt': 1500000000
+          'createdAt': 1530000000
         },
         {
           'id': 'sample-id-3',
@@ -851,7 +851,7 @@ export const discussions = [
             'name': 'Jonathan'
           },
           'comment': 'Comment Example 1',
-          'createdAt': 1500000000
+          'createdAt': 1520000000
         },
         {
           'id': 'sample-id-4',
@@ -860,7 +860,7 @@ export const discussions = [
             'name': 'Stelli'
           },
           'comment': 'Comment Example 1',
-          'createdAt': 1500000000
+          'createdAt': 1510000000
         }
       ],
       'paging': {

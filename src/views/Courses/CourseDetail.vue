@@ -24,15 +24,6 @@
     <BaseCard class="discussion-wrapper" cardClass="no-pointer">
       <h3>Discussion</h3>
       <div class="scrollable">
-        <div class="discussion-input-wrapper">
-          <div class="discussion-input">
-            <BaseTextArea class="discussion-input-box" placeholder="Ask a question..."
-                          v-model="discussion.comment"></BaseTextArea>
-          </div>
-          <div class="discussion-button">
-            <BaseButton type="submit" buttonClass="button-save" @click="postDiscussion">Post</BaseButton>
-          </div>
-        </div>
         <div v-for="discussion in discussions" :key="discussion.id">
           <BaseCard class="discussion-card">
             <div class="discussion-info">
@@ -43,6 +34,15 @@
               <span>{{ discussion.comment }}</span>
             </div>
           </BaseCard>
+        </div>
+      </div>
+      <div class="discussion-input-wrapper">
+        <div class="discussion-input">
+          <BaseTextArea class="discussion-input-box" placeholder="Ask a question..."
+                        v-model="discussion.comment"></BaseTextArea>
+        </div>
+        <div class="discussion-button">
+          <BaseButton type="submit" buttonClass="button-save" @click="postDiscussion">Post</BaseButton>
         </div>
       </div>
     </BaseCard>
@@ -60,8 +60,11 @@
   .scrollable {
     overflow: auto;
     margin-bottom: 5px;
-    height: 85%;
+    max-height: 60%;
     padding: 0 10px 5px 5px;
+    display: flex;
+    flex-direction: column-reverse;
+    align-content: center;
   }
 
   .course-card {
@@ -69,7 +72,9 @@
   }
 
   .discussion-wrapper {
-    height: 70vh;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
   }
 
   .discussion-card {
@@ -100,7 +105,7 @@
   }
 
   .discussion-input-wrapper {
-    margin-bottom: 10px;
+    margin-top: 10px;
   }
 
   .discussion-input {
