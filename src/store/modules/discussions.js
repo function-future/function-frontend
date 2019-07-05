@@ -19,7 +19,7 @@ export const actions = {
   },
   submitCourseDiscussion ({ commit }, { data, callback, fail }) {
     discussionApi.postCourseDiscussion(({ data: response }) => {
-      callback()
+      callback(response)
     }, data, fail)
   }
 }

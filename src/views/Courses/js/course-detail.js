@@ -117,10 +117,10 @@ export default {
         fail: this.failSubmitCourseDiscussion
       })
     },
-    successSubmitCourseDiscussion () {
+    successSubmitCourseDiscussion (response) {
       this.$toasted.success('Successfully added course discussion')
       this.discussion.comment = ''
-      this.initDiscussion()
+      this.discussions.unshift(response)
     },
     failSubmitCourseDiscussion () {
       this.$toasted.error('Fail to post course discussion, please try again')
