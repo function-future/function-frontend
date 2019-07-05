@@ -21,7 +21,7 @@
             </template>
 
           </div>
-          <p>{{ selectedUsers.length }} selected</p>
+          <p>{{ selectedUsers.length }} members</p>
           <div class="selected-user">
             <template v-for="(user, index) in selectedUsers">
               <div class="selected-user-card" :key="user.id">
@@ -36,6 +36,7 @@
             placeholder="Group Name"
             @focus="wrongName = false"
             @keyup="enterPressed"
+            maxlength="29"
             class="group-name-input"
             :inputType="wrongName ? 'wrong-input' : ''" />
         </div>

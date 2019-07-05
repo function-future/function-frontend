@@ -77,7 +77,6 @@ export default {
       'UNSHIFT_MESSAGES'
     ]),
     submitNewChatroom (data) {
-      console.log(data)
       chatroomApi.createChatroom(response => {
         console.log(response)
         this.activeChatroomId = response.data.id
@@ -94,11 +93,12 @@ export default {
       })
     },
     updateChatroom (data) {
-      console.log(data)
       chatroomApi.updateChatroom(response => {
         this.selectChatroom(response.data)
         this.chatroomPage = 1
         this.RESET_CHATROOMS()
+        this.activeChatroomId = response.data.id
+        this.activeChatroomType = response.data.type
         this.$nextTick(() => {
           this.$refs.chatroomInfiniteLoading.stateChanger.reset()
         })
