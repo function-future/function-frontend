@@ -13,7 +13,7 @@
               <UserListCard :name="user.name"
                             :university="user.university"
                             :role="user.role"
-                            :batch="user.batch.name"
+                            :batch="user.batch ? user.batch.name : null"
                             :key="user.id"
                             :avatar="user.avatar"
                             @click="selectedUsers.push(user)"
