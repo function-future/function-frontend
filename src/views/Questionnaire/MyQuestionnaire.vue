@@ -2,10 +2,15 @@
   <div class="my-questionnaire-outer">
     <BaseCard class="my-questionnaire-card">
       <div class="search-bar-my-questionnaire">
-        <SearchBar/>
+        <SearchBar class="search-bar"/>
       </div>
-      <div>
-        <span>Hello world</span>
+      <div class="my-questionnaire-list-container">
+        <QuestionnaireCard v-for="item in 20"
+                           :title="item.toString().concat('asdkljaslkdjaslkdjalskjd')"
+                           :desc=description
+                           :startDate=startdate
+                           :dueDate=duedate
+        ></QuestionnaireCard>
       </div>
     </BaseCard>
   </div>
@@ -23,8 +28,22 @@
   }
 
   .my-questionnaire-card {
+    display: flex;
     width: 900px;
     padding: 0;
     height: 80vh;
+    flex-direction: column;
   }
+  .search-bar-my-questionnaire {
+    display: flex;
+    justify-content: flex-end;
+  }
+  .search-bar {
+    flex-basis: 50%;
+  }
+  .my-questionnaire-list-container{
+    overflow: auto;
+    padding: 10px;
+  }
+
 </style>
