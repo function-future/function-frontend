@@ -33,17 +33,17 @@
         <router-link class="navbar-link" :to="{ name: 'myQuestionnaire'}" >My Questionnaire</router-link>
       </li>
       <li class="navbar-link questionnaire-menu" @click="toggleQuestionnaireMenu" v-if="!showQuestionnaire">
-        <span>Questionnaire Setup</span>
+        <span>Admin Questionnaire</span>
         <font-awesome-icon icon="chevron-down" class="icon"/>
       </li>
       <li class="navbar-link questionnaire-menu" @click="toggleQuestionnaireMenu" v-else>
-        <span>Questionnaire Setup</span>
+        <span>Admin Questionnaire</span>
         <font-awesome-icon icon="chevron-up" class="icon"/>
       </li>
       <transition name="fade">
         <ul v-if="showQuestionnaire" class="questionnaire-submenu">
-          <li><router-link :to="{ name: 'questionBanks' }" class="navbar-link">Setting</router-link></li>
-          <li><router-link :to="{ name: 'quizzes' }" class="navbar-link">Results</router-link></li>
+          <li><router-link :to="{ name: 'questionnaires' }" class="navbar-link">Questionnaires</router-link></li>
+          <li><router-link :to="{ name: 'questionnaireResults' }" class="navbar-link">Results</router-link></li>
         </ul>
       </transition>
     </ul>

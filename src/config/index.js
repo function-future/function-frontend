@@ -58,7 +58,9 @@ module.exports = {
         edit: '/sticky-notes/edit'
       },
       chatrooms: '/chatrooms',
-      myQuestionnaire: '/my-questionnaire'
+      myQuestionnaire: '/my-questionnaire',
+      questionnaires: '/questionnaires',
+      questionnaireResults: '/questionnaire-results',
     }
   },
   api: {
