@@ -146,8 +146,8 @@ describe('ActivityBlogs', () => {
     expect(wrapper.vm.selectedId).toEqual('')
   })
 
-  test('failFetchActivityBlogs', () => {
-    wrapper.vm.failFetchActivityBlogs()
+  test('failLoadActivityBlogList', () => {
+    wrapper.vm.failLoadActivityBlogList()
     expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
   })
 
@@ -170,6 +170,39 @@ describe('ActivityBlogs', () => {
     const spy = jest.spyOn(wrapper.vm, 'closeDeleteConfirmationModal')
     wrapper.vm.failDeleteActivityBlogById()
     expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('successLoadActivityBlogList', () => {
+    const paging = {
+      page: 1,
+      size: 10,
+      totalRecords: 20
+    }
+    wrapper.vm.successLoadActivityBlogList(paging)
+    expect(wrapper.vm.paging).toEqual(paging)
+  })
+
+  test('loadPage', () => {
+    const spy = jest.spyOn(wrapper.vm, 'loadActivityBlogList')
+    wrapper.vm.loadPage(1)
+    expect(wrapper.vm.paging.page).toEqual(1)
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('loadPreviousPage', () => {
+    const spy = jest.spyOn(wrapper.vm, 'loadActivityBlogList')
+    wrapper.vm.paging.page = 2
+    wrapper.vm.loadPreviousPage()
+    expect(wrapper.vm.paging.page).toEqual(1)
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('loadNextPage', () => {
+    const spy = jest.spyOn(wrapper.vm, 'loadActivityBlogList')
+    wrapper.vm.paging.page = 2
+    wrapper.vm.loadNextPage()
+    expect(wrapper.vm.paging.page).toEqual(3)
     expect(spy).toHaveBeenCalledTimes(1)
   })
 })

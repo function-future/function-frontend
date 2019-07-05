@@ -3,6 +3,7 @@ import BaseButton from '@/components/BaseButton'
 import UserCard from '@/components/users/UserCard'
 import Tabs from 'vue-tabs-with-active-line'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
+import BasePagination from '@/components/BasePagination'
 
 export default {
   name: 'users',
@@ -10,7 +11,8 @@ export default {
     UserCard,
     BaseButton,
     Tabs,
-    ModalDeleteConfirmation
+    ModalDeleteConfirmation,
+    BasePagination
   },
   data () {
     return {
@@ -23,7 +25,8 @@ export default {
       currentTab: 'student',
       paging: {
         page: 1,
-        size: 10
+        size: 10,
+        totalRecords: 0
       },
       showDeleteConfirmationModal: false
     }
@@ -59,6 +62,7 @@ export default {
       this.fetchTabList()
     },
     changeTab (destinationTab) {
+      this.paging.page = 1
       this.currentTab = destinationTab
       this.fetchTabList()
     },
@@ -75,21 +79,22 @@ export default {
       })
     },
     successGetUserList (response) {
+      this.paging = response.paging
       switch (this.currentTab) {
         case 'student': {
-          this.setStudentList({ data: response })
+          this.setStudentList({ data: response.data })
           break
         }
         case 'admin': {
-          this.setAdminList({ data: response })
+          this.setAdminList({ data: response.data })
           break
         }
         case 'mentor': {
-          this.setMentorList({ data: response })
+          this.setMentorList({ data: response.data })
           break
         }
         case 'judge': {
-          this.setJudgeList({ data: response })
+          this.setJudgeList({ data: response.data })
           break
         }
       }
@@ -137,6 +142,18 @@ export default {
     failDeleteUserById () {
       this.$toasted.error('Fail to delete user')
       this.closeDeleteConfirmationModal()
+    },
+    loadPage (page) {
+      this.paging.page = page
+      this.initPage()
+    },
+    loadPreviousPage () {
+      this.paging.page = this.paging.page - 1
+      this.initPage()
+    },
+    loadNextPage () {
+      this.paging.page = this.paging.page + 1
+      this.initPage()
     }
   }
 }
