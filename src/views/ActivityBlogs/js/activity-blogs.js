@@ -2,6 +2,7 @@ import { mapActions, mapGetters } from 'vuex'
 import BaseCard from '@/components/BaseCard'
 import BaseButton from '@/components/BaseButton'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
+import BasePagination from '@/components/BasePagination'
 let marked = require('marked')
 
 export default {
@@ -9,7 +10,8 @@ export default {
   components: {
     BaseButton,
     BaseCard,
-    ModalDeleteConfirmation
+    ModalDeleteConfirmation,
+    BasePagination
   },
   data () {
     return {
@@ -39,8 +41,8 @@ export default {
       let data = { ...this.paging }
       this.fetchActivityBlogs({
         data,
-        callback: () => {},
-        fail: this.failFetchActivityBlogs
+        callback: this.successLoadActivityBlogList,
+        fail: this.failLoadActivityBlogList
       })
     },
     compileToMarkdown: function (description) {
@@ -81,7 +83,10 @@ export default {
         fail: this.failDeleteActivityBlogById
       })
     },
-    failFetchActivityBlogs () {
+    successLoadActivityBlogList (paging) {
+      this.paging = paging
+    },
+    failLoadActivityBlogList () {
       this.$toasted.error('Fail to load activity blogs list')
     },
     successDeleteActivityBlogById () {
@@ -92,6 +97,18 @@ export default {
     failDeleteActivityBlogById () {
       this.$toasted.error('Fail to delete activity blog')
       this.closeDeleteConfirmationModal()
+    },
+    loadPage (page) {
+      this.paging.page = page
+      this.loadActivityBlogList()
+    },
+    loadPreviousPage () {
+      this.paging.page = this.paging.page - 1
+      this.loadActivityBlogList()
+    },
+    loadNextPage () {
+      this.paging.page = this.paging.page + 1
+      this.loadActivityBlogList()
     }
   }
 }

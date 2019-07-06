@@ -20,9 +20,9 @@ export const actions = {
     commit('SET_ANNOUNCEMENTS', [])
   },
   fetchAnnouncements ({ commit }, { data, callback, fail }) {
-    announcementApi.getAnnouncementList(({ data: response }) => {
+    announcementApi.getAnnouncementList(({ data: response, paging }) => {
       commit('SET_ANNOUNCEMENTS', response)
-      callback()
+      callback(paging)
     }, data, fail)
   },
   fetchAnnouncementById ({ commit }, { data, callback, fail }) {

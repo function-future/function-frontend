@@ -2,19 +2,22 @@ import { mapActions, mapGetters } from 'vuex'
 import BaseCard from '@/components/BaseCard'
 import BaseButton from '@/components/BaseButton'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
+import BasePagination from '@/components/BasePagination'
 
 export default {
   name: 'announcements',
   components: {
     BaseButton,
     BaseCard,
-    ModalDeleteConfirmation
+    ModalDeleteConfirmation,
+    BasePagination
   },
   data () {
     return {
       paging: {
         page: 1,
-        size: 10
+        size: 10,
+        totalRecords: 0
       },
       selectedId: '',
       showDeleteConfirmationModal: false
@@ -55,9 +58,12 @@ export default {
       let data = { ...this.paging }
       this.fetchAnnouncements({
         data,
-        callback: () => {},
+        callback: this.successLoadAnnouncementList,
         fail: this.failLoadingAnnouncementList
       })
+    },
+    successLoadAnnouncementList (paging) {
+      this.paging = paging
     },
     failLoadingAnnouncementList () {
       this.$toasted.error('Fail to load announcement list')
@@ -101,6 +107,18 @@ export default {
     },
     failDeleteAnnouncementById () {
       this.$toasted.error('Fail to delete announcement')
+    },
+    loadPage (page) {
+      this.paging.page = page
+      this.loadAnnouncementList()
+    },
+    loadPreviousPage () {
+      this.paging.page = this.paging.page - 1
+      this.loadAnnouncementList()
+    },
+    loadNextPage () {
+      this.paging.page = this.paging.page + 1
+      this.loadAnnouncementList()
     }
   }
 }

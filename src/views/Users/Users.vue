@@ -34,6 +34,11 @@
           <UserCard :user="judge" @edit="goToEditUser" @delete="openDeleteConfirmationModal"></UserCard>
         </div>
       </div>
+      <BasePagination :paging="paging"
+                      @loadPage="loadPage"
+                      @previousPage="loadPreviousPage"
+                      @nextPage="loadNextPage">
+      </BasePagination>
     </div>
     <modal-delete-confirmation v-if="showDeleteConfirmationModal"
                                @close="closeDeleteConfirmationModal"
