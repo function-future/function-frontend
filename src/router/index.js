@@ -26,6 +26,7 @@ import editStickyNote from '@/views/StickyNotes/EditStickyNote.vue'
 import UserForm from '@/views/Users/UserForm.vue'
 import config from '@/config/index'
 import chatrooms from '@/views/Chatrooms/Chatrooms'
+import login from '@/views/Auth/Login'
 
 Vue.use(Router)
 
@@ -33,6 +34,11 @@ export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
+    {
+      path: config.app.pages.auth.login,
+      name: 'login',
+      component: login
+    },
     {
       path: config.app.pages.feeds,
       name: 'feeds',

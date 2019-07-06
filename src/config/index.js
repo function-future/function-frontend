@@ -1,6 +1,9 @@
 module.exports = {
   app: {
     pages: {
+      auth: {
+        login: '/login'
+      },
       feeds: '/',
       activityBlogs: {
         list: '/activity-blogs',
