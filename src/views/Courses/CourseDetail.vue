@@ -39,9 +39,8 @@
                           @infinite="initDiscussion"
                           spinner="spiral"
                           force-use-infinite-wrapper=".scrollable">
-          <div slot="spinner">Loading...</div>
-          <div slot="no-more">No more discussions</div>
-          <div slot="no-results">Start a discussion</div>
+          <div slot="no-more"></div>
+          <div slot="no-results"></div>
         </infinite-loading>
       </div>
       <div class="discussion-input-wrapper">
