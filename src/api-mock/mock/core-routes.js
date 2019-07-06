@@ -766,13 +766,13 @@ export const courses = [
       'status': 'OK',
       'data': [
         {
-          'id': 'sample-id-1',
-          'title': 'Course Title 1',
+          'id': 'sample-id-5',
+          'title': 'Course Title 5',
           'description': 'Course Description Goes Here',
           'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
         },
         {
-          'id': 'sample-id-2',
+          'id': 'sample-id-6',
           'title': 'Course Title 2',
           'description': 'Course Description Goes Here',
           'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
