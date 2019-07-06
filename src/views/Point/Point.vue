@@ -6,9 +6,9 @@
           <img src="points.avatar" alt="Image not available"> <!--TODO: CHANGE IMG SRC TO WHATEVER THE API RETURNS !-->
         </div>
         <div class="profile-section__card-detail">
-          <h2>{{points.name}}</h2>
+          <h2>{{points.studentName}}</h2>
           <span>{{points.university}}</span>
-          <span>{{points.email}}</span>
+          <span>Batch {{points.batchCode}}</span>
         </div>
       </BaseCard>
     </div>
@@ -16,13 +16,15 @@
       <BaseCard :style="{height: '100%'}" class="point-section__card">
         <span>Summary</span>
         <div class="points-section__card-scrollable-content">
-          <BaseCard v-for="point in points.quizzes" class="points-section__card-item" :key="point.id">
+          <BaseCard v-for="point in points.scores" class="points-section__card-item" :key="point.id">
             <div class="points-section__card-item-detail">
-              <h2>{{point.id}}</h2>
+              <h2>{{point.type}}</h2>
               <span>{{point.title}}</span>
             </div>
             <div class="points-section__card-item-score">
-              {{point.point}}
+              <div class="points-section__card-item-score-border">
+                {{point.point}}
+              </div>
             </div>
           </BaseCard>
         </div>
@@ -90,6 +92,22 @@
           }
           &-score {
             align-self: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 70px;
+            height: 70px;
+            &-border {
+              border-radius: 100%;
+              border: 4px solid black;
+              width: 100%;
+              height: 100%;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              font-size: larger;
+              font-weight: bolder;
+            }
           }
         }
       }

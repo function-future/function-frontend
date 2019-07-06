@@ -575,45 +575,44 @@ export const points = [
       "code": 200,
       "status": "OK",
       "data": {
-        "id": "USR0001",
-        "email": "student@gmail.com",
-        "name": "Student 1",
+        "studentName": "Student 1",
+        "batchCode": "3",
         "university": "University 1",
-        "totalPoint": 300,
-        "quizzes": [
+        "scores": [
           {
             "id": "QZ0001",
             "title": "Quiz 1",
+            "type": "QUIZ",
             "point": 80
           },
           {
             "id": "QZ0002",
             "title": "Quiz 2",
+            "type": "QUIZ",
             "point": 100
           },
           {
             "id": "QZ0003",
             "title": "Quiz 3",
+            "type": "QUIZ",
             "point": 70
-          }
-        ],
-        "assignments": [
+          },
           {
-            "assignmentId": "ASG0001",
+            "id": "ASG0001",
             "title": "Assignment 1",
-            "roomId": "ROM0002",
+            "type": "ASSIGNMENT",
             "point": 80
           },
           {
             "id": "ASG0002",
             "title": "Assignment 2",
-            "roomId": "ROM0005",
+            "type": "ASSIGNMENT",
             "point": 30
           },
           {
             "id": "ASG0003",
             "title": "Assignment 3",
-            "roomId": "ROM0008",
+            "type": "ASSIGNMENT",
             "point": 100
           }
         ]
