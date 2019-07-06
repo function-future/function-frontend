@@ -349,7 +349,7 @@ export const quizDetail = [
   },
   {
     method: 'DELETE',
-    url: '/api/scoring/batches/futur3/quizzes/QZ0001',
+    url: '/api/scoring/batches/futur3/quizzes/QZ00001',
     response: {
       "code": 200,
       "status": "OK"
