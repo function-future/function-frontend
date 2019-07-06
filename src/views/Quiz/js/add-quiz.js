@@ -28,12 +28,12 @@ export default {
     this.initPage()
   },
   computed: {
-    ...mapGetters('questionBanks', [
+    ...mapGetters([
       'questionBanks'
     ])
   },
   methods: {
-    ...mapActions('questionBanks', [
+    ...mapActions([
       'fetchQuestionBankList',
       'setSelectedBank'
     ]),
