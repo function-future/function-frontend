@@ -53,15 +53,8 @@ export const actions = {
   },
   fetchMessages ({ state, commit }, { data, fail, cb }) {
     chatroomApi.getMessages(response => {
-      let additionalMessages = []
-      for (const message of response.data) {
-        if (state.messages[state.messages.length - 1] && message.id === state.messages[state.messages.length - 1].id) {
-          break
-        }
-        additionalMessages.push(message)
-      }
-      if (additionalMessages.length > 0) {
-        commit('PUSH_MESSAGES', additionalMessages.reverse())
+      commit('PUSH_MESSAGES', response.data.reverse())
+      if (response.data.length > 0) {
         cb()
       }
     }, fail, data)
@@ -72,12 +65,46 @@ export const actions = {
       commit('PUSH_CHATROOMS', response.data)
     }, fail, data)
   },
+  fetchMessagesAfterPivot ({ commit, state }, { data, fail, cb1, cb2 }) {
+    chatroomApi.getMessagesAfterPivot(
+      response => {
+        if (response.data[0] && response.data[0].id === state.messages[state.messages.length - 1].id) {
+          return
+        }
+        commit('PUSH_MESSAGES', response.data.reverse())
+        if (response.data.length) {
+          cb1(response.data[0].id)
+        }
+        cb2()
+      },
+      fail,
+      data
+    )
+  },
   updateSeenStatus ({ state, commit }, chatroomId) {
     for (let chatroom of state.chatrooms) {
       if (chatroomId === chatroom.id && chatroom.lastMessage) {
         chatroom.lastMessage.seen = true
       }
     }
+  },
+  pushMessages ({ commit }, messages) {
+    commit('PUSH_MESSAGES', messages)
+  },
+  unshiftMessages ({ commit }, messages) {
+    commit('UNSHIFT_MESSAGES', messages)
+  },
+  pushChatrooms ({ commit }, chatrooms) {
+    commit('UNSHIFT_CHATROOMS', chatrooms)
+  },
+  unshiftChatrooms ({ commit }, chatrooms) {
+    commit('UNSHIFT_CHATROOMS', chatrooms)
+  },
+  resetChatrooms ({ commit }) {
+    commit('RESET_CHATROOMS')
+  },
+  resetMessages ({ commit }) {
+    commit('RESET_MESSAGES')
   }
 }
 

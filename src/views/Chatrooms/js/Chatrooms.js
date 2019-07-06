@@ -38,12 +38,15 @@ export default {
       chatroomTitle: 'Public',
       chatroomIntervalObject: null,
       messageIntervalObject: null,
+      messageBottomIntervalObject: null,
       messageReadIntervalObject: null,
       sendingNewMessage: false,
-      changingChatroom: false,
+      changingChatroom: true,
       creatingChatroom: false,
       updatingChatroom: false,
-      isSearching: false
+      isSearching: false,
+      bottomPivotMessageId: '',
+      topPivotMessageId: ''
     }
   },
   computed: {
@@ -67,14 +70,14 @@ export default {
       'fetchChatrooms',
       'fetchMessages',
       'updateSeenStatus',
-      'fetchChatroomWithKeyword'
-    ]),
-    ...mapMutations([
-      'RESET_MESSAGES',
-      'RESET_CHATROOMS',
-      'UNSHIFT_CHATROOMS',
-      'PUSH_CHATROOMS',
-      'UNSHIFT_MESSAGES'
+      'fetchChatroomWithKeyword',
+      'fetchMessagesAfterPivot',
+      'unshiftChatrooms',
+      'pushChatrooms',
+      'unshiftMessages',
+      'pushMessages',
+      'resetMessages',
+      'resetChatrooms'
     ]),
     submitNewChatroom (data) {
       chatroomApi.createChatroom(response => {
@@ -95,7 +98,7 @@ export default {
       chatroomApi.updateChatroom(response => {
         this.selectChatroom(response.data)
         this.chatroomPage = 1
-        this.RESET_CHATROOMS()
+        this.resetMessages()
         this.activeChatroomId = response.data.id
         this.activeChatroomType = response.data.type
         this.$nextTick(() => {
@@ -166,7 +169,7 @@ export default {
           }
         }
         if (additionalChatrooms.length) {
-          this.PUSH_CHATROOMS(additionalChatrooms)
+          this.pushChatrooms(additionalChatrooms)
           if (this.chatroomPage === 1) {
             this.resetChatroomPoll()
           }
@@ -187,40 +190,42 @@ export default {
       })
     },
     infiniteMessageHandler ($state) {
-      chatroomApi.getMessages(response => {
-        this.changingChatroom = false
-        let additionalMessages = []
-        for (const message of response.data.reverse()) {
-          let exists = false
-          for (const existingMessage of this.messages) {
-            if (existingMessage.id === message.id) {
-              exists = true
-              break
-            }
-          }
-          if (!exists) {
-            additionalMessages.push(message)
-          }
-        }
-        if (additionalMessages.length) {
-          this.UNSHIFT_MESSAGES(additionalMessages)
-          if (this.messagePage === 1) {
+      if (this.changingChatroom) {
+        chatroomApi.getMessages(response => {
+          this.changingChatroom = false
+          if (response.data.length) {
+            this.unshiftMessages(response.data.reverse())
+            this.topPivotMessageId = this.messages[0].id
+            this.bottomPivotMessageId = this.messages[this.messages.length - 1].id
+            this.resetMessageBottomPoll()
+            $state.loaded()
+          } else {
             this.resetMessagePoll()
+            $state.complete()
           }
-          this.messagePage += 1
-          $state.loaded()
-        } else {
-          if (this.messagePage === 1) {
-            this.resetMessagePoll()
+        }, error => console.log(error), {
+          params: {
+            chatroomId: this.activeChatroomId,
+            page: this.messagePage
           }
-          $state.complete()
-        }
-      }, error => console.log(error), {
-        params: {
-          chatroomId: this.activeChatroomId,
-          page: this.messagePage
-        }
-      })
+        })
+      } else {
+        chatroomApi.getMessagesBeforePivot(response => {
+          this.unshiftMessages(response.data.reverse())
+          if (response.data.length) {
+            this.topPivotMessageId = this.messages[0].id
+            $state.loaded()
+          } else {
+            $state.complete()
+          }
+        }, err => console.log(err),
+        {
+          params: {
+            messageId: this.topPivotMessageId,
+            chatroomId: this.activeChatroomId
+          }
+        })
+      }
     },
     submitMessage (event) {
       if (event.keyCode === 13 && this.messageText) {
@@ -284,7 +289,7 @@ export default {
       if (type !== this.typeChoosen) {
         this.typeChoosen = type
         if (type !== 'PUBLIC') {
-          this.RESET_CHATROOMS()
+          this.resetChatrooms()
           this.chatroomPage = 1
         } else {
           this.chatroomTitle = 'Public'
@@ -294,7 +299,7 @@ export default {
           }
           this.chatroomPage = 1
           clearInterval(this.chatroomIntervalObject)
-          this.RESET_CHATROOMS()
+          this.resetChatrooms()
         }
       }
     },
@@ -302,6 +307,7 @@ export default {
       clearInterval(this.chatroomIntervalObject)
       clearInterval(this.messageIntervalObject)
       clearInterval(this.messageReadIntervalObject)
+      clearInterval(this.messageBottomIntervalObject)
     },
     resetChatroomPoll () {
       clearInterval(this.chatroomIntervalObject)
@@ -310,6 +316,10 @@ export default {
     resetMessagePoll () {
       clearInterval(this.messageIntervalObject)
       this.initMessagesPoll()
+    },
+    resetMessageBottomPoll () {
+      clearInterval(this.messageBottomIntervalObject)
+      this.initMessageBottomPoll()
     },
     initChatroomPoll () {
       this.chatroomIntervalObject = setInterval(() => {
@@ -344,9 +354,31 @@ export default {
           },
           fail: err => console.log(err),
           cb: () => {
+            this.bottomPivotMessageId = this.messages[this.messages.length - 1].id
+            this.topPivotMessageId = this.messages[0].id
+            clearInterval(this.messageIntervalObject)
+            this.initMessageBottomPoll()
+          }
+        })
+      }, POLL_INTERVAL)
+    },
+    initMessageBottomPoll () {
+      this.messageBottomIntervalObject = setInterval(() => {
+        this.fetchMessagesAfterPivot({
+          data: {
+            params: {
+              messageId: this.bottomPivotMessageId,
+              chatroomId: this.activeChatroomId
+            }
+          },
+          fail: err => console.log(err),
+          cb1: () => {
+            this.bottomPivotMessageId = this.messages[this.messages.length - 1].id
             this.scrollMessageToBottom()
+          },
+          cb2: () => {
             if (this.changingChatroom) {
-              this.RESET_MESSAGES()
+              this.resetMessages()
             }
           }
         })
@@ -369,14 +401,17 @@ export default {
   watch: {
     activeChatroomId: function (newId, oldId) {
       clearInterval(this.messageIntervalObject)
+      clearInterval(this.messageBottomIntervalObject)
+      this.bottomPivotMessageId = ''
+      this.topPivotMessageId = ''
       this.messagePage = 1
-      this.RESET_MESSAGES()
+      this.resetMessages()
       this.changingChatroom = true
     },
     isSearching: function (newVal, oldVal) {
       this.chatroomPage = 1
       clearInterval(this.chatroomIntervalObject)
-      this.RESET_CHATROOMS()
+      this.resetMessages()
     }
   },
   mounted () {
@@ -385,8 +420,8 @@ export default {
     this.chatroomPage = 1
   },
   destroyed () {
-    this.RESET_MESSAGES()
-    this.RESET_CHATROOMS()
+    this.resetMessages()
+    this.resetMessages()
     this.stopPolling()
   }
 }

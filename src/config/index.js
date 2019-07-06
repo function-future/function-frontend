@@ -205,6 +205,12 @@ module.exports = {
         list (type, search, page, size) {
           return `/api/communication/chatrooms?type=${type}&search=${search}&page=${page}&size=${size}`
         },
+        getMessagesBeforePivot (messageId, chatroomId) {
+          return `/api/communication/chatrooms/${chatroomId}/messages/_before?messageId=${messageId}`
+        },
+        getMessagesAfterPivot (messageId, chatroomId) {
+          return `/api/communication/chatrooms/${chatroomId}/messages/_after?messageId=${messageId}`
+        },
         getDetails (chatroomId) {
           return `/api/communication/chatrooms/${chatroomId}`
         },

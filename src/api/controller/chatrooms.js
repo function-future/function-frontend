@@ -9,7 +9,7 @@ const getChatrooms = function (callback, error, data) {
   )
 }
 
-const getChatroomDetails = function(callback, error, data) {
+const getChatroomDetails = function (callback, error, data) {
   request.getRequest(
     config.api.communication.chatrooms.getDetails(data.params.chatroomId),
     callback,
@@ -17,7 +17,7 @@ const getChatroomDetails = function(callback, error, data) {
   )
 }
 
-const getMessages = function(callback, error, data) {
+const getMessages = function (callback, error, data) {
   request.getRequest(
     config.api.communication.chatrooms.getMessages(data.params.chatroomId, data.params.page, config.dev.defaultPageSize),
     callback,
@@ -25,8 +25,24 @@ const getMessages = function(callback, error, data) {
   )
 }
 
-const getPublicMessages = function(callback, error, data) {
-  console.log(config.api.communication.chatrooms.getPublicMessages(data.params.page, config.dev.defaultPageSize),)
+const getMessagesBeforePivot = function (callback, error, data) {
+  request.getRequest(
+    config.api.communication.chatrooms.getMessagesBeforePivot(data.params.messageId, data.params.chatroomId),
+    callback,
+    error
+  )
+}
+
+const getMessagesAfterPivot = function (callback, error, data) {
+  request.getRequest(
+    config.api.communication.chatrooms.getMessagesAfterPivot(data.params.messageId, data.params.chatroomId),
+    callback,
+    error
+  )
+}
+
+const getPublicMessages = function (callback, error, data) {
+  console.log(config.api.communication.chatrooms.getPublicMessages(data.params.page, config.dev.defaultPageSize))
   request.getRequest(
     config.api.communication.chatrooms.getPublicMessages(data.params.page, config.dev.defaultPageSize),
     callback,
@@ -34,7 +50,7 @@ const getPublicMessages = function(callback, error, data) {
   )
 }
 
-const createChatroom = function(callback, error, data) {
+const createChatroom = function (callback, error, data) {
   request.postRequest(
     config.api.communication.chatrooms.create,
     callback,
@@ -52,7 +68,7 @@ const createMessage = function (callback, error, data) {
   )
 }
 
-const updateChatroom = function(callback, error, data) {
+const updateChatroom = function (callback, error, data) {
   request.putRequest(
     config.api.communication.chatrooms.update(data.params.chatroomId),
     callback,
@@ -61,7 +77,7 @@ const updateChatroom = function(callback, error, data) {
   )
 }
 
-const updateSeenStatus = function(callback, error, data) {
+const updateSeenStatus = function (callback, error, data) {
   request.putRequest(
     config.api.communication.chatrooms.updateReadStatus(data.params.chatroomId, data.params.messageId),
     callback,
@@ -74,6 +90,8 @@ export default {
   getChatrooms,
   getChatroomDetails,
   getMessages,
+  getMessagesBeforePivot,
+  getMessagesAfterPivot,
   getPublicMessages,
   createChatroom,
   createMessage,
