@@ -27,13 +27,13 @@ export const actions = {
   fetchCourses ({ commit }, { data, callback, fail }) {
     courseApi.getCourseList(({ data: response, paging }) => {
       commit('SET_COURSES', response)
-      callback(paging)
+      callback(response, paging)
     }, data, fail)
   },
   fetchMasterCourses ({ commit }, { data, callback, fail }) {
     courseApi.getMasterCourseList(({ data: response, paging }) => {
       commit('SET_MASTER_COURSES', response)
-      callback(paging)
+      callback(response, paging)
     }, data, fail)
   },
   fetchCourseById ({ commit }, { data, callback, fail }) {

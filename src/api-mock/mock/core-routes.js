@@ -568,10 +568,97 @@ export const courses = [
           'title': 'Master Course Title 2',
           'description': 'Course Description Goes Here',
           'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+        },
+        {
+          'id': 'sample-id-3',
+          'title': 'Master Course Title 3',
+          'description': 'Course Description Goes Here',
+          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+        },
+        {
+          'id': 'sample-id-4',
+          'title': 'Master Course Title 4',
+          'description': 'Course Description Goes Here',
+          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+        },
+        {
+          'id': 'sample-id-5',
+          'title': 'Master Course Title 5',
+          'description': 'Course Description Goes Here',
+          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+        },
+        {
+          'id': 'sample-id-6',
+          'title': 'Master Course Title 6',
+          'description': 'Course Description Goes Here',
+          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+        },
+        {
+          'id': 'sample-id-7',
+          'title': 'Master Course Title 7',
+          'description': 'Course Description Goes Here',
+          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+        },
+        {
+          'id': 'sample-id-8',
+          'title': 'Master Course Title 8',
+          'description': 'Course Description Goes Here',
+          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+        },
+        {
+          'id': 'sample-id-9',
+          'title': 'Master Course Title 9',
+          'description': 'Course Description Goes Here',
+          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+        },
+        {
+          'id': 'sample-id-10',
+          'title': 'Master Course Title 10',
+          'description': 'Course Description Goes Here',
+          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
         }
       ],
       'paging': {
         'page': 1,
+        'size': 10,
+        'totalRecords': 20
+      }
+    }
+  },
+  {
+    method: 'GET',
+    url: '/api/core/courses?page=2&size=10',
+    response: {
+      'code': 200,
+      'status': 'OK',
+      'data': [
+        {
+          'id': 'sample-id-11',
+          'title': 'Master Course Title 11',
+          'description': 'Course Description Goes Here',
+          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+        },
+        {
+          'id': 'sample-id-12',
+          'title': 'Master Course Title 12',
+          'description': 'Course Description Goes Here',
+          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+        },
+        {
+          'id': 'sample-id-13',
+          'title': 'Master Course Title 13',
+          'description': 'Course Description Goes Here',
+          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+        },
+        {
+          'id': 'sample-id-14',
+          'title': 'Master Course Title 14',
+          'description': 'Course Description Goes Here',
+          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+        }
+      ],
+      'paging': {
+        'page': 2,
         'size': 10,
         'totalRecords': 20
       }
