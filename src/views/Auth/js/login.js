@@ -13,10 +13,14 @@ export default {
       data: {
         email: '',
         password: ''
-      }
+      },
+      errorAlert: ''
     }
   },
   methods: {
+    ...mapActions([
+      'attemptLogin'
+    ]),
     back () {
       this.$router.push({ name: 'feeds' })
     },
@@ -31,7 +35,17 @@ export default {
       this.validateBeforeSubmit(this.validationSuccess)
     },
     validationSuccess () {
-      alert()
+      this.attemptLogin({
+        data: { ...this.data },
+        callback: this.successLogin,
+        fail: this.failLogin
+      })
+    },
+    successLogin () {
+      this.$router.push({ name: 'feeds' })
+    },
+    failLogin () {
+      this.errorAlert = 'You have entered an invalid email or password'
     }
   }
 }

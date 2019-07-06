@@ -3,22 +3,28 @@
     <div class="login__wrapper">
       <div class="login__header">
         <span class="back-button" @click="back">
-            <font-awesome-icon icon="arrow-left" class="icon back" size="lg"/>
+            <font-awesome-icon icon="arrow-left" class="icon" size="lg"/>
           </span>
         <img src="@/assets/logo.png">
       </div>
       <div class="login__body">
         <div class="login__body--title">Login</div>
         <div class="login__body--form">
+          <div class="fail-login-alert" v-if="errorAlert">
+            {{ errorAlert }}
+            <font-awesome-icon icon="times" class="icon close-alert" size="lg" @click="errorAlert = ''"/>
+          </div>
           <div>
             <BaseInput v-model="data.email" v-validate.disable="'required|email'"
-                       name="email" placeholder="email">
+                       name="email" placeholder="email" id="email"
+                       @keyup.enter.native="login">
             </BaseInput>
             <div v-if="errors.has('email')"><span class="input-invalid-message">{{ errors.first('email') }}</span></div>
           </div>
           <div>
             <BaseInput v-model="data.password" v-validate.disable="'required'"
-                       name="password" type="password" placeholder="password">
+                       name="password" type="password" placeholder="password" id="password"
+                       @keyup.enter.native="login">
             </BaseInput>
             <div v-if="errors.has('password')"><span class="input-invalid-message">{{ errors.first('password') }}</span></div>
           </div>
@@ -75,13 +81,14 @@
       &--title {
         font-weight: bold;
         margin-top: 25px;
-        margin-bottom: 15px;
+        margin-bottom: 5px;
         width: 100%;
       }
 
       &--form {
         width: 80%;
         margin-bottom: 25px;
+        margin-top: 10px;
       }
     }
   }
@@ -109,5 +116,24 @@
     font-size: 0.75em;
     float: left;
     margin-left: 1.5vw;
+  }
+
+  .fail-login-alert {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 10px 10px 18px;
+    font-size: 0.75rem;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+  }
+
+  .close-alert {
+    margin-left: auto;
+    margin-right: 10px;
+    margin-top: 1px;
   }
 </style>
