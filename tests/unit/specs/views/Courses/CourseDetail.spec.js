@@ -2,6 +2,7 @@ import CourseDetail from '@/views/Courses/CourseDetail'
 import { createLocalVue, shallowMount } from '@vue/test-utils'
 import Vuex from 'vuex'
 import VueRouter from 'vue-router'
+import InfiniteLoading from 'vue-infinite-loading'
 
 describe('CourseDetail', () => {
   let store
@@ -12,6 +13,7 @@ describe('CourseDetail', () => {
     const lv = createLocalVue()
     lv.use(Vuex)
     lv.use(VueRouter)
+    lv.use(InfiniteLoading)
     return lv
   }
 
@@ -131,6 +133,10 @@ describe('CourseDetail', () => {
       error: jest.fn(),
       success: jest.fn()
     }
+    const $state = {
+      loaded: jest.fn(),
+      complete: jest.fn()
+    }
     return shallowMount(CourseDetail, {
       ...options,
       store,
@@ -144,7 +150,8 @@ describe('CourseDetail', () => {
         'font-awesome-icon'
       ],
       mocks: {
-        $toasted
+        $toasted,
+        $state
       },
       sync: false
     })
@@ -174,10 +181,8 @@ describe('CourseDetail', () => {
 
   test('initPage', () => {
     const initCourseSpy = jest.spyOn(wrapper.vm, 'initCourse')
-    const initDiscussionSpy = jest.spyOn(wrapper.vm, 'initDiscussion')
     wrapper.vm.initPage()
     expect(initCourseSpy).toHaveBeenCalledTimes(1)
-    expect(initDiscussionSpy).toHaveBeenCalledTimes(1)
   })
 
   test('initCourse', () => {
@@ -198,8 +203,70 @@ describe('CourseDetail', () => {
   })
 
   test('successFetchCourseDiscussions', () => {
-    wrapper.vm.successFetchCourseDiscussions()
-    expect(wrapper.vm.discussions).toEqual(wrapper.vm.courseDiscussions)
+    const response = [
+      {
+        'id': 'sample-id-1',
+        'author': {
+          'id': 'sample-id',
+          'name': 'Oliver Sebastian'
+        },
+        'comment': 'Comment Example 12',
+        'createdAt': 1580000000
+      },
+      {
+        'id': 'sample-id-2',
+        'author': {
+          'id': 'sample-id',
+          'name': 'David William Kurnia'
+        },
+        'comment': 'Comment Example 11',
+        'createdAt': 1570000000
+      }
+    ]
+    const paging = {
+      page: 1,
+      size: 10,
+      totalRecords: 20
+    }
+    wrapper.vm.state = {
+      loaded: jest.fn()
+    }
+    wrapper.vm.successFetchCourseDiscussions(response, paging)
+    expect(wrapper.vm.discussions).toEqual(response)
+  })
+
+  test('successFetchCourseDiscussions maximum page', () => {
+    const response = [
+      {
+        'id': 'sample-id-1',
+        'author': {
+          'id': 'sample-id',
+          'name': 'Oliver Sebastian'
+        },
+        'comment': 'Comment Example 12',
+        'createdAt': 1580000000
+      },
+      {
+        'id': 'sample-id-2',
+        'author': {
+          'id': 'sample-id',
+          'name': 'David William Kurnia'
+        },
+        'comment': 'Comment Example 11',
+        'createdAt': 1570000000
+      }
+    ]
+    const paging = {
+      page: 2,
+      size: 10,
+      totalRecords: 20
+    }
+    wrapper.vm.state = {
+      loaded: jest.fn(),
+      complete: jest.fn()
+    }
+    wrapper.vm.successFetchCourseDiscussions(response, paging)
+    expect(wrapper.vm.discussions).toEqual(response)
   })
 
   test('failFetchCourseById', () => {
@@ -219,11 +286,19 @@ describe('CourseDetail', () => {
   })
 
   test('successSubmitCourseDiscussion', () => {
-    const spy = jest.spyOn(wrapper.vm, 'initDiscussion')
-    wrapper.vm.successSubmitCourseDiscussion()
+    const response = {
+      'id': 'sample-id-2',
+      'author': {
+        'id': 'sample-id',
+        'name': 'David William Kurnia'
+      },
+      'comment': 'Comment Example 11',
+      'createdAt': 1570000000
+    }
+    wrapper.vm.successSubmitCourseDiscussion(response)
     expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
     expect(wrapper.vm.discussion.comment).toEqual('')
-    expect(spy).toHaveBeenCalledTimes(1)
+    expect(wrapper.vm.discussions).toContain(response)
   })
 
   test('failSubmitCourseDiscussion', () => {
