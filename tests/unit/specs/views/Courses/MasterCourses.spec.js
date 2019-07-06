@@ -105,43 +105,96 @@ describe('MasterCourses', () => {
     expect(wrapper.isVueInstance()).toBe(true)
   })
 
+  test('initPage', () => {
+    const spy = jest.spyOn(wrapper.vm, 'fetchMasterCourses')
+    wrapper.vm.initPage()
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
   test('successFetchMasterCourses', () => {
+    const response = [
+      {
+        'id': 'sample-id-11',
+        'title': 'Master Course Title 11',
+        'description': 'Course Description Goes Here',
+        'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+      },
+      {
+        'id': 'sample-id-12',
+        'title': 'Master Course Title 12',
+        'description': 'Course Description Goes Here',
+        'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+      },
+      {
+        'id': 'sample-id-13',
+        'title': 'Master Course Title 13',
+        'description': 'Course Description Goes Here',
+        'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+      },
+      {
+        'id': 'sample-id-14',
+        'title': 'Master Course Title 14',
+        'description': 'Course Description Goes Here',
+        'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+      }
+    ]
     const paging = {
       page: 1,
       size: 10,
       totalRecords: 25
     }
-    wrapper.vm.successFetchMasterCourses(paging)
-    expect(wrapper.vm.masterCourses).toEqual(wrapper.vm.masterCourseList)
+    wrapper.vm.state = {
+      loaded: jest.fn()
+    }
+    wrapper.vm.successFetchMasterCourses(response, paging)
+    expect(wrapper.vm.masterCourses).toEqual(response)
+    expect(wrapper.vm.paging).toEqual(paging)
+  })
+
+  test('successFetchMasterCourses max page', () => {
+    const response = [
+      {
+        'id': 'sample-id-11',
+        'title': 'Master Course Title 11',
+        'description': 'Course Description Goes Here',
+        'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+      },
+      {
+        'id': 'sample-id-12',
+        'title': 'Master Course Title 12',
+        'description': 'Course Description Goes Here',
+        'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+      },
+      {
+        'id': 'sample-id-13',
+        'title': 'Master Course Title 13',
+        'description': 'Course Description Goes Here',
+        'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+      },
+      {
+        'id': 'sample-id-14',
+        'title': 'Master Course Title 14',
+        'description': 'Course Description Goes Here',
+        'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+      }
+    ]
+    const paging = {
+      page: 3,
+      size: 10,
+      totalRecords: 25
+    }
+    wrapper.vm.state = {
+      loaded: jest.fn(),
+      complete: jest.fn()
+    }
+    wrapper.vm.successFetchMasterCourses(response, paging)
+    expect(wrapper.vm.masterCourses).toEqual(response)
     expect(wrapper.vm.paging).toEqual(paging)
   })
 
   test('failFetchMasterCourses', () => {
     wrapper.vm.failFetchMasterCourses()
     expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
-  })
-
-  test('loadPage', () => {
-    const spy = jest.spyOn(wrapper.vm, 'initPage')
-    wrapper.vm.loadPage(1)
-    expect(wrapper.vm.paging.page).toEqual(1)
-    expect(spy).toHaveBeenCalledTimes(1)
-  })
-
-  test('loadPreviousPage', () => {
-    const spy = jest.spyOn(wrapper.vm, 'initPage')
-    wrapper.vm.paging.page = 2
-    wrapper.vm.loadPreviousPage()
-    expect(wrapper.vm.paging.page).toEqual(1)
-    expect(spy).toHaveBeenCalledTimes(1)
-  })
-
-  test('loadNextPage', () => {
-    const spy = jest.spyOn(wrapper.vm, 'initPage')
-    wrapper.vm.paging.page = 2
-    wrapper.vm.loadNextPage()
-    expect(wrapper.vm.paging.page).toEqual(3)
-    expect(spy).toHaveBeenCalledTimes(1)
   })
 
   test('goToThisMasterCourseDetail', () => {

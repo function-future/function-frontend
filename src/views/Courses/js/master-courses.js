@@ -5,6 +5,7 @@ import BaseButton from '@/components/BaseButton'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
 import ModalCopyCourse from '@/components/modals/ModalCopyCourse'
 import BasePagination from '@/components/BasePagination'
+import InfiniteLoading from 'vue-infinite-loading'
 
 export default {
   name: 'masterCourses',
@@ -14,7 +15,8 @@ export default {
     BaseButton,
     ModalDeleteConfirmation,
     ModalCopyCourse,
-    BasePagination
+    BasePagination,
+    InfiniteLoading
   },
   data () {
     return {
@@ -27,16 +29,19 @@ export default {
       selectedIds: [],
       allSelected: false,
       showDeleteConfirmationModal: false,
-      showCopyCourseModal: false
+      showCopyCourseModal: false,
+      state: ''
     }
   },
   computed: {
     ...mapGetters([
       'masterCourseList'
-    ])
+    ]),
+    isMaximumPage () {
+      return Math.ceil(this.paging.totalRecords / this.paging.size) === this.paging.page
+    }
   },
   created () {
-    this.initPage()
   },
   methods: {
     ...mapActions([
@@ -44,7 +49,8 @@ export default {
       'deleteMasterCourseById',
       'copyCourse'
     ]),
-    initPage () {
+    initPage ($state) {
+      this.state = $state
       let data = {
         ...this.paging
       }
@@ -54,24 +60,18 @@ export default {
         fail: this.failFetchMasterCourses
       })
     },
-    successFetchMasterCourses (paging) {
-      this.masterCourses = this.masterCourseList
+    successFetchMasterCourses (response, paging) {
       this.paging = paging
+      this.masterCourses.push(...response)
+      if (this.isMaximumPage) {
+        this.state.complete()
+      } else {
+        this.paging.page++
+        this.state.loaded()
+      }
     },
     failFetchMasterCourses () {
       this.$toasted.error('Fail to load course list')
-    },
-    loadPage (page) {
-      this.paging.page = page
-      this.initPage()
-    },
-    loadPreviousPage () {
-      this.paging.page = this.paging.page - 1
-      this.initPage()
-    },
-    loadNextPage () {
-      this.paging.page = this.paging.page + 1
-      this.initPage()
     },
     goToThisMasterCourseDetail (id) {
       this.$router.push({

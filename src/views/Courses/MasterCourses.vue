@@ -32,11 +32,10 @@
         </CourseCard>
       </div>
     </div>
-    <BasePagination :paging="paging"
-                    @loadPage="loadPage"
-                    @previousPage="loadPreviousPage"
-                    @nextPage="loadNextPage">
-    </BasePagination>
+    <infinite-loading @infinite="initPage" spinner="spiral">
+      <div slot="no-more"></div>
+      <div slot="no-results"></div>
+    </infinite-loading>
     <modal-delete-confirmation v-if="showDeleteConfirmationModal"
                                @close="showDeleteConfirmationModal = false"
                                @clickDelete="deleteThisMasterCourse">
