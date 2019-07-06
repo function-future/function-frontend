@@ -20,5 +20,10 @@ export default {
   },
   mixins: [
     ChangePageTitleMixins
-  ]
+  ],
+  computed: {
+    isLoginPage () {
+      return this.$route.path === '/login'
+    }
+  }
 }
