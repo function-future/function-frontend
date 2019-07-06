@@ -578,6 +578,7 @@ export const points = [
         "studentName": "Student 1",
         "batchCode": "3",
         "university": "University 1",
+        "avatar": "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
         "scores": [
           {
             "id": "QZ0001",
