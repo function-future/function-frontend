@@ -26,12 +26,12 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('questionBanks', [
+    ...mapGetters([
       'selectedBank'
     ])
   },
   methods: {
-    ...mapActions('quizzes', [
+    ...mapActions([
       'createQuiz'
     ]),
     actionButtonClicked () {
