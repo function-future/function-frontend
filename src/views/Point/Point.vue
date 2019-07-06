@@ -3,7 +3,7 @@
     <div class="profile-section">
       <BaseCard :style="{height: '100%'}" class="profile-section__card">
         <div class="profile-section__card-image">
-          <img src="points.avatar" alt="Image not available"> <!--TODO: CHANGE IMG SRC TO WHATEVER THE API RETURNS !-->
+          <img src="points.avatar" alt="Image not available">
         </div>
         <div class="profile-section__card-detail">
           <h2>{{points.studentName}}</h2>
