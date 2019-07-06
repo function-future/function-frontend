@@ -180,7 +180,7 @@ export const announcements = [
       ],
       'paging': {
         'page': 1,
-        'size': 4,
+        'size': 10,
         'totalRecords': 100
       }
     }
@@ -417,7 +417,7 @@ export const activityBlogs = [
       ],
       "paging": {
         "page": 1,
-        "size": 5,
+        "size": 10,
         "totalRecords": 24
       }
     }
@@ -1046,189 +1046,205 @@ export const users = [
   {
     method: 'GET',
     url: '/api/core/users?page=1&size=10&role=student',
-    response: [
-      {
-        'id': 'sample-id-student',
-        'role': 'STUDENT',
-        'email': 'user@user.com',
-        'name': 'User Student 1',
-        'phone': '088888888888',
-        'address': 'Jl. Address 1 Address 2',
-        'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
-        'batch': {
-          'id': 'sample-id',
-          'name': 'Batch Name',
-          'code': '3'
+    response: {
+      "code": 200,
+      "status": "OK",
+      "data": [
+        {
+          'id': 'sample-id-student',
+          'role': 'STUDENT',
+          'email': 'user@user.com',
+          'name': 'User Student 1',
+          'phone': '088888888888',
+          'address': 'Jl. Address 1 Address 2',
+          'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'batch': {
+            'id': 'sample-id',
+            'name': 'Batch Name',
+            'code': '3'
+          },
+          'university': 'Bina Nusantara University'
         },
-        'university': 'Bina Nusantara University'
-      },
-      {
-        'id': 'sample-id-2',
-        'role': 'STUDENT',
-        'email': 'user@user.com',
-        'name': 'User Student 2',
-        'phone': '088888888888',
-        'address': 'Jl. Address 1 Address 2',
-        'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
-        'batch': {
-          'id': 'sample-id',
-          'name': 'Batch Name',
-          'code': '3'
+        {
+          'id': 'sample-id-2',
+          'role': 'STUDENT',
+          'email': 'user@user.com',
+          'name': 'User Student 2',
+          'phone': '088888888888',
+          'address': 'Jl. Address 1 Address 2',
+          'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'batch': {
+            'id': 'sample-id',
+            'name': 'Batch Name',
+            'code': '3'
+          },
+          'university': 'Bina Nusantara University'
         },
-        'university': 'Bina Nusantara University'
-      },
-      {
-        'id': 'sample-id-3',
-        'role': 'STUDENT',
-        'email': 'user@user.com',
-        'name': 'User Student 3',
-        'phone': '088888888888',
-        'address': 'Jl. Address 1 Address 2',
-        'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
-        'batch': {
-          'id': 'sample-id',
-          'name': 'Batch Name',
-          'code': '3'
+        {
+          'id': 'sample-id-3',
+          'role': 'STUDENT',
+          'email': 'user@user.com',
+          'name': 'User Student 3',
+          'phone': '088888888888',
+          'address': 'Jl. Address 1 Address 2',
+          'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'batch': {
+            'id': 'sample-id',
+            'name': 'Batch Name',
+            'code': '3'
+          },
+          'university': 'Bina Nusantara University'
         },
-        'university': 'Bina Nusantara University'
-      },
-      {
-        'id': 'sample-id-4',
-        'role': 'STUDENT',
-        'email': 'user@user.com',
-        'name': 'User Student 4',
-        'phone': '088888888888',
-        'address': 'Jl. Address 1 Address 2',
-        'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
-        'batch': {
-          'id': 'sample-id',
-          'name': 'Batch Name',
-          'code': '3'
+        {
+          'id': 'sample-id-4',
+          'role': 'STUDENT',
+          'email': 'user@user.com',
+          'name': 'User Student 4',
+          'phone': '088888888888',
+          'address': 'Jl. Address 1 Address 2',
+          'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'batch': {
+            'id': 'sample-id',
+            'name': 'Batch Name',
+            'code': '3'
+          },
+          'university': 'Bina Nusantara University'
         },
-        'university': 'Bina Nusantara University'
-      },
-      {
-        'id': 'sample-id-5',
-        'role': 'STUDENT',
-        'email': 'user@user.com',
-        'name': 'User Student 5',
-        'phone': '088888888888',
-        'address': 'Jl. Address 1 Address 2',
-        'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
-        'batch': {
-          'id': 'sample-id',
-          'name': 'Batch Name',
-          'code': '3'
+        {
+          'id': 'sample-id-5',
+          'role': 'STUDENT',
+          'email': 'user@user.com',
+          'name': 'User Student 5',
+          'phone': '088888888888',
+          'address': 'Jl. Address 1 Address 2',
+          'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'batch': {
+            'id': 'sample-id',
+            'name': 'Batch Name',
+            'code': '3'
+          },
+          'university': 'Bina Nusantara University'
         },
-        'university': 'Bina Nusantara University'
-      },
-      {
-        'id': 'sample-id-6',
-        'role': 'STUDENT',
-        'email': 'user@user.com',
-        'name': 'User Student 6',
-        'phone': '088888888888',
-        'address': 'Jl. Address 1 Address 2',
-        'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
-        'batch': {
-          'id': 'sample-id',
-          'name': 'Batch Name',
-          'code': '3'
-        },
-        'university': 'Bina Nusantara University'
+        {
+          'id': 'sample-id-6',
+          'role': 'STUDENT',
+          'email': 'user@user.com',
+          'name': 'User Student 6',
+          'phone': '088888888888',
+          'address': 'Jl. Address 1 Address 2',
+          'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'batch': {
+            'id': 'sample-id',
+            'name': 'Batch Name',
+            'code': '3'
+          },
+          'university': 'Bina Nusantara University'
+        }
+      ],
+      'paging': {
+        'page': 1,
+        'size': 10,
+        'totalRecords': 20
       }
-    ],
-    'paging': {
-      'page': 1,
-      'size': 5,
-      'totalRecords': 20
     }
   },
   {
     method: 'GET',
     url: '/api/core/users?page=1&size=10&role=mentor',
-    response: [
-      {
-        'id': 'sample-id-mentor-1',
-        'role': 'MENTOR',
-        'email': 'user@user.com',
-        'name': 'User Mentor 1',
-        'phone': '088888888888',
-        'address': 'Jl. Address 1 Address 2',
-        'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
-      },
-      {
-        'id': 'sample-id-mentor-2',
-        'role': 'MENTOR',
-        'email': 'user@user.com',
-        'name': 'User Mentor 2',
-        'phone': '088888888888',
-        'address': 'Jl. Address 1 Address 2',
-        'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+    response: {
+      "code": 200,
+      "status": "OK",
+      "data": [
+        {
+          'id': 'sample-id-mentor-1',
+          'role': 'MENTOR',
+          'email': 'user@user.com',
+          'name': 'User Mentor 1',
+          'phone': '088888888888',
+          'address': 'Jl. Address 1 Address 2',
+          'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+        },
+        {
+          'id': 'sample-id-mentor-2',
+          'role': 'MENTOR',
+          'email': 'user@user.com',
+          'name': 'User Mentor 2',
+          'phone': '088888888888',
+          'address': 'Jl. Address 1 Address 2',
+          'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+        }
+      ],
+      'paging': {
+        'page': 1,
+        'size': 10,
+        'totalRecords': 20
       }
-    ],
-    'paging': {
-      'page': 1,
-      'size': 5,
-      'totalRecords': 20
     }
   },
   {
     method: 'GET',
     url: '/api/core/users?page=1&size=10&role=judge',
-    response: [
-      {
-        'id': 'sample-id-judge-1',
-        'role': 'JUDGE',
-        'email': 'user@user.com',
-        'name': 'User Judge 1',
-        'phone': '088888888888',
-        'address': 'Jl. Address 1 Address 2',
-        'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+    response: {
+      "code": 200,
+      "status": "OK",
+      "data": [
+        {
+          'id': 'sample-id-judge-1',
+          'role': 'JUDGE',
+          'email': 'user@user.com',
+          'name': 'User Judge 1',
+          'phone': '088888888888',
+          'address': 'Jl. Address 1 Address 2',
+          'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+        }
+      ],
+      'paging': {
+        'page': 1,
+        'size': 10,
+        'totalRecords': 20
       }
-    ],
-    'paging': {
-      'page': 1,
-      'size': 5,
-      'totalRecords': 20
     }
   },
   {
     method: 'GET',
     url: '/api/core/users?page=1&size=10&role=admin',
-    response: [
-      {
-        'id': 'sample-id-admin',
-        'role': 'ADMIN',
-        'email': 'user@user.com',
-        'name': 'User Admin 1',
-        'phone': '088888888888',
-        'address': 'Jl. Address 1 Address 2',
-        'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
-      },
-      {
-        'id': 'sample-id-2',
-        'role': 'ADMIN',
-        'email': 'user@user.com',
-        'name': 'User Admin 2',
-        'phone': '088888888888',
-        'address': 'Jl. Address 1 Address 2',
-        'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
-      },
-      {
-        'id': 'sample-id-3',
-        'role': 'ADMIN',
-        'email': 'user@user.com',
-        'name': 'User Admin 3',
-        'phone': '088888888888',
-        'address': 'Jl. Address 1 Address 2',
-        'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+    response: {
+      "code": 200,
+      "status": "OK",
+      "data": [
+        {
+          'id': 'sample-id-admin',
+          'role': 'ADMIN',
+          'email': 'user@user.com',
+          'name': 'User Admin 1',
+          'phone': '088888888888',
+          'address': 'Jl. Address 1 Address 2',
+          'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+        },
+        {
+          'id': 'sample-id-2',
+          'role': 'ADMIN',
+          'email': 'user@user.com',
+          'name': 'User Admin 2',
+          'phone': '088888888888',
+          'address': 'Jl. Address 1 Address 2',
+          'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+        },
+        {
+          'id': 'sample-id-3',
+          'role': 'ADMIN',
+          'email': 'user@user.com',
+          'name': 'User Admin 3',
+          'phone': '088888888888',
+          'address': 'Jl. Address 1 Address 2',
+          'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+        }
+      ],
+      'paging': {
+        'page': 1,
+        'size': 10,
+        'totalRecords': 20
       }
-    ],
-    'paging': {
-      'page': 1,
-      'size': 5,
-      'totalRecords': 20
     }
   },
   {
