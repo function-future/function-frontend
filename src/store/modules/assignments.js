@@ -15,9 +15,10 @@ export const mutations = {
 }
 
 export const actions = {
-  fetchAssignmentList ({ commit }, { data, fail }) {
-    assignmentApi.getAssignmentsList(({data: response}) => {
+  fetchAssignmentList ({ commit }, { data, callback, fail }) {
+    assignmentApi.getAssignmentsList(({data: response, paging}) => {
       commit('GET_ASSIGNMENT_LIST', response)
+      callback && callback(paging)
     }, data, fail)
   },
   createAssignment ({ commit }, { payload, data, callback, fail }) {
@@ -37,8 +38,14 @@ export const actions = {
       commit('SET_ASSIGNMENT', payload)
       callback && callback()
     }, data, payload, fail)
+  },
+  deleteAssignmentById ( { state }, { data, callback, fail }) {
+    assignmentApi.deleteAssignment(() => {
+      callback && callback()
+    }, data, fail)
   }
 }
+
 
 
 export const getters = {

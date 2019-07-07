@@ -17,9 +17,14 @@ const updateAssignment = function (callback, data, payload, errorHandler) {
   request.putRequest(config.api.scoring.assignments.update(data.batchCode, data.id), callback, payload, errorHandler)
 }
 
+const deleteAssignment = function (callback, data, errorHandler) {
+  request.deleteRequest(config.api.scoring.assignments.delete(data.batchCode, data.id), callback, errorHandler)
+}
+
 export default {
   getAssignmentsList,
   getAssignmentById,
   createAssignment,
-  updateAssignment
+  updateAssignment,
+  deleteAssignment
 }

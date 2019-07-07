@@ -193,6 +193,9 @@ module.exports = {
         update(batchCode, id) {
           return `/api/scoring/batches/${batchCode}/assignments/${id}`
         },
+        delete(batchCode, id) {
+          return `/api/scoring/batches/${batchCode}/assignments/${id}`
+        },
         rooms: {
           list(batchCode, assignmentId, page, pageSize) {
             return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/rooms?page=${page}&size=${pageSize}`

@@ -3,7 +3,7 @@ import BaseButton from '@/components/BaseButton'
 import BatchCard from '@/components/batches/BatchCard'
 
 export default {
-  name: 'modal-copy-quiz',
+  name: 'modal-copy',
   components: {
     BaseButton,
     BatchCard

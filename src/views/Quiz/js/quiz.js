@@ -4,7 +4,7 @@ import BaseButton from '@/components/BaseButton'
 import BaseInput from '@/components/BaseInput'
 import BaseSelect from '@/components/BaseSelect'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
-import ModalCopyQuiz from '@/components/modals/ModalCopyQuiz'
+import ModalCopy from '@/components/modals/ModalCopy'
 import BasePagination from '@/components/BasePagination'
 
 export default {
@@ -15,7 +15,7 @@ export default {
     BaseInput,
     BaseSelect,
     ModalDeleteConfirmation,
-    ModalCopyQuiz,
+    ModalCopy,
     BasePagination
   },
   data () {

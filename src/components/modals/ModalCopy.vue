@@ -21,7 +21,7 @@
   </div>
 </template>
 
-<script type="text/javascript" src="./js/modal-copy-quiz.js"></script>
+<script type="text/javascript" src="./js/modal-copy.js"></script>
 
 <style lang="scss" scoped>
   .modal {

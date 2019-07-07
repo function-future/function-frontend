@@ -96,6 +96,15 @@ export const assignmentDetails = [
         "batch": 3
       }
     }
+  },
+  {
+    method: 'DELETE',
+    url: '/api/scoring/batches/futur3/assignments/ASG0001',
+    response:
+      {
+        "code": 200,
+        "status": "OK"
+      }
   }
 ]
 

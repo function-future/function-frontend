@@ -63,10 +63,10 @@
                                @clickDelete="deleteThisQuiz">
       <div slot="description">{{selectedId}}</div>
     </modal-delete-confirmation>
-    <modal-copy-quiz v-if="showCopyModal"
+    <modal-copy v-if="showCopyModal"
                      @close="closeCopyModal"
                      @copy="submitCopyModal">
-    </modal-copy-quiz>
+    </modal-copy>
   </div>
 </template>
 
