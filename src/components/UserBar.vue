@@ -26,7 +26,7 @@
         </div>
       </transition>
       <transition name="fade">
-        <div class="block-list disable-selection" v-if="isExtend">
+        <div class="block-list disable-selection" v-if="isExtend" @click="logout">
           <font-awesome-icon icon="sign-out-alt" class="icon" /> Logout
         </div>
       </transition>
@@ -57,6 +57,8 @@
   }
 
   .block {
+    display: flex;
+    flex-direction: column;
     width: 260px;
     height: 50px;
     background: #FFFFFF;

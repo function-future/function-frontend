@@ -32,6 +32,12 @@ export default {
       if (!this.loggedIn) {
         this.$router.push({ name: 'login' })
       }
+    },
+    logout () {
+      if (this.loggedIn) {
+        this.$cookies.remove('Function-Session')
+        this.$router.push({ name: 'login' })
+      }
     }
   }
 }
