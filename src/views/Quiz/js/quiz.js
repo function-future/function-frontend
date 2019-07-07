@@ -41,7 +41,8 @@ export default {
   methods: {
     ...mapActions([
       'fetchQuizList',
-      'deleteQuizById'
+      'deleteQuizById',
+      'copyQuiz'
     ]),
     initPage () {
       this.fetchQuizList({
@@ -126,25 +127,24 @@ export default {
     submitCopyModal (batchDestination) {
       if (batchDestination === '') return
       let data = {
-        code: batchDestination,
-        content: {
-          originBatch: this.$route.params.code,
-          courses: [ ...this.selectedIds ]
-        }
+        batchCode: batchDestination
       }
-      this.createQuiz({
+      let payload = {...this.quizList.find(i => i.id === this.selectedId)}
+      payload.batch = batchDestination
+      this.copyQuiz({
         data,
+        payload,
         callback: this.successSubmitCopyQuiz,
         fail: this.failSubmitCopyQuiz
       })
     },
     successSubmitCopyQuiz () {
-      this.selectedIds = []
-      this.showCopyCourseModal = false
+      this.selectedId = ''
+      this.showCopyModal = false
+      this.$toasted.success('Successfully copied quiz')
     },
     failSubmitCopyQuiz () {
-      this.showCopyCourseModal = false
-      this.$toasted.error('Fail to copy course, please try again')
+      this.$toasted.error('Something went wrong')
     }
   }
 }

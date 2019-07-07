@@ -31,6 +31,11 @@ export const actions = {
       callback && callback()
     }, data, payload, fail)
   },
+  copyQuiz ({ state }, { payload, data, callback, fail }) {
+    quizApi.copyQuiz(() => {
+      callback && callback()
+    }, data, payload, fail)
+  },
   fetchQuizById ({ commit }, { data, callback, fail }) {
     quizApi.getQuizById(({data: response}) => {
       commit('SET_QUIZ', response)

@@ -325,6 +325,28 @@ export const quizzes = [
         "questions": 10
       }
     }
+  },
+  {
+    method: 'POST',
+    url: '/api/scoring/batches/sample-id-3/quizzes/copy',
+    response: {
+      "code": 201,
+      "status": "CREATED",
+      "data": {
+        "id": "QZ0001",
+        "title": "Quiz 1",
+        "description": "Description Number 1",
+        "startDate": 15000000,
+        "endDate": 15000000,
+        "timeLimit": 3600,
+        "trials": 5,
+        "questionBankId": [
+          "QNK0001"
+        ],
+        "questionCount": 10,
+        "batchCode": "3"
+      }
+    }
   }
 ]
 

@@ -250,8 +250,11 @@ module.exports = {
         list(batchCode, page, pageSize) {
           return `/api/scoring/batches/${batchCode}/quizzes?page=${page}&size=${pageSize}`
         },
-        create(batchCode, page, pageSize) {
+        create(batchCode) {
           return `/api/scoring/batches/${batchCode}/quizzes`
+        },
+        copy(batchCode) {
+          return `/api/scoring/batches/${batchCode}/quizzes/copy`
         },
         detail(batchCode, id) {
           return `/api/scoring/batches/${batchCode}/quizzes/${id}`
