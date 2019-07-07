@@ -17,7 +17,7 @@
           <div class="quiz-action">
             <font-awesome-icon
               icon="copy"
-              class="icon"
+              class="icon blue"
               size="lg"
               @click.stop="openCopyModal(quiz.id)">
             </font-awesome-icon>
