@@ -34,7 +34,7 @@ export default {
   .search-input {
     position: absolute;
     z-index: 1;
-    width: 83%;
+    width: 100%;
     margin: auto;
   }
 
@@ -53,8 +53,8 @@ export default {
     right: 0;
     position: absolute;
     z-index: 2;
-    height: 60px;
-    width: 60px;
+    height: 50px;
+    width: 50px;
     background-color: #02AAF3;
     border-radius: 50%;
     margin-right: 0;

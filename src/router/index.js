@@ -13,6 +13,7 @@ import questionBankQuestionDetail from '@/views/QuestionBank/QuestionBankQuestio
 import quizzes from '@/views/Quiz/Quiz'
 import addQuiz from '@/views/Quiz/AddQuiz'
 import quizDetail from '@/views/Quiz/QuizDetail'
+import points from '@/views/Point/Point'
 import feeds from '@/views/Feeds/Feeds.vue'
 import announcements from '@/views/Announcements/Announcements.vue'
 import announcementDetail from '@/views/Announcements/AnnouncementDetail.vue'
@@ -466,6 +467,14 @@ export default new Router({
       component: quizDetail,
       meta: {
         title: 'Assignment'
+      }
+    },
+    {
+      path: config.app.pages.points.list,
+      name: 'points',
+      component: points,
+      meta: {
+        title: 'Points'
       }
     },
     {

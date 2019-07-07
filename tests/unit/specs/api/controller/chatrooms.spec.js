@@ -5,7 +5,7 @@ jest.mock('@/api/default-request')
 
 describe('Chatroom Controller', () => {
   afterEach(() => {
-    jest.restoreAllMocks()
+    jest.resetAllMocks()
   })
 
   test('Sanity test', () => {

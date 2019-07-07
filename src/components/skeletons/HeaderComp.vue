@@ -24,6 +24,7 @@
           <li><router-link :to="{ name: 'quizzes' }" class="navbar-link">Quizzes</router-link></li>
           <li><router-link :to="{ name: 'assignments' }" class="navbar-link">Assignments</router-link></li>
           <li><router-link :to="{ name: 'finalComparisons' }" class="navbar-link">Comparisons</router-link></li>
+          <li><router-link :to="{ name: 'points' }" class="navbar-link">Points</router-link></li>
         </ul>
       </transition>
       <li>
