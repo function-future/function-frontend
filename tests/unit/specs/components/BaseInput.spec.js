@@ -14,4 +14,10 @@ describe('Base Input', () => {
     expect(spy).toBeCalledTimes(1)
     expect(wrapper.emitted().input.length).toBe(1)
   })
+
+  test('emitKeyUp', () => {
+    const wrapper = shallowMount(baseInput)
+    wrapper.vm.emitKeyUp()
+    expect(wrapper.emitted.length).toEqual(1)
+  })
 })

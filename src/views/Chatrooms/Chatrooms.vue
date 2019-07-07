@@ -1,4 +1,4 @@
-<template>
+<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <div class="chatroom-outer">
     <BaseCard class="chatroom-card">
       <div class="chatroom-container">
@@ -77,7 +77,7 @@
             </template>
           </div>
           <div class="chatroom-button-add-container">
-            <font-awesome-icon icon="plus" class="chatroom-button-add"/>
+            <font-awesome-icon icon="plus" @click="openCreateChatroomModal" class="chatroom-button-add"/>
           </div>
         </div>
         <div class="chatroom-separator"></div>
@@ -109,6 +109,8 @@
         </div>
       </div>
     </BaseCard>
+    <ModalCreateChatroom @close="creatingChatroom = false" v-if="creatingChatroom">
+    </ModalCreateChatroom>
   </div>
 </template>
 
@@ -116,6 +118,11 @@
 </script>
 
 <style scoped>
+
+  .chatroom-modal-title {
+    margin: 0;
+    font-size: 1.3rem;
+  }
 
   .chatroom-search-notfound {
     margin: 0;
