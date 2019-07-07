@@ -386,6 +386,25 @@ describe('courses store module', () => {
       store.actions.resetCourse({ commit })
       expect(commit).toHaveBeenCalledWith('SET_COURSE_BY_ID', {})
     })
+
+    test('downloadCourseMaterial', () => {
+      const response = {
+        data: 'response file'
+      }
+      api.downloadFileFromUrl = (success) => {
+        success(response)
+      }
+
+      const data = 'http://google.com'
+      let configuration = { responseType: 'arraybuffer' }
+
+      const commit = jest.fn()
+      const callback = jest.fn()
+      const fail = jest.fn()
+      store.actions.downloadCourseMaterial({ commit }, { data, configuration, callback, fail })
+      expect(fail).toHaveBeenCalledTimes(0)
+      expect(callback).toHaveBeenCalledTimes(1)
+    })
   })
 
   describe('courses setter getters', () => {

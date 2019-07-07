@@ -110,4 +110,14 @@ describe('Courses Controller', () => {
     api.copyCourse(callback, data, errorHandler)
     expect(spy).toBeCalledTimes(1)
   })
+
+  test('downloadFileFromUrl', () => {
+    const spy = jest.spyOn(request, 'getRequest')
+    const data = {}
+    const configuration = {}
+    const callback = jest.fn()
+    const errorHandler = jest.fn()
+    api.downloadFileFromUrl(data, callback, errorHandler, configuration)
+    expect(spy).toBeCalledTimes(1)
+  })
 })
