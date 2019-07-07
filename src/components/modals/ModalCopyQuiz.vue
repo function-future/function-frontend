@@ -9,6 +9,7 @@
         <div class="modal__body scrollable-container">
           <label class="batch__row" v-for="batch in batches" :key="batch.id">
             <div class="batch__col"><input type="radio" :value="batch.id" v-model="batchDestination"></div>
+            <div class="batch__col--batches"><BatchCard :batch="batch" :showAction="false"></BatchCard></div>
           </label>
         </div>
         <div class="modal__footer">

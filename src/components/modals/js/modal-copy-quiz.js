@@ -1,10 +1,12 @@
 import { mapActions, mapGetters } from 'vuex'
 import BaseButton from '@/components/BaseButton'
+import BatchCard from '@/components/batches/BatchCard'
 
 export default {
   name: 'modal-copy-quiz',
   components: {
     BaseButton,
+    BatchCard
   },
   data () {
     return {

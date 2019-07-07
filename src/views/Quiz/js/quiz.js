@@ -145,6 +145,6 @@ export default {
     failSubmitCopyQuiz () {
       this.showCopyCourseModal = false
       this.$toasted.error('Fail to copy course, please try again')
-    },
+    }
   }
 }
