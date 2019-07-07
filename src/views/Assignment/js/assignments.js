@@ -42,7 +42,8 @@ export default {
     ...mapActions([
       'fetchAssignmentList',
       'createAssignment',
-      'deleteAssignmentById'
+      'deleteAssignmentById',
+      'copyAssignment'
     ]),
     initPage () {
       this.fetchAssignmentList({
@@ -129,10 +130,9 @@ export default {
       let data = {
         batchCode: batchDestination,
       }
-      let payload = this.assignmentList.find(i => i.id === this.selectedId)
+      let payload = {...this.assignmentList.find(i => i.id === this.selectedId)}
       payload.batch = batchDestination
-      console.log(payload)
-      this.createAssignment({
+      this.copyAssignment({
         data,
         payload,
         callback: this.successSubmitCopyAssignment,
@@ -141,10 +141,10 @@ export default {
     },
     successSubmitCopyAssignment () {
       this.selectedId = ''
-      this.showCopyCourseModal = false
+      this.showCopyModal = false
+      this.$toasted.success('Successfully copied assignment')
     },
     failSubmitCopyAssignment () {
-      this.showCopyCourseModal = false
       this.$toasted.error('Something went wrong')
     }
   }

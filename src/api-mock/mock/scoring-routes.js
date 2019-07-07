@@ -48,7 +48,23 @@ export const assignments = [
   },
   {
     method: 'POST',
-    url: '/api/scoring/batches/futur3/assignment',
+    url: '/api/scoring/batches/futur3/assignments',
+    response: {
+      "code": 201,
+      "status": "CREATED",
+      "data": {
+        "id": "ASG0001",
+        "title": "Assignment 1",
+        "description": "Description Number 1",
+        "deadline": 1500000000,
+        "file": "function-static.com/fileName.docx",
+        "batch": 3
+      }
+    }
+  },
+  {
+    method: 'POST',
+    url: '/api/scoring/batches/sample-id-3/assignments/copy',
     response: {
       "code": 201,
       "status": "CREATED",

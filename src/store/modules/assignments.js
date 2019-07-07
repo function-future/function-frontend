@@ -27,6 +27,11 @@ export const actions = {
       callback && callback()
     }, data, payload, fail)
   },
+  copyAssignment ({ state }, { payload, data, callback, fail }) {
+    assignmentApi.copyAssignment(() => {
+      callback && callback()
+    }, data, payload, fail)
+  },
   fetchAssignmentDetail ({ commit }, { data, callback, fail }) {
     assignmentApi.getAssignmentById(({data: response}) => {
       commit('SET_ASSIGNMENT', response)
