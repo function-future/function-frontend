@@ -22,7 +22,7 @@ export default {
     return {
       paging: {
         page: 1,
-        pageSize: 10,
+        size: 10,
         totalRecords: 0
       },
       showDeleteConfirmationModal: false,
@@ -50,7 +50,7 @@ export default {
         data: {
           batchCode: 'futur3',
           page: this.paging.page,
-          pageSize: this.paging.pageSize
+          pageSize: this.paging.size
         },
         callback: this.successFetchingAssignmentList,
         fail: this.failFetchingAssignmentList
