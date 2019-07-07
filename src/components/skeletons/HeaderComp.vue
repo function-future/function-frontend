@@ -7,7 +7,7 @@
       <li><router-link :to="{ name: 'feeds' }" class="navbar-link">Feeds</router-link></li>
       <li><router-link :to="{ name: 'announcements' }" class="navbar-link">Announcements</router-link></li>
       <li><router-link :to="{ name: 'activityBlogs' }" class="navbar-link">Blogs</router-link></li>
-      <li><router-link :to="{ name: 'courses' }" class="navbar-link">Courses</router-link></li>
+      <li><router-link :to="{ name: 'courseBatches' }" class="navbar-link">Courses</router-link></li>
       <li><router-link :to="{ name: 'files' }" class="navbar-link">Files</router-link></li>
       <li><router-link :to="{ name: 'users' }" class="navbar-link">Users</router-link></li>
       <li class="navbar-link grades-menu" @click="toggleGradesMenu" v-if="!showGrades">

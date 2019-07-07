@@ -1,9 +1,7 @@
 <template>
-  <div>
-    <button v-on="$listeners" v-bind="$attrs" class="button" :class="buttonClass">
-      <slot></slot>
-    </button>
-  </div>
+  <button v-on="$listeners" v-bind="$attrs" class="button" :class="buttonClass" :disabled="disabled">
+    <slot></slot>
+  </button>
 </template>
 
 <script type="text/javascript" src="./js/base-button.js">
@@ -12,7 +10,7 @@
 <style scoped>
   .button {
     border: none;
-    padding: 5px 10px 5px 10px;
+    padding: 5px 15px 5px 15px;
     width: 125px;
     border-radius: 40px;
     /*font-family: Roboto;*/
@@ -57,5 +55,10 @@
   .button-icon {
     width: unset;
     background: #02AAF3;
+  }
+
+  .button:disabled {
+    background-color: #BDBDBD;
+    color: #F2F2F2;
   }
 </style>

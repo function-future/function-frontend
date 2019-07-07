@@ -6,6 +6,9 @@ import {
   announcementDetails,
   activityBlogs,
   activityBlogDetail,
+  courses,
+  discussions,
+  batches,
   resources,
   users
 
@@ -64,6 +67,18 @@ resources.forEach(data => {
 })
 
 users.forEach(data => {
+  mock[methodMap[data.method]](data.url).reply(200, data.response)
+})
+
+courses.forEach(data => {
+  mock[methodMap[data.method]](data.url).reply(200, data.response)
+})
+
+batches.forEach(data => {
+  mock[methodMap[data.method]](data.url).reply(200, data.response)
+})
+
+discussions.forEach(data => {
   mock[methodMap[data.method]](data.url).reply(200, data.response)
 })
 
