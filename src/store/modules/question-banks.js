@@ -23,9 +23,10 @@ export const mutations = {
 }
 
 export const actions = {
-  fetchQuestionBankList ({ commit }, { data, fail }) {
+  fetchQuestionBankList ({ commit }, { callback, data, fail }) {
     questionBankApi.getQuestionBankList(({data: response}) => {
       commit('GET_QUESTION_BANK_LIST', response)
+      callback && callback()
     }, data, fail)
   },
   createQuestionBank ({ commit }, { payload, callback, fail }) {

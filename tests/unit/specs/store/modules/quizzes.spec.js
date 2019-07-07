@@ -290,12 +290,20 @@ describe('actions', () => {
     expect(commit).toHaveBeenCalledTimes(1)
     expect(commit).toHaveBeenLastCalledWith('SET_QUIZ', payload)
   })
+
+  test('setSelectedBank', () => {
+    const payload = ['QNK0001', 'QNK0002']
+    const commit = jest.fn()
+    store.actions.setSelectedBank({ commit }, { payload })
+    expect(commit).toHaveBeenCalledWith('SET_SELECTED_BANK', payload)
+  })
 })
 
 describe('getters', () => {
   const state = {
     quizList: [],
-    quiz: {}
+    quiz: {},
+    selectedBank: []
   }
 
   test('quizList', () => {
@@ -305,12 +313,17 @@ describe('getters', () => {
   test('quiz', () => {
     expect(store.getters.quiz(state)).toEqual(state.quiz)
   })
+
+  test('selectedBank', () => {
+    expect(store.getters.selectedBank(state)).toEqual(state.selectedBank)
+  })
 })
 
 describe('mutations', () => {
   const state = {
     quizList: [],
-    quiz: {}
+    quiz: {},
+    selectedBank: []
   }
 
   test('GET_QUIZ_LIST', () => {
@@ -461,5 +474,10 @@ describe('mutations', () => {
       ],
       "batch": 3
     })
+  })
+
+  test('SET_SELECTED_BANK', () => {
+    store.mutations.SET_SELECTED_BANK(state, ['QNK0001', 'QNK0002'])
+    expect(state.selectedBank).toEqual(['QNK0001', 'QNK0002'])
   })
 })

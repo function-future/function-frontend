@@ -12,6 +12,7 @@ import questionBankAddQuestion from '@/views/QuestionBank/QuestionBankAddQuestio
 import questionBankQuestionDetail from '@/views/QuestionBank/QuestionBankQuestionDetail'
 import quizzes from '@/views/Quiz/Quiz'
 import addQuiz from '@/views/Quiz/AddQuiz'
+import addQuizDetail from '@/views/Quiz/AddQuizDetail'
 import quizDetail from '@/views/Quiz/QuizDetail'
 import points from '@/views/Point/Point'
 import feeds from '@/views/Feeds/Feeds.vue'
@@ -411,6 +412,14 @@ export default new Router({
       component: addQuiz,
       meta: {
         title: 'Add Quiz'
+      }
+    },
+    {
+      path: config.app.pages.quizzes.addDetail,
+      name: 'addQuizDetail',
+      component: addQuizDetail,
+      meta: {
+        title: 'Add Detail'
       }
     },
     {
