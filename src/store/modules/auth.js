@@ -22,6 +22,12 @@ export const actions = {
       commit('SET_CURRENT_USER', response)
       callback()
     }, fail)
+  },
+  attemptLogout ({ commit }, { callback, fail }) {
+    authApi.attemptLogout(({ data: response }) => {
+      commit('SET_CURRENT_USER', {})
+      callback()
+    }, fail)
   }
 }
 

@@ -1,4 +1,4 @@
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'UserBar',
@@ -22,6 +22,9 @@ export default {
     }
   },
   methods: {
+    ...mapActions([
+      'attemptLogout'
+    ]),
     extendUserBar: function () {
       this.isExtend = true
     },
@@ -34,10 +37,13 @@ export default {
       }
     },
     logout () {
-      if (this.loggedIn) {
-        this.$cookies.remove('Function-Session')
-        this.$router.push({ name: 'login' })
-      }
+      this.attemptLogout({
+        callback: this.successAttemptLogout
+      })
+    },
+    successAttemptLogout () {
+      this.$cookies.remove('Function-Session')
+      this.$router.push({ name: 'login' })
     }
   }
 }
