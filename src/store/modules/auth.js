@@ -16,6 +16,12 @@ export const actions = {
       commit('SET_CURRENT_USER', response)
       callback()
     }, data, fail)
+  },
+  getLoginStatus ({ commit }, { callback, fail }) {
+    authApi.getLoginStatus(({ data: response }) => {
+      commit('SET_CURRENT_USER', response)
+      callback()
+    }, fail)
   }
 }
 
