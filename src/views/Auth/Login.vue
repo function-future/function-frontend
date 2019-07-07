@@ -138,9 +138,9 @@
     font-size: 0.75rem;
     margin-bottom: 10px;
     border-radius: 8px;
-    color: #721c24;
-    background-color: #f8d7da;
-    border-color: #f5c6cb;
+    color: #F2F2F2;
+    background-color: #ea3f6c;
+    border-color: #F2F2F2;
   }
 
   .success-login-alert {
@@ -151,8 +151,8 @@
     font-size: 0.75rem;
     margin-bottom: 10px;
     border-radius: 8px;
-    color: #155724;
-    background-color: #d4edda;
+    color: #F2F2F2;
+    background-color: #42b549;
     border-color: #c3e6cb;
   }
 
