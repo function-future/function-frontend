@@ -4,6 +4,7 @@ import BaseButton from '@/components/BaseButton'
 import BaseInput from '@/components/BaseInput'
 import BaseSelect from '@/components/BaseSelect'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
+import ModalCopyQuiz from '@/components/modals/ModalCopyQuiz'
 import BasePagination from '@/components/BasePagination'
 
 export default {
@@ -14,6 +15,7 @@ export default {
     BaseInput,
     BaseSelect,
     ModalDeleteConfirmation,
+    ModalCopyQuiz,
     BasePagination
   },
   data () {
@@ -24,6 +26,7 @@ export default {
         totalRecords: 0
       },
       showDeleteConfirmationModal: false,
+      showCopyModal: false,
       selectedId: ''
     }
   },
@@ -111,6 +114,37 @@ export default {
     loadNextPage () {
       this.paging.page = this.paging.page + 1
       this.initPage()
-    }
+    },
+    openCopyModal (id) {
+      this.selectedId = id
+      this.showCopyModal = true
+    },
+    closeCopyModal () {
+      this.selectedId = ''
+      this.showCopyModal = false
+    },
+    submitCopyModal (batchDestination) {
+      if (batchDestination === '') return
+      let data = {
+        code: batchDestination,
+        content: {
+          originBatch: this.$route.params.code,
+          courses: [ ...this.selectedIds ]
+        }
+      }
+      this.createQuiz({
+        data,
+        callback: this.successSubmitCopyQuiz,
+        fail: this.failSubmitCopyQuiz
+      })
+    },
+    successSubmitCopyQuiz () {
+      this.selectedIds = []
+      this.showCopyCourseModal = false
+    },
+    failSubmitCopyQuiz () {
+      this.showCopyCourseModal = false
+      this.$toasted.error('Fail to copy course, please try again')
+    },
   }
 }

@@ -15,13 +15,12 @@
             {{ quiz.startDate |  moment("dddd, MMMM Do YYYY") }}
           </div>
           <div class="quiz-action">
-          <span>
             <font-awesome-icon
-              icon="edit"
-              class="icon blue"
-              size="lg">
+              icon="copy"
+              class="icon"
+              size="lg"
+              @click.stop="openCopyModal(quiz.id)">
             </font-awesome-icon>
-          </span>
             <span>
             <font-awesome-icon
               icon="trash-alt"
@@ -64,6 +63,10 @@
                                @clickDelete="deleteThisQuiz">
       <div slot="description">{{selectedId}}</div>
     </modal-delete-confirmation>
+    <modal-copy-quiz v-if="showCopyModal"
+                     @close="closeCopyModal"
+                     @copy="submitCopyModal">
+    </modal-copy-quiz>
   </div>
 </template>
 
@@ -114,6 +117,11 @@
   border-left: 1px solid #BDBDBD;
   padding-left: 15px;
   display: inline-block;
+}
+.quiz-action-copy {
+  display: inline-block;
+  font-size: unset;
+  font-weight: normal;
 }
 .quiz-action span {
   padding: 5px;
