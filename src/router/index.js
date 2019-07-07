@@ -25,6 +25,14 @@ import users from '@/views/Users/Users.vue'
 import stickyNotes from '@/views/StickyNotes/StickyNotesDetail.vue'
 import editStickyNote from '@/views/StickyNotes/EditStickyNote.vue'
 import UserForm from '@/views/Users/UserForm.vue'
+import courseBatch from '@/views/Courses/CourseBatch.vue'
+import batchForm from '@/views/Courses/BatchForm.vue'
+import courses from '@/views/Courses/Courses.vue'
+import masterCourses from '@/views/Courses/MasterCourses.vue'
+import courseDetail from '@/views/Courses/CourseDetail.vue'
+import courseForm from '@/views/Courses/CourseForm.vue'
+import masterCourseDetail from '@/views/Courses/MasterCourseDetail.vue'
+import masterCourseForm from '@/views/Courses/MasterCourseForm.vue'
 import config from '@/config/index'
 import chatrooms from '@/views/Chatrooms/Chatrooms'
 
@@ -111,12 +119,147 @@ export default new Router({
       props: { editMode: false }
     },
     {
-      path: config.app.pages.courses,
-      name: 'courses',
-      component: feeds,
+      path: config.app.pages.courses.batches.list,
+      name: 'courseBatches',
+      component: courseBatch,
       meta: {
-        title: 'Courses'
+        title: 'Select Course Batch',
+        breadcrumb: [
+          { name: 'Batches', link: 'courseBatches' }
+        ]
       }
+    },
+    {
+      path: config.app.pages.courses.batches.add,
+      name: 'addBatch',
+      component: batchForm,
+      meta: {
+        title: 'Add Batch',
+        breadcrumb: [
+          { name: 'Batches', link: 'courseBatches' },
+          { name: 'Add Batch', link: 'addBatch' }
+        ]
+      },
+      props: { editMode: false }
+    },
+    {
+      path: config.app.pages.courses.batches.edit,
+      name: 'editBatch',
+      component: batchForm,
+      meta: {
+        title: 'Edit Batch',
+        breadcrumb: [
+          { name: 'Batches', link: 'courseBatches' },
+          { name: 'Edit Batch', link: 'editBatch' }
+        ]
+      },
+      props: { editMode: true }
+    },
+    {
+      path: config.app.pages.courses.list,
+      name: 'courses',
+      component: courses,
+      meta: {
+        title: 'Courses',
+        breadcrumb: [
+          { name: 'Batches', link: 'courseBatches' },
+          { name: 'Courses', link: 'courses' }
+        ]
+      }
+    },
+    {
+      path: config.app.pages.courses.detail,
+      name: 'courseDetail',
+      component: courseDetail,
+      meta: {
+        title: 'Course Detail',
+        breadcrumb: [
+          { name: 'Batches', link: 'courseBatches' },
+          { name: 'Courses', link: 'courses' },
+          { name: 'Course Detail', link: 'courseDetail' }
+        ]
+      }
+    },
+    {
+      path: config.app.pages.courses.add,
+      name: 'addCourse',
+      component: courseForm,
+      meta: {
+        title: 'Add Course',
+        breadcrumb: [
+          { name: 'Batches', link: 'courseBatches' },
+          { name: 'Courses', link: 'courses' },
+          { name: 'Add Course', link: 'addCourse' }
+        ]
+      },
+      props: { editMode: false }
+    },
+    {
+      path: config.app.pages.courses.edit,
+      name: 'editCourse',
+      component: courseForm,
+      meta: {
+        title: 'Edit Course',
+        breadcrumb: [
+          { name: 'Batches', link: 'courseBatches' },
+          { name: 'Courses', link: 'courses' },
+          { name: 'Edit Course', link: 'editCourse' }
+        ]
+      },
+      props: { editMode: true }
+    },
+    {
+      path: config.app.pages.courses.master.list,
+      name: 'masterCourses',
+      component: masterCourses,
+      meta: {
+        title: 'Master Courses',
+        breadcrumb: [
+          { name: 'Batches', link: 'courseBatches' },
+          { name: 'Master Courses', link: 'masterCourses' }
+        ]
+      }
+    },
+    {
+      path: config.app.pages.courses.master.detail,
+      name: 'masterCourseDetail',
+      component: masterCourseDetail,
+      meta: {
+        title: 'Master Course Detail',
+        breadcrumb: [
+          { name: 'Batches', link: 'courseBatches' },
+          { name: 'Master Courses', link: 'masterCourses' },
+          { name: 'Master Course Detail', link: 'masterCourseDetail' }
+        ]
+      }
+    },
+    {
+      path: config.app.pages.courses.master.add,
+      name: 'addMasterCourse',
+      component: masterCourseForm,
+      meta: {
+        title: 'Add Master Course',
+        breadcrumb: [
+          { name: 'Batches', link: 'courseBatches' },
+          { name: 'Master Courses', link: 'masterCourses' },
+          { name: 'Add Master Course', link: 'addMasterCourse' }
+        ]
+      },
+      props: { editMode: false }
+    },
+    {
+      path: config.app.pages.courses.master.edit,
+      name: 'editMasterCourse',
+      component: masterCourseForm,
+      meta: {
+        title: 'Edit Master Course',
+        breadcrumb: [
+          { name: 'Batches', link: 'courseBatches' },
+          { name: 'Master Courses', link: 'masterCourses' },
+          { name: 'Edit Master Course', link: 'editMasterCourse' }
+        ]
+      },
+      props: { editMode: true }
     },
     {
       path: config.app.pages.files,
