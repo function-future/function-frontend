@@ -7,6 +7,9 @@ import {
   announcementDetails,
   activityBlogs,
   activityBlogDetail,
+  courses,
+  discussions,
+  batches,
   resources,
   users
 } from '@/api-mock/mock/core-routes'
@@ -19,7 +22,8 @@ import {
   questionBanks,
   questionBankDetail,
   questionBankQuestions,
-  questionBankQuestionDetail
+  questionBankQuestionDetail,
+  points
 } from '@/api-mock/mock/scoring-routes'
 import {
   chatrooms
@@ -70,6 +74,18 @@ users.forEach(data => {
   mock[methodMap[data.method]](data.url).reply(200, data.response)
 })
 
+courses.forEach(data => {
+  mock[methodMap[data.method]](data.url).reply(200, data.response)
+})
+
+batches.forEach(data => {
+  mock[methodMap[data.method]](data.url).reply(200, data.response)
+})
+
+discussions.forEach(data => {
+  mock[methodMap[data.method]](data.url).reply(200, data.response)
+})
+
 assignments.forEach(data => {
   mock[methodMap[data.method]] (data.url).reply(200, data.response)
 })
@@ -103,5 +119,9 @@ questionBankQuestions.forEach(data => {
 })
 
 questionBankQuestionDetail.forEach(data => {
+  mock[methodMap[data.method]] (data.url).reply(200, data.response)
+})
+
+points.forEach(data => {
   mock[methodMap[data.method]] (data.url).reply(200, data.response)
 })
