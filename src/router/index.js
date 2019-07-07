@@ -30,7 +30,7 @@ import login from '@/views/Auth/Login'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
@@ -120,7 +120,8 @@ export default new Router({
       name: 'courses',
       component: feeds,
       meta: {
-        title: 'Courses'
+        title: 'Courses',
+        auth: true
       }
     },
     {
@@ -338,3 +339,18 @@ export default new Router({
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.auth) {
+    if (window.$cookies.isKey('FUNCTION_COOKIE')) {
+      console.log('auth page')
+      next()
+    } else {
+      console.log('not eligible to access auth page')
+      next({ name: 'feeds' })
+    }
+  }
+  next()
+})
+
+export default router

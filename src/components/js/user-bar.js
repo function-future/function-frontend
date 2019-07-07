@@ -1,14 +1,21 @@
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'UserBar',
   data () {
     return {
-      isExtend: '',
-      name: 'Karnando Sepryan'
+      isExtend: ''
     }
   },
   computed: {
+    ...mapGetters([
+      'currentUser'
+    ]),
     loggedIn () {
-      return false
+      return Object.keys(this.currentUser).length
+    },
+    name () {
+      return this.currentUser.name || ''
     },
     firstName () {
       return this.name.substr(0, this.name.indexOf(' '))
