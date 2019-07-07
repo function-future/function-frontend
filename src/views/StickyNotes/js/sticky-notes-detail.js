@@ -1,5 +1,6 @@
 import { mapActions, mapGetters } from 'vuex'
 import BaseCard from '@/components/BaseCard'
+let marked = require('marked')
 
 export default {
   name: 'stickyNotes',
@@ -12,7 +13,10 @@ export default {
   computed: {
     ...mapGetters([
       'stickyNotes'
-    ])
+    ]),
+    stickyNoteCompiledMarkdown () {
+      return marked(this.stickyNotes.description)
+    }
   },
   methods: {
     ...mapActions([
