@@ -33,12 +33,8 @@ describe('Quiz', () => {
       modules: {
         quizzes: {
           actions,
-          namespaced: true
-        },
-        questionBanks: {
           state,
-          getters,
-          namespaced: true
+          getters
         }
       }
     })

@@ -31,8 +31,7 @@ describe('Quiz', () => {
         questionBanks: {
           state,
           actions,
-          getters,
-          namespaced: true
+          getters
         }
       }
     })
