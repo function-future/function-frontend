@@ -634,6 +634,14 @@ export const questionBankQuestionDetail = [
         ]
       }
     }
+  },
+  {
+    method: 'DELETE',
+    url: '/api/scoring/question-banks/QNK0001/questions/QST0001',
+    response: {
+      "code": 200,
+      "status": "OK"
+    }
   }
 ]
 

@@ -37,6 +37,10 @@ const deleteQuestionBank = function (callback, data, errorHandler) {
   request.deleteRequest(config.api.scoring.questionBanks.delete(data.id), callback, errorHandler)
 }
 
+const deleteQuestion = function (callback, data, errorHandler) {
+  request.deleteRequest(config.api.scoring.questionBanks.question.delete(data.bankId, data.id), callback, errorHandler)
+}
+
 export default {
   getQuestionBankList,
   getQuestionBankById,
@@ -46,5 +50,6 @@ export default {
   createQuestion,
   updateQuestionBank,
   updateQuestion,
-  deleteQuestionBank
+  deleteQuestionBank,
+  deleteQuestion
 }

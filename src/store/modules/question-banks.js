@@ -74,6 +74,11 @@ export const actions = {
     questionBankApi.deleteQuestionBank(() => {
       callback && callback()
     }, data, fail)
+  },
+  deleteQuestionById ({ state }, { data, callback, fail }) {
+    questionBankApi.deleteQuestion(() => {
+      callback && callback()
+    }, data, fail)
   }
 }
 
