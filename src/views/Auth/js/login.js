@@ -48,13 +48,13 @@ export default {
     },
     successLogin () {
       this.loginSuccess = true
-      setTimeout(this.redirectToFeeds, 800)
+      setTimeout(this.redirectToFeeds, 700)
     },
     redirectToFeeds () {
       this.$router.push({ name: 'feeds' })
     },
     failLogin () {
-      setTimeout(this.showFailMessage, 800)
+      setTimeout(this.showFailMessage, 700)
     },
     showFailMessage () {
       this.errorAlert = 'You have entered an invalid email or password'
