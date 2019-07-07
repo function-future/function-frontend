@@ -69,6 +69,11 @@ export const actions = {
       commit('SET_QUESTION', payload)
       callback && callback()
     }, data, payload, fail)
+  },
+  deleteQuestionBankById ({ state }, { data, callback, fail }) {
+    questionBankApi.deleteQuestionBank(() => {
+      callback && callback()
+    }, data, fail)
   }
 }
 

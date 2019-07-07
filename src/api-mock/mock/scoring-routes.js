@@ -424,23 +424,23 @@ export const questionBanks = [
         },
         {
           "id" : "QNK0003",
-          "title" : "Question Bank 2",
-          "description" : "Question Bank Number 2"
+          "title" : "Question Bank 3",
+          "description" : "Question Bank Number 3"
         },
         {
           "id" : "QNK0004",
-          "title" : "Question Bank 2",
-          "description" : "Question Bank Number 2"
+          "title" : "Question Bank 4",
+          "description" : "Question Bank Number 4"
         },
         {
           "id" : "QNK0005",
-          "title" : "Question Bank 2",
-          "description" : "Question Bank Number 2"
+          "title" : "Question Bank 5",
+          "description" : "Question Bank Number 5"
         }
       ],
       "paging" : {
         "page" : 1,
-        "size" : 12,
+        "size" : 10,
         "totalRecords" : 13
       }
     }
@@ -485,6 +485,14 @@ export const questionBankDetail = [
         "title": "Question Bank #2",
         "description": "Question Bank Number 2"
       }
+    }
+  },
+  {
+    method: 'DELETE',
+    url: '/api/scoring/question-banks/QNK0001',
+    response: {
+      "code": 200,
+      "status": "OK"
     }
   }
 ]

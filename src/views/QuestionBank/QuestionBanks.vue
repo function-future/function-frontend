@@ -10,20 +10,41 @@
               :key="questionBank.id"
               @click.native="goToQuestionBankDetail(questionBank.id)"
               cardClass="card-hover">
-      <div class="question-bank__card-header">
-        {{questionBank.title}}
+      <div class="question-bank__card-header-section">
+        <div class="question-bank__card-header">
+          {{questionBank.title}}
+        </div>
+        <div class="question-bank__card-header-action">
+          <font-awesome-icon
+            icon="eye"
+            class="icon blue"
+            size="lg"
+            @click.stop="goToQuestionBankQuestions(questionBank.id)">
+          </font-awesome-icon>
+          <span>
+            <font-awesome-icon
+              icon="trash-alt"
+              class="icon red"
+              size="lg"
+              @click.stop="openDeleteConfirmationModal(questionBank.id)"></font-awesome-icon></span>
+        </div>
       </div>
       <div class="question-bank__card-body">
         <div class="question-bank__card-body-description">
           {{questionBank.description}}
         </div>
       </div>
-      <div class="question-bank__card-footer">
-        <div>
-          <BaseButton buttonClass="button-save" @click.stop="goToQuestionBankQuestions(questionBank.id)">View Questions</BaseButton>
-        </div>
-      </div>
     </BaseCard>
+    <BasePagination :paging="paging"
+                    @loadPage="loadPage"
+                    @previousPage="loadPreviousPage"
+                    @nextPage="loadNextPage">
+    </BasePagination>
+    <modal-delete-confirmation v-if="showDeleteConfirmationModal"
+                               @close="closeDeleteConfirmationModal"
+                               @clickDelete="deleteThisQuestionBank">
+      <div slot="description">{{selectedId}}</div>
+    </modal-delete-confirmation>
   </div>
 </template>
 
@@ -42,7 +63,6 @@
       min-height: 175px;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
       &:hover {
         cursor: pointer;
         transition: all .3s ease;
@@ -51,15 +71,19 @@
       &-header {
         font-weight: bolder;
         font-size: 1.4em;
+        display: inline-block;
+        &-action {
+          float: right;
+          border-left: 1px solid #BDBDBD;
+          padding-left: 15px;
+          display: inline-block;
+          & span {
+            padding-left: 15px;
+          }
+        }
       }
       &-body {
-        display: flex;
-      }
-      &-footer {
-        font-size: 0.8em;
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
+        margin-top: 20px;
       }
     }
   }

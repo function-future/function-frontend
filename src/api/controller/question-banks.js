@@ -33,8 +33,8 @@ const updateQuestion = function (callback, data, payload, errorHandler) {
   request.putRequest(config.api.scoring.questionBanks.question.update(data.bankId, data.questionId), callback, payload, errorHandler)
 }
 
-const deleteQuestionBank = function (callback, data, payload, errorHandler) {
-  request.deleteRequest(config.api.scoring.questionBanks.delete(data.id), callback, payload, errorHandler)
+const deleteQuestionBank = function (callback, data, errorHandler) {
+  request.deleteRequest(config.api.scoring.questionBanks.delete(data.id), callback, errorHandler)
 }
 
 export default {
