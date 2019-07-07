@@ -14,6 +14,7 @@ import quizzes from '@/views/Quiz/Quiz'
 import addQuiz from '@/views/Quiz/AddQuiz'
 import addQuizDetail from '@/views/Quiz/AddQuizDetail'
 import quizDetail from '@/views/Quiz/QuizDetail'
+import points from '@/views/Point/Point'
 import feeds from '@/views/Feeds/Feeds.vue'
 import announcements from '@/views/Announcements/Announcements.vue'
 import announcementDetail from '@/views/Announcements/AnnouncementDetail.vue'
@@ -26,6 +27,7 @@ import stickyNotes from '@/views/StickyNotes/StickyNotesDetail.vue'
 import editStickyNote from '@/views/StickyNotes/EditStickyNote.vue'
 import UserForm from '@/views/Users/UserForm.vue'
 import config from '@/config/index'
+import chatrooms from '@/views/Chatrooms/Chatrooms'
 
 Vue.use(Router)
 
@@ -310,6 +312,14 @@ export default new Router({
       }
     },
     {
+      path: config.app.pages.chatrooms,
+      name: 'chatrooms',
+      component: chatrooms,
+      meta: {
+        title: 'Chatrooms'
+      }
+    },
+    {
       path: config.app.pages.assignments.rooms.list,
       name: 'assignmentRooms',
       component: assignmentRooms,
@@ -323,6 +333,14 @@ export default new Router({
       component: quizDetail,
       meta: {
         title: 'Assignment'
+      }
+    },
+    {
+      path: config.app.pages.points.list,
+      name: 'points',
+      component: points,
+      meta: {
+        title: 'Points'
       }
     },
     {

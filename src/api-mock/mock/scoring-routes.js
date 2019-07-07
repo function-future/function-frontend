@@ -581,3 +581,58 @@ export const questionBankQuestionDetail = [
     }
   }
 ]
+
+export const points = [
+  {
+    method: 'GET',
+    url: '/api/students/sample-id/points',
+    response: {
+      "code": 200,
+      "status": "OK",
+      "data": {
+        "studentName": "Student 1",
+        "batchCode": "3",
+        "university": "University 1",
+        "avatar": "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
+        "scores": [
+          {
+            "id": "QZ0001",
+            "title": "Quiz 1",
+            "type": "QUIZ",
+            "point": 80
+          },
+          {
+            "id": "QZ0002",
+            "title": "Quiz 2",
+            "type": "QUIZ",
+            "point": 100
+          },
+          {
+            "id": "QZ0003",
+            "title": "Quiz 3",
+            "type": "QUIZ",
+            "point": 70
+          },
+          {
+            "id": "ASG0001",
+            "title": "Assignment 1",
+            "type": "ASSIGNMENT",
+            "point": 80
+          },
+          {
+            "id": "ASG0002",
+            "title": "Assignment 2",
+            "type": "ASSIGNMENT",
+            "point": 30
+          },
+          {
+            "id": "ASG0003",
+            "title": "Assignment 3",
+            "type": "ASSIGNMENT",
+            "point": 100
+          }
+        ]
+      }
+    }
+  }
+]

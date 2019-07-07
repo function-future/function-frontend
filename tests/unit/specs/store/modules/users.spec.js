@@ -26,7 +26,7 @@ describe('actions', () => {
     }
     const data = {
       role: 'student',
-      page: 0,
+      page: 1,
       pageSize: 10
     }
     const commit = jest.fn()
@@ -115,7 +115,7 @@ describe('actions', () => {
     }
     const data = {
       role: 'student',
-      page: 0,
+      page: 1,
       pageSize: 10
     }
     const commit = jest.fn()
@@ -138,7 +138,7 @@ describe('actions', () => {
     }
     const data = {
       role: 'student',
-      page: 0,
+      page: 1,
       pageSize: 10
     }
     const commit = jest.fn()
@@ -161,7 +161,7 @@ describe('actions', () => {
     }
     const data = {
       role: 'student',
-      page: 0,
+      page: 1,
       pageSize: 10
     }
     const commit = jest.fn()
@@ -184,7 +184,7 @@ describe('actions', () => {
     }
     const data = {
       role: 'student',
-      page: 0,
+      page: 1,
       pageSize: 10
     }
     const state = jest.fn()
@@ -205,7 +205,7 @@ describe('actions', () => {
     }
     const data = {
       role: 'student',
-      page: 0,
+      page: 1,
       pageSize: 10
     }
     const state = jest.fn()

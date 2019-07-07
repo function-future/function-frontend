@@ -3,6 +3,7 @@
       <label v-if="label" class="input-label">{{ label }}</label>
       <input
         @input="updateValue"
+        @keyup="emitKeyUp"
         class="input-box"
         v-bind="$attrs"
         :value="value"
@@ -46,5 +47,26 @@
     box-shadow: 2px 2px 10px rgba(0,0,0,0.1), 2px 2px 10px rgba(0,0,0,0.3);
     width: 100%;
     outline: none;
+  }
+
+  .search-box {
+    height: 30px;
+    padding-right: 60px;
+  }
+
+  .search-box::placeholder {
+    text-align: right;
+    color: rgba(0, 0, 0, 0.2);
+  }
+
+  .message-box {
+    margin: 0;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    border: 2px solid #02AAF3;
   }
 </style>
