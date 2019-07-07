@@ -519,19 +519,23 @@ router.beforeEach((to, from, next) => {
 
   const payload = {
     callback: () => {
-      if (to.fullPath === '/login' && window.$cookies.isKey('Function-Session')) {
-        next({ name: feeds })
-      }
+      // if (to.fullPath === '/login' && window.$cookies.isKey('Function-Session')) {
+      //   return next({ name: 'feeds' })
+      // }
       if (to.meta.auth) {
         console.log('you are accessing page that needs auth')
-        window.$cookies.isKey('Function-Session') ? next() : next({ name: 'feeds' })
+        return window.$cookies.isKey('Function-Session') ? next() : next({ name: 'feeds' })
       } else {
         console.log('you are accessing page that does not need auth')
-        next()
+        return next()
       }
     },
     fail: () => {
-      next({ name: 'login' })
+      if (to.path !== '/login') {
+        next('/login')
+      } else {
+        next()
+      }
     }
   }
   store.dispatch('getLoginStatus', payload)
