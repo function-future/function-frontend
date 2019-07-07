@@ -45,6 +45,10 @@ const copyCourse = function (callback, data, errorHandler) {
   request.postRequest(config.api.core.courses.post(data.code), callback, data.content, errorHandler)
 }
 
+const downloadFileFromUrl = function (callback, data, errorHandler, configuration) {
+  request.getRequest(data, callback, errorHandler, configuration)
+}
+
 export default {
   getCourseList,
   getMasterCourseList,
@@ -56,5 +60,6 @@ export default {
   updateMasterCourse,
   deleteCourse,
   deleteMasterCourse,
-  copyCourse
+  copyCourse,
+  downloadFileFromUrl
 }

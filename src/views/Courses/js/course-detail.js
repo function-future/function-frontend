@@ -4,7 +4,6 @@ import BaseButton from '@/components/BaseButton'
 import BaseTextArea from '@/components/BaseTextArea'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
 import InfiniteLoading from 'vue-infinite-loading'
-import axios from 'axios'
 let marked = require('marked')
 
 export default {
@@ -57,7 +56,8 @@ export default {
       'fetchCourseById',
       'fetchCourseDiscussions',
       'submitCourseDiscussion',
-      'deleteCourseById'
+      'deleteCourseById',
+      'downloadCourseMaterial'
     ]),
     initPage () {
       this.initCourse()
@@ -126,9 +126,19 @@ export default {
       this.$toasted.error('Fail to post course discussion, please try again')
     },
     downloadMaterial (url) {
-      axios({ method: 'get', url: url, responseType: 'arraybuffer' })
-        .then(response => { this.forceFileDownload(response) })
-        .catch(() => console.log('error occurred'))
+      let configuration = { responseType: 'arraybuffer' }
+      this.downloadCourseMaterial({
+        data: url,
+        configuration,
+        callback: this.successDownloadMaterial,
+        fail: this.failDownloadMaterial
+      })
+    },
+    successDownloadMaterial (response) {
+      this.forceFileDownload(response)
+    },
+    failDownloadMaterial () {
+      this.$toasted.error('Fail to download material, please try again')
     },
     forceFileDownload (response) {
       const url = window.URL.createObjectURL(new Blob([response.data]))

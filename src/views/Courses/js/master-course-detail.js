@@ -3,7 +3,6 @@ import BaseCard from '@/components/BaseCard'
 import BaseButton from '@/components/BaseButton'
 import BaseTextArea from '@/components/BaseTextArea'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
-import axios from 'axios'
 let marked = require('marked')
 
 export default {
@@ -39,7 +38,8 @@ export default {
   methods: {
     ...mapActions([
       'fetchMasterCourseById',
-      'deleteMasterCourseById'
+      'deleteMasterCourseById',
+      'downloadCourseMaterial'
     ]),
     initPage () {
       this.initMasterCourse()
@@ -61,9 +61,19 @@ export default {
       this.$toasted.error('Fail to load master course detail, please refresh the page')
     },
     downloadMaterial (url) {
-      axios({ method: 'get', url: url, responseType: 'arraybuffer' })
-        .then(response => { this.forceFileDownload(response) })
-        .catch(() => console.log('error occurred'))
+      let configuration = { responseType: 'arraybuffer' }
+      this.downloadCourseMaterial({
+        data: url,
+        configuration,
+        callback: this.successDownloadMaterial,
+        fail: this.failDownloadMaterial
+      })
+    },
+    successDownloadMaterial (response) {
+      this.forceFileDownload(response)
+    },
+    failDownloadMaterial () {
+      this.$toasted.error('Fail to download material, please try again')
     },
     forceFileDownload (response) {
       const url = window.URL.createObjectURL(new Blob([response.data]))

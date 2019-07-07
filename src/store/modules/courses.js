@@ -90,6 +90,11 @@ export const actions = {
     courseApi.copyCourse(({ data: response }) => {
       callback(response)
     }, data, fail)
+  },
+  downloadCourseMaterial ({ commit }, { data, configuration, callback, fail }) {
+    courseApi.downloadFileFromUrl(response => {
+      callback(response)
+    }, data, fail, configuration)
   }
 }
 
