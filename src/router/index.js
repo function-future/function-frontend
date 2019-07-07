@@ -78,6 +78,7 @@ const router = new Router({
       name: 'addActivityBlog',
       component: ActivityBlogForm,
       meta: {
+        auth: true,
         title: 'Add Activity Blog'
       },
       props: { editMode: false }
@@ -87,6 +88,7 @@ const router = new Router({
       name: 'editActivityBlog',
       component: ActivityBlogForm,
       meta: {
+        auth: true,
         title: 'Edit Activity Blog'
       },
       props: { editMode: true }
@@ -513,21 +515,18 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   if (process.env.NODE_ENV === 'development') {
-    next()
-    return
+    return next()
   }
 
   const payload = {
     callback: () => {
-      if (to.fullPath === '/login') {
-        return next({ name: 'feeds' })
-      }
-      return next()
+      return to.fullPath === '/login' ? next({ name: 'feeds' }) : next()
     },
     fail: () => {
-      !to.meta.auth ? next() : (to.path !== '/login' ? next('/login') : next())
+      return !to.meta.auth ? next() : (to.path !== '/login' ? next('/login') : next())
     }
   }
+
   store.dispatch('getLoginStatus', payload)
 })
 
