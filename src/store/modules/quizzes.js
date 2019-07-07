@@ -2,7 +2,8 @@ import quizApi from '@/api/controller/quizzes'
 
 export const state = {
   quizList: [],
-  quiz: {}
+  quiz: {},
+  selectedBank: []
 }
 
 export const mutations = {
@@ -11,6 +12,9 @@ export const mutations = {
   },
   SET_QUIZ (state, payload) {
     state.quiz = payload
+  },
+  SET_SELECTED_BANK (state, payload) {
+    state.selectedBank = payload
   }
 }
 
@@ -37,6 +41,9 @@ export const actions = {
       commit('SET_QUIZ', payload)
       callback && callback()
     }, data, payload, fail)
+  },
+  setSelectedBank ({ commit }, { payload }) {
+    commit('SET_SELECTED_BANK', payload)
   }
 }
 
@@ -47,6 +54,9 @@ export const getters = {
   },
   quiz (state) {
     return state.quiz
+  },
+  selectedBank (state) {
+    return state.selectedBank
   }
 }
 
