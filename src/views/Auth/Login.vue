@@ -12,7 +12,7 @@
         <div class="login__body">
           <div class="login__body--title">Login</div>
           <div class="login__body--form">
-            <div class="fail-login-alert" v-if="errorAlert">
+            <div class="fail-login-alert" v-if="errorAlert && !loginSuccess">
               {{ errorAlert }}
               <font-awesome-icon icon="times" class="icon close-alert" size="lg" @click="errorAlert = ''"/>
             </div>
