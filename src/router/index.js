@@ -36,6 +36,7 @@ import masterCourseForm from '@/views/Courses/MasterCourseForm.vue'
 import config from '@/config/index'
 import chatrooms from '@/views/Chatrooms/Chatrooms'
 import login from '@/views/Auth/Login'
+import store from '../store/index.js'
 
 Vue.use(Router)
 
@@ -111,6 +112,7 @@ const router = new Router({
       name: 'editAnnouncement',
       component: announcementForm,
       meta: {
+        auth: true,
         title: 'Edit Announcements'
       },
       props: { editMode: true }
@@ -120,6 +122,7 @@ const router = new Router({
       name: 'addAnnouncement',
       component: announcementForm,
       meta: {
+        auth: true,
         title: 'Add Announcements'
       },
       props: { editMode: false }
@@ -129,6 +132,7 @@ const router = new Router({
       name: 'courseBatches',
       component: courseBatch,
       meta: {
+        auth: true,
         title: 'Select Course Batch',
         breadcrumb: [
           { name: 'Batches', link: 'courseBatches' }
@@ -140,6 +144,7 @@ const router = new Router({
       name: 'addBatch',
       component: batchForm,
       meta: {
+        auth: true,
         title: 'Add Batch',
         breadcrumb: [
           { name: 'Batches', link: 'courseBatches' },
@@ -153,6 +158,7 @@ const router = new Router({
       name: 'editBatch',
       component: batchForm,
       meta: {
+        auth: true,
         title: 'Edit Batch',
         breadcrumb: [
           { name: 'Batches', link: 'courseBatches' },
@@ -166,6 +172,7 @@ const router = new Router({
       name: 'courses',
       component: courses,
       meta: {
+        auth: true,
         title: 'Courses',
         breadcrumb: [
           { name: 'Batches', link: 'courseBatches' },
@@ -178,6 +185,7 @@ const router = new Router({
       name: 'courseDetail',
       component: courseDetail,
       meta: {
+        auth: true,
         title: 'Course Detail',
         breadcrumb: [
           { name: 'Batches', link: 'courseBatches' },
@@ -191,6 +199,7 @@ const router = new Router({
       name: 'addCourse',
       component: courseForm,
       meta: {
+        auth: true,
         title: 'Add Course',
         breadcrumb: [
           { name: 'Batches', link: 'courseBatches' },
@@ -205,6 +214,7 @@ const router = new Router({
       name: 'editCourse',
       component: courseForm,
       meta: {
+        auth: true,
         title: 'Edit Course',
         breadcrumb: [
           { name: 'Batches', link: 'courseBatches' },
@@ -219,6 +229,7 @@ const router = new Router({
       name: 'masterCourses',
       component: masterCourses,
       meta: {
+        auth: true,
         title: 'Master Courses',
         breadcrumb: [
           { name: 'Batches', link: 'courseBatches' },
@@ -231,6 +242,7 @@ const router = new Router({
       name: 'masterCourseDetail',
       component: masterCourseDetail,
       meta: {
+        auth: true,
         title: 'Master Course Detail',
         breadcrumb: [
           { name: 'Batches', link: 'courseBatches' },
@@ -244,6 +256,7 @@ const router = new Router({
       name: 'addMasterCourse',
       component: masterCourseForm,
       meta: {
+        auth: true,
         title: 'Add Master Course',
         breadcrumb: [
           { name: 'Batches', link: 'courseBatches' },
@@ -258,6 +271,7 @@ const router = new Router({
       name: 'editMasterCourse',
       component: masterCourseForm,
       meta: {
+        auth: true,
         title: 'Edit Master Course',
         breadcrumb: [
           { name: 'Batches', link: 'courseBatches' },
@@ -272,6 +286,7 @@ const router = new Router({
       name: 'files',
       component: feeds,
       meta: {
+        auth: true,
         title: 'Files'
       }
     },
@@ -280,6 +295,7 @@ const router = new Router({
       name: 'users',
       component: users,
       meta: {
+        auth: true,
         title: 'Users'
       }
     },
@@ -288,6 +304,7 @@ const router = new Router({
       name: 'addStudent',
       component: UserForm,
       meta: {
+        auth: true,
         title: 'Add Student'
       },
       props: {
@@ -300,6 +317,7 @@ const router = new Router({
       name: 'addUser',
       component: UserForm,
       meta: {
+        auth: true,
         title: 'Add User'
       },
       props: {
@@ -312,6 +330,7 @@ const router = new Router({
       name: 'editStudent',
       component: UserForm,
       meta: {
+        auth: true,
         title: 'Edit Student'
       },
       props: {
@@ -324,6 +343,7 @@ const router = new Router({
       name: 'editUser',
       component: UserForm,
       meta: {
+        auth: true,
         title: 'Edit User'
       },
       props: {
@@ -492,16 +512,29 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.meta.auth) {
-    if (window.$cookies.isKey('FUNCTION_COOKIE')) {
-      console.log('auth page')
-      next()
-    } else {
-      console.log('not eligible to access auth page')
-      next({ name: 'feeds' })
+  if (process.env.NODE_ENV === 'development') {
+    next()
+    return
+  }
+
+  const payload = {
+    callback: () => {
+      if (to.fullPath === '/login' && window.$cookies.isKey('Function-Session')) {
+        next({ name: feeds })
+      }
+      if (to.meta.auth) {
+        console.log('you are accessing page that needs auth')
+        window.$cookies.isKey('Function-Session') ? next() : next({ name: 'feeds' })
+      } else {
+        console.log('you are accessing page that does not need auth')
+        next()
+      }
+    },
+    fail: () => {
+      next({ name: 'login' })
     }
   }
-  next()
+  store.dispatch('getLoginStatus', payload)
 })
 
 export default router
