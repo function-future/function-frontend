@@ -14,7 +14,9 @@ export default {
         email: '',
         password: ''
       },
-      errorAlert: ''
+      errorAlert: '',
+      loggingIn: false,
+      loginSuccess: false
     }
   },
   methods: {
@@ -28,10 +30,13 @@ export default {
       this.$validator.validateAll().then((result) => {
         if (result) {
           callback()
+          return
         }
+        this.loggingIn = false
       })
     },
     login () {
+      this.loggingIn = true
       this.validateBeforeSubmit(this.validationSuccess)
     },
     validationSuccess () {
@@ -42,10 +47,18 @@ export default {
       })
     },
     successLogin () {
+      this.loginSuccess = true
+      setTimeout(this.redirectToFeeds, 800)
+    },
+    redirectToFeeds () {
       this.$router.push({ name: 'feeds' })
     },
     failLogin () {
+      setTimeout(this.showFailMessage, 800)
+    },
+    showFailMessage () {
       this.errorAlert = 'You have entered an invalid email or password'
+      this.loggingIn = false
     }
   }
 }
