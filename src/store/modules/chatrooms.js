@@ -95,7 +95,7 @@ export const actions = {
     commit('UNSHIFT_MESSAGES', messages)
   },
   pushChatrooms ({ commit }, chatrooms) {
-    commit('UNSHIFT_CHATROOMS', chatrooms)
+    commit('PUSH_CHATROOMS', chatrooms)
   },
   unshiftChatrooms ({ commit }, chatrooms) {
     commit('UNSHIFT_CHATROOMS', chatrooms)
