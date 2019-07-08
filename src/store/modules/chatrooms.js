@@ -51,7 +51,7 @@ export const actions = {
       }
     }, fail, data)
   },
-  fetchMessages ({ state, commit }, { data, fail, cb }) {
+  fetchMessages ({ commit }, { data, fail, cb }) {
     chatroomApi.getMessages(response => {
       commit('PUSH_MESSAGES', response.data.reverse())
       if (response.data.length > 0) {
