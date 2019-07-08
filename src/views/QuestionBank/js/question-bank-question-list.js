@@ -1,15 +1,20 @@
 import { mapActions, mapGetters } from 'vuex'
 import BaseCard from '@/components/BaseCard'
 import BaseButton from '@/components/BaseButton'
+import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
 
 export default {
   name: 'QuestionBankAddQuestion',
   components: {
     BaseButton,
-    BaseCard
+    BaseCard,
+    ModalDeleteConfirmation
   },
   data () {
-    return {}
+    return {
+      showDeleteConfirmationModal: false,
+      selectedId: ''
+    }
   },
   created () {
     this.initPage()
@@ -21,7 +26,8 @@ export default {
   },
   methods: {
     ...mapActions([
-      'fetchQuestionBankQuestionList'
+      'fetchQuestionBankQuestionList',
+      'deleteQuestionById'
     ]),
     initPage () {
       this.fetchQuestionBankQuestionList({
@@ -47,6 +53,31 @@ export default {
           questionId: id
         }
       })
-    }
+    },
+    openDeleteConfirmationModal (id) {
+      this.selectedId = id
+      this.showDeleteConfirmationModal = true
+    },
+    closeDeleteConfirmationModal () {
+      this.selectedId = ''
+      this.showDeleteConfirmationModal = false
+    },
+    deleteThisQuestion () {
+      this.deleteQuestionById({
+        data: {
+          id: this.selectedId,
+          bankId: this.$route.params.bankId
+        },
+        callback: this.successDeletingQuestion,
+        fail: this.failDeletingQuestion
+      })
+    },
+    successDeletingQuestion () {
+      this.$toasted.success('Successfully deleted question')
+      this.closeDeleteConfirmationModal()
+    },
+    failDeletingQuestion () {
+      this.$toasted.error('Something went wrong')
+    },
   }
 }
