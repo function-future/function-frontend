@@ -428,3 +428,43 @@ export const chatrooms = [
     }
   }
 ]
+
+export const myQuestionnaires = [
+  {
+    // get my questionnaire
+    method: 'GET',
+    url: config.api.communication.myQuestionnaire.getMyquestionnnaires(1, 10),
+    response: {
+      'code': 200,
+      'status': 'OK',
+      'data': [
+        {
+          'id': '5d2352f94534202434730f2a',
+          'title': 'future batch 3',
+          'description': 'future 3 bootcamp questionnaire',
+          'startDate': 1562596044000,
+          'dueDate': 1562682444000
+        },
+        {
+          'id': '5d2352f94534202434730f2b',
+          'title': 'future batch 3',
+          'description': 'future 3 bootcamp questionnaire',
+          'startDate': 1562596044000,
+          'dueDate': 1562682444000
+        },
+        {
+          'id': '5d2352f94534202434730f2c',
+          'title': 'future batch 3',
+          'description': 'future 3 bootcamp questionnaire',
+          'startDate': 1562596044000,
+          'dueDate': 1562682444000
+        }
+      ],
+      'paging': {
+        'page': 1,
+        'size': 10,
+        'totalRecord': 3
+      }
+    }
+  }
+]

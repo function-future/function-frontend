@@ -58,7 +58,10 @@ module.exports = {
         edit: '/sticky-notes/edit'
       },
       chatrooms: '/chatrooms',
-      myQuestionnaire: '/my-questionnaire',
+      myQuestionnaire: {
+        default: '/my-questionnaire',
+        appraisee: '/my-questionnaire/:questionnaireId/appraisees'
+      },
       questionnaires: '/questionnaires',
       questionnaireResults: '/questionnaire-results',
     }
@@ -230,19 +233,19 @@ module.exports = {
       },
       myQuestionnaire: {
         getMyquestionnnaires (page, size) {
-          return `/api/communication/my-questionnaire?page=${page}&size=${size}`
+          return `/api/communication/my-questionnaires?page=${page}&size=${size}`
         },
         getListAppraisees (questionnaireId) {
-          return `api/communication/my-questionnaire/${questionnaireId}/appraisees`
+          return `api/communication/my-questionnaires/${questionnaireId}/appraisees`
         },
         getQuestionnaireData (questionnaireId, appraiseeId) {
-          return `api/communication/my-questionnaire/${questionnaireId}/appraisees/${appraiseeId}`
+          return `api/communication/my-questionnaires/${questionnaireId}/appraisees/${appraiseeId}`
         },
         getQuestion (questionnaireId, appraiseeId) {
-          return `api/communication/my-questionnaire/${questionnaireId}/appraisees/${appraiseeId}/questions`
+          return `api/communication/my-questionnaires/${questionnaireId}/appraisees/${appraiseeId}/questions`
         },
         addQuestionnaireResponse (questionnaireId, appraiseeId) {
-          return `api/communication/my-questionnaire/${questionnaireId}/appraisees/${appraiseeId}/questions`
+          return `api/communication/my-questionnaires/${questionnaireId}/appraisees/${appraiseeId}/questions`
         }
       }
     }

@@ -40,6 +40,7 @@ const addQuestionnaireResponse = function (callback, error, data) {
     error
   )
 }
+
 export default {
   getMyQuestionnaires,
   getListAppraisees,

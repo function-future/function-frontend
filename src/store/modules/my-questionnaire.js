@@ -14,10 +14,10 @@ export const mutations = {
 }
 
 export const actions = {
-  fetchMyQuestioonaires ({state, commit}, {data, fail}) {
+  fetchMyQuestionnaires ({state, commit}, {data, fail}) {
     myQuestionnaireApi.getMyQuestionnaires(response => {
-      commit('RESET_MY_QUESTIONNAIRE')
-      commit('PUSH_MY_QUEESTIONNAIRE', response.data)
+      commit('RESET_MY_QUESTIONNAIRES')
+      commit('PUSH_MY_QUESTIONNAIRE', response.data)
     }, fail, data)
   }
 }

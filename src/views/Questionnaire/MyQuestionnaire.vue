@@ -1,19 +1,21 @@
 <template>
   <div class="my-questionnaire-outer">
-    <BaseCard class="my-questionnaire-card">
+    <div class="my-questionnaire-container">
       <div class="search-bar-my-questionnaire">
         <SearchBar class="search-bar"/>
       </div>
       <div class="my-questionnaire-list-container">
-        <QuestionnaireCard v-for="item in 20"
-                           :title="item.toString().concat('asdkljaslkdjaslkdjalskjd')"
-                           :desc="description"
-                           :startDate="startdate"
-                           :dueDate="duedate"
-                           :isDisable="duedate > Date.now()"
+        <QuestionnaireCard v-for="myQuestionnaire in myQuestionnaires"
+                           :key="myQuestionnaire.id"
+                           :title="myQuestionnaire.title"
+                           :desc="myQuestionnaire.description"
+                           :startDate="myQuestionnaire.startDate"
+                           :dueDate="myQuestionnaire.dueDate"
+                           :isDisable="myQuestionnaire.dueDate < Date.now()"
+                           v-on:click="goToListAppraisees(myQuestionnaire.id)"
         ></QuestionnaireCard>
       </div>
-    </BaseCard>
+    </div>
   </div>
 </template>
 
@@ -28,23 +30,21 @@
     height: 80vh;
   }
 
-  .my-questionnaire-card {
+  .search-bar-my-questionnaire {
+    width: 300px;
+    align-self: flex-end;
+  }
+
+  .my-questionnaire-container {
     display: flex;
-    width: 900px;
-    padding: 0;
-    height: 80vh;
+    align-items: center;
     flex-direction: column;
   }
-  .search-bar-my-questionnaire {
-    display: flex;
-    justify-content: flex-end;
-  }
-  .search-bar {
-    flex-basis: 50%;
-  }
-  .my-questionnaire-list-container{
+
+  .my-questionnaire-list-container {
     overflow: auto;
     padding: 10px;
+    min-width: 600px;
   }
 
 </style>

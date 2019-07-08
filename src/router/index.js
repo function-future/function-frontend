@@ -27,6 +27,7 @@ import UserForm from '@/views/Users/UserForm.vue'
 import config from '@/config/index'
 import chatrooms from '@/views/Chatrooms/Chatrooms'
 import myQuestionnaire from '@/views/Questionnaire/MyQuestionnaire'
+import myQuestionnaireAppraisee from '@/views/Questionnaire/MyQuestionnaireAppraisee'
 import questionnaires from '@/views/Questionnaire/Questionnaires'
 import questionnaireResults from '@/views/Questionnaire/QuestionnaireResults'
 
@@ -334,11 +335,19 @@ export default new Router({
       component: feeds
     },
     {
-      path: config.app.pages.myQuestionnaire,
+      path: config.app.pages.myQuestionnaire.default,
       name: 'myQuestionnaire',
       component: myQuestionnaire,
       meta: {
         title: 'My Questionnaire'
+      }
+    },
+    {
+      path: config.app.pages.myQuestionnaire.appraisee,
+      name: 'myQuestionnaireAppraisee',
+      component: myQuestionnaireAppraisee,
+      meta: {
+        title: 'My Questionnaire - Appraisee'
       }
     },
     {

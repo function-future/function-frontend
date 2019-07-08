@@ -1,5 +1,5 @@
 <template>
-    <div class="questionnaire-card-outer" :class="{ disabled:isDisable}">
+    <div class="questionnaire-card-outer" @click="$emit('click')" :class="{ disabled:isDisable}">
       <div class="questionnaire-card-content">
         <p><strong>{{ computedTitle }}</strong></p>
         <p class="questionnaire-card-content-description">
@@ -42,7 +42,7 @@
   }
 
   .disabled {
-    background-color: #c1c1c1;
+    background-color: #f3f3f3;
   }
 
   .questionnaire-card-content {
@@ -51,6 +51,7 @@
     margin-right: 5Px;
     flex-wrap: wrap;
     flex-direction: column;
+    width: 100%;
   }
 
   .questionnaire-card-content > p {
@@ -66,7 +67,7 @@
 
   .questionnaire-card-content-date {
     display: flex;
-    flex-direction: row;
+    width: 100%;
   }
 
   .placeholder-start-date {

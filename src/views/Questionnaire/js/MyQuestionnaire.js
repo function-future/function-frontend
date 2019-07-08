@@ -30,9 +30,26 @@ export default {
     ...mapMutations([
       'RESET_MY_QUESTIONNAIRE',
       'PUSH_MY_QUESTIONNAIRE'
-    ])
+    ]),
+    goToListAppraisees (questionnaireId) {
+      this.$router.push({
+        params: { questionnaireId: questionnaireId },
+        name: 'appraisee'
+      })
+    }
   },
-  destroyed () {
-    this.RESET_MY_QUESTIONNAIRES()
+  created () {
+    this.fetchMyQuestionnaires({
+      data: {
+        params: {
+          page: 1,
+          size: 10
+        }
+      },
+      fail: (err) => {
+        console.log(err)
+      }
+    }
+    )
   }
 }
