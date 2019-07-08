@@ -7,9 +7,10 @@
       <div class="my-questionnaire-list-container">
         <QuestionnaireCard v-for="item in 20"
                            :title="item.toString().concat('asdkljaslkdjaslkdjalskjd')"
-                           :desc=description
-                           :startDate=startdate
-                           :dueDate=duedate
+                           :desc="description"
+                           :startDate="startdate"
+                           :dueDate="duedate"
+                           :isDisable="duedate > Date.now()"
         ></QuestionnaireCard>
       </div>
     </BaseCard>

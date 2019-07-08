@@ -22,7 +22,8 @@ import {
   questionBankQuestionDetail
 } from '@/api-mock/mock/scoring-routes'
 import {
-  chatrooms
+  chatrooms,
+  myQuestionnnaires
 } from '@/api-mock/mock/communication-routes'
 
 const mock = new MockAdapter(axios)

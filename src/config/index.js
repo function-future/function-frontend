@@ -227,6 +227,23 @@ module.exports = {
         updateReadStatus(chatroomId, messageId) {
           return `/api/communication/chatrooms/${chatroomId}/messages/${messageId}/_read`
         }
+      },
+      myQuestionnaire: {
+        getMyquestionnnaires (page, size) {
+          return `/api/communication/my-questionnaire?page=${page}&size=${size}`
+        },
+        getListAppraisees (questionnaireId) {
+          return `api/communication/my-questionnaire/${questionnaireId}/appraisees`
+        },
+        getQuestionnaireData (questionnaireId, appraiseeId) {
+          return `api/communication/my-questionnaire/${questionnaireId}/appraisees/${appraiseeId}`
+        },
+        getQuestion (questionnaireId, appraiseeId) {
+          return `api/communication/my-questionnaire/${questionnaireId}/appraisees/${appraiseeId}/questions`
+        },
+        addQuestionnaireResponse (questionnaireId, appraiseeId) {
+          return `api/communication/my-questionnaire/${questionnaireId}/appraisees/${appraiseeId}/questions`
+        }
       }
     }
   },

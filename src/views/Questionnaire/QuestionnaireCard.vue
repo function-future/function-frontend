@@ -1,16 +1,16 @@
 <template>
-    <div class="questionnaire-card-outer">
+    <div class="questionnaire-card-outer" :class="{ disabled:isDisable}">
       <div class="questionnaire-card-content">
         <p><strong>{{ computedTitle }}</strong></p>
         <p class="questionnaire-card-content-description">
           {{ computedDescription }}
         </p>
         <div class="questionnaire-card-content-date">
-          <div class="place-start-date">
-            {{ computedStartDate}}
+          <div class="placeholder-start-date">
+            Start Date : {{ computedStartDate }}
           </div>
-          <div class="place-due-date">
-            {{ computedDueDate}}
+          <div class="placeholder-due-date">
+            Due Date : {{ computedDueDate }}
           </div>
         </div>
       </div>
@@ -41,6 +41,10 @@
     height: auto;
   }
 
+  .disabled {
+    background-color: #c1c1c1;
+  }
+
   .questionnaire-card-content {
     diplay: flex;
     margin-left: 5px;
@@ -63,5 +67,17 @@
   .questionnaire-card-content-date {
     display: flex;
     flex-direction: row;
+  }
+
+  .placeholder-start-date {
+    flex-grow: 1;
+    color: green;
+    font-weight: bold;
+  }
+
+  .placeholder-due-date {
+    flex-grow: 1;
+    color: red;
+    font-weight: bold;
   }
 </style>

@@ -10,7 +10,7 @@ export default {
     desc: String,
     startDate: Number,
     dueDate: Number,
-    isUpdate: Boolean
+    isDisable: Boolean
   },
   computed: {
     computedTitle () {

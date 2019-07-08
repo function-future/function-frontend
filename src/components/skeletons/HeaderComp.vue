@@ -33,12 +33,12 @@
         <router-link class="navbar-link" :to="{ name: 'myQuestionnaire'}" >My Questionnaire</router-link>
       </li>
       <li class="navbar-link questionnaire-menu" @click="toggleQuestionnaireMenu" v-if="!showQuestionnaire">
-        <span>Admin Questionnaire</span>
-        <font-awesome-icon icon="chevron-down" class="icon"/>
+        <span>Questionnaires Admin</span>
+        <font-awesome-icon icon="chevron-down" class="icon icon-questionnaire"/>
       </li>
       <li class="navbar-link questionnaire-menu" @click="toggleQuestionnaireMenu" v-else>
-        <span>Admin Questionnaire</span>
-        <font-awesome-icon icon="chevron-up" class="icon"/>
+        <span>Questionnaires Admin</span>
+        <font-awesome-icon icon="chevron-up" class="icon icon-questionnaire"/>
       </li>
       <transition name="fade">
         <ul v-if="showQuestionnaire" class="questionnaire-submenu">
@@ -136,7 +136,10 @@
     .grades-submenu, .questionnaire-submenu {
       font-size: 0.8em;
     }
+
   }
+
+
 
   @media only screen and (min-width: 1500px) {
     img {
@@ -149,9 +152,15 @@
       padding-top: 10px;
     }
 
-    .grades-submenu {
+    .grades-submenu, .questionnaire-submenu {
       font-size: 0.6em;
     }
 
+  }
+
+  @media only screen and (max-width: 1700px) {
+    .icon-questionnaire {
+      padding-top: 15px;
+    }
   }
 </style>
