@@ -31,6 +31,8 @@
 
   .message-content > p {
     font-size: 0.9rem;
+    -ms-word-break: break-all;
+    word-break: break-all;
   }
 
   .message-time {

@@ -54,6 +54,8 @@
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;
+    -ms-word-break: break-all;
+    word-break: break-all;
   }
 
   .message-avatar > img {

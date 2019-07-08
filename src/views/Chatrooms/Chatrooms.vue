@@ -82,7 +82,10 @@
         </div>
         <div class="chatroom-separator"></div>
         <div class="chatroom-right">
-          <div class="chatroom-title"><h2>{{ chatroomTitle }}</h2></div>
+          <div class="chatroom-title">
+            <h2>{{ chatroomTitle }}</h2>
+            <font-awesome-icon @click="updatingChatroom = true" v-if="activeChatroomType === 'GROUP'" icon="cog" class="chatroom-button-settings"/>
+          </div>
           <div id="messages-container" class="chatroom-messages">
             <infinite-loading :identifier="activeChatroomId" direction="top" @infinite="infiniteMessageHandler">
               <div slot="no-more"></div>
@@ -109,8 +112,10 @@
         </div>
       </div>
     </BaseCard>
-    <ModalCreateChatroom @close="creatingChatroom = false" v-if="creatingChatroom">
-    </ModalCreateChatroom>
+    <ModalChatroom @submit="submitNewChatroom" @close="creatingChatroom = false" v-if="creatingChatroom">
+    </ModalChatroom>
+    <ModalChatroom @submit="updateChatroom" @close="updatingChatroom = false" v-if="updatingChatroom" :chatroomId="activeChatroomId">
+    </ModalChatroom>
   </div>
 </template>
 
@@ -203,6 +208,9 @@
 
   .chatroom-title {
     height: 6vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .chatroom-title > h2 {
@@ -241,6 +249,12 @@
   .chatroom-button-add-container {
     display: flex;
     justify-content: center;
+  }
+
+  .chatroom-button-settings {
+    font-size: 1.4rem;
+    margin-right: 15px;
+    cursor: pointer;
   }
 
   ::-webkit-scrollbar {

@@ -97,7 +97,8 @@ module.exports = {
       users: {
         get (page, size, role) { return `/api/core/users?page=${page}&size=${size}&role=${role}` },
         post: '/api/core/users',
-        detail (id) { return `/api/core/users/${id}` }
+        detail (id) { return `/api/core/users/${id}` },
+        search (page, size, name) { return `/api/core/users/search?name=${name}&page=${page}&size=${size}` }
       },
       resources: {
         post (source) { return `api/core/resources?source=${source}` }
@@ -267,6 +268,12 @@ module.exports = {
       chatrooms: {
         list (type, search, page, size) {
           return `/api/communication/chatrooms?type=${type}&search=${search}&page=${page}&size=${size}`
+        },
+        getMessagesBeforePivot (messageId, chatroomId) {
+          return `/api/communication/chatrooms/${chatroomId}/messages/_before?messageId=${messageId}`
+        },
+        getMessagesAfterPivot (messageId, chatroomId) {
+          return `/api/communication/chatrooms/${chatroomId}/messages/_after?messageId=${messageId}`
         },
         getDetails (chatroomId) {
           return `/api/communication/chatrooms/${chatroomId}`

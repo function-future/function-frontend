@@ -4,6 +4,7 @@
       <input
         @input="updateValue"
         @keyup="emitKeyUp"
+        @focus="emitFocus"
         class="input-box"
         v-bind="$attrs"
         :value="value"
@@ -68,5 +69,9 @@
     -moz-border-radius: 10px;
     border-radius: 10px;
     border: 2px solid #02AAF3;
+  }
+
+  .wrong-input {
+    border: 2px solid #cb2431;
   }
 </style>
