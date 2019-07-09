@@ -41,14 +41,30 @@ export const assignments = [
       ],
       "paging": {
         "page": 1,
-        "size": 12,
+        "size": 10,
         "totalRecords": 13
       }
     }
   },
   {
     method: 'POST',
-    url: '/api/scoring/batches/futur3/assignment',
+    url: '/api/scoring/batches/futur3/assignments',
+    response: {
+      "code": 201,
+      "status": "CREATED",
+      "data": {
+        "id": "ASG0001",
+        "title": "Assignment 1",
+        "description": "Description Number 1",
+        "deadline": 1500000000,
+        "file": "function-static.com/fileName.docx",
+        "batch": 3
+      }
+    }
+  },
+  {
+    method: 'POST',
+    url: '/api/scoring/batches/sample-id-3/assignments/copy',
     response: {
       "code": 201,
       "status": "CREATED",
@@ -96,6 +112,15 @@ export const assignmentDetails = [
         "batch": 3
       }
     }
+  },
+  {
+    method: 'DELETE',
+    url: '/api/scoring/batches/futur3/assignments/ASG0001',
+    response:
+      {
+        "code": 200,
+        "status": "OK"
+      }
   }
 ]
 
@@ -275,7 +300,7 @@ export const quizzes = [
       },
       "paging": {
         "page": 1,
-        "size": 12,
+        "size": 10,
         "totalRecords": 13
       }
     }
@@ -298,6 +323,28 @@ export const quizzes = [
           "QNK0001"
         ],
         "questions": 10
+      }
+    }
+  },
+  {
+    method: 'POST',
+    url: '/api/scoring/batches/sample-id-3/quizzes/copy',
+    response: {
+      "code": 201,
+      "status": "CREATED",
+      "data": {
+        "id": "QZ0001",
+        "title": "Quiz 1",
+        "description": "Description Number 1",
+        "startDate": 15000000,
+        "endDate": 15000000,
+        "timeLimit": 3600,
+        "trials": 5,
+        "questionBankId": [
+          "QNK0001"
+        ],
+        "questionCount": 10,
+        "batchCode": "3"
       }
     }
   }
@@ -349,7 +396,7 @@ export const quizDetail = [
   },
   {
     method: 'DELETE',
-    url: '/api/scoring/batches/futur3/quizzes/QZ0001',
+    url: '/api/scoring/batches/futur3/quizzes/QZ00001',
     response: {
       "code": 200,
       "status": "OK"
@@ -377,23 +424,23 @@ export const questionBanks = [
         },
         {
           "id" : "QNK0003",
-          "title" : "Question Bank 2",
-          "description" : "Question Bank Number 2"
+          "title" : "Question Bank 3",
+          "description" : "Question Bank Number 3"
         },
         {
           "id" : "QNK0004",
-          "title" : "Question Bank 2",
-          "description" : "Question Bank Number 2"
+          "title" : "Question Bank 4",
+          "description" : "Question Bank Number 4"
         },
         {
           "id" : "QNK0005",
-          "title" : "Question Bank 2",
-          "description" : "Question Bank Number 2"
+          "title" : "Question Bank 5",
+          "description" : "Question Bank Number 5"
         }
       ],
       "paging" : {
         "page" : 1,
-        "size" : 12,
+        "size" : 10,
         "totalRecords" : 13
       }
     }
@@ -438,6 +485,14 @@ export const questionBankDetail = [
         "title": "Question Bank #2",
         "description": "Question Bank Number 2"
       }
+    }
+  },
+  {
+    method: 'DELETE',
+    url: '/api/scoring/question-banks/QNK0001',
+    response: {
+      "code": 200,
+      "status": "OK"
     }
   }
 ]
@@ -578,6 +633,14 @@ export const questionBankQuestionDetail = [
           }
         ]
       }
+    }
+  },
+  {
+    method: 'DELETE',
+    url: '/api/scoring/question-banks/QNK0001/questions/QST0001',
+    response: {
+      "code": 200,
+      "status": "OK"
     }
   }
 ]

@@ -19,14 +19,20 @@ export const mutations = {
 }
 
 export const actions = {
-  fetchQuizList ({ commit }, { data, fail }) {
-    quizApi.getQuizList(({data: response}) => {
+  fetchQuizList ({ commit }, { data, callback, fail }) {
+    quizApi.getQuizList(({data: response, paging}) => {
       commit('GET_QUIZ_LIST', response.quizzes)
+      callback && callback(paging)
     }, data, fail)
   },
   createQuiz ({ commit }, { payload, data, callback, fail }) {
     quizApi.createQuiz(() => {
       commit('SET_QUIZ', payload)
+      callback && callback()
+    }, data, payload, fail)
+  },
+  copyQuiz ({ state }, { payload, data, callback, fail }) {
+    quizApi.copyQuiz(() => {
       callback && callback()
     }, data, payload, fail)
   },
@@ -41,6 +47,11 @@ export const actions = {
       commit('SET_QUIZ', payload)
       callback && callback()
     }, data, payload, fail)
+  },
+  deleteQuizById ({ commit }, { data, callback, fail }) {
+    quizApi.deleteQuiz(() => {
+      callback && callback()
+    }, data, fail)
   },
   setSelectedBank ({ commit }, { payload }) {
     commit('SET_SELECTED_BANK', payload)
