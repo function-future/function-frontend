@@ -81,23 +81,21 @@ export default {
       delete this.img_file[pos]
     },
     validateBeforeSubmit (callback) {
-      this.$validator.validateAll().then(callback)
+      this.$validator.validateAll().then((result) => {
+        if (result) {
+          callback()
+        }
+      })
     },
     sendActivityBlog () {
+      this.validateBeforeSubmit(this.validationSuccess)
+    },
+    validationSuccess () {
       let data = {
         ...this.activityBlogDetail,
         files: this.imageIds
       }
-
-      this.validateBeforeSubmit((result) => {
-        if (result) {
-          if (this.editMode) {
-            this.sendUpdateActivityBlogData(data)
-          } else {
-            this.sendCreateActivityBlogData(data)
-          }
-        }
-      })
+      this.editMode ? this.sendUpdateActivityBlogData(data) : this.sendCreateActivityBlogData(data)
     },
     sendCreateActivityBlogData (data) {
       this.createActivityBlog({
