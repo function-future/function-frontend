@@ -235,4 +235,10 @@ describe('ActivityBlogForm', () => {
     wrapper.vm.setActivityBlogDetail()
     expect(wrapper.vm.activityBlogDetail.id).toEqual(wrapper.vm.activityBlog.id)
   })
+
+  test('$imgAdd', () => {
+    const spy = jest.spyOn(wrapper.vm, 'uploadResource')
+    wrapper.vm.$imgAdd()
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
 })

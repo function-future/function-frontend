@@ -81,12 +81,7 @@ export default {
         ...this.announcementDetail,
         files: this.imageIds
       }
-
-      if (this.editMode) {
-        this.sendUpdateAnnouncementData(data)
-      } else {
-        this.sendCreateAnnouncementData(data)
-      }
+      this.editMode ? this.sendUpdateAnnouncementData(data) : this.sendCreateAnnouncementData(data)
     },
     sendCreateAnnouncementData (data) {
       this.createAnnouncement({
