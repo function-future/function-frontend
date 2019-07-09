@@ -56,6 +56,7 @@ export default {
         title: this.activityBlog.title || '',
         description: this.activityBlog.description || ''
       }
+      this.imageIds = [ ...this.activityBlog.files.map(i => i.id) ]
     },
     $imgAdd (pos, $file) {
       let data = new FormData()
