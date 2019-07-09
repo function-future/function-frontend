@@ -165,11 +165,11 @@ describe('CourseBatch', () => {
   })
 
   test('successDeleteBatch', () => {
-    wrapper.vm.$router.push = jest.fn()
+    const spy = jest.spyOn(wrapper.vm, 'initPage')
     wrapper.vm.successDeleteBatch()
-    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'courseBatches' })
     expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
     expect(wrapper.vm.selectedId).toEqual('')
+    expect(spy).toHaveBeenCalledTimes(1)
   })
 
   test('failDeleteBatch', () => {

@@ -159,11 +159,10 @@ describe('ActivityBlogs', () => {
 
   test('successDeleteActivityBlogById', () => {
     const spy = jest.spyOn(wrapper.vm, 'closeDeleteConfirmationModal')
-    const push = jest.fn()
-    wrapper.vm.$router.push = push
+    const loadActivityBlogListSpy = jest.spyOn(wrapper.vm, 'loadActivityBlogList')
     wrapper.vm.successDeleteActivityBlogById()
-    expect(push).toHaveBeenCalledWith({ name: 'activityBlogs' })
     expect(spy).toHaveBeenCalledTimes(1)
+    expect(loadActivityBlogListSpy).toHaveBeenCalledTimes(1)
   })
 
   test('failDeleteActivityBlogById', () => {

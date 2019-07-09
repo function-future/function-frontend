@@ -90,7 +90,7 @@ export default {
       this.$toasted.error('Fail to load activity blogs list')
     },
     successDeleteActivityBlogById () {
-      this.$router.push({ name: 'activityBlogs' })
+      this.loadActivityBlogList()
       this.$toasted.success('Successfully delete activity blog')
       this.closeDeleteConfirmationModal()
     },

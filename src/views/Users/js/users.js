@@ -135,7 +135,7 @@ export default {
       })
     },
     successDeleteUserById () {
-      this.$router.push({ name: 'users' })
+      this.fetchTabList()
       this.$toasted.success('successfully delete user')
       this.closeDeleteConfirmationModal()
     },
