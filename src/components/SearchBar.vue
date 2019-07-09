@@ -17,11 +17,6 @@ export default {
       type: String
     }
   },
-  data () {
-    return {
-
-    }
-  },
   methods: {
     emitValue (value) {
       this.$emit('input', value)
