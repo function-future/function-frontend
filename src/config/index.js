@@ -131,7 +131,7 @@ module.exports = {
       },
       activityBlogs: {
         get (page, size) { return `/api/core/activity-blogs?page=${page}&size=${size}` },
-        post: 'api/core/activity-blogs',
+        post: '/api/core/activity-blogs',
         detail: {
           get (id) {
             return `/api/core/activity-blogs/${id}`

@@ -1,11 +1,7 @@
 import stickyNotesApi from '@/api/controller/sticky-notes'
 
 export const state = {
-  stickyNote: {
-    noteTitle: '',
-    noteDescription: '',
-    updatedAt: ''
-  }
+  stickyNote: {}
 }
 
 export const mutations = {
@@ -20,12 +16,7 @@ export const actions = {
   },
   fetchStickyNotes ({ commit }, { callback, fail }) {
     stickyNotesApi.getStickyNote(({ data: response }) => {
-      const data = {
-        title: response[0].title,
-        description: response[0].description,
-        updatedAt: response[0].updatedAt
-      }
-      commit('SET_STICKY_NOTES_INFO', data)
+      commit('SET_STICKY_NOTES_INFO', response)
       callback()
     }, fail)
   },

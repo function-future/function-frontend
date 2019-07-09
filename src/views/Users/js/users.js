@@ -70,7 +70,7 @@ export default {
       let data = {
         page: this.paging.page,
         size: this.paging.size,
-        role: this.currentTab
+        role: this.currentTab.toUpperCase()
       }
       this.fetchUsersByRole({
         data,
