@@ -39,7 +39,6 @@ export default {
       this.initialState()
       if (this.editMode) {
         this.getActivityBlogDetail()
-        this.setActivityBlogDetail()
       }
     },
     getActivityBlogDetail () {
@@ -47,7 +46,7 @@ export default {
       let data = { ...id }
       this.fetchActivityBlogById({
         data,
-        callback: () => {},
+        callback: this.setActivityBlogDetail,
         fail: this.failFetchActivityBlogById
       })
     },
