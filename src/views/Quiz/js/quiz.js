@@ -57,7 +57,6 @@ export default {
     },
     successFetchingQuizList (paging) {
       this.paging = paging
-      console.log(this.quizList)
     },
     failFetchingQuizList () {
       this.$toasted.error('Something went wrong')
