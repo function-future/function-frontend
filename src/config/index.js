@@ -164,7 +164,7 @@ module.exports = {
           }
         },
         get (code, page, size) { return `/api/core/batches/${code}/courses?page=${page}&size=${size}` },
-        post (code) { return `api/core/batches/${code}/courses` },
+        post (code) { return `/api/core/batches/${code}/courses` },
         detail: {
           get (code, id) {
             return `/api/core/batches/${code}/courses/${id}`
