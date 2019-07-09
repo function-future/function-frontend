@@ -2,7 +2,7 @@
   <div class="my-questionnaire-outer">
     <div class="my-questionnaire-container">
       <div class="search-bar-my-questionnaire">
-        <SearchBar class="search-bar"/>
+        <SearchBar/>
       </div>
       <div class="my-questionnaire-list-container">
         <QuestionnaireCard v-for="myQuestionnaire in myQuestionnaires"

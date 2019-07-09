@@ -12,10 +12,6 @@ export default {
   },
   data () {
     return {
-      test: 'Helloworld',
-      description: 'abcdefghijklaksdmfnasodiflkasdnfilaskdfialsdkfnoiasdlfknaisldfkskdfjiasdlfkjasoidfjlkasjdiflaskdjfilaskdfjiwoa;ldfkapsdfoasdasdasdasdasdjaslkdfjieslaimdflkmvklasjdifalsdkfmjasielamsdlfkmsaidflisajdflkjaisdld;laskd;lask;ldk',
-      startdate: 1562319329000,
-      duedate: 1562492129000
     }
   },
   computed: {
@@ -33,8 +29,8 @@ export default {
     ]),
     goToListAppraisees (questionnaireId) {
       this.$router.push({
-        params: { questionnaireId: questionnaireId },
-        name: 'appraisee'
+        name: 'myQuestionnaireAppraisee',
+        params: { questionnaireId: questionnaireId }
       })
     }
   },
