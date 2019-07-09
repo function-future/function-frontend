@@ -6,6 +6,9 @@ import {
   announcementDetails,
   activityBlogs,
   activityBlogDetail,
+  courses,
+  discussions,
+  batches,
   resources,
   users
 
@@ -19,8 +22,12 @@ import {
   questionBanks,
   questionBankDetail,
   questionBankQuestions,
-  questionBankQuestionDetail
+  questionBankQuestionDetail,
+  points
 } from '@/api-mock/mock/scoring-routes'
+import {
+  chatrooms
+} from '@/api-mock/mock/communication-routes'
 
 const mock = new MockAdapter(axios)
 
@@ -32,65 +39,85 @@ const methodMap = {
 }
 
 stickyNotes.forEach(data => {
-  mock[methodMap[data.method]](data.url).reply(200, data)
+  mock[methodMap[data.method]](data.url).reply(200, data.response)
 })
 
 announcements.forEach(data => {
-  mock[methodMap[data.method]](data.url).reply(200, data)
+  mock[methodMap[data.method]](data.url).reply(200, data.response)
 })
 
 announcementDetails.forEach(data => {
+  mock[methodMap[data.method]](data.url).reply(200, data.response)
+})
+
+chatrooms.forEach(data => {
   mock[methodMap[data.method]](data.url).reply(200, data)
 })
 
 activityBlogs.forEach(data => {
-  mock[methodMap[data.method]](data.url).reply(200, data)
+  mock[methodMap[data.method]](data.url).reply(200, data.response)
 })
 
 activityBlogDetail.forEach(data => {
-  mock[methodMap[data.method]](data.url).reply(200, data)
+  mock[methodMap[data.method]](data.url).reply(200, data.response)
 })
 
 resources.forEach(data => {
-  mock[methodMap[data.method]](data.url).reply(200, data)
+  mock[methodMap[data.method]](data.url).reply(200, data.response)
 })
 
 users.forEach(data => {
-  mock[methodMap[data.method]](data.url).reply(200, data)
+  mock[methodMap[data.method]](data.url).reply(200, data.response)
+})
+
+courses.forEach(data => {
+  mock[methodMap[data.method]](data.url).reply(200, data.response)
+})
+
+batches.forEach(data => {
+  mock[methodMap[data.method]](data.url).reply(200, data.response)
+})
+
+discussions.forEach(data => {
+  mock[methodMap[data.method]](data.url).reply(200, data.response)
 })
 
 assignments.forEach(data => {
-  mock[methodMap[data.method]] (data.url).reply(200, data)
+  mock[methodMap[data.method]] (data.url).reply(200, data.response)
 })
 
 assignmentDetails.forEach(data => {
-  mock[methodMap[data.method]] (data.url).reply(200, data)
+  mock[methodMap[data.method]] (data.url).reply(200, data.response)
 })
 
 assignmentRooms.forEach(data => {
-  mock[methodMap[data.method]] (data.url).reply(200, data)
+  mock[methodMap[data.method]] (data.url).reply(200, data.response)
 })
 
 quizzes.forEach(data => {
-  mock[methodMap[data.method]] (data.url).reply(200, data)
+  mock[methodMap[data.method]] (data.url).reply(200, data.response)
 })
 
 quizDetail.forEach(data => {
-  mock[methodMap[data.method]] (data.url).reply(200, data)
+  mock[methodMap[data.method]] (data.url).reply(200, data.response)
 })
 
 questionBanks.forEach(data => {
-  mock[methodMap[data.method]] (data.url).reply(200, data)
+  mock[methodMap[data.method]] (data.url).reply(200, data.response)
 })
 
 questionBankDetail.forEach(data => {
-  mock[methodMap[data.method]] (data.url).reply(200, data)
+  mock[methodMap[data.method]] (data.url).reply(200, data.response)
 })
 
 questionBankQuestions.forEach(data => {
-  mock[methodMap[data.method]] (data.url).reply(200, data)
+  mock[methodMap[data.method]] (data.url).reply(200, data.response)
 })
 
 questionBankQuestionDetail.forEach(data => {
-  mock[methodMap[data.method]] (data.url).reply(200, data)
+  mock[methodMap[data.method]] (data.url).reply(200, data.response)
+})
+
+points.forEach(data => {
+  mock[methodMap[data.method]] (data.url).reply(200, data.response)
 })

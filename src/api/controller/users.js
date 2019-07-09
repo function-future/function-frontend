@@ -2,7 +2,11 @@ import request from '../default-request'
 import config from '@/config/index'
 
 const getUserList = function (callback, data, errorHandler) {
-  request.getRequest(config.api.core.users.get(data.page, data.size, data.role), callback, data, errorHandler)
+  request.getRequest(config.api.core.users.get(data.page, data.size, data.role), callback, errorHandler)
+}
+
+const searchUser = function (callback, data, errorHandler) {
+  request.getRequest(config.api.core.users.search(data.params.page, data.params.size, data.params.name), callback, data, errorHandler)
 }
 
 const getUserDetail = function (callback, data, errorHandler) {
@@ -23,6 +27,7 @@ const deleteUser = function (callback, data, errorHandler) {
 
 export default {
   getUserList,
+  searchUser,
   getUserDetail,
   createUser,
   updateUser,

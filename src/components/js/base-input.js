@@ -15,6 +15,12 @@ export default {
   methods: {
     updateValue (event) {
       this.$emit('input', event.target.value)
+    },
+    emitKeyUp (event) {
+      this.$emit('keyup', event)
+    },
+    emitFocus (event) {
+      this.$emit('focus', event)
     }
   }
 }

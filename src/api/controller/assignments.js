@@ -13,13 +13,23 @@ const createAssignment = function (callback, data, payload, errorHandler) {
   request.postRequest(config.api.scoring.assignments.create(data.batchCode), callback, payload, errorHandler)
 }
 
+const copyAssignment = function (callback, data, payload, errorHandler) {
+  request.postRequest(config.api.scoring.assignments.copy(data.batchCode), callback, payload, errorHandler)
+}
+
 const updateAssignment = function (callback, data, payload, errorHandler) {
   request.putRequest(config.api.scoring.assignments.update(data.batchCode, data.id), callback, payload, errorHandler)
+}
+
+const deleteAssignment = function (callback, data, errorHandler) {
+  request.deleteRequest(config.api.scoring.assignments.delete(data.batchCode, data.id), callback, errorHandler)
 }
 
 export default {
   getAssignmentsList,
   getAssignmentById,
   createAssignment,
-  updateAssignment
+  copyAssignment,
+  updateAssignment,
+  deleteAssignment
 }

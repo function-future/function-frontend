@@ -9,7 +9,7 @@ describe('controller', () => {
     const callback = jest.fn()
     const errorHandler = jest.fn()
 
-    const paging = { page: 0, size: 10 }
+    const paging = { page: 1, size: 10 }
     const data = { ...paging }
     api.getAnnouncementList(callback, data, errorHandler)
 

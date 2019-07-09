@@ -33,12 +33,14 @@ describe('actions', () => {
       })
     }
     const data = {
-      page: 0,
+      page: 1,
       pageSize: 10
     }
     const commit = jest.fn()
     const fail = jest.fn()
-    store.actions.fetchQuestionBankList({ commit }, { data, fail })
+    const callback = jest.fn()
+    store.actions.fetchQuestionBankList({ commit }, { data, callback, fail })
+    expect(callback).toHaveBeenCalledTimes(1)
     expect(fail).not.toBeCalled()
     expect(commit).toBeCalledTimes(1)
     expect(commit).toHaveBeenCalledWith('GET_QUESTION_BANK_LIST', [

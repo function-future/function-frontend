@@ -18,7 +18,10 @@
                   v-for="announcement in announcements"
                   v-bind:key="announcement.id"
                   @click.native.stop="goToAnnouncementDetail(announcement.id)">
-          <h4>{{ announcement.title }}</h4>
+          <div class="announcement-header-row">
+            <div class="announcement-title-col"><h4>{{ announcement.title }}</h4></div>
+            <div class="announcement-date-col"><span>{{ announcement.updatedAt | moment("dddd, MMMM Do YYYY") }}</span></div>
+          </div>
           <div class="announcement-box-content">
             <span>{{ announcement.description }}</span>
           </div>
@@ -76,5 +79,18 @@
     margin: 0 0 15px 0;
     border: 1px solid #828282;
     cursor: pointer;
+  }
+
+  .announcement-header-row {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .announcement-title-col {
+    flex-grow: 1;
+  }
+
+  .announcement-date-col {
+    font-size: 12px;
   }
 </style>

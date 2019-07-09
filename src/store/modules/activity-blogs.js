@@ -20,9 +20,9 @@ export const actions = {
     commit('SET_ACTIVITY_BLOGS', [])
   },
   fetchActivityBlogs ({ commit }, { data, callback, fail }) {
-    activityBlogApi.getActivityBlogList(({ data: response }) => {
+    activityBlogApi.getActivityBlogList(({ data: response, paging }) => {
       commit('SET_ACTIVITY_BLOGS', response)
-      callback()
+      callback(paging)
     }, data, fail)
   },
   fetchActivityBlogById ({ commit }, { data, callback, fail }) {

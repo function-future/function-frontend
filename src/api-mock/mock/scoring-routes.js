@@ -1,7 +1,7 @@
 export const assignments = [
   {
     method: 'GET',
-    url: '/api/scoring/batches/futur3/assignments?page=0&size=10',
+    url: '/api/scoring/batches/futur3/assignments?page=1&size=10',
     response: {
       "code": 200,
       "status": "OK",
@@ -41,14 +41,30 @@ export const assignments = [
       ],
       "paging": {
         "page": 1,
-        "size": 12,
+        "size": 10,
         "totalRecords": 13
       }
     }
   },
   {
     method: 'POST',
-    url: '/api/scoring/batches/futur3/assignment',
+    url: '/api/scoring/batches/futur3/assignments',
+    response: {
+      "code": 201,
+      "status": "CREATED",
+      "data": {
+        "id": "ASG0001",
+        "title": "Assignment 1",
+        "description": "Description Number 1",
+        "deadline": 1500000000,
+        "file": "function-static.com/fileName.docx",
+        "batch": 3
+      }
+    }
+  },
+  {
+    method: 'POST',
+    url: '/api/scoring/batches/sample-id-3/assignments/copy',
     response: {
       "code": 201,
       "status": "CREATED",
@@ -96,6 +112,15 @@ export const assignmentDetails = [
         "batch": 3
       }
     }
+  },
+  {
+    method: 'DELETE',
+    url: '/api/scoring/batches/futur3/assignments/ASG0001',
+    response:
+      {
+        "code": 200,
+        "status": "OK"
+      }
   }
 ]
 
@@ -209,7 +234,7 @@ export const assignmentRooms = [
 export const quizzes = [
   {
     method: 'GET',
-    url: '/api/scoring/batches/futur3/quizzes?page=0&size=10',
+    url: '/api/scoring/batches/futur3/quizzes?page=1&size=10',
     response: {
       "code": 200,
       "status": "OK",
@@ -275,14 +300,14 @@ export const quizzes = [
       },
       "paging": {
         "page": 1,
-        "size": 12,
+        "size": 10,
         "totalRecords": 13
       }
     }
   },
   {
     method: 'POST',
-    url: '/api/scoring/batches/batchCode/quizzes',
+    url: '/api/scoring/batches/futur3/quizzes',
     response: {
       "code": 201,
       "status": "CREATED",
@@ -298,6 +323,28 @@ export const quizzes = [
           "QNK0001"
         ],
         "questions": 10
+      }
+    }
+  },
+  {
+    method: 'POST',
+    url: '/api/scoring/batches/sample-id-3/quizzes/copy',
+    response: {
+      "code": 201,
+      "status": "CREATED",
+      "data": {
+        "id": "QZ0001",
+        "title": "Quiz 1",
+        "description": "Description Number 1",
+        "startDate": 15000000,
+        "endDate": 15000000,
+        "timeLimit": 3600,
+        "trials": 5,
+        "questionBankId": [
+          "QNK0001"
+        ],
+        "questionCount": 10,
+        "batchCode": "3"
       }
     }
   }
@@ -349,7 +396,7 @@ export const quizDetail = [
   },
   {
     method: 'DELETE',
-    url: '/api/scoring/batches/futur3/quizzes/QZ0001',
+    url: '/api/scoring/batches/futur3/quizzes/QZ00001',
     response: {
       "code": 200,
       "status": "OK"
@@ -360,7 +407,7 @@ export const quizDetail = [
 export const questionBanks = [
   {
     method: 'GET',
-    url: '/api/scoring/question-banks?page=0&size=10',
+    url: '/api/scoring/question-banks?page=1&size=10',
     response: {
       "code" : 200,
       "status" : "OK",
@@ -374,11 +421,26 @@ export const questionBanks = [
           "id" : "QNK0002",
           "title" : "Question Bank 2",
           "description" : "Question Bank Number 2"
+        },
+        {
+          "id" : "QNK0003",
+          "title" : "Question Bank 3",
+          "description" : "Question Bank Number 3"
+        },
+        {
+          "id" : "QNK0004",
+          "title" : "Question Bank 4",
+          "description" : "Question Bank Number 4"
+        },
+        {
+          "id" : "QNK0005",
+          "title" : "Question Bank 5",
+          "description" : "Question Bank Number 5"
         }
       ],
       "paging" : {
         "page" : 1,
-        "size" : 12,
+        "size" : 10,
         "totalRecords" : 13
       }
     }
@@ -423,6 +485,14 @@ export const questionBankDetail = [
         "title": "Question Bank #2",
         "description": "Question Bank Number 2"
       }
+    }
+  },
+  {
+    method: 'DELETE',
+    url: '/api/scoring/question-banks/QNK0001',
+    response: {
+      "code": 200,
+      "status": "OK"
     }
   }
 ]
@@ -560,6 +630,69 @@ export const questionBankQuestionDetail = [
             "id": "OPT0004",
             "optionText": "Answer Example 1-4",
             "correct": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    method: 'DELETE',
+    url: '/api/scoring/question-banks/QNK0001/questions/QST0001',
+    response: {
+      "code": 200,
+      "status": "OK"
+    }
+  }
+]
+
+export const points = [
+  {
+    method: 'GET',
+    url: '/api/students/sample-id/points',
+    response: {
+      "code": 200,
+      "status": "OK",
+      "data": {
+        "studentName": "Student 1",
+        "batchCode": "3",
+        "university": "University 1",
+        "avatar": "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
+        "scores": [
+          {
+            "id": "QZ0001",
+            "title": "Quiz 1",
+            "type": "QUIZ",
+            "point": 80
+          },
+          {
+            "id": "QZ0002",
+            "title": "Quiz 2",
+            "type": "QUIZ",
+            "point": 100
+          },
+          {
+            "id": "QZ0003",
+            "title": "Quiz 3",
+            "type": "QUIZ",
+            "point": 70
+          },
+          {
+            "id": "ASG0001",
+            "title": "Assignment 1",
+            "type": "ASSIGNMENT",
+            "point": 80
+          },
+          {
+            "id": "ASG0002",
+            "title": "Assignment 2",
+            "type": "ASSIGNMENT",
+            "point": 30
+          },
+          {
+            "id": "ASG0003",
+            "title": "Assignment 3",
+            "type": "ASSIGNMENT",
+            "point": 100
           }
         ]
       }

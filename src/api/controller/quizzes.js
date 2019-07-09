@@ -13,6 +13,10 @@ const createQuiz = function (callback, data, payload, errorHandler) {
   request.postRequest(config.api.scoring.quiz.create(data.batchCode), callback, payload, errorHandler)
 }
 
+const copyQuiz = function (callback, data, payload, errorHandler) {
+  request.postRequest(config.api.scoring.quiz.copy(data.batchCode), callback, payload, errorHandler)
+}
+
 const updateQuiz = function (callback, data, payload, errorHandler) {
   request.putRequest(config.api.scoring.quiz.update(data.batchCode, data.id), callback, payload, errorHandler)
 }
@@ -25,6 +29,7 @@ export default {
   getQuizList,
   getQuizById,
   createQuiz,
+  copyQuiz,
   updateQuiz,
   deleteQuiz
 }

@@ -25,5 +25,27 @@ module.exports = {
         }
       }
     }
+    else if (process.env.NODE_ENV === 'dev-nomock') {
+      return {
+        mode: 'development',
+        optimization: {
+          runtimeChunk: 'single',
+          splitChunks: {
+            chunks: 'all'
+          }
+        },
+        devServer: {
+          hot: false,
+          port: 10001,
+          proxy: {
+            '^/api': {
+              target: 'http://localhost:8080',
+              ws: true,
+              changeOrigin: true
+            }
+          }
+        }
+      }
+    }
   }
 }

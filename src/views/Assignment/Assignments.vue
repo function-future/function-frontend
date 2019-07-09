@@ -10,8 +10,29 @@
               :key="assignment.id"
               @click.native="goToAssignmentDetail(assignment.id, assignment.batch)"
               cardClass="card-hover">
-      <div class="card-header">
-        {{assignment.title}}
+      <div class="card-header-section">
+        <div class="card-header">
+          {{assignment.title}}
+        </div>
+        <div class="float-right">
+          <div class="assignment-date">
+            {{ assignment.uploadedDate |  moment("dddd, MMMM Do YYYY") }}
+          </div>
+          <div class="assignment-action">
+            <font-awesome-icon
+              icon="copy"
+              class="icon blue"
+              size="lg"
+              @click.stop="openCopyModal(assignment.id)">
+            </font-awesome-icon>
+            <span>
+            <font-awesome-icon
+              icon="trash-alt"
+              class="icon red"
+              size="lg"
+              @click.stop="openDeleteConfirmationModal(assignment.id)"></font-awesome-icon></span>
+          </div>
+        </div>
       </div>
       <div class="card-body">
         <div class="assignment-description">
@@ -33,6 +54,20 @@
         </div>
       </div>
     </BaseCard>
+    <BasePagination :paging="paging"
+                    @loadPage="loadPage"
+                    @previousPage="loadPreviousPage"
+                    @nextPage="loadNextPage">
+    </BasePagination>
+    <modal-delete-confirmation v-if="showDeleteConfirmationModal"
+                               @close="closeDeleteConfirmationModal"
+                               @clickDelete="deleteThisAssignment">
+      <div slot="description">{{selectedId}}</div>
+    </modal-delete-confirmation>
+    <modal-copy v-if="showCopyModal"
+                     @close="closeCopyModal"
+                     @copy="submitCopyModal">
+    </modal-copy>
   </div>
 </template>
 
@@ -62,9 +97,43 @@
     justify-self: flex-end;
     margin-left: auto;
   }
+  .card-header-section {
+    display: inline-block;
+  }
   .card-header {
+    display: inline-block;
     font-weight: bolder;
     font-size: 1.4em;
+  }
+  .float-right {
+    display: inline-block;
+    float: right;
+  }
+  .assignment-date {
+    padding: 5px 15px 5px 5px;
+    display: inline-block;
+  }
+  .assignment-action {
+    border-left: 1px solid #BDBDBD;
+    padding-left: 15px;
+    display: inline-block;
+  }
+  .assignment-action-copy {
+    display: inline-block;
+    font-size: unset;
+    font-weight: normal;
+  }
+  .assignment-action span {
+    padding: 5px;
+    transition: all .2s ease;
+  }
+
+  .assignment-action span:hover {
+    opacity: 0.8;
+  }
+
+  .assignment-action span:active {
+    opacity: 0.9;
   }
   .card-body {
     display: flex;

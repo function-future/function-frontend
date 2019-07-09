@@ -4,6 +4,9 @@ export default {
   props: {
     buttonClass: {
       type: String
+    },
+    disabled: {
+      type: Boolean
     }
   }
 }

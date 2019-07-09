@@ -13,7 +13,7 @@ export default {
       stickyNote: {},
       announcements: [],
       paging: {
-        page: 0,
+        page: 1,
         size: 10
       }
     }
