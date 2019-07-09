@@ -8,7 +8,7 @@ describe('actions', () => {
     expect(true).toBe(true)
   })
 
-  test('Fetch CHatrooms', () => {
+  test('Fetch Chatrooms', () => {
     api.getChatrooms = (success) => {
       success({
         code: 200,

@@ -49,6 +49,6 @@ export default {
   methods: {
     toDateList (time) {
       return [moment(time).year(), moment(time).month(), moment(time).date()]
-    },
+    }
   }
 }
