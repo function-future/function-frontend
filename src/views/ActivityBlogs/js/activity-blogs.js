@@ -46,7 +46,7 @@ export default {
       })
     },
     compileToMarkdown: function (description) {
-      return marked(description)
+      return marked(description.replace(/\!\[.*\]\(.*\)/,''))
     },
     goToActivityBlogDetail (id) {
       this.$router.push({
