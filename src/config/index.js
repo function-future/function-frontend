@@ -104,7 +104,7 @@ module.exports = {
         search (page, size, name) { return `/api/core/users/search?name=${name}&page=${page}&size=${size}` }
       },
       resources: {
-        post (source) { return `api/core/resources?source=${source}` }
+        post (origin) { return `/api/core/resources?origin=${origin}` }
       },
       stickyNotes: {
         get: '/api/core/sticky-notes',
@@ -156,7 +156,7 @@ module.exports = {
       courses: {
         master: {
           get (page, size) { return `/api/core/courses?page=${page}&size=${size}` },
-          post: 'api/core/courses',
+          post: '/api/core/courses',
           detail: {
             get (id) { return `/api/core/courses/${id}` },
             update (id) { return `/api/core/courses/${id}` },
