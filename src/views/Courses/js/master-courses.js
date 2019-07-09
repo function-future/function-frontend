@@ -136,6 +136,7 @@ export default {
     successSubmitCopyCourse () {
       this.selectedIds = []
       this.showCopyCourseModal = false
+      this.$toasted.success('Successfully copy course')
     },
     failSubmitCopyCourse () {
       this.showCopyCourseModal = false
