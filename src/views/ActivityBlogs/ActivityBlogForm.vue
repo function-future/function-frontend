@@ -5,7 +5,7 @@
         <BaseInput autofocus
                    class="input-title"
                    inputType="title"
-                   v-model="activityBlog.title"
+                   v-model="activityBlogDetail.title"
                    placeholder="Activity Blog Title"
                    v-validate.disable="'required'"
                    name="title"></BaseInput>
@@ -15,7 +15,7 @@
         <mavon-editor class="editor"
                       placeholder="Activity Blog Description"
                       language="en"
-                      v-model="activityBlog.description"
+                      v-model="activityBlogDetail.description"
                       v-validate.disable="'required'"
                       name="description"
                       ref=md

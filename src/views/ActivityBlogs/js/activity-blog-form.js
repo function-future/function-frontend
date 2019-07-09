@@ -12,7 +12,8 @@ export default {
   data () {
     return {
       activityBlogDetail: {},
-      img_file: {}
+      img_file: {},
+      imageIds: []
     }
   },
   props: [
@@ -59,7 +60,7 @@ export default {
     },
     $imgAdd (pos, $file) {
       let data = new FormData()
-      data.append('image', $file)
+      data.append('file', $file)
       this.img_file[pos] = $file
       let configuration = { headers: { 'Content-Type': 'multipart/form-data' } }
 
@@ -68,6 +69,7 @@ export default {
         configuration,
         callback: (response) => {
           this.$refs.md.$img2Url(pos, response.file.full)
+          this.imageIds.push(response.id)
         },
         fail: this.failUploadResource
       })
@@ -82,8 +84,10 @@ export default {
       this.$validator.validateAll().then(callback)
     },
     sendActivityBlog () {
-      this.setActivityBlogDetail()
-      let data = { ...this.activityBlogDetail }
+      let data = {
+        ...this.activityBlogDetail,
+        files: this.imageIds
+      }
 
       this.validateBeforeSubmit((result) => {
         if (result) {
