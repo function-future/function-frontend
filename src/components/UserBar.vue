@@ -1,16 +1,24 @@
 <template>
   <div>
-    <div class="block" v-bind:class="{'block-extend': isExtend, 'block-shrink': isExtend === false}">
-      <div class="block-list disable-selection">
-        <font-awesome-icon icon="user-circle" class="icon" /> Karnando
+    <div class="block" v-bind:class="{'block-extend': isExtend, 'block-shrink': isExtend === false, 'login': !loggedIn}"
+         @click="login">
+      <div v-if="loggedIn">
+        <div class="block-list disable-selection">
+          <font-awesome-icon icon="user-circle" class="icon" /> {{ firstName }}
+        </div>
+        <div class="more-block">
+          <span class="more-menu" v-on:click="extendUserBar" v-show="!isExtend">
+            <font-awesome-icon icon="chevron-down" class="icon"/>
+          </span>
+          <span class="more-menu" v-on:click="shrinkUserBar" v-show="isExtend">
+            <font-awesome-icon icon="chevron-up" class="icon" />
+          </span>
+        </div>
       </div>
-      <div class="more-block">
-        <span class="more-menu" v-on:click="extendUserBar" v-show="!isExtend">
-          <font-awesome-icon icon="chevron-down" class="icon"/>
-        </span>
-        <span class="more-menu" v-on:click="shrinkUserBar" v-show="isExtend">
-          <font-awesome-icon icon="chevron-up" class="icon" />
-        </span>
+      <div v-else>
+        <div class="login block-list disable-selection">
+          <font-awesome-icon icon="sign-in-alt" class="login-icon" /> Login
+        </div>
       </div>
       <transition name="fade" >
         <div class="block-list disable-selection" v-if="isExtend">
@@ -18,7 +26,7 @@
         </div>
       </transition>
       <transition name="fade">
-        <div class="block-list disable-selection" v-if="isExtend">
+        <div class="block-list disable-selection" v-if="isExtend" @click="logout">
           <font-awesome-icon icon="sign-out-alt" class="icon" /> Logout
         </div>
       </transition>
@@ -49,6 +57,8 @@
   }
 
   .block {
+    display: flex;
+    flex-direction: column;
     width: 260px;
     height: 50px;
     background: #FFFFFF;
@@ -109,6 +119,14 @@
 
   .icon {
     margin-right: 5px;
+  }
+
+  .login {
+    width: 200px;
+  }
+
+  .login-icon {
+    margin-right: 35px;
   }
 
   .fade-enter-active {
