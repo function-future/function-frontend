@@ -3,7 +3,7 @@
     <div class="profile-section">
       <BaseCard :style="{height: '100%'}" class="profile-section__card">
         <div class="profile-section__card-image">
-          <img :src="points.avatar" alt="Image not available">
+          <img :src="points.avatar" alt="Image not available" width="100px" height="120px" style="margin-right: 20px; border-radius: 8px">
         </div>
         <div class="profile-section__card-detail">
           <h2>{{points.studentName}}</h2>

@@ -13,74 +13,73 @@ describe('actions', () => {
       success({
         "code": 200,
         "status": "OK",
-        "data": {
-          "quizzes": [
-            {
-              "id": "QZ00001",
-              "title": "Quiz Number 1",
-              "description": "Description Number 1",
-              "startDate": 15000000,
-              "endDate": 15000000,
-              "timeLimit": 3600,
-              "trials": 3,
-              "questionCount": 10,
-              "questionBanks": [
-                "QNK00001"
-              ],
-              "batch": 3
-            },
-            {
-              "id": "QZ00002",
-              "title": "Quiz Number 2",
-              "description": "Description Number 2",
-              "startDate": 15000000,
-              "endDate": 15000000,
-              "timeLimit": 3600,
-              "trials": 3,
-              "questionCount": 10,
-              "questionBanks": [
-                "QNK00001"
-              ],
-              "batch": 3
-            },
-            {
-              "id": "QZ00003",
-              "title": "Quiz Number 3",
-              "description": "Description Number 3",
-              "startDate": 15000000,
-              "endDate": 15000000,
-              "timeLimit": 3600,
-              "trials": 3,
-              "questionCount": 10,
-              "questionBanks": [
-                "QNK00001"
-              ],
-              "batch": 3
-            },
-            {
-              "id": "QZ00004",
-              "title": "Quiz Number 4",
-              "description": "Description Number 4",
-              "startDate": 15000000,
-              "endDate": 15000000,
-              "timeLimit": 3600,
-              "trials": 3,
-              "questionCount": 10,
-              "questionBanks": [
-                "QNK00001"
-              ],
-              "batch": 3
-            }
-          ]
-        },
+        "data": [
+          {
+            "id": "QZ00001",
+            "title": "Quiz Number 1",
+            "description": "Description Number 1",
+            "startDate": 15000000,
+            "endDate": 15000000,
+            "timeLimit": 3600,
+            "trials": 3,
+            "questionCount": 10,
+            "questionBanks": [
+              "QNK00001"
+            ],
+            "batch": 3
+          },
+          {
+            "id": "QZ00002",
+            "title": "Quiz Number 2",
+            "description": "Description Number 2",
+            "startDate": 15000000,
+            "endDate": 15000000,
+            "timeLimit": 3600,
+            "trials": 3,
+            "questionCount": 10,
+            "questionBanks": [
+              "QNK00001"
+            ],
+            "batch": 3
+          },
+          {
+            "id": "QZ00003",
+            "title": "Quiz Number 3",
+            "description": "Description Number 3",
+            "startDate": 15000000,
+            "endDate": 15000000,
+            "timeLimit": 3600,
+            "trials": 3,
+            "questionCount": 10,
+            "questionBanks": [
+              "QNK00001"
+            ],
+            "batch": 3
+          },
+          {
+            "id": "QZ00004",
+            "title": "Quiz Number 4",
+            "description": "Description Number 4",
+            "startDate": 15000000,
+            "endDate": 15000000,
+            "timeLimit": 3600,
+            "trials": 3,
+            "questionCount": 10,
+            "questionBanks": [
+              "QNK00001"
+            ],
+            "batch": 3
+          }
+        ],
         "paging": {
           "page": 1,
-          "size": 12,
+          "size": 10,
           "totalRecords": 13
         }
       })
     }
     const data = {
+
       batchCode: 'futur3',
       page: 1,
       pageSize: 10

@@ -26,7 +26,7 @@ export default {
     initPage () {
       this.fetchPointList({
         data: {
-          studentId: 'sample-id' //TODO: CURRENTLY HARDCODED
+          studentId: '5d1db5dcc299ea1fc8596234' //TODO: CURRENTLY HARDCODED
         },
         fail: this.failFetchingPointList
       })
