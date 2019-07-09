@@ -56,7 +56,7 @@
             <div class="detail-card__caption">Participant</div>
             <input type="text"
                    class="detail-card__content"
-                   v-model="quizDetail.batch"
+                   v-model="quizDetail.batchCode"
                    :disabled="!editMode"/>
           </BaseCard>
           <!--TODO Change this to baseSelect after core team made API call for batches-->

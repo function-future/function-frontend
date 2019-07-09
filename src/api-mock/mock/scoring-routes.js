@@ -238,8 +238,7 @@ export const quizzes = [
     response: {
       "code": 200,
       "status": "OK",
-      "data": {
-        "quizzes": [
+      "data": [
           {
             "id": "QZ00001",
             "title": "Quiz Number 1",
@@ -296,8 +295,7 @@ export const quizzes = [
             ],
             "batch": 3
           }
-        ]
-      },
+        ],
       "paging": {
         "page": 1,
         "size": 10,

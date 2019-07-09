@@ -269,7 +269,7 @@ module.exports = {
       },
       points: {
         list(studentId) {
-          return `/api/students/${studentId}/points`
+          return `/api/scoring/summary/${studentId}`
         }
       }
     },

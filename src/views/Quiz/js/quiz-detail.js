@@ -21,7 +21,7 @@ export default {
         endDate: new Date(),
         timeLimit: 0,
         trials: 0,
-        batch: '',
+        batchCode: '',
         questionCount: 0
       }
     }
@@ -68,10 +68,11 @@ export default {
     },
     actionButtonClicked () {
       if (this.editMode) {
+        this.quizDetail.endDate = new Date(this.quizDetail.endDate).getTime()
         this.updateQuizDetail({
           payload: this.quizDetail,
           data: {
-            batchCode: this.$route.query.batchCode,
+            batchCode: this.quizDetail.batchCode,
             id: this.$route.params.quizId
           },
           callback: this.successUpdatingQuiz,

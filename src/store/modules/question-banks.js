@@ -49,6 +49,7 @@ export const actions = {
   },
   fetchQuestionBankQuestionList ({ commit }, { data, fail }) {
     questionBankApi.getQuestionList(({data: response}) => {
+      console.log(response)
       commit('SET_QUESTION_LIST', response)
     }, data, fail)
   },
