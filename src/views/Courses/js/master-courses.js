@@ -36,10 +36,7 @@ export default {
   computed: {
     ...mapGetters([
       'masterCourseList'
-    ]),
-    isMaximumPage () {
-      return Math.ceil(this.paging.totalRecords / this.paging.size) === this.paging.page
-    }
+    ])
   },
   created () {
   },
@@ -63,11 +60,11 @@ export default {
     successFetchMasterCourses (response, paging) {
       this.paging = paging
       this.masterCourses.push(...response)
-      if (this.isMaximumPage) {
-        this.state.complete()
-      } else {
+      if (response.length) {
         this.paging.page++
         this.state.loaded()
+      } else {
+        this.state.complete()
       }
     },
     failFetchMasterCourses () {
