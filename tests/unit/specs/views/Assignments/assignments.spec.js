@@ -110,11 +110,16 @@ describe('Assignment', () => {
     expect(spy).toHaveBeenCalledTimes(1)
   })
 
-  // test('initPage', () => {
-  //   initComponent()
-  //   const spy = jest.spyOn(store.actions, 'fetchAssignmentList')
-  //   expect(spy).toHaveBeenCalledTimes(1)
-  // })
+  test('successFetchingAssignmentList', () => {
+    initComponent()
+    const payload = {
+      "page": 1,
+      "size": 10,
+      "totalRecords": 13
+    }
+    wrapper.vm.successFetchingAssignmentList(payload)
+    expect(wrapper.vm.paging).toEqual(payload)
+  })
 
   test('addAssignment', () => {
     const push = jest.fn()
@@ -252,7 +257,7 @@ describe('Assignment', () => {
   //   wrapper.vm.submitCopyModal('sample-id')
   //   expect(spy).toHaveBeenCalledTimes(1)
   // })
-//  TODO: UNIT TEST THI
+//  TODO: UNIT TEST THIS
 
   test('successSubmitCopyAssignment', () => {
     initComponent()
