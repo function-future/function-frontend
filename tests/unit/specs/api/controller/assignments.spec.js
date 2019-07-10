@@ -49,4 +49,23 @@ describe('Assignment Controller', () => {
     api.updateAssignment(callback, data, payload, errorHandler)
     expect(spy).toBeCalledTimes(1)
   })
+
+  test('copyAssignment', () => {
+    const spy = jest.spyOn(request, 'postRequest')
+    const data = {}
+    const payload = {}
+    const callback = jest.fn()
+    const errorHandler = jest.fn()
+    api.copyAssignment(callback, data, payload, errorHandler)
+    expect(spy).toBeCalledTimes(1)
+  })
+
+  test('deleteAssignment', () => {
+    const spy = jest.spyOn(request, 'deleteRequest')
+    const data = {}
+    const callback = jest.fn()
+    const errorHandler = jest.fn()
+    api.deleteAssignment(callback, data, errorHandler)
+    expect(spy).toBeCalledTimes(1)
+  })
 })
