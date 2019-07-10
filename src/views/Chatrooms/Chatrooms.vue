@@ -1,4 +1,4 @@
-<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
+<template>
   <div class="chatroom-outer">
     <BaseCard class="chatroom-card">
       <div class="chatroom-container">
