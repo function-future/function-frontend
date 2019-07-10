@@ -27,7 +27,7 @@ export const actions = {
       callback && callback()
     }, data, payload, fail)
   },
-  copyAssignment ({ state }, { payload, data, callback, fail }) {
+    copyAssignment ({ state }, { payload, data, callback, fail }) {
     assignmentApi.copyAssignment(() => {
       callback && callback()
     }, data, payload, fail)
@@ -44,7 +44,7 @@ export const actions = {
       callback && callback()
     }, data, payload, fail)
   },
-  deleteAssignmentById ( { state }, { data, callback, fail }) {
+  deleteAssignmentById ({ state }, { data, callback, fail }) {
     assignmentApi.deleteAssignment(() => {
       callback && callback()
     }, data, fail)
