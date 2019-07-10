@@ -1,6 +1,6 @@
 <template>
   <div class="scrollable-container">
-    <BaseCard class="card" cardClass="card-hover">
+    <BaseCard class="card" cardClass="card-hover no-pointer">
       <div class="header">
         <h3>{{ activityBlog.title }}</h3>
       </div>
@@ -76,5 +76,12 @@
   h3 {
     margin: 5px 0 15px 0;
     text-align: left;
+  }
+
+  /deep/ img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-height: 300px;
   }
 </style>

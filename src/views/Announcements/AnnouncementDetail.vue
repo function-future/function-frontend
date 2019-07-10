@@ -86,4 +86,11 @@
     margin: 5px 0 15px 0;
     text-align: left;
   }
+
+  /deep/ img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-height: 300px;
+  }
 </style>

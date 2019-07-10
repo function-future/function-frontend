@@ -461,10 +461,11 @@ describe('Announcements', () => {
       },
       sync: false
     })
+    const loadAnnouncementListSpy = jest.spyOn(wrapper.vm, 'loadAnnouncementList')
     const spy = jest.spyOn(wrapper.vm, 'closeDeleteConfirmationModal')
     wrapper.vm.successDeleteAnnouncementById()
-    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({name : 'announcements'})
     expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
+    expect(loadAnnouncementListSpy).toHaveBeenCalledTimes(1)
     expect(spy).toHaveBeenCalledTimes(1)
   })
 

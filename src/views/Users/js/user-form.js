@@ -99,14 +99,14 @@ export default {
         this.maximumSizeAlert = true
       } else {
         this.maximumSizeAlert = false
-        this.imageUpload(files[0])
+        this.imageUpload()
       }
     },
     imageUpload () {
       let formData = new FormData()
-      formData.append('image', this.newImage)
+      formData.append('file', this.newImage)
       let data = {
-        source: 'user',
+        source: 'USER',
         resources: formData
       }
       data = { ...data }
@@ -151,7 +151,7 @@ export default {
       let studentData = {
         ...userData,
         role: 'STUDENT',
-        batchCode: this.userDetail.batch.code,
+        batch: this.userDetail.batch.code,
         university: this.userDetail.university
       }
       let data = {}
