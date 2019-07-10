@@ -35,7 +35,7 @@ export const actions = {
     }, fail)
   },
   getMenuList ({ commit }) {
-    menuListApi.getMenuList(({ data: response }) => {
+    menuListApi.getMenuList((response) => {
       commit('SET_MENU_LIST', response)
     })
   }
