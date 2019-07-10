@@ -3,7 +3,7 @@ import BaseCard from '@/components/BaseCard.vue'
 import CourseCard from '@/components/courses/CourseCard.vue'
 import BaseButton from '@/components/BaseButton'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
-import ModalCopyCourse from '@/components/modals/ModalCopyCourse'
+import ModalCopy from '@/components/modals/ModalCopy'
 import BasePagination from '@/components/BasePagination'
 import InfiniteLoading from 'vue-infinite-loading'
 
@@ -14,7 +14,7 @@ export default {
     CourseCard,
     BaseButton,
     ModalDeleteConfirmation,
-    ModalCopyCourse,
+    ModalCopy,
     BasePagination,
     InfiniteLoading
   },

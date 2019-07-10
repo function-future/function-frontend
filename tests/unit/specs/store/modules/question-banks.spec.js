@@ -416,6 +416,43 @@ describe('actions', () => {
     expect(commit).toHaveBeenCalledTimes(1)
     expect(commit).toHaveBeenLastCalledWith('SET_QUESTION', payload)
   })
+
+  test('deleteQuestionBankById', () => {
+    api.deleteQuestionBank = (success) => {
+      success({
+        "code": 200,
+        "status": "OK"
+      })
+    }
+    const data = {
+      bankId: 'QNK0001'
+    }
+    const state = jest.fn()
+    const callback = jest.fn()
+    const fail = jest.fn()
+    store.actions.deleteQuestionBankById({ state }, { data, callback, fail })
+    expect(callback).toHaveBeenCalledTimes(1)
+    expect(fail).not.toHaveBeenCalled()
+  })
+
+  test('deleteQuestionById', () => {
+    api.deleteQuestion = (success) => {
+      success({
+        "code": 200,
+        "status": "OK"
+      })
+    }
+    const data = {
+      bankId: 'QNK0001',
+      questionId: 'QST0001'
+    }
+    const state = jest.fn()
+    const callback = jest.fn()
+    const fail = jest.fn()
+    store.actions.deleteQuestionById({ state }, { data, callback, fail })
+    expect(callback).toHaveBeenCalledTimes(1)
+    expect(fail).not.toHaveBeenCalled()
+  })
 })
 
 describe('getters', () => {

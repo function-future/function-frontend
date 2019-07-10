@@ -209,10 +209,10 @@ module.exports = {
             return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/rooms?page=${page}&size=${pageSize}`
           },
           detail(batchCode, assignmentId, roomId) {
-            return `api/scoring/batches/${batchCode}/assignments/${assignmentId}/rooms/${roomId}`
+            return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/rooms/${roomId}`
           },
           update(batchCode, assignmentId, roomId) {
-            return `api/scoring/batches/${batchCode}/assignments/${assignmentId}/rooms/${roomId}`
+            return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/rooms/${roomId}`
           }
         }
       },

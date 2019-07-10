@@ -79,15 +79,16 @@ describe('actions', () => {
       })
     }
     const data = {
-
       batchCode: 'futur3',
       page: 1,
       pageSize: 10
     }
+    const callback = jest.fn()
     const commit = jest.fn()
     const fail = jest.fn()
-    store.actions.fetchQuizList({ commit }, { data, fail })
+    store.actions.fetchQuizList({ commit }, { data, callback, fail })
     expect(fail).not.toBeCalled()
+    expect(callback).toHaveBeenCalledTimes(1)
     expect(commit).toBeCalledTimes(1)
     expect(commit).toHaveBeenCalledWith('GET_QUIZ_LIST', [
       {
@@ -295,6 +296,71 @@ describe('actions', () => {
     const commit = jest.fn()
     store.actions.setSelectedBank({ commit }, { payload })
     expect(commit).toHaveBeenCalledWith('SET_SELECTED_BANK', payload)
+  })
+
+  test('copyQuiz', () => {
+    api.copyQuiz = (success) => {
+      success({
+        "code": 201,
+        "status": "CREATED",
+        "data": {
+          "id": "QZ0001",
+          "title": "Quiz 1",
+          "description": "Description Number 1",
+          "startDate": 15000000,
+          "endDate": 15000000,
+          "timeLimit": 3600,
+          "trials": 5,
+          "questionBankId": [
+            "QNK0001"
+          ],
+          "questionCount": 10,
+          "batchCode": "3"
+        }
+      })
+    }
+    const payload = {
+      "id": "QZ0001",
+      "title": "Quiz 1",
+      "description": "Description Number 1",
+      "startDate": 15000000,
+      "endDate": 15000000,
+      "timeLimit": 3600,
+      "trials": 5,
+      "questionBankId": [
+        "QNK0001"
+      ],
+      "questionCount": 10,
+      "batchCode": "3"
+    }
+    const data = {
+      'batchCode': 'sample-id-3'
+    }
+    const state = jest.fn()
+    const callback = jest.fn()
+    const fail = jest.fn()
+    store.actions.copyQuiz({ state }, { payload, data, callback, fail })
+    expect(callback).toHaveBeenCalledTimes(1)
+    expect(fail).not.toHaveBeenCalled()
+  })
+
+  test('deleteQuiz', () => {
+    api.deleteQuiz = (success) => {
+      success({
+        "code": 200,
+        "status": "OK"
+      })
+    }
+    const data = {
+      batchCode: 'futur3',
+      quizId: 'QZ0001'
+    }
+    const state = jest.fn()
+    const callback = jest.fn()
+    const fail = jest.fn()
+    store.actions.deleteQuizById({ state }, { data, callback, fail })
+    expect(callback).toHaveBeenCalledTimes(1)
+    expect(fail).not.toHaveBeenCalled()
   })
 })
 
