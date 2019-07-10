@@ -5,14 +5,7 @@
 </template>
 
 <script>
-export default {
-  name: 'QuestionnaireSetting',
-  data () {
-    return {
-      test: 'Helloworld'
-    }
-  }
-}
+
 </script>
 
 <style scoped>

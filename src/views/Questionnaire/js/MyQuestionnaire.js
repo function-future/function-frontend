@@ -27,11 +27,13 @@ export default {
       'RESET_MY_QUESTIONNAIRE',
       'PUSH_MY_QUESTIONNAIRE'
     ]),
-    goToListAppraisees (questionnaireId) {
-      this.$router.push({
-        name: 'myQuestionnaireAppraisee',
-        params: { questionnaireId: questionnaireId }
-      })
+    goToListAppraisees (questionnaireId, disabled) {
+      if (!disabled) {
+        this.$router.push({
+          name: 'myQuestionnaireAppraisee',
+          params: { questionnaireId: questionnaireId }
+        })
+      }
     }
   },
   created () {

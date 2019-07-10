@@ -1,6 +1,9 @@
 import SearchBar from '@/components/SearchBar'
+import BaseButton from '@/components/BaseButton'
 import QuestionnaireCard from '../QuestionnaireCard'
 import QuestionnaireParticipantCard from '../QuestionnaireParticipantCard'
+import QuestionnaireForm from '../MyQuestionnaireForm'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
 import moment from 'moment'
 
 export default {
@@ -8,10 +11,19 @@ export default {
   components: {
     SearchBar,
     QuestionnaireCard,
-    QuestionnaireParticipantCard
+    QuestionnaireParticipantCard,
+    QuestionnaireForm,
+    BaseButton
+  },
+  props: {
+    currentAppraiseeName: {
+      default: 'Unknown',
+      type: String
+    }
   },
   data () {
     return {
+      currentApraiseeNameData: this.currentApraiseeName,
       myQuestionnaire: {
         id: '5d2352f94534202434730f2a',
         title: 'future batch 3',
@@ -22,8 +34,6 @@ export default {
       appraisee: {
         id: '5d2352954534202434730f29',
         name: 'Tzuyu',
-        // avatar: 'http://localhost:8080/api/core/resources/user/a96b55cf-e3b9-4ce6-b087-4aa666045bfb-thumbnail.jpg',
-        // avatar: 'https://avatars0.githubusercontent.com/u/37922672?v=4',
         avatar: 'https://rankedwiki.com/wp-content/uploads/2018/12/Tzuyu-Wiki-Net-Worth-Dating-286x286.jpg',
         batch: {
           id: '5d234feb4534202434730f27',
@@ -36,16 +46,53 @@ export default {
     }
   },
   methods: {
+    ...mapActions([
+      'fetchMyListApprisees',
+      'fetchCurrentQuestionnaire'
+    ]),
+    ...mapMutations([
+      'RESET_MY_LIST_APPRAISEE',
+      'PUSH_MY_LIST_APPRAISEE',
+      'RESET_CURRENT_QUESTIONNAIRE',
+      'ASSIGN_CURRENT_QUESTIONNAIRE'
+    ]),
     computedDate (date) {
       return moment(date).format('DD/MM/YYYY')
+    },
+    goToInputQuestionnaireAnswer (appraisee) {
+      this.$router.push({
+        name: 'myQuestionnaireForm',
+        params: { appraiseeId: appraisee.id }
+      })
     }
   },
   computed: {
-    computedStartDate () {
-      return moment(this.myQuestionnaire.startDate).format('DD/MM/YYYY')
-    },
-    computedDueDate () {
-      return moment(this.myQuestionnaire.dueDate).format('DD/MM/YYYY')
-    }
+    ...mapGetters([
+      'myListAppraisees',
+      'currentQuestionnaire'
+    ])
+  },
+  created () {
+    this.fetchCurrentQuestionnaire({
+      data: {
+        params: {
+          questionnaireId: this.$route.params.questionnaireId
+        }
+      },
+      fail: (err) => {
+        console.log(err)
+      }
+    })
+    this.fetchMyListApprisees({
+      data: {
+        params: {
+          questionnaireId: this.$route.params.questionnaireId
+        }
+      },
+      fail: (err) => {
+        console.log(err)
+      }
+    })
   }
+
 }

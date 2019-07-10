@@ -7,7 +7,7 @@
     <div class="questionnaire-participant-card-content">
       <p class="participant-name"><strong>{{ name }}</strong></p>
       <p class="participant-university">{{ university }}</p>
-      <p class="participant-statys">{{ role }} - {{ batch }}</p>
+      <p class="participant-status">{{ computedRole }} - {{ batch }}</p>
     </div>
   </div>
 </template>
@@ -16,6 +16,11 @@
 </script>
 
 <style scoped>
+
+  * {
+    margin: 0px;
+    padding: 0px;
+  }
 
   .questionnaire-participant-card-outer {
     display: flex;
@@ -43,13 +48,26 @@
     border-radius: 100%;
     height: 75px;
     width: 75px;
+    padding: 10px;
   }
 
   .questionnaire-participant-card-content {
     padding-left: 10px;
   }
-  .participant-name > strong {
+
+  .participant-name{
+    padding: 5px 0px 5px 0px ;
     font-weight: bold;
-    font-size: large;
+    font-size: x-large;
+  }
+
+  .participant-university {
+    padding: 5px 0px 5px 0px ;
+    font-size: medium;
+  }
+
+  .participant-status {
+    padding: 5px 0px 5px 0px ;
+    font-size: medium;
   }
 </style>

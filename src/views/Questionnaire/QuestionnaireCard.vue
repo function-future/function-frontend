@@ -43,6 +43,7 @@
 
   .disabled {
     background-color: #f3f3f3;
+    cursor: default;
   }
 
   .questionnaire-card-content {

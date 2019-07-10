@@ -351,6 +351,14 @@ export default new Router({
       }
     },
     {
+      path: config.app.pages.myQuestionnaire.form,
+      name: 'myQuestionnaireForm',
+      component: myQuestionnaireAppraisee,
+      meta: {
+        title: 'My Questionnaire - Form'
+      }
+    },
+    {
       path: config.app.pages.questionnaires,
       name: 'questionnaires',
       component: questionnaires,

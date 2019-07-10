@@ -1,4 +1,4 @@
-<template>
+<template xmlns="http://www.w3.org/1999/html">
   <div class="my-questionnaire-outer">
     <div class="my-questionnaire-container">
       <div class="search-bar-my-questionnaire">
@@ -12,7 +12,7 @@
                            :startDate="myQuestionnaire.startDate"
                            :dueDate="myQuestionnaire.dueDate"
                            :isDisable="myQuestionnaire.dueDate < Date.now()"
-                           v-on:click="goToListAppraisees(myQuestionnaire.id)"
+                           v-on:click="goToListAppraisees(myQuestionnaire.id, myQuestionnaire.dueDate < Date.now())"
         ></QuestionnaireCard>
       </div>
     </div>

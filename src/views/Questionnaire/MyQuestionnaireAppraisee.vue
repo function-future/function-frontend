@@ -2,37 +2,43 @@
     <div class="my-questionnaire-appraisees-outer">
       <div class="my-questionnaire-appraisees-containter">
         <div class="questionnaire-detail">
-<!--          <QuestionnaireCard v-bind="myQuestionnaire"-->
-<!--                             :key="myQuestionnaire.id"-->
-<!--                             :title="myQuestionnaire.title"-->
-<!--                             :desc="myQuestionnaire.description"-->
-<!--                             :startDate="myQuestionnaire.startDate"-->
-<!--                             :dueDate="myQuestionnaire.dueDate"-->
-<!--                             :isDisable="myQuestionnaire.dueDate < Date.now()"-->
-<!--          ></QuestionnaireCard>-->
-          <p class="questionnaire-title"><strong>{{ myQuestionnaire.title }}</strong></p>
+          <p class="questionnaire-title"><strong>{{ currentQuestionnaire.title }}</strong></p>
           <p class="questionnaire-description">
-            {{ myQuestionnaire.description }}
+            {{ currentQuestionnaire.description }}
           </p>
           <div class="questionnaire-date">
             <div class="placeholder-start-date">
-              Start Date : {{ computedDate(myQuestionnaire.startDate) }}
+              Start Date : {{ computedDate(currentQuestionnaire.startDate) }}
             </div>
             <div class="placeholder-due-date">
-              Due Date : {{ computedDate(myQuestionnaire.dueDate) }}
+              Due Date : {{ computedDate(currentQuestionnaire.dueDate) }}
             </div>
           </div>
         </div>
-        <div class="my-appraisees-list-containner">
-          <QuestionnaireParticipantCard v-bind="appraisee"
+        <div v-if="!this.$route.params.appraiseeId" class="my-appraisees-list-containner">
+          <div class="title-appraisee">
+            <p><strong>Appraisee</strong></p>
+          </div>
+          <QuestionnaireParticipantCard v-for="appraisee in myListAppraisees"
                                         :key="appraisee.id"
                                         :name="appraisee.name"
                                         :avatar="appraisee.avatar"
                                         :role="appraisee.role"
                                         :university="appraisee.university"
                                         :batch="appraisee.batch.name"
+                                        v-on:click="goToInputQuestionnaireAnswer(appraisee)"
           ></QuestionnaireParticipantCard>
         </div>
+        <div v-else class="form-questionnaire">
+          <div class="title-questionnaire">
+            <p><i>Questionnaire for {{ currentAppraiseeName }}</i></p>
+          </div>
+          <QuestionnaireForm/>
+          <div class="submit-button">
+            <BaseButton type="submit" buttonClass="button-save">Submit</BaseButton>
+          </div>
+        </div>
+
       </div>
     </div>
 </template>
@@ -59,9 +65,10 @@
 
   .questionnaire-detail {
     display: flex;
-    min-width: 700px;
+    width: 800px;
     align-items: start;
     flex-direction: column;
+    padding-left: 10px;
   }
 
   .questionnaire-title {
@@ -103,11 +110,34 @@
     align-self: flex-start;
   }
 
-  .my-appraisees-list-containner {
+  .my-appraisees-list-containner, .form-questionnaire{
     overflow: auto;
     padding: 10px;
     min-width: 600px;
     min-height: 800vh;
     align-self: start;
+  }
+
+  .form-questionnaire {
+    display : flex;
+    flex-direction: column;
+    width: 800px;
+
+  }
+
+  .title-appraisee, .title-questionnaire {
+    padding: 5px 0px 5px 0px;
+    display: flex;
+    align-items: flex-start;
+    font-size: x-large;
+  }
+
+  .title-questionnaire {
+    color: #02aaf3;
+  }
+
+  .submit-button {
+    display: flex;
+    align-self: flex-end;
   }
 </style>
