@@ -20,4 +20,10 @@ describe('Base Input', () => {
     wrapper.vm.emitKeyUp()
     expect(wrapper.emitted.length).toEqual(1)
   })
+
+  test('emitFocus', () => {
+    const wrapper = shallowMount(baseInput)
+    wrapper.vm.emitFocus()
+    expect(wrapper.emitted.length).toEqual(1)
+  })
 })

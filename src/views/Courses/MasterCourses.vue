@@ -41,7 +41,7 @@
                                @clickDelete="deleteThisMasterCourse">
       <div slot="description">Are you sure you want to delete this master course?</div>
     </modal-delete-confirmation>
-    <modal-copy-course v-if="showCopyCourseModal" @close="showCopyCourseModal = false" @copy="submitCopyCourse"></modal-copy-course>
+    <modal-copy v-if="showCopyCourseModal" @close="showCopyCourseModal = false" @copy="submitCopyCourse"></modal-copy>
   </div>
 </template>
 
