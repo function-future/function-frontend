@@ -60,10 +60,15 @@ module.exports = {
         }
       },
       quizzes: {
-        list: '/quizzes',
-        add: '/quizzes/add',
-        addDetail: '/quizzes/addDetail',
-        detail: '/quizzes/:quizId/detail'
+        list: '/batches/:batchCode/quizzes',
+        add: '/batches/:batchCode/quizzes/add',
+        addDetail: '/batches/:batchCode/quizzes/addDetail',
+        detail: '/batches/:batchCode/quizzes/:quizId/detail',
+        batches: {
+          list: '/quiz/batches',
+          add: '/quiz/batches/add',
+          edit: '/quiz/batches/:batchCode/edit'
+        }
       },
       assignments: {
         list: '/assignments',

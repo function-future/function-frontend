@@ -10,6 +10,8 @@ import addQuestionBank from '@/views/QuestionBank/AddQuestionBank'
 import questionBankQuestionList from '@/views/QuestionBank/QuestionBankQuestionList'
 import questionBankAddQuestion from '@/views/QuestionBank/QuestionBankAddQuestion'
 import questionBankQuestionDetail from '@/views/QuestionBank/QuestionBankQuestionDetail'
+import quizBatch from '@/views/Quiz/QuizBatch'
+import quizBatchForm from '@/views/Quiz/QuizBatchForm'
 import quizzes from '@/views/Quiz/Quiz'
 import addQuiz from '@/views/Quiz/AddQuiz'
 import addQuizDetail from '@/views/Quiz/AddQuizDetail'
@@ -426,6 +428,31 @@ const router = new Router({
       meta: {
         title: 'Question Detail'
       }
+    },
+    {
+      path: config.app.pages.quizzes.batches.list,
+      name: 'quizBatch',
+      component: quizBatch,
+      meta: {
+        title: 'Quiz Batch List'
+      }
+    },
+    {
+      path: config.app.pages.quizzes.batches.add,
+      name: 'addQuizBatch',
+      component: quizBatchForm,
+      meta: {
+        title: 'Quiz Batch List'
+      }
+    },
+    {
+      path: config.app.pages.quizzes.batches.edit,
+      name: 'editQuizBatch',
+      component: quizBatchForm,
+      meta: {
+        title: 'Quiz Batch List'
+      },
+      props: { editMode: true }
     },
     {
       path: config.app.pages.quizzes.list,
