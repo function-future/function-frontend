@@ -47,7 +47,7 @@ export default {
     initPage () {
       this.fetchAssignmentList({
         data: {
-          batchCode: 'futur3',
+          batchCode: this.$route.params.batchCode,
           page: this.paging.page,
           pageSize: this.paging.size
         },
@@ -67,14 +67,14 @@ export default {
     isComplete(deadline) {
       return deadline < new Date() ? 'Done' : 'Ongoing'
     },
-    goToAssignmentDetail (id, batchCode) {
+    goToAssignmentDetail (id) {
       this.$router.push({
         name: 'assignmentDetail',
         params: {
           id: id
         },
         query: {
-          batchCode: batchCode
+          batchCode: this.$route.params.batchCode
         }
       })
     },
@@ -89,7 +89,7 @@ export default {
     deleteThisAssignment () {
       this.deleteAssignmentById({
         data: {
-          batchCode: 'futur3',
+          batchCode: this.$route.params.batchCode,
           id: this.selectedId
         },
         callback: this.successDeletingAssignment,
