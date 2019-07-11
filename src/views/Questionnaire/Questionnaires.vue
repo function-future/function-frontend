@@ -1,13 +1,70 @@
 <template>
-  <div>
-      Questionnaire Setting
+  <div class="questionnaires-outer">
+    <div class="questionnaires-container">
+      <div class="questionnaire-top-bar">
+        <div class="button-create">
+          <BaseButton type="submit" buttonClass="button-save">New</BaseButton>
+        </div>
+        <div class="search-bar-questionnaire">
+          <SearchBar/>
+        </div>
+      </div>
+      <div class="questionnaire-list-container">
+        <QuestionnaireCard v-for="myQuestionnaire in 20"
+                           :title="myQuestionnaire.toString()"
+                           :desc="myQuestionnaire.toString()"
+                           :startDate="myQuestionnaire.parseInt"
+                           :dueDate="myQuestionnaire.parseInt"
+                           :isDisable="myQuestionnaire.parseInt < Date.now()"
+                           :isEdit="true"
+        ></QuestionnaireCard>
+      </div>
+    </div>
   </div>
 </template>
 
-<script>
+<script src="./js/Questionnaires.js">
 
 </script>
 
 <style scoped>
+  .questionnaires-outer {
+    display: flex;
+    justify-content: center;
+    height: 80vh;
+  }
 
+  .questionnaires-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 800px;
+  }
+
+  .search-bar-questionnaire {
+    width: 300px;
+    align-self: flex-end;
+  }
+
+  .questionnaire-top-bar {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .button-create {
+    padding-top: 12px;
+    align-self: flex-start;
+  }
+
+  .search-bar-questionnaire {
+    align-self: flex-end;
+  }
+
+  .questionnaire-list-container {
+    overflow: auto;
+    padding: 10px;
+    width: 100%;
+  }
 </style>

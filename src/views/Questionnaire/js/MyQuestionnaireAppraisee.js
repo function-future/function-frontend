@@ -1,5 +1,6 @@
 import SearchBar from '@/components/SearchBar'
 import BaseButton from '@/components/BaseButton'
+import BaseCard from '@/components/BaseCard'
 import QuestionnaireCard from '../QuestionnaireCard'
 import QuestionnaireParticipantCard from '../QuestionnaireParticipantCard'
 import QuestionnaireForm from '../MyQuestionnaireForm'
@@ -13,7 +14,8 @@ export default {
     QuestionnaireCard,
     QuestionnaireParticipantCard,
     QuestionnaireForm,
-    BaseButton
+    BaseButton,
+    BaseCard
   },
   props: {
     currentAppraiseeName: {

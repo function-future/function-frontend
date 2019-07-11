@@ -29,6 +29,8 @@ import chatrooms from '@/views/Chatrooms/Chatrooms'
 import myQuestionnaire from '@/views/Questionnaire/MyQuestionnaire'
 import myQuestionnaireAppraisee from '@/views/Questionnaire/MyQuestionnaireAppraisee'
 import questionnaires from '@/views/Questionnaire/Questionnaires'
+import questionnairesCreate from '@/views/Questionnaire/QuestionnairesCreate'
+import questionnairesEdit from '@/views/Questionnaire/QuestionnairesEdit'
 import questionnaireResults from '@/views/Questionnaire/QuestionnaireResults'
 
 Vue.use(Router)
@@ -359,11 +361,27 @@ export default new Router({
       }
     },
     {
-      path: config.app.pages.questionnaires,
+      path: config.app.pages.questionnaires.default,
       name: 'questionnaires',
       component: questionnaires,
       meta: {
         title: 'Questionnaires'
+      }
+    },
+    {
+      path: config.app.pages.questionnaires.create,
+      name: 'questionnairesCreate',
+      component: questionnairesCreate,
+      meta: {
+        title: 'Questionnaires - Create'
+      }
+    },
+    {
+      path: config.app.pages.questionnaires.edit,
+      name: 'questionnairesEdit',
+      component: questionnairesEdit,
+      meta: {
+        title: 'Questionnaires - Edit'
       }
     },
     {

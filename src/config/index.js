@@ -63,7 +63,11 @@ module.exports = {
         appraisee: '/my-questionnaire/:questionnaireId/appraisees',
         form: '/my-questionnaire/:questionnaireId/appraisees/:appraiseeId'
       },
-      questionnaires: '/questionnaires',
+      questionnaires: {
+        default: '/questionnaires',
+        create: '/questionnaires/_create',
+        edit: '/questionnaires/:questionnaireId/_edit'
+      },
       questionnaireResults: '/questionnaire-results',
     }
   },

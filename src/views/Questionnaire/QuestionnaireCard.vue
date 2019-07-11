@@ -1,5 +1,5 @@
 <template>
-    <div class="questionnaire-card-outer" @click="$emit('click')" :class="{ disabled:isDisable}">
+    <div class="questionnaire-card-outer" @click="$emit('click')" :class="{disabled:isDisable, edit:isEdit}">
       <div class="questionnaire-card-content">
         <p><strong>{{ computedTitle }}</strong></p>
         <p class="questionnaire-card-content-description">
@@ -12,6 +12,16 @@
           <div class="placeholder-due-date">
             Due Date : {{ computedDueDate }}
           </div>
+        </div>
+      </div>
+      <div v-if="isEdit" class="questionnaire-edit">
+        <div class="button-delete">
+          <div class="icon-delete">
+            X
+          </div>
+        </div>
+        <div class="button-create">
+          <BaseButton type="submit" class="button-create" buttonClass="button-save" v-on:click="goToEdit">Edit</BaseButton>
         </div>
       </div>
     </div>
@@ -43,6 +53,10 @@
 
   .disabled {
     background-color: #f3f3f3;
+    cursor: default;
+  }
+
+  .edit {
     cursor: default;
   }
 
@@ -81,5 +95,24 @@
     flex-grow: 1;
     color: red;
     font-weight: bold;
+  }
+
+  .questionnaire-edit {
+    display: flex;
+    height: auto;
+    justify-content: space-between;
+    flex-direction: column;
+  }
+  .button-create {
+    align-self: flex-end;
+  }
+  .button-delete {
+    display: flex;
+    justify-content: flex-end;
+    padding : 5px 10px 0px 0px;
+  }
+
+  .icon-delete {
+    cursor: pointer;
   }
 </style>

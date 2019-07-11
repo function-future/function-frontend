@@ -38,7 +38,6 @@
             <BaseButton type="submit" buttonClass="button-save">Submit</BaseButton>
           </div>
         </div>
-
       </div>
     </div>
 </template>
@@ -51,6 +50,7 @@
     margin: 0;
     padding: 0;
   }
+
   .my-questionnaire-appraisees-outer {
     display: flex;
     justify-content: center;

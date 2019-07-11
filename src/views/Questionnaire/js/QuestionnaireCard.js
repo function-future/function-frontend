@@ -1,3 +1,4 @@
+import BaseButton from '@/components/BaseButton'
 import moment from 'moment'
 
 const MAX_CHAR_TITLE = 35
@@ -5,12 +6,30 @@ const MAX_CHAR_DESCRIPTION = 200
 
 export default {
   name: 'QuestionnaireCard',
+  components: {
+    BaseButton
+  },
   props: {
+    id: {
+      type: String,
+      default: 'testestes'
+    },
     title: String,
     desc: String,
     startDate: Number,
     dueDate: Number,
-    isDisable: Boolean
+    isDisable: Boolean,
+    isEdit: Boolean
+  },
+  method: {
+    goToEdit () {
+      alert('jackie')
+      console.log(this.id)
+      this.$router.push({
+        name: 'questionnaireEdit',
+        params: { questionnaireId: this.id }
+      })
+    }
   },
   computed: {
     computedTitle () {
