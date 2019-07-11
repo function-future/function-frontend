@@ -1,6 +1,6 @@
 projectKey=function-frontend
 serverUrl=http://localhost:9000
-serverVersion=7.7.0.23042
-dashboardUrl=http://localhost:9000/dashboard?id=function-frontend
-ceTaskId=AWvb35S1roBQ84EmLwJE
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AWvb35S1roBQ84EmLwJE
+serverVersion=6.7.7.38951
+dashboardUrl=http://localhost:9000/dashboard/index/function-frontend
+ceTaskId=AWviL2aQGfdYFrJAHwkz
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AWviL2aQGfdYFrJAHwkz
