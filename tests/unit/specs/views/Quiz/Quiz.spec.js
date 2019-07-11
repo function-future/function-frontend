@@ -164,10 +164,14 @@ describe('Quiz', () => {
 
   test('addQuiz', () => {
     initComponent()
+    wrapper.vm.$route.params.batchCode = '1'
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.addQuiz()
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
-      name: 'addQuiz'
+      name: 'addQuiz',
+      params: {
+        batchCode: '1'
+      }
     })
   })
 
@@ -185,15 +189,14 @@ describe('Quiz', () => {
 
   test('goToQuizDetail', () => {
     initComponent()
+    wrapper.vm.$route.params.batchCode = '1'
     wrapper.vm.$router.push = jest.fn()
-    wrapper.vm.goToQuizDetail('QZ0001', 'futur3')
+    wrapper.vm.goToQuizDetail('QZ0001')
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
       name: 'quizDetail',
       params: {
-        quizId: 'QZ0001'
-      },
-      query: {
-        batchCode: 'futur3'
+        quizId: 'QZ0001',
+        batchCode: '1'
       }
     })
   })
@@ -221,10 +224,16 @@ describe('Quiz', () => {
 
   test('successDeletingQuiz', () => {
     initComponent()
+    wrapper.vm.$route.params.batchCode = '1'
     const routerSpy = jest.spyOn(wrapper.vm.$router, 'push')
     const closeDeleteConfirmationModal = jest.spyOn(wrapper.vm, 'closeDeleteConfirmationModal')
     wrapper.vm.successDeletingQuiz()
-    expect(routerSpy).toHaveBeenCalledWith({ name: 'quizzes' })
+    expect(routerSpy).toHaveBeenCalledWith({
+      name: 'quizzes',
+      params: {
+        batchCode: '1'
+      }
+    })
     expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
     expect(closeDeleteConfirmationModal).toHaveBeenCalledTimes(1)
   })
