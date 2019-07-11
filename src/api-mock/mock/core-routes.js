@@ -60,7 +60,12 @@ export const menuList = [
       'courses': true,
       'files': true,
       'users': true,
-      'chatroom': true
+      'chatroom': true,
+      'questionBanks': true,
+      'quizzes': true,
+      'assignments': true,
+      'comparisons': true,
+      'points': true
     }
   }
 ]
