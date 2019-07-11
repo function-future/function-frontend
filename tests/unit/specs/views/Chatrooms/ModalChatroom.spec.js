@@ -1,7 +1,8 @@
 import ModalChatroom from '@/views/Chatrooms/ModalChatroom'
-import { shallowMount } from '@vue/test-utils'
+import { createLocalVue, shallowMount } from '@vue/test-utils'
 import chatroomApi from '@/api/controller/chatrooms'
 import userApi from '@/api/controller/users'
+import Vuex from 'vuex'
 
 jest.mock('@/api/controller/chatrooms')
 jest.mock('@/api/controller/users')
@@ -50,11 +51,29 @@ describe('ModalChatroom', () => {
         ]
       })
     }
+    function generateLocalVue () {
+      const localVue = createLocalVue()
+      localVue.use(Vuex)
+      return localVue
+    }
+
+    const localVue = generateLocalVue()
+    const store = new Vuex.Store({
+      modules: {
+        auth: {
+          state: { currentUser: { id: 'idUser' } },
+          getters: () => this.state.currentUser
+        }
+      }
+    })
+
     const wrapper = shallowMount(ModalChatroom, {
       propsData: {
         chatroomId: 'idChatroom'
       },
-      stubs: ['font-awesome-icon']
+      localVue,
+      stubs: ['font-awesome-icon'],
+      store
     })
 
     expect(wrapper.vm.usersWithoutSelectedOne).toEqual([user2])

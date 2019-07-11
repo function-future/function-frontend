@@ -20,7 +20,8 @@ describe('Chatrooms', () => {
   function initStore (customState) {
     let state = {
       messages: [],
-      chatrooms: []
+      chatrooms: [],
+      currentUser: {}
     }
     if (customState) {
       state = customState
@@ -40,7 +41,8 @@ describe('Chatrooms', () => {
     }
     const getters = {
       messages: () => state.messages,
-      chatrooms: () => state.chatrooms
+      chatrooms: () => state.chatrooms,
+      currentUser: () => state.currentUser
     }
     const store = new Vuex.Store({
       modules: {
@@ -398,7 +400,10 @@ describe('Chatrooms', () => {
     }
     const state = {
       chatrooms: [],
-      messages: [{ id: '1', sender: { id: 'senderId' } }]
+      messages: [{ id: '1', sender: { id: 'senderId' } }],
+      currentUser: {
+        id: 'userId'
+      }
     }
     const spyUnshiftMessages = jest.spyOn(Chatrooms.methods, 'unshiftMessages')
     const spyResetMessageButtomPoll = jest.spyOn(Chatrooms.methods, 'resetMessageBottomPoll')
@@ -425,7 +430,10 @@ describe('Chatrooms', () => {
     }
     const state = {
       chatrooms: [],
-      messages: [{ id: '1', sender: { id: 'senderId' } }]
+      messages: [{ id: '1', sender: { id: 'senderId' } }],
+      currentUser: {
+        id: 'userId'
+      }
     }
     const spyResetMessagePoll = jest.spyOn(Chatrooms.methods, 'resetMessagePoll')
       .mockImplementation(() => Promise.resolve())
@@ -468,7 +476,10 @@ describe('Chatrooms', () => {
     }
     const state = {
       chatrooms: [],
-      messages: [{ id: '1', sender: { id: 'senderId' } }]
+      messages: [{ id: '1', sender: { id: 'senderId' } }],
+      currentUser: {
+        id: 'userId'
+      }
     }
     const spyUnshiftMessages = jest.spyOn(Chatrooms.methods, 'unshiftMessages')
 
@@ -526,7 +537,7 @@ describe('Chatrooms', () => {
       { id: 'id2', name: 'Ricky', avatar: 'Avatar2' }
     ]
 
-    wrapper.vm.userId = 'id1'
+    wrapper.vm.currentUser.id = 'id1'
     const result = wrapper.vm.getAvatarAndName(participants)
     expect(result).toEqual({ name: 'Ricky', avatar: 'Avatar2' })
   })
@@ -653,7 +664,10 @@ describe('Chatrooms', () => {
     const spy = jest.spyOn(Chatrooms.methods, 'initMessageBottomPoll').mockImplementation(() => Promise.resolve())
     initComponent({
       messages: [{ id: 'messageId', sender: { id: 'senderId' } }],
-      chatrooms: [{ id: 'chatroomId' }]
+      chatrooms: [{ id: 'chatroomId' }],
+      currentUser: {
+        id: 'userId'
+      }
     })
     wrapper.vm.messagesPollCallback()
     expect(spy).toBeCalledTimes(1)
@@ -678,7 +692,10 @@ describe('Chatrooms', () => {
     const spy = jest.spyOn(Chatrooms.methods, 'scrollMessageToBottom').mockImplementation(() => Promise.resolve())
     initComponent({
       messages: [{ id: 'messageId', sender: { id: 'senderId' } }],
-      chatrooms: [{ id: 'chatroomId' }]
+      chatrooms: [{ id: 'chatroomId' }],
+      currentUser: {
+        id: 'userId'
+      }
     })
     wrapper.vm.messagesBottomPollCallback1()
     expect(spy).toBeCalledTimes(1)
@@ -703,7 +720,10 @@ describe('Chatrooms', () => {
     chatroomApi.updateSeenStatus = jest.fn()
     initComponent({
       messages: [{ id: 'messageId', sender: { id: 'senderId' } }],
-      chatrooms: [{ id: 'chatroomId' }]
+      chatrooms: [{ id: 'chatroomId' }],
+      currentUser: {
+        id: 'userId'
+      }
     })
     wrapper.vm.readMessagesPollTimerCallback()
     expect(chatroomApi.updateSeenStatus).toBeCalledTimes(1)
@@ -718,7 +738,7 @@ describe('Chatrooms', () => {
   })
 
   test('isSearching watch', () => {
-    const spy = jest.spyOn(Chatrooms.methods, 'resetMessages')
+    const spy = jest.spyOn(Chatrooms.methods, 'resetChatrooms')
     initComponent()
     wrapper.vm.isSearching = true
     expect(spy).toBeCalledTimes(1)
