@@ -95,7 +95,7 @@
               <template v-if="message.isNewDate">
                 <p class="chatroom-messages-dateseparator">{{ printDateSeparator(message) }}</p>
               </template>
-              <MessageBubbleSent v-if="message.sender.id === userId"
+              <MessageBubbleSent v-if="message.sender.id === currentUser.id"
                                  :message="message.text"
                                  :clock="message.time"
                                  class="chatroom-message-bubble"></MessageBubbleSent>

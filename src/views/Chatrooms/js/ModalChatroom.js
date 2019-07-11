@@ -4,6 +4,7 @@ import SearchBar from '@/components/SearchBar'
 import UserListCard from '@/components/UserListCard'
 import usersApi from '@/api/controller/users'
 import chatroomApi from '@/api/controller/chatrooms'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'ModalChatroom',
@@ -15,8 +16,6 @@ export default {
   },
   data () {
     return {
-      // TODO: change userId to authenticated user
-      userId: '5d12a2ed32a1893cec242e73',
       users: [],
       selectedUsers: [],
       name: null,
@@ -27,9 +26,12 @@ export default {
     chatroomId: String
   },
   computed: {
+    ...mapGetters([
+      'currentUser'
+    ]),
     usersWithoutSelectedOne () {
       return this.users.filter(user => {
-        return user.id !== this.userId &&
+        return user.id !== this.currentUser.id &&
           !this.selectedUsers.map(usr => usr.id).includes(user.id)
       })
     }
@@ -37,7 +39,7 @@ export default {
   methods: {
     convertToListUserId (users) {
       let result = users.map(user => user.id)
-      result.push(this.userId)
+      result.push(this.currentUser.id)
       return result
     },
     close () {
@@ -85,7 +87,7 @@ export default {
         if (response.data.type === 'GROUP') {
           this.name = response.data.name
         }
-        this.selectedUsers = response.data.members.filter(user => user.id !== this.userId)
+        this.selectedUsers = response.data.members.filter(user => user.id !== this.currentUser.id)
       }, err => console.log(err), {
         params: {
           chatroomId: this.chatroomId

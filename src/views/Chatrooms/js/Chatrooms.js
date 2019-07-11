@@ -26,8 +26,6 @@ export default {
   },
   data () {
     return {
-      // TODO: change userId to authenticated user
-      userId: '5d12a2ed32a1893cec242e73',
       searchText: '',
       typeChoosen: 'PUBLIC',
       messageText: '',
@@ -52,7 +50,8 @@ export default {
   computed: {
     ...mapGetters([
       'chatrooms',
-      'messages'
+      'messages',
+      'currentUser'
     ]),
     privateChatrooms () {
       return this.chatrooms.filter(chatroom => {
@@ -256,7 +255,7 @@ export default {
     },
     getAvatarAndName (participants) {
       for (const participant of participants) {
-        if (participant.id !== this.userId) {
+        if (participant.id !== this.currentUser.id) {
           return {
             avatar: participant.avatar,
             name: participant.name
