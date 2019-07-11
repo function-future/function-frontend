@@ -416,7 +416,7 @@ export default {
     isSearching: function (newVal, oldVal) {
       this.chatroomPage = 1
       clearInterval(this.chatroomIntervalObject)
-      this.resetMessages()
+      this.resetChatrooms()
     }
   },
   mounted () {
