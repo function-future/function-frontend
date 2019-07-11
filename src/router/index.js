@@ -488,6 +488,7 @@ const router = new Router({
       name: 'chatrooms',
       component: chatrooms,
       meta: {
+        auth: true,
         title: 'Chatrooms'
       }
     },
