@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import assignmentBatch from '@/views/Assignment/AssignmentBatch'
+import assignmentBatchForm from '@/views/Assignment/AssignmentBatchForm'
 import assignments from '@/views/Assignment/Assignments'
 import addAssignment from '@/views/Assignment/AddAssignment'
 import assignmentRooms from '@/views/Assignment/AssignmentRooms'
@@ -485,6 +487,31 @@ const router = new Router({
       meta: {
         title: 'Quiz Detail'
       }
+    },
+    {
+      path: config.app.pages.assignments.batches.list,
+      name: 'assignmentBatch',
+      component: assignmentBatch,
+      meta: {
+        title: 'Assignment Batch List'
+      }
+    },
+    {
+      path: config.app.pages.assignments.batches.add,
+      name: 'addAssignmentBatch',
+      component: assignmentBatchForm,
+      meta: {
+        title: 'Assignment Batch List'
+      }
+    },
+    {
+      path: config.app.pages.assignments.batches.edit,
+      name: 'editAssignmentBatch',
+      component: assignmentBatchForm,
+      meta: {
+        title: 'Assignment Batch List'
+      },
+      props: { editMode: true }
     },
     {
       path: config.app.pages.assignments.list,
