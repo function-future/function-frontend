@@ -190,11 +190,15 @@ describe('Quiz', () => {
 
   test('returnButtonClicked editMode is false', () => {
     initComponent()
+    wrapper.vm.$route.params.batchCode = '1'
     const routerSpy = jest.spyOn(wrapper.vm.$router, 'push')
     wrapper.vm.editMode = false
     wrapper.vm.returnButtonClicked()
     expect(routerSpy).toHaveBeenCalledWith({
-      name: 'quizzes'
+      name: 'quizzes',
+      params: {
+        batchCode: '1'
+      }
     })
   })
 

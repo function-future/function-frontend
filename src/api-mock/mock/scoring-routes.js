@@ -234,7 +234,7 @@ export const assignmentRooms = [
 export const quizzes = [
   {
     method: 'GET',
-    url: '/api/scoring/batches/futur3/quizzes?page=1&size=10',
+    url: '/api/scoring/batches/1/quizzes?page=1&size=10',
     response: {
       "code": 200,
       "status": "OK",
@@ -305,7 +305,7 @@ export const quizzes = [
   },
   {
     method: 'POST',
-    url: '/api/scoring/batches/futur3/quizzes',
+    url: '/api/scoring/batches/1/quizzes',
     response: {
       "code": 201,
       "status": "CREATED",
@@ -351,7 +351,7 @@ export const quizzes = [
 export const quizDetail = [
   {
     method: 'GET',
-    url: '/api/scoring/batches/3/quizzes/QZ00001',
+    url: '/api/scoring/batches/1/quizzes/QZ00001',
     response: {
       "code": 200,
       "status": "OK",
@@ -367,13 +367,13 @@ export const quizDetail = [
         "questionBanks": [
           "QNK00001"
         ],
-        "batch": 3
+        "batch": 1
       }
     }
   },
   {
     method: 'PUT',
-    url: '/api/scoring/batches/futur3/quizzes/QZ0001',
+    url: '/api/scoring/batches/1/quizzes/QZ00001',
     response: {
       "code": 200,
       "status": "OK",
@@ -394,7 +394,7 @@ export const quizDetail = [
   },
   {
     method: 'DELETE',
-    url: '/api/scoring/batches/futur3/quizzes/QZ00001',
+    url: '/api/scoring/batches/1/quizzes/QZ00001',
     response: {
       "code": 200,
       "status": "OK"
