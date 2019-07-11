@@ -96,4 +96,14 @@ describe('QuestionBanks Controller', () => {
     api.deleteQuestionBank(callback, data, payload, errorHandler)
     expect(spy).toBeCalledTimes(1)
   })
+
+  test('deleteQuestion', () => {
+    const spy = jest.spyOn(request, 'deleteRequest')
+    const data = {}
+    const payload = {}
+    const callback = jest.fn()
+    const errorHandler = jest.fn()
+    api.deleteQuestion(callback, data, payload, errorHandler)
+    expect(spy).toBeCalledTimes(1)
+  })
 })

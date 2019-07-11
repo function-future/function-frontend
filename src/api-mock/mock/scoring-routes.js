@@ -238,8 +238,7 @@ export const quizzes = [
     response: {
       "code": 200,
       "status": "OK",
-      "data": {
-        "quizzes": [
+      "data": [
           {
             "id": "QZ00001",
             "title": "Quiz Number 1",
@@ -296,8 +295,7 @@ export const quizzes = [
             ],
             "batch": 3
           }
-        ]
-      },
+        ],
       "paging": {
         "page": 1,
         "size": 10,
@@ -507,7 +505,7 @@ export const questionBankQuestions = [
       "data": [
         {
           "id": "QST0001",
-          "text": "Question Sample 1",
+          "label": "Question Sample 1",
           "options": [
             {
               "id": "OPT0001",
@@ -578,7 +576,7 @@ export const questionBankQuestionDetail = [
       "status": "OK",
       "data": {
         "id": "QST0001",
-        "text": "Question Example 1",
+        "label": "Question Example 1",
         "options": [
           {
             "id": "OPT0001",
@@ -648,7 +646,7 @@ export const questionBankQuestionDetail = [
 export const points = [
   {
     method: 'GET',
-    url: '/api/students/sample-id/points',
+    url: '/api/scoring/summary/5d1db5dcc299ea1fc8596234',
     response: {
       "code": 200,
       "status": "OK",

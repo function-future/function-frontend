@@ -89,7 +89,7 @@ export default {
     },
     successDeleteBatch () {
       this.selectedId = ''
-      this.$router.push({ name: 'courseBatches' })
+      this.initPage()
       this.$toasted.success('Successfully delete batch')
       this.showDeleteConfirmationModal = false
     },

@@ -21,7 +21,7 @@ export const mutations = {
 export const actions = {
   fetchQuizList ({ commit }, { data, callback, fail }) {
     quizApi.getQuizList(({data: response, paging}) => {
-      commit('GET_QUIZ_LIST', response.quizzes)
+      commit('GET_QUIZ_LIST', response)
       callback && callback(paging)
     }, data, fail)
   },

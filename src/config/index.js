@@ -1,6 +1,9 @@
 module.exports = {
   app: {
     pages: {
+      auth: {
+        login: '/login'
+      },
       feeds: '/',
       activityBlogs: {
         list: '/activity-blogs',
@@ -101,7 +104,7 @@ module.exports = {
         search (page, size, name) { return `/api/core/users/search?name=${name}&page=${page}&size=${size}` }
       },
       resources: {
-        post (source) { return `api/core/resources?source=${source}` }
+        post (origin) { return `/api/core/resources?origin=${origin}` }
       },
       stickyNotes: {
         get: '/api/core/sticky-notes',
@@ -128,7 +131,7 @@ module.exports = {
       },
       activityBlogs: {
         get (page, size) { return `/api/core/activity-blogs?page=${page}&size=${size}` },
-        post: 'api/core/activity-blogs',
+        post: '/api/core/activity-blogs',
         detail: {
           get (id) {
             return `/api/core/activity-blogs/${id}`
@@ -153,7 +156,7 @@ module.exports = {
       courses: {
         master: {
           get (page, size) { return `/api/core/courses?page=${page}&size=${size}` },
-          post: 'api/core/courses',
+          post: '/api/core/courses',
           detail: {
             get (id) { return `/api/core/courses/${id}` },
             update (id) { return `/api/core/courses/${id}` },
@@ -161,7 +164,7 @@ module.exports = {
           }
         },
         get (code, page, size) { return `/api/core/batches/${code}/courses?page=${page}&size=${size}` },
-        post (code) { return `api/core/batches/${code}/courses` },
+        post (code) { return `/api/core/batches/${code}/courses` },
         detail: {
           get (code, id) {
             return `/api/core/batches/${code}/courses/${id}`
@@ -206,10 +209,10 @@ module.exports = {
             return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/rooms?page=${page}&size=${pageSize}`
           },
           detail(batchCode, assignmentId, roomId) {
-            return `api/scoring/batches/${batchCode}/assignments/${assignmentId}/rooms/${roomId}`
+            return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/rooms/${roomId}`
           },
           update(batchCode, assignmentId, roomId) {
-            return `api/scoring/batches/${batchCode}/assignments/${assignmentId}/rooms/${roomId}`
+            return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/rooms/${roomId}`
           }
         }
       },
@@ -269,7 +272,7 @@ module.exports = {
       },
       points: {
         list(studentId) {
-          return `/api/students/${studentId}/points`
+          return `/api/scoring/summary/${studentId}`
         }
       }
     },

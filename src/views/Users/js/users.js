@@ -70,7 +70,7 @@ export default {
       let data = {
         page: this.paging.page,
         size: this.paging.size,
-        role: this.currentTab
+        role: this.currentTab.toUpperCase()
       }
       this.fetchUsersByRole({
         data,
@@ -135,7 +135,7 @@ export default {
       })
     },
     successDeleteUserById () {
-      this.$router.push({ name: 'users' })
+      this.fetchTabList()
       this.$toasted.success('successfully delete user')
       this.closeDeleteConfirmationModal()
     },

@@ -140,7 +140,7 @@ export default {
     materialUpload (file) {
       this.uploadingFile = true
       let formData = new FormData()
-      formData.append('material', file)
+      formData.append('file', file)
       let data = {
         source: 'course',
         resources: formData

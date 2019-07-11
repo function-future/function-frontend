@@ -12,7 +12,8 @@ export default {
   data () {
     return {
       activityBlogDetail: {},
-      img_file: {}
+      img_file: {},
+      imageIds: []
     }
   },
   props: [
@@ -38,7 +39,6 @@ export default {
       this.initialState()
       if (this.editMode) {
         this.getActivityBlogDetail()
-        this.setActivityBlogDetail()
       }
     },
     getActivityBlogDetail () {
@@ -46,7 +46,7 @@ export default {
       let data = { ...id }
       this.fetchActivityBlogById({
         data,
-        callback: () => {},
+        callback: this.setActivityBlogDetail,
         fail: this.failFetchActivityBlogById
       })
     },
@@ -56,10 +56,11 @@ export default {
         title: this.activityBlog.title || '',
         description: this.activityBlog.description || ''
       }
+      this.imageIds = [ ...this.activityBlog.files.map(i => i.id) ]
     },
     $imgAdd (pos, $file) {
       let data = new FormData()
-      data.append('image', $file)
+      data.append('file', $file)
       this.img_file[pos] = $file
       let configuration = { headers: { 'Content-Type': 'multipart/form-data' } }
 
@@ -68,6 +69,7 @@ export default {
         configuration,
         callback: (response) => {
           this.$refs.md.$img2Url(pos, response.file.full)
+          this.imageIds.push(response.id)
         },
         fail: this.failUploadResource
       })
@@ -79,21 +81,21 @@ export default {
       delete this.img_file[pos]
     },
     validateBeforeSubmit (callback) {
-      this.$validator.validateAll().then(callback)
-    },
-    sendActivityBlog () {
-      this.setActivityBlogDetail()
-      let data = { ...this.activityBlogDetail }
-
-      this.validateBeforeSubmit((result) => {
+      this.$validator.validateAll().then((result) => {
         if (result) {
-          if (this.editMode) {
-            this.sendUpdateActivityBlogData(data)
-          } else {
-            this.sendCreateActivityBlogData(data)
-          }
+          callback()
         }
       })
+    },
+    sendActivityBlog () {
+      this.validateBeforeSubmit(this.validationSuccess)
+    },
+    validationSuccess () {
+      let data = {
+        ...this.activityBlogDetail,
+        files: this.imageIds
+      }
+      this.editMode ? this.sendUpdateActivityBlogData(data) : this.sendCreateActivityBlogData(data)
     },
     sendCreateActivityBlogData (data) {
       this.createActivityBlog({

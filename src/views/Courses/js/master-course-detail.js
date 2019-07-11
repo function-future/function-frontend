@@ -108,6 +108,6 @@ export default {
     failDeleteMasterById () {
       this.$toasted.error('Fail to delete master course')
       this.showDeleteConfirmationModal = false
-    },
+    }
   }
 }

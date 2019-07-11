@@ -43,9 +43,6 @@ export default {
     ]),
     descriptionCompiledMarkdown: function () {
       return marked(this.courseDetail.description)
-    },
-    isMaximumPage () {
-      return Math.ceil(this.discussionPaging.totalRecords / this.discussionPaging.size) === this.discussionPaging.page
     }
   },
   created () {
@@ -95,11 +92,11 @@ export default {
     successFetchCourseDiscussions (response, paging) {
       this.discussionPaging = paging
       this.discussions.push(...response)
-      if (this.isMaximumPage) {
-        this.state.complete()
-      } else {
+      if (response.length) {
         this.discussionPaging.page++
         this.state.loaded()
+      } else {
+        this.state.complete()
       }
     },
     failFetchCourseDiscussions () {

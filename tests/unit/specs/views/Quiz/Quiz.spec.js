@@ -77,7 +77,9 @@ describe('Quiz', () => {
       ]
     }
     const actions = {
-      fetchQuizList: jest.fn()
+      fetchQuizList: jest.fn(),
+      deleteQuizById: jest.fn(),
+      copyQuiz: jest.fn()
     }
     const getters = {
       quizList: state => state.quizList
@@ -104,7 +106,8 @@ describe('Quiz', () => {
   function createWrapper(store, options) {
     const router = new VueRouter([])
     const $toasted = {
-      error: jest.fn()
+      error: jest.fn(),
+      success: jest.fn()
     }
     return shallowMount(Quiz, {
       ...options,
@@ -140,6 +143,17 @@ describe('Quiz', () => {
   test('Rendered correctly', () => {
     initComponent()
     expect(wrapper.isVueInstance()).toBe(true)
+  })
+
+  test('successFetchingQuizList', () => {
+    initComponent()
+    const data = {
+      page: 1,
+      pageSize: 10,
+      totalRecords: 20
+    }
+    wrapper.vm.successFetchingQuizList(data)
+    expect(wrapper.vm.paging).toEqual(data)
   })
 
   test('failFetchingQuizList', () => {
@@ -182,5 +196,112 @@ describe('Quiz', () => {
         batchCode: 'futur3'
       }
     })
+  })
+
+  test('openDeleteConfirmationModal', () => {
+    initComponent()
+    wrapper.vm.openDeleteConfirmationModal('sample-id')
+    expect(wrapper.vm.selectedId).toEqual('sample-id')
+    expect(wrapper.vm.showDeleteConfirmationModal).toEqual(true)
+  })
+
+  test('closeDeleteConfirmationModal', () => {
+    initComponent()
+    wrapper.vm.closeDeleteConfirmationModal()
+    expect(wrapper.vm.selectedId).toEqual('')
+    expect(wrapper.vm.showDeleteConfirmationModal).toEqual(false)
+  })
+
+  test('deleteThisQuiz', () => {
+    initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'deleteQuizById')
+    wrapper.vm.deleteThisQuiz()
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('successDeletingQuiz', () => {
+    initComponent()
+    const routerSpy = jest.spyOn(wrapper.vm.$router, 'push')
+    const closeDeleteConfirmationModal = jest.spyOn(wrapper.vm, 'closeDeleteConfirmationModal')
+    wrapper.vm.successDeletingQuiz()
+    expect(routerSpy).toHaveBeenCalledWith({ name: 'quizzes' })
+    expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
+    expect(closeDeleteConfirmationModal).toHaveBeenCalledTimes(1)
+  })
+
+  test('failedDeletingQuiz', () => {
+    initComponent()
+    wrapper.vm.failedDeletingQuiz()
+    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+  })
+
+  test('loadPage', () => {
+    initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'initPage')
+    wrapper.vm.loadPage(1)
+    expect(wrapper.vm.paging.page).toEqual(1)
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('loadPreviousPage', () => {
+    initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'initPage')
+    wrapper.vm.paging.page = 2
+    wrapper.vm.loadPreviousPage()
+    expect(wrapper.vm.paging.page).toEqual(1)
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('loadNextPage', () => {
+    initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'initPage')
+    wrapper.vm.paging.page = 2
+    wrapper.vm.loadNextPage()
+    expect(wrapper.vm.paging.page).toEqual(3)
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('openCopyModal', () => {
+    initComponent()
+    wrapper.vm.openCopyModal('sample-id')
+    expect(wrapper.vm.selectedId).toEqual('sample-id')
+    expect(wrapper.vm.showCopyModal).toEqual(true)
+  })
+
+  test('closeCopyModal', () => {
+    initComponent()
+    wrapper.vm.closeCopyModal()
+    expect(wrapper.vm.selectedId).toEqual('')
+    expect(wrapper.vm.showCopyModal).toEqual(false)
+  })
+
+  test('submitCopyModal batchDestination not yet selected', () => {
+    initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'copyQuiz')
+    wrapper.vm.submitCopyModal('')
+    expect(spy).not.toHaveBeenCalled()
+  })
+
+  // test('submitCopyModal have selected batchDestination', () => {
+  //   initComponent()
+  //   console.log(wrapper.vm.quizList)
+  //   const spy = jest.spyOn(wrapper.vm, 'copyQuiz')
+  //   wrapper.vm.submitCopyModal('sample-id')
+  //   expect(spy).toHaveBeenCalledTimes(1)
+  // })
+//  TODO: UNIT TEST THI
+
+  test('successSubmitCopyQuiz', () => {
+    initComponent()
+    wrapper.vm.successSubmitCopyQuiz()
+    expect(wrapper.vm.selectedId).toEqual('')
+    expect(wrapper.vm.showCopyModal).toEqual(false)
+    expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
+  })
+
+  test('failSubmitCopyQuiz', () => {
+    initComponent()
+    wrapper.vm.failSubmitCopyQuiz()
+    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
   })
 })

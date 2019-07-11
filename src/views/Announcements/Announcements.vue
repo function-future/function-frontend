@@ -46,7 +46,7 @@
     <modal-delete-confirmation v-if="showDeleteConfirmationModal"
                                @close="closeDeleteConfirmationModal"
                                @clickDelete="deleteThisAnnouncement">
-      <div slot="description">{{selectedId}}</div>
+      <div slot="description">Delete this announcement ?</div>
     </modal-delete-confirmation>
   </div>
 </template>

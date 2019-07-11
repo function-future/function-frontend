@@ -41,7 +41,6 @@ export default {
   methods: {
     ...mapActions([
       'fetchAssignmentList',
-      'createAssignment',
       'deleteAssignmentById',
       'copyAssignment'
     ]),

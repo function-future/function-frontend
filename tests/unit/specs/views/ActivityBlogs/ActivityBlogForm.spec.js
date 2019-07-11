@@ -2,6 +2,7 @@ import ActivityBlogForm from '@/views/ActivityBlogs/ActivityBlogForm'
 import { createLocalVue, shallowMount } from '@vue/test-utils'
 import Vuex from 'vuex'
 import VeeValidate from 'vee-validate'
+import MavonEditor from 'mavon-editor'
 
 describe('ActivityBlogForm', () => {
   let store
@@ -12,12 +13,30 @@ describe('ActivityBlogForm', () => {
     const lv = createLocalVue()
     lv.use(Vuex)
     lv.use(VeeValidate)
+    lv.use(MavonEditor)
     return lv
   }
 
   function initStore () {
     const state = {
-      activityBlog: {}
+      activityBlog: {
+        'id': 'sample-id-1',
+        'title': 'Activity Blog Title 5',
+        'description': '**Description** in markdown format goes here',
+        'files': [
+          {
+            'id': 'sample-id',
+            'file': {
+              'full': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png',
+              'thumbnail': null
+            }
+          }
+        ],
+        'author': {
+          'id': 'sample-id',
+          'name': 'Student 1'
+        }
+      }
     }
     const actions = {
       initialState: jest.fn(),
@@ -105,12 +124,10 @@ describe('ActivityBlogForm', () => {
   test('initPage', () => {
     const spy = jest.spyOn(wrapper.vm, 'initialState')
     const getActivityBlogDetailSpy = jest.spyOn(wrapper.vm, 'getActivityBlogDetail')
-    const setActivityBlogDetailSpy = jest.spyOn(wrapper.vm, 'setActivityBlogDetail')
     wrapper.vm.editMode = true
     wrapper.vm.initPage()
     expect(spy).toBeCalledTimes(1)
     expect(getActivityBlogDetailSpy).toBeCalledTimes(1)
-    expect(setActivityBlogDetailSpy).toBeCalledTimes(1)
   })
 
   test('$imgAdd', () => {
@@ -182,5 +199,46 @@ describe('ActivityBlogForm', () => {
   test('failUpdateActivityBlog', () => {
     wrapper.vm.failUpdateActivityBlog()
     expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+  })
+
+  test('validateBeforeSubmit is resolved', (done) => {
+    const callback = jest.fn()
+    wrapper.vm.$validator.validateAll = jest.fn().mockResolvedValue(true)
+    wrapper.vm.validateBeforeSubmit(callback)
+    wrapper.vm.$nextTick(() => {
+      expect(wrapper.vm.$validator.validateAll).toHaveBeenCalledTimes(1)
+      done()
+    })
+  })
+
+  test('validateBeforeSubmit is rejected', () => {
+    const callback = jest.fn()
+    wrapper.vm.validateBeforeSubmit(() => {})
+    expect(callback).toHaveBeenCalledTimes(0)
+  })
+
+  test('validationSuccess editMode false', () => {
+    wrapper.vm.editMode = false
+    const spy = jest.spyOn(wrapper.vm, 'sendCreateActivityBlogData')
+    wrapper.vm.validationSuccess()
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('validationSuccess editMode true', () => {
+    wrapper.vm.editMode = true
+    const spy = jest.spyOn(wrapper.vm, 'sendUpdateActivityBlogData')
+    wrapper.vm.validationSuccess()
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('setActivityBlogDetail', () => {
+    wrapper.vm.setActivityBlogDetail()
+    expect(wrapper.vm.activityBlogDetail.id).toEqual(wrapper.vm.activityBlog.id)
+  })
+
+  test('$imgAdd', () => {
+    const spy = jest.spyOn(wrapper.vm, 'uploadResource')
+    wrapper.vm.$imgAdd()
+    expect(spy).toHaveBeenCalledTimes(1)
   })
 })

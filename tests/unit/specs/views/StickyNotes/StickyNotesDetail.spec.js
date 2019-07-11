@@ -1,7 +1,6 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import StickyNotesDetail from '@/views/StickyNotes/StickyNotesDetail'
 import Vuex from 'vuex'
-import { stickyNotes }from '@/store/modules/stickyNotes'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -143,5 +142,25 @@ describe('StickyNotesDetail.js', () => {
     wrapper.find('.add-btn').trigger('click')
     await wrapper.vm.$nextTick()
     expect(wrapper.vm.$route.name).toBe($route.name)
+  })
+
+  test('stickyNotesDescription computed', async () => {
+    const $route = {
+      name: 'editStickyNote'
+    }
+    const $router = {
+      push: jest.fn()
+    }
+    wrapper = shallowMount(StickyNotesDetail, {
+      store,
+      localVue,
+      mocks: {
+        $route,
+        $router
+      },
+      sync: false
+    })
+    wrapper.vm.stickyNotes.description = undefined
+    expect(wrapper.vm.stickyNotesDescription).toEqual('Insert Sticky Notes Here...')
   })
 })

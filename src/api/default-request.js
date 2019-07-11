@@ -1,4 +1,5 @@
 import axios from 'axios'
+axios.defaults.withCredentials = true
 
 if (process.env.NODE_ENV === 'development') {
   require('@mock-api')
