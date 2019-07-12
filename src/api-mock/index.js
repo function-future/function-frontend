@@ -2,6 +2,7 @@ import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 import {
   auth,
+  menuList,
   stickyNotes,
   announcements,
   announcementDetails,
@@ -39,6 +40,10 @@ const methodMap = {
 }
 
 auth.forEach(data => {
+  mock[methodMap[data.method]](data.url).reply(200, data.response)
+})
+
+menuList.forEach(data => {
   mock[methodMap[data.method]](data.url).reply(200, data.response)
 })
 
