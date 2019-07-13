@@ -26,7 +26,9 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'batchList'
+      'batchList',
+      'currentUser',
+      'accessList'
     ])
   },
   created () {
