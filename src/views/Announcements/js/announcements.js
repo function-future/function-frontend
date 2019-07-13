@@ -28,7 +28,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'announcementList'
+      'announcementList',
+      'accessList'
     ])
   },
   methods: {
