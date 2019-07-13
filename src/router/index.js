@@ -82,6 +82,7 @@ const router = new Router({
       component: ActivityBlogForm,
       meta: {
         auth: true,
+        add: true,
         title: 'Add Activity Blog'
       },
       props: { editMode: false }
@@ -92,6 +93,7 @@ const router = new Router({
       component: ActivityBlogForm,
       meta: {
         auth: true,
+        edit: true,
         title: 'Edit Activity Blog'
       },
       props: { editMode: true }
@@ -118,6 +120,7 @@ const router = new Router({
       component: announcementForm,
       meta: {
         auth: true,
+        edit: true,
         title: 'Edit Announcements'
       },
       props: { editMode: true }
@@ -128,6 +131,7 @@ const router = new Router({
       component: announcementForm,
       meta: {
         auth: true,
+        add: true,
         title: 'Add Announcements'
       },
       props: { editMode: false }
@@ -378,6 +382,7 @@ const router = new Router({
       component: editStickyNote,
       meta: {
         auth: true,
+        add: true,
         title: 'Edit Sticky Note'
       }
     },
@@ -562,13 +567,30 @@ router.beforeEach((to, from, next) => {
 })
 
 router.afterEach((to, from) => {
-  if (process.env.NODE_ENV === 'development') return
+  if (process.env.NODE_ENV === 'development') {
+    store.commit('SET_ACCESS_LIST', {
+      'add': true,
+      'delete': true,
+      'edit': true,
+      'read': true
+    })
+    if ((to.meta.add && store.getters.accessList.add !== to.meta.add) ||
+      (to.meta.edit && store.getters.accessList.edit !== to.meta.edit)) {
+      router.push({ name: 'feeds' })
+    }
+    return
+  }
 
   if (store.getters.currentUser) {
     store.dispatch('getAccessList', {
       data: encodeURIComponent(to.fullPath),
       callback: () => {
         if (store.getters.accessList.read) {
+          router.push({ name: 'feeds' })
+          return
+        }
+        if ((to.meta.add && store.getters.accessList.add !== to.meta.add) ||
+          (to.meta.edit && store.getters.accessList.edit !== to.meta.edit)) {
           router.push({ name: 'feeds' })
         }
       },
