@@ -375,8 +375,151 @@ describe('AnnouncementForm.vue on edit mode', () => {
       ],
       sync: false
     })
-    wrapper.vm.$router.go  = jest.fn()
+    wrapper.vm.$router.push = jest.fn()
     wrapper.vm.cancel()
-    expect(wrapper.vm.$router.go).toHaveBeenCalledTimes(1)
+    expect(wrapper.vm.$router.push).toHaveBeenCalledTimes(1)
+  })
+
+  test('validateBeforeSubmit is resolved', (done) => {
+    const wrapper = shallowMount(AnnouncementForm, {
+      store,
+      localVue,
+      router,
+      stubs: [
+        'BaseInput',
+        'BaseTextArea',
+        'BaseButton',
+        'BaseSelect',
+        'font-awesome-icon',
+        'v-date-picker',
+        'v-calendar'
+      ],
+      sync: false
+    })
+    const callback = jest.fn()
+    wrapper.vm.$validator.validateAll = jest.fn().mockResolvedValue(true)
+    wrapper.vm.validateBeforeSubmit(callback)
+    wrapper.vm.$nextTick(() => {
+      expect(wrapper.vm.$validator.validateAll).toHaveBeenCalledTimes(1)
+      done()
+    })
+  })
+
+  test('validateBeforeSubmit is rejected', () => {
+    const wrapper = shallowMount(AnnouncementForm, {
+      store,
+      localVue,
+      router,
+      stubs: [
+        'BaseInput',
+        'BaseTextArea',
+        'BaseButton',
+        'BaseSelect',
+        'font-awesome-icon',
+        'v-date-picker',
+        'v-calendar'
+      ],
+      sync: false
+    })
+    const callback = jest.fn()
+    wrapper.vm.validateBeforeSubmit(() => {})
+    expect(callback).toHaveBeenCalledTimes(0)
+  })
+
+  test('validationSuccess editMode false', () => {
+    const wrapper = shallowMount(AnnouncementForm, {
+      store,
+      localVue,
+      router,
+      propsData: { editMode: false },
+      stubs: [
+        'BaseInput',
+        'BaseTextArea',
+        'BaseButton',
+        'BaseSelect',
+        'font-awesome-icon',
+        'v-date-picker',
+        'v-calendar'
+      ],
+      sync: false
+    })
+    const spy = jest.spyOn(wrapper.vm, 'sendCreateAnnouncementData')
+    wrapper.vm.validationSuccess()
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('validationSuccess editMode true', () => {
+    const wrapper = shallowMount(AnnouncementForm, {
+      store,
+      localVue,
+      router,
+      stubs: [
+        'BaseInput',
+        'BaseTextArea',
+        'BaseButton',
+        'BaseSelect',
+        'font-awesome-icon',
+        'v-date-picker',
+        'v-calendar'
+      ],
+      propsData: { editMode: true },
+      sync: false
+    })
+    const spy = jest.spyOn(wrapper.vm, 'sendUpdateAnnouncementData')
+    wrapper.vm.validationSuccess()
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('failUploadResource', () => {
+    const wrapper = shallowMount(AnnouncementForm, {
+      store,
+      localVue,
+      router,
+      stubs: [
+        'BaseInput',
+        'BaseTextArea',
+        'BaseButton',
+        'BaseSelect',
+        'font-awesome-icon',
+        'v-date-picker',
+        'v-calendar'
+      ],
+      mocks: {
+        $toasted: {
+          error: jest.fn()
+        }
+      },
+      propsData: { editMode: true },
+      sync: false
+    })
+    wrapper.vm.failUploadResource()
+    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+  })
+
+  test('$imgAdd', () => {
+    const wrapper = shallowMount(AnnouncementForm, {
+      store,
+      localVue,
+      router,
+      stubs: [
+        'BaseInput',
+        'BaseTextArea',
+        'BaseButton',
+        'BaseSelect',
+        'font-awesome-icon',
+        'v-date-picker',
+        'v-calendar'
+      ],
+      mocks: {
+        $toasted: {
+          error: jest.fn()
+        }
+      },
+      propsData: { editMode: true },
+      sync: false
+    })
+    const spy = jest.spyOn(wrapper.vm, 'uploadResource')
+    wrapper.vm.$imgAdd()
+    expect(spy).toHaveBeenCalledTimes(1)
   })
 })

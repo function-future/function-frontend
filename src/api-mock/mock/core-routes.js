@@ -52,17 +52,23 @@ export const accessList = {
 }
 
 // menu-list
-export const menuList = {
-  method: 'GET',
-  url: '/api/core/user/menu-list',
-  response: {
-    'courses': true,
-    'files': true,
-    'users': true,
-    'grades': true,
-    'chatroom': true
+export const menuList = [
+  {
+    method: 'GET',
+    url: '/api/core/user/menu-list',
+    response: {
+      'courses': true,
+      'files': true,
+      'users': true,
+      'chatroom': true,
+      'questionBanks': true,
+      'quizzes': true,
+      'assignments': true,
+      'comparisons': true,
+      'points': true
+    }
   }
-}
+]
 
 export const stickyNotes = [
   {
@@ -1132,7 +1138,7 @@ export const discussions = [
 export const users = [
   {
     method: 'GET',
-    url: '/api/core/users?page=1&size=10&role=student',
+    url: '/api/core/users?page=1&size=10&role=STUDENT',
     response: {
       "code": 200,
       "status": "OK",
@@ -1237,7 +1243,7 @@ export const users = [
   },
   {
     method: 'GET',
-    url: '/api/core/users?page=1&size=10&role=mentor',
+    url: '/api/core/users?page=1&size=10&role=MENTOR',
     response: {
       "code": 200,
       "status": "OK",
@@ -1270,7 +1276,7 @@ export const users = [
   },
   {
     method: 'GET',
-    url: '/api/core/users?page=1&size=10&role=judge',
+    url: '/api/core/users?page=1&size=10&role=JUDGE',
     response: {
       "code": 200,
       "status": "OK",
@@ -1294,7 +1300,7 @@ export const users = [
   },
   {
     method: 'GET',
-    url: '/api/core/users?page=1&size=10&role=admin',
+    url: '/api/core/users?page=1&size=10&role=ADMIN',
     response: {
       "code": 200,
       "status": "OK",

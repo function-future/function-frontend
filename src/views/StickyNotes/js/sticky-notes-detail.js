@@ -14,8 +14,11 @@ export default {
     ...mapGetters([
       'stickyNotes'
     ]),
+    stickyNotesDescription () {
+      return this.stickyNotes.description || 'Insert Sticky Notes Here...'
+    },
     stickyNoteCompiledMarkdown () {
-      return marked(this.stickyNotes.description)
+      return marked(this.stickyNotesDescription)
     }
   },
   methods: {

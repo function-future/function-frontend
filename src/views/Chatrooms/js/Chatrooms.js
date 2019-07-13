@@ -7,7 +7,7 @@ import MessageBubbleSent from '../MessageBubbleSent'
 import ModalChatroom from '../ModalChatroom'
 import chatroomApi from '@/api/controller/chatrooms'
 import InfiniteLoading from 'vue-infinite-loading'
-import { mapActions, mapGetters, mapMutations } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import moment from 'moment'
 
 const POLL_INTERVAL = 1000
@@ -98,12 +98,10 @@ export default {
       chatroomApi.updateChatroom(response => {
         this.selectChatroom(response.data)
         this.chatroomPage = 1
-        this.resetMessages()
+        this.resetChatrooms()
         this.activeChatroomId = response.data.id
         this.activeChatroomType = response.data.type
-        this.$nextTick(() => {
-          this.$refs.chatroomInfiniteLoading.stateChanger.reset()
-        })
+        this.$refs.chatroomInfiniteLoading.stateChanger.reset()
       }, err => console.log(err), {
         params: {
           chatroomId: this.activeChatroomId

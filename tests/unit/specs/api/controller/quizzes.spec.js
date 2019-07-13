@@ -59,4 +59,14 @@ describe('Quiz Controller', () => {
     api.deleteQuiz(callback, data, payload, errorHandler)
     expect(spy).toBeCalledTimes(1)
   })
+
+  test('copyQuiz', () => {
+    const spy = jest.spyOn(request, 'postRequest')
+    const data = {}
+    const payload = {}
+    const callback = jest.fn()
+    const errorHandler = jest.fn()
+    api.copyQuiz(callback, data, payload, errorHandler)
+    expect(spy).toBeCalledTimes(1)
+  })
 })

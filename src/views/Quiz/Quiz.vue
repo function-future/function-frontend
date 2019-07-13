@@ -5,9 +5,29 @@
         <font-awesome-icon icon="plus" class="icon"/> Add
       </BaseButton>
     </div>
-    <BaseCard class="quiz-card" v-for="quiz in quizList" @click.native="goToQuizDetail(quiz.id, quiz.batch)"> <!-- TODO verifiy API spe for batch field !-->
-      <div class="card-header">
-        {{quiz.title}}
+    <BaseCard class="quiz-card" v-for="quiz in quizList" @click.native="goToQuizDetail(quiz.id)">
+      <div class="card-header-section">
+        <div class="card-header">
+          {{quiz.title}}
+        </div>
+        <div class="card-header float-right">
+          <div class="quiz-date">
+            {{ quiz.startDate |  moment("dddd, MMMM Do YYYY") }}
+          </div>
+          <div class="quiz-action">
+            <font-awesome-icon
+              icon="copy"
+              class="icon blue"
+              size="lg"
+              @click.stop="openCopyModal(quiz.id)">
+            </font-awesome-icon>
+            <span>
+            <font-awesome-icon
+              icon="trash-alt"
+              class="icon red"
+              size="lg" @click.stop="openDeleteConfirmationModal(quiz.id)"></font-awesome-icon></span>
+          </div>
+        </div>
       </div>
       <div class="card-body">
         <div class="quiz-description">
@@ -33,6 +53,20 @@
         </div>
       </div>
     </BaseCard>
+    <BasePagination :paging="paging"
+                    @loadPage="loadPage"
+                    @previousPage="loadPreviousPage"
+                    @nextPage="loadNextPage">
+    </BasePagination>
+    <modal-delete-confirmation v-if="showDeleteConfirmationModal"
+                               @close="closeDeleteConfirmationModal"
+                               @clickDelete="deleteThisQuiz">
+      <div slot="description">{{selectedId}}</div>
+    </modal-delete-confirmation>
+    <modal-copy v-if="showCopyModal"
+                     @close="closeCopyModal"
+                     @copy="submitCopyModal">
+    </modal-copy>
   </div>
 </template>
 
@@ -62,9 +96,44 @@
   justify-self: flex-end;
   margin-left: auto;
 }
+.card-header-section {
+  display: inline-block;
+}
 .card-header {
+  display: inline-block;
   font-weight: bolder;
   font-size: 1.4em;
+}
+.float-right {
+  font-size: 1em;
+  font-weight: normal;
+  float: right;
+}
+.quiz-date {
+  padding: 5px 15px 5px 5px;
+  display: inline-block;
+}
+.quiz-action {
+  border-left: 1px solid #BDBDBD;
+  padding-left: 15px;
+  display: inline-block;
+}
+.quiz-action-copy {
+  display: inline-block;
+  font-size: unset;
+  font-weight: normal;
+}
+.quiz-action span {
+  padding: 5px;
+  transition: all .2s ease;
+}
+
+.quiz-action span:hover {
+  opacity: 0.8;
+}
+
+.quiz-action span:active {
+  opacity: 0.9;
 }
 .card-body {
   display: flex;

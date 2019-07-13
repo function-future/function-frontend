@@ -25,6 +25,9 @@
                       language="en"
                       v-model="announcementDetail.description"
                       v-validate.disable="'required'"
+                      ref=md
+                      @imgAdd="$imgAdd"
+                      @imgDel="$imgDel"
                       name="description">
         </mavon-editor>
       </div>

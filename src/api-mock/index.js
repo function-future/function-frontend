@@ -1,6 +1,8 @@
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 import {
+  auth,
+  menuList,
   stickyNotes,
   announcements,
   announcementDetails,
@@ -11,7 +13,6 @@ import {
   batches,
   resources,
   users
-
 } from '@/api-mock/mock/core-routes'
 import {
   assignments,
@@ -37,6 +38,14 @@ const methodMap = {
   POST: 'onPost',
   DELETE: 'onDelete'
 }
+
+auth.forEach(data => {
+  mock[methodMap[data.method]](data.url).reply(200, data.response)
+})
+
+menuList.forEach(data => {
+  mock[methodMap[data.method]](data.url).reply(200, data.response)
+})
 
 stickyNotes.forEach(data => {
   mock[methodMap[data.method]](data.url).reply(200, data.response)

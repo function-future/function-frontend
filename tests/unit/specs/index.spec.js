@@ -1,35 +1,94 @@
 import App from '@/App'
 import { shallowMount, createLocalVue } from '@vue/test-utils'
-
-let localVue = createLocalVue()
+import Vuex from 'vuex'
+import VueRouter from 'vue-router'
 
 describe('Main component', () => {
-  test('Sanity test', () => {
-    expect(true).toBe(true)
-  })
+  let store
+  let wrapper
+  let localVue
 
-  test('Rendered correctly', () => {
+  function generateLocalVue () {
+    const lv = createLocalVue()
+    lv.use(Vuex)
+    lv.use(VueRouter)
+    return lv
+  }
+
+  function initStore () {
+    const state = {
+      currentUser: {},
+      menuList: {}
+    }
+    const actions = {
+      getMenuList: jest.fn()
+    }
+    const getters = {
+      currentUser: state => state.currentUser,
+      menuList: state => state.menuList
+    }
+    const store = new Vuex.Store({
+      modules: {
+        auth: {
+          state,
+          actions,
+          getters
+        }
+      }
+    })
+
+    return {
+      store,
+      state,
+      actions,
+      getters
+    }
+  }
+
+  function createWrapper (store, options) {
+    const router = new VueRouter([])
     const $route = {
       meta: {
         title: 'Testing mixins'
       }
     }
-    const wrapper = shallowMount(App, {
+    const $toasted = {
+      error: jest.fn(),
+      success: jest.fn()
+    }
+    return shallowMount(App, {
+      ...options,
+      store,
       localVue,
+      router,
       stubs: [
-        'BaseTitle',
-        'HeaderComp',
-        'BaseButton',
-        'BaseInput',
         'BaseCard',
-        'UserBar',
-        'ChangePageTitleMixins'
+        'BaseButton',
+        'font-awesome-icon'
       ],
       mocks: {
-        $route
+        $route,
+        $toasted
       },
       sync: false
     })
+  }
+
+  function initComponent () {
+    localVue = generateLocalVue()
+    store = initStore()
+    wrapper = createWrapper(store.store)
+  }
+
+  beforeEach(() => {
+    initComponent()
+  })
+
+  afterEach(() => {
+    jest.restoreAllMocks()
+  })
+
+  test('Rendered correctly', () => {
     expect(wrapper.isVueInstance()).toBe(true)
   })
 })

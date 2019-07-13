@@ -11,6 +11,8 @@ import addQuestionBank from '@/views/QuestionBank/AddQuestionBank'
 import questionBankQuestionList from '@/views/QuestionBank/QuestionBankQuestionList'
 import questionBankAddQuestion from '@/views/QuestionBank/QuestionBankAddQuestion'
 import questionBankQuestionDetail from '@/views/QuestionBank/QuestionBankQuestionDetail'
+import quizBatch from '@/views/Quiz/QuizBatch'
+import quizBatchForm from '@/views/Quiz/QuizBatchForm'
 import quizzes from '@/views/Quiz/Quiz'
 import addQuiz from '@/views/Quiz/AddQuiz'
 import addQuizDetail from '@/views/Quiz/AddQuizDetail'
@@ -37,13 +39,20 @@ import masterCourseDetail from '@/views/Courses/MasterCourseDetail.vue'
 import masterCourseForm from '@/views/Courses/MasterCourseForm.vue'
 import config from '@/config/index'
 import chatrooms from '@/views/Chatrooms/Chatrooms'
+import login from '@/views/Auth/Login'
+import store from '../store/index.js'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
+    {
+      path: config.app.pages.auth.login,
+      name: 'login',
+      component: login
+    },
     {
       path: config.app.pages.feeds,
       name: 'feeds',
@@ -73,6 +82,7 @@ export default new Router({
       name: 'addActivityBlog',
       component: ActivityBlogForm,
       meta: {
+        auth: true,
         title: 'Add Activity Blog'
       },
       props: { editMode: false }
@@ -82,6 +92,7 @@ export default new Router({
       name: 'editActivityBlog',
       component: ActivityBlogForm,
       meta: {
+        auth: true,
         title: 'Edit Activity Blog'
       },
       props: { editMode: true }
@@ -107,6 +118,7 @@ export default new Router({
       name: 'editAnnouncement',
       component: announcementForm,
       meta: {
+        auth: true,
         title: 'Edit Announcements'
       },
       props: { editMode: true }
@@ -116,6 +128,7 @@ export default new Router({
       name: 'addAnnouncement',
       component: announcementForm,
       meta: {
+        auth: true,
         title: 'Add Announcements'
       },
       props: { editMode: false }
@@ -125,6 +138,7 @@ export default new Router({
       name: 'courseBatches',
       component: courseBatch,
       meta: {
+        auth: true,
         title: 'Select Course Batch',
         breadcrumb: [
           { name: 'Batches', link: 'courseBatches' }
@@ -136,6 +150,7 @@ export default new Router({
       name: 'addBatch',
       component: batchForm,
       meta: {
+        auth: true,
         title: 'Add Batch',
         breadcrumb: [
           { name: 'Batches', link: 'courseBatches' },
@@ -149,6 +164,7 @@ export default new Router({
       name: 'editBatch',
       component: batchForm,
       meta: {
+        auth: true,
         title: 'Edit Batch',
         breadcrumb: [
           { name: 'Batches', link: 'courseBatches' },
@@ -162,6 +178,7 @@ export default new Router({
       name: 'courses',
       component: courses,
       meta: {
+        auth: true,
         title: 'Courses',
         breadcrumb: [
           { name: 'Batches', link: 'courseBatches' },
@@ -174,6 +191,7 @@ export default new Router({
       name: 'courseDetail',
       component: courseDetail,
       meta: {
+        auth: true,
         title: 'Course Detail',
         breadcrumb: [
           { name: 'Batches', link: 'courseBatches' },
@@ -187,6 +205,7 @@ export default new Router({
       name: 'addCourse',
       component: courseForm,
       meta: {
+        auth: true,
         title: 'Add Course',
         breadcrumb: [
           { name: 'Batches', link: 'courseBatches' },
@@ -201,6 +220,7 @@ export default new Router({
       name: 'editCourse',
       component: courseForm,
       meta: {
+        auth: true,
         title: 'Edit Course',
         breadcrumb: [
           { name: 'Batches', link: 'courseBatches' },
@@ -215,6 +235,7 @@ export default new Router({
       name: 'masterCourses',
       component: masterCourses,
       meta: {
+        auth: true,
         title: 'Master Courses',
         breadcrumb: [
           { name: 'Batches', link: 'courseBatches' },
@@ -227,6 +248,7 @@ export default new Router({
       name: 'masterCourseDetail',
       component: masterCourseDetail,
       meta: {
+        auth: true,
         title: 'Master Course Detail',
         breadcrumb: [
           { name: 'Batches', link: 'courseBatches' },
@@ -240,6 +262,7 @@ export default new Router({
       name: 'addMasterCourse',
       component: masterCourseForm,
       meta: {
+        auth: true,
         title: 'Add Master Course',
         breadcrumb: [
           { name: 'Batches', link: 'courseBatches' },
@@ -254,6 +277,7 @@ export default new Router({
       name: 'editMasterCourse',
       component: masterCourseForm,
       meta: {
+        auth: true,
         title: 'Edit Master Course',
         breadcrumb: [
           { name: 'Batches', link: 'courseBatches' },
@@ -268,6 +292,7 @@ export default new Router({
       name: 'files',
       component: feeds,
       meta: {
+        auth: true,
         title: 'Files'
       }
     },
@@ -276,6 +301,7 @@ export default new Router({
       name: 'users',
       component: users,
       meta: {
+        auth: true,
         title: 'Users'
       }
     },
@@ -284,6 +310,7 @@ export default new Router({
       name: 'addStudent',
       component: UserForm,
       meta: {
+        auth: true,
         title: 'Add Student'
       },
       props: {
@@ -296,6 +323,7 @@ export default new Router({
       name: 'addUser',
       component: UserForm,
       meta: {
+        auth: true,
         title: 'Add User'
       },
       props: {
@@ -308,6 +336,7 @@ export default new Router({
       name: 'editStudent',
       component: UserForm,
       meta: {
+        auth: true,
         title: 'Edit Student'
       },
       props: {
@@ -320,6 +349,7 @@ export default new Router({
       name: 'editUser',
       component: UserForm,
       meta: {
+        auth: true,
         title: 'Edit User'
       },
       props: {
@@ -348,6 +378,7 @@ export default new Router({
       name: 'editStickyNote',
       component: editStickyNote,
       meta: {
+        auth: true,
         title: 'Edit Sticky Note'
       }
     },
@@ -398,6 +429,31 @@ export default new Router({
       meta: {
         title: 'Question Detail'
       }
+    },
+    {
+      path: config.app.pages.quizzes.batches.list,
+      name: 'quizBatch',
+      component: quizBatch,
+      meta: {
+        title: 'Quiz Batch List'
+      }
+    },
+    {
+      path: config.app.pages.quizzes.batches.add,
+      name: 'addQuizBatch',
+      component: quizBatchForm,
+      meta: {
+        title: 'Quiz Batch List'
+      }
+    },
+    {
+      path: config.app.pages.quizzes.batches.edit,
+      name: 'editQuizBatch',
+      component: quizBatchForm,
+      meta: {
+        title: 'Quiz Batch List'
+      },
+      props: { editMode: true }
     },
     {
       path: config.app.pages.quizzes.list,
@@ -498,3 +554,22 @@ export default new Router({
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  if (process.env.NODE_ENV === 'development') {
+    return next()
+  }
+
+  const payload = {
+    callback: () => {
+      return to.fullPath === '/login' ? next({ name: 'feeds' }) : next()
+    },
+    fail: () => {
+      return !to.meta.auth ? next() : (to.path !== '/login' ? next('/login') : next())
+    }
+  }
+
+  store.dispatch('getLoginStatus', payload)
+})
+
+export default router

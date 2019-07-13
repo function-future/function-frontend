@@ -117,4 +117,39 @@ describe('QuestionBankQuestionList', () => {
     wrapper.vm.redirectToQuestionDetail()
     expect(wrapper.vm.$router.push).toHaveBeenCalledTimes(1)
   })
+
+  test('openDeleteConfirmationModal', () => {
+    initComponent()
+    wrapper.vm.openDeleteConfirmationModal('sample-id')
+    expect(wrapper.vm.selectedId).toEqual('sample-id')
+    expect(wrapper.vm.showDeleteConfirmationModal).toEqual(true)
+  })
+
+  test('closeDeleteConfirmationModal', () => {
+    initComponent()
+    wrapper.vm.closeDeleteConfirmationModal()
+    expect(wrapper.vm.selectedId).toEqual('')
+    expect(wrapper.vm.showDeleteConfirmationModal).toEqual(false)
+  })
+
+  test('deleteThisQuestion', () => {
+    initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'deleteQuestionById')
+    wrapper.vm.deleteThisQuestion()
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('successDeletingQuestion', () => {
+    initComponent()
+    const closeDeleteConfirmationModal = jest.spyOn(wrapper.vm, 'closeDeleteConfirmationModal')
+    wrapper.vm.successDeletingQuestion()
+    expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
+    expect(closeDeleteConfirmationModal).toHaveBeenCalledTimes(1)
+  })
+
+  test('failedDeletingQuestionBanks', () => {
+    initComponent()
+    wrapper.vm.failDeletingQuestion()
+    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+  })
 })

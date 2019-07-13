@@ -40,11 +40,14 @@ describe('actions', () => {
     store.actions.fetchStickyNotes({ commit }, { callback, fail })
     expect(fail).toHaveBeenCalledTimes(0)
     expect(commit).toHaveBeenCalledTimes(1)
-    expect(commit).toHaveBeenCalledWith('SET_STICKY_NOTES_INFO', {
-      'title': 'Sticky Note Title',
-      'description': 'Note noteDescription goes here. Length is undetermined.',
-      'updatedAt': 1555333551046
-    })
+    expect(commit).toHaveBeenCalledWith('SET_STICKY_NOTES_INFO', [
+      {
+        'id': 'sample-id',
+        'title': 'Sticky Note Title',
+        'description': 'Note noteDescription goes here. Length is undetermined.',
+        'updatedAt': 1555333551046
+      }
+    ])
     expect(callback).toBeCalledTimes(1)
   })
 

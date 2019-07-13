@@ -77,6 +77,7 @@ export default {
       this.editMode = !this.editMode
     },
     saveAssignment () {
+      this.assignmentDetail.deadline = new Date(this.assignmentDetail.deadline).getTime()
       this.updateAssignmentDetail({
         payload: this.assignmentDetail,
         data: {
