@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import assignmentBatch from '@/views/Assignment/AssignmentBatch'
+import assignmentBatchForm from '@/views/Assignment/AssignmentBatchForm'
 import assignments from '@/views/Assignment/Assignments'
 import addAssignment from '@/views/Assignment/AddAssignment'
 import assignmentRooms from '@/views/Assignment/AssignmentRooms'
@@ -496,6 +498,31 @@ const router = new Router({
       }
     },
     {
+      path: config.app.pages.assignments.batches.list,
+      name: 'assignmentBatch',
+      component: assignmentBatch,
+      meta: {
+        title: 'Assignment Batch List'
+      }
+    },
+    {
+      path: config.app.pages.assignments.batches.add,
+      name: 'addAssignmentBatch',
+      component: assignmentBatchForm,
+      meta: {
+        title: 'Assignment Batch List'
+      }
+    },
+    {
+      path: config.app.pages.assignments.batches.edit,
+      name: 'editAssignmentBatch',
+      component: assignmentBatchForm,
+      meta: {
+        title: 'Assignment Batch List'
+      },
+      props: { editMode: true }
+    },
+    {
       path: config.app.pages.assignments.list,
       name: 'assignments',
       component: assignments,
@@ -564,16 +591,26 @@ router.beforeEach((to, from, next) => {
     return next()
   }
 
-  const payload = {
-    callback: () => {
-      return to.fullPath === '/login' ? next({ name: 'feeds' }) : next()
-    },
-    fail: () => {
-      return !to.meta.auth ? next() : (to.path !== '/login' ? next('/login') : next())
-    }
-  }
+  store.dispatch('getLoginStatus', {
+    callback: () => { return to.fullPath === '/login' ? next({ name: 'feeds' }) : next() },
+    fail: () => { return !to.meta.auth ? next() : (to.path !== '/login' ? next('/login') : next()) }
+  })
+})
 
-  store.dispatch('getLoginStatus', payload)
+router.afterEach((to, from) => {
+  if (process.env.NODE_ENV === 'development') return
+
+  if (store.getters.currentUser) {
+    store.dispatch('getAccessList', {
+      data: encodeURIComponent(to.fullPath),
+      callback: () => {
+        if (store.getters.accessList.read) {
+          router.push({ name: 'feeds' })
+        }
+      },
+      fail: () => {}
+    })
+  }
 })
 
 export default router

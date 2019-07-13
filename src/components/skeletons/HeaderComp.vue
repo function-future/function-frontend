@@ -19,7 +19,7 @@
         <ul v-if="showGrades" class="grades-submenu">
           <li v-if="menuList.questionBanks"><router-link :to="{ name: 'questionBanks' }" class="navbar-link">Question Banks</router-link></li>
           <li v-if="menuList.quizzes"><router-link :to="{ name: 'quizBatch' }" class="navbar-link">Quizzes</router-link></li>
-          <li v-if="menuList.assignments"><router-link :to="{ name: 'assignments' }" class="navbar-link">Assignments</router-link></li>
+          <li v-if="menuList.assignments"><router-link :to="{ name: 'assignmentBatch' }" class="navbar-link">Assignments</router-link></li>
           <li v-if="menuList.comparisons"><router-link :to="{ name: 'finalComparisons' }" class="navbar-link">Comparisons</router-link></li>
           <li v-if="menuList.points"><router-link :to="{ name: 'points' }" class="navbar-link">Points</router-link></li>
         </ul>

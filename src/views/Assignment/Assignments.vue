@@ -8,7 +8,7 @@
     <BaseCard class="assignment-card"
               v-for="assignment in assignmentList"
               :key="assignment.id"
-              @click.native="goToAssignmentDetail(assignment.id, assignment.batch)"
+              @click.native="goToAssignmentDetail(assignment.id)"
               cardClass="card-hover">
       <div class="card-header-section">
         <div class="card-header">

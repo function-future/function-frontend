@@ -23,14 +23,8 @@ export default {
         title: '',
         description: '',
         deadline: null,
-        batch: 'Batch 3',
         // file: ''
       },
-      batches: [
-        'Batch One',
-        'Batch Second',
-        'Batch 3'
-      ],
       editMode: false
     }
   },
@@ -51,7 +45,7 @@ export default {
       this.fetchAssignmentDetail({
         data: {
           id: this.$route.params.id,
-          batchCode: this.$route.query.batchCode
+          batchCode: this.$route.params.batchCode
         },
         callback: this.successFetchingAssignmentDetail,
         fail: this.failFetchingAssignmentDetail
@@ -77,11 +71,12 @@ export default {
       this.editMode = !this.editMode
     },
     saveAssignment () {
-      this.assignmentDetail.deadline = new Date(this.assignmentDetail.deadline).getTime()
+      let payload = { ...this.assignmentDetail }
+      payload.deadline = new Date(payload.deadline).getTime()
       this.updateAssignmentDetail({
-        payload: this.assignmentDetail,
+        payload,
         data: {
-          batchCode: this.$route.query.batchCode,
+          batchCode: this.$route.params.batchCode,
           id: this.$route.params.id
         },
         callback: this.successUpdatingAssignment,
