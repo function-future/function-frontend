@@ -19,6 +19,14 @@ export default {
       loginSuccess: false
     }
   },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.$router.push({
+        name: 'login',
+        query: { redirect: from.fullPath }
+      })
+    })
+  },
   methods: {
     ...mapActions([
       'attemptLogin'
@@ -48,10 +56,10 @@ export default {
     },
     successLogin () {
       this.loginSuccess = true
-      setTimeout(this.redirectToFeeds, 700)
+      setTimeout(this.redirectAfterLogin, 700)
     },
-    redirectToFeeds () {
-      this.$router.push({ name: 'feeds' })
+    redirectAfterLogin () {
+      this.$router.push({ path: this.$route.query.redirect })
     },
     failLogin () {
       setTimeout(this.showFailMessage, 700)

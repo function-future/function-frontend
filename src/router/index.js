@@ -555,16 +555,26 @@ router.beforeEach((to, from, next) => {
     return next()
   }
 
-  const payload = {
-    callback: () => {
-      return to.fullPath === '/login' ? next({ name: 'feeds' }) : next()
-    },
-    fail: () => {
-      return !to.meta.auth ? next() : (to.path !== '/login' ? next('/login') : next())
-    }
-  }
+  store.dispatch('getLoginStatus', {
+    callback: () => { return to.fullPath === '/login' ? next({ name: 'feeds' }) : next() },
+    fail: () => { return !to.meta.auth ? next() : (to.path !== '/login' ? next('/login') : next()) }
+  })
+})
 
-  store.dispatch('getLoginStatus', payload)
+router.afterEach((to, from) => {
+  if (process.env.NODE_ENV === 'development') return
+
+  if (store.getters.currentUser) {
+    store.dispatch('getAccessList', {
+      data: encodeURIComponent(to.fullPath),
+      callback: () => {
+        if (store.getters.accessList.read) {
+          router.push({ name: 'feeds' })
+        }
+      },
+      fail: () => {}
+    })
+  }
 })
 
 export default router
