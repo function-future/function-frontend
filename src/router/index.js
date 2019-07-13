@@ -562,11 +562,19 @@ router.beforeEach((to, from, next) => {
 })
 
 router.afterEach((to, from) => {
-  store.dispatch('getAccessList', {
-    data: encodeURIComponent(to.fullPath),
-    callback: () => {},
-    fail: () => {}
-  })
+  if (process.env.NODE_ENV === 'development') return
+
+  if (store.getters.currentUser) {
+    store.dispatch('getAccessList', {
+      data: encodeURIComponent(to.fullPath),
+      callback: () => {
+        if (store.getters.accessList.read) {
+          router.push({ name: 'feeds' })
+        }
+      },
+      fail: () => {}
+    })
+  }
 })
 
 export default router
