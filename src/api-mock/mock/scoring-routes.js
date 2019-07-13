@@ -405,7 +405,7 @@ export const quizDetail = [
 export const studentQuiz = [
   {
     method: 'GET',
-    url: '/api/scoring/students/sample-id/quizzes',
+    url: '/api/scoring/students/sample-id/quizzes?page=1&size=10',
     response: {
       "code": 200,
       "status": "OK",
@@ -542,18 +542,14 @@ export const studentQuizQuestion = [
   {
     method: 'POST',
     url: '/api/scoring/students/studentId/quizzes/quizId/questions',
-    response: {
-      "answers": [
-        {
-          "number": 1,
-          "optionId": "OPT0001"
-        },
-        {
-          "number": 2,
-          "optionId": "OPT0005"
+    response:
+      {
+        "code": 201,
+        "status": "CREATED",
+        "data": {
+          "point": 100
         }
-      ]
-    }
+      }
   }
 ]
 
