@@ -18,5 +18,8 @@ const postQuizAnswer = function (callback, data, payload, errorHandler) {
 }
 
 export default {
-  getPoints
+  getQuizzes,
+  getQuizDetail,
+  getQuestions,
+  postQuizAnswer
 }

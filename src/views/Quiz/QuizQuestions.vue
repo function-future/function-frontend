@@ -1,34 +1,34 @@
 <template>
   <div class="container">
-    Question Number <!--IF POSSIBLE!-->
+    Question Number {{ currentNumber + 1}}<!--IF POSSIBLE!-->
     <div class="quiz">
       <div class="quiz-content">
         <div class="quiz-content-question">
           <BaseCard :style="{ margin: 0, height: '100%' }">
-
+            {{questions[currentNumber].text}}
           </BaseCard>
         </div>
         <div class="quiz-content-option">
-          <BaseButton class="quiz-content-option__item" :style="{ 'margin': '0 0 5px 0'}" buttonClass="button-white"></BaseButton>
-          <BaseButton class="quiz-content-option__item" :style="{ 'margin': '0 0 5px 0'}" buttonClass="button-white"></BaseButton>
-          <BaseButton class="quiz-content-option__item" :style="{ 'margin': '10px 0 5px 0'}" buttonClass="button-white"></BaseButton>
-          <BaseButton class="quiz-content-option__item" :style="{ 'margin': '10px 0 5px 0'}" buttonClass="button-white"></BaseButton>
+          <BaseButton class="quiz-content-option__item" :style="{ 'margin': '0 0 5px 0'}" buttonClass="button-white" @click="selectOption(questions[currentNumber].options[0].optionId)">{{questions[currentNumber].options[0].label}}</BaseButton>
+          <BaseButton class="quiz-content-option__item" :style="{ 'margin': '0 0 5px 0'}" buttonClass="button-white" @click="selectOption(questions[currentNumber].options[1].optionId)">{{questions[currentNumber].options[1].label}}</BaseButton>
+          <BaseButton class="quiz-content-option__item" :style="{ 'margin': '10px 0 5px 0'}" buttonClass="button-white" @click="selectOption(questions[currentNumber].options[2].optionId)">{{questions[currentNumber].options[2].label}}</BaseButton>
+          <BaseButton class="quiz-content-option__item" :style="{ 'margin': '10px 0 5px 0'}" buttonClass="button-white" @click="selectOption(questions[currentNumber].options[3].optionId)">{{questions[currentNumber].options[3].label}}</BaseButton>
         </div>
       </div>
       <div class="quiz-action">
         <div class="quiz-action-button">
-          <BaseButton :style="{ width: '100%', height: '100%' }" buttonClass="button-save">Finish</BaseButton>
+          <BaseButton :style="{ width: '100%', height: '100%' }" buttonClass="button-save" @click="submitQuiz">Finish</BaseButton>
         </div>
         <div class="quiz-action-legend">
           <BaseCard :style="{ 'margin': '15px 0 0 0', 'height': '100%' }">
-
+            <!--TODO: Add navigation system-->
           </BaseCard>
         </div>
       </div>
     </div>
     <div class="navigation">
-      <BaseButton class="navigation__button" :style="{ height: '100%' }" buttonClass="button-save">Previous</BaseButton>
-      <BaseButton class="navigation__button" :style="{ height: '100%' }" buttonClass="button-save">Next</BaseButton>
+      <BaseButton class="navigation__button" :style="{ height: '100%' }" buttonClass="button-save" @click="viewPreviousQuestion">Previous</BaseButton>
+      <BaseButton class="navigation__button" :style="{ height: '100%' }" buttonClass="button-save" @click="viewNextQuestion">Next</BaseButton>
     </div>
   </div>
 </template>

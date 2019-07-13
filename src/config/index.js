@@ -297,7 +297,7 @@ module.exports = {
             return `/api/scoring/students/${studentId}/quizzes/${quizId}`
           },
           questions(studentId, quizId) {
-            return `/api/scoring/students/${studentId}/quizzes/${quizId}`
+            return `/api/scoring/students/${studentId}/quizzes/${quizId}/questions`
           }
         }
       },

@@ -485,7 +485,7 @@ export const studentQuizDetail = [
 export const studentQuizQuestion = [
   {
     method: 'GET',
-    url: '/api/scoring/students/sample-id/quizzes/QZ0001/questions',
+    url: '/api/scoring/students/sample-id/quizzes/QZ00001/questions',
     response: {
       "code" : 200,
       "status" : "OK",
@@ -519,19 +519,19 @@ export const studentQuizQuestion = [
             "options" : [
               {
                 "optionId" : "OptionId1",
-                "label" : "Answer Example 1"
+                "label" : "Answer Example 5"
               },
               {
                 "optionId" : "OptionId2",
-                "label" : "Answer Example 2"
+                "label" : "Answer Example 6"
               },
               {
                 "optionId" : "OptionId3",
-                "label" : "Answer Example 3"
+                "label" : "Answer Example 7"
               },
               {
                 "optionId" : "OptionId4",
-                "label" : "Answer Example 4"
+                "label" : "Answer Example 8"
               }
             ]
           },
@@ -541,7 +541,7 @@ export const studentQuizQuestion = [
   },
   {
     method: 'POST',
-    url: '/api/scoring/students/studentId/quizzes/quizId/questions',
+    url: '/api/scoring/students/sample-id/quizzes/QZ00001/questions',
     response:
       {
         "code": 201,

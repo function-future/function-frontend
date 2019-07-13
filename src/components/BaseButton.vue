@@ -45,6 +45,7 @@
     border-radius: 25px;
     padding: 15px 25px 15px 25px;
     margin: 15px;
+    color: black;
   }
 
   .button-save {
