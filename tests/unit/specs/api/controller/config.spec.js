@@ -1,9 +1,9 @@
-import api from '@/api/controller/menu-list'
+import api from '@/api/controller/config'
 import request from '@/api/default-request'
 
 jest.mock('@/api/default-request')
 
-describe('MenuList Controller', () => {
+describe('config Controller', () => {
   afterEach(() => {
     jest.restoreAllMocks()
   })
