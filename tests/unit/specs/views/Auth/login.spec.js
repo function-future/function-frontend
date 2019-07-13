@@ -133,7 +133,7 @@ describe('Login', () => {
   })
 
   test('successLogin', (done) => {
-    const spy = jest.spyOn(wrapper.vm, 'redirectToFeeds')
+    const spy = jest.spyOn(wrapper.vm, 'redirectAfterLogin')
     wrapper.vm.successLogin()
     expect(wrapper.vm.loginSuccess).toEqual(true)
     setTimeout(() => {
@@ -144,10 +144,10 @@ describe('Login', () => {
     }, 1000)
   })
 
-  test('redirectToFeeds', () => {
+  test('redirectAfterLogin', () => {
     wrapper.vm.$router.push = jest.fn()
-    wrapper.vm.redirectToFeeds()
-    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'feeds' })
+    wrapper.vm.redirectAfterLogin()
+    expect(wrapper.vm.$router.push).toHaveBeenCalledTimes(1)
   })
 
   test('failLogin', (done) => {
