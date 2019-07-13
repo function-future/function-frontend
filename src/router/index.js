@@ -555,16 +555,18 @@ router.beforeEach((to, from, next) => {
     return next()
   }
 
-  const payload = {
-    callback: () => {
-      return to.fullPath === '/login' ? next({ name: 'feeds' }) : next()
-    },
-    fail: () => {
-      return !to.meta.auth ? next() : (to.path !== '/login' ? next('/login') : next())
-    }
-  }
+  store.dispatch('getLoginStatus', {
+    callback: () => { return to.fullPath === '/login' ? next({ name: 'feeds' }) : next() },
+    fail: () => { return !to.meta.auth ? next() : (to.path !== '/login' ? next('/login') : next()) }
+  })
+})
 
-  store.dispatch('getLoginStatus', payload)
+router.afterEach((to, from) => {
+  store.dispatch('getAccessList', {
+    data: '/' + to.fullPath.split('/')[1],
+    callback: () => {},
+    fail: () => {}
+  })
 })
 
 export default router
