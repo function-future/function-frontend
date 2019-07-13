@@ -402,6 +402,161 @@ export const quizDetail = [
   }
 ]
 
+export const studentQuiz = [
+  {
+    method: 'GET',
+    url: '/api/scoring/students/sample-id/quizzes',
+    response: {
+      "code": 200,
+      "status": "OK",
+      "paging": {
+        "page": 1,
+        "size": 12,
+        "totalRecords": 13
+      },
+      "data": [
+        {
+          "id": "sample-id",
+          "quiz": {
+            "id": "QZ0001",
+            "title": "Quiz 2",
+            "description": "Description for Quiz 2",
+            "startDate": 15000000,
+            "endDate": 15000000,
+            "timeLimit": 3600,
+            "trials": 3,
+            "questionCount": 10,
+            "questionBanks": [
+              "QNK00001"
+            ],
+            "batchCode": "3"
+          }
+        },
+        {
+          "id": "sample-id",
+          "quiz": {
+            "id": "QZ0001",
+            "title": "Quiz 2",
+            "description": "Description for Quiz 2",
+            "startDate": 15000000,
+            "endDate": 15000000,
+            "timeLimit": 3600,
+            "trials": 3,
+            "questionCount": 10,
+            "questionBanks": [
+              "QNK00001"
+            ],
+            "batchCode": "3"
+          }
+        }
+      ]
+    }
+  }
+]
+
+export const studentQuizDetail = [
+  {
+    method: 'GET',
+    url: '/api/scoring/students/sample-id/quizzes/QZ0001',
+    response: {
+      "code": 200,
+      "status": "OK",
+      "data": {
+        "id": "sample-id",
+        "quiz": {
+          "id": "QZ0001",
+          "title": "Quiz 2",
+          "description": "Description for Quiz 2",
+          "startDate": 15000000,
+          "endDate": 15000000,
+          "timeLimit": 3600,
+          "trials": 3,
+          "questionCount": 10,
+          "questionBanks": [
+            "QNK00001"
+          ],
+          "batchCode": "3"
+        }
+      }
+    }
+  }
+]
+
+export const studentQuizQuestion = [
+  {
+    method: 'GET',
+    url: '/api/scoring/students/sample-id/quizzes/QZ0001/questions',
+    response: {
+      "code" : 200,
+      "status" : "OK",
+      "data" : {
+        "questions": [
+          {
+            "number" : 1,
+            "text" : "Question Example 1",
+            "options" : [
+              {
+                "optionId" : "OptionId1",
+                "label" : "Answer Example 1"
+              },
+              {
+                "optionId" : "OptionId2",
+                "label" : "Answer Example 2"
+              },
+              {
+                "optionId" : "OptionId3",
+                "label" : "Answer Example 3"
+              },
+              {
+                "optionId" : "OptionId4",
+                "label" : "Answer Example 4"
+              }
+            ]
+          },
+          {
+            "number" : 2,
+            "text" : "Question Example 2",
+            "options" : [
+              {
+                "optionId" : "OptionId1",
+                "label" : "Answer Example 1"
+              },
+              {
+                "optionId" : "OptionId2",
+                "label" : "Answer Example 2"
+              },
+              {
+                "optionId" : "OptionId3",
+                "label" : "Answer Example 3"
+              },
+              {
+                "optionId" : "OptionId4",
+                "label" : "Answer Example 4"
+              }
+            ]
+          },
+        ]
+      }
+    }
+  },
+  {
+    method: 'POST',
+    url: '/api/scoring/students/studentId/quizzes/quizId/questions',
+    response: {
+      "answers": [
+        {
+          "number": 1,
+          "optionId": "OPT0001"
+        },
+        {
+          "number": 2,
+          "optionId": "OPT0005"
+        }
+      ]
+    }
+  }
+]
+
 export const questionBanks = [
   {
     method: 'GET',
