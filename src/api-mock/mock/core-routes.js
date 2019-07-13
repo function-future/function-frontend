@@ -42,14 +42,15 @@ export const auth = [
 ]
 
 // access-list
-export const accessList = {
-  method: 'GET',
-  url: '/api/core/user/access-list?url=/feeds',
-  response: {
-    'add': true,
-    'delete': true
-  }
-}
+export const accessList = [
+  {
+    method: 'GET',
+    url: '/api/core/user/access-list?url=/',
+    response: {
+      'add': true,
+      'delete': true
+    }
+  }]
 
 // menu-list
 export const menuList = [
