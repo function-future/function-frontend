@@ -1,12 +1,17 @@
 import authApi from '@/api/controller/auth'
+import menuListApi from '@/api/controller/menu-list'
 
 export const state = {
-  currentUser: {}
+  currentUser: {},
+  menuList: {}
 }
 
 export const mutations = {
   SET_CURRENT_USER (state, payload) {
     state.currentUser = { ...payload }
+  },
+  SET_MENU_LIST (state, payload) {
+    state.menuList = { ...payload }
   }
 }
 
@@ -28,12 +33,20 @@ export const actions = {
       commit('SET_CURRENT_USER', {})
       callback()
     }, fail)
+  },
+  getMenuList ({ commit }) {
+    menuListApi.getMenuList((response) => {
+      commit('SET_MENU_LIST', response)
+    })
   }
 }
 
 export const getters = {
   currentUser (state) {
     return state.currentUser
+  },
+  menuList (state) {
+    return state.menuList
   }
 }
 

@@ -52,17 +52,23 @@ export const accessList = {
 }
 
 // menu-list
-export const menuList = {
-  method: 'GET',
-  url: '/api/core/user/menu-list',
-  response: {
-    'courses': true,
-    'files': true,
-    'users': true,
-    'grades': true,
-    'chatroom': true
+export const menuList = [
+  {
+    method: 'GET',
+    url: '/api/core/user/menu-list',
+    response: {
+      'courses': true,
+      'files': true,
+      'users': true,
+      'chatroom': true,
+      'questionBanks': true,
+      'quizzes': true,
+      'assignments': true,
+      'comparisons': true,
+      'points': true
+    }
   }
-}
+]
 
 export const stickyNotes = [
   {

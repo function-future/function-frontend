@@ -1,3 +1,5 @@
+import { mapGetters } from 'vuex'
+
 export default {
   data () {
     return {
@@ -5,6 +7,9 @@ export default {
     }
   },
   computed: {
+    ...mapGetters([
+      'menuList'
+    ]),
     showGrades () {
       return this.gradesSubmenuVisibility
     }

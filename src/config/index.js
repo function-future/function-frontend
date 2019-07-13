@@ -105,7 +105,7 @@ module.exports = {
         accessList (url) {
           return `/api/core/user/access-list?url=${url}`
         },
-        menuList: '/api/core/menu-list'
+        menuList: '/api/core/user/menu-list'
       },
       users: {
         get (page, size, role) { return `/api/core/users?page=${page}&size=${size}&role=${role}` },
