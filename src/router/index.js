@@ -563,7 +563,7 @@ router.beforeEach((to, from, next) => {
 
 router.afterEach((to, from) => {
   store.dispatch('getAccessList', {
-    data: '/' + to.fullPath.split('/')[1],
+    data: encodeURIComponent(to.fullPath),
     callback: () => {},
     fail: () => {}
   })

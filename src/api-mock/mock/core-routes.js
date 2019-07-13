@@ -45,12 +45,35 @@ export const auth = [
 export const accessList = [
   {
     method: 'GET',
-    url: '/api/core/user/access-list?url=/',
+    url: '/api/core/user/access-list?url=%2F',
     response: {
       'add': true,
-      'delete': true
+      'delete': true,
+      'edit': true,
+      'read': true
     }
-  }]
+  },
+  {
+    method: 'GET',
+    url: '/api/core/user/access-list?url=%2Fannouncements',
+    response: {
+      'add': true,
+      'delete': true,
+      'edit': true,
+      'read': true
+    }
+  },
+  {
+    method: 'GET',
+    url: '/api/core/user/access-list?url=%2Fsticky-notes',
+    response: {
+      'add': true,
+      'delete': true,
+      'edit': true,
+      'read': true
+    }
+  }
+]
 
 // menu-list
 export const menuList = [
