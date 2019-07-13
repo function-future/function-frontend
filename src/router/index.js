@@ -16,6 +16,7 @@ import quizzes from '@/views/Quiz/Quiz'
 import addQuiz from '@/views/Quiz/AddQuiz'
 import addQuizDetail from '@/views/Quiz/AddQuizDetail'
 import quizDetail from '@/views/Quiz/QuizDetail'
+import quizQuestions from '@/views/Quiz/QuizQuestions'
 import points from '@/views/Point/Point'
 import feeds from '@/views/Feeds/Feeds.vue'
 import announcements from '@/views/Announcements/Announcements.vue'
@@ -484,6 +485,14 @@ const router = new Router({
       component: quizDetail,
       meta: {
         title: 'Quiz Detail'
+      }
+    },
+    {
+      path: config.app.pages.students.quizzes.questions,
+      name: 'studentQuizQuestions',
+      component: quizQuestions,
+      meta: {
+        title: 'Questions'
       }
     },
     {
