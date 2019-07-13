@@ -9,10 +9,10 @@
           {{ announcement.updatedAt | moment("dddd, MMMM Do YYYY") }}
         </div>
         <div class="action">
-          <span class="edit-btn" @click="goToEditAnnouncement">
+          <span class="edit-btn" @click="goToEditAnnouncement" v-if="accessList.edit">
             <font-awesome-icon icon="edit" class="icon blue" size="lg"></font-awesome-icon>
           </span>
-          <span class="delete-btn" @click="openDeleteConfirmationModal">
+          <span class="delete-btn" @click="openDeleteConfirmationModal" v-if="accessList.delete">
             <font-awesome-icon icon="trash-alt" class="icon red" size="lg"></font-awesome-icon>
           </span>
         </div>
