@@ -40,9 +40,7 @@ export default {
         fail: this.failFetchingStudentQuizDetail
       })
     },
-    successFetchingStudentQuizDetail () {
-      this.$toasted.success('asd')
-    },
+    successFetchingStudentQuizDetail () {},
     failFetchingStudentQuizDetail () {
       this.$toasted.error('Something went wrong')
     },
