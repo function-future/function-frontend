@@ -9,7 +9,7 @@ export const auth = [
       'status': 'OK',
       'data': {
         'id': 'sample-id-1',
-        'role': 'STUDENT',
+        'role': 'ADMIN',
         'email': 'user@user.com',
         'name': 'User Name',
         'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
@@ -25,7 +25,7 @@ export const auth = [
       'status': 'OK',
       'data': {
         'id': 'sample-id-1',
-        'role': 'STUDENT',
+        'role': 'ADMIN',
         'email': 'user@user.com',
         'name': 'User Name',
         'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
