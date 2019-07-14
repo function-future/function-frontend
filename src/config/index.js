@@ -223,6 +223,14 @@ module.exports = {
           },
           update(batchCode, assignmentId, roomId) {
             return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/rooms/${roomId}`
+          },
+          comments: {
+            list(batchCode, assignmentId, roomId, page, size) {
+              return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/rooms/${roomId}/comments?page=${page}&size=${size}`
+            },
+            create(batchCode, assignmentId, roomId, page, size) {
+              return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/rooms/${roomId}/comments?page=${page}&size=${size}`
+            },
           }
         }
       },
