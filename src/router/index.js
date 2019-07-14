@@ -154,6 +154,7 @@ const router = new Router({
       component: batchForm,
       meta: {
         auth: true,
+        add: true,
         title: 'Add Batch',
         breadcrumb: [
           { name: 'Batches', link: 'courseBatches' },
@@ -168,6 +169,7 @@ const router = new Router({
       component: batchForm,
       meta: {
         auth: true,
+        edit: true,
         title: 'Edit Batch',
         breadcrumb: [
           { name: 'Batches', link: 'courseBatches' },
@@ -209,6 +211,7 @@ const router = new Router({
       component: courseForm,
       meta: {
         auth: true,
+        add: true,
         title: 'Add Course',
         breadcrumb: [
           { name: 'Batches', link: 'courseBatches' },
@@ -224,6 +227,7 @@ const router = new Router({
       component: courseForm,
       meta: {
         auth: true,
+        edit: true,
         title: 'Edit Course',
         breadcrumb: [
           { name: 'Batches', link: 'courseBatches' },
@@ -266,6 +270,7 @@ const router = new Router({
       component: masterCourseForm,
       meta: {
         auth: true,
+        add: true,
         title: 'Add Master Course',
         breadcrumb: [
           { name: 'Batches', link: 'courseBatches' },
@@ -281,6 +286,7 @@ const router = new Router({
       component: masterCourseForm,
       meta: {
         auth: true,
+        edit: true,
         title: 'Edit Master Course',
         breadcrumb: [
           { name: 'Batches', link: 'courseBatches' },
@@ -314,6 +320,7 @@ const router = new Router({
       component: UserForm,
       meta: {
         auth: true,
+        add: true,
         title: 'Add Student'
       },
       props: {
@@ -327,6 +334,7 @@ const router = new Router({
       component: UserForm,
       meta: {
         auth: true,
+        add: true,
         title: 'Add User'
       },
       props: {
@@ -340,6 +348,7 @@ const router = new Router({
       component: UserForm,
       meta: {
         auth: true,
+        edit: true,
         title: 'Edit Student'
       },
       props: {
@@ -353,6 +362,7 @@ const router = new Router({
       component: UserForm,
       meta: {
         auth: true,
+        edit: true,
         title: 'Edit User'
       },
       props: {
