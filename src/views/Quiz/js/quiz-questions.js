@@ -21,7 +21,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'studentQuizQuestions'
+      'studentQuizQuestions',
+      'currentUser'
     ])
   },
   methods: {
@@ -73,7 +74,15 @@ export default {
       })
     },
     successSubmitStudentQuiz () {
-      this.$toasted.success('Succeed')
+      this.$toasted.success('Quiz submitted')
+      this.$router.push({
+        name: 'studentQuizzes',
+        params: {
+          studentId: this.currentUser.id,
+          page: 1,
+          pageSize: 10
+        }
+      })
     },
     failedSubmitStudentQuiz () {
       this.$toasted.error('Something went wrong')
