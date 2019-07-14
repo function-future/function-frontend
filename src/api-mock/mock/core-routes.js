@@ -8,6 +8,7 @@ export const auth = [
       'code': 200,
       'status': 'OK',
       'data': {
+        'id': 'sample-id-1',
         'role': 'STUDENT',
         'email': 'user@user.com',
         'name': 'User Name',
@@ -23,6 +24,7 @@ export const auth = [
       'code': 200,
       'status': 'OK',
       'data': {
+        'id': 'sample-id-1',
         'role': 'STUDENT',
         'email': 'user@user.com',
         'name': 'User Name',
@@ -368,7 +370,7 @@ export const activityBlogs = [
             }
           ],
           "author": {
-            "id": "sample-id",
+            "id": "sample-id-1",
             "name": "Student 1"
           }
         },
