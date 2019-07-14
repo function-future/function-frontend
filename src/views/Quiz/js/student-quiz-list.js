@@ -46,7 +46,7 @@ export default {
     initPage () {
       this.fetchStudentQuizList({
         data: {
-          studentId: 'sample-id',
+          studentId: 'sample-id-1',
           page: this.paging.page,
           pageSize: this.paging.size
         },
@@ -67,7 +67,7 @@ export default {
       this.$router.push({
         name: 'studentQuizDetail',
         params: {
-          studentQuiz: 'sample-id',
+          studentQuiz: 'sample-id-1',
           quizId: id
         }
       })

@@ -32,7 +32,7 @@ export default {
     initPage () {
       this.fetchStudentQuizQuestions({
         data: {
-          studentId: 'sample-id',
+          studentId: 'sample-id-1',
           quizId: this.$route.params.quizId
         },
         callback: this.successFetchingStudentQuizQuestions,
@@ -63,7 +63,7 @@ export default {
     submitQuiz () {
       this.submitAnswers({
         data: {
-          studentId: 'sample-id',
+          studentId: 'sample-id-1',
           quizId: this.$route.params.quizId
         },
         payload: [ ...this.answers ],

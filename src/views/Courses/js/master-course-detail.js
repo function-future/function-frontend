@@ -26,7 +26,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'masterCourse'
+      'masterCourse',
+      'accessList'
     ]),
     descriptionCompiledMarkdown: function () {
       return marked(this.masterCourseDetail.description)

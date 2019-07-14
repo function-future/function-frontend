@@ -87,6 +87,7 @@ const router = new Router({
       component: ActivityBlogForm,
       meta: {
         auth: true,
+        add: true,
         title: 'Add Activity Blog'
       },
       props: { editMode: false }
@@ -97,6 +98,7 @@ const router = new Router({
       component: ActivityBlogForm,
       meta: {
         auth: true,
+        edit: true,
         title: 'Edit Activity Blog'
       },
       props: { editMode: true }
@@ -123,6 +125,7 @@ const router = new Router({
       component: announcementForm,
       meta: {
         auth: true,
+        edit: true,
         title: 'Edit Announcements'
       },
       props: { editMode: true }
@@ -133,6 +136,7 @@ const router = new Router({
       component: announcementForm,
       meta: {
         auth: true,
+        add: true,
         title: 'Add Announcements'
       },
       props: { editMode: false }
@@ -155,6 +159,7 @@ const router = new Router({
       component: batchForm,
       meta: {
         auth: true,
+        add: true,
         title: 'Add Batch',
         breadcrumb: [
           { name: 'Batches', link: 'courseBatches' },
@@ -169,6 +174,7 @@ const router = new Router({
       component: batchForm,
       meta: {
         auth: true,
+        edit: true,
         title: 'Edit Batch',
         breadcrumb: [
           { name: 'Batches', link: 'courseBatches' },
@@ -210,6 +216,7 @@ const router = new Router({
       component: courseForm,
       meta: {
         auth: true,
+        add: true,
         title: 'Add Course',
         breadcrumb: [
           { name: 'Batches', link: 'courseBatches' },
@@ -225,6 +232,7 @@ const router = new Router({
       component: courseForm,
       meta: {
         auth: true,
+        edit: true,
         title: 'Edit Course',
         breadcrumb: [
           { name: 'Batches', link: 'courseBatches' },
@@ -267,6 +275,7 @@ const router = new Router({
       component: masterCourseForm,
       meta: {
         auth: true,
+        add: true,
         title: 'Add Master Course',
         breadcrumb: [
           { name: 'Batches', link: 'courseBatches' },
@@ -282,6 +291,7 @@ const router = new Router({
       component: masterCourseForm,
       meta: {
         auth: true,
+        edit: true,
         title: 'Edit Master Course',
         breadcrumb: [
           { name: 'Batches', link: 'courseBatches' },
@@ -315,6 +325,7 @@ const router = new Router({
       component: UserForm,
       meta: {
         auth: true,
+        add: true,
         title: 'Add Student'
       },
       props: {
@@ -328,6 +339,7 @@ const router = new Router({
       component: UserForm,
       meta: {
         auth: true,
+        add: true,
         title: 'Add User'
       },
       props: {
@@ -341,6 +353,7 @@ const router = new Router({
       component: UserForm,
       meta: {
         auth: true,
+        edit: true,
         title: 'Edit Student'
       },
       props: {
@@ -354,6 +367,7 @@ const router = new Router({
       component: UserForm,
       meta: {
         auth: true,
+        edit: true,
         title: 'Edit User'
       },
       props: {
@@ -383,6 +397,7 @@ const router = new Router({
       component: editStickyNote,
       meta: {
         auth: true,
+        edit: true,
         title: 'Edit Sticky Note'
       }
     },
@@ -616,13 +631,30 @@ router.beforeEach((to, from, next) => {
 })
 
 router.afterEach((to, from) => {
-  if (process.env.NODE_ENV === 'development') return
+  if (process.env.NODE_ENV === 'development') {
+    store.commit('SET_ACCESS_LIST', {
+      'add': true,
+      'delete': true,
+      'edit': true,
+      'read': true
+    })
+    if (!store.getters.accessList.read ||
+      (to.meta.add && store.getters.accessList.add !== to.meta.add) ||
+      (to.meta.edit && store.getters.accessList.edit !== to.meta.edit)) {
+      Vue.toasted.error('You do not have permission to access the page')
+      router.push({ name: 'feeds' })
+    }
+    return
+  }
 
   if (store.getters.currentUser) {
     store.dispatch('getAccessList', {
       data: encodeURIComponent(to.fullPath),
       callback: () => {
-        if (store.getters.accessList.read) {
+        if (!store.getters.accessList.read ||
+          (to.meta.add && store.getters.accessList.add !== to.meta.add) ||
+          (to.meta.edit && store.getters.accessList.edit !== to.meta.edit)) {
+          Vue.toasted.error('You do not have permission to access the page')
           router.push({ name: 'feeds' })
         }
       },

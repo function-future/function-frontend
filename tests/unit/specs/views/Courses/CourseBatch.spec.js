@@ -38,14 +38,25 @@ describe('CourseBatch', () => {
           'code': '4',
           'name': 'Batch 3'
         }
-      ]
+      ],
+      accessList: {
+        add: true,
+        delete: true,
+        read: true,
+        edit: true
+      },
+      currentUser: {
+        role: 'ADMIN'
+      }
     }
     const actions = {
       fetchBatches: jest.fn(),
       deleteBatch: jest.fn()
     }
     const getters = {
-      batchList: state => state.batchList
+      batchList: state => state.batchList,
+      accessList: state => state.accessList,
+      currentUser: state => state.currentUser
     }
     const store = new Vuex.Store({
       modules: {

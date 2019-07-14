@@ -28,7 +28,9 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'activityBlogs'
+      'activityBlogs',
+      'currentUser',
+      'accessList'
     ])
   },
   methods: {

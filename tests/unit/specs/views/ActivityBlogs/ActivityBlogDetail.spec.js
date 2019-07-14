@@ -17,15 +17,29 @@ describe('ActivityBlogDetail', () => {
 
   function initStore () {
     const state = {
-      activityBlog: {}
+      activityBlog: {
+        author: {
+          id: 'sample-id'
+        }
+      },
+      currentUser: {
+        id: 'sample-id'
+      },
+      accessList: {
+        add: true,
+        delete: true,
+        read: true,
+        edit: true
+      }
     }
     const actions = {
       initialState: jest.fn(),
       fetchActivityBlogById: jest.fn()
-
     }
     const getters = {
-      activityBlog: state => state.activityBlog
+      activityBlog: state => state.activityBlog,
+      accessList: state => state.accessList,
+      currentUser: state => state.currentUser
     }
     const store = new Vuex.Store({
       modules: {

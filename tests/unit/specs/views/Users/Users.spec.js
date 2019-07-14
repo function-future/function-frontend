@@ -16,11 +16,20 @@ describe('Users', () => {
   }
 
   function initStore () {
-    const state = {}
+    const state = {
+      accessList: {
+        add: true,
+        delete: true,
+        read: true,
+        edit: true
+      }
+    }
     const actions = {
       fetchUsersByRole: jest.fn()
     }
-    const getters = {}
+    const getters = {
+      accessList: state => state.accessList
+    }
     const store = new Vuex.Store({
       modules: {
         users: {
