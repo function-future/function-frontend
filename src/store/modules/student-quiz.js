@@ -8,10 +8,10 @@ export const state = {
 
 export const mutations = {
   GET_STUDENT_QUIZ_LIST (state, payload) {
-    state.assignmentList = payload
+    state.studentQuizList = payload
   },
   SET_STUDENT_QUIZ_DETAIL (state, payload) {
-    state.assignment = payload
+    state.studentQuizDetail = payload
   },
   SET_STUDENT_QUIZ_QUESTIONS (state, payload) {
     state.studentQuizQuestions = payload
