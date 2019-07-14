@@ -154,13 +154,13 @@ describe('StudentQuizList', () => {
 
   test('goToQuizDetail', () => {
     initComponent()
-    store.state.currentUser.id = 'sample-id'
+    store.state.currentUser.id = 'sample-id-1'
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.goToQuizDetail('QZ0001')
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
       name: 'studentQuizDetail',
       params: {
-        studentQuiz: 'sample-id',
+        studentQuiz: 'sample-id-1',
         quizId: 'QZ0001'
       }
     })
