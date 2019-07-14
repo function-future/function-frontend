@@ -266,7 +266,7 @@ export const assignmentRooms = [
 export const assignmentRoomComment = [
   {
     method: 'GET',
-    url: 'api/scoring/batches/1/assignments/ASG0001/rooms/ROM0001?page=1&size=10',
+    url: '/api/scoring/batches/1/assignments/ASG0001/rooms/ROM0001/comments?page=1&size=4',
     response: {
       "code": 200,
       "status": "OK",
@@ -282,7 +282,7 @@ export const assignmentRoomComment = [
         },
         {
           "id": "CMT00002",
-          "user": {
+          "author": {
             "id": "USR00001",
             "name": "User 1"
           },
@@ -292,14 +292,80 @@ export const assignmentRoomComment = [
       ],
       "paging": {
         "page": 1,
-        "size": 12,
-        "totalRecords": 13
+        "size": 4,
+        "totalRecords": 12
+      }
+    }
+  },
+  {
+    method: 'GET',
+    url: '/api/scoring/batches/1/assignments/ASG0001/rooms/ROM0001/comments?page=2&size=4',
+    response: {
+      "code": 200,
+      "status": "OK",
+      "data": [
+        {
+          "id": "CMT00001",
+          "author": {
+            "id": "USR00001",
+            "name": "User 1"
+          },
+          "comment": "Comment Example 1",
+          "createdAt": 1500000000
+        },
+        {
+          "id": "CMT00002",
+          "author": {
+            "id": "USR00001",
+            "name": "User 1"
+          },
+          "comment": "Comment Example 2",
+          "createdAt": 1500000000
+        }
+      ],
+      "paging": {
+        "page": 2,
+        "size": 4,
+        "totalRecords": 12
+      }
+    }
+  },
+  {
+    method: 'GET',
+    url: '/api/scoring/batches/1/assignments/ASG0001/rooms/ROM0001/comments?page=3&size=4',
+    response: {
+      "code": 200,
+      "status": "OK",
+      "data": [
+        {
+          "id": "CMT00001",
+          "author": {
+            "id": "USR00001",
+            "name": "User 1"
+          },
+          "comment": "Comment Example 1",
+          "createdAt": 1500000000
+        },
+        {
+          "id": "CMT00002",
+          "author": {
+            "id": "USR00001",
+            "name": "User 1"
+          },
+          "comment": "Comment Example 2",
+          "createdAt": 1500000000
+        }
+      ],
+      "paging": {
+        "page": 3,
+        "size": 4,
+        "totalRecords": 12
       }
     }
   },
   {
     method: 'POST',
-    url: 'api/scoring/batches/1/assignments/ASG0001/rooms/ROM0001?page=1&size=10',
+    url: '/api/scoring/batches/1/assignments/ASG0001/rooms/ROM0001/comments',
     response: {
       "code": 201,
       "status": "CREATED",

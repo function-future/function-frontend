@@ -2,7 +2,6 @@ import { mapActions, mapGetters } from 'vuex'
 import BaseCard from '@/components/BaseCard'
 import BaseButton from '@/components/BaseButton'
 import BaseTextArea from '@/components/BaseTextArea'
-import BaseInput from '@/components/BaseInput'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
 import InfiniteLoading from 'vue-infinite-loading'
 let marked = require('marked')
@@ -13,17 +12,18 @@ export default {
     BaseCard,
     BaseButton,
     BaseTextArea,
-    BaseInput,
     ModalDeleteConfirmation,
     InfiniteLoading
   },
   data () {
     return {
-      courseDetail: {
+      roomDetail: {
         id: '',
-        title: '',
-        description: '',
-        material: ''
+        student: {},
+        point: '',
+        assignment: {
+          description: ''
+        }
       },
       discussions: [],
       discussion: {
@@ -34,20 +34,16 @@ export default {
         size: 4,
         totalRecords: 0
       },
-      showDeleteConfirmationModal: false,
       state: ''
     }
   },
   computed: {
     ...mapGetters([
-      'course',
-      'courseDiscussions'
+      'room',
+      'comments'
     ]),
     descriptionCompiledMarkdown: function () {
-      return marked(this.courseDetail.description)
-    },
-    isMaximumPage () {
-      return Math.ceil(this.discussionPaging.totalRecords / this.discussionPaging.size) === this.discussionPaging.page
+      return marked(this.roomDetail.assignment.description)
     }
   },
   created () {
@@ -55,131 +51,102 @@ export default {
   },
   methods: {
     ...mapActions([
-      'fetchCourseById',
-      'fetchCourseDiscussions',
-      'submitCourseDiscussion',
-      'deleteCourseById',
-      'downloadCourseMaterial'
+      'fetchRoomDetail',
+      'fetchComments',
+      'postComment'
     ]),
     initPage () {
-      this.initCourse()
-    },
-    initCourse () {
-      let data = {
-        code: this.$route.params.code,
-        id: this.$route.params.id
-      }
-      this.fetchCourseById({
-        data,
-        callback: this.successFetchCourseById,
-        fail: this.failFetchCourseById
+      this.fetchRoomDetail({
+        data: {
+          batchCode: this.$route.params.batchCode,
+          assignmentId: this.$route.params.assignmentId,
+          roomId: this.$route.params.roomId
+        },
+        callback: this.successFetchRoomById,
+        fail: this.failFetchRoomById
       })
     },
-    successFetchCourseById () {
-      this.courseDetail = this.course
+    successFetchRoomById () {
+      this.roomDetail = this.room
     },
-    failFetchCourseById () {
-      this.$toasted.error('Fail to load course detail, please refresh the page')
+    failFetchRoomById () {
+      this.$toasted.error('Something went wrong')
     },
     initDiscussion ($state) {
       this.state = $state
       let data = {
-        code: this.$route.params.code,
-        id: this.$route.params.id,
-        page: this.discussionPaging.page
+        batchCode: this.$route.params.batchCode,
+        assignmentId: this.$route.params.assignmentId,
+        roomId: this.$route.params.roomId,
+        page: this.discussionPaging.page,
+        pageSize: this.discussionPaging.size
       }
-      this.fetchCourseDiscussions({
+      this.fetchComments({
         data,
-        callback: this.successFetchCourseDiscussions,
-        fail: this.failFetchCourseDiscussions
+        callback: this.successFetchComments,
+        fail: this.failFetchComments
       })
     },
-    successFetchCourseDiscussions (response, paging) {
-      this.discussionPaging = paging
+    successFetchComments (response, paging) {
+      this.discussionPaging = {
+        page: paging.page,
+        pageSize: paging.size,
+        totalRecords: paging.totalRecords
+      }
       this.discussions.push(...response)
-      if (this.isMaximumPage) {
-        this.state.complete()
-      } else {
+      if (response.length) {
         this.discussionPaging.page++
         this.state.loaded()
+      } else {
+        this.state.complete()
       }
     },
-    failFetchCourseDiscussions () {
-      this.$toasted.error('Fail to load course discussion, please refresh the page')
+    failFetchComments () {
+      this.$toasted.error('Something went wrong')
     },
-    postDiscussion () {
+    submitComment () {
       const data = {
-        code: this.$route.params.code,
-        id: this.$route.params.id,
-        content: { ...this.discussion }
+        batchCode: this.$route.params.batchCode,
+        assignmentId: this.$route.params.assignmentId,
+        roomId: this.$route.params.roomId
       }
-      this.submitCourseDiscussion({
+      const payload = this.discussion
+      this.postComment({
         data,
-        callback: this.successSubmitCourseDiscussion,
-        fail: this.failSubmitCourseDiscussion
+        payload,
+        callback: this.successSubmitComment,
+        fail: this.failSubmitComment
       })
     },
-    successSubmitCourseDiscussion (response) {
-      this.$toasted.success('Successfully added course discussion')
+    successSubmitComment (response) {
+      this.$toasted.success(`Successfully commented on discussion ${this.$route.params.assignmentId}`)
       this.discussion.comment = ''
       this.discussions.unshift(response)
     },
-    failSubmitCourseDiscussion () {
-      this.$toasted.error('Fail to post course discussion, please try again')
+    failSubmitComment () {
+      this.$toasted.error('Something went wrong')
     },
-    downloadMaterial (url) {
-      let configuration = { responseType: 'arraybuffer' }
-      this.downloadCourseMaterial({
-        data: url,
-        configuration,
-        callback: this.successDownloadMaterial,
-        fail: this.failDownloadMaterial
-      })
-    },
-    successDownloadMaterial (response) {
-      this.forceFileDownload(response)
-    },
-    failDownloadMaterial () {
-      this.$toasted.error('Fail to download material, please try again')
-    },
-    forceFileDownload (response) {
-      const url = window.URL.createObjectURL(new Blob([response.data]))
-      const link = document.createElement('a')
-      link.href = url
-      document.body.appendChild(link)
-      link.click()
-    },
-    goToEditCourse () {
-      this.$router.push({
-        name: 'editCourse',
-        params: {
-          id: this.$route.params.id,
-          code: this.$route.params.code
-        }
-      })
-    },
-    openDeleteConfirmationModal () {
-      this.showDeleteConfirmationModal = true
-    },
-    deleteCourse () {
-      let data = {
-        id: this.$route.params.id,
-        code: this.$route.params.code
-      }
-      this.deleteCourseById({
-        data,
-        callback: this.successDeleteCourseById,
-        fail: this.failDeleteCourseById
-      })
-    },
-    successDeleteCourseById () {
-      this.$router.push({ name: 'courseDetail' })
-      this.$toasted.success('Successfully delete course')
-      this.showDeleteConfirmationModal = false
-    },
-    failDeleteCourseById () {
-      this.$toasted.error('Fail to delete course')
-      this.showDeleteConfirmationModal = false
-    }
+    // downloadMaterial (url) {
+    //   let configuration = { responseType: 'arraybuffer' }
+    //   this.downloadCourseMaterial({
+    //     data: url,
+    //     configuration,
+    //     callback: this.successDownloadMaterial,
+    //     fail: this.failDownloadMaterial
+    //   })
+    // },
+    // successDownloadMaterial (response) {
+    //   this.forceFileDownload(response)
+    // },
+    // failDownloadMaterial () {
+    //   this.$toasted.error('Fail to download material, please try again')
+    // },
+    // forceFileDownload (response) {
+    //   const url = window.URL.createObjectURL(new Blob([response.data]))
+    //   const link = document.createElement('a')
+    //   link.href = url
+    //   document.body.appendChild(link)
+    //   link.click()
+    // }
   }
 }

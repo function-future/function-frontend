@@ -18,7 +18,8 @@ const getAssignmentRoomComments = function (callback, data, errorHandler) {
 }
 
 const createAssignmentRoomComment = function (callback, data, payload, errorHandler) {
-  request.postRequest(config.api.scoring.assignments.rooms.detail(data.batchCode, data.assignmentId, data.roomId, data.roomId), callback, payload, errorHandler)
+  console.log(data)
+  request.postRequest(config.api.scoring.assignments.rooms.comments.create(data.batchCode, data.assignmentId, data.roomId), callback, payload, errorHandler)
 }
 
 export default {

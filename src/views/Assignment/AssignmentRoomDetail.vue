@@ -2,22 +2,12 @@
   <div class="scrollable-container">
     <BaseCard class="room-detail-card" cardClass="no-pointer">
       <div class="header">
-        <h3>{{ courseDetail.title }}</h3>
-      </div>
-      <div class="header float-right">
-        <div class="action">
-          <span class="edit-btn" @click="goToEditCourse">
-            <font-awesome-icon icon="edit" class="icon blue" size="lg"></font-awesome-icon>
-          </span>
-          <span class="delete-btn" @click="openDeleteConfirmationModal">
-            <font-awesome-icon icon="trash-alt" class="icon red" size="lg"></font-awesome-icon>
-          </span>
-        </div>
+        <h3>{{ roomDetail.assignment.title }}</h3>
       </div>
       <div class="scrollable">
-        <div v-if="courseDetail.material !== ''" @click="downloadMaterial(courseDetail.material)" class="download-button">
-          <font-awesome-icon icon="download" class="icon"></font-awesome-icon>Download material
-        </div>
+        <!--<div v-if="courseDetail.material !== ''" @click="downloadMaterial(courseDetail.material)" class="download-button">-->
+          <!--<font-awesome-icon icon="download" class="icon"></font-awesome-icon>Download material-->
+        <!--</div>-->
         <span v-html="descriptionCompiledMarkdown"></span>
       </div>
     </BaseCard>
@@ -34,7 +24,6 @@
               <span>{{ discussion.comment }}</span>
             </div>
           </BaseCard>
-          <!--TODO: FIX THIS-->
         </div>
         <infinite-loading direction="top"
                           @infinite="initDiscussion"
@@ -50,15 +39,10 @@
                         v-model="discussion.comment"></BaseTextArea>
         </div>
         <div class="discussion-button">
-          <BaseButton type="submit" buttonClass="button-save" @click="postDiscussion">Post</BaseButton>
+          <BaseButton type="submit" buttonClass="button-save" @click="submitComment">Post</BaseButton>
         </div>
       </div>
     </BaseCard>
-    <modal-delete-confirmation v-if="showDeleteConfirmationModal"
-                               @close="showDeleteConfirmationModal = false"
-                               @clickDelete="deleteCourse">
-      <div slot="description">Are you sure you want to delete this course?</div>
-    </modal-delete-confirmation>
   </div>
 </template>
 

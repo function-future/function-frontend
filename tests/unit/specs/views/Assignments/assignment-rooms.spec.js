@@ -91,6 +91,8 @@ describe('AssignmentRoom', () => {
 
   test('goToRoomDetail', () => {
     initComponent()
+    wrapper.vm.$route.params.batchCode = '1'
+    wrapper.vm.$route.params.assignmentId = 'ASG0001'
     wrapper.vm.$router.push = jest.fn()
     const room = {
       "id": "ROM0001",
@@ -123,7 +125,8 @@ describe('AssignmentRoom', () => {
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
       name: 'assignmentRoomDetail',
       params: {
-        id: 'ASG0001',
+        assignmentId: 'ASG0001',
+        batchCode: '1',
         roomId: 'ROM0001'
       }
     })
