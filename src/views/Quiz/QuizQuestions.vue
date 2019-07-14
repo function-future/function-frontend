@@ -20,8 +20,25 @@
           <BaseButton :style="{ width: '100%', height: '100%' }" buttonClass="button-save" @click="submitQuiz">Finish</BaseButton>
         </div>
         <div class="quiz-action-legend">
-          <BaseCard :style="{ 'margin': '15px 0 0 0', 'height': '100%' }">
-            <!--TODO: Add navigation system-->
+          <BaseCard :style="{ 'margin': '15px 0 0 0', 'padding': '15px 0 15px 0', 'height': '100%' }">
+            <div class="quiz-action-legend__title-area">
+              Go To
+            </div>
+            <div class="quiz-action-legend__content-area">
+              <div v-for="question in questions" class="quiz-action-legend__content-area-row">
+                <BaseCard :style="{ 'padding': '10px', 'margin': '15px 0 15px 0' }" @click.native="currentNumber = question.number-1">
+                  <label class="quiz-action-legend__content-area-row-item">
+                    <input type="radio" v-model="currentNumber" @click="viewQuestion(question.number)">
+                    <span class="radio">
+                      <font-awesome-icon icon="check" class="blue check" size="xs" v-if="question.number - 1 === currentNumber"/>
+                    </span>
+                    <span class="quiz-action-legend__content-area-row-item-text">
+                      Question {{question.number}}
+                    </span>
+                  </label>
+                </BaseCard>
+              </div>
+            </div>
           </BaseCard>
         </div>
       </div>
@@ -70,6 +87,32 @@
       }
       &-legend {
         height: 85%;
+        &__title-area {
+          width: 100%;
+          border-bottom: 1px solid black;
+          padding-bottom: 15px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-weight: bolder;
+        }
+        &__content-area {
+          padding: 0 15px 25px 15px;
+          /*scrollable*/
+          &-row {
+            margin: 0 0 5px 0;
+            cursor: pointer;
+            &-item {
+              display: flex;
+              align-items: center;
+              cursor: pointer;
+              &-text {
+                width: calc(100% - 20px);
+                text-align: center;
+              }
+            }
+          }
+        }
       }
     }
   }
@@ -82,5 +125,23 @@
     &__button {
       width: 49%;
     }
+  }
+
+  input[type=radio] {
+    display: none;
+  }
+
+  .radio {
+    display: flex;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    cursor: pointer;
+    height: 20px;
+    width: 20px;
+  }
+
+  .check {
+    margin: auto;
   }
 </style>

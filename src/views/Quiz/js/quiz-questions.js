@@ -52,6 +52,9 @@ export default {
         optionId
       }
     },
+  viewQuestion (number) {
+      this.currentNumber = number - 1
+  },
     viewNextQuestion () {
       if (this.currentNumber !== this.questions.length) this.currentNumber++
     },
