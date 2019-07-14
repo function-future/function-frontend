@@ -83,6 +83,17 @@ describe('AssignmentRoom', () => {
     expect(spy).toBeCalledTimes(1)
   })
 
+  test('successFetchingRoomList', () => {
+    initComponent()
+    const paging = {
+      page: 1,
+      pageSize: 10,
+      totalRecords: 20
+    }
+    wrapper.vm.successFetchingRoomList(paging)
+    expect(wrapper.vm.paging).toEqual(paging)
+  })
+
   test('failFetchingRoomList', () => {
     initComponent()
     wrapper.vm.failFetchingRoomList()
