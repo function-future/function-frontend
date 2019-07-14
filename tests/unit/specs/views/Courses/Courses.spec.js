@@ -30,7 +30,13 @@ describe('Courses', () => {
           'description': 'Course Description Goes Here',
           'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
         }
-      ]
+      ],
+      accessList: {
+        add: true,
+        delete: true,
+        read: true,
+        edit: true
+      }
     }
     const actions = {
       fetchCourses: jest.fn(),
@@ -38,7 +44,8 @@ describe('Courses', () => {
       copyCourse: jest.fn()
     }
     const getters = {
-      courseList: state => state.courseList
+      courseList: state => state.courseList,
+      accessList: state => state.accessList
     }
     const store = new Vuex.Store({
       modules: {
