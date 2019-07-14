@@ -1,4 +1,4 @@
-import studentQuizApi from '@/api/controller/studentQuiz'
+import studentQuizApi from '@/api/controller/student-quiz'
 
 export const state = {
   studentQuizList: [],
