@@ -35,7 +35,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'courseList'
+      'courseList',
+      'accessList'
     ])
   },
   created () {
