@@ -6,7 +6,7 @@ const getQuizzes = function (callback, data, errorHandler) {
 }
 
 const getQuizDetail = function (callback, data, errorHandler) {
-  request.getRequest(config.api.scoring.quiz.students.list(data.studentId, data.quizId), callback, errorHandler)
+  request.getRequest(config.api.scoring.quiz.students.detail(data.studentId, data.quizId), callback, errorHandler)
 }
 
 const getQuestions = function (callback, data, errorHandler) {
