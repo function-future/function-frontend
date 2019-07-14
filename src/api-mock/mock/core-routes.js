@@ -8,6 +8,7 @@ export const auth = [
       'code': 200,
       'status': 'OK',
       'data': {
+        'id': 'sample-id',
         'role': 'STUDENT',
         'email': 'user@user.com',
         'name': 'User Name',
