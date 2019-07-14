@@ -39,7 +39,8 @@ export default {
   computed: {
     ...mapGetters([
       'course',
-      'courseDiscussions'
+      'courseDiscussions',
+      'accessList'
     ]),
     descriptionCompiledMarkdown: function () {
       return marked(this.courseDetail.description)

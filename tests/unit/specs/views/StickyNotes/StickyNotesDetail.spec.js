@@ -18,13 +18,20 @@ describe('StickyNotesDetail.vue', () => {
         title: 'Mock Note',
         description: 'Note for testing purpose',
         updatedAt: '123456789'
+      },
+      accessList: {
+        add: true,
+        delete: true,
+        read: true,
+        edit: true
       }
     }
     actions = {
       fetchStickyNotes: jest.fn(() => true)
     }
     getters = {
-      stickyNotes: state => state.stickyNote
+      stickyNotes: state => state.stickyNote,
+      accessList: state => state.accessList
     }
     store = new Vuex.Store({
       modules: {
@@ -78,13 +85,20 @@ describe('StickyNotesDetail.js', () => {
         title: 'Mock Note',
         description: 'Note for testing purpose',
         updatedAt: '123456789'
+      },
+      accessList: {
+        add: true,
+        delete: true,
+        read: true,
+        edit: true
       }
     }
     actions = {
       fetchStickyNotes: jest.fn()
     }
     getters = {
-      stickyNotes: state => state.stickyNote
+      stickyNotes: state => state.stickyNote,
+      accessList: state => state.accessList
     }
     store = new Vuex.Store({
       modules: {

@@ -8,7 +8,8 @@ export const auth = [
       'code': 200,
       'status': 'OK',
       'data': {
-        'role': 'STUDENT',
+        'id': 'sample-id-1',
+        'role': 'ADMIN',
         'email': 'user@user.com',
         'name': 'User Name',
         'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
@@ -23,7 +24,8 @@ export const auth = [
       'code': 200,
       'status': 'OK',
       'data': {
-        'role': 'STUDENT',
+        'id': 'sample-id-1',
+        'role': 'ADMIN',
         'email': 'user@user.com',
         'name': 'User Name',
         'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
@@ -42,14 +44,38 @@ export const auth = [
 ]
 
 // access-list
-export const accessList = {
-  method: 'GET',
-  url: '/api/core/user/access-list?url=/feeds',
-  response: {
-    'add': true,
-    'delete': true
+export const accessList = [
+  {
+    method: 'GET',
+    url: '/api/core/user/access-list?url=%2F',
+    response: {
+      'add': true,
+      'delete': true,
+      'edit': true,
+      'read': true
+    }
+  },
+  {
+    method: 'GET',
+    url: '/api/core/user/access-list?url=%2Fannouncements',
+    response: {
+      'add': true,
+      'delete': true,
+      'edit': true,
+      'read': true
+    }
+  },
+  {
+    method: 'GET',
+    url: '/api/core/user/access-list?url=%2Fsticky-notes',
+    response: {
+      'add': true,
+      'delete': true,
+      'edit': true,
+      'read': true
+    }
   }
-}
+]
 
 // menu-list
 export const menuList = [
@@ -344,7 +370,7 @@ export const activityBlogs = [
             }
           ],
           "author": {
-            "id": "sample-id",
+            "id": "sample-id-1",
             "name": "Student 1"
           }
         },

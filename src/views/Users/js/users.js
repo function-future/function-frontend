@@ -36,7 +36,8 @@ export default {
       'students',
       'admins',
       'mentors',
-      'judges'
+      'judges',
+      'accessList'
     ]),
     addUserButtonLabel () {
       if (this.currentTab === 'student') {

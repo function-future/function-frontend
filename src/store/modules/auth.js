@@ -1,9 +1,10 @@
 import authApi from '@/api/controller/auth'
-import menuListApi from '@/api/controller/menu-list'
+import configApi from '@/api/controller/config'
 
 export const state = {
   currentUser: {},
-  menuList: {}
+  menuList: {},
+  accessList: {}
 }
 
 export const mutations = {
@@ -12,6 +13,9 @@ export const mutations = {
   },
   SET_MENU_LIST (state, payload) {
     state.menuList = { ...payload }
+  },
+  SET_ACCESS_LIST (state, payload) {
+    state.accessList = { ...payload }
   }
 }
 
@@ -35,9 +39,15 @@ export const actions = {
     }, fail)
   },
   getMenuList ({ commit }) {
-    menuListApi.getMenuList((response) => {
+    configApi.getMenuList((response) => {
       commit('SET_MENU_LIST', response)
     })
+  },
+  getAccessList ({ commit }, { data, callback, fail } = {}) {
+    configApi.getAccessList((response) => {
+      commit('SET_ACCESS_LIST', response)
+      callback()
+    }, data, fail)
   }
 }
 
@@ -47,6 +57,9 @@ export const getters = {
   },
   menuList (state) {
     return state.menuList
+  },
+  accessList (state) {
+    return state.accessList
   }
 }
 

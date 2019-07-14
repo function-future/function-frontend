@@ -1,7 +1,7 @@
 export const assignments = [
   {
     method: 'GET',
-    url: '/api/scoring/batches/futur3/assignments?page=1&size=10',
+    url: '/api/scoring/batches/1/assignments?page=1&size=10',
     response: {
       "code": 200,
       "status": "OK",
@@ -48,7 +48,7 @@ export const assignments = [
   },
   {
     method: 'POST',
-    url: '/api/scoring/batches/futur3/assignments',
+    url: '/api/scoring/batches/1/assignments',
     response: {
       "code": 201,
       "status": "CREATED",
@@ -83,7 +83,7 @@ export const assignments = [
 export const assignmentDetails = [
   {
     method: 'GET',
-    url: '/api/scoring/batches/3/assignments/ASG0001',
+    url: '/api/scoring/batches/1/assignments/ASG0001',
     response: {
       "code": 200,
       "status": "OK",
@@ -99,7 +99,7 @@ export const assignmentDetails = [
   },
   {
     method: 'PUT',
-    urL: '/api/scoring/batches/3/assignments/ASG0001',
+    urL: '/api/scoring/batches/1/assignments/ASG0001',
     response: {
       "code": 200,
       "status": "OK",
@@ -115,7 +115,7 @@ export const assignmentDetails = [
   },
   {
     method: 'DELETE',
-    url: '/api/scoring/batches/futur3/assignments/ASG0001',
+    url: '/api/scoring/batches/1/assignments/ASG0001',
     response:
       {
         "code": 200,
@@ -127,7 +127,7 @@ export const assignmentDetails = [
 export const assignmentRooms = [
   {
     method: 'GET',
-    url: '/api/scoring/batches/3/assignments/ASG0001/rooms?page=1&size=10',
+    url: '/api/scoring/batches/1/assignments/ASG0001/rooms?page=1&size=10',
     response: {
       "code": 200,
       "status": "OK",
@@ -196,7 +196,7 @@ export const assignmentRooms = [
   },
   {
     method: 'GET',
-    url: 'api/scoring/batches/3/assignments/ASG0001/rooms/ROM0001',
+    url: 'api/scoring/batches/1/assignments/ASG0001/rooms/ROM0001',
     response: {
       "code": 200,
       "status": "OK",

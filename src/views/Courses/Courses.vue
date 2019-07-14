@@ -1,29 +1,34 @@
 <template>
   <div class="scrollable-container">
     <div class="button-div">
-      <label class="select-all">
+      <label class="select-all" v-if="accessList.add">
         <input type="checkbox" v-model="allSelected" @click.stop="selectAll">
         <span class="checkbox">
           <font-awesome-icon icon="check" class="blue check" size="xs" v-if="allSelected"/>
         </span>
         <span>Select All</span>
       </label>
-      <BaseButton @click.stop="openCopySelectedCourseModal"
-                  type="submit" buttonClass="button-save button-icon" class="copy" :disabled="!this.selectedIds.length">
+      <span v-if="accessList.add">
+        <BaseButton @click.stop="openCopySelectedCourseModal"
+                    type="submit" buttonClass="button-save button-icon" class="copy" :disabled="!this.selectedIds.length">
         <font-awesome-icon icon="copy" class="icon"></font-awesome-icon> Copy Selected Course
       </BaseButton>
-      <BaseButton type="submit" buttonClass="button-save" @click="goToAddCourse">
+      </span>
+      <span v-if="accessList.add">
+        <BaseButton type="submit" buttonClass="button-save" @click="goToAddCourse">
         <span><font-awesome-icon icon="plus" class="icon"/> Add</span>
       </BaseButton>
+      </span>
     </div>
     <div v-for="course in courses" :key="course.id" class="course__row">
       <div class="course__col">
-        <label>
+        <label v-if="accessList.add">
           <input type="checkbox" :value="course.id" v-model="selectedIds" @click="select">
           <span class="checkbox">
             <font-awesome-icon icon="check" class="blue check" size="xs" v-if="selectedIds.includes(course.id)"/>
           </span>
-        </label>      </div>
+        </label>
+      </div>
       <div class="course__col--courses">
         <CourseCard :course="course" @click.native="goToThisCourseDetail(course.id)"
                     @edit="goToEditCourse(course.id)" @delete="openDeleteConfirmationModal(course.id)"

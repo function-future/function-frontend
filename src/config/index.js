@@ -71,13 +71,18 @@ module.exports = {
         }
       },
       assignments: {
-        list: '/assignments',
-        add: '/assignments/add',
+        list: '/batches/:batchCode/assignments',
+        add: '/batches/:batchCode/assignments/add',
         rooms: {
-          list: '/assignments/:id/rooms',
-          detail: '/assignments/:id/rooms/:roomId'
+          list: '/batches/:batchCode/assignments/:id/rooms',
+          detail: '/batches/:batchCode/assignments/:id/rooms/:roomId'
         },
-        detail: '/assignments/:id/detail'
+        detail: '/batches/:batchCode/assignments/:id/detail',
+        batches: {
+          list: '/assignment/batches',
+          add: '/assignment/batches/add',
+          edit: '/assignment/batches/:batchCode/edit'
+        }
       },
       finalJudging: '/final-judging',
       grades: '/grades',

@@ -23,7 +23,9 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'activityBlog'
+      'activityBlog',
+      'currentUser',
+      'accessList'
     ]),
     descriptionCompiledMarkdown: function () {
       return marked(this.activityBlogDescriptionMarkdown)

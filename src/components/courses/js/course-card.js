@@ -1,3 +1,4 @@
+import { mapGetters } from 'vuex'
 import BaseCard from '@/components/BaseCard'
 
 export default {
@@ -18,6 +19,9 @@ export default {
     }
   },
   computed: {
+    ...mapGetters([
+      'accessList'
+    ]),
     title () {
       let maximumCharacters = 40
       if (this.course.title.length > maximumCharacters) {

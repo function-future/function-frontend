@@ -20,12 +20,7 @@
                         :editable="editMode"/>
         </div>
         <div class="assignment-detail">
-          <div class="assignment-detail-batch">
-            <BaseSelect v-model="assignmentDetail.batch"
-                        :options="batches"
-                        :disabled="!editMode"></BaseSelect>
-          </div>
-            <v-date-picker class="assignment-detail-deadline"
+          <v-date-picker class="assignment-detail-deadline"
                          v-if="assignmentDetail.deadline"
                          :value="assignmentDetail.deadline"
                          v-model="assignmentDetail.deadline"
@@ -94,7 +89,7 @@
     width: 22%;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-between;
   }
 
   .assignment-detail-file {

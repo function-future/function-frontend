@@ -1,6 +1,6 @@
 <template>
   <div class="scrollable-container">
-    <div class="button-div">
+    <div class="button-div" v-if="accessList.add">
       <BaseButton type="submit" buttonClass="button-save" @click="goToAddActivityBlog">
         <span><font-awesome-icon icon="plus" class="icon"/> New</span>
       </BaseButton>
@@ -19,11 +19,14 @@
           {{ activityBlog.createdAt | moment("dddd, MMMM Do YYYY") }}
         </div>
         <div class="blog-actions">
-          <span @click.stop="goToEditActivityBlog(activityBlog.id)">
+          <span @click.stop="goToEditActivityBlog(activityBlog.id)"
+                v-if="accessList.edit && (currentUser.id === activityBlog.author.id)">
             <font-awesome-icon icon="edit" class="icon blue" size="lg"></font-awesome-icon>
           </span>
-          <span><font-awesome-icon icon="trash-alt" class="icon red"
-                                   size="lg" @click.stop="openDeleteConfirmationModal(activityBlog.id)"></font-awesome-icon></span>
+          <span @click.stop="openDeleteConfirmationModal(activityBlog.id)"
+                v-if="accessList.delete && (currentUser.id === activityBlog.author.id)">
+            <font-awesome-icon icon="trash-alt" class="icon red" size="lg"></font-awesome-icon>
+          </span>
         </div>
       </div>
       <div class="blog-preview">

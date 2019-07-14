@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import assignmentBatch from '@/views/Assignment/AssignmentBatch'
+import assignmentBatchForm from '@/views/Assignment/AssignmentBatchForm'
 import assignments from '@/views/Assignment/Assignments'
 import addAssignment from '@/views/Assignment/AddAssignment'
 import assignmentRooms from '@/views/Assignment/AssignmentRooms'
@@ -83,6 +85,7 @@ const router = new Router({
       component: ActivityBlogForm,
       meta: {
         auth: true,
+        add: true,
         title: 'Add Activity Blog'
       },
       props: { editMode: false }
@@ -93,6 +96,7 @@ const router = new Router({
       component: ActivityBlogForm,
       meta: {
         auth: true,
+        edit: true,
         title: 'Edit Activity Blog'
       },
       props: { editMode: true }
@@ -119,6 +123,7 @@ const router = new Router({
       component: announcementForm,
       meta: {
         auth: true,
+        edit: true,
         title: 'Edit Announcements'
       },
       props: { editMode: true }
@@ -129,6 +134,7 @@ const router = new Router({
       component: announcementForm,
       meta: {
         auth: true,
+        add: true,
         title: 'Add Announcements'
       },
       props: { editMode: false }
@@ -151,6 +157,7 @@ const router = new Router({
       component: batchForm,
       meta: {
         auth: true,
+        add: true,
         title: 'Add Batch',
         breadcrumb: [
           { name: 'Batches', link: 'courseBatches' },
@@ -165,6 +172,7 @@ const router = new Router({
       component: batchForm,
       meta: {
         auth: true,
+        edit: true,
         title: 'Edit Batch',
         breadcrumb: [
           { name: 'Batches', link: 'courseBatches' },
@@ -206,6 +214,7 @@ const router = new Router({
       component: courseForm,
       meta: {
         auth: true,
+        add: true,
         title: 'Add Course',
         breadcrumb: [
           { name: 'Batches', link: 'courseBatches' },
@@ -221,6 +230,7 @@ const router = new Router({
       component: courseForm,
       meta: {
         auth: true,
+        edit: true,
         title: 'Edit Course',
         breadcrumb: [
           { name: 'Batches', link: 'courseBatches' },
@@ -263,6 +273,7 @@ const router = new Router({
       component: masterCourseForm,
       meta: {
         auth: true,
+        add: true,
         title: 'Add Master Course',
         breadcrumb: [
           { name: 'Batches', link: 'courseBatches' },
@@ -278,6 +289,7 @@ const router = new Router({
       component: masterCourseForm,
       meta: {
         auth: true,
+        edit: true,
         title: 'Edit Master Course',
         breadcrumb: [
           { name: 'Batches', link: 'courseBatches' },
@@ -311,6 +323,7 @@ const router = new Router({
       component: UserForm,
       meta: {
         auth: true,
+        add: true,
         title: 'Add Student'
       },
       props: {
@@ -324,6 +337,7 @@ const router = new Router({
       component: UserForm,
       meta: {
         auth: true,
+        add: true,
         title: 'Add User'
       },
       props: {
@@ -337,6 +351,7 @@ const router = new Router({
       component: UserForm,
       meta: {
         auth: true,
+        edit: true,
         title: 'Edit Student'
       },
       props: {
@@ -350,6 +365,7 @@ const router = new Router({
       component: UserForm,
       meta: {
         auth: true,
+        edit: true,
         title: 'Edit User'
       },
       props: {
@@ -379,6 +395,7 @@ const router = new Router({
       component: editStickyNote,
       meta: {
         auth: true,
+        edit: true,
         title: 'Edit Sticky Note'
       }
     },
@@ -488,6 +505,31 @@ const router = new Router({
       }
     },
     {
+      path: config.app.pages.assignments.batches.list,
+      name: 'assignmentBatch',
+      component: assignmentBatch,
+      meta: {
+        title: 'Assignment Batch List'
+      }
+    },
+    {
+      path: config.app.pages.assignments.batches.add,
+      name: 'addAssignmentBatch',
+      component: assignmentBatchForm,
+      meta: {
+        title: 'Assignment Batch List'
+      }
+    },
+    {
+      path: config.app.pages.assignments.batches.edit,
+      name: 'editAssignmentBatch',
+      component: assignmentBatchForm,
+      meta: {
+        title: 'Assignment Batch List'
+      },
+      props: { editMode: true }
+    },
+    {
       path: config.app.pages.assignments.list,
       name: 'assignments',
       component: assignments,
@@ -560,16 +602,43 @@ router.beforeEach((to, from, next) => {
     return next()
   }
 
-  const payload = {
-    callback: () => {
-      return to.fullPath === '/login' ? next({ name: 'feeds' }) : next()
-    },
-    fail: () => {
-      return !to.meta.auth ? next() : (to.path !== '/login' ? next('/login') : next())
+  store.dispatch('getLoginStatus', {
+    callback: () => { return to.fullPath === '/login' ? next({ name: 'feeds' }) : next() },
+    fail: () => { return !to.meta.auth ? next() : (to.path !== '/login' ? next('/login') : next()) }
+  })
+})
+
+router.afterEach((to, from) => {
+  if (process.env.NODE_ENV === 'development') {
+    store.commit('SET_ACCESS_LIST', {
+      'add': true,
+      'delete': true,
+      'edit': true,
+      'read': true
+    })
+    if (!store.getters.accessList.read ||
+      (to.meta.add && store.getters.accessList.add !== to.meta.add) ||
+      (to.meta.edit && store.getters.accessList.edit !== to.meta.edit)) {
+      Vue.toasted.error('You do not have permission to access the page')
+      router.push({ name: 'feeds' })
     }
+    return
   }
 
-  store.dispatch('getLoginStatus', payload)
+  if (store.getters.currentUser) {
+    store.dispatch('getAccessList', {
+      data: encodeURIComponent(to.fullPath),
+      callback: () => {
+        if (!store.getters.accessList.read ||
+          (to.meta.add && store.getters.accessList.add !== to.meta.add) ||
+          (to.meta.edit && store.getters.accessList.edit !== to.meta.edit)) {
+          Vue.toasted.error('You do not have permission to access the page')
+          router.push({ name: 'feeds' })
+        }
+      },
+      fail: () => {}
+    })
+  }
 })
 
 export default router

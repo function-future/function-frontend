@@ -1,4 +1,4 @@
-import CourseBatch from '@/views/Courses/CourseBatch'
+import AssignmentBatch from '@/views/Assignment/AssignmentBatch'
 import { createLocalVue, shallowMount } from '@vue/test-utils'
 import Vuex from 'vuex'
 import VueRouter from 'vue-router'
@@ -38,25 +38,14 @@ describe('CourseBatch', () => {
           'code': '4',
           'name': 'Batch 3'
         }
-      ],
-      accessList: {
-        add: true,
-        delete: true,
-        read: true,
-        edit: true
-      },
-      currentUser: {
-        role: 'ADMIN'
-      }
+      ]
     }
     const actions = {
       fetchBatches: jest.fn(),
       deleteBatch: jest.fn()
     }
     const getters = {
-      batchList: state => state.batchList,
-      accessList: state => state.accessList,
-      currentUser: state => state.currentUser
+      batchList: state => state.batchList
     }
     const store = new Vuex.Store({
       modules: {
@@ -82,7 +71,7 @@ describe('CourseBatch', () => {
       error: jest.fn(),
       success: jest.fn()
     }
-    return shallowMount(CourseBatch, {
+    return shallowMount(AssignmentBatch, {
       ...options,
       store,
       localVue,
@@ -125,23 +114,17 @@ describe('CourseBatch', () => {
 
   test('goToCourse', () => {
     wrapper.vm.$router.push = jest.fn()
-    wrapper.vm.goToCourse('3')
+    wrapper.vm.goToAssignmentList('3')
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
-      name: 'courses',
-      params: { code: '3' }
+      name: 'assignments',
+      params: { batchCode: '3' }
     })
-  })
-
-  test('goToMasterCourse', () => {
-    wrapper.vm.$router.push = jest.fn()
-    wrapper.vm.goToMasterCourse()
-    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'masterCourses' })
   })
 
   test('createNewBatch', () => {
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.createNewBatch()
-    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'addBatch' })
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'addAssignmentBatch' })
   })
 
   test('successFetchBatches', () => {
@@ -158,8 +141,8 @@ describe('CourseBatch', () => {
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.editBatch('sample-id-1')
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
-      name: 'editBatch',
-      params: { id: 'sample-id-1' }
+      name: 'editAssignmentBatch',
+      params: { batchCode: 'sample-id-1' }
     })
   })
 
@@ -176,11 +159,11 @@ describe('CourseBatch', () => {
   })
 
   test('successDeleteBatch', () => {
-    const spy = jest.spyOn(wrapper.vm, 'initPage')
+    wrapper.vm.$router.push = jest.fn()
     wrapper.vm.successDeleteBatch()
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'assignmentBatch' })
     expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
     expect(wrapper.vm.selectedId).toEqual('')
-    expect(spy).toHaveBeenCalledTimes(1)
   })
 
   test('failDeleteBatch', () => {

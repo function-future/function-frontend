@@ -5,7 +5,7 @@ import BatchCard from '@/components/batches/BatchCard.vue'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
 
 export default {
-  name: 'courseBatch',
+  name: 'assignmentBatch',
   components: {
     BaseCard,
     BaseButton,
@@ -14,11 +14,6 @@ export default {
   },
   data () {
     return {
-      masterCourse: {
-        id: 'master',
-        code: 'master',
-        name: 'Master Course'
-      },
       batches: [],
       selectedId: '',
       showDeleteConfirmationModal: false
@@ -26,9 +21,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'batchList',
-      'currentUser',
-      'accessList'
+      'batchList'
     ])
   },
   created () {
@@ -39,22 +32,17 @@ export default {
       'fetchBatches',
       'deleteBatch'
     ]),
-    goToCourse (code) {
+    goToAssignmentList (code) {
       this.$router.push({
-        name: 'courses',
+        name: 'assignments',
         params: {
-          code: code
+          batchCode: code
         }
-      })
-    },
-    goToMasterCourse () {
-      this.$router.push({
-        name: 'masterCourses'
       })
     },
     createNewBatch () {
       this.$router.push({
-        name: 'addBatch'
+        name: 'addAssignmentBatch'
       })
     },
     initPage () {
@@ -71,8 +59,8 @@ export default {
     },
     editBatch (id) {
       this.$router.push({
-        name: 'editBatch',
-        params: { id: id }
+        name: 'editAssignmentBatch',
+        params: { batchCode: id }
       })
     },
     openDeleteConfirmationModal (id) {
@@ -91,7 +79,7 @@ export default {
     },
     successDeleteBatch () {
       this.selectedId = ''
-      this.initPage()
+      this.$router.push({ name: 'assignmentBatch' })
       this.$toasted.success('Successfully delete batch')
       this.showDeleteConfirmationModal = false
     },
