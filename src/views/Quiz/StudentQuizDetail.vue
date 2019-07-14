@@ -57,8 +57,8 @@
           </BaseCard>
         </div>
         <div class="detail-container__action">
-          <BaseButton buttonClass="button-cancel" @click="returnButtonClicked()">Start</BaseButton>
-          <BaseButton buttonClass="button-save" @click="actionButtonClicked()">Return</BaseButton>
+          <BaseButton buttonClass="button-cancel" @click="returnButtonClicked()">Return</BaseButton>
+          <BaseButton buttonClass="button-save" @click="actionButtonClicked()">Start</BaseButton>
         </div>
       </div>
     </div>
