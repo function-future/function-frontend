@@ -392,7 +392,7 @@ const router = new Router({
       component: editStickyNote,
       meta: {
         auth: true,
-        add: true,
+        edit: true,
         title: 'Edit Sticky Note'
       }
     },
