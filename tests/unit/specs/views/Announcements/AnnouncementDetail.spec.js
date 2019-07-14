@@ -48,6 +48,12 @@ describe('AnnouncementDetail.vue', () => {
           }
         ],
         'updatedAt': 1555980050616
+      },
+      accessList: {
+        add: true,
+        delete: true,
+        read: true,
+        edit: true
       }
     }
     actions = {
@@ -55,7 +61,8 @@ describe('AnnouncementDetail.vue', () => {
       fetchAnnouncementById: jest.fn()
     }
     getters = {
-      announcement: state => state.announcement
+      announcement: state => state.announcement,
+      accessList: state => state.accessList
     }
     store = new Vuex.Store({
       modules: {

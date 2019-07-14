@@ -6,10 +6,10 @@
       </div>
       <div class="header float-right">
         <div class="action">
-          <span class="edit-btn" @click.stop="goToEditMasterCourse">
+          <span class="edit-btn" @click.stop="goToEditMasterCourse" v-if="accessList.edit">
             <font-awesome-icon icon="edit" class="icon blue" size="lg"></font-awesome-icon>
           </span>
-          <span class="delete-btn" @click.stop="openDeleteConfirmationModal">
+          <span class="delete-btn" @click.stop="openDeleteConfirmationModal" v-if="accessList.delete">
             <font-awesome-icon icon="trash-alt" class="icon red" size="lg"></font-awesome-icon>
           </span>
         </div>

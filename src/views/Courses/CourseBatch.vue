@@ -1,16 +1,16 @@
 <template>
   <div>
-    <div class="button-div">
+    <div class="button-div" v-if="accessList.add">
       <BaseButton type="submit" buttonClass="button-save" @click="createNewBatch">
         <span><font-awesome-icon icon="plus" class="icon"/> New</span>
       </BaseButton>
     </div>
-    <div class="batch-div master">
+    <div class="batch-div master" v-if="currentUser.role !== 'STUDENT'">
       <div class="batch">
         <BatchCard :batch="masterCourse" @click.native="goToMasterCourse" :showAction="false"></BatchCard>
       </div>
     </div>
-    <h3 class="title">Batches</h3>
+    <h3 class="title" v-if="currentUser.role !== 'STUDENT'">Batches</h3>
     <div class="batch-div">
       <div class="batch" v-for="batch in batches" :key="batch.id">
         <BatchCard :batch="batch" @click.native="goToCourse(batch.code)"
@@ -34,11 +34,12 @@
     flex-wrap: wrap;
     justify-content: flex-start;
     margin-right: 15px;
+    margin-top: 10px;
   }
 
   .title {
     text-align: left;
-    margin: 20px 0 5px 0;
+    margin: 20px 0 0 0;
     padding-left: 15px;
   }
 

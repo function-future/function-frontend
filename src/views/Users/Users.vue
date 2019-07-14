@@ -9,9 +9,11 @@
             :lineClass="'default-tabs__active-line'"
             @onClick="changeTab">
       </tabs>
-      <BaseButton type="submit" buttonClass="button-save" @click="goToAddUser">
-        <span><font-awesome-icon icon="plus" class="icon"/> {{ addUserButtonLabel }}</span>
-      </BaseButton>
+      <span v-if="accessList.add">
+        <BaseButton type="submit" buttonClass="button-save" @click="goToAddUser">
+          <span><font-awesome-icon icon="plus" class="icon"/> {{ addUserButtonLabel }}</span>
+        </BaseButton>
+      </span>
     </div>
     <div class="tab-container">
       <div class="scrollable-tab" v-if="currentTab === 'student'">

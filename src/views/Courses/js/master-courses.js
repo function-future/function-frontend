@@ -35,7 +35,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'masterCourseList'
+      'masterCourseList',
+      'accessList'
     ])
   },
   created () {
