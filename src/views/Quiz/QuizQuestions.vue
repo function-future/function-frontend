@@ -5,14 +5,14 @@
       <div class="quiz-content">
         <div class="quiz-content-question">
           <BaseCard :style="{ margin: 0, height: '100%' }">
-            {{questions[currentNumber].text}}
+            {{studentQuizQuestions[currentNumber].text}}
           </BaseCard>
         </div>
         <div class="quiz-content-option">
-          <BaseButton class="quiz-content-option__item" :style="{ 'margin': '0 0 5px 0'}" buttonClass="button-white" @click="selectOption(questions[currentNumber].options[0].optionId)">{{questions[currentNumber].options[0].label}}</BaseButton>
-          <BaseButton class="quiz-content-option__item" :style="{ 'margin': '0 0 5px 0'}" buttonClass="button-white" @click="selectOption(questions[currentNumber].options[1].optionId)">{{questions[currentNumber].options[1].label}}</BaseButton>
-          <BaseButton class="quiz-content-option__item" :style="{ 'margin': '10px 0 5px 0'}" buttonClass="button-white" @click="selectOption(questions[currentNumber].options[2].optionId)">{{questions[currentNumber].options[2].label}}</BaseButton>
-          <BaseButton class="quiz-content-option__item" :style="{ 'margin': '10px 0 5px 0'}" buttonClass="button-white" @click="selectOption(questions[currentNumber].options[3].optionId)">{{questions[currentNumber].options[3].label}}</BaseButton>
+          <BaseButton class="quiz-content-option__item" :style="{ 'margin': '0 0 5px 0'}" buttonClass="button-white" @click="selectOption(studentQuizQuestions[currentNumber].options[0].optionId)">{{studentQuizQuestions[currentNumber].options[0].label}}</BaseButton>
+          <BaseButton class="quiz-content-option__item" :style="{ 'margin': '0 0 5px 0'}" buttonClass="button-white" @click="selectOption(studentQuizQuestions[currentNumber].options[1].optionId)">{{studentQuizQuestions[currentNumber].options[1].label}}</BaseButton>
+          <BaseButton class="quiz-content-option__item" :style="{ 'margin': '10px 0 5px 0'}" buttonClass="button-white" @click="selectOption(studentQuizQuestions[currentNumber].options[2].optionId)">{{studentQuizQuestions[currentNumber].options[2].label}}</BaseButton>
+          <BaseButton class="quiz-content-option__item" :style="{ 'margin': '10px 0 5px 0'}" buttonClass="button-white" @click="selectOption(studentQuizQuestions[currentNumber].options[3].optionId)">{{studentQuizQuestions[currentNumber].options[3].label}}</BaseButton>
         </div>
       </div>
       <div class="quiz-action">
@@ -25,7 +25,7 @@
               Go To
             </div>
             <div class="quiz-action-legend__content-area">
-              <div v-for="question in questions" class="quiz-action-legend__content-area-row">
+              <div v-for="question in studentQuizQuestions" class="quiz-action-legend__content-area-row">
                 <BaseCard :style="{ 'padding': '10px', 'margin': '15px 0 15px 0' }" @click.native="currentNumber = question.number-1">
                   <label class="quiz-action-legend__content-area-row-item">
                     <input type="radio" v-model="currentNumber" @click="viewQuestion(question.number)">

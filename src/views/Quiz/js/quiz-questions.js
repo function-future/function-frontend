@@ -12,7 +12,6 @@ export default {
     return {
       currentNumber: '',
       selectedAnswer: '',
-      questions: [],
       answers: []
     }
   },
@@ -42,7 +41,6 @@ export default {
     },
     successFetchingStudentQuizQuestions () {
       this.currentNumber = 0
-      this.questions = this.studentQuizQuestions
     },
     failedFetchingStudentQuizQuestions () {
       this.$toasted.error('Something went wrong')
@@ -57,7 +55,7 @@ export default {
       this.currentNumber = number - 1
   },
     viewNextQuestion () {
-      if (this.currentNumber !== this.questions.length) this.currentNumber++
+      if (this.currentNumber !== this.studentQuizQuestions.length - 1) this.currentNumber++
     },
     viewPreviousQuestion () {
       if (this.currentNumber !== 0) this.currentNumber--

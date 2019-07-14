@@ -21,7 +21,7 @@
             <input type="number"
                    class="detail-card__content"
                    :value="studentQuizDetail.quiz.timeLimit"
-                   :disabled="!editMode"/>
+                   :disabled="true"/>
           </BaseCard>
         </div>
         <div class="detail-container__info-deadline">
@@ -41,7 +41,7 @@
             <input type="number"
                    class="detail-card__content"
                    :value="studentQuizDetail.quiz.trials"
-                   :disabled="!editMode"/>
+                   :disabled="true"/>
           </BaseCard>
         </div>
       </div>
@@ -53,7 +53,7 @@
             <input type="text"
                    class="question-info__content"
                    :value="studentQuizDetail.quiz.questionCount"
-                   :disabled="!editMode"/>
+                   :disabled="true"/>
           </BaseCard>
         </div>
         <div class="detail-container__action">
