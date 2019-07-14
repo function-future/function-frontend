@@ -228,6 +228,91 @@ export const assignmentRooms = [
         }
       }
     }
+  },
+  {
+    method: 'PUT',
+    url: 'api/scoring/batches/1/assignments/ASG0001/rooms/ROM0001',
+    response: {
+      "code": 200,
+      "status": "OK",
+      "data": {
+        "id": "ROM0001",
+        "answer": "Answer Example 1",
+        "point": 300,
+        "student": {
+          "id": "sample-id",
+          "role": "STUDENT",
+          "email": "user@user.com",
+          "name": "User Name",
+          "phone": "088888888888",
+          "address": "Jl. Address 1 Address 2",
+          "avatar": "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
+          "batch": "3",
+          "university": "Bina Nusantara University"
+        },
+        "assignment": {
+          "id": "ASG0001",
+          "title": "Assignment 1",
+          "description": "Description Number 1",
+          "deadline": 15000000,
+          "file": "http://function-static.com/ASG0001/fileName.docx",
+          "batch": "3"
+        }
+      }
+    }
+  }
+]
+
+export const assignmentRoomComment = [
+  {
+    method: 'GET',
+    url: 'api/scoring/batches/1/assignments/ASG0001/rooms/ROM0001?page=1&size=10',
+    response: {
+      "code": 200,
+      "status": "OK",
+      "data": [
+        {
+          "id": "CMT00001",
+          "author": {
+            "id": "USR00001",
+            "name": "User 1"
+          },
+          "comment": "Comment Example 1",
+          "createdAt": 1500000000
+        },
+        {
+          "id": "CMT00002",
+          "user": {
+            "id": "USR00001",
+            "name": "User 1"
+          },
+          "comment": "Comment Example 2",
+          "createdAt": 1500000000
+        }
+      ],
+      "paging": {
+        "page": 1,
+        "size": 12,
+        "totalRecords": 13
+      }
+    }
+  },
+  {
+    method: 'POST',
+    url: 'api/scoring/batches/1/assignments/ASG0001/rooms/ROM0001?page=1&size=10',
+    response: {
+      "code": 201,
+      "status": "CREATED",
+      "data": {
+        "id": "CMT00002",
+        "author": {
+          "id": "USR00001",
+          "name": "User 1"
+        },
+        "comment": "Comment Example 2",
+        "createdAt": 1500000000
+      }
+    }
   }
 ]
 

@@ -19,6 +19,7 @@ import {
   assignments,
   assignmentDetails,
   assignmentRooms,
+  assignmentRoomComment,
   quizzes,
   quizDetail,
   questionBanks,
@@ -105,6 +106,10 @@ assignmentDetails.forEach(data => {
 })
 
 assignmentRooms.forEach(data => {
+  mock[methodMap[data.method]] (data.url).reply(200, data.response)
+})
+
+assignmentRoomComment.forEach(data => {
   mock[methodMap[data.method]] (data.url).reply(200, data.response)
 })
 
