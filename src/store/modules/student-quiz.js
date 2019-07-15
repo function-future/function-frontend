@@ -54,7 +54,7 @@ export const getters = {
     return state.studentQuizDetail
   },
   studentQuizQuestions (state) {
-    return state.studentQuizQuestions.questions
+    return state.studentQuizQuestions
   }
 }
 

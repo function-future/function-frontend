@@ -1,6 +1,6 @@
 <template>
   <div class="scrollable-container">
-    <BaseCard class="quiz-card" v-for="studentQuiz in studentQuizList" @click.native="goToQuizDetail(studentQuiz.quiz.id)">
+    <BaseCard class="quiz-card" v-for="studentQuiz in studentQuizList" @click.native="goToQuizDetail(studentQuiz.id)">
       <div class="card-header-section">
         <div class="card-header">
           {{studentQuiz.quiz.title}}

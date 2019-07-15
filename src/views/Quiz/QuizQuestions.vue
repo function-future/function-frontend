@@ -9,10 +9,10 @@
           </BaseCard>
         </div>
         <div class="quiz-content-option">
-          <BaseButton class="quiz-content-option__item" :style="{ 'margin': '0 0 5px 0'}" buttonClass="button-white" @click="selectOption(studentQuizQuestions[currentNumber].options[0].optionId)">{{studentQuizQuestions[currentNumber].options[0].label}}</BaseButton>
-          <BaseButton class="quiz-content-option__item" :style="{ 'margin': '0 0 5px 0'}" buttonClass="button-white" @click="selectOption(studentQuizQuestions[currentNumber].options[1].optionId)">{{studentQuizQuestions[currentNumber].options[1].label}}</BaseButton>
-          <BaseButton class="quiz-content-option__item" :style="{ 'margin': '10px 0 5px 0'}" buttonClass="button-white" @click="selectOption(studentQuizQuestions[currentNumber].options[2].optionId)">{{studentQuizQuestions[currentNumber].options[2].label}}</BaseButton>
-          <BaseButton class="quiz-content-option__item" :style="{ 'margin': '10px 0 5px 0'}" buttonClass="button-white" @click="selectOption(studentQuizQuestions[currentNumber].options[3].optionId)">{{studentQuizQuestions[currentNumber].options[3].label}}</BaseButton>
+          <BaseButton class="quiz-content-option__item" :style="{ 'margin': '0 0 5px 0'}" buttonClass="button-white" @click="selectOption(studentQuizQuestions[currentNumber].options[0].id)">{{studentQuizQuestions[currentNumber].options[0].label}}</BaseButton>
+          <BaseButton class="quiz-content-option__item" :style="{ 'margin': '0 0 5px 0'}" buttonClass="button-white" @click="selectOption(studentQuizQuestions[currentNumber].options[1].id)">{{studentQuizQuestions[currentNumber].options[1].label}}</BaseButton>
+          <BaseButton class="quiz-content-option__item" :style="{ 'margin': '10px 0 5px 0'}" buttonClass="button-white" @click="selectOption(studentQuizQuestions[currentNumber].options[2].id)">{{studentQuizQuestions[currentNumber].options[2].label}}</BaseButton>
+          <BaseButton class="quiz-content-option__item" :style="{ 'margin': '10px 0 5px 0'}" buttonClass="button-white" @click="selectOption(studentQuizQuestions[currentNumber].options[3].id)">{{studentQuizQuestions[currentNumber].options[3].label}}</BaseButton>
         </div>
       </div>
       <div class="quiz-action">

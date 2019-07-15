@@ -33,7 +33,7 @@ export default {
     initPage () {
       this.fetchStudentQuizDetail({
         data: {
-          studentId: 'sample-id-1',
+          studentId: this.currentUser.id,
           quizId: this.$route.params.quizId
         },
         callback: this.successFetchingStudentQuizDetail,
@@ -48,7 +48,7 @@ export default {
       this.$router.push({
         name: 'studentQuizQuestions',
         params: {
-          studentId: 'sample-id-1',
+          studentId: this.currentUser.id,
           quizId: this.$route.params.quizId
         }
       })

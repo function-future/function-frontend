@@ -36,7 +36,9 @@ export default {
     actionButtonClicked () {
       let payload = {
         ...this.quizDetail,
-        questionBankId: [...this.selectedBank]
+        startDate: new Date().getTime(),
+        batchCode: this.$route.params.batchCode,
+        questionBanks: [...this.selectedBank]
       }
       payload.endDate = new Date(payload.endDate).getTime()
       this.createQuiz({
