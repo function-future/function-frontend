@@ -620,7 +620,7 @@ router.afterEach((to, from) => {
     return
   }
 
-  if (store.getters.currentUser) {
+  if (Object.keys(store.getters.currentUser).length) {
     store.dispatch('getAccessList', {
       data: encodeURIComponent(to.fullPath),
       callback: () => {

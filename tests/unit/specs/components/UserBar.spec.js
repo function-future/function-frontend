@@ -101,10 +101,18 @@ describe('UserBar', () => {
     expect(wrapper.vm.name).toEqual('Karnando Sepryan')
   })
 
-  test('computed firstName', () => {
+  test('computed firstName > 1 word', () => {
     initComponent()
     store.state.currentUser = {
       name: 'Karnando Sepryan'
+    }
+    expect(wrapper.vm.firstName).toEqual('Karnando')
+  })
+
+  test('computed firstName one word', () => {
+    initComponent()
+    store.state.currentUser = {
+      name: 'Karnando'
     }
     expect(wrapper.vm.firstName).toEqual('Karnando')
   })

@@ -18,7 +18,7 @@ export default {
       return this.currentUser.name || ''
     },
     firstName () {
-      return this.name.substr(0, this.name.indexOf(' '))
+      return /\s/.test(this.name) ? this.name.substr(0, this.name.indexOf(' ')) : this.name
     }
   },
   methods: {
