@@ -2,7 +2,7 @@
   <div class="questionnaire-create-outer">
     <div class="questionnaire-create-container">
       <div class="top-button-bar">
-        <BaseButton type="submit" button-class="button-save">
+        <BaseButton button-class="button-save" @click="goToCreate">
           <span>Create</span>
         </BaseButton>
       </div>
@@ -22,13 +22,22 @@
     height: 80vh;
     justify-content: center;
     margin-top: 40px;
+    width: auto;
+    overflow: auto;
   }
 
+  @media only screen and (min-width: 1000px) {
+    .questionnaire-create-container {
+      display: flex;
+      flex-direction: column;
+      min-width: 800px;
+    }
+  }
   .questionnaire-create-container {
     display: flex;
     flex-direction: column;
-    min-width: 800px;
   }
+
   .top-button-bar {
     width: 100%;
     display: flex;

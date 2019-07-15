@@ -6,5 +6,15 @@ export default {
   components: {
     BaseButton,
     QuestionnaireForm
+  },
+  methods: {
+    goToCreate () {
+      this.$router.push({
+        name: 'questionnairesEdit',
+        params: {
+          questionnaireId: 'sample-id'
+        }
+      })
+    }
   }
 }

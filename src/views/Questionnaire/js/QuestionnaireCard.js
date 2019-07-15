@@ -21,12 +21,10 @@ export default {
     isDisable: Boolean,
     isEdit: Boolean
   },
-  method: {
+  methods: {
     goToEdit () {
-      alert('jackie')
-      console.log(this.id)
       this.$router.push({
-        name: 'questionnaireEdit',
+        name: 'questionnairesEdit',
         params: { questionnaireId: this.id }
       })
     }

@@ -23,16 +23,12 @@
 
 </script>
 
+
 <style scoped>
   .my-questionnaire-outer {
     display: flex;
     justify-content: center;
     height: 80vh;
-  }
-
-  .search-bar-my-questionnaire {
-    width: 300px;
-    align-self: flex-end;
   }
 
   .my-questionnaire-container {
@@ -44,7 +40,24 @@
   .my-questionnaire-list-container {
     overflow: auto;
     padding: 10px;
-    min-width: 600px;
+  }
+
+  .search-bar-my-questionnaire {
+    align-self: flex-end;
+    width: 150px;
+  }
+
+  @media only screen and (min-width: 800px) {
+    .my-questionnaire-list-container {
+      overflow: auto;
+      padding: 10px;
+      min-width: 600px;
+    }
+
+    .search-bar-my-questionnaire {
+      width: 300px;
+      align-self: flex-end;
+    }
   }
 
 </style>

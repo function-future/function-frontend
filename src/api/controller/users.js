@@ -2,7 +2,7 @@ import request from '../default-request'
 import config from '@/config/index'
 
 const getUserList = function (callback, data, errorHandler) {
-  request.getRequest(config.api.core.users.get(data.page, data.size, data.role), callback, data, errorHandler)
+  request.getRequest(config.api.core.users.get(data.page, data.size, data.role), callback, errorHandler)
 }
 
 const searchUser = function (callback, data, errorHandler) {

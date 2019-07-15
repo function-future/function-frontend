@@ -16,19 +16,16 @@
       </div>
       <div v-if="isEdit" class="questionnaire-edit">
         <div class="button-delete">
-          <div class="icon-delete">
-            X
-          </div>
+          <span><font-awesome-icon icon="times"></font-awesome-icon></span>
         </div>
         <div class="button-create">
-          <BaseButton type="submit" class="button-create" buttonClass="button-save" v-on:click="goToEdit">Edit</BaseButton>
+          <BaseButton type="submit" class="button-create" buttonClass="button-save" @click="goToEdit">Edit</BaseButton>
         </div>
       </div>
     </div>
 </template>
 
 <script src="./js/QuestionnaireCard.js">
-
 </script>
 
 <style scoped>

@@ -8,5 +8,12 @@ export default {
     SearchBar,
     BaseButton,
     QuestionnaireCard
+  },
+  methods: {
+    goToCreate () {
+      this.$router.push({
+        name: 'questionnairesCreate'
+      })
+    }
   }
 }

@@ -1,11 +1,17 @@
+import BaseCard from '@/components/BaseCard'
+
 export default {
   name: 'QuestionnaireParticipantCard',
+  components: {
+    BaseCard
+  },
   props: {
     name: String,
     avatar: String,
     university: String,
     role: String,
-    batch: String
+    batch: String,
+    isEdit: Boolean
   },
   method: {
   },

@@ -483,4 +483,37 @@ describe('Announcements', () => {
     wrapper.vm.failDeleteAnnouncementById()
     expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
   })
+
+  test('successLoadAnnouncementList', () => {
+    const paging = {
+      page: 1,
+      size: 10,
+      totalRecords: 20
+    }
+    wrapper.vm.successLoadAnnouncementList(paging)
+    expect(wrapper.vm.paging).toEqual(paging)
+  })
+
+  test('loadPage', () => {
+    const spy = jest.spyOn(wrapper.vm, 'loadAnnouncementList')
+    wrapper.vm.loadPage(1)
+    expect(wrapper.vm.paging.page).toEqual(1)
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('loadPreviousPage', () => {
+    const spy = jest.spyOn(wrapper.vm, 'loadAnnouncementList')
+    wrapper.vm.paging.page = 2
+    wrapper.vm.loadPreviousPage()
+    expect(wrapper.vm.paging.page).toEqual(1)
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('loadNextPage', () => {
+    const spy = jest.spyOn(wrapper.vm, 'loadAnnouncementList')
+    wrapper.vm.paging.page = 2
+    wrapper.vm.loadNextPage()
+    expect(wrapper.vm.paging.page).toEqual(3)
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
 })

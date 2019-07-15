@@ -2,7 +2,8 @@ import quizApi from '@/api/controller/quizzes'
 
 export const state = {
   quizList: [],
-  quiz: {}
+  quiz: {},
+  selectedBank: []
 }
 
 export const mutations = {
@@ -11,18 +12,27 @@ export const mutations = {
   },
   SET_QUIZ (state, payload) {
     state.quiz = payload
+  },
+  SET_SELECTED_BANK (state, payload) {
+    state.selectedBank = payload
   }
 }
 
 export const actions = {
-  fetchQuizList ({ commit }, { data, fail }) {
-    quizApi.getQuizList(({data: response}) => {
+  fetchQuizList ({ commit }, { data, callback, fail }) {
+    quizApi.getQuizList(({data: response, paging}) => {
       commit('GET_QUIZ_LIST', response.quizzes)
+      callback && callback(paging)
     }, data, fail)
   },
   createQuiz ({ commit }, { payload, data, callback, fail }) {
     quizApi.createQuiz(() => {
       commit('SET_QUIZ', payload)
+      callback && callback()
+    }, data, payload, fail)
+  },
+  copyQuiz ({ state }, { payload, data, callback, fail }) {
+    quizApi.copyQuiz(() => {
       callback && callback()
     }, data, payload, fail)
   },
@@ -37,6 +47,14 @@ export const actions = {
       commit('SET_QUIZ', payload)
       callback && callback()
     }, data, payload, fail)
+  },
+  deleteQuizById ({ commit }, { data, callback, fail }) {
+    quizApi.deleteQuiz(() => {
+      callback && callback()
+    }, data, fail)
+  },
+  setSelectedBank ({ commit }, { payload }) {
+    commit('SET_SELECTED_BANK', payload)
   }
 }
 
@@ -47,6 +65,9 @@ export const getters = {
   },
   quiz (state) {
     return state.quiz
+  },
+  selectedBank (state) {
+    return state.selectedBank
   }
 }
 

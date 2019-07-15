@@ -14,7 +14,26 @@ module.exports = {
         detail: '/announcements/:id/detail',
         edit: '/announcements/:id/edit'
       },
-      courses: '/courses',
+      points: {
+        list: '/points'
+      },
+      courses: {
+        master: {
+          list: '/courses',
+          detail: '/courses/:id/detail',
+          add: '/courses/add',
+          edit: '/courses/:id/edit'
+        },
+        batches: {
+          list: '/batches',
+          add: '/batches/add',
+          edit: '/batches/:id/edit'
+        },
+        list: '/batches/:code/courses',
+        add: '/batches/:code/courses/add',
+        detail: '/batches/:code/courses/:id/detail',
+        edit: '/batches/:code/courses/:id/edit'
+      },
       files: '/files',
       users: {
         list: '/users',
@@ -40,6 +59,7 @@ module.exports = {
       quizzes: {
         list: '/quizzes',
         add: '/quizzes/add',
+        addDetail: '/quizzes/addDetail',
         detail: '/quizzes/:quizId/detail'
       },
       assignments: {
@@ -68,7 +88,13 @@ module.exports = {
         create: '/questionnaires/_create',
         edit: '/questionnaires/:questionnaireId/_edit'
       },
-      questionnaireResults: '/questionnaire-results',
+      questionnaireResults: {
+        default: '/questionnaire-results',
+        members: '/questionnaire-results/:batchCode/members',
+        memberDetail: '/questionnaire-results/:batchCode/members/:memberId',
+        questionnaireDetail: '/questionnaire-results/:batchCode/members/:memberId/questionnaire/:questionnaireId',
+        questionDetail: '/questionnaire-results/:batchCode/members/:memberId/questionnaire/:questionnaireId/question/:questionId'
+      }
     }
   },
   api: {
@@ -131,6 +157,45 @@ module.exports = {
             return `/api/core/activity-blogs/${id}`
           }
         }
+      },
+      batches: {
+        get: '/api/core/batches',
+        post: '/api/core/batches',
+        detail: {
+          get (id) { return `/api/core/batches/${id}` },
+          update (id) { return `/api/core/batches/${id}` },
+          delete (id) { return `/api/core/batches/${id}` }
+        }
+      },
+      courses: {
+        master: {
+          get (page, size) { return `/api/core/courses?page=${page}&size=${size}` },
+          post: 'api/core/courses',
+          detail: {
+            get (id) { return `/api/core/courses/${id}` },
+            update (id) { return `/api/core/courses/${id}` },
+            delete (id) { return `/api/core/courses/${id}` }
+          }
+        },
+        get (code, page, size) { return `/api/core/batches/${code}/courses?page=${page}&size=${size}` },
+        post (code) { return `api/core/batches/${code}/courses` },
+        detail: {
+          get (code, id) {
+            return `/api/core/batches/${code}/courses/${id}`
+          },
+          update (code, id) {
+            return `/api/core/batches/${code}/courses/${id}`
+          },
+          delete (code, id) {
+            return `/api/core/batches/${code}/courses/${id}`
+          }
+        }
+      },
+      discussions: {
+        courses: {
+          get (code, id, page) { return `/api/core/batches/${code}/courses/${id}/discussions?page=${page}` },
+          post (code, id) { return `/api/core/batches/${code}/courses/${id}/discussions` }
+        }
       }
     },
     scoring: {
@@ -138,13 +203,19 @@ module.exports = {
         list(batchCode, page, pageSize) {
           return `/api/scoring/batches/${batchCode}/assignments?page=${page}&size=${pageSize}`
         },
-        create(batchCode, page, pageSize) {
+        create(batchCode) {
           return `/api/scoring/batches/${batchCode}/assignments`
+        },
+        copy(batchCode) {
+          return `/api/scoring/batches/${batchCode}/assignments/copy`
         },
         detail(batchCode, id) {
           return `/api/scoring/batches/${batchCode}/assignments/${id}`
         },
         update(batchCode, id) {
+          return `/api/scoring/batches/${batchCode}/assignments/${id}`
+        },
+        delete(batchCode, id) {
           return `/api/scoring/batches/${batchCode}/assignments/${id}`
         },
         rooms: {
@@ -197,8 +268,11 @@ module.exports = {
         list(batchCode, page, pageSize) {
           return `/api/scoring/batches/${batchCode}/quizzes?page=${page}&size=${pageSize}`
         },
-        create(batchCode, page, pageSize) {
+        create(batchCode) {
           return `/api/scoring/batches/${batchCode}/quizzes`
+        },
+        copy(batchCode) {
+          return `/api/scoring/batches/${batchCode}/quizzes/copy`
         },
         detail(batchCode, id) {
           return `/api/scoring/batches/${batchCode}/quizzes/${id}`
@@ -209,12 +283,23 @@ module.exports = {
         delete(batchCode, id) {
           return `/api/scoring/batches/${batchCode}/quizzes/${id}`
         }
+      },
+      points: {
+        list(studentId) {
+          return `/api/students/${studentId}/points`
+        }
       }
     },
     communication: {
       chatrooms: {
         list (type, search, page, size) {
           return `/api/communication/chatrooms?type=${type}&search=${search}&page=${page}&size=${size}`
+        },
+        getMessagesBeforePivot (messageId, chatroomId) {
+          return `/api/communication/chatrooms/${chatroomId}/messages/_before?messageId=${messageId}`
+        },
+        getMessagesAfterPivot (messageId, chatroomId) {
+          return `/api/communication/chatrooms/${chatroomId}/messages/_after?messageId=${messageId}`
         },
         getDetails (chatroomId) {
           return `/api/communication/chatrooms/${chatroomId}`

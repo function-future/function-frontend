@@ -23,9 +23,10 @@ export const mutations = {
 }
 
 export const actions = {
-  fetchQuestionBankList ({ commit }, { data, fail }) {
+  fetchQuestionBankList ({ commit }, { callback, data, fail }) {
     questionBankApi.getQuestionBankList(({data: response}) => {
       commit('GET_QUESTION_BANK_LIST', response)
+      callback && callback()
     }, data, fail)
   },
   createQuestionBank ({ commit }, { payload, callback, fail }) {
@@ -68,6 +69,16 @@ export const actions = {
       commit('SET_QUESTION', payload)
       callback && callback()
     }, data, payload, fail)
+  },
+  deleteQuestionBankById ({ state }, { data, callback, fail }) {
+    questionBankApi.deleteQuestionBank(() => {
+      callback && callback()
+    }, data, fail)
+  },
+  deleteQuestionById ({ state }, { data, callback, fail }) {
+    questionBankApi.deleteQuestion(() => {
+      callback && callback()
+    }, data, fail)
   }
 }
 

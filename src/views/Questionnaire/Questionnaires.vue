@@ -3,7 +3,7 @@
     <div class="questionnaires-container">
       <div class="questionnaire-top-bar">
         <div class="button-create">
-          <BaseButton type="submit" buttonClass="button-save">New</BaseButton>
+          <BaseButton type="submit" buttonClass="button-save" @click="goToCreate">New</BaseButton>
         </div>
         <div class="search-bar-questionnaire">
           <SearchBar/>

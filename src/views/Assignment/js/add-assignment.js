@@ -18,7 +18,7 @@ export default {
         title: '',
         description: '',
         deadline: new Date(),
-        batch: 'Batch 3',
+        batch: 'Batch 3'
         // file: ''
       },
       batches: [

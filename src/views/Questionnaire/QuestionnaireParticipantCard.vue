@@ -1,14 +1,21 @@
 <template>
-  <div class="questionnaire-participant-card-outer"
-       @click="$emit('click')">
-    <div v-if="avatar" class="questionnaire-participant-card-avatar">
-      <img :src="avatar">
-    </div>
-    <div class="questionnaire-participant-card-content">
-      <p class="participant-name"><strong>{{ name }}</strong></p>
-      <p class="participant-university">{{ university }}</p>
-      <p class="participant-status">{{ computedRole }} - {{ batch }}</p>
-    </div>
+  <div class="questionnaire-participant-card-outer">
+    <BaseCard class="questionnaire-participant-card-container"
+         @click="$emit('click')">
+      <div v-if="avatar" class="questionnaire-participant-card-avatar">
+        <img :src="avatar">
+      </div>
+      <div class="questionnaire-participant-card-content">
+        <p class="participant-name"><strong>{{ name }}</strong></p>
+        <p class="participant-university">{{ university }}</p>
+        <p class="participant-status">{{ computedRole }} - {{ batch }}</p>
+      </div>
+      <div v-if="isEdit" class="delete-placeholder">
+        <span>
+          <font-awesome-icon icon="times"></font-awesome-icon>
+        </span>
+      </div>
+    </BaseCard>
   </div>
 </template>
 
@@ -23,17 +30,12 @@
   }
 
   .questionnaire-participant-card-outer {
+    width: 100%;
+  }
+
+  .questionnaire-participant-card-container {
     display: flex;
-    background: #FFFFFF;
-    border: 1px solid #F2F2F2;
-    box-sizing: border-box;
-    -webkit-box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.1);
-    -moz-box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.1);
-    box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.1);
-    border-radius: 10px;
-    padding: 5px 5px 5px 5px;
-    text-align: left;
-    margin: 5px 0;
+    padding-right: 10px;
     cursor: pointer;
   }
 
@@ -53,6 +55,7 @@
 
   .questionnaire-participant-card-content {
     padding-left: 10px;
+    width: 100%;
   }
 
   .participant-name{
@@ -69,5 +72,9 @@
   .participant-status {
     padding: 5px 0px 5px 0px ;
     font-size: medium;
+  }
+
+  .delete-placeholder {
+    align-items: flex-end;
   }
 </style>

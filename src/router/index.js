@@ -12,7 +12,9 @@ import questionBankAddQuestion from '@/views/QuestionBank/QuestionBankAddQuestio
 import questionBankQuestionDetail from '@/views/QuestionBank/QuestionBankQuestionDetail'
 import quizzes from '@/views/Quiz/Quiz'
 import addQuiz from '@/views/Quiz/AddQuiz'
+import addQuizDetail from '@/views/Quiz/AddQuizDetail'
 import quizDetail from '@/views/Quiz/QuizDetail'
+import points from '@/views/Point/Point'
 import feeds from '@/views/Feeds/Feeds.vue'
 import announcements from '@/views/Announcements/Announcements.vue'
 import announcementDetail from '@/views/Announcements/AnnouncementDetail.vue'
@@ -24,6 +26,14 @@ import users from '@/views/Users/Users.vue'
 import stickyNotes from '@/views/StickyNotes/StickyNotesDetail.vue'
 import editStickyNote from '@/views/StickyNotes/EditStickyNote.vue'
 import UserForm from '@/views/Users/UserForm.vue'
+import courseBatch from '@/views/Courses/CourseBatch.vue'
+import batchForm from '@/views/Courses/BatchForm.vue'
+import courses from '@/views/Courses/Courses.vue'
+import masterCourses from '@/views/Courses/MasterCourses.vue'
+import courseDetail from '@/views/Courses/CourseDetail.vue'
+import courseForm from '@/views/Courses/CourseForm.vue'
+import masterCourseDetail from '@/views/Courses/MasterCourseDetail.vue'
+import masterCourseForm from '@/views/Courses/MasterCourseForm.vue'
 import config from '@/config/index'
 import chatrooms from '@/views/Chatrooms/Chatrooms'
 import myQuestionnaire from '@/views/Questionnaire/MyQuestionnaire'
@@ -32,7 +42,10 @@ import questionnaires from '@/views/Questionnaire/Questionnaires'
 import questionnairesCreate from '@/views/Questionnaire/QuestionnairesCreate'
 import questionnairesEdit from '@/views/Questionnaire/QuestionnairesEdit'
 import questionnaireResults from '@/views/Questionnaire/QuestionnaireResults'
-
+import questionnaireResultsMembers from '@/views/Questionnaire/QuestionnaireResultsMembers'
+import questionnaireResultsMemberDetail from '@/views/Questionnaire/QuestionnaireResultsMemberDetail'
+import questionnaireResultsQuestionnaireDetail from '@/views/Questionnaire/QuestionnaireResultsQuestionnaireDetail'
+import questionnaireResultsQuestionDetail from '@/views/Questionnaire/QuestionnaireResultsQuestionDetail'
 Vue.use(Router)
 
 export default new Router({
@@ -116,12 +129,147 @@ export default new Router({
       props: { editMode: false }
     },
     {
-      path: config.app.pages.courses,
-      name: 'courses',
-      component: feeds,
+      path: config.app.pages.courses.batches.list,
+      name: 'courseBatches',
+      component: courseBatch,
       meta: {
-        title: 'Courses'
+        title: 'Select Course Batch',
+        breadcrumb: [
+          { name: 'Batches', link: 'courseBatches' }
+        ]
       }
+    },
+    {
+      path: config.app.pages.courses.batches.add,
+      name: 'addBatch',
+      component: batchForm,
+      meta: {
+        title: 'Add Batch',
+        breadcrumb: [
+          { name: 'Batches', link: 'courseBatches' },
+          { name: 'Add Batch', link: 'addBatch' }
+        ]
+      },
+      props: { editMode: false }
+    },
+    {
+      path: config.app.pages.courses.batches.edit,
+      name: 'editBatch',
+      component: batchForm,
+      meta: {
+        title: 'Edit Batch',
+        breadcrumb: [
+          { name: 'Batches', link: 'courseBatches' },
+          { name: 'Edit Batch', link: 'editBatch' }
+        ]
+      },
+      props: { editMode: true }
+    },
+    {
+      path: config.app.pages.courses.list,
+      name: 'courses',
+      component: courses,
+      meta: {
+        title: 'Courses',
+        breadcrumb: [
+          { name: 'Batches', link: 'courseBatches' },
+          { name: 'Courses', link: 'courses' }
+        ]
+      }
+    },
+    {
+      path: config.app.pages.courses.detail,
+      name: 'courseDetail',
+      component: courseDetail,
+      meta: {
+        title: 'Course Detail',
+        breadcrumb: [
+          { name: 'Batches', link: 'courseBatches' },
+          { name: 'Courses', link: 'courses' },
+          { name: 'Course Detail', link: 'courseDetail' }
+        ]
+      }
+    },
+    {
+      path: config.app.pages.courses.add,
+      name: 'addCourse',
+      component: courseForm,
+      meta: {
+        title: 'Add Course',
+        breadcrumb: [
+          { name: 'Batches', link: 'courseBatches' },
+          { name: 'Courses', link: 'courses' },
+          { name: 'Add Course', link: 'addCourse' }
+        ]
+      },
+      props: { editMode: false }
+    },
+    {
+      path: config.app.pages.courses.edit,
+      name: 'editCourse',
+      component: courseForm,
+      meta: {
+        title: 'Edit Course',
+        breadcrumb: [
+          { name: 'Batches', link: 'courseBatches' },
+          { name: 'Courses', link: 'courses' },
+          { name: 'Edit Course', link: 'editCourse' }
+        ]
+      },
+      props: { editMode: true }
+    },
+    {
+      path: config.app.pages.courses.master.list,
+      name: 'masterCourses',
+      component: masterCourses,
+      meta: {
+        title: 'Master Courses',
+        breadcrumb: [
+          { name: 'Batches', link: 'courseBatches' },
+          { name: 'Master Courses', link: 'masterCourses' }
+        ]
+      }
+    },
+    {
+      path: config.app.pages.courses.master.detail,
+      name: 'masterCourseDetail',
+      component: masterCourseDetail,
+      meta: {
+        title: 'Master Course Detail',
+        breadcrumb: [
+          { name: 'Batches', link: 'courseBatches' },
+          { name: 'Master Courses', link: 'masterCourses' },
+          { name: 'Master Course Detail', link: 'masterCourseDetail' }
+        ]
+      }
+    },
+    {
+      path: config.app.pages.courses.master.add,
+      name: 'addMasterCourse',
+      component: masterCourseForm,
+      meta: {
+        title: 'Add Master Course',
+        breadcrumb: [
+          { name: 'Batches', link: 'courseBatches' },
+          { name: 'Master Courses', link: 'masterCourses' },
+          { name: 'Add Master Course', link: 'addMasterCourse' }
+        ]
+      },
+      props: { editMode: false }
+    },
+    {
+      path: config.app.pages.courses.master.edit,
+      name: 'editMasterCourse',
+      component: masterCourseForm,
+      meta: {
+        title: 'Edit Master Course',
+        breadcrumb: [
+          { name: 'Batches', link: 'courseBatches' },
+          { name: 'Master Courses', link: 'masterCourses' },
+          { name: 'Edit Master Course', link: 'editMasterCourse' }
+        ]
+      },
+      props: { editMode: true }
     },
     {
       path: config.app.pages.files,
@@ -276,6 +424,14 @@ export default new Router({
       }
     },
     {
+      path: config.app.pages.quizzes.addDetail,
+      name: 'addQuizDetail',
+      component: addQuizDetail,
+      meta: {
+        title: 'Add Detail'
+      }
+    },
+    {
       path: config.app.pages.quizzes.detail,
       name: 'quizDetail',
       component: quizDetail,
@@ -332,6 +488,14 @@ export default new Router({
       }
     },
     {
+      path: config.app.pages.points.list,
+      name: 'points',
+      component: points,
+      meta: {
+        title: 'Points'
+      }
+    },
+    {
       path: config.app.pages.finalJudging,
       name: 'finalJudging',
       component: feeds
@@ -385,11 +549,43 @@ export default new Router({
       }
     },
     {
-      path: config.app.pages.questionnaireResults,
+      path: config.app.pages.questionnaireResults.default,
       name: 'questionnaireResults',
       component: questionnaireResults,
       meta: {
         title: 'Questionnaire Results'
+      }
+    },
+    {
+      path: config.app.pages.questionnaireResults.members,
+      name: 'questionnaireResultsMembers',
+      component: questionnaireResultsMembers,
+      meta: {
+        title: 'Questionnaire Results - Members'
+      }
+    },
+    {
+      path: config.app.pages.questionnaireResults.memberDetail,
+      name: 'questionnaireResultsMemberDetail',
+      component: questionnaireResultsMemberDetail,
+      meta: {
+        title: 'Questionnaire Results - Member Detail'
+      }
+    },
+    {
+      path: config.app.pages.questionnaireResults.questionnaireDetail,
+      name: 'questionnaireResultsQuestionnaireDetail',
+      component: questionnaireResultsQuestionnaireDetail,
+      meta: {
+        title: 'Questionnaire Results - Questionnaire Detail'
+      }
+    },
+    {
+      path: config.app.pages.questionnaireResults.questionDetail,
+      name: 'questionnaireResultsQuestionDetail',
+      component: questionnaireResultsQuestionDetail,
+      meta: {
+        title: 'Questionnaire Results - Question Detail'
       }
     }
   ]
