@@ -62,6 +62,12 @@
               <BaseInput v-model="profile.batch.code" disabled></BaseInput>
             </div>
           </div>
+          <div class="input-wrapper change-password-wrapper" v-if="profile.role === 'STUDENT'">
+            <BaseButton type="submit" buttonClass="button-save" @click=""
+                        class="change-password-button">
+              Change Password
+            </BaseButton>
+          </div>
         </div>
       </div>
     </div>
@@ -151,6 +157,16 @@
     margin-top: 10px;
     text-align: left;
     color: #cb2431 !important;
+  }
+
+  .change-password-wrapper {
+    margin-top: 15px;
+  }
+
+  .change-password-button {
+    font-size: 14px;
+    padding: 10px 20px;
+    width: auto;
   }
 
   /deep/ {
