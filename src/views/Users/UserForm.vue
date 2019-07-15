@@ -22,7 +22,7 @@
             <div class="input inline">
               <BaseInput autofocus
                          v-model="userDetail.name"
-                         v-validate.continues="'required|min:5'"
+                         v-validate.continues="'required'"
                          name="name"></BaseInput>
               <div v-if="errors.has('name')"><span class="input-invalid-message">{{ errors.first('name') }}</span></div>
             </div>
@@ -32,7 +32,7 @@
             <div class="input inline">
               <BaseInput v-model="userDetail.phone"
                          v-validate.continues="'required|numeric|min:9|max:14'"
-                         name="phone"></BaseInput>
+                         name="phone" type="tel"></BaseInput>
               <div v-if="errors.has('phone')"><span class="input-invalid-message">{{ errors.first('phone') }}</span></div>
             </div>
           </div>
@@ -41,7 +41,7 @@
             <div class="input inline">
               <BaseInput v-model="userDetail.email"
                          v-validate.continues="'required|email'"
-                         name="email"></BaseInput>
+                         name="email" type="email"></BaseInput>
               <div v-if="errors.has('email')"><span class="input-invalid-message">{{ errors.first('email') }}</span></div>
             </div>
           </div>
@@ -69,17 +69,20 @@
             <div class="input-label inline">Address</div>
             <div class="input inline">
               <BaseInput v-model="userDetail.address"
-                         v-validate.continues="'required|min:10'"
+                         v-validate.continues="'required|min:5'"
                          name="address"></BaseInput>
               <div v-if="errors.has('address')"><span class="input-invalid-message">{{ errors.first('address') }}</span></div>
             </div>
           </div>
           <div class="input-wrapper" v-if="studentMode">
             <div class="input-label inline">Batch</div>
-            <div class="input inline">
-              <BaseInput v-model="userDetail.batch.code"
-                         v-validate.continues="'required'"
-                         name="batch"></BaseInput>
+            <div class="input inline" @click="showSelectBatchModal = true">
+              <div class="batch-select">
+                <BaseInput v-model="userDetail.batch.code"
+                           v-validate.continues="'required'"
+                           name="batch" :disabled="true">
+                </BaseInput>
+              </div>
               <div v-if="errors.has('batch')"><span class="input-invalid-message">{{ errors.first('batch') }}</span></div>
             </div>
           </div>
@@ -94,6 +97,9 @@
         </div>
       </div>
     </div>
+    <modal-select-batch v-if="showSelectBatchModal" @close="closeModal"
+                @select="selectBatch">
+    </modal-select-batch>
   </div>
 </template>
 
@@ -171,6 +177,10 @@
 
   .input {
     width: 80%;
+  }
+
+  .batch-select {
+    width: 40%;
   }
 
   .inline {
