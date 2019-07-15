@@ -1,7 +1,6 @@
 <template>
-  <div class="questionnaire-participant-card-outer">
-    <BaseCard class="questionnaire-participant-card-container"
-         @click="$emit('click')">
+  <div class="questionnaire-participant-card-outer" @click="$emit('click')">
+    <BaseCard class="questionnaire-participant-card-container">
       <div v-if="avatar" class="questionnaire-participant-card-avatar">
         <img :src="avatar">
       </div>
@@ -9,6 +8,10 @@
         <p class="participant-name"><strong>{{ name }}</strong></p>
         <p class="participant-university">{{ university }}</p>
         <p class="participant-status">{{ computedRole }} - {{ batch }}</p>
+      </div>
+      <div v-if="isResult" class="score-placeholder">
+        <span><font-awesome-icon icon="star" size="3x" class="star-icon"></font-awesome-icon></span>
+        <span class="score-number"><strong>5.0/6.0</strong></span>
       </div>
       <div v-if="isEdit" class="delete-placeholder">
         <span>
@@ -76,5 +79,20 @@
 
   .delete-placeholder {
     align-items: flex-end;
+  }
+
+  .score-placeholder {
+    display: flex;
+    flex-direction: column;
+    padding: 15px 15px 0px 0px;
+  }
+
+  .star-icon {
+    color: #f1c40f;
+  }
+
+  .score-number {
+    text-align: center;
+    padding-top: 10px;
   }
 </style>

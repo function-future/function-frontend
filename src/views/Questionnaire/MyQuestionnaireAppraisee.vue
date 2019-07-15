@@ -51,6 +51,24 @@
     padding: 0;
   }
 
+  @media only screen and (min-width: 1050px ) {
+    .my-questionnaire-appraisees-outer {
+      width: 100%;
+    }
+
+    .questionnaire-detail {
+      width: 800px;
+    }
+
+    .form-questionnaire {
+      width: 800px;
+    }
+
+    .my-appraisees-list-containner, .form-questionnaire{
+      min-width: 600px;
+    }
+  }
+
   .my-questionnaire-appraisees-outer {
     display: flex;
     justify-content: center;
@@ -65,7 +83,6 @@
 
   .questionnaire-detail {
     display: flex;
-    width: 800px;
     align-items: start;
     flex-direction: column;
     padding-left: 10px;
@@ -113,7 +130,6 @@
   .my-appraisees-list-containner, .form-questionnaire{
     overflow: auto;
     padding: 10px;
-    min-width: 600px;
     min-height: 800vh;
     align-self: start;
   }
@@ -121,8 +137,6 @@
   .form-questionnaire {
     display : flex;
     flex-direction: column;
-    width: 800px;
-
   }
 
   .title-appraisee, .title-questionnaire {

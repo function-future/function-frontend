@@ -3,7 +3,7 @@
       <div class="questionnaire-edit-container">
         <div class="title-placeholder">
           <h2>Description</h2>
-          <BaseButton button-class="button-save" class="button-save">Save</BaseButton>
+          <BaseButton button-class="button-save" class="button-save-desc">Save Description</BaseButton>
         </div>
         <hr>
         <QuestionnaireForm></QuestionnaireForm>
@@ -88,5 +88,9 @@
 
   .button-save {
     align-items: flex-end;
+  }
+
+  .button-save-desc {
+    font-size: small;
   }
 </style>

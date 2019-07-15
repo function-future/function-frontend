@@ -1,25 +1,25 @@
 import BaseCard from '@/components/BaseCard'
 
 export default {
-  name: 'QuestionnaireParticipantCard',
+  name: 'QuestionnaireParticipantDetailCard',
   components: {
     BaseCard
   },
   props: {
-    name: String,
     avatar: String,
+    nameParticipant: String,
     university: String,
-    role: String,
     batch: String,
-    isEdit: Boolean,
-    isResult: Boolean
-  },
-  method: {
+    role: String,
+    score: Number
   },
   computed: {
     computedRole () {
       let res = this.role.substring(1, this.role.length).toLocaleLowerCase()
       return this.role[0].concat(res)
+    },
+    computedScore () {
+      return this.score
     }
   }
 }

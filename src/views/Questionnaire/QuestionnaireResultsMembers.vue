@@ -10,15 +10,15 @@
           </div>
         </div>
         <div class="participant-list-container">
-          <QuestionnaireCard v-for="myQuestionnaire in myQuestionnaires"
-                             :key="myQuestionnaire.id"
-                             :title="myQuestionnaire.title"
-                             :desc="myQuestionnaire.description"
-                             :startDate="myQuestionnaire.startDate"
-                             :dueDate="myQuestionnaire.dueDate"
-                             :isDisable="myQuestionnaire.dueDate < Date.now()"
-                             v-on:click="goToListAppraisees(myQuestionnaire.id, myQuestionnaire.dueDate < Date.now())"
-          ></QuestionnaireCard>
+          <QuestionnaireParticipantCard v-for="a in 5"
+                                        :name="appraisee.name"
+                                        :avatar="appraisee.avatar"
+                                        :role="appraisee.role"
+                                        :university="appraisee.university"
+                                        :batch="appraisee.batch"
+                                        :isResult="true"
+                                        v-on:click="goToMemberDetail(appraisee.id)"
+          ></QuestionnaireParticipantCard>
         </div>
       </div>
     </div>
@@ -30,14 +30,30 @@
 <style scoped>
 
   .questionnaire-results-member-outer {
+    margin-top: 50px;
     display: flex;
     justify-content: center;
     height: 80vh;
   }
 
-  @media only screen and (min-height: 800px) {
+
+  @media only screen and (min-width: 700px) {
     .questionnaire-results-member-container {
       width: 100%;
+    }
+
+    .top-bar, .participant-list-container {
+      width: 500px;
+    }
+
+    .search-bar {
+      width: 300px;
+    }
+  }
+
+  @media only screen and (max-width: 700px) {
+    .search-bar {
+      width: 150px;
     }
   }
 
@@ -49,14 +65,17 @@
 
   .top-bar {
     display: flex;
-    width: 500px;
     align-items: baseline;
     justify-content: space-between;
   }
 
   .search-bar {
     align-self: flex-end;
-    width: 300px;
+  }
+
+  .participant-list-container {
+    height: 75vh;
+    overflow: auto;
   }
 
 </style>

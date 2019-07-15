@@ -14,9 +14,18 @@ export default {
       test: 'Helloworld',
       batch: 'No option',
       batches: [
-        'batch-one',
-        'batch-two',
-        'batch-three'
+        {
+          name: 'batch one',
+          value: 'BATCH_ONE'
+        },
+        {
+          name: 'batch two',
+          value: 'BATCH_ONE'
+        },
+        {
+          name: 'batch three',
+          value: 'BATCH_ONE'
+        }
       ]
     }
   },
