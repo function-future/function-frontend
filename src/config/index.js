@@ -4,6 +4,9 @@ module.exports = {
       auth: {
         login: '/login'
       },
+      user: {
+        profile: '/profile'
+      },
       feeds: '/',
       activityBlogs: {
         list: '/activity-blogs',

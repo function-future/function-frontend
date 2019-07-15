@@ -41,6 +41,7 @@ import masterCourseForm from '@/views/Courses/MasterCourseForm.vue'
 import config from '@/config/index'
 import chatrooms from '@/views/Chatrooms/Chatrooms'
 import login from '@/views/Auth/Login'
+import profile from '@/views/User/Profile'
 import store from '../store/index.js'
 
 Vue.use(Router)
@@ -53,6 +54,14 @@ const router = new Router({
       path: config.app.pages.auth.login,
       name: 'login',
       component: login
+    },
+    {
+      path: config.app.pages.user.profile,
+      name: 'profile',
+      component: profile,
+      meta: {
+        title: 'Profile'
+      }
     },
     {
       path: config.app.pages.feeds,
