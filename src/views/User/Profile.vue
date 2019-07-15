@@ -47,7 +47,7 @@
           <div class="input-wrapper" v-if="profile.role !== 'STUDENT'">
             <div class="input-label inline">Role</div>
             <div class="input inline">
-              <BaseSelect v-model="profile.role" disabled></BaseSelect>
+              <BaseInput v-model="profile.role" disabled></BaseInput>
             </div>
           </div>
           <div class="input-wrapper">
@@ -68,7 +68,7 @@
   </div>
 </template>
 
-<script type="text/javascript" src="js/profile.js"></script>
+<script type="text/javascript" src="./js/profile.js"></script>
 
 <style lang="scss" scoped>
   .form-container {
@@ -130,12 +130,17 @@
   }
 
   .input-wrapper {
-    text-align: right;
+    margin-left: 25px;
+    text-align: left;
     width: 100%;
   }
 
   .input {
-    width: 80%;
+    width: 50%;
+
+    @media only screen and (max-width: 1200px) {
+      width: 65%;
+    }
   }
 
   .inline {
@@ -146,5 +151,16 @@
     margin-top: 10px;
     text-align: left;
     color: #cb2431 !important;
+  }
+
+  /deep/ {
+    .input-box:disabled {
+      background: #f2f2f2;
+      border: #f2f2f2;
+    }
+
+    .input-box:hover {
+      box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.25);
+    }
   }
 </style>
