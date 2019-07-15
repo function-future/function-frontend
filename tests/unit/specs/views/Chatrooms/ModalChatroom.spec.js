@@ -8,6 +8,7 @@ jest.mock('@/api/controller/chatrooms')
 jest.mock('@/api/controller/users')
 
 describe('ModalChatroom', () => {
+  let wrapper
   const user1 = {
     id: 'id1',
     name: 'Priagung'
@@ -21,6 +22,37 @@ describe('ModalChatroom', () => {
   const user3 = {
     id: 'id3',
     name: 'Dion'
+  }
+
+  afterEach(() => {
+    jest.resetAllMocks()
+  })
+
+  function generateLocalVue () {
+    const localVue = createLocalVue()
+    localVue.use(Vuex)
+    return localVue
+  }
+
+  function initComponent () {
+    const localVue = generateLocalVue()
+    const store = new Vuex.Store({
+      modules: {
+        auth: {
+          state: { currentUser: { id: 'idUser' } },
+          getters: { currentUser: state => state.currentUser }
+        }
+      }
+    })
+
+    wrapper = shallowMount(ModalChatroom, {
+      propsData: {
+        chatroomId: 'idChatroom'
+      },
+      localVue,
+      stubs: ['font-awesome-icon'],
+      store
+    })
   }
 
   test('Sanity test', () => {
@@ -51,42 +83,20 @@ describe('ModalChatroom', () => {
         ]
       })
     }
-    function generateLocalVue () {
-      const localVue = createLocalVue()
-      localVue.use(Vuex)
-      return localVue
-    }
 
-    const localVue = generateLocalVue()
-    const store = new Vuex.Store({
-      modules: {
-        auth: {
-          state: { currentUser: { id: 'idUser' } },
-          getters: () => this.state.currentUser
-        }
-      }
-    })
-
-    const wrapper = shallowMount(ModalChatroom, {
-      propsData: {
-        chatroomId: 'idChatroom'
-      },
-      localVue,
-      stubs: ['font-awesome-icon'],
-      store
-    })
+    initComponent()
 
     expect(wrapper.vm.usersWithoutSelectedOne).toEqual([user2])
   })
 
   test('convertToListUserId', () => {
-    const wrapper = shallowMount(ModalChatroom, { stubs: ['font-awesome-icon'] })
+    initComponent()
     const test = [user1.id, user2.id].every(val => wrapper.vm.convertToListUserId([user1, user2]).includes(val))
     expect(test).toBe(true)
   })
 
   test('close event', () => {
-    const wrapper = shallowMount(ModalChatroom, { stubs: ['font-awesome-icon'] })
+    initComponent()
     wrapper.vm.close()
     expect(wrapper.emitted().close).toBeTruthy()
   })
@@ -117,12 +127,8 @@ describe('ModalChatroom', () => {
       })
     }
 
-    const wrapper = shallowMount(ModalChatroom, {
-      stubs: ['font-awesome-icon'],
-      propsData: {
-        chatroomId: 'idChatroom'
-      }
-    })
+    initComponent()
+
     wrapper.vm.create()
     expect(wrapper.vm.wrongName).toBe(true)
   })
@@ -153,18 +159,14 @@ describe('ModalChatroom', () => {
       })
     }
 
-    const wrapper = shallowMount(ModalChatroom, {
-      stubs: ['font-awesome-icon'],
-      propsData: {
-        chatroomId: 'idChatroom'
-      }
-    })
+    initComponent()
+
     wrapper.vm.create()
     expect(wrapper.emitted()).toBeTruthy()
   })
 
   test('changeKeyword', () => {
-    const wrapper = shallowMount(ModalChatroom, { stubs: ['font-awesome-icon'] })
+    initComponent()
     const spy = jest.spyOn(wrapper.vm, 'callSearchUserApi')
     wrapper.vm.changeKeyword('test')
     expect(spy).toHaveBeenCalled()
@@ -186,12 +188,7 @@ describe('ModalChatroom', () => {
       })
     }
 
-    const wrapper = shallowMount(ModalChatroom, {
-      stubs: ['font-awesome-icon'],
-      propsData: {
-        chatroomId: 'idChatroom'
-      }
-    })
+    initComponent()
 
     wrapper.vm.enterPressed({ keyCode: 13 })
     expect(wrapper.emitted()).toBeTruthy()
