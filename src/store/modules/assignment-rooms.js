@@ -20,7 +20,6 @@ export const mutations = {
 
 export const actions = {
   fetchRoomList ({ commit }, { data, callback, fail }) {
-    console.log(data)
     assignmentRoomApi.getAssignmentRooms(({data: response, paging}) => {
       commit('GET_ROOM_LIST', response)
       callback && callback(paging)
