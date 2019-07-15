@@ -67,8 +67,11 @@ export default {
     },
     actionButtonClicked () {
       if (this.editMode) {
-        let payload = { ...this.quizDetail }
+        let payload = {
+          ...this.quizDetail,
+        }
         payload.endDate = new Date(payload.endDate).getTime()
+        console.log(payload)
         this.updateQuizDetail({
           payload,
           data: {
