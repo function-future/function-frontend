@@ -17,7 +17,7 @@
         <div v-for="discussion in discussions" :key="discussion.id">
           <BaseCard class="discussion-card">
             <div class="discussion-info">
-              <span>{{ discussion.author.name }}</span>
+              <span style="font-weight: bold; font-size: 15px; margin-left: -15px;">{{ discussion.author.name }}</span>
               <span class="discussion-date">{{ discussion.createdAt | moment("dddd, MMMM Do YYYY") }}</span>
             </div>
             <div class="discussion-content">
@@ -95,12 +95,15 @@
     border-left: 1px solid #BDBDBD;
     padding-left: 5px;
     margin-left: 5px;
-    font-size: 0.7rem;
+    font-size: 0.8 rem;
   }
 
   .discussion-content {
     margin: 5px 0;
+    margin-left: -10px;
     text-align: justify;
+    font-size: 1rem;
+    font-weight: 600;
   }
 
   .discussion-input-wrapper {
