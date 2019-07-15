@@ -2,7 +2,6 @@ import UserListCard from '@/components/UserListCard'
 import { shallowMount } from '@vue/test-utils'
 
 describe('UserListCard', () => {
-
   test('Sanity Test', () => {
     expect(true).toBe(true)
   })
@@ -27,5 +26,4 @@ describe('UserListCard', () => {
 
     expect(wrapper.vm.userType).toEqual('Mentor')
   })
-
 })

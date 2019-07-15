@@ -5,24 +5,8 @@
   </div>
 </template>
 
-<script>
-import BaseInput from './BaseInput'
-export default {
-  name: 'SearchBar',
-  components: {
-    BaseInput
-  },
-  props: {
-    searchClass: {
-      type: String
-    }
-  },
-  methods: {
-    emitValue (value) {
-      this.$emit('input', value)
-    }
-  }
-}
+<script src="./js/search-bar.js">
+
 </script>
 
 <style scoped>

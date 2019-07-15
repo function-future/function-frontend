@@ -743,4 +743,30 @@ describe('Chatrooms', () => {
     wrapper.vm.isSearching = true
     expect(spy).toBeCalledTimes(1)
   })
+
+  test('error callback', () => {
+    global.console.log = jest.fn()
+    initComponent()
+    wrapper.vm.errorCallback()
+    expect(console.log).toBeCalledTimes(1)
+  })
+
+  test('submit message error callback', () => {
+    global.console.log = jest.fn()
+    initComponent()
+    wrapper.vm.submitMessageErrorCallback("err")
+    expect(console.log).toBeCalledTimes(1)
+    expect(wrapper.vm.messageText).toEqual('')
+  })
+
+  test('destroyed', () => {
+    const spyResetMessages = jest.spyOn(Chatrooms.methods, 'resetMessages')
+    const spyResetChatrooms = jest.spyOn(Chatrooms.methods, 'resetChatrooms')
+    const spyStopPolling = jest.spyOn(Chatrooms.methods, 'stopPolling')
+    initComponent()
+    wrapper.destroy()
+    expect(spyResetMessages).toBeCalledTimes(1)
+    expect(spyResetChatrooms).toBeCalledTimes(1)
+    expect(spyStopPolling).toBeCalledTimes(1)
+  })
 })

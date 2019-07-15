@@ -89,7 +89,7 @@ export default {
           this.changeTypeChoosen('GROUP')
           this.chatroomTitle = response.data.name
         }
-      }, err => console.log(err), {
+      }, this.errorCallback, {
         body: data
       })
     },
@@ -101,7 +101,7 @@ export default {
         this.activeChatroomId = response.data.id
         this.activeChatroomType = response.data.type
         this.$refs.chatroomInfiniteLoading.stateChanger.reset()
-      }, err => console.log(err), {
+      }, this.errorCallback, {
         params: {
           chatroomId: this.activeChatroomId
         },
@@ -178,7 +178,7 @@ export default {
           }
           $state.complete()
         }
-      }, error => console.log(error), {
+      }, this.errorCallback, {
         params: {
           page: this.chatroomPage,
           type: this.typeChoosen,
@@ -200,7 +200,7 @@ export default {
             this.resetMessagePoll()
             $state.complete()
           }
-        }, error => console.log(error), {
+        }, this.errorCallback, {
           params: {
             chatroomId: this.activeChatroomId,
             page: this.messagePage
@@ -215,7 +215,7 @@ export default {
           } else {
             $state.complete()
           }
-        }, err => console.log(err),
+        }, this.errorCallback,
         {
           params: {
             messageId: this.topPivotMessageId,
@@ -229,11 +229,7 @@ export default {
         chatroomApi.createMessage(response => {
           this.messageText = ''
           this.sendingNewMessage = true
-        }, error => {
-          console.log(error)
-          this.messageText = ''
-          this.$toasted.error('Fail to send message')
-        },
+        }, this.submitMessageErrorCallback,
         {
           params: {
             chatroomId: this.activeChatroomId
@@ -274,9 +270,7 @@ export default {
               search: this.searchText
             }
           },
-          fail: (err) => {
-            console.log(err)
-          }
+          fail: this.errorCallback
         })
       } else {
         this.isSearching = false
@@ -330,9 +324,7 @@ export default {
             search: this.searchText
           }
         },
-        fail: (err) => {
-          console.log(err)
-        },
+        fail: this.errorCallback,
         cb: this.chatroomPollCallback
       })
     },
@@ -353,7 +345,7 @@ export default {
             page: 1
           }
         },
-        fail: err => console.log(err),
+        fail: this.errorCallback,
         cb: this.messagesPollCallback
       })
     },
@@ -374,7 +366,7 @@ export default {
             chatroomId: this.activeChatroomId
           }
         },
-        fail: err => console.log(err),
+        fail: this.errorCallback,
         cb1: this.messagesBottomPollCallback1,
         cb2: this.messagesBottomPollCallback2
       })
@@ -394,13 +386,21 @@ export default {
     readMessagesPollTimerCallback () {
       if (this.messages.length > 0) {
         chatroomApi.updateSeenStatus(response => {
-        }, err => console.log(err), {
+        }, this.errorCallback, {
           params: {
             chatroomId: this.activeChatroomId,
             messageId: this.messages[this.messages.length - 1].id
           }
         })
       }
+    },
+    errorCallback (err) {
+      console.log(err)
+    },
+    submitMessageErrorCallback (err) {
+      this.messageText = ''
+      console.log(err)
+      this.$toasted.error('Fail to send message')
     }
   },
   watch: {
@@ -426,7 +426,7 @@ export default {
   },
   destroyed () {
     this.resetMessages()
-    this.resetMessages()
+    this.resetChatrooms()
     this.stopPolling()
   }
 }
