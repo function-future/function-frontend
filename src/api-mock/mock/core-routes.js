@@ -43,6 +43,33 @@ export const auth = [
   }
 ]
 
+export const profile = [
+  {
+    method: 'GET',
+    url: '/api/core/user/profile',
+    response: {
+      'code': 200,
+      'status': 'OK',
+      'data': {
+        'id': 'sample-id',
+        'role': 'STUDENT',
+        'email': 'user@user.com',
+        'name': 'User Name',
+        'phone': '088888888888',
+        'address': 'Jl. Address 1 Address 2',
+        'deleted': false,
+        'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+        'batch': {
+          'id': 'sample-id',
+          'name': 'Batch Name',
+          'code': '3'
+        },
+        'university': 'Bina Nusantara University'
+      }
+    }
+  }
+]
+
 // access-list
 export const accessList = [
   {
