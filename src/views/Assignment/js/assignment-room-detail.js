@@ -90,7 +90,7 @@ export default {
     successFetchComments (response, paging) {
       this.discussionPaging = {
         page: paging.page,
-        pageSize: paging.size,
+        size: paging.size,
         totalRecords: paging.totalRecords
       }
       this.discussions.push(...response)
