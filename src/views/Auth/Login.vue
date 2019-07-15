@@ -47,6 +47,10 @@
 
 <script type="text/javascript" src="./js/login.js"></script>
 
+
+
+
+
 <style lang="scss" scoped>
   %flex-center {
     display: flex;
@@ -64,11 +68,16 @@
     &__wrapper {
       display: flex;
       flex-direction: column;
-      width: 45%;
+      width: 42%;
       border-radius: 20px;
       margin-right: 30vw;
+      margin-bottom: 10vh;
       box-shadow: 0 0 7px rgba(0, 0, 0, 0.2);
       transition: all .2s ease;
+
+      @media only screen and (min-width: 1400px) {
+        width: 38%;
+      }
     }
 
     &__header {
