@@ -63,7 +63,8 @@
             </div>
           </div>
           <div class="input-wrapper change-password-wrapper" v-if="profile.role === 'STUDENT'">
-            <BaseButton type="submit" buttonClass="button-save" @click=""
+            <div class="input-label inline"></div>
+            <BaseButton type="submit" buttonClass="button-save" @click="goToChangePassword"
                         class="change-password-button">
               Change Password
             </BaseButton>

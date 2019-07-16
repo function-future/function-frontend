@@ -42,6 +42,9 @@ export default {
     },
     failFetchProfile () {
       this.$toasted.error('Fail to load profile')
+    },
+    goToChangePassword () {
+      this.$router.push({ name: 'changePassword' })
     }
   }
 }
