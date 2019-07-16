@@ -24,7 +24,7 @@
           <li v-if="menuList.points"><router-link :to="{ name: 'points' }" class="navbar-link">Points</router-link></li>
         </ul>
       </transition>
-      <li>
+      <li v-if="menuList.chatrooms">
         <router-link class="navbar-link" :to="{ name: 'chatrooms' }">Chatrooms</router-link>
       </li>
     </ul>

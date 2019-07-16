@@ -10,7 +10,7 @@
   </div>
 </template>
 
-<script src="js/user-list-card.js">
+<script src="./js/user-list-card.js">
 
 </script>
 
