@@ -15,7 +15,8 @@
                            :desc="myQuestionnaire.toString()"
                            :startDate="myQuestionnaire"
                            :dueDate="myQuestionnaire"
-                           :isEdit="myQuestionnaire > Date.now()"
+                           :isEdit="true"
+                           :isDisable="false"
         ></QuestionnaireCard>
       </div>
     </div>

@@ -26,7 +26,7 @@ export default {
   },
   methods: {
     goToEdit () {
-      if (this.isDisable) {
+      if (!this.isDisable) {
         this.$router.push({
           name: 'questionnairesEdit',
           params: { questionnaireId: this.id }

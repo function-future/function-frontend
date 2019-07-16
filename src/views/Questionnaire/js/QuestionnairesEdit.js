@@ -13,6 +13,9 @@ export default {
   },
   data () {
     return {
+      currentQuestionnaire:{
+
+      },
       appraisee: {
         id: 'sample-id',
         name: 'ricky',
@@ -20,7 +23,69 @@ export default {
         role: 'STUDENT',
         university: 'ITB',
         batch: 'future3.0'
-      }
+      },
+      questions: [
+        {
+          id: 'question-id',
+          description: 'Lorem-ipsum',
+          score: 6.0
+        },
+        {
+          id: 'question-id1',
+          description: 'Lorem-ipsum',
+          score: 6.0
+        },
+        {
+          id: 'question-id2',
+          description: 'Lorem-ipsum',
+          score: 6.0
+        },
+        {
+          id: 'question-id3',
+          description: 'Lorem-ipsum',
+          score: 6.0
+        },
+        {
+          id: 'question-id',
+          description: 'Lorem-ipsum',
+          score: 6.0
+        },
+        {
+          id: 'question-id1',
+          description: 'Lorem-ipsum',
+          score: 6.0
+        },
+        {
+          id: 'question-id2',
+          description: 'Lorem-ipsum',
+          score: 6.0
+        },
+        {
+          id: 'question-id3',
+          description: 'Lorem-ipsum',
+          score: 6.0
+        },{
+          id: 'question-id',
+          description: 'Lorem-ipsum',
+          score: 6.0
+        },
+        {
+          id: 'question-id1',
+          description: 'Lorem-ipsum',
+          score: 6.0
+        },
+        {
+          id: 'question-id2',
+          description: 'Lorem-ipsum',
+          score: 6.0
+        },
+        {
+          id: 'question-id3',
+          description: 'Lorem-ipsum',
+          score: 6.0
+        }
+      ],
+      i: 1
     }
   }
 }

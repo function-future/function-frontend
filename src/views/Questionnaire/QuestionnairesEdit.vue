@@ -6,14 +6,22 @@
           <BaseButton button-class="button-save" class="button-save-desc">Save Description</BaseButton>
         </div>
         <hr>
-        <QuestionnaireForm></QuestionnaireForm>
+        <QuestionnaireForm :value="currentQuestionnaire"
+                           @input="(newValue) => { currentQuestionnaire = newValue}"
+        />
         <div class="title-placeholder">
           <h2>Questions</h2>
           <BaseButton button-class="button-save" class="button-save">Add</BaseButton>
         </div>
         <hr>
         <div class="question-container-list">
-          <QuestionCard v-for="n in 20"></QuestionCard>
+          <QuestionCard v-for="question in questions"
+                        :key="question.id"
+                        :number="i++"
+                        :description="question.description"
+                        :score="question.score"
+                        :isEdit="true"
+          ></QuestionCard>
         </div>
         <div class="title-placeholder">
           <h2>Appraiser</h2>
@@ -27,6 +35,7 @@
                                         :role="appraisee.role"
                                         :university="appraisee.university"
                                         :batch="appraisee.batch"
+                                        :isEdit="true"
           ></QuestionnaireParticipantCard>
         </div>
         <div class="title-placeholder">
@@ -68,6 +77,7 @@
     overflow: auto;
     padding: 10px;
     width: 100%;
+    max-width: 800px;
   }
 
   .question-container-list,

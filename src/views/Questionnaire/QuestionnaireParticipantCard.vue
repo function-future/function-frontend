@@ -15,7 +15,7 @@
       </div>
       <div v-if="isEdit" class="delete-placeholder">
         <span>
-          <font-awesome-icon icon="times"></font-awesome-icon>
+          <font-awesome-icon icon="times" class="icon-delete"></font-awesome-icon>
         </span>
       </div>
     </BaseCard>
@@ -94,5 +94,9 @@
   .score-number {
     text-align: center;
     padding-top: 10px;
+  }
+
+  .icon-delete {
+    font-size: 2rem;
   }
 </style>

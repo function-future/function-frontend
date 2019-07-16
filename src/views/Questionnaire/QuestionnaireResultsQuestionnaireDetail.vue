@@ -36,6 +36,10 @@
     .questionnaire-results-questionnaire-detail-outer {
       min-width: 650px;
     }
+
+    .questionnaire-results-questionnaire-detail-container {
+      min-width: 650px;
+    }
   }
 
   .questionnaire-results-questionnaire-detail-outer {
@@ -47,8 +51,7 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
-    min-width: 80%;
-    max-width: 800px;
+    max-width: 700px;
   }
 
   .without-border-and-shadow {

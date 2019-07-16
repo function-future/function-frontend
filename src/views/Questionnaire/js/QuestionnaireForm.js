@@ -11,11 +11,25 @@ export default {
     BaseTextArea,
     Datepicker
   },
+  props: {
+    // title: String,
+    // desc: String,
+    // startDate: Date,
+    // dueDate: Date
+    value: {
+      type: Object,
+      required: true
+    }
+  },
   data () {
     return {
-      title: 'TITLE',
-      description: 'DESCRIPTION',
-      date: new Date(2016, 9, 16)
+      titleLabel: 'TITLE',
+      descriptionLabel: 'DESCRIPTION'
+    }
+  },
+  watch: {
+    value () {
+      this.$emit('input', this.value)
     }
   }
 }

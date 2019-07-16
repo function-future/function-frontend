@@ -7,7 +7,9 @@
         </BaseButton>
       </div>
       <div class="questionnaire-create-content">
-        <QuestionnaireForm></QuestionnaireForm>
+        <QuestionnaireForm :value="questionnaire"
+                           @input="(newValue) => { questionnaire = newValue}"
+        />
       </div>
     </div>
   </div>

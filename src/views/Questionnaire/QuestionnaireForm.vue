@@ -2,24 +2,24 @@
     <div>
       <BaseCard class="card-container">
         <div class="questionnaire-title-input">
-          <BaseInput :label="title" class="input-title"></BaseInput>
+          <BaseInput :label="titleLabel" class="input-title" v-model="value.title"></BaseInput>
         </div>
         <div class="questionnaire-desc-area">
-          <BaseTextArea :label="description" class="input-description"></BaseTextArea>
+          <BaseTextArea :label="descriptionLabel" class="input-description" v-model="value.desc"></BaseTextArea>
         </div>
         <div class="date-picker">
           <div class="start-date-container">
             <span> START DATE </span>
             <div class="start-date-placeholder">
               <span><font-awesome-icon icon="calendar-check" class="calendar-icon"></font-awesome-icon></span>
-              <datepicker v-model='date'></datepicker>
+              <datepicker v-model="value.startDate"></datepicker>
             </div>
           </div>
           <div class="due-date-container">
             <span> DUE DATE </span>
             <div class="due-date-placeholder">
               <span><font-awesome-icon icon="calendar-times" class="calendar-icon"></font-awesome-icon></span>
-              <datepicker v-model='date'></datepicker>
+              <datepicker v-model='value.dueDate'></datepicker>
             </div>
           </div>
         </div>
@@ -38,6 +38,7 @@
     margin-top: 20px;
     height: 60vh;
     flex-direction: column;
+    max-width: 800px;
   }
 
   .questionnaire-title-input {

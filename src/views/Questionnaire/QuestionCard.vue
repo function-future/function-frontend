@@ -26,8 +26,8 @@
 
 <style scoped>
   .question-outer {
-    min-height: 15vh;
     width: 100%;
+    padding: 10px 0px;
   }
 
   .clickAble {
@@ -39,6 +39,7 @@
     display: flex;
     padding-right: 10px;
     justify-content: space-between;
+    margin:0px;
   }
   .question-number {
     font-size: 3rem;
@@ -63,5 +64,9 @@
   .score-number {
     text-align: center;
     padding-top: 10px;
+  }
+
+  .icon-delete {
+    font-size: 2rem;
   }
 </style>

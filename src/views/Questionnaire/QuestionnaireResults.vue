@@ -31,6 +31,7 @@
 
   .select-placeholder {
     height: 100%;
+    margin-top: 20px;
   }
 
   .button-placeholder {
