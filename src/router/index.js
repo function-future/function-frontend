@@ -621,20 +621,18 @@ router.afterEach((to, from) => {
     return
   }
 
-  if (Object.keys(store.getters.currentUser).length) {
-    store.dispatch('getAccessList', {
-      data: encodeURIComponent(to.fullPath),
-      callback: () => {
-        if (!store.getters.accessList.read ||
-          (to.meta.add && store.getters.accessList.add !== to.meta.add) ||
-          (to.meta.edit && store.getters.accessList.edit !== to.meta.edit)) {
-          Vue.toasted.error('You do not have permission to access the page')
-          router.push({ name: 'feeds' })
-        }
-      },
-      fail: () => {}
-    })
-  }
+  store.dispatch('getAccessList', {
+    data: encodeURIComponent(to.fullPath),
+    callback: () => {
+      if (!store.getters.accessList.read ||
+        (to.meta.add && store.getters.accessList.add !== to.meta.add) ||
+        (to.meta.edit && store.getters.accessList.edit !== to.meta.edit)) {
+        Vue.toasted.error('You do not have permission to access the page')
+        router.push({ name: 'feeds' })
+      }
+    },
+    fail: () => {}
+  })
 })
 
 export default router
