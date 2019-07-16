@@ -62,7 +62,7 @@
                 v-validate.continues="'required'"
                 name="role"
                 :options="roles"></BaseSelect>
-              <div v-if="errors.has('roles')"><span class="input-invalid-message">{{ errors.first('roles') }}</span></div>
+              <div v-if="errors.has('role')"><span class="input-invalid-message">{{ errors.first('role') }}</span></div>
             </div>
           </div>
           <div class="input-wrapper">
