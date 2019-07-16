@@ -39,8 +39,7 @@ export default {
         fail: this.failChangePassword
       })
     },
-    successChangePassword (res) {
-      console.log(res)
+    successChangePassword () {
       this.$toasted.success('Successfully updated password')
       this.$router.push({ name: 'profile' })
     },
