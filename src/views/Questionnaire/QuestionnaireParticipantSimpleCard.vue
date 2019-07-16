@@ -22,15 +22,18 @@
 <style scoped>
   .questionnaire-participant-card-outer {
     display: flex;
-    width: 100%;
+    width: 90%;
     justify-content: center;
-    padding: 0px;
+    margin: 0% 5%;
   }
 
   .questionnaire-participant-card-container {
     display: flex;
     align-items: center;
-    min-width: 250px;
+    width: 100%;
+    justify-content: space-between;
+    padding: 0px 10px;
+    margin: 5px 0px;
   }
 
   .questionnaire-participant-card-avatar {
@@ -45,6 +48,10 @@
     height: 30px;
     width: 30px;
     padding: 10px;
+  }
+
+  .score-placeholder{
+    padding-right: 10px;
   }
 
   .star-icon {

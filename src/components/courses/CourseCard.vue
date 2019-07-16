@@ -5,11 +5,15 @@
         <h3>{{ title }}</h3>
       </div>
       <div class="col actions-div" style="flex-grow: 1">
-        <span @click.stop="copy(course.id)" class="copy">
+        <span @click.stop="copy(course.id)" class="copy" v-if="accessList.add">
           <font-awesome-icon icon="copy" class="icon" size="lg"></font-awesome-icon> Copy Course
         </span>
-        <span @click.stop="edit(course.id)"><font-awesome-icon icon="edit" class="icon blue" size="lg"></font-awesome-icon></span>
-        <span @click.stop="deleteCourse(course.id)"><font-awesome-icon icon="trash-alt" class="icon red" size="lg"></font-awesome-icon></span>
+        <span @click.stop="edit(course.id)" v-if="accessList.edit">
+          <font-awesome-icon icon="edit" class="icon blue" size="lg"></font-awesome-icon>
+        </span>
+        <span @click.stop="deleteCourse(course.id)" v-if="accessList.delete">
+          <font-awesome-icon icon="trash-alt" class="icon red" size="lg"></font-awesome-icon>
+        </span>
       </div>
     </div>
   </BaseCard>

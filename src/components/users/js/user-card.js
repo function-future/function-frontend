@@ -1,3 +1,4 @@
+import { mapGetters } from 'vuex'
 import BaseCard from '@/components/BaseCard'
 
 export default {
@@ -14,6 +15,9 @@ export default {
     }
   },
   computed: {
+    ...mapGetters([
+      'accessList'
+    ]),
     batch: function () {
       if (this.user.role === 'STUDENT') {
         return 'Batch : ' + this.user.batch.name

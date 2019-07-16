@@ -12,6 +12,8 @@
                            :isDetail="true"
         ></QuestionnaireCard>
         <h2><i>Appraisals for {{currentUser.name}}</i></h2>
+        <br>
+        <h2>Questions</h2>
         <div class="questionnaire-results-question-list">
           <QuestionCard v-for="question in questions"
                         :key="question.id"
@@ -65,7 +67,7 @@
   h2 {
     margin: 0px;
     text-align: left;
-    padding-left: 10px;
+    padding: 10px 0px 0px 10px;
   }
 
   h2 > i{

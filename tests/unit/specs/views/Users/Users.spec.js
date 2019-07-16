@@ -16,11 +16,20 @@ describe('Users', () => {
   }
 
   function initStore () {
-    const state = {}
+    const state = {
+      accessList: {
+        add: true,
+        delete: true,
+        read: true,
+        edit: true
+      }
+    }
     const actions = {
       fetchUsersByRole: jest.fn()
     }
-    const getters = {}
+    const getters = {
+      accessList: state => state.accessList
+    }
     const store = new Vuex.Store({
       modules: {
         users: {
@@ -279,10 +288,8 @@ describe('Users', () => {
   test('successDeleteUserById', () => {
     const spy = jest.spyOn(Users.methods, 'closeDeleteConfirmationModal')
     initComponent()
-    wrapper.vm.$router.push = jest.fn()
     wrapper.vm.successDeleteUserById()
     expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
-    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'users' })
     expect(spy).toHaveBeenCalledTimes(1)
   })
 

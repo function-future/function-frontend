@@ -1,6 +1,6 @@
 <template>
   <div class="scrollable-container">
-    <div class="button-div">
+    <div class="button-div" v-if="accessList.add">
       <BaseButton type="submit" buttonClass="button-save" @click="goToAddAnnouncement">
         <span><font-awesome-icon icon="plus" class="icon"/> Add</span>
       </BaseButton>
@@ -19,7 +19,7 @@
           {{ announcement.updatedAt |  moment("dddd, MMMM Do YYYY") }}
         </div>
         <div class="announcement-action">
-          <span>
+          <span v-if="accessList.edit">
             <font-awesome-icon
               icon="edit"
               class="icon blue"
@@ -27,7 +27,7 @@
               @click.stop="goToEditAnnouncement(announcement.id)">
             </font-awesome-icon>
           </span>
-          <span>
+          <span v-if="accessList.delete">
             <font-awesome-icon
             icon="trash-alt"
             class="icon red"
@@ -46,7 +46,7 @@
     <modal-delete-confirmation v-if="showDeleteConfirmationModal"
                                @close="closeDeleteConfirmationModal"
                                @clickDelete="deleteThisAnnouncement">
-      <div slot="description">{{selectedId}}</div>
+      <div slot="description">Delete this announcement ?</div>
     </modal-delete-confirmation>
   </div>
 </template>

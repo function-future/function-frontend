@@ -270,4 +270,17 @@ describe('UserForm', () => {
     wrapper.vm.failCreateOrEditUser()
     expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
   })
+
+  test('selectBatch', () => {
+    initComponent()
+    wrapper.vm.selectBatch('futur3')
+    expect(wrapper.vm.userDetail.batch.code).toEqual('futur3')
+    expect(wrapper.vm.showSelectBatchModal).toEqual(false)
+  })
+
+  test('closeModal', () => {
+    initComponent()
+    wrapper.vm.closeModal()
+    expect(wrapper.vm.showSelectBatchModal).toEqual(false)
+  })
 })

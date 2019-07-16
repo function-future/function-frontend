@@ -26,7 +26,9 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'batchList'
+      'batchList',
+      'currentUser',
+      'accessList'
     ])
   },
   created () {
@@ -89,7 +91,7 @@ export default {
     },
     successDeleteBatch () {
       this.selectedId = ''
-      this.$router.push({ name: 'courseBatches' })
+      this.initPage()
       this.$toasted.success('Successfully delete batch')
       this.showDeleteConfirmationModal = false
     },

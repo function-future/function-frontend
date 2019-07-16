@@ -95,14 +95,21 @@ describe('Announcements', () => {
           ],
           "updatedAt": 1555980050616
         }
-      ]
+      ],
+      accessList: {
+        add: true,
+        delete: true,
+        read: true,
+        edit: true
+      }
     }
     actions = {
       fetchAnnouncements: jest.fn(),
       deleteAnnouncementById: jest.fn()
     }
     getters = {
-      announcementList: state => state.announcementList
+      announcementList: state => state.announcementList,
+      accessList: state => state.accessList
     }
     store = new Vuex.Store({
       modules: {
@@ -461,10 +468,11 @@ describe('Announcements', () => {
       },
       sync: false
     })
+    const loadAnnouncementListSpy = jest.spyOn(wrapper.vm, 'loadAnnouncementList')
     const spy = jest.spyOn(wrapper.vm, 'closeDeleteConfirmationModal')
     wrapper.vm.successDeleteAnnouncementById()
-    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({name : 'announcements'})
     expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
+    expect(loadAnnouncementListSpy).toHaveBeenCalledTimes(1)
     expect(spy).toHaveBeenCalledTimes(1)
   })
 

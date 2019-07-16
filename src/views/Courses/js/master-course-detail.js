@@ -26,7 +26,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'masterCourse'
+      'masterCourse',
+      'accessList'
     ]),
     descriptionCompiledMarkdown: function () {
       return marked(this.masterCourseDetail.description)
@@ -108,6 +109,6 @@ export default {
     failDeleteMasterById () {
       this.$toasted.error('Fail to delete master course')
       this.showDeleteConfirmationModal = false
-    },
+    }
   }
 }

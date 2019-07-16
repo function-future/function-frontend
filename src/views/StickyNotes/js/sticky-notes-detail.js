@@ -12,10 +12,14 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'stickyNotes'
+      'stickyNotes',
+      'accessList'
     ]),
+    stickyNotesDescription () {
+      return this.stickyNotes.description || 'Insert Sticky Notes Here...'
+    },
     stickyNoteCompiledMarkdown () {
-      return marked(this.stickyNotes.description)
+      return marked(this.stickyNotesDescription)
     }
   },
   methods: {

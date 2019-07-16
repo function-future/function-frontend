@@ -1,11 +1,11 @@
 import BaseCard from '@/components/BaseCard'
 import SearchBar from '@/components/SearchBar'
-import ChatroomCard from '../ChatroomCard'
 import BaseInput from '@/components/BaseInput'
-import MessageBubbleReceived from '../MessageBubbleReceived'
-import MessageBubbleSent from '../MessageBubbleSent'
-import ModalChatroom from '../ModalChatroom'
+import MessageBubbleReceived from '@/views/Chatrooms/MessageBubbleReceived'
+import MessageBubbleSent from '@/views/Chatrooms/MessageBubbleSent'
+import ModalChatroom from '@/views/Chatrooms/ModalChatroom'
 import chatroomApi from '@/api/controller/chatrooms'
+import ChatroomCard from '@/views/Chatrooms/ChatroomCard'
 import InfiniteLoading from 'vue-infinite-loading'
 import { mapActions, mapGetters } from 'vuex'
 import moment from 'moment'
@@ -26,8 +26,6 @@ export default {
   },
   data () {
     return {
-      // TODO: change userId to authenticated user
-      userId: '5d12a2ed32a1893cec242e73',
       searchText: '',
       typeChoosen: 'PUBLIC',
       messageText: '',
@@ -52,7 +50,8 @@ export default {
   computed: {
     ...mapGetters([
       'chatrooms',
-      'messages'
+      'messages',
+      'currentUser'
     ]),
     privateChatrooms () {
       return this.chatrooms.filter(chatroom => {
@@ -90,7 +89,7 @@ export default {
           this.changeTypeChoosen('GROUP')
           this.chatroomTitle = response.data.name
         }
-      }, err => console.log(err), {
+      }, this.errorCallback, {
         body: data
       })
     },
@@ -102,7 +101,7 @@ export default {
         this.activeChatroomId = response.data.id
         this.activeChatroomType = response.data.type
         this.$refs.chatroomInfiniteLoading.stateChanger.reset()
-      }, err => console.log(err), {
+      }, this.errorCallback, {
         params: {
           chatroomId: this.activeChatroomId
         },
@@ -179,7 +178,7 @@ export default {
           }
           $state.complete()
         }
-      }, error => console.log(error), {
+      }, this.errorCallback, {
         params: {
           page: this.chatroomPage,
           type: this.typeChoosen,
@@ -201,7 +200,7 @@ export default {
             this.resetMessagePoll()
             $state.complete()
           }
-        }, error => console.log(error), {
+        }, this.errorCallback, {
           params: {
             chatroomId: this.activeChatroomId,
             page: this.messagePage
@@ -216,7 +215,7 @@ export default {
           } else {
             $state.complete()
           }
-        }, err => console.log(err),
+        }, this.errorCallback,
         {
           params: {
             messageId: this.topPivotMessageId,
@@ -230,11 +229,7 @@ export default {
         chatroomApi.createMessage(response => {
           this.messageText = ''
           this.sendingNewMessage = true
-        }, error => {
-          console.log(error)
-          this.messageText = ''
-          this.$toasted.error('Fail to send message')
-        },
+        }, this.submitMessageErrorCallback,
         {
           params: {
             chatroomId: this.activeChatroomId
@@ -256,7 +251,7 @@ export default {
     },
     getAvatarAndName (participants) {
       for (const participant of participants) {
-        if (participant.id !== this.userId) {
+        if (participant.id !== this.currentUser.id) {
           return {
             avatar: participant.avatar,
             name: participant.name
@@ -275,9 +270,7 @@ export default {
               search: this.searchText
             }
           },
-          fail: (err) => {
-            console.log(err)
-          }
+          fail: this.errorCallback
         })
       } else {
         this.isSearching = false
@@ -320,80 +313,94 @@ export default {
       this.initMessageBottomPoll()
     },
     initChatroomPoll () {
-      this.chatroomIntervalObject = setInterval(() => {
-        this.fetchChatrooms({
-          data: {
-            params: {
-              page: 1,
-              type: this.typeChoosen,
-              search: this.searchText
-            }
-          },
-          fail: (err) => {
-            console.log(err)
-          },
-          cb: () => {
-            this.chatroomPage = 1
-            this.$nextTick(() => {
-              this.$refs.chatroomInfiniteLoading.stateChanger.reset()
-            })
+      this.chatroomIntervalObject = setInterval(this.chatroomPollTimerCallback, POLL_INTERVAL)
+    },
+    chatroomPollTimerCallback () {
+      this.fetchChatrooms({
+        data: {
+          params: {
+            page: 1,
+            type: this.typeChoosen,
+            search: this.searchText
           }
-        })
-      }, POLL_INTERVAL)
+        },
+        fail: this.errorCallback,
+        cb: this.chatroomPollCallback
+      })
+    },
+    chatroomPollCallback () {
+      this.chatroomPage = 1
+      this.$nextTick(() => {
+        this.$refs.chatroomInfiniteLoading.stateChanger.reset()
+      })
     },
     initMessagesPoll () {
-      this.messageIntervalObject = setInterval(() => {
-        this.fetchMessages({
-          data: {
-            params: {
-              chatroomId: this.activeChatroomId,
-              page: 1
-            }
-          },
-          fail: err => console.log(err),
-          cb: () => {
-            this.bottomPivotMessageId = this.messages[this.messages.length - 1].id
-            this.topPivotMessageId = this.messages[0].id
-            clearInterval(this.messageIntervalObject)
-            this.initMessageBottomPoll()
+      this.messageIntervalObject = setInterval(this.messagesPollTimerCallback, POLL_INTERVAL)
+    },
+    messagesPollTimerCallback () {
+      this.fetchMessages({
+        data: {
+          params: {
+            chatroomId: this.activeChatroomId,
+            page: 1
           }
-        })
-      }, POLL_INTERVAL)
+        },
+        fail: this.errorCallback,
+        cb: this.messagesPollCallback
+      })
+    },
+    messagesPollCallback () {
+      this.bottomPivotMessageId = this.messages[this.messages.length - 1].id
+      this.topPivotMessageId = this.messages[0].id
+      clearInterval(this.messageIntervalObject)
+      this.initMessageBottomPoll()
     },
     initMessageBottomPoll () {
-      this.messageBottomIntervalObject = setInterval(() => {
-        this.fetchMessagesAfterPivot({
-          data: {
-            params: {
-              messageId: this.bottomPivotMessageId,
-              chatroomId: this.activeChatroomId
-            }
-          },
-          fail: err => console.log(err),
-          cb1: () => {
-            this.bottomPivotMessageId = this.messages[this.messages.length - 1].id
-            this.scrollMessageToBottom()
-          },
-          cb2: () => {
-            if (this.changingChatroom) {
-              this.resetMessages()
-            }
+      this.messageBottomIntervalObject = setInterval(this.messagesBottomPollTimerCallback, POLL_INTERVAL)
+    },
+    messagesBottomPollTimerCallback () {
+      this.fetchMessagesAfterPivot({
+        data: {
+          params: {
+            messageId: this.bottomPivotMessageId,
+            chatroomId: this.activeChatroomId
           }
-        })
-      }, POLL_INTERVAL)
+        },
+        fail: this.errorCallback,
+        cb1: this.messagesBottomPollCallback1,
+        cb2: this.messagesBottomPollCallback2
+      })
+    },
+    messagesBottomPollCallback1 () {
+      this.bottomPivotMessageId = this.messages[this.messages.length - 1].id
+      this.scrollMessageToBottom()
+    },
+    messagesBottomPollCallback2 () {
+      if (this.changingChatroom) {
+        this.resetMessages()
+      }
     },
     initReadMessagesPoll () {
-      this.messageReadIntervalObject = setInterval(() => {
-        if (this.messages.length > 0) {
-          chatroomApi.updateSeenStatus(response => {
-          }, err => console.log(err), {
-            params: {
-              chatroomId: this.activeChatroomId,
-              messageId: this.messages[this.messages.length - 1].id
-            }
-          })
-        }
-      }, POLL_INTERVAL)
+      this.messageReadIntervalObject = setInterval(this.readMessagesPollTimerCallback, POLL_INTERVAL)
+    },
+    readMessagesPollTimerCallback () {
+      if (this.messages.length > 0) {
+        chatroomApi.updateSeenStatus(response => {
+        }, this.errorCallback, {
+          params: {
+            chatroomId: this.activeChatroomId,
+            messageId: this.messages[this.messages.length - 1].id
+          }
+        })
+      }
+    },
+    errorCallback (err) {
+      console.log(err)
+    },
+    submitMessageErrorCallback (err) {
+      this.messageText = ''
+      console.log(err)
+      this.$toasted.error('Fail to send message')
     }
   },
   watch: {
@@ -409,7 +416,7 @@ export default {
     isSearching: function (newVal, oldVal) {
       this.chatroomPage = 1
       clearInterval(this.chatroomIntervalObject)
-      this.resetMessages()
+      this.resetChatrooms()
     }
   },
   mounted () {
@@ -419,7 +426,7 @@ export default {
   },
   destroyed () {
     this.resetMessages()
-    this.resetMessages()
+    this.resetChatrooms()
     this.stopPolling()
   }
 }

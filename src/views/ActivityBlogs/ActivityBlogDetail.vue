@@ -1,6 +1,6 @@
 <template>
   <div class="scrollable-container">
-    <BaseCard class="card" cardClass="card-hover">
+    <BaseCard class="card" cardClass="card-hover no-pointer">
       <div class="header">
         <h3>{{ activityBlog.title }}</h3>
       </div>
@@ -9,10 +9,10 @@
           {{ activityBlog.createdAt | moment("dddd, MMMM Do YYYY") }}
         </div>
         <div class="action">
-          <span @click="goToEditActivityBlog">
+          <span @click="goToEditActivityBlog" v-if="accessList.edit && (currentUser.id === activityBlog.author.id)">
             <font-awesome-icon icon="edit" class="icon blue" size="lg"></font-awesome-icon>
           </span>
-          <span @click="openDeleteConfirmationModal">
+          <span @click="openDeleteConfirmationModal" v-if="accessList.delete && (currentUser.id === activityBlog.author.id)">
             <font-awesome-icon icon="trash-alt" class="icon red" size="lg"></font-awesome-icon>
           </span>
         </div>
@@ -76,5 +76,12 @@
   h3 {
     margin: 5px 0 15px 0;
     text-align: left;
+  }
+
+  /deep/ img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-height: 300px;
   }
 </style>

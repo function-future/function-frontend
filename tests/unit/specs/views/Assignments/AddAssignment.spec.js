@@ -101,6 +101,13 @@ describe('AddAssignment', () => {
     const wrapper = shallowMount(addAssignment, {
       store,
       localVue,
+      mocks: {
+        $route: {
+          params: {
+            batchCode: '1'
+          }
+        }
+      },
       stubs: [
         'BaseInput',
         'BaseTextArea',

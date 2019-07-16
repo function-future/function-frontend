@@ -28,7 +28,9 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'activityBlogs'
+      'activityBlogs',
+      'currentUser',
+      'accessList'
     ])
   },
   methods: {
@@ -46,7 +48,7 @@ export default {
       })
     },
     compileToMarkdown: function (description) {
-      return marked(description)
+      return marked(description.replace(/\!\[.*\]\(.*\)/,''))
     },
     goToActivityBlogDetail (id) {
       this.$router.push({
@@ -90,7 +92,7 @@ export default {
       this.$toasted.error('Fail to load activity blogs list')
     },
     successDeleteActivityBlogById () {
-      this.$router.push({ name: 'activityBlogs' })
+      this.loadActivityBlogList()
       this.$toasted.success('Successfully delete activity blog')
       this.closeDeleteConfirmationModal()
     },

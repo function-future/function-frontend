@@ -12,7 +12,9 @@ export default {
   },
   data () {
     return {
-      announcementDetail: {}
+      announcementDetail: {},
+      img_file: {},
+      imageIds: []
     }
   },
   props: [
@@ -31,7 +33,8 @@ export default {
       'fetchAnnouncementById',
       'createAnnouncement',
       'updateAnnouncement',
-      'initialState'
+      'initialState',
+      'uploadResource'
     ]),
     initPage () {
       this.initialState()
@@ -61,22 +64,24 @@ export default {
         summary: this.announcement.summary || '',
         description: this.announcement.description || ''
       }
+      this.imageIds = [ ...this.announcement.files.map(i => i.id) ]
     },
     validateBeforeSubmit (callback) {
-      this.$validator.validateAll().then(callback)
-    },
-    sendAnnouncement () {
-      let data = { ...this.announcementDetail }
-
-      this.validateBeforeSubmit((result) => {
+      this.$validator.validateAll().then((result) => {
         if (result) {
-          if (this.editMode) {
-            this.sendUpdateAnnouncementData(data)
-          } else {
-            this.sendCreateAnnouncementData(data)
-          }
+          callback()
         }
       })
+    },
+    sendAnnouncement () {
+      this.validateBeforeSubmit(this.validationSuccess)
+    },
+    validationSuccess () {
+      let data = {
+        ...this.announcementDetail,
+        files: this.imageIds
+      }
+      this.editMode ? this.sendUpdateAnnouncementData(data) : this.sendCreateAnnouncementData(data)
     },
     sendCreateAnnouncementData (data) {
       this.createAnnouncement({
@@ -112,7 +117,29 @@ export default {
       this.$toasted.error('Fail to update announcement')
     },
     cancel () {
-      this.$router.go(-1)
+      this.$router.push({ name: 'announcements' })
+    },
+    $imgAdd (pos, $file) {
+      let data = new FormData()
+      data.append('file', $file)
+      this.img_file[pos] = $file
+      let configuration = { headers: { 'Content-Type': 'multipart/form-data' } }
+
+      this.uploadResource({
+        data,
+        configuration,
+        callback: (response) => {
+          this.$refs.md.$img2Url(pos, response.file.full)
+          this.imageIds.push(response.id)
+        },
+        fail: this.failUploadResource
+      })
+    },
+    failUploadResource () {
+      this.$toasted.error('Fail to upload image, please delete the image and re-upload')
+    },
+    $imgDel (pos) {
+      delete this.img_file[pos]
     }
   }
 }

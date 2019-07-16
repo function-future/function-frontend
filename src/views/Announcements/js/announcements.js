@@ -28,7 +28,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'announcementList'
+      'announcementList',
+      'accessList'
     ])
   },
   methods: {
@@ -101,7 +102,7 @@ export default {
       })
     },
     successDeleteAnnouncementById () {
-      this.$router.push({ name: 'announcements' })
+      this.loadAnnouncementList()
       this.$toasted.success('successfully delete announcement')
       this.closeDeleteConfirmationModal()
     },

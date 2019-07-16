@@ -18,7 +18,13 @@ describe('ActivityBlogs', () => {
   function initStore () {
     const state = {
       activityBlog: {},
-      activityBlogs: []
+      activityBlogs: [],
+      accessList: {
+        add: true,
+        delete: true,
+        read: true,
+        edit: true
+      }
     }
     const actions = {
       initialState: jest.fn(),
@@ -28,7 +34,8 @@ describe('ActivityBlogs', () => {
     }
     const getters = {
       activityBlog: state => state.activityBlog,
-      activityBlogs: state => state.activityBlogs
+      activityBlogs: state => state.activityBlogs,
+      accessList: state => state.accessList
     }
     const store = new Vuex.Store({
       modules: {
@@ -159,11 +166,10 @@ describe('ActivityBlogs', () => {
 
   test('successDeleteActivityBlogById', () => {
     const spy = jest.spyOn(wrapper.vm, 'closeDeleteConfirmationModal')
-    const push = jest.fn()
-    wrapper.vm.$router.push = push
+    const loadActivityBlogListSpy = jest.spyOn(wrapper.vm, 'loadActivityBlogList')
     wrapper.vm.successDeleteActivityBlogById()
-    expect(push).toHaveBeenCalledWith({ name: 'activityBlogs' })
     expect(spy).toHaveBeenCalledTimes(1)
+    expect(loadActivityBlogListSpy).toHaveBeenCalledTimes(1)
   })
 
   test('failDeleteActivityBlogById', () => {

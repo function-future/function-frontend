@@ -1,7 +1,7 @@
 export const assignments = [
   {
     method: 'GET',
-    url: '/api/scoring/batches/futur3/assignments?page=1&size=10',
+    url: '/api/scoring/batches/1/assignments?page=1&size=10',
     response: {
       "code": 200,
       "status": "OK",
@@ -48,7 +48,7 @@ export const assignments = [
   },
   {
     method: 'POST',
-    url: '/api/scoring/batches/futur3/assignments',
+    url: '/api/scoring/batches/1/assignments',
     response: {
       "code": 201,
       "status": "CREATED",
@@ -83,7 +83,7 @@ export const assignments = [
 export const assignmentDetails = [
   {
     method: 'GET',
-    url: '/api/scoring/batches/3/assignments/ASG0001',
+    url: '/api/scoring/batches/1/assignments/ASG0001',
     response: {
       "code": 200,
       "status": "OK",
@@ -99,7 +99,7 @@ export const assignmentDetails = [
   },
   {
     method: 'PUT',
-    urL: '/api/scoring/batches/3/assignments/ASG0001',
+    urL: '/api/scoring/batches/1/assignments/ASG0001',
     response: {
       "code": 200,
       "status": "OK",
@@ -115,7 +115,7 @@ export const assignmentDetails = [
   },
   {
     method: 'DELETE',
-    url: '/api/scoring/batches/futur3/assignments/ASG0001',
+    url: '/api/scoring/batches/1/assignments/ASG0001',
     response:
       {
         "code": 200,
@@ -127,7 +127,7 @@ export const assignmentDetails = [
 export const assignmentRooms = [
   {
     method: 'GET',
-    url: '/api/scoring/batches/3/assignments/ASG0001/rooms?page=1&size=10',
+    url: '/api/scoring/batches/1/assignments/ASG0001/rooms?page=1&size=10',
     response: {
       "code": 200,
       "status": "OK",
@@ -196,7 +196,7 @@ export const assignmentRooms = [
   },
   {
     method: 'GET',
-    url: 'api/scoring/batches/3/assignments/ASG0001/rooms/ROM0001',
+    url: 'api/scoring/batches/1/assignments/ASG0001/rooms/ROM0001',
     response: {
       "code": 200,
       "status": "OK",
@@ -234,12 +234,11 @@ export const assignmentRooms = [
 export const quizzes = [
   {
     method: 'GET',
-    url: '/api/scoring/batches/futur3/quizzes?page=1&size=10',
+    url: '/api/scoring/batches/1/quizzes?page=1&size=10',
     response: {
       "code": 200,
       "status": "OK",
-      "data": {
-        "quizzes": [
+      "data": [
           {
             "id": "QZ00001",
             "title": "Quiz Number 1",
@@ -296,8 +295,7 @@ export const quizzes = [
             ],
             "batch": 3
           }
-        ]
-      },
+        ],
       "paging": {
         "page": 1,
         "size": 10,
@@ -307,7 +305,7 @@ export const quizzes = [
   },
   {
     method: 'POST',
-    url: '/api/scoring/batches/futur3/quizzes',
+    url: '/api/scoring/batches/1/quizzes',
     response: {
       "code": 201,
       "status": "CREATED",
@@ -353,7 +351,7 @@ export const quizzes = [
 export const quizDetail = [
   {
     method: 'GET',
-    url: '/api/scoring/batches/3/quizzes/QZ00001',
+    url: '/api/scoring/batches/1/quizzes/QZ00001',
     response: {
       "code": 200,
       "status": "OK",
@@ -369,13 +367,13 @@ export const quizDetail = [
         "questionBanks": [
           "QNK00001"
         ],
-        "batch": 3
+        "batch": 1
       }
     }
   },
   {
     method: 'PUT',
-    url: '/api/scoring/batches/futur3/quizzes/QZ0001',
+    url: '/api/scoring/batches/1/quizzes/QZ00001',
     response: {
       "code": 200,
       "status": "OK",
@@ -396,7 +394,7 @@ export const quizDetail = [
   },
   {
     method: 'DELETE',
-    url: '/api/scoring/batches/futur3/quizzes/QZ00001',
+    url: '/api/scoring/batches/1/quizzes/QZ00001',
     response: {
       "code": 200,
       "status": "OK"
@@ -507,7 +505,7 @@ export const questionBankQuestions = [
       "data": [
         {
           "id": "QST0001",
-          "text": "Question Sample 1",
+          "label": "Question Sample 1",
           "options": [
             {
               "id": "OPT0001",
@@ -578,7 +576,7 @@ export const questionBankQuestionDetail = [
       "status": "OK",
       "data": {
         "id": "QST0001",
-        "text": "Question Example 1",
+        "label": "Question Example 1",
         "options": [
           {
             "id": "OPT0001",
@@ -648,7 +646,7 @@ export const questionBankQuestionDetail = [
 export const points = [
   {
     method: 'GET',
-    url: '/api/students/sample-id/points',
+    url: '/api/scoring/summary/5d1db5dcc299ea1fc8596234',
     response: {
       "code": 200,
       "status": "OK",

@@ -48,7 +48,7 @@
   </div>
 </template>
 
-<script type="text/javascript" src="./js/ModalChatroom.js"></script>
+<script type="text/javascript" src="./js/modal-chatroom.js"></script>
 
 <style lang="scss" scoped>
 

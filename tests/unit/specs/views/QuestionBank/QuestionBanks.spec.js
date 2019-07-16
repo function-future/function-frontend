@@ -20,7 +20,8 @@ describe('QuestionBanks', () => {
       questionBanks: {}
     }
     const actions = {
-      fetchQuestionBankList: jest.fn()
+      fetchQuestionBankList: jest.fn(),
+      deleteQuestionBankById: jest.fn()
     }
     const getters = {
       questionBanks: state => state.questionBanks
@@ -123,5 +124,66 @@ describe('QuestionBanks', () => {
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.goToQuestionBankDetail()
     expect(wrapper.vm.$router.push).toHaveBeenCalledTimes(1)
+  })
+
+  test('openDeleteConfirmationModal', () => {
+    initComponent()
+    wrapper.vm.openDeleteConfirmationModal('sample-id')
+    expect(wrapper.vm.selectedId).toEqual('sample-id')
+    expect(wrapper.vm.showDeleteConfirmationModal).toEqual(true)
+  })
+
+  test('closeDeleteConfirmationModal', () => {
+    initComponent()
+    wrapper.vm.closeDeleteConfirmationModal()
+    expect(wrapper.vm.selectedId).toEqual('')
+    expect(wrapper.vm.showDeleteConfirmationModal).toEqual(false)
+  })
+
+  test('deleteThisQuestionBanks', () => {
+    initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'deleteQuestionBankById')
+    wrapper.vm.deleteThisQuestionBank()
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('successDeletingQuestionBanks', () => {
+    initComponent()
+    const closeDeleteConfirmationModal = jest.spyOn(wrapper.vm, 'closeDeleteConfirmationModal')
+    wrapper.vm.successDeletingQuestionBank()
+    expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
+    expect(closeDeleteConfirmationModal).toHaveBeenCalledTimes(1)
+  })
+
+  test('failedDeletingQuestionBanks', () => {
+    initComponent()
+    wrapper.vm.failDeletingQuestionBank()
+    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+  })
+
+  test('loadPage', () => {
+    initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'initPage')
+    wrapper.vm.loadPage(1)
+    expect(wrapper.vm.paging.page).toEqual(1)
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('loadPreviousPage', () => {
+    initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'initPage')
+    wrapper.vm.paging.page = 2
+    wrapper.vm.loadPreviousPage()
+    expect(wrapper.vm.paging.page).toEqual(1)
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('loadNextPage', () => {
+    initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'initPage')
+    wrapper.vm.paging.page = 2
+    wrapper.vm.loadNextPage()
+    expect(wrapper.vm.paging.page).toEqual(3)
+    expect(spy).toHaveBeenCalledTimes(1)
   })
 })

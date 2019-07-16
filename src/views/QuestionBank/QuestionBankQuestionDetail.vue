@@ -2,7 +2,7 @@
   <div class="main-container">
     <BaseCard class="question-container">
       <span class="section-header">Question</span>
-      <BaseTextArea :style="{height: '200px'}" v-model="questionDetail.text" :disabled="!editMode"></BaseTextArea>
+      <BaseTextArea :style="{height: '200px'}" v-model="questionDetail.label" :disabled="!editMode"></BaseTextArea>
     </BaseCard>
     <BaseCard>
       <span class="section-header">Answers</span>

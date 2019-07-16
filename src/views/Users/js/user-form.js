@@ -3,7 +3,7 @@ import BaseInput from '@/components/BaseInput'
 import BaseButton from '@/components/BaseButton'
 import BaseTextArea from '@/components/BaseTextArea'
 import BaseSelect from '@/components/BaseSelect'
-import config from '@/config/index'
+import ModalSelectBatch from '@/components/modals/ModalSelectBatch'
 
 export default {
   name: 'userForm',
@@ -11,7 +11,8 @@ export default {
     BaseButton,
     BaseInput,
     BaseTextArea,
-    BaseSelect
+    BaseSelect,
+    ModalSelectBatch
   },
   props: [
     'studentMode',
@@ -19,6 +20,7 @@ export default {
   ],
   data () {
     return {
+      showSelectBatchModal: false,
       maximumSizeAlert: false,
       avatarPreview: '',
       userDetail: {
@@ -99,14 +101,14 @@ export default {
         this.maximumSizeAlert = true
       } else {
         this.maximumSizeAlert = false
-        this.imageUpload(files[0])
+        this.imageUpload()
       }
     },
     imageUpload () {
       let formData = new FormData()
-      formData.append('image', this.newImage)
+      formData.append('file', this.newImage)
       let data = {
-        source: 'user',
+        source: 'USER',
         resources: formData
       }
       data = { ...data }
@@ -151,7 +153,7 @@ export default {
       let studentData = {
         ...userData,
         role: 'STUDENT',
-        batchCode: this.userDetail.batch.code,
+        batch: this.userDetail.batch.code,
         university: this.userDetail.university
       }
       let data = {}
@@ -184,6 +186,13 @@ export default {
       let msg = ''
       this.editMode ? msg = 'save edited' : msg = 'create new'
       this.$toasted.error('Fail to ' + msg + ' user')
+    },
+    selectBatch (code) {
+      this.userDetail.batch.code = code
+      this.showSelectBatchModal = false
+    },
+    closeModal () {
+      this.showSelectBatchModal = false
     }
   }
 }

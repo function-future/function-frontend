@@ -7,24 +7,21 @@
       <li><router-link :to="{ name: 'feeds' }" class="navbar-link">Feeds</router-link></li>
       <li><router-link :to="{ name: 'announcements' }" class="navbar-link">Announcements</router-link></li>
       <li><router-link :to="{ name: 'activityBlogs' }" class="navbar-link">Blogs</router-link></li>
-      <li><router-link :to="{ name: 'courseBatches' }" class="navbar-link">Courses</router-link></li>
-      <li><router-link :to="{ name: 'files' }" class="navbar-link">Files</router-link></li>
-      <li><router-link :to="{ name: 'users' }" class="navbar-link">Users</router-link></li>
-      <li class="navbar-link grades-menu" @click="toggleGradesMenu" v-if="!showGrades">
+      <li v-if="menuList.courses"><router-link :to="{ name: 'courseBatches' }" class="navbar-link">Courses</router-link></li>
+      <li v-if="menuList.files"><router-link :to="{ name: 'files' }" class="navbar-link">Files</router-link></li>
+      <li v-if="menuList.users"><router-link :to="{ name: 'users' }" class="navbar-link">Users</router-link></li>
+      <li class="navbar-link grades-menu" @click="toggleGradesMenu" v-if="menuList.assignments">
         <span>Grades</span>
-        <font-awesome-icon icon="chevron-down" class="icon"/>
-      </li>
-      <li class="navbar-link grades-menu" @click="toggleGradesMenu" v-else>
-        <span>Grades</span>
-        <font-awesome-icon icon="chevron-up" class="icon"/>
+        <span v-if="!showGrades"><font-awesome-icon icon="chevron-down" class="icon"/></span>
+        <span v-if="showGrades"><font-awesome-icon icon="chevron-up" class="icon"/></span>
       </li>
       <transition name="fade">
         <ul v-if="showGrades" class="grades-submenu">
-          <li><router-link :to="{ name: 'questionBanks' }" class="navbar-link">Question Banks</router-link></li>
-          <li><router-link :to="{ name: 'quizzes' }" class="navbar-link">Quizzes</router-link></li>
-          <li><router-link :to="{ name: 'assignments' }" class="navbar-link">Assignments</router-link></li>
-          <li><router-link :to="{ name: 'finalComparisons' }" class="navbar-link">Comparisons</router-link></li>
-          <li><router-link :to="{ name: 'points' }" class="navbar-link">Points</router-link></li>
+          <li v-if="menuList.questionBanks"><router-link :to="{ name: 'questionBanks' }" class="navbar-link">Question Banks</router-link></li>
+          <li v-if="menuList.quizzes"><router-link :to="{ name: 'quizBatch' }" class="navbar-link">Quizzes</router-link></li>
+          <li v-if="menuList.assignments"><router-link :to="{ name: 'assignmentBatch' }" class="navbar-link">Assignments</router-link></li>
+          <li v-if="menuList.comparisons"><router-link :to="{ name: 'finalComparisons' }" class="navbar-link">Comparisons</router-link></li>
+          <li v-if="menuList.points"><router-link :to="{ name: 'points' }" class="navbar-link">Points</router-link></li>
         </ul>
       </transition>
       <li>

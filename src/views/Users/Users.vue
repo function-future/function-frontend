@@ -9,9 +9,11 @@
             :lineClass="'default-tabs__active-line'"
             @onClick="changeTab">
       </tabs>
-      <BaseButton type="submit" buttonClass="button-save" @click="goToAddUser">
-        <span><font-awesome-icon icon="plus" class="icon"/> {{ addUserButtonLabel }}</span>
-      </BaseButton>
+      <span v-if="accessList.add">
+        <BaseButton type="submit" buttonClass="button-save" @click="goToAddUser">
+          <span><font-awesome-icon icon="plus" class="icon"/> {{ addUserButtonLabel }}</span>
+        </BaseButton>
+      </span>
     </div>
     <div class="tab-container">
       <div class="scrollable-tab" v-if="currentTab === 'student'">
@@ -43,7 +45,7 @@
     <modal-delete-confirmation v-if="showDeleteConfirmationModal"
                                @close="closeDeleteConfirmationModal"
                                @clickDelete="deleteThisUser">
-      <div slot="description">{{selectedId}}</div>
+      <div slot="description">Are you sure you want to delete selected user?</div>
     </modal-delete-confirmation>
   </div>
 </template>

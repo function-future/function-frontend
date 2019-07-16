@@ -41,14 +41,13 @@ export default {
   methods: {
     ...mapActions([
       'fetchAssignmentList',
-      'createAssignment',
       'deleteAssignmentById',
       'copyAssignment'
     ]),
     initPage () {
       this.fetchAssignmentList({
         data: {
-          batchCode: 'futur3',
+          batchCode: this.$route.params.batchCode,
           page: this.paging.page,
           pageSize: this.paging.size
         },
@@ -68,15 +67,13 @@ export default {
     isComplete(deadline) {
       return deadline < new Date() ? 'Done' : 'Ongoing'
     },
-    goToAssignmentDetail (id, batchCode) {
+    goToAssignmentDetail (id) {
       this.$router.push({
         name: 'assignmentDetail',
         params: {
-          id: id
+          id: id,
+          batchCode: this.$route.params.batchCode
         },
-        query: {
-          batchCode: batchCode
-        }
       })
     },
     openDeleteConfirmationModal (id) {
@@ -90,7 +87,7 @@ export default {
     deleteThisAssignment () {
       this.deleteAssignmentById({
         data: {
-          batchCode: 'futur3',
+          batchCode: this.$route.params.batchCode,
           id: this.selectedId
         },
         callback: this.successDeletingAssignment,

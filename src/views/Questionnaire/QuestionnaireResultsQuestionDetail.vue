@@ -13,12 +13,16 @@
                          v-on:click="goToQuestionnaireResult(currentQuestionnaire.id)"
       ></QuestionnaireCard>
       <h2><i>Appraisals for {{currentUser.name}}</i></h2>
+      <br>
+      <h2>Question</h2>
       <QuestionCard class="without-border-and-shadow"
                     :key="currentQuestion.id"
                     :description="currentQuestion.description"
                     :score="currentQuestion.score"
                     :isResult="true"
       ></QuestionCard>
+      <br>
+      <h2>Appraised By</h2>
       <div class="questionnaire-results-question-list">
         <QuestionnaireParticipantSimpleCard v-for="appraiser in appraisers"
                                             :name="appraiser.name"
@@ -38,6 +42,10 @@
     .questionnaire-results-question-detail-outer {
       min-width: 650px;
     }
+
+    .questionnaire-results-question-detail-container {
+      min-width: 650px;
+    }
   }
 
   .questionnaire-results-question-detail-outer {
@@ -49,8 +57,7 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
-    min-width: 80%;
-    max-width: 800px;
+    max-width: 700px;
   }
 
   .without-border-and-shadow {
@@ -74,6 +81,13 @@
 
   h2 > i{
     color: #02AAF3;
+  }
+
+  .questionnaire-results-question-list {
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    height: 45vh;
   }
 
 </style>

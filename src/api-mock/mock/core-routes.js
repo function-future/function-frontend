@@ -8,7 +8,8 @@ export const auth = [
       'code': 200,
       'status': 'OK',
       'data': {
-        'role': 'STUDENT',
+        'id': 'sample-id-1',
+        'role': 'ADMIN',
         'email': 'user@user.com',
         'name': 'User Name',
         'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
@@ -23,7 +24,8 @@ export const auth = [
       'code': 200,
       'status': 'OK',
       'data': {
-        'role': 'STUDENT',
+        'id': 'sample-id-1',
+        'role': 'ADMIN',
         'email': 'user@user.com',
         'name': 'User Name',
         'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
@@ -42,27 +44,57 @@ export const auth = [
 ]
 
 // access-list
-export const accessList = {
-  method: 'GET',
-  url: '/api/core/user/access-list?url=/feeds',
-  response: {
-    'add': true,
-    'delete': true
+export const accessList = [
+  {
+    method: 'GET',
+    url: '/api/core/user/access-list?url=%2F',
+    response: {
+      'add': true,
+      'delete': true,
+      'edit': true,
+      'read': true
+    }
+  },
+  {
+    method: 'GET',
+    url: '/api/core/user/access-list?url=%2Fannouncements',
+    response: {
+      'add': true,
+      'delete': true,
+      'edit': true,
+      'read': true
+    }
+  },
+  {
+    method: 'GET',
+    url: '/api/core/user/access-list?url=%2Fsticky-notes',
+    response: {
+      'add': true,
+      'delete': true,
+      'edit': true,
+      'read': true
+    }
   }
-}
+]
 
 // menu-list
-export const menuList = {
-  method: 'GET',
-  url: '/api/core/user/menu-list',
-  response: {
-    'courses': true,
-    'files': true,
-    'users': true,
-    'grades': true,
-    'chatroom': true
+export const menuList = [
+  {
+    method: 'GET',
+    url: '/api/core/user/menu-list',
+    response: {
+      'courses': true,
+      'files': true,
+      'users': true,
+      'chatroom': true,
+      'questionBanks': true,
+      'quizzes': true,
+      'assignments': true,
+      'comparisons': true,
+      'points': true
+    }
   }
-}
+]
 
 export const stickyNotes = [
   {
@@ -338,7 +370,7 @@ export const activityBlogs = [
             }
           ],
           "author": {
-            "id": "sample-id",
+            "id": "sample-id-1",
             "name": "Student 1"
           }
         },
@@ -1132,7 +1164,7 @@ export const discussions = [
 export const users = [
   {
     method: 'GET',
-    url: '/api/core/users?page=1&size=10&role=student',
+    url: '/api/core/users?page=1&size=10&role=STUDENT',
     response: {
       "code": 200,
       "status": "OK",
@@ -1237,7 +1269,7 @@ export const users = [
   },
   {
     method: 'GET',
-    url: '/api/core/users?page=1&size=10&role=mentor',
+    url: '/api/core/users?page=1&size=10&role=MENTOR',
     response: {
       "code": 200,
       "status": "OK",
@@ -1270,7 +1302,7 @@ export const users = [
   },
   {
     method: 'GET',
-    url: '/api/core/users?page=1&size=10&role=judge',
+    url: '/api/core/users?page=1&size=10&role=JUDGE',
     response: {
       "code": 200,
       "status": "OK",
@@ -1294,7 +1326,7 @@ export const users = [
   },
   {
     method: 'GET',
-    url: '/api/core/users?page=1&size=10&role=admin',
+    url: '/api/core/users?page=1&size=10&role=ADMIN',
     response: {
       "code": 200,
       "status": "OK",

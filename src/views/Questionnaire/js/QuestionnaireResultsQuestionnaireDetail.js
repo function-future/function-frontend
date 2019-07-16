@@ -63,7 +63,7 @@ export default {
         params: {
           batchCode: this.$route.params.batchCode,
           memberId: this.$route.params.memberId,
-          questionnaireId: this.$route.params.questionId,
+          questionnaireId: this.$route.params.questionnaireId,
           questionId: questionId
         }
       })

@@ -33,6 +33,52 @@ export default {
           name: 'Tzuyu',
           avatar: 'https://rankedwiki.com/wp-content/uploads/2018/12/Tzuyu-Wiki-Net-Worth-Dating-286x286.jpg',
           score: 6.0
+        },
+        {
+          id: '5d2352954534202434730f29',
+          name: 'Tzuyu',
+          avatar: 'https://rankedwiki.com/wp-content/uploads/2018/12/Tzuyu-Wiki-Net-Worth-Dating-286x286.jpg',
+          score: 6.0
+        },
+        {
+          id: '5d2352954534202434730f29',
+          name: 'Tzuyu',
+          avatar: 'https://rankedwiki.com/wp-content/uploads/2018/12/Tzuyu-Wiki-Net-Worth-Dating-286x286.jpg',
+          score: 6.0
+        },{
+          id: '5d2352954534202434730f29',
+          name: 'Tzuyu',
+          avatar: 'https://rankedwiki.com/wp-content/uploads/2018/12/Tzuyu-Wiki-Net-Worth-Dating-286x286.jpg',
+          score: 6.0
+        },
+        {
+          id: '5d2352954534202434730f29',
+          name: 'Tzuyu',
+          avatar: 'https://rankedwiki.com/wp-content/uploads/2018/12/Tzuyu-Wiki-Net-Worth-Dating-286x286.jpg',
+          score: 6.0
+        },
+        {
+          id: '5d2352954534202434730f29',
+          name: 'Tzuyu',
+          avatar: 'https://rankedwiki.com/wp-content/uploads/2018/12/Tzuyu-Wiki-Net-Worth-Dating-286x286.jpg',
+          score: 6.0
+        },{
+          id: '5d2352954534202434730f29',
+          name: 'Tzuyu',
+          avatar: 'https://rankedwiki.com/wp-content/uploads/2018/12/Tzuyu-Wiki-Net-Worth-Dating-286x286.jpg',
+          score: 6.0
+        },
+        {
+          id: '5d2352954534202434730f29',
+          name: 'Tzuyu',
+          avatar: 'https://rankedwiki.com/wp-content/uploads/2018/12/Tzuyu-Wiki-Net-Worth-Dating-286x286.jpg',
+          score: 6.0
+        },
+        {
+          id: '5d2352954534202434730f29',
+          name: 'Tzuyu',
+          avatar: 'https://rankedwiki.com/wp-content/uploads/2018/12/Tzuyu-Wiki-Net-Worth-Dating-286x286.jpg',
+          score: 6.0
         }
       ]
     }

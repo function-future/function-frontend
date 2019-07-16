@@ -1,9 +1,9 @@
-import modalCopyCourse from '@/components/modals/ModalCopyCourse'
+import modalCopy from '@/components/modals/ModalCopy'
 import { shallowMount, createLocalVue, mount } from '@vue/test-utils'
 import Vuex from 'vuex'
 import VueRouter from 'vue-router'
 
-describe('ModalCopyCourse', () => {
+describe('ModalCopy', () => {
   let store
   let wrapper
   let localVue
@@ -54,7 +54,7 @@ describe('ModalCopyCourse', () => {
       error: jest.fn(),
       success: jest.fn()
     }
-    return shallowMount(modalCopyCourse, {
+    return shallowMount(modalCopy, {
       ...options,
       store,
       localVue,

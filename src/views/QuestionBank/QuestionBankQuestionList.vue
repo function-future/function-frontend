@@ -9,7 +9,7 @@
       <BaseCard class="question-card" v-for="question in questionList" :key="question.id" @click.native="redirectToQuestionDetail(question.id)">
         <div class="row">
           <div class="col basic-info" style="flex-grow: 5">
-            <h3>{{ question.text }}</h3>
+            <h3>{{ question.label }}</h3>
           </div>
           <div class="col actions-div" style="flex-grow: 1">
             <span @click.stop="openDeleteConfirmationModal(question.id)"><font-awesome-icon icon="trash-alt" class="icon red" size="lg"></font-awesome-icon></span>

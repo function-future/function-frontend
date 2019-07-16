@@ -38,14 +38,25 @@ describe('CourseBatch', () => {
           'code': '4',
           'name': 'Batch 3'
         }
-      ]
+      ],
+      accessList: {
+        add: true,
+        delete: true,
+        read: true,
+        edit: true
+      },
+      currentUser: {
+        role: 'ADMIN'
+      }
     }
     const actions = {
       fetchBatches: jest.fn(),
       deleteBatch: jest.fn()
     }
     const getters = {
-      batchList: state => state.batchList
+      batchList: state => state.batchList,
+      accessList: state => state.accessList,
+      currentUser: state => state.currentUser
     }
     const store = new Vuex.Store({
       modules: {
@@ -165,11 +176,11 @@ describe('CourseBatch', () => {
   })
 
   test('successDeleteBatch', () => {
-    wrapper.vm.$router.push = jest.fn()
+    const spy = jest.spyOn(wrapper.vm, 'initPage')
     wrapper.vm.successDeleteBatch()
-    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'courseBatches' })
     expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
     expect(wrapper.vm.selectedId).toEqual('')
+    expect(spy).toHaveBeenCalledTimes(1)
   })
 
   test('failDeleteBatch', () => {

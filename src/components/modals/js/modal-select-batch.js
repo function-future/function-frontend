@@ -3,15 +3,14 @@ import BaseButton from '@/components/BaseButton'
 import BatchCard from '@/components/batches/BatchCard'
 
 export default {
-  name: 'modal-copy-course',
+  name: 'modal-select-batch',
   components: {
     BaseButton,
     BatchCard
   },
   data () {
     return {
-      batches: [],
-      batchDestination: ''
+      batches: []
     }
   },
   computed: {
@@ -29,8 +28,8 @@ export default {
     close () {
       this.$emit('close')
     },
-    copy () {
-      this.$emit('copy', this.batchDestination)
+    select (code) {
+      this.$emit('select', code)
     },
     initData () {
       this.fetchBatches({

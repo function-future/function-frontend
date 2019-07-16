@@ -18,13 +18,8 @@ export default {
         title: '',
         description: '',
         deadline: new Date(),
-        batch: 'Batch 3'
         // file: ''
       },
-      batches: [
-        'Batch One',
-        'Batch Second',
-        'Batch 3']
     }
   },
   methods: {
@@ -42,10 +37,12 @@ export default {
       this.$toasted.error('Something went wrong')
     },
     saveAssignment () {
+      let payload = { ...this.assignment }
+      payload.deadline = new Date(payload.deadline).getTime()
       this.createAssignment({
-        payload: {...this.assignment},
+        payload,
         data: {
-          batchCode: 'futur3'
+          batchCode: this.$route.params.batchCode
         },
         callback: this.successCreateAssignment,
         fail: this.failCreatingAssignment
