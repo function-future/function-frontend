@@ -5,7 +5,8 @@ module.exports = {
         login: '/login'
       },
       user: {
-        profile: '/profile'
+        profile: '/profile',
+        changePassword: '/profile/change-password'
       },
       feeds: '/',
       activityBlogs: {

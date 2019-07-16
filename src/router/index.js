@@ -42,6 +42,7 @@ import config from '@/config/index'
 import chatrooms from '@/views/Chatrooms/Chatrooms'
 import login from '@/views/Auth/Login'
 import profile from '@/views/User/Profile'
+import changePassword from '@/views/User/ChangePassword'
 import store from '../store/index.js'
 
 Vue.use(Router)
@@ -60,7 +61,22 @@ const router = new Router({
       name: 'profile',
       component: profile,
       meta: {
-        title: 'Profile'
+        title: 'Profile',
+        breadcrumb: [
+          { name: 'Profile', link: 'profile' }
+        ]
+      }
+    },
+    {
+      path: config.app.pages.user.changePassword,
+      name: 'changePassword',
+      component: changePassword,
+      meta: {
+        title: 'Change Password',
+        breadcrumb: [
+          { name: 'Profile', link: 'profile' },
+          { name: 'Change Password', link: 'changePassword' }
+        ]
       }
     },
     {
