@@ -1,4 +1,4 @@
-<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
+<template>
   <div class="chatroom-outer">
     <BaseCard class="chatroom-card">
       <div class="chatroom-container">
@@ -95,7 +95,7 @@
               <template v-if="message.isNewDate">
                 <p class="chatroom-messages-dateseparator">{{ printDateSeparator(message) }}</p>
               </template>
-              <MessageBubbleSent v-if="message.sender.id === userId"
+              <MessageBubbleSent v-if="message.sender.id === currentUser.id"
                                  :message="message.text"
                                  :clock="message.time"
                                  class="chatroom-message-bubble"></MessageBubbleSent>
@@ -119,7 +119,7 @@
   </div>
 </template>
 
-<script src="./js/Chatrooms.js">
+<script src="./js/chatrooms.js">
 </script>
 
 <style scoped>
