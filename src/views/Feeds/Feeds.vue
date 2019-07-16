@@ -2,13 +2,13 @@
   <div class="scrollable-container">
     <BaseCard class="sticky-notes-card" @click.native="goToStickyNotesDetail" cardClass="card-hover">
       <div class="sticky-notes-header sticky-notes-title">
-        <h3>{{ stickyNote.title || 'Sticky Note' }}</h3>
+        <h3>{{ stickyNote[0].title || 'Sticky Note' }}</h3>
       </div>
       <div class="sticky-notes-header sticky-notes-date">
-        {{ stickyNote.updatedAt | moment("dddd, MMMM Do YYYY") }}
+        {{ stickyNote[0].updatedAt | moment("dddd, MMMM Do YYYY") }}
       </div>
       <div class="sticky-notes-content">
-        <span>{{ stickyNote.description || 'Insert Sticky Notes Here...' }}</span>
+        <span>{{ stickyNote[0].description.slice(0, 100) + '...' || 'Insert Sticky Notes Here...' }}</span>
       </div>
     </BaseCard>
     <BaseCard class="announcement-card" @click.native="goToAnnouncementPage" cardClass="card-hover no-pointer">
@@ -23,7 +23,7 @@
             <div class="announcement-date-col"><span>{{ announcement.updatedAt | moment("dddd, MMMM Do YYYY") }}</span></div>
           </div>
           <div class="announcement-box-content">
-            <span>{{ announcement.description }}</span>
+            <span>{{ announcement.summary }}</span>
           </div>
         </BaseCard>
       </div>
