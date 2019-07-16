@@ -68,7 +68,7 @@ module.exports = {
           list: '/quiz/batches',
           add: '/quiz/batches/add',
           edit: '/quiz/batches/:batchCode/edit'
-        }
+        },
       },
       assignments: {
         list: '/batches/:batchCode/assignments',
@@ -89,6 +89,16 @@ module.exports = {
       stickyNotes: {
         detail: '/sticky-notes',
         edit: '/sticky-notes/edit'
+      },
+      students: {
+        quizzes: {
+          list: '/quizzes',
+          detail: '/quizzes/:quizId/detail',
+          questions: '/quizzes/:quizId/questions'
+        },
+        assignments: {
+
+        }
       },
       chatrooms: '/chatrooms'
     }
@@ -278,6 +288,17 @@ module.exports = {
         },
         delete(batchCode, id) {
           return `/api/scoring/batches/${batchCode}/quizzes/${id}`
+        },
+        students: {
+          list(studentId, page, pageSize) {
+            return `/api/scoring/students/${studentId}/quizzes?page=${page}&size=${pageSize}`
+          },
+          detail(studentId, quizId) {
+            return `/api/scoring/students/${studentId}/quizzes/${quizId}`
+          },
+          questions(studentId, quizId) {
+            return `/api/scoring/students/${studentId}/quizzes/${quizId}/questions`
+          }
         }
       },
       points: {

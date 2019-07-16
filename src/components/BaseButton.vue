@@ -22,6 +22,7 @@
     text-align: center;
     transition: all .2s ease;
     margin: 2px 0 2px 0;
+    cursor: pointer;
   }
 
   .button:active {
@@ -34,6 +35,17 @@
 
   .button:focus {
     outline:none;
+  }
+
+  .button-white {
+    background: #ffffff;
+    border: 1px solid #F2F2F2;
+    box-sizing: border-box;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.25);
+    border-radius: 25px;
+    padding: 15px 25px 15px 25px;
+    margin: 15px;
+    color: black;
   }
 
   .button-save {

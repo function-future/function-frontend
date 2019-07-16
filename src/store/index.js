@@ -13,6 +13,7 @@ import assignments from './modules/assignments.js'
 import chatrooms from './modules/chatrooms'
 import assignmentRooms from './modules/assignment-rooms'
 import quizzes from './modules/quizzes'
+import studentQuizzes from './modules/student-quiz'
 import questionBanks from './modules/question-banks'
 import points from './modules/points'
 
@@ -32,6 +33,7 @@ export default new Vuex.Store({
     chatrooms,
     assignmentRooms,
     quizzes,
+    studentQuizzes,
     questionBanks,
     points
   }
