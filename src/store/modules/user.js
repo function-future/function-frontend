@@ -16,6 +16,11 @@ export const actions = {
       commit('SET_PROFILE', response)
       callback(response)
     }, fail)
+  },
+  changePassword ({ commit }, { data, callback, fail }) {
+    api.changePassword(({ data: response }) => {
+      callback(response)
+    }, data, fail)
   }
 }
 
