@@ -52,7 +52,7 @@ export default {
       })
     },
     successLoadStickyNote () {
-      this.stickyNote = this.stickyNotes
+      this.stickyNote = this.stickyNotes[0]
     },
     failLoadStickyNote () {
       this.$toasted.error('Fail to load sticky note detail, please refresh the page')
