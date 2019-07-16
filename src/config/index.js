@@ -4,7 +4,7 @@ module.exports = {
       auth: {
         login: '/login'
       },
-      feeds: '/',
+      feeds: '/feeds',
       activityBlogs: {
         list: '/activity-blogs',
         add: '/activity-blogs/add',

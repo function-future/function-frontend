@@ -77,7 +77,7 @@
     opacity: 0.7;
   }
 
-  .router-link-exact-active {
+  .router-link-exact-active, .router-link-active {
     font-weight: bold;
   }
 

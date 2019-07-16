@@ -55,6 +55,10 @@ const router = new Router({
       component: login
     },
     {
+      path: '/',
+      redirect: config.app.pages.feeds
+    },
+    {
       path: config.app.pages.feeds,
       name: 'feeds',
       component: feeds,
