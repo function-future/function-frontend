@@ -3,6 +3,13 @@
     <div class="form-container">
       <div class="row">
         <div class="column input-column">
+          <div class="input-wrapper" v-if="showErrorMessage">
+            <div class="fail-update-alert">
+              Old password is not valid
+              <font-awesome-icon icon="times" class="icon close-alert" size="lg"
+                                 @click="showErrorMessage = false"/>
+            </div>
+          </div>
           <div class="input-wrapper">
             <div class="input-label inline">Current Password</div>
             <div class="input inline">
@@ -30,7 +37,7 @@
             </div>
           </div>
           <div class="input-wrapper">
-            <div class="input-label inline">Repeat New Password</div>
+            <div class="input-label inline">Confirm New Password</div>
             <div class="input inline">
               <BaseInput v-model="repeatPassword"
                          type="password"
@@ -118,18 +125,14 @@
   }
 
   .input-label {
-    width: 20%;
+    width: 35%;
     text-align: left;
-
-    @media only screen and (max-width: 1150px) {
-      width: 30%;
-    }
   }
 
   .input-wrapper {
     margin-left: 5px;
     text-align: left;
-    width: 100%;
+    width: 65%;
   }
 
   .action {
@@ -144,11 +147,7 @@
   }
 
   .input {
-    width: 35%;
-
-    @media only screen and (max-width: 1200px) {
-      width: 45%;
-    }
+    width: 65%;
   }
 
   .inline {
@@ -160,5 +159,24 @@
     font-size: 0.75em;
     float: left;
     margin-left: 2vw;
+  }
+
+  .fail-update-alert {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 10px 10px 18px;
+    font-size: 0.75rem;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    color: #F2F2F2;
+    background-color: #ea3f6c;
+    border-color: #F2F2F2;
+  }
+
+  .close-alert {
+    margin-left: auto;
+    margin-right: 10px;
+    margin-top: 1px;
   }
 </style>

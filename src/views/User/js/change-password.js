@@ -14,7 +14,8 @@ export default {
         oldPassword: '',
         newPassword: ''
       },
-      repeatPassword: ''
+      repeatPassword: '',
+      showErrorMessage: false
     }
   },
   methods: {
@@ -38,11 +39,19 @@ export default {
         fail: this.failChangePassword
       })
     },
-    successChangePassword () {
+    successChangePassword (res) {
+      console.log(res)
       this.$toasted.success('Successfully updated password')
       this.$router.push({ name: 'profile' })
     },
-    failChangePassword () {
+    failChangePassword (error) {
+      if (error.response.status === 401) {
+        this.showErrorMessage = true
+        this.data.oldPassword = ''
+        this.data.newPassword = ''
+        this.repeatPassword = ''
+        return
+      }
       this.$toasted.error('Fail to update password')
     },
     cancel () {
