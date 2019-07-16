@@ -13,10 +13,9 @@
         <QuestionnaireCard v-for="myQuestionnaire in 20"
                            :title="myQuestionnaire.toString()"
                            :desc="myQuestionnaire.toString()"
-                           :startDate="myQuestionnaire.parseInt"
-                           :dueDate="myQuestionnaire.parseInt"
-                           :isDisable="myQuestionnaire.parseInt < Date.now()"
-                           :isEdit="true"
+                           :startDate="myQuestionnaire"
+                           :dueDate="myQuestionnaire"
+                           :isEdit="myQuestionnaire > Date.now()"
         ></QuestionnaireCard>
       </div>
     </div>

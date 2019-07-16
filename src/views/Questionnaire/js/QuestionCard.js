@@ -7,7 +7,10 @@ export default {
   },
   props: {
     number: Number,
-    description: String
+    description: String,
+    score: Number,
+    isResult: Boolean,
+    isEdit: Boolean
   },
   data () {
     return {

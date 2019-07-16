@@ -19,14 +19,19 @@ export default {
     startDate: Number,
     dueDate: Number,
     isDisable: Boolean,
-    isEdit: Boolean
+    isEdit: Boolean,
+    isResult: Boolean,
+    score: Number,
+    isDetail: Boolean
   },
   methods: {
     goToEdit () {
-      this.$router.push({
-        name: 'questionnairesEdit',
-        params: { questionnaireId: this.id }
-      })
+      if (this.isDisable) {
+        this.$router.push({
+          name: 'questionnairesEdit',
+          params: { questionnaireId: this.id }
+        })
+      }
     }
   },
   computed: {

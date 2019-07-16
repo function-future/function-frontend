@@ -1,10 +1,18 @@
 <template>
     <div class="questionnaire-card-outer" @click="$emit('click')" :class="{disabled:isDisable, edit:isEdit}">
       <div class="questionnaire-card-content">
-        <p><strong>{{ computedTitle }}</strong></p>
-        <p class="questionnaire-card-content-description">
-          {{ computedDescription }}
-        </p>
+        <div v-if="!isDetail" class="questionnaire-desc">
+          <p><strong>{{ computedTitle }}</strong></p>
+          <p class="questionnaire-card-content-description">
+            {{ computedDescription }}
+          </p>
+        </div>
+        <div v-else class="questionnaire-desc">
+          <p><strong class="detail">{{title}}</strong></p>
+          <p class="questionnaire-card-content-description">
+            {{ desc }}
+          </p>
+        </div>
         <div class="questionnaire-card-content-date">
           <div class="placeholder-start-date">
             Start Date : {{ computedStartDate }}
@@ -13,6 +21,10 @@
             Due Date : {{ computedDueDate }}
           </div>
         </div>
+      </div>
+      <div v-if="isResult" class="questionnaire-score">
+        <span><font-awesome-icon icon="star" size="3x" class="star-icon"></font-awesome-icon></span>
+        <span class="score-number"><strong>5.0/6.0</strong></span>
       </div>
       <div v-if="isEdit" class="questionnaire-edit">
         <div class="button-delete">
@@ -111,5 +123,24 @@
 
   .icon-delete {
     cursor: pointer;
+  }
+
+  .questionnaire-score {
+    display: flex;
+    flex-direction: column;
+    padding: 15px 15px 0px 0px;
+  }
+
+  .star-icon {
+    color: #f1c40f;
+  }
+
+  .score-number {
+    text-align: center;
+    padding-top: 10px;
+  }
+
+  .detail {
+    font-size: 2rem;
   }
 </style>
