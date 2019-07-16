@@ -83,6 +83,17 @@ describe('AssignmentRoom', () => {
     expect(spy).toBeCalledTimes(1)
   })
 
+  test('successFetchingRoomList', () => {
+    initComponent()
+    const paging = {
+      page: 1,
+      pageSize: 10,
+      totalRecords: 20
+    }
+    wrapper.vm.successFetchingRoomList(paging)
+    expect(wrapper.vm.paging).toEqual(paging)
+  })
+
   test('failFetchingRoomList', () => {
     initComponent()
     wrapper.vm.failFetchingRoomList()
@@ -91,6 +102,8 @@ describe('AssignmentRoom', () => {
 
   test('goToRoomDetail', () => {
     initComponent()
+    wrapper.vm.$route.params.batchCode = '1'
+    wrapper.vm.$route.params.assignmentId = 'ASG0001'
     wrapper.vm.$router.push = jest.fn()
     const room = {
       "id": "ROM0001",
@@ -123,7 +136,8 @@ describe('AssignmentRoom', () => {
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
       name: 'assignmentRoomDetail',
       params: {
-        id: 'ASG0001',
+        assignmentId: 'ASG0001',
+        batchCode: '1',
         roomId: 'ROM0001'
       }
     })

@@ -5,8 +5,8 @@
         <div class="detail-card__photo" :style="{backgroundImage: 'url('+room.student.avatar+')', backgroundSize: 'cover'}">
         </div>
         <div class="detail-card__title">
-          <span>{{room.student.name}}</span>
-          <span>{{room.student.university}}</span>
+          <span style="font-weight: bold; font-size: 15px">{{room.student.name}}</span>
+          <span style="font-weight: bold; font-size: 15px">{{room.student.university}}</span>
         </div>
       </div>
     </div>
@@ -29,7 +29,7 @@
     box-sizing: border-box;
     border-radius: 20px;
     width: 200px;
-    height: 300px;
+    height: 250px;
     margin: 15px 20px 20px 15px;
     &:hover {
       cursor: pointer;
@@ -38,7 +38,10 @@
     }
     &__photo {
       height: 80%;
-      border-bottom: 1px solid black;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.6);
+      -webkit-border-radius: 20px 20px 0 0;
+      -moz-border-radius: 20px 20px 0 0;
+      border-radius: 20px 20px 0 0;
       &__img {
         height: 100%;
       }

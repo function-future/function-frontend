@@ -74,8 +74,8 @@ module.exports = {
         list: '/batches/:batchCode/assignments',
         add: '/batches/:batchCode/assignments/add',
         rooms: {
-          list: '/batches/:batchCode/assignments/:id/rooms',
-          detail: '/batches/:batchCode/assignments/:id/rooms/:roomId'
+          list: '/batches/:batchCode/assignments/:assignmentId/rooms',
+          detail: '/batches/:batchCode/assignments/:assignmentId/rooms/:roomId'
         },
         detail: '/batches/:batchCode/assignments/:id/detail',
         batches: {
@@ -233,6 +233,14 @@ module.exports = {
           },
           update(batchCode, assignmentId, roomId) {
             return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/rooms/${roomId}`
+          },
+          comments: {
+            list(batchCode, assignmentId, roomId, page, pageSize) {
+              return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/rooms/${roomId}/comments?page=${page}&size=${pageSize}`
+            },
+            create(batchCode, assignmentId, roomId) {
+              return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/rooms/${roomId}/comments`
+            },
           }
         }
       },

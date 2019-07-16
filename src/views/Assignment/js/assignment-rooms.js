@@ -5,19 +5,15 @@ export default {
   name: 'AssignmentRooms',
   data () {
     return {
-
+      paging: {
+        page: 1,
+        size: 10,
+        totalRecords: 0
+      },
     }
   },
   created () {
-    this.fetchRoomList({
-      data: {
-        batchCode: '3',
-        assignmentId: 'ASG0001',
-        page: 1,
-        pageSize: 10
-      },
-      fail: this.failFetchingRoomList
-    })
+    this.initPage()
   },
   computed: {
     ...mapGetters([
@@ -28,6 +24,21 @@ export default {
     ...mapActions([
       'fetchRoomList'
     ]),
+    initPage () {
+      this.fetchRoomList({
+        data: {
+          batchCode: this.$route.params.batchCode,
+          assignmentId: this.$route.params.assignmentId,
+          page: this.paging.page,
+          pageSize: this.paging.size
+        },
+        callback: this.successFetchingRoomList,
+        fail: this.failFetchingRoomList
+      })
+    },
+    successFetchingRoomList (paging) {
+      this.paging = paging
+    },
     failFetchingRoomList () {
       this.$toasted.error('Something went wrong while fetching room list')
     },
@@ -35,7 +46,8 @@ export default {
       this.$router.push({
         name: 'assignmentRoomDetail',
         params: {
-          id: room.assignment.id,
+          batchCode: this.$route.params.batchCode,
+          assignmentId: this.$route.params.assignmentId,
           roomId: room.id
         }
       })

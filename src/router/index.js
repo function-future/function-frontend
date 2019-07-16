@@ -5,6 +5,7 @@ import assignmentBatchForm from '@/views/Assignment/AssignmentBatchForm'
 import assignments from '@/views/Assignment/Assignments'
 import addAssignment from '@/views/Assignment/AddAssignment'
 import assignmentRooms from '@/views/Assignment/AssignmentRooms'
+import assignmentRoomDetail from '@/views/Assignment/AssignmentRoomDetail'
 import assignmentDetail from '@/views/Assignment/AssignmentDetail'
 import questionBanks from '@/views/QuestionBank/QuestionBanks'
 import questionBankDetail from '@/views/QuestionBank/QuestionBankDetail'
@@ -599,9 +600,13 @@ const router = new Router({
     {
       path: config.app.pages.assignments.rooms.detail,
       name: 'assignmentRoomDetail',
-      component: quizDetail,
+      component: assignmentRoomDetail,
       meta: {
-        title: 'Assignment'
+        title: 'Room Detail',
+        breadcrumb: [
+          { name: 'Assignments', link: 'assignments' },
+          { name: 'Rooms', link: 'assignmentRooms' }
+        ]
       }
     },
     {
