@@ -5,7 +5,7 @@
           <BaseInput :label="titleLabel" class="input-title" v-model="value.title"></BaseInput>
         </div>
         <div class="questionnaire-desc-area">
-          <BaseTextArea :label="descriptionLabel" class="input-description" v-model="value.desc"></BaseTextArea>
+          <BaseTextArea :label="descriptionLabel" class="input-description" v-model="value.description"></BaseTextArea>
         </div>
         <div class="date-picker">
           <div class="start-date-container">
@@ -19,7 +19,7 @@
             <span> DUE DATE </span>
             <div class="due-date-placeholder">
               <span><font-awesome-icon icon="calendar-times" class="calendar-icon"></font-awesome-icon></span>
-              <datepicker v-model='value.dueDate'></datepicker>
+              <datepicker v-model="value.dueDate"></datepicker>
             </div>
           </div>
         </div>

@@ -16,6 +16,7 @@ import quizzes from './modules/quizzes'
 import questionBanks from './modules/question-banks'
 import points from './modules/points'
 import myQuestionnaires from './modules/my-questionnaire'
+import questionnaire from './modules/questionnaire'
 
 Vue.use(Vuex)
 
@@ -36,5 +37,6 @@ export default new Vuex.Store({
     questionBanks,
     points,
     myQuestionnaires,
+    questionnaire
   }
 })

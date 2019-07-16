@@ -352,9 +352,22 @@ module.exports = {
         }
       },
       questionnaire: {
+        getQuestionnaires (page, size) {
+          return `/api/communication/questionnaires?page=${page}&size=${size}`
+        },
+        createQuestionnaire () {
+          return `/api/communication/questionnaires`
+        },
         getQuestionnaire (questionnaireId) {
           return `/api/communication/questionnaires/${questionnaireId}`
+        },
+        updateQuestionnaire (questionnaireId) {
+          return `/api/communication/questionnaires/${questionnaireId}`
+        },
+        deleteQuestionnaire (questionnaireId) {
+          return `/api/communication/questionnaires/${questionnaireId}`
         }
+
       }
     }
   },

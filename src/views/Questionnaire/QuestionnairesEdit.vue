@@ -6,8 +6,10 @@
           <BaseButton button-class="button-save" class="button-save-desc">Save Description</BaseButton>
         </div>
         <hr>
-        <QuestionnaireForm :value="currentQuestionnaire"
-                           @input="(newValue) => { currentQuestionnaire = newValue}"
+        {{currentQuestionnaireAdmin}}
+        {{kucing}}
+        <QuestionnaireForm :value="kucing"
+                           @input="(newValue) => { kucing = newValue}"
         />
         <div class="title-placeholder">
           <h2>Questions</h2>
@@ -29,14 +31,14 @@
         </div>
         <hr>
         <div class="appraiser-container-list">
-          <QuestionnaireParticipantCard v-for="a in 10"
-                                        :name="appraisee.name"
-                                        :avatar="appraisee.avatar"
-                                        :role="appraisee.role"
-                                        :university="appraisee.university"
-                                        :batch="appraisee.batch"
-                                        :isEdit="true"
-          ></QuestionnaireParticipantCard>
+<!--          <QuestionnaireParticipantCard v-for="a in 10"-->
+<!--                                        :name="appraisee.name"-->
+<!--                                        :avatar="appraisee.avatar"-->
+<!--                                        :role="appraisee.role"-->
+<!--                                        :university="appraisee.university"-->
+<!--                                        :batch="appraisee.batch"-->
+<!--                                        :isEdit="true"-->
+<!--          ></QuestionnaireParticipantCard>-->
         </div>
         <div class="title-placeholder">
           <h2>Appraisee</h2>
@@ -44,14 +46,14 @@
         </div>
         <hr>
         <div class="appraisee-container-list">
-          <QuestionnaireParticipantCard v-for="a in 10"
-                                        :name="appraisee.name"
-                                        :avatar="appraisee.avatar"
-                                        :role="appraisee.role"
-                                        :university="appraisee.university"
-                                        :batch="appraisee.batch"
-                                        :isEdit="true"
-          ></QuestionnaireParticipantCard>
+<!--          <QuestionnaireParticipantCard v-for="a in 10"-->
+<!--                                        :name="appraisee.name"-->
+<!--                                        :avatar="appraisee.avatar"-->
+<!--                                        :role="appraisee.role"-->
+<!--                                        :university="appraisee.university"-->
+<!--                                        :batch="appraisee.batch"-->
+<!--                                        :isEdit="true"-->
+<!--          ></QuestionnaireParticipantCard>-->
         </div>
       </div>
     </div>

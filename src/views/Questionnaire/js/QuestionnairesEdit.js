@@ -2,6 +2,7 @@ import QuestionnaireForm from '../QuestionnaireForm'
 import QuestionCard from '../QuestionCard'
 import QuestionnaireParticipantCard from '../QuestionnaireParticipantCard'
 import BaseButton from '@/components/BaseButton'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 
 export default {
   name: 'QuestionnaireEdit',
@@ -13,9 +14,6 @@ export default {
   },
   data () {
     return {
-      currentQuestionnaire:{
-
-      },
       appraisee: {
         id: 'sample-id',
         name: 'ricky',
@@ -29,63 +27,49 @@ export default {
           id: 'question-id',
           description: 'Lorem-ipsum',
           score: 6.0
-        },
-        {
-          id: 'question-id1',
-          description: 'Lorem-ipsum',
-          score: 6.0
-        },
-        {
-          id: 'question-id2',
-          description: 'Lorem-ipsum',
-          score: 6.0
-        },
-        {
-          id: 'question-id3',
-          description: 'Lorem-ipsum',
-          score: 6.0
-        },
-        {
-          id: 'question-id',
-          description: 'Lorem-ipsum',
-          score: 6.0
-        },
-        {
-          id: 'question-id1',
-          description: 'Lorem-ipsum',
-          score: 6.0
-        },
-        {
-          id: 'question-id2',
-          description: 'Lorem-ipsum',
-          score: 6.0
-        },
-        {
-          id: 'question-id3',
-          description: 'Lorem-ipsum',
-          score: 6.0
-        },{
-          id: 'question-id',
-          description: 'Lorem-ipsum',
-          score: 6.0
-        },
-        {
-          id: 'question-id1',
-          description: 'Lorem-ipsum',
-          score: 6.0
-        },
-        {
-          id: 'question-id2',
-          description: 'Lorem-ipsum',
-          score: 6.0
-        },
-        {
-          id: 'question-id3',
-          description: 'Lorem-ipsum',
-          score: 6.0
         }
       ],
-      i: 1
+      i: 1,
+      currentQuestionnaire: {}
     }
+  },
+  computed: {
+    ...mapGetters([
+      'currentQuestionnaireAdmin'
+    ]),
+    kucing () {
+      console.log('kucing:',this.currentQuestionnaireAdmin)
+      return this.currentQuestionnaireAdmin
+    }
+  },
+  methods: {
+    ...mapActions([
+      'fetchCurrentQuestionnaireAdmin'
+    ]),
+    ...mapMutations([
+      'RESET_CURRENT_QUESTIONNAIRE',
+      'ASSIGN_CURRENT_QUESTIONNAIRE',
+      'RESET_CURRENT_QUESTIONS',
+      'PUSH_CURRENT_QUESTIONS',
+      'RESET_CURRENT_APPRAISEE',
+      'PUSH_CURRENT_APPRAISEE',
+      'RESET_CURRENT_APPRAISER',
+      'PUSH_CURRENT_APPRAISER'
+    ])
+  },
+  created () {
+    this.fetchCurrentQuestionnaireAdmin({
+      data: {
+        params: {
+          questionnaireId: this.$route.params.questionnaireId
+        }
+      },
+      fail: (err) => {
+        console.log(err)
+      }
+    })
+    Object.assign(this.currentQuestionnaire, this.currentQuestionnaireAdmin)
+    console.log(this.currentQuestionnaireAdmin)
+    console.log(this.kucing)
   }
 }

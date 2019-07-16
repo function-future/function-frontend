@@ -9,6 +9,17 @@ const getQuestionnaire = function (callback, error, data) {
   )
 }
 
+const createQuestionnaire = function (callback, error, data) {
+  request.postRequest(
+    config.api.communication.questionnaire.createQuestionnaire(),
+    callback,
+    data.body,
+    error
+  )
+}
+
 export default {
-  getQuestionnaire
+  getQuestionnaire,
+  createQuestionnaire
+
 }
