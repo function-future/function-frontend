@@ -74,7 +74,7 @@ export default {
       this.$toasted.error('Fail to load sticky note detail, , please refresh the page')
     },
     setStickyNote () {
-      this.stickyNote = { ...this.stickyNotes }
+      this.stickyNote = { ...this.stickyNotes[0] }
     },
     validateBeforeSubmit (callback) {
       this.$validator.validateAll().then(callback)

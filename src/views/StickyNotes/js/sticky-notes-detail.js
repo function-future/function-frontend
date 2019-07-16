@@ -16,7 +16,7 @@ export default {
       'accessList'
     ]),
     stickyNotesDescription () {
-      return this.stickyNotes.description[0] || 'Insert Sticky Notes Here...'
+      return this.stickyNotes[0].description || 'Insert Sticky Notes Here...'
     },
     stickyNoteCompiledMarkdown () {
       return marked(this.stickyNotesDescription)
