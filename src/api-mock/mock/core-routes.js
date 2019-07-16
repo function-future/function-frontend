@@ -67,6 +67,14 @@ export const profile = [
         'university': 'Bina Nusantara University'
       }
     }
+  },
+  {
+    method: 'PUT',
+    url: '/api/core/user/password',
+    response: {
+      'code': 200,
+      'status': 'OK'
+    }
   }
 ]
 
