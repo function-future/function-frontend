@@ -1,7 +1,9 @@
 import store from '@/store/modules/user'
 import api from '@/api/controller/user'
+import resourceApi from '@/api/controller/resources'
 
 jest.mock('@/api/controller/user')
+jest.mock('@/api/controller/resources')
 
 describe('courses store module', () => {
   test('Sanity test', () => {
@@ -58,6 +60,48 @@ describe('courses store module', () => {
       const callback = jest.fn()
       const fail = jest.fn()
       store.actions.changePassword({ commit }, { data, callback, fail })
+      expect(fail).not.toHaveBeenCalled()
+      expect(callback).toHaveBeenCalledTimes(1)
+    })
+
+    test('uploadProfilePicture', () => {
+      resourceApi.uploadResource = (success) => {
+        success({
+          'code': 200,
+          'status': 'OK',
+          'data': {}
+        })
+      }
+      const data = {
+        origin: 'user'
+      }
+      const state = jest.fn()
+      const fail = jest.fn()
+      const callback = jest.fn()
+      const configuration = {}
+      store.actions.uploadProfilePicture({ state }, { data, configuration, callback, fail })
+      expect(fail).not.toBeCalled()
+      expect(callback).toBeCalledTimes(1)
+    })
+
+    test('sendProfilePictureId ', () => {
+      const expectedData = {
+        'code': 200,
+        'status': 'OK',
+        'data': {
+          avatar: ['sample-id']
+        }
+      }
+      api.updateProfilePicture = (success) => {
+        success(expectedData)
+      }
+      const data = {
+        avatar: ['sample-id']
+      }
+      const commit = jest.fn()
+      const callback = jest.fn()
+      const fail = jest.fn()
+      store.actions.sendProfilePictureId({ commit }, { data, callback, fail })
       expect(fail).not.toHaveBeenCalled()
       expect(callback).toHaveBeenCalledTimes(1)
     })
