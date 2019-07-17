@@ -583,7 +583,7 @@ export const activityBlogDetail = [
 export const resources = [
   {
     method: 'POST',
-    url: '/api/core/resources?source=activity-blog',
+    url: '/api/core/resources?origin=activity-blog',
     response: {
       'code': 201,
       'status': 'CREATED',
@@ -599,7 +599,23 @@ export const resources = [
   },
   {
     method: 'POST',
-    url: '/api/core/resources?source=course',
+    url: '/api/core/resources?origin=course',
+    response: {
+      'code': 201,
+      'status': 'CREATED',
+      'data': {
+        'id': 'sample-id',
+        'name': 'File Name',
+        'file': {
+          'full': 'https://i.pinimg.com/originals/8c/cf/ec/8ccfec7d5cb3c92265cbf153523eb9b5.jpg',
+          'thumbnail': null
+        }
+      }
+    }
+  },
+  {
+    method: 'POST',
+    url: '/api/core/resources?origin=user',
     response: {
       'code': 201,
       'status': 'CREATED',
