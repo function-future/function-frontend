@@ -27,6 +27,11 @@ export const actions = {
     resourceApi.uploadResource(({ data: response }) => {
       callback(response)
     }, data, fail, configuration)
+  },
+  sendProfilePictureId ({ commit }, { data, callback, fail }) {
+    api.updateProfilePicture(({ data: response }) => {
+      callback(response)
+    }, data, fail)
   }
 }
 
