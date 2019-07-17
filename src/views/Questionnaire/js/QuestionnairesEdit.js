@@ -3,6 +3,7 @@ import QuestionCard from '../QuestionCard'
 import QuestionnaireParticipantCard from '../QuestionnaireParticipantCard'
 import BaseButton from '@/components/BaseButton'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
+import questionnaireApi from '@/api/controller/questionnaire'
 
 export default {
   name: 'QuestionnaireEdit',
@@ -27,6 +28,16 @@ export default {
           id: 'question-id',
           description: 'Lorem-ipsum',
           score: 6.0
+        },
+        {
+          id: 'question-id2',
+          description: 'Lorem-ipsum1',
+          score: 6.0
+        },
+        {
+          id: 'question-id3',
+          description: 'Lorem-ipsum2',
+          score: 6.0
         }
       ],
       i: 1,
@@ -36,26 +47,68 @@ export default {
   computed: {
     ...mapGetters([
       'currentQuestionnaireAdmin'
-    ]),
-    kucing () {
-      console.log('kucing:',this.currentQuestionnaireAdmin)
-      return this.currentQuestionnaireAdmin
-    }
+    ])
   },
   methods: {
     ...mapActions([
-      'fetchCurrentQuestionnaireAdmin'
+      'fetchCurrentQuestionnaireAdmin',
+      'setCurrentQuestionnaireAdmin'
     ]),
     ...mapMutations([
-      'RESET_CURRENT_QUESTIONNAIRE',
-      'ASSIGN_CURRENT_QUESTIONNAIRE',
+      'RESET_CURRENT_QUESTIONNAIRE_ADMIN',
+      'ASSIGN_CURRENT_QUESTIONNAIRE_ADMIN',
       'RESET_CURRENT_QUESTIONS',
       'PUSH_CURRENT_QUESTIONS',
       'RESET_CURRENT_APPRAISEE',
       'PUSH_CURRENT_APPRAISEE',
       'RESET_CURRENT_APPRAISER',
       'PUSH_CURRENT_APPRAISER'
-    ])
+    ]),
+    setCurrentQuestionnaire (data) {
+      this.setCurrentQuestionnaireAdmin({
+        data: data
+      })
+    },
+    goToUpdateDescription () {
+      console.log('send update')
+      if (this.currentQuestionnaireAdmin.title === ' ' || this.currentQuestionnaireAdmin.description === ' ') {
+        this.$toasted.error(' title and description must be filled')
+      } else if (this.currentQuestionnaireAdmin.startDate >= this.currentQuestionnaireAdmin.dueDate) {
+        this.$toasted.error('due date should greater than start date ')
+      } else if (this.currentQuestionnaireAdmin.startDate === this.currentQuestionnaireAdmin.dueDate) {
+        this.$toasted.error('due date should not same with start date ')
+      } else if (this.currentQuestionnaireAdmin.startDate < new Date().setHours(0, 0, 0, 0)) {
+        this.$toasted.error('start date should greater than yesterday  ')
+      } else {
+        questionnaireApi.updateQuestionnaire(response => {
+          this.setCurrentQuestionnaire(response.data)
+          this.$toasted.success('succeess update')
+        }, this.submitMessageErrorCallback,
+        {
+          params: {
+            questionnaireId: this.$route.params.questionnaireId
+          },
+          body: {
+            title: this.currentQuestionnaireAdmin.title,
+            desc: this.currentQuestionnaireAdmin.description,
+            startDate: isNaN(Date.parse(this.currentQuestionnaireAdmin.startDate)) ? this.currentQuestionnaireAdmin.startDate : this.currentQuestionnaireAdmin.startDate.getTime() ,
+            dueDate: isNaN(Date.parse(this.currentQuestionnaireAdmin.dueDate)) ? this.currentQuestionnaireAdmin.dueDate : this.currentQuestionnaireAdmin.dueDate.getTime()
+          }
+        })
+      }
+    },
+    submitMessageErrorCallback (err) {
+      this.resetProps()
+      console.log(err)
+      this.$toasted.error('Fail to createQuestionnaire')
+    },
+    AlertEdit (question) {
+      alert('this one edit')
+      console.log(question)
+    },
+    AlertDelete () {
+      alert('this one delete')
+    }
   },
   created () {
     this.fetchCurrentQuestionnaireAdmin({
@@ -68,8 +121,5 @@ export default {
         console.log(err)
       }
     })
-    Object.assign(this.currentQuestionnaire, this.currentQuestionnaireAdmin)
-    console.log(this.currentQuestionnaireAdmin)
-    console.log(this.kucing)
   }
 }

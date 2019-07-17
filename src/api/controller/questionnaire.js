@@ -1,6 +1,14 @@
 import config from '../../config/index'
 import request from '../default-request'
 
+const getQuestionnaires = function (callback, error, data) {
+  request.getRequest(
+    config.api.communication.questionnaire.getQuestionnaires(data.page, data.size),
+    callback,
+    error
+  )
+}
+
 const getQuestionnaire = function (callback, error, data) {
   request.getRequest(
     config.api.communication.questionnaire.getQuestionnaire(data.params.questionnaireId),
@@ -17,9 +25,27 @@ const createQuestionnaire = function (callback, error, data) {
     error
   )
 }
+const updateQuestionnaire = function (callback, error, data) {
+  request.putRequest(
+    config.api.communication.questionnaire.updateQuestionnaire(data.params.questionnaireId),
+    callback,
+    data.body,
+    error
+  )
+}
+
+const deleteQuestionnaire = function (callback, error, data) {
+  request.deleteRequest(
+    config.api.communication.questionnaire.deleteQuestionnaire(data.params.questionnaireId),
+    callback,
+    error
+  )
+}
 
 export default {
+  getQuestionnaires,
   getQuestionnaire,
-  createQuestionnaire
-
+  createQuestionnaire,
+  updateQuestionnaire,
+  deleteQuestionnaire
 }

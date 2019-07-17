@@ -366,9 +366,63 @@ module.exports = {
         },
         deleteQuestionnaire (questionnaireId) {
           return `/api/communication/questionnaires/${questionnaireId}`
+        },
+        getAppraiseeQuestionnaire (questionnaireId, page, size) {
+          return `/api/ccommunication/questionnaires/${questionnaireId}/appraisee?page=${page}&size=${size}`
+        },
+        addAppraisee (questionnaireId) {
+          return `/api/communication/questionnaires/${questionnaireId}/appraisee`
+        },
+        deleteAppraisee (questionnaireId, questionnaireparticipantId) {
+          return `/api/communication/questionnaires/${questionnaireId}/appraisee/${questionnaireparticipantId}`
+        },
+        getAppraiserQuestionnaire (questionnaireId, page, size) {
+          return `/api/ccommunication/questionnaires/${questionnaireId}/appraiser?page=${page}&size=${size}`
+        },
+        addAppraiser (questionnaireId) {
+          return `/api/communication/questionnaires/${questionnaireId}/appraiser`
+        },
+        deleteAppraiser (questionnaireId, questionnaireparticipantId) {
+          return `/api/communication/questionnaires/${questionnaireId}/appraiser/${questionnaireparticipantId}`
+        },
+        getQuestionsQuestionnaire (questionnaireId) {
+          return `/api/ccommunication/questionnaires/${questionnaireId}/questions`
+        },
+        createQuestionQuestionnaire (questionnaireId) {
+          return `/api/ccommunication/questionnaires/${questionnaireId}/questions`
+        },
+        updateQuestionQuestionnaire (questionnaireId, questionId) {
+          return `/api/ccommunication/questionnaires/${questionnaireId}/questions/${questionId}`
+        },
+        deleteQuestionQuestionnaire (questionnaireId, questionId) {
+          return `/api/ccommunication/questionnaires/${questionnaireId}/questions/${questionId}`
         }
-
+      },
+      questionnaireResponse: {
+        getQuestionnaireSimpleSummary (appraiseeId, page, size) {
+          return `/api/communication/questionniare-response?appraiseeId=${appraiseeId}&page=${page}&size=${size}`
+        },
+        getQuestionnaireSummaryDetail (questionnaireResponseSummaryId) {
+          return `/api/communication/questionniare-response/${questionnaireResponseSummaryId}`
+        },
+        getQuestionSummaryResponse (questionnaireResponseSummaryId, appraiseeId) {
+          return `/api/communication/questionniare-response/${questionnaireResponseSummaryId}/questions/${appraiseeId}`
+        }
+      },
+      questionnaireResults: {
+        getUserSummary (batchId, page, size) {
+          return `/api/communication/questionnaire-results?batchId=${batchId}&page=${page}&size=${size}`
+        }
+      },
+      questionResponse: {
+        getQuestionQuestionnaireSummaryResponse (questionResponseSummaryId) {
+          return `/api/communication/question-response/${questionResponseSummaryId}`
+        },
+        getQuestionnaireAnswerDetailSummary (questionResponseSummaryId) {
+          return `/api/communication/question-response/${questionResponseSummaryId}/responses`
+        }
       }
+
     }
   },
   dev: {

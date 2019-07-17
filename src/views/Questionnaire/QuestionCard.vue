@@ -1,6 +1,6 @@
 <template>
   <div class="question-outer" @click="$emit('click')" :class="{clickAble:isResult}">
-    <BaseCard class="question-container">
+    <BaseCard class="question-container" >
       <div class="question-number">
         {{ number }}
       </div>
@@ -8,14 +8,15 @@
         {{ description }}
       </div>
       <div v-if="isEdit" class="question-delete">
-        <span> <font-awesome-icon icon="times" class="icon-delete"></font-awesome-icon>
-        </span>
+        <span> <font-awesome-icon @click="$emit('clickDelete')" icon="times" class="icon-delete"></font-awesome-icon></span>
+        <span> <font-awesome-icon @click="$emit('clickEdit')" icon="pencil-alt" class="icon-edit"></font-awesome-icon></span>
       </div>
       <div v-if="isResult" class="score-placeholder">
         <span><font-awesome-icon icon="star" size="2x" class="star-icon"></font-awesome-icon></span>
         <span class="score-number"><strong>{{score}}/6</strong></span>
       </div>
     </BaseCard>
+
   </div>
 </template>
 
@@ -68,5 +69,9 @@
 
   .icon-delete {
     font-size: 2rem;
+  }
+
+  .icon-edit {
+    font-size: 1.5rem;
   }
 </style>

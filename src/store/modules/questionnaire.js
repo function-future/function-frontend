@@ -1,6 +1,7 @@
 import questionnaireApi from '@/api/controller/questionnaire'
 
 export const state = {
+  listQuestionnaires: [],
   currentQuestionnaireAdmin: {},
   currentQuestions: [],
   currentAppraisee: [],
@@ -8,6 +9,12 @@ export const state = {
 }
 
 export const mutations = {
+  RESET_LIST_QUESTIONNAIRES (state) {
+    state.listQuestionnaires = []
+  },
+  PUSH_LIST_QUESTIONNAIRES (state, payload) {
+    state.listQuestionnaires.push(...payload)
+  },
   RESET_CURRENT_QUESTIONNAIRE_ADMIN (state) {
     state.currentQuestionnaireAdmin = {}
   },
@@ -35,11 +42,20 @@ export const mutations = {
 }
 
 export const actions = {
+  fetchListQuestionnaires ({ state, commit }, { data, fail }) {
+    questionnaireApi.getQuestionnaires(response => {
+      commit('RESET_LIST_QUESTIONNAIRES')
+      commit('PUSH_LIST_QUESTIONNAIRES', response.data)
+    }, fail, data)
+  },
   fetchCurrentQuestionnaireAdmin ({ state, commit }, { data, fail }) {
     questionnaireApi.getQuestionnaire(response => {
       commit('RESET_CURRENT_QUESTIONNAIRE_ADMIN')
       commit('ASSIGN_CURRENT_QUESTIONNAIRE_ADMIN', response.data)
     }, fail, data)
+  },
+  setCurrentQuestionnaireAdmin ({ commit }, { data }) {
+    commit('ASSIGN_CURRENT_QUESTIONNAIRE_ADMIN', data)
   },
   fetchCurrentQuestions ({ state, commit }, { data, fail }) {
 
@@ -53,6 +69,9 @@ export const actions = {
 }
 
 export const getters = {
+  listQuestionnaires (state) {
+    return state.listQuestionnaires
+  },
   currentQuestionnaireAdmin (state) {
     return state.currentQuestionnaireAdmin
   },

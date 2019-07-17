@@ -10,13 +10,15 @@
         </div>
       </div>
       <div class="questionnaire-list-container">
-        <QuestionnaireCard v-for="myQuestionnaire in 20"
-                           :title="myQuestionnaire.toString()"
-                           :desc="myQuestionnaire.toString()"
-                           :startDate="myQuestionnaire"
-                           :dueDate="myQuestionnaire"
+        <QuestionnaireCard v-for="myQuestionnaire in listQuestionnaires"
+                           :id="myQuestionnaire.id"
+                           :title="myQuestionnaire.title"
+                           :description="myQuestionnaire.description"
+                           :startDate="myQuestionnaire.startDate"
+                           :dueDate="myQuestionnaire.dueDate"
                            :isEdit="true"
                            :isDisable="false"
+                           @clickDelete="deleteQuestionnaireWithId(myQuestionnaire.id)"
         ></QuestionnaireCard>
       </div>
     </div>

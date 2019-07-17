@@ -10,7 +10,7 @@
         <div v-else class="questionnaire-desc">
           <p><strong class="detail">{{title}}</strong></p>
           <p class="questionnaire-card-content-description">
-            {{ desc }}
+            {{ description }}
           </p>
         </div>
         <div class="questionnaire-card-content-date">
@@ -28,7 +28,7 @@
       </div>
       <div v-if="isEdit" class="questionnaire-edit">
         <div class="button-delete">
-          <span><font-awesome-icon icon="times"></font-awesome-icon></span>
+          <span><font-awesome-icon @click="$emit('clickDelete')" icon="times"></font-awesome-icon></span>
         </div>
         <div class="button-create">
           <BaseButton type="submit" class="button-create" buttonClass="button-save" @click="goToEdit">Edit</BaseButton>

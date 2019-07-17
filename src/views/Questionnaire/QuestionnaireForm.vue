@@ -12,14 +12,14 @@
             <span> START DATE </span>
             <div class="start-date-placeholder">
               <span><font-awesome-icon icon="calendar-check" class="calendar-icon"></font-awesome-icon></span>
-              <datepicker v-model="value.startDate"></datepicker>
+              <datepicker placeholder="select Date" v-model="value.startDate"></datepicker>
             </div>
           </div>
           <div class="due-date-container">
             <span> DUE DATE </span>
             <div class="due-date-placeholder">
               <span><font-awesome-icon icon="calendar-times" class="calendar-icon"></font-awesome-icon></span>
-              <datepicker v-model="value.dueDate"></datepicker>
+              <datepicker placeholder="select Date" v-model="value.dueDate"></datepicker>
             </div>
           </div>
         </div>
@@ -34,8 +34,7 @@
   .card-container {
     display: flex;
     padding: 10px;
-    margin : 0px;
-    margin-top: 20px;
+    margin : 20px 0px 0px 0px;
     height: 60vh;
     flex-direction: column;
     max-width: 800px;

@@ -3,13 +3,12 @@
       <div class="questionnaire-edit-container">
         <div class="title-placeholder">
           <h2>Description</h2>
-          <BaseButton button-class="button-save" class="button-save-desc">Save Description</BaseButton>
+          <BaseButton button-class="button-save" class="button-save-desc" @click="goToUpdateDescription">Save Description</BaseButton>
         </div>
         <hr>
-        {{currentQuestionnaireAdmin}}
-        {{kucing}}
-        <QuestionnaireForm :value="kucing"
-                           @input="(newValue) => { kucing = newValue}"
+<!--        {{currentQuestionnaireAdmin}}-->
+        <QuestionnaireForm :value="currentQuestionnaireAdmin"
+                           @input="(newValue) => { setCurrentQuestionnaire(newValue) }"
         />
         <div class="title-placeholder">
           <h2>Questions</h2>
@@ -17,12 +16,14 @@
         </div>
         <hr>
         <div class="question-container-list">
-          <QuestionCard v-for="question in questions"
-                        :key="question.id"
-                        :number="i++"
+          <QuestionCard v-for="(question, index) in questions"
+                        :id="question.id"
+                        :number="index+1"
                         :description="question.description"
                         :score="question.score"
                         :isEdit="true"
+                        @clickEdit="AlertEdit(question)"
+                        @clickDelete="AlertDelete(question)"
           ></QuestionCard>
         </div>
         <div class="title-placeholder">
@@ -85,11 +86,13 @@
   .question-container-list,
   .appraiser-container-list,
   .appraisee-container-list {
-    height: 75vh;
+    height: auto;
+    max-height: 75vh;
     overflow: auto;
-    max-width: 100%;
+    max-width: 95%;
+    padding: 0% 2.5%;
   }
-  
+
   .title-placeholder {
     display: flex;
     align-items: baseline;

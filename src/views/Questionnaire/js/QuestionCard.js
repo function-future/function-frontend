@@ -18,5 +18,10 @@ export default {
       // descriptionQuestion: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ac fermentum velit. Aliquam ligula lacus, faucibus vitae auctor a, mattis vitae est. In hac habitasse platea dictumst. Ut efficitur metus.'
       descriptionQuestion: 'abcd'
     }
+  },
+  methods: {
+    testAlert () {
+      alert('click')
+    }
   }
 }

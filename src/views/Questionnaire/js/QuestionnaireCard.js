@@ -11,11 +11,10 @@ export default {
   },
   props: {
     id: {
-      type: String,
-      default: 'testestes'
+      type: String
     },
     title: String,
-    desc: String,
+    description: String,
     startDate: Number,
     dueDate: Number,
     isDisable: Boolean,
@@ -43,10 +42,10 @@ export default {
       }
     },
     computedDescription () {
-      if (this.desc.length > MAX_CHAR_DESCRIPTION) {
-        return this.desc.substring(0, MAX_CHAR_DESCRIPTION).concat('...')
+      if (this.description.length > MAX_CHAR_DESCRIPTION) {
+        return this.description.substring(0, MAX_CHAR_DESCRIPTION).concat('...')
       } else {
-        return this.desc
+        return this.description
       }
     },
     computedStartDate () {

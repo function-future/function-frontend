@@ -8,7 +8,7 @@
       </div>
       <div class="questionnaire-create-content">
         <QuestionnaireForm :value="questionnaire"
-                           @input="(newValue) => { questionnaire = newValue}"
+                           @input="(newValue) => { setCurrentQuestionnaire(newValue) }"
         />
       </div>
     </div>

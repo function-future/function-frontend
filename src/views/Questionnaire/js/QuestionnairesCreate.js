@@ -11,25 +11,25 @@ export default {
   data () {
     return {
       questionnaire: {
-        title: 'Test',
-        description: 'Testing12345',
-        startDate: new Date(1563357900000),
-        dueDate: new Date(1563444300000)
+        title: ' ',
+        description: ' ',
+        startDate: null,
+        dueDate: null
       }
     }
   },
   methods: {
     goToCreate () {
-      console.log(this.questionnaire.startDate.getTime())
-      console.log(this.questionnaire.dueDate.getTime())
-      if (this.questionnaire.startDate >= this.questionnaire.dueDate) {
+      if (this.questionnaire.title === ' ' || this.questionnaire.description === ' ') {
+        this.$toasted.error(' title and description must be filled')
+      } else if (this.questionnaire.startDate > this.questionnaire.dueDate) {
         this.$toasted.error('due date should greater than start date ')
+      } else if (this.questionnaire.startDate === this.questionnaire.dueDate) {
+        this.$toasted.error('due date should not same with start date ')
       } else if (this.questionnaire.startDate < new Date().setHours(0, 0, 0, 0)) {
         this.$toasted.error('start date should greater than yesterday  ')
       } else {
         questionnaireApi.createQuestionnaire(response => {
-          this.resetProps()
-          console.log(response.data)
           this.$router.push({
             name: 'questionnairesEdit',
             params: {
@@ -50,18 +50,25 @@ export default {
     resetProps () {
       this.questionnaire.title = ''
       this.questionnaire.description = ''
-      this.questionnaire.startDate = new Date()
-      this.questionnaire.dueDate = new Date()
+      this.questionnaire.startDate = null
+      this.questionnaire.dueDate = null
     },
     submitMessageErrorCallback (err) {
       this.resetProps()
       console.log(err)
       this.$toasted.error('Fail to createQuestionnaire')
+    },
+    setCurrentQuestionnaire (data) {
+      this.questionnaire = data
+      console.log('update :', this.questionnaire)
     }
   },
   watch: {
     questionnaire: function (val) {
       this.questionnaire = val
     }
+  },
+  created () {
+    console.log('B', this.questionnaire)
   }
 }
