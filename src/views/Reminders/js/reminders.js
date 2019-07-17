@@ -57,6 +57,7 @@ export default {
     },
     errorCallback (err) {
       console.log(err)
+      this.$toasted.error('Something went wrong')
     },
     removeHandler (reminderId) {
       reminderApi.deleteReminder(response => {
