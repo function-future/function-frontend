@@ -141,7 +141,8 @@ module.exports = {
       },
       profile: {
         get: '/api/core/user/profile',
-        change_password: '/api/core/user/password'
+        change_password: '/api/core/user/password',
+        updateProfilePicture: '/api/core/user/profile/picture'
       },
       activityBlogs: {
         get (page, size) { return `/api/core/activity-blogs?page=${page}&size=${size}` },
