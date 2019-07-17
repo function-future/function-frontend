@@ -345,6 +345,31 @@ module.exports = {
         updateReadStatus(chatroomId, messageId) {
           return `/api/communication/chatrooms/${chatroomId}/messages/${messageId}/_read`
         }
+      },
+      notifications: {
+        list (page, size) {
+          return `/api/communication/notifications?page=${page}&size=${size}`
+        },
+        create: `/api/communication/notifications`,
+        getTotalUnseen: `/api/communication/notifications/_unseen_total`,
+        readNotification (notificationId) {
+          return `/api/communication/notifications/${notificationId}/_read`
+        }
+      },
+      reminders: {
+        list (page, size) {
+          return `/api/communication/reminders?page=${page}&size=${size}`
+        },
+        create: `/api/communication/reminders`,
+        get (reminderId) {
+          return `/api/communication/reminders/${reminderId}`
+        },
+        update (reminderId) {
+          return `/api/communication/reminders/${reminderId}`
+        },
+        delete (reminderId) {
+          return `/api/communication/reminders/${reminderId}`
+        }
       }
     }
   },
