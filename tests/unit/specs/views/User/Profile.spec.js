@@ -128,4 +128,86 @@ describe('UserForm', () => {
     wrapper.vm.goToChangePassword()
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'changePassword' })
   })
+
+  test('onFileChange image > 1MB', () => {
+    initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'imageUpload')
+    const e = {
+      target: {
+        files: [
+          {
+            name: 'test.png',
+            size: 2000000,
+            type: 'image/png'
+          }
+        ]
+      }
+    }
+    wrapper.vm.onFileChange(e)
+    expect(wrapper.vm.maximumSizeAlert).toEqual(true)
+  })
+
+  test('onFileChange image <= 1 MB', () => {
+    initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'imageUpload')
+    const e = {
+      target: {
+        files: [
+          {
+            name: 'test.png',
+            size: 10000,
+            type: 'image/png'
+          }
+        ]
+      }
+    }
+    wrapper.vm.onFileChange(e)
+    expect(wrapper.vm.maximumSizeAlert).toEqual(false)
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('successUploadProfilePicture', () => {
+    const response = {
+      file: {
+        full: 'image'
+      }
+    }
+    initComponent()
+    wrapper.vm.successUploadProfilePicture(response)
+    expect(wrapper.vm.newAvatar).toEqual(response)
+  })
+
+  test('failUploadProfilePicture', () => {
+    initComponent()
+    wrapper.vm.failUploadProfilePicture()
+    expect(wrapper.vm.$toasted.error).toBeCalledTimes(1)
+  })
+
+  test('imageUpload', () => {
+    initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'uploadProfilePicture')
+    wrapper.vm.imageUpload()
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('sendUpdatedProfilePictureId', () => {
+    initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'sendProfilePictureId')
+    wrapper.vm.sendUpdatedProfilePictureId()
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('successSendProfilePictureId', () => {
+    initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'initPage')
+    wrapper.vm.successSendProfilePictureId()
+    expect(wrapper.vm.showModalChangeProfilePicture).toEqual(false)
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('failSendProfilePictureId', () => {
+    initComponent()
+    wrapper.vm.failSendProfilePictureId()
+    expect(wrapper.vm.$toasted.error).toBeCalledTimes(1)
+  })
 })
