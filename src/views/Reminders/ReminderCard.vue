@@ -1,5 +1,5 @@
 <template>
-  <BaseCard cardClass="custom-card" class="reminder__element-card">
+  <BaseCard @click="$emit('click', reminder.id)" cardClass="custom-card" class="reminder__element-card">
     <div class="reminder__element-card__wrapper">
       <div class="reminder__element-card__content">
         <h3>{{ reminder.title }}</h3>
@@ -7,7 +7,7 @@
         <p class="reminder__element-card__content__time"><font-awesome-icon :icon="['far', 'clock']" size="lg"></font-awesome-icon> &nbsp; {{ formatDay(reminder) }} at {{ reminder.time }}</p>
         <p class="reminder__element-card__content__user"><font-awesome-icon icon="user" size="lg"></font-awesome-icon> &nbsp; {{ reminder.memberCount + ' ' + (reminder.memberCount > 1 ? 'Members': 'Member') }}</p>
       </div>
-      <font-awesome-icon icon="times" class="reminder__element-card__close-btn"></font-awesome-icon>
+      <font-awesome-icon @click="$emit('remove', reminder.id)" icon="times" class="reminder__element-card__close-btn"></font-awesome-icon>
     </div>
   </BaseCard>
 </template>
@@ -40,6 +40,10 @@
     font-size: 1.5rem;
     align-self: center;
     cursor: pointer;
+  }
+
+  .reminder__element-card__close-btn:hover {
+    color: #DB2323;
   }
 
   .reminder__element-card__content {

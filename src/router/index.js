@@ -640,8 +640,7 @@ const router = new Router({
       meta: {
         title: 'Reminder Detail',
         auth: true
-      },
-      props: true
+      }
     },
     {
       path: config.app.pages.reminders.edit,
@@ -651,7 +650,7 @@ const router = new Router({
         title: 'Edit Reminder',
         auth: true
       },
-      props: true
+      props: { editMode: true }
     },
     {
       path: config.app.pages.reminders.create,
@@ -661,7 +660,7 @@ const router = new Router({
         title: 'Create Reminder',
         auth: true
       },
-      props: true
+      props: { editMode: true }
     }
   ]
 })

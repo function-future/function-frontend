@@ -13,7 +13,7 @@ export default {
     },
     formatDay (reminder) {
       if (reminder.isRepeatedMonthly) {
-        return 'Every ' + reminder.monthlyDate + ' Monthly'
+        return 'Every month on ' + reminder.monthlyDate
       } else {
         if (reminder.repeatDays.length === 7) {
           return 'Every day'
