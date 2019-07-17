@@ -75,6 +75,17 @@ export const profile = [
       'code': 200,
       'status': 'OK'
     }
+  },
+  {
+    method: 'PUT',
+    url: '/api/core/user/profile/picture',
+    response: {
+      'code': 200,
+      'status': 'OK',
+      'data': {
+        'avatar': ['sample-id']
+      }
+    }
   }
 ]
 
