@@ -999,3 +999,184 @@ export const points = [
     }
   }
 ]
+
+export const finalJudging = [
+  {
+    method: 'GET',
+    url: '/api/scoring/judgings?page=1&size=10',
+    response: {
+      "code" : 200,
+      "status" : "OK",
+      "data" : [
+        {
+          "id" : "FNC0001",
+          "title" : "Final Comparison #1",
+          "description" : "Final Comparison of Students",
+          "studentCount" : 4,
+          "uploadedDate" : 15000000000,
+          "usedAt" : 15000000000
+        },
+        {
+          "id" : "FNC0002",
+          "title" : "Final Comparison #2",
+          "description" : "Final Comparison of Students",
+          "studentCount" : 3,
+          "uploadedDate" : 15000000000,
+          "usedAt" : 15000000000
+        }
+      ]
+    }
+  },
+  {
+    method: 'POST',
+    url: '/api/scoring/judgings',
+    response:
+      {
+        "code": 201,
+        "status": "CREATED",
+        "data": {
+          "id": "FNC0001",
+          "name": "Final Comparison #1",
+          "description": "Final Comparison Decription #1",
+          "students": [
+            "SDT0001",
+            "SDT0002",
+            "SDT0003"
+          ],
+          "usedAt": 15000000000,
+          "uploadedDate": 15000000000
+        }
+      }
+  }
+]
+
+export const finalJudgingDetail = [
+  {
+    method: 'GET',
+    url: '/api/scoring/batches/1/judgings/FNC0001',
+    response: {
+      "code": 200,
+      "status": "OK",
+      "data": {
+        "id": "FNC0001",
+        "title": "Final Comparison 1",
+        "description": "Final Comparison of Students",
+        "usedAt": 15000000000,
+        "studentCount": 3
+      }
+    }
+  },
+  {
+    method: 'PUT',
+    url: '/api/scoring/batches/1/judgings/FNC0001',
+    response:
+      {
+        "code": 200,
+        "status": "OK",
+        "data": {
+          "id": "FNC0001",
+          "title": "Final Comparison 1",
+          "description": "Final Comparison of Students",
+          "usedAt": 150000000,
+          "students": [
+            "USR0001",
+            "USR0002",
+            "USR0003"
+          ]
+        }
+      }
+  },
+  {
+    method: 'DELETE',
+    url: '/api/scoring/batches/1/judgings/FNC0001',
+    response: {
+      "code": 200,
+      "status": "OK"
+    }
+  }
+]
+
+export const finalJudgingComparisons = [
+  {
+    method: 'GET',
+    url: '/api/scoring/batches/1/final-judgings/FNC0001/comparison',
+    response: {
+      "code": 200,
+      "status": "OK",
+      "data" : [
+        {
+          "studentName" : "Student 1",
+          "batchCode" : 1,
+          "university": "Binus University",
+          "scores" : [
+            {
+              "id" : "QZ0001",
+              "title" : "Quiz #1",
+              "type": "QUIZ",
+              "point" : 100
+            },
+            {
+              "id" : "QZ0002",
+              "title" : "Quiz #2",
+              "type": "QUIZ",
+              "point" : 80
+            },
+            {
+              "id" : "ASG0001",
+              "title" : "Assignment #1",
+              "type": "ASSIGNMENT",
+              "point" : 80
+            }
+          ]
+        },
+        {
+          "studentName" : "Student 2",
+          "batchCode" : 1,
+          "university": "Binus University",
+          "scores" : [
+            {
+              "id" : "QZ0001",
+              "title" : "Quiz #1",
+              "type": "QUIZ",
+              "point" : 100
+            },
+            {
+              "id" : "QZ0002",
+              "title" : "Quiz #2",
+              "type": "QUIZ",
+              "point" : 80
+            },
+            {
+              "id" : "ASG0001",
+              "title" : "Assignment #1",
+              "type": "ASSIGNMENT",
+              "point" : 80
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    method: 'POST',
+    url: '/api/scoring/batches/1/final-judgings/FNC0001/comparison',
+    response: {
+      "code": 201,
+      "status": "CREATED",
+      "data": [
+        {
+          "studentId": "SDT0001",
+          "score": 90
+        },
+        {
+          "studentId": "SDT0002",
+          "score": 80
+        },
+        {
+          "studentId": "SDT0003",
+          "score": 70
+        }
+      ]
+    }
+  }
+]
