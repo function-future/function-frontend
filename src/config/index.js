@@ -84,8 +84,16 @@ module.exports = {
           edit: '/assignment/batches/:batchCode/edit'
         }
       },
-      finalJudging: '/final-judging',
-      grades: '/grades',
+      finalJudging: {
+        list: '/final-judging',
+        batches: {
+          list: '/final-judging/batches',
+          add: '/final-judging/batches/add',
+          edit: '/final-judging/batches/:batchCode/edit',
+        },
+        detail: '/final-judging/:judgingId/detail',
+        comparisons: '/final-judging/:judgingId/comparison'
+      },
       stickyNotes: {
         detail: '/sticky-notes',
         edit: '/sticky-notes/edit'
@@ -307,6 +315,27 @@ module.exports = {
           questions(studentId, quizId) {
             return `/api/scoring/students/${studentId}/quizzes/${quizId}/questions`
           }
+        }
+      },
+      finalJudging: {
+        list (page, pageSize) {
+          return `/api/scoring/judgings?page=${page}&size=${pageSize}`
+        },
+        create: '/api/scoring/judgings',
+        detail (batchCode, judgingId) {
+          return `/api/scoring/batches/${batchCode}/judgings/${judgingId}`
+        },
+        update (batchCode, judgingId) {
+          return `/api/scoring/batches/${batchCode}/judgings/${judgingId}`
+        },
+        delete (batchCode, judgingId) {
+          return `/api/scoring/batches/${batchCode}/judgings/${judgingId}`
+        },
+        comparisons (batchCode, judgingId) {
+          return `/api/scoring/batches/${batchCode}/final-judgings/${judgingId}/comparison`
+        },
+        score (batchCode, judgingId) {
+          return `/api/scoring/batches/${batchCode}/final-judgings/${judgingId}/comparison`
         }
       },
       points: {
