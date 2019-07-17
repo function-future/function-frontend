@@ -138,9 +138,9 @@ export default {
         batchCode: batchDestination
       }
       let payload = {
-        quizId: this.selectedId,
+        batchId: batchDestination,
+        quizId: this.selectedId
       }
-      payload.batch = batchDestination
       this.copyQuiz({
         data,
         payload,

@@ -248,9 +248,7 @@ module.exports = {
         list (page, pageSize) {
           return `/api/scoring/question-banks?page=${page}&size=${pageSize}`
         },
-        create (page, pageSize) {
-          return `/api/scoring/question-banks`
-        },
+        create: `/api/scoring/question-banks`,
         detail (id) {
           return `/api/scoring/question-banks/${id}`
         },
