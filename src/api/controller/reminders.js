@@ -3,7 +3,7 @@ import config from '../../config/index'
 
 const getReminders = function (callback, error, data) {
   request.getRequest(
-    config.api.communication.reminders.list(data.params.page, config.dev.defaultPageSize),
+    config.api.communication.reminders.list(data.params.page, config.dev.defaultPageSize, data.params.keyword),
     callback,
     error
   )

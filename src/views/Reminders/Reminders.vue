@@ -2,10 +2,15 @@
   <div class="reminder">
     <div class="reminder__header">
       <BaseButton buttonClass="button-save" class="reminder__create-btn">Create</BaseButton>
-      <SearchBar class="reminder__search-bar"></SearchBar>
+      <SearchBar class="reminder__search-bar" @input="searchHandler"></SearchBar>
     </div>
-<!--    <ReminderCard></ReminderCard>-->
-<!--    <ReminderCard></ReminderCard>-->
+    <template v-for="reminder in reminders">
+      <ReminderCard :reminder="reminder" :key="reminder.id"></ReminderCard>
+    </template>
+    <infinite-loading :identifier="keyword" @infinite="infiniteHandler">
+      <div slot="no-more"></div>
+      <div slot="no-results"></div>
+    </infinite-loading>
   </div>
 </template>
 

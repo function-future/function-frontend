@@ -363,8 +363,12 @@ module.exports = {
         }
       },
       reminders: {
-        list (page, size) {
-          return `/api/communication/reminders?page=${page}&size=${size}`
+        list (page, size, keyword) {
+          if (keyword) {
+            return `/api/communication/reminders?page=${page}&size=${size}&search=${keyword}`
+          } else {
+            return `/api/communication/reminders?page=${page}&size=${size}`
+          }
         },
         create: `/api/communication/reminders`,
         get (reminderId) {

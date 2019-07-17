@@ -4,8 +4,8 @@
       <div class="reminder__element-card__content">
         <h3>{{ reminder.title }}</h3>
         <p>{{ reminder.description }}</p>
-        <p class="reminder__element-card__content__time"><font-awesome-icon :icon="['far', 'clock']" size="lg"></font-awesome-icon>  {{ formatDay(reminder) }} at {{ reminder.time }}</p>
-        <p class="reminder__element-card__content__user"><font-awesome-icon icon="user" size="lg"></font-awesome-icon> {{ reminder.memberCount + ' ' + reminder.memberCount > 1 ? 'Members': 'Member' }}</p>
+        <p class="reminder__element-card__content__time"><font-awesome-icon :icon="['far', 'clock']" size="lg"></font-awesome-icon> &nbsp; {{ formatDay(reminder) }} at {{ reminder.time }}</p>
+        <p class="reminder__element-card__content__user"><font-awesome-icon icon="user" size="lg"></font-awesome-icon> &nbsp; {{ reminder.memberCount + ' ' + (reminder.memberCount > 1 ? 'Members': 'Member') }}</p>
       </div>
       <font-awesome-icon icon="times" class="reminder__element-card__close-btn"></font-awesome-icon>
     </div>
@@ -22,12 +22,13 @@
   }
 
   p {
-    font-size: 0.8rem;
+    font-size: 12pt;
     margin-top: 10px;
   }
 
   .reminder__element-card {
     margin: 7px 0;
+    cursor: pointer;
   }
 
   .reminder__element-card__wrapper {
@@ -38,6 +39,7 @@
   .reminder__element-card__close-btn {
     font-size: 1.5rem;
     align-self: center;
+    cursor: pointer;
   }
 
   .reminder__element-card__content {

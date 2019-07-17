@@ -9,11 +9,11 @@ export default {
   },
   methods: {
     toFirstUpperCase (string) {
-      return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase()
+      return string.charAt(0).toUpperCase() + string.slice(1, 3).toLowerCase()
     },
     formatDay (reminder) {
       if (reminder.isRepeatedMonthly) {
-        return reminder.monthlyDate
+        return 'Every ' + reminder.monthlyDate + ' Monthly'
       } else {
         if (reminder.repeatDays.length === 7) {
           return 'Every day'
