@@ -594,7 +594,7 @@ export const activityBlogDetail = [
 export const resources = [
   {
     method: 'POST',
-    url: '/api/core/resources?origin=activity-blog',
+    url: '/api/core/resources?origin=ACTIVITY-BLOG',
     response: {
       'code': 201,
       'status': 'CREATED',
@@ -610,7 +610,7 @@ export const resources = [
   },
   {
     method: 'POST',
-    url: '/api/core/resources?origin=course',
+    url: '/api/core/resources?origin=COURSE',
     response: {
       'code': 201,
       'status': 'CREATED',
@@ -626,7 +626,7 @@ export const resources = [
   },
   {
     method: 'POST',
-    url: '/api/core/resources?origin=user',
+    url: '/api/core/resources?origin=USER',
     response: {
       'code': 201,
       'status': 'CREATED',
