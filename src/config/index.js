@@ -100,7 +100,13 @@ module.exports = {
 
         }
       },
-      chatrooms: '/chatrooms'
+      chatrooms: '/chatrooms',
+      reminders: {
+        list: '/reminders',
+        detail: '/reminders/:reminderId/detail',
+        edit: '/reminders/:reminderId/edit',
+        create: '/reminders/create'
+      }
     }
   },
   api: {

@@ -45,6 +45,8 @@ import masterCourseForm from '@/views/Courses/MasterCourseForm.vue'
 import config from '@/config/index'
 import chatrooms from '@/views/Chatrooms/Chatrooms'
 import login from '@/views/Auth/Login'
+import reminders from '@/views/Reminders/Reminders'
+import reminderForm from '@/views/Reminders/ReminderForm'
 import store from '../store/index.js'
 
 Vue.use(Router)
@@ -621,6 +623,45 @@ const router = new Router({
       path: config.app.pages.finalJudging,
       name: 'finalJudging',
       component: feeds
+    },
+    {
+      path: config.app.pages.reminders.list,
+      name: 'reminders',
+      component: reminders,
+      meta: {
+        title: 'Reminders',
+        auth: true
+      }
+    },
+    {
+      path: config.app.pages.reminders.detail,
+      name: 'reminderDetail',
+      component: reminderForm,
+      meta: {
+        title: 'Reminder Detail',
+        auth: true
+      },
+      props: true
+    },
+    {
+      path: config.app.pages.reminders.edit,
+      name: 'reminderEdit',
+      component: reminderForm,
+      meta: {
+        title: 'Edit Reminder',
+        auth: true
+      },
+      props: true
+    },
+    {
+      path: config.app.pages.reminders.create,
+      name: 'reminderCreate',
+      component: reminderForm,
+      meta: {
+        title: 'Create Reminder',
+        auth: true
+      },
+      props: true
     }
   ]
 })
