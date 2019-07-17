@@ -19,6 +19,11 @@
     text-align: left;
   }
 
+  .custom-card {
+    border-radius: 15px;
+    padding: 15px;
+  }
+
   .card-hover:hover {
     cursor: pointer;
     transition: all .3s ease;
