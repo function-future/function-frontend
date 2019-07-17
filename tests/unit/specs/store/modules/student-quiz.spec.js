@@ -308,7 +308,7 @@ describe('getters', () => {
   })
 
   test('questionList', () => {
-    expect(store.getters.studentQuizQuestions(state)).toEqual(state.studentQuizQuestions.questions)
+    expect(store.getters.studentQuizQuestions(state)).toEqual(state.studentQuizQuestions)
   })
 })
 

@@ -106,6 +106,7 @@ describe('ModalCopy', () => {
 
   test('successFetchBatches', () => {
     initComponent()
+    wrapper.vm.$route.params.batchCode = 'sample-id'
     wrapper.vm.successFetchBatches()
     expect(wrapper.vm.batches).toEqual(wrapper.vm.batchList)
   })

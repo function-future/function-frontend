@@ -53,7 +53,9 @@ describe('StudentQuizList', () => {
           }
         }
       ],
-      currentUser: {}
+      currentUser: {
+        id: 'sample-id-1'
+      }
     }
     const actions = {
       fetchStudentQuizList: jest.fn()
@@ -63,14 +65,9 @@ describe('StudentQuizList', () => {
       currentUser: state => state.currentUser
     }
     const store = new Vuex.Store({
-      modules: {
-        studentQuiz: {
-          state,
-          actions,
-          getters,
-          namespaced: true
-        }
-      }
+      state,
+      actions,
+      getters,
     })
 
     return {
@@ -160,7 +157,7 @@ describe('StudentQuizList', () => {
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
       name: 'studentQuizDetail',
       params: {
-        studentQuiz: 'sample-id-1',
+        studentId: 'sample-id-1',
         quizId: 'QZ0001'
       }
     })
