@@ -119,6 +119,13 @@ describe('UserBar', () => {
     expect(wrapper.vm.isExtend).toEqual(true)
   })
 
+  test('extendUserBar not logged in', () => {
+    initComponent()
+    store.state.currentUser = {}
+    wrapper.vm.extendUserBar()
+    expect(wrapper.vm.isExtend).toEqual('')
+  })
+
   test('shrinkUserBar', () => {
     initComponent()
     store.state.currentUser = {
@@ -127,6 +134,13 @@ describe('UserBar', () => {
     expect(wrapper.vm.isExtend).toEqual('')
     wrapper.vm.shrinkUserBar()
     expect(wrapper.vm.isExtend).toEqual(false)
+  })
+
+  test('shrinkUserBar not logged in', () => {
+    initComponent()
+    store.state.currentUser = {}
+    wrapper.vm.shrinkUserBar()
+    expect(wrapper.vm.isExtend).toEqual('')
   })
 
   test('login not logged in', () => {
