@@ -95,7 +95,8 @@ export default {
         fail: this.failSendProfilePictureId
       })
     },
-    successSendProfilePictureId (res) {
+    successSendProfilePictureId () {
+      this.$toasted.success('successfully updated profile picture')
       this.showModalChangeProfilePicture = false
       this.initPage()
     },
