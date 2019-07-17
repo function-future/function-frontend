@@ -67,7 +67,7 @@ export default {
       let formData = new FormData()
       formData.append('file', this.newImage)
       let data = {
-        source: 'user',
+        source: 'USER',
         resources: formData
       }
       data = { ...data }

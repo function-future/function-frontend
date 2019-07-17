@@ -142,7 +142,7 @@ export default {
       let formData = new FormData()
       formData.append('file', file)
       let data = {
-        source: 'course',
+        source: 'COURSE',
         resources: formData
       }
       data = { ...data }
