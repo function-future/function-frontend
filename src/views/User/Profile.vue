@@ -4,15 +4,14 @@
       <div class="row">
         <div class="column image-column">
           <div class="image" :style="{ backgroundImage: 'url(' + avatarPreview + ')' }">
-            <!--<input type="file"-->
-                   <!--name="image"-->
-                   <!--accept="image/*"-->
-                   <!--id="upload-image"-->
-                   <!--@change="onFileChange($event)"-->
-                   <!--style="display: none"/>-->
-            <!--<label for="upload-image" class="image-edit">-->
-              <!--<font-awesome-icon icon="pencil-alt" class="icon"/> edit-->
-            <!--</label>-->
+            <label class="image-edit">
+              <input type="file"
+                     name="image"
+                     accept="image/*"
+                     @change="onFileChange($event)"
+                     style="display: none"/>
+              <font-awesome-icon icon="pencil-alt" class="icon"/> edit
+            </label>
           </div>
           <div class="alert" v-if="maximumSizeAlert">
             <span>Please upload a picture smaller than 1 MB.</span>
@@ -72,6 +71,11 @@
         </div>
       </div>
     </div>
+    <modal-change-profile-picture-preview @save="sendUpdatedProfilePictureId"
+                                  @close="showModalChangeProfilePicture = false"
+                                  v-if="showModalChangeProfilePicture"
+                                  :newAvatar="newAvatar">
+    </modal-change-profile-picture-preview>
   </div>
 </template>
 

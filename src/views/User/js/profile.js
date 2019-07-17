@@ -3,6 +3,7 @@ import BaseInput from '@/components/BaseInput'
 import BaseButton from '@/components/BaseButton'
 import BaseTextArea from '@/components/BaseTextArea'
 import BaseSelect from '@/components/BaseSelect'
+import ModalChangeProfilePicturePreview from '@/components/modals/ModalChangeProfilePicturePreview'
 
 export default {
   name: 'profile',
@@ -10,12 +11,15 @@ export default {
     BaseButton,
     BaseInput,
     BaseTextArea,
-    BaseSelect
+    BaseSelect,
+    ModalChangeProfilePicturePreview
   },
   data () {
     return {
       maximumSizeAlert: false,
+      showModalChangeProfilePicture: false,
       avatarPreview: '',
+      newAvatar: '',
       userDetail: {}
     }
   },
@@ -29,7 +33,9 @@ export default {
   },
   methods: {
     ...mapActions([
-      'fetchProfile'
+      'fetchProfile',
+      'uploadProfilePicture',
+      'sendProfilePictureId'
     ]),
     initPage () {
       this.fetchProfile({
@@ -45,6 +51,56 @@ export default {
     },
     goToChangePassword () {
       this.$router.push({ name: 'changePassword' })
+    },
+    onFileChange (e) {
+      this.newImage = e.target.files[0]
+      let files = e.target.files || e.dataTransfer.files
+      if (files[0].size > 1000000) {
+        this.maximumSizeAlert = true
+      } else {
+        this.maximumSizeAlert = false
+        this.imageUpload()
+      }
+    },
+    imageUpload () {
+      this.showModalChangeProfilePicture = true
+      let formData = new FormData()
+      formData.append('file', this.newImage)
+      let data = {
+        source: 'user',
+        resources: formData
+      }
+      data = { ...data }
+      let configuration = { headers: { 'Content-Type': 'multipart/form-data' } }
+      this.uploadProfilePicture({
+        data,
+        configuration,
+        callback: this.successUploadProfilePicture,
+        fail: this.failUploadProfilePicture
+      })
+    },
+    successUploadProfilePicture (response) {
+      this.newAvatar = response
+    },
+    failUploadProfilePicture () {
+      this.$toasted.error('Fail to upload image, please try again')
+    },
+    sendUpdatedProfilePictureId () {
+      const data = {
+        avatar: [ this.newAvatar.id ]
+      }
+      this.sendProfilePictureId({
+        data,
+        callback: this.successSendProfilePictureId,
+        fail: this.failSendProfilePictureId
+      })
+    },
+    successSendProfilePictureId (res) {
+      this.showModalChangeProfilePicture = false
+      this.initPage()
+    },
+    failSendProfilePictureId () {
+      this.$toasted.error('Fail to save new profile picture, please try again')
     }
   }
 }
