@@ -1,4 +1,5 @@
 import api from '@/api/controller/user'
+import resourceApi from '@/api/controller/resources'
 
 export const state = {
   profile: {}
@@ -21,6 +22,11 @@ export const actions = {
     api.changePassword(({ data: response }) => {
       callback(response)
     }, data, fail)
+  },
+  uploadProfilePicture ({ commit }, { data, configuration, callback, fail }) {
+    resourceApi.uploadResource(({ data: response }) => {
+      callback(response)
+    }, data, fail, configuration)
   }
 }
 
