@@ -5,6 +5,7 @@ import UserListCard from '@/components/UserListCard'
 import usersApi from '@/api/controller/users'
 import chatroomApi from '@/api/controller/chatrooms'
 import { mapGetters } from 'vuex'
+import UserSimpleCard from '@/components/UserSimpleCard'
 
 export default {
   name: 'ModalChatroom',
@@ -12,7 +13,8 @@ export default {
     BaseButton,
     SearchBar,
     UserListCard,
-    BaseInput
+    BaseInput,
+    UserSimpleCard
   },
   data () {
     return {

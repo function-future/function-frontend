@@ -67,7 +67,10 @@ export default {
     },
     actionButtonClicked () {
       if (this.editMode) {
-        let payload = { ...this.quizDetail }
+        let payload = {
+          ...this.quizDetail,
+          startDate: new Date().getTime()
+        }
         payload.endDate = new Date(payload.endDate).getTime()
         this.updateQuizDetail({
           payload,
@@ -95,7 +98,6 @@ export default {
       })
     },
     successUpdatingQuiz () {
-      console.log(this.quizDetail)
       this.$toasted.success(`Quiz ${this.$route.params.quizId} successfully updated`)
     },
     failUpdatingQuiz () {

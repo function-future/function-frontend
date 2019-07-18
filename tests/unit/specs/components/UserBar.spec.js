@@ -119,16 +119,36 @@ describe('UserBar', () => {
 
   test('extendUserBar', () => {
     initComponent()
+    store.state.currentUser = {
+      name: 'Karnando Sepryan'
+    }
     expect(wrapper.vm.isExtend).toEqual('')
     wrapper.vm.extendUserBar()
     expect(wrapper.vm.isExtend).toEqual(true)
   })
 
+  test('extendUserBar not logged in', () => {
+    initComponent()
+    store.state.currentUser = {}
+    wrapper.vm.extendUserBar()
+    expect(wrapper.vm.isExtend).toEqual('')
+  })
+
   test('shrinkUserBar', () => {
     initComponent()
+    store.state.currentUser = {
+      name: 'Karnando Sepryan'
+    }
     expect(wrapper.vm.isExtend).toEqual('')
     wrapper.vm.shrinkUserBar()
     expect(wrapper.vm.isExtend).toEqual(false)
+  })
+
+  test('shrinkUserBar not logged in', () => {
+    initComponent()
+    store.state.currentUser = {}
+    wrapper.vm.shrinkUserBar()
+    expect(wrapper.vm.isExtend).toEqual('')
   })
 
   test('login not logged in', () => {
@@ -159,5 +179,12 @@ describe('UserBar', () => {
     wrapper.vm.successAttemptLogout()
     expect(wrapper.vm.$cookies.remove).toHaveBeenCalledTimes(1)
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'login' })
+  })
+
+  test('goToProfile', () => {
+    initComponent()
+    wrapper.vm.$router.push = jest.fn()
+    wrapper.vm.goToProfile()
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'profile' })
   })
 })

@@ -2,8 +2,9 @@ import QuestionnaireForm from '../QuestionnaireForm'
 import QuestionCard from '../QuestionCard'
 import QuestionnaireParticipantCard from '../QuestionnaireParticipantCard'
 import BaseButton from '@/components/BaseButton'
-import Modal from '@/components/modals/Modal'
 import ModalAddQuestion from '@/views/Questionnaire/ModalAddQuestion'
+import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
+import ModalChatroom from '@/views/Chatrooms/ModalChatroom'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 import questionnaireApi from '@/api/controller/questionnaire'
 
@@ -14,54 +15,39 @@ export default {
     QuestionCard,
     QuestionnaireParticipantCard,
     BaseButton,
-    Modal,
-    ModalAddQuestion
+    ModalAddQuestion,
+    ModalDeleteConfirmation,
+    ModalChatroom
   },
   data () {
     return {
-      appraisee: {
-        id: 'sample-id',
-        name: 'ricky',
-        avatar: 'aa',
-        role: 'STUDENT',
-        university: 'ITB',
-        batch: 'future3.0'
-      },
-      questions: [
-        {
-          id: 'question-id',
-          description: 'Lorem-ipsum',
-          score: 6.0
-        },
-        {
-          id: 'question-id2',
-          description: 'Lorem-ipsum1',
-          score: 6.0
-        },
-        {
-          id: 'question-id3',
-          description: 'Lorem-ipsum2',
-          score: 6.0
-        }
-      ],
-      i: 1,
       currentQuestionnaire: {},
-      showAddQuestion: false,
+      questionModal: false,
+      participantModal: false,
       question: {
         id: '',
-        description: ''
+        description: '',
+        isUpdate: false
       },
+      deleteConfirmationModalQuestion: {
+        show: false,
+        id: '',
+        selectedIndex: '',
+        description: ''
+      }
     }
   },
   computed: {
     ...mapGetters([
-      'currentQuestionnaireAdmin'
+      'currentQuestionnaireAdmin',
+      'currentQuestions'
     ])
   },
   methods: {
     ...mapActions([
       'fetchCurrentQuestionnaireAdmin',
-      'setCurrentQuestionnaireAdmin'
+      'setCurrentQuestionnaireAdmin',
+      'fetchCurrentQuestions'
     ]),
     ...mapMutations([
       'RESET_CURRENT_QUESTIONNAIRE_ADMIN',
@@ -115,14 +101,26 @@ export default {
       alert('this one edit')
       console.log(question)
     },
-    AlertDelete () {
-      alert('this one delete')
+    resetDeleteConfirmationModalQuestion () {
+      this.deleteConfirmationModalQuestion.show = false
+      this.deleteConfirmationModalQuestion.id = ''
+      this.deleteConfirmationModalQuestion.selectedIndex = ''
+      this.deleteConfirmationModalQuestion.description = ''
+    },
+    openDeleteConfirmationModalQuestion (index, question) {
+      this.deleteConfirmationModalQuestion.show = true
+      this.deleteConfirmationModalQuestion.id = question.id
+      this.deleteConfirmationModalQuestion.selectedIndex = index + 1
+      this.deleteConfirmationModalQuestion.description = question.description
+    },
+    closeDeleteConfirmationModalQuestion () {
+      this.deleteConfirmationModalQuestion.show = false
+      this.resetDeleteConfirmationModalQuestion()
     },
     submitAddQuestion (value) {
-      console.log(value)
-      console.log(this.$route.params.questionnaireId)
       questionnaireApi.addQuestionQuestionnaire(response => {
         this.$toasted.success('success create question')
+        this.fetchingQuestions()
       }, this.submitQuestionErrorCallback,
       {
         body: value,
@@ -134,6 +132,72 @@ export default {
     submitQuestionErrorCallback (err) {
       console.log(err)
       this.$toasted.error('Fail to createQuestion')
+    },
+    fetchingQuestions () {
+      this.fetchCurrentQuestions({
+        data: {
+          params: {
+            questionnaireId: this.$route.params.questionnaireId
+          }
+        },
+        fail: (err) => {
+          console.log(err)
+        }
+      })
+    },
+    deleteTheQuestionQuestionnaire () {
+      questionnaireApi.deleteQuestionQuestionnaire(response => {
+        this.$toasted.success('success delete question')
+        this.fetchingQuestions()
+        this.closeDeleteConfirmationModalQuestion()
+      }, this.deleteErrorCallback,
+      {
+        params: {
+          questionnaireId: this.$route.params.questionnaireId,
+          questionId: this.deleteConfirmationModalQuestion.id
+        }
+      })
+    },
+    deleteErrorCallback (err) {
+      console.log(err)
+      this.$toasted.error('Fail to delete')
+    },
+    updateErrorCallback (err) {
+      console.log(err)
+      this.$toasted.error('Fail to update')
+    },
+    openEditModal (newQuestion) {
+      this.questionModal = true
+      this.question.id = newQuestion.id
+      this.question.isUpdate = true
+      this.question.description = newQuestion.description
+    },
+    closeQuestionModal () {
+      this.questionModal = false
+      this.question.id = ''
+      this.question.isUpdate = false
+      this.question.description = ''
+    },
+    updateTheQuestionQuestionnaire (value) {
+      this.question.description = value.description
+      questionnaireApi.updateQuestionQuestionnaire(response => {
+        this.closeQuestionModal()
+        this.$toasted.success('success Update Question')
+        this.fetchingQuestions()
+      }, this.updateErrorCallback,
+      {
+        params: {
+          questionnaireId: this.$route.params.questionnaireId,
+          questionId: this.question.id
+        },
+        body: {
+          description: this.question.description
+        }
+      }
+      )
+    },
+    submitParticipant () {
+      alert('open modal')
     }
   },
   created () {
@@ -147,5 +211,6 @@ export default {
         console.log(err)
       }
     })
+    this.fetchingQuestions()
   }
 }

@@ -27,7 +27,7 @@ export default {
     deleteQuestionnaireWithId (questionnaireId) {
       questionnaireApi.deleteQuestionnaire(response => {
         this.$toasted.success('successs delete')
-        window.location.reload(true)
+        this.fecthingDataQuestionnaires()
       }, this.submitMessageErrorCallback,
       {
         params: {
@@ -38,6 +38,17 @@ export default {
     submitMessageErrorCallback (err) {
       console.log(err)
       this.$toasted.error('Fail to deleteQuestionnaire')
+    },
+    fecthingDataQuestionnaires () {
+      this.fetchListQuestionnaires({
+        data: {
+          page: 1,
+          size: 10
+        },
+        fail: (err) => {
+          console.log(err)
+        }
+      })
     }
   },
   computed: {

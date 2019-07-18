@@ -4,6 +4,10 @@ module.exports = {
       auth: {
         login: '/login'
       },
+      user: {
+        profile: '/profile',
+        changePassword: '/profile/change-password'
+      },
       feeds: '/',
       activityBlogs: {
         list: '/activity-blogs',
@@ -68,14 +72,14 @@ module.exports = {
           list: '/quiz/batches',
           add: '/quiz/batches/add',
           edit: '/quiz/batches/:batchCode/edit'
-        }
+        },
       },
       assignments: {
         list: '/batches/:batchCode/assignments',
         add: '/batches/:batchCode/assignments/add',
         rooms: {
-          list: '/batches/:batchCode/assignments/:id/rooms',
-          detail: '/batches/:batchCode/assignments/:id/rooms/:roomId'
+          list: '/batches/:batchCode/assignments/:assignmentId/rooms',
+          detail: '/batches/:batchCode/assignments/:assignmentId/rooms/:roomId'
         },
         detail: '/batches/:batchCode/assignments/:id/detail',
         batches: {
@@ -90,7 +94,23 @@ module.exports = {
         detail: '/sticky-notes',
         edit: '/sticky-notes/edit'
       },
+      students: {
+        quizzes: {
+          list: '/quizzes',
+          detail: '/quizzes/:quizId/detail',
+          questions: '/quizzes/:quizId/questions'
+        },
+        assignments: {
+
+        }
+      },
       chatrooms: '/chatrooms',
+      reminders: {
+        list: '/reminders',
+        detail: '/reminders/:reminderId/detail',
+        edit: '/reminders/:reminderId/edit',
+        create: '/reminders/create'
+      },
       myQuestionnaire: {
         default: '/my-questionnaire',
         appraisee: '/my-questionnaire/:questionnaireId/appraisees',
@@ -154,7 +174,8 @@ module.exports = {
       },
       profile: {
         get: '/api/core/user/profile',
-        change_password: '/api/core/user/password'
+        change_password: '/api/core/user/password',
+        updateProfilePicture: '/api/core/user/profile/picture'
       },
       activityBlogs: {
         get (page, size) { return `/api/core/activity-blogs?page=${page}&size=${size}` },
@@ -240,6 +261,14 @@ module.exports = {
           },
           update(batchCode, assignmentId, roomId) {
             return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/rooms/${roomId}`
+          },
+          comments: {
+            list(batchCode, assignmentId, roomId, page, pageSize) {
+              return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/rooms/${roomId}/comments?page=${page}&size=${pageSize}`
+            },
+            create(batchCode, assignmentId, roomId) {
+              return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/rooms/${roomId}/comments`
+            },
           }
         }
       },
@@ -295,6 +324,17 @@ module.exports = {
         },
         delete(batchCode, id) {
           return `/api/scoring/batches/${batchCode}/quizzes/${id}`
+        },
+        students: {
+          list(studentId, page, pageSize) {
+            return `/api/scoring/students/${studentId}/quizzes?page=${page}&size=${pageSize}`
+          },
+          detail(studentId, quizId) {
+            return `/api/scoring/students/${studentId}/quizzes/${quizId}`
+          },
+          questions(studentId, quizId) {
+            return `/api/scoring/students/${studentId}/quizzes/${quizId}/questions`
+          }
         }
       },
       points: {
@@ -332,6 +372,35 @@ module.exports = {
         },
         updateReadStatus(chatroomId, messageId) {
           return `/api/communication/chatrooms/${chatroomId}/messages/${messageId}/_read`
+        }
+      },
+      notifications: {
+        list (page, size) {
+          return `/api/communication/notifications?page=${page}&size=${size}`
+        },
+        create: `/api/communication/notifications`,
+        getTotalUnseen: `/api/communication/notifications/_unseen_total`,
+        readNotification (notificationId) {
+          return `/api/communication/notifications/${notificationId}/_read`
+        }
+      },
+      reminders: {
+        list (page, size, keyword) {
+          if (keyword) {
+            return `/api/communication/reminders?page=${page}&size=${size}&search=${keyword}`
+          } else {
+            return `/api/communication/reminders?page=${page}&size=${size}`
+          }
+        },
+        create: `/api/communication/reminders`,
+        get (reminderId) {
+          return `/api/communication/reminders/${reminderId}`
+        },
+        update (reminderId) {
+          return `/api/communication/reminders/${reminderId}`
+        },
+        delete (reminderId) {
+          return `/api/communication/reminders/${reminderId}`
         }
       },
       myQuestionnaire: {
@@ -422,7 +491,6 @@ module.exports = {
           return `/api/communication/question-response/${questionResponseSummaryId}/responses`
         }
       }
-
     }
   },
   dev: {

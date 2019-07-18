@@ -5,6 +5,7 @@ import assignmentBatchForm from '@/views/Assignment/AssignmentBatchForm'
 import assignments from '@/views/Assignment/Assignments'
 import addAssignment from '@/views/Assignment/AddAssignment'
 import assignmentRooms from '@/views/Assignment/AssignmentRooms'
+import assignmentRoomDetail from '@/views/Assignment/AssignmentRoomDetail'
 import assignmentDetail from '@/views/Assignment/AssignmentDetail'
 import questionBanks from '@/views/QuestionBank/QuestionBanks'
 import questionBankDetail from '@/views/QuestionBank/QuestionBankDetail'
@@ -18,6 +19,9 @@ import quizzes from '@/views/Quiz/Quiz'
 import addQuiz from '@/views/Quiz/AddQuiz'
 import addQuizDetail from '@/views/Quiz/AddQuizDetail'
 import quizDetail from '@/views/Quiz/QuizDetail'
+import studentQuizList from '@/views/Quiz/StudentQuizList'
+import studentQuizDetail from '@/views/Quiz/StudentQuizDetail'
+import quizQuestions from '@/views/Quiz/QuizQuestions'
 import points from '@/views/Point/Point'
 import feeds from '@/views/Feeds/Feeds.vue'
 import announcements from '@/views/Announcements/Announcements.vue'
@@ -51,6 +55,10 @@ import questionnaireResultsMemberDetail from '@/views/Questionnaire/Questionnair
 import questionnaireResultsQuestionnaireDetail from '@/views/Questionnaire/QuestionnaireResultsQuestionnaireDetail'
 import questionnaireResultsQuestionDetail from '@/views/Questionnaire/QuestionnaireResultsQuestionDetail'
 import login from '@/views/Auth/Login'
+import reminders from '@/views/Reminders/Reminders'
+import reminderForm from '@/views/Reminders/ReminderForm'
+import profile from '@/views/User/Profile'
+import changePassword from '@/views/User/ChangePassword'
 import store from '../store/index.js'
 
 Vue.use(Router)
@@ -63,6 +71,29 @@ const router = new Router({
       path: config.app.pages.auth.login,
       name: 'login',
       component: login
+    },
+    {
+      path: config.app.pages.user.profile,
+      name: 'profile',
+      component: profile,
+      meta: {
+        title: 'Profile',
+        breadcrumb: [
+          { name: 'Profile', link: 'profile' }
+        ]
+      }
+    },
+    {
+      path: config.app.pages.user.changePassword,
+      name: 'changePassword',
+      component: changePassword,
+      meta: {
+        title: 'Change Password',
+        breadcrumb: [
+          { name: 'Profile', link: 'profile' },
+          { name: 'Change Password', link: 'changePassword' }
+        ]
+      }
     },
     {
       path: config.app.pages.feeds,
@@ -514,6 +545,30 @@ const router = new Router({
       }
     },
     {
+      path: config.app.pages.students.quizzes.list,
+      name: 'studentQuizzes',
+      component: studentQuizList,
+      meta: {
+        title: 'Quizzes'
+      }
+    },
+    {
+      path: config.app.pages.students.quizzes.detail,
+      name: 'studentQuizDetail',
+      component: studentQuizDetail,
+      meta: {
+        title: 'Quiz Detail'
+      }
+    },
+    {
+      path: config.app.pages.students.quizzes.questions,
+      name: 'studentQuizQuestions',
+      component: quizQuestions,
+      meta: {
+        title: 'Questions'
+      }
+    },
+    {
       path: config.app.pages.assignments.batches.list,
       name: 'assignmentBatch',
       component: assignmentBatch,
@@ -582,9 +637,13 @@ const router = new Router({
     {
       path: config.app.pages.assignments.rooms.detail,
       name: 'assignmentRoomDetail',
-      component: quizDetail,
+      component: assignmentRoomDetail,
       meta: {
-        title: 'Assignment'
+        title: 'Room Detail',
+        breadcrumb: [
+          { name: 'Assignments', link: 'assignments' },
+          { name: 'Rooms', link: 'assignmentRooms' }
+        ]
       }
     },
     {
@@ -599,6 +658,44 @@ const router = new Router({
       path: config.app.pages.finalJudging,
       name: 'finalJudging',
       component: feeds
+    },
+    {
+      path: config.app.pages.reminders.list,
+      name: 'reminders',
+      component: reminders,
+      meta: {
+        title: 'Reminders',
+        auth: true
+      }
+    },
+    {
+      path: config.app.pages.reminders.detail,
+      name: 'reminderDetail',
+      component: reminderForm,
+      meta: {
+        title: 'Reminder Detail',
+        auth: true
+      }
+    },
+    {
+      path: config.app.pages.reminders.edit,
+      name: 'reminderEdit',
+      component: reminderForm,
+      meta: {
+        title: 'Edit Reminder',
+        auth: true
+      },
+      props: { editMode: true }
+    },
+    {
+      path: config.app.pages.reminders.create,
+      name: 'reminderCreate',
+      component: reminderForm,
+      meta: {
+        title: 'Create Reminder',
+        auth: true
+      },
+      props: { editMode: true }
     },
     {
       path: config.app.pages.myQuestionnaire.default,
@@ -719,20 +816,18 @@ router.afterEach((to, from) => {
     return
   }
 
-  if (Object.keys(store.getters.currentUser).length) {
-    store.dispatch('getAccessList', {
-      data: encodeURIComponent(to.fullPath),
-      callback: () => {
-        // if (!store.getters.accessList.read ||
-        //   (to.meta.add && store.getters.accessList.add !== to.meta.add) ||
-        //   (to.meta.edit && store.getters.accessList.edit !== to.meta.edit)) {
-        //   Vue.toasted.error('You do not have permission to access the page')
-        //   router.push({ name: 'feeds' })
-        // }
-      },
-      fail: () => {}
-    })
-  }
+  store.dispatch('getAccessList', {
+    data: encodeURIComponent(to.fullPath),
+    callback: () => {
+      if (!store.getters.accessList.read ||
+        (to.meta.add && store.getters.accessList.add !== to.meta.add) ||
+        (to.meta.edit && store.getters.accessList.edit !== to.meta.edit)) {
+        Vue.toasted.error('You do not have permission to access the page')
+        router.push({ name: 'feeds' })
+      }
+    },
+    fail: () => {}
+  })
 })
 
 export default router

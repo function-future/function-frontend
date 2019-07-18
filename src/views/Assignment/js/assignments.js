@@ -127,7 +127,7 @@ export default {
       let data = {
         batchCode: batchDestination,
       }
-      let payload = {...this.assignmentList.find(i => i.id === this.selectedId)}
+      let payload = this.selectedId
       payload.batch = batchDestination
       this.copyAssignment({
         data,

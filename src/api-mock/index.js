@@ -2,6 +2,7 @@ import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 import {
   auth,
+  profile,
   menuList,
   accessList,
   stickyNotes,
@@ -19,8 +20,12 @@ import {
   assignments,
   assignmentDetails,
   assignmentRooms,
+  assignmentRoomComment,
   quizzes,
   quizDetail,
+  studentQuiz,
+  studentQuizDetail,
+  studentQuizQuestion,
   questionBanks,
   questionBankDetail,
   questionBankQuestions,
@@ -42,6 +47,10 @@ const methodMap = {
 }
 
 auth.forEach(data => {
+  mock[methodMap[data.method]](data.url).reply(200, data.response)
+})
+
+profile.forEach(data => {
   mock[methodMap[data.method]](data.url).reply(200, data.response)
 })
 
@@ -109,12 +118,28 @@ assignmentRooms.forEach(data => {
   mock[methodMap[data.method]](data.url).reply(200, data.response)
 })
 
+assignmentRoomComment.forEach(data => {
+  mock[methodMap[data.method]] (data.url).reply(200, data.response)
+})
+
 quizzes.forEach(data => {
   mock[methodMap[data.method]](data.url).reply(200, data.response)
 })
 
 quizDetail.forEach(data => {
   mock[methodMap[data.method]](data.url).reply(200, data.response)
+})
+
+studentQuiz.forEach(data => {
+  mock[methodMap[data.method]] (data.url).reply(200, data.response)
+})
+
+studentQuizDetail.forEach(data => {
+  mock[methodMap[data.method]] (data.url).reply(200, data.response)
+})
+
+studentQuizQuestion.forEach(data => {
+  mock[methodMap[data.method]] (data.url).reply(200, data.response)
 })
 
 questionBanks.forEach(data => {

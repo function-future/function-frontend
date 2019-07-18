@@ -18,6 +18,7 @@ export default {
         title: '',
         description: '',
         deadline: new Date(),
+        batchCode: '',
         // file: ''
       },
     }
@@ -39,6 +40,7 @@ export default {
     saveAssignment () {
       let payload = { ...this.assignment }
       payload.deadline = new Date(payload.deadline).getTime()
+      payload.batchCode = this.$route.params.batchCode
       this.createAssignment({
         payload,
         data: {

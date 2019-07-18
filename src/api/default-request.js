@@ -33,6 +33,7 @@ const postRequest = function (path, callback, data, errorHandler, configuration)
       callback(data)
     })
     .catch(error => {
+      console.log(path)
       if (typeof errorHandler === 'function') {
         errorHandler(error)
       }

@@ -6,29 +6,28 @@
           <BaseButton button-class="button-save" class="button-save-desc" @click="goToUpdateDescription">Save Description</BaseButton>
         </div>
         <hr>
-<!--        {{currentQuestionnaireAdmin}}-->
         <QuestionnaireForm :value="currentQuestionnaireAdmin"
                            @input="(newValue) => { setCurrentQuestionnaire(newValue) }"
         />
         <div class="title-placeholder">
           <h2>Questions</h2>
-          <BaseButton button-class="button-save" class="button-save" @click="showAddQuestion = true">Add</BaseButton>
+          <BaseButton button-class="button-save" class="button-save" @click="questionModal = true">Add</BaseButton>
         </div>
         <hr>
         <div class="question-container-list">
-          <QuestionCard v-for="(question, index) in questions"
+          <QuestionCard v-for="(question, index) in currentQuestions"
                         :id="question.id"
                         :number="index+1"
                         :description="question.description"
                         :score="question.score"
                         :isEdit="true"
-                        @clickEdit="AlertEdit(question)"
-                        @clickDelete="AlertDelete(question)"
+                        @clickEdit="openEditModal(question)"
+                        @clickDelete="openDeleteConfirmationModalQuestion(index, question)"
           ></QuestionCard>
         </div>
         <div class="title-placeholder">
           <h2>Appraiser</h2>
-          <BaseButton button-class="button-save" class="button-save">Add</BaseButton>
+          <BaseButton button-class="button-save" class="button-save" @click="participantModal = true">Add</BaseButton>
         </div>
         <hr>
         <div class="appraiser-container-list">
@@ -57,10 +56,22 @@
 <!--          ></QuestionnaireParticipantCard>-->
         </div>
       </div>
-      <modal-add-question :description="question.description" v-if="showAddQuestion"
-             @close="showAddQuestion = !showAddQuestion"
+      <modal-add-question :description="question.description" :isUpdate="question.isUpdate" v-if="questionModal"
+             @close="closeQuestionModal"
              @submit="submitAddQuestion"
+             @update="updateTheQuestionQuestionnaire"
       ></modal-add-question>
+      <modal-delete-confirmation
+          v-if="deleteConfirmationModalQuestion.show"
+          @close="closeDeleteConfirmationModalQuestion"
+          @clickDelete="deleteTheQuestionQuestionnaire">
+        <div slot="description">
+          to delete question Number {{this.deleteConfirmationModalQuestion.selectedIndex}}
+          <br>
+          " {{ this.deleteConfirmationModalQuestion.description}} "
+        </div>></modal-delete-confirmation>
+      <ModalChatroom @submit="submitParticipant" @close="participantModal = false" v-if="participantModal">
+      </ModalChatroom>
     </div>
 </template>
 

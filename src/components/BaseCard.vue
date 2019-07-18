@@ -1,5 +1,5 @@
 <template>
-    <div class="card" :class="cardClass">
+    <div @click="$emit('click')" class="card" :class="cardClass">
       <slot></slot>
     </div>
 </template>
@@ -17,6 +17,11 @@
     padding: 15px 25px 15px 25px;
     margin: 15px;
     text-align: left;
+  }
+
+  .custom-card {
+    border-radius: 15px;
+    padding: 15px;
   }
 
   .card-hover:hover {

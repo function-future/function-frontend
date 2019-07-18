@@ -39,7 +39,7 @@ export default {
       })
     },
     successFetchBatches () {
-      this.batches = this.batchList
+      this.batches = this.batchList.filter(batch => batch.code !== this.$route.params.batchCode)
     },
     failFetchBatches () {
       this.$toasted.error('Fail to fetch batches, please try again')

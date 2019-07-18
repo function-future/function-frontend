@@ -9,8 +9,11 @@
         <div class="modal__body">
           <BaseTextArea :label="descriptionLabel" class="modal__body__input" v-model="descriptionTemp"></BaseTextArea>
         </div>
-        <div class="modal__footer">
+        <div v-if="!isUpdate" class="modal__footer">
           <BaseButton class="modal__footer__button" type="save" buttonClass="button-save" @click="submit">Submit</BaseButton>
+        </div>
+        <div v-else class="modal__footer">
+          <BaseButton class="modal__footer__button" type="save" buttonClass="button-save" @click="updateQuestion">Update</BaseButton>
         </div>
       </div>
     </div>

@@ -51,11 +51,39 @@ const addQuestionQuestionnaire = function (callback, error, data) {
   )
 }
 
+const getQuestionsQuestionnaire = function (callback, error, data) {
+  request.getRequest(
+    config.api.communication.questionnaire.getQuestionsQuestionnaire(data.params.questionnaireId),
+    callback,
+    error
+  )
+}
+
+const updateQuestionQuestionnaire = function (callback, error, data) {
+  request.putRequest(
+    config.api.communication.questionnaire.updateQuestionQuestionnaire(data.params.questionnaireId, data.params.questionId),
+    callback,
+    data.body,
+    error
+  )
+}
+
+const deleteQuestionQuestionnaire = function (callback, error, data) {
+  request.deleteRequest(
+    config.api.communication.questionnaire.deleteQuestionQuestionnaire(data.params.questionnaireId, data.params.questionId),
+    callback,
+    error
+  )
+}
+
 export default {
   getQuestionnaires,
   getQuestionnaire,
   createQuestionnaire,
   updateQuestionnaire,
   deleteQuestionnaire,
-  addQuestionQuestionnaire
+  addQuestionQuestionnaire,
+  getQuestionsQuestionnaire,
+  updateQuestionQuestionnaire,
+  deleteQuestionQuestionnaire
 }

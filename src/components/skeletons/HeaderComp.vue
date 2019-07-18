@@ -4,7 +4,7 @@
       <img src="@/assets/logo.png">
     </router-link>
     <ul class="menu">
-      <li><router-link :to="{ name: 'feeds' }" class="navbar-link">Feeds</router-link></li>
+      <li><router-link :to="{ name: 'feeds' }" class="navbar-link" exact>Feeds</router-link></li>
       <li><router-link :to="{ name: 'announcements' }" class="navbar-link">Announcements</router-link></li>
       <li><router-link :to="{ name: 'activityBlogs' }" class="navbar-link">Blogs</router-link></li>
       <li v-if="menuList.courses"><router-link :to="{ name: 'courseBatches' }" class="navbar-link">Courses</router-link></li>
@@ -24,8 +24,11 @@
           <li v-if="menuList.points"><router-link :to="{ name: 'points' }" class="navbar-link">Points</router-link></li>
         </ul>
       </transition>
-      <li>
+      <li v-if="menuList.chatrooms">
         <router-link class="navbar-link" :to="{ name: 'chatrooms' }">Chatrooms</router-link>
+      </li>
+      <li v-if="menuList.reminders">
+        <router-link class="navbar-link" :to="{ name: 'reminders' }">Reminders</router-link>
       </li>
       <li>
         <router-link class="navbar-link" :to="{ name: 'myQuestionnaire'}" >My Questionnaire</router-link>
@@ -94,7 +97,7 @@
     opacity: 0.7;
   }
 
-  .router-link-exact-active {
+  .router-link-exact-active, .router-link-active {
     font-weight: bold;
   }
 
@@ -134,10 +137,7 @@
     .grades-submenu, .questionnaire-submenu {
       font-size: 0.8em;
     }
-
   }
-
-
 
   @media only screen and (min-width: 1500px) {
     img {

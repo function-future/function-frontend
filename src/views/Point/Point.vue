@@ -14,11 +14,11 @@
     </div>
     <div class="points-section">
       <BaseCard :style="{height: '100%'}" class="point-section__card">
-        <span>Summary</span>
+        <span style="font-weight: bold; font-size: 30px">Summary</span>
         <div class="points-section__card-scrollable-content">
           <BaseCard v-for="point in points.scores" class="points-section__card-item" :key="point.id">
             <div class="points-section__card-item-detail">
-              <h2>{{point.type}}</h2>
+              <h3>{{point.type}}</h3>
               <span>{{point.title}}</span>
             </div>
             <div class="points-section__card-item-score">

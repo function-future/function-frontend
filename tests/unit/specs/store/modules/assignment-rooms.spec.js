@@ -33,14 +33,16 @@ describe('actions', () => {
       })
     }
     const data = {
-      batchCode: 'futur3',
+      batchCode: '1',
       assignmentId: 'ASG0001',
       page: 1,
       pageSize: 10
     }
+    const callback = jest.fn()
     const commit = jest.fn()
     const fail = jest.fn()
-    store.actions.fetchRoomList({ commit }, { data, fail })
+    store.actions.fetchRoomList({ commit }, { data, callback, fail })
+    expect(callback).toHaveBeenCalledTimes(1)
     expect(fail).not.toHaveBeenCalled()
     expect(commit).toHaveBeenCalledTimes(1)
     expect(commit).toHaveBeenCalledWith('GET_ROOM_LIST', [
@@ -87,12 +89,113 @@ describe('actions', () => {
       "student": "USR0001"
     })
   })
+
+  test('fetchComments', () => {
+    api.getAssignmentRoomComments = (success) => {
+      success({
+        "code": 200,
+        "status": "OK",
+        "data": [
+          {
+            "id": "CMT00001",
+            "author": {
+              "id": "USR00001",
+              "name": "User 1"
+            },
+            "comment": "Comment Example 1",
+            "createdAt": 1500000000
+          },
+          {
+            "id": "CMT00002",
+            "author": {
+              "id": "USR00001",
+              "name": "User 1"
+            },
+            "comment": "Comment Example 2",
+            "createdAt": 1500000000
+          }
+        ],
+        "paging": {
+          "page": 1,
+          "size": 4,
+          "totalRecords": 12
+        }
+      })
+    }
+    const data = {
+      batchCode: '1',
+      assignmentId: 'ASG0001',
+      roomId: 'ROM0001',
+      page: 1,
+      pageSize: 10
+    }
+    const callback = jest.fn()
+    const commit = jest.fn()
+    const fail = jest.fn()
+    store.actions.fetchComments({ commit }, { data, callback, fail })
+    expect(callback).toHaveBeenCalledTimes(1)
+    expect(fail).not.toHaveBeenCalled()
+    expect(commit).toHaveBeenCalledTimes(1)
+    expect(commit).toHaveBeenCalledWith('GET_COMMENTS', [
+      {
+        "id": "CMT00001",
+        "author": {
+          "id": "USR00001",
+          "name": "User 1"
+        },
+        "comment": "Comment Example 1",
+        "createdAt": 1500000000
+      },
+      {
+        "id": "CMT00002",
+        "author": {
+          "id": "USR00001",
+          "name": "User 1"
+        },
+        "comment": "Comment Example 2",
+        "createdAt": 1500000000
+      }
+    ])
+  })
+
+  test('postComment', () => {
+    api.createAssignmentRoomComment = (success) => {
+      success({
+        "code": 201,
+        "status": "CREATED",
+        "data": {
+          "id": "CMT00002",
+          "author": {
+            "id": "USR00001",
+            "name": "User 1"
+          },
+          "comment": "Comment Example 2",
+          "createdAt": 1500000000
+        }
+      })
+    }
+    const data = {
+      batchCode: '1',
+      assignmentId: 'ASG0001',
+      roomId: 'ROM0001',
+      page: 1,
+      pageSize: 10
+    }
+    const payload = {}
+    const callback = jest.fn()
+    const commit = jest.fn()
+    const fail = jest.fn()
+    store.actions.postComment({ commit }, { data, payload, callback, fail })
+    expect(callback).toHaveBeenCalledTimes(1)
+    expect(fail).not.toHaveBeenCalled()
+  })
 })
 
 describe('getters', () => {
   const state = {
     roomList: [],
-    room: {}
+    room: {},
+    comments: []
   }
 
   test('roomList', () => {
@@ -102,12 +205,17 @@ describe('getters', () => {
   test('room', () => {
     expect(store.getters.room(state)).toEqual(state.room)
   })
+
+  test('comments', () => {
+    expect(store.getters.comments(state)).toEqual(state.comments)
+  })
 })
 
 describe('mutations', () => {
   const state = {
     roomList: [],
-    room: {}
+    room: {},
+    comments: []
   }
 
   test('GET_ROOM_LIST', () => {
@@ -148,5 +256,48 @@ describe('mutations', () => {
       "point": 100,
       "student": "USR0001"
     })
+  })
+
+  test('GET_COMMENTS', () => {
+    store.mutations.GET_COMMENTS(state, [
+      {
+        "id": "CMT00001",
+        "author": {
+          "id": "USR00001",
+          "name": "User 1"
+        },
+        "comment": "Comment Example 1",
+        "createdAt": 1500000000
+      },
+      {
+        "id": "CMT00002",
+        "author": {
+          "id": "USR00001",
+          "name": "User 1"
+        },
+        "comment": "Comment Example 2",
+        "createdAt": 1500000000
+      }
+    ])
+    expect(state.comments).toEqual([
+      {
+        "id": "CMT00001",
+        "author": {
+          "id": "USR00001",
+          "name": "User 1"
+        },
+        "comment": "Comment Example 1",
+        "createdAt": 1500000000
+      },
+      {
+        "id": "CMT00002",
+        "author": {
+          "id": "USR00001",
+          "name": "User 1"
+        },
+        "comment": "Comment Example 2",
+        "createdAt": 1500000000
+      }
+    ])
   })
 })
