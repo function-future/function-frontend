@@ -9,7 +9,12 @@ const changePassword = function (callback, data, errorHandler) {
   request.putRequest(config.api.core.profile.change_password, callback, data, errorHandler)
 }
 
+const updateProfilePicture = function (callback, data, errorHandler) {
+  request.putRequest(config.api.core.profile.updateProfilePicture, callback, data, errorHandler)
+}
+
 export default {
   getProfileData,
-  changePassword
+  changePassword,
+  updateProfilePicture
 }

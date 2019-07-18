@@ -47,6 +47,8 @@ import chatrooms from '@/views/Chatrooms/Chatrooms'
 import login from '@/views/Auth/Login'
 import reminders from '@/views/Reminders/Reminders'
 import reminderForm from '@/views/Reminders/ReminderForm'
+import profile from '@/views/User/Profile'
+import changePassword from '@/views/User/ChangePassword'
 import store from '../store/index.js'
 
 Vue.use(Router)
@@ -59,6 +61,29 @@ const router = new Router({
       path: config.app.pages.auth.login,
       name: 'login',
       component: login
+    },
+    {
+      path: config.app.pages.user.profile,
+      name: 'profile',
+      component: profile,
+      meta: {
+        title: 'Profile',
+        breadcrumb: [
+          { name: 'Profile', link: 'profile' }
+        ]
+      }
+    },
+    {
+      path: config.app.pages.user.changePassword,
+      name: 'changePassword',
+      component: changePassword,
+      meta: {
+        title: 'Change Password',
+        breadcrumb: [
+          { name: 'Profile', link: 'profile' },
+          { name: 'Change Password', link: 'changePassword' }
+        ]
+      }
     },
     {
       path: config.app.pages.feeds,
@@ -693,20 +718,18 @@ router.afterEach((to, from) => {
     return
   }
 
-  if (Object.keys(store.getters.currentUser).length) {
-    store.dispatch('getAccessList', {
-      data: encodeURIComponent(to.fullPath),
-      callback: () => {
-        if (!store.getters.accessList.read ||
-          (to.meta.add && store.getters.accessList.add !== to.meta.add) ||
-          (to.meta.edit && store.getters.accessList.edit !== to.meta.edit)) {
-          Vue.toasted.error('You do not have permission to access the page')
-          router.push({ name: 'feeds' })
-        }
-      },
-      fail: () => {}
-    })
-  }
+  store.dispatch('getAccessList', {
+    data: encodeURIComponent(to.fullPath),
+    callback: () => {
+      if (!store.getters.accessList.read ||
+        (to.meta.add && store.getters.accessList.add !== to.meta.add) ||
+        (to.meta.edit && store.getters.accessList.edit !== to.meta.edit)) {
+        Vue.toasted.error('You do not have permission to access the page')
+        router.push({ name: 'feeds' })
+      }
+    },
+    fail: () => {}
+  })
 })
 
 export default router

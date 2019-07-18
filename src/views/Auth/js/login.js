@@ -59,7 +59,7 @@ export default {
       setTimeout(this.redirectAfterLogin, 700)
     },
     redirectAfterLogin () {
-      this.$router.push({ path: this.$route.query.redirect })
+      this.$router.push({ path: this.$route.query.redirect || '/' })
     },
     failLogin () {
       setTimeout(this.showFailMessage, 700)
