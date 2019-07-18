@@ -1,6 +1,6 @@
 <template>
   <div class="scrollable-container">
-    <div class="form-container">
+    <div class="form-container" v-if="!isLoading || !editMode">
       <div class="row">
         <div class="column image-column">
           <div class="image" :style="{ backgroundImage: 'url(' + avatarPreview + ')' }">
@@ -97,6 +97,9 @@
           <BaseButton type="submit" buttonClass="button-save" @click="save">Save</BaseButton>
         </div>
       </div>
+    </div>
+    <div class="loading" v-if="isLoading && editMode">
+      <font-awesome-icon icon="spinner" spin class="icon-loading" size="lg"></font-awesome-icon>
     </div>
     <modal-select-batch v-if="showSelectBatchModal" @close="closeModal"
                 @select="selectBatch">
@@ -205,5 +208,13 @@
     font-size: 0.75em;
     float: left;
     margin-left: 2vw;
+  }
+
+  .loading {
+    margin-top: 50px;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 </style>
