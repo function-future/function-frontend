@@ -4,6 +4,10 @@ module.exports = {
       auth: {
         login: '/login'
       },
+      user: {
+        profile: '/profile',
+        changePassword: '/profile/change-password'
+      },
       feeds: '/',
       activityBlogs: {
         list: '/activity-blogs',
@@ -155,7 +159,8 @@ module.exports = {
       },
       profile: {
         get: '/api/core/user/profile',
-        change_password: '/api/core/user/password'
+        change_password: '/api/core/user/password',
+        updateProfilePicture: '/api/core/user/profile/picture'
       },
       activityBlogs: {
         get (page, size) { return `/api/core/activity-blogs?page=${page}&size=${size}` },
@@ -256,9 +261,7 @@ module.exports = {
         list (page, pageSize) {
           return `/api/scoring/question-banks?page=${page}&size=${pageSize}`
         },
-        create (page, pageSize) {
-          return `/api/scoring/question-banks`
-        },
+        create: `/api/scoring/question-banks`,
         detail (id) {
           return `/api/scoring/question-banks/${id}`
         },

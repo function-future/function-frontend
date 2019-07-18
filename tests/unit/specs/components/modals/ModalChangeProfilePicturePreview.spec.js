@@ -1,9 +1,9 @@
-import modalCopy from '@/components/modals/ModalCopy'
-import { shallowMount, createLocalVue, mount } from '@vue/test-utils'
+import ModalChangeProfilePicturePreview from '@/components/modals/ModalChangeProfilePicturePreview'
+import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import VueRouter from 'vue-router'
 
-describe('ModalCopy', () => {
+describe('ModalChangeProfilePicturePreview', () => {
   let store
   let wrapper
   let localVue
@@ -54,7 +54,7 @@ describe('ModalCopy', () => {
       error: jest.fn(),
       success: jest.fn()
     }
-    return shallowMount(modalCopy, {
+    return shallowMount(ModalChangeProfilePicturePreview, {
       ...options,
       store,
       localVue,
@@ -98,22 +98,9 @@ describe('ModalCopy', () => {
     expect(wrapper.emitted().close.length).toBe(1)
   })
 
-  test('copy', () => {
+  test('save', () => {
     initComponent()
-    wrapper.vm.copy()
-    expect(wrapper.emitted().copy.length).toBe(1)
-  })
-
-  test('successFetchBatches', () => {
-    initComponent()
-    wrapper.vm.$route.params.batchCode = 'sample-id'
-    wrapper.vm.successFetchBatches()
-    expect(wrapper.vm.batches).toEqual(wrapper.vm.batchList)
-  })
-
-  test('failFetchBatches', () => {
-    initComponent()
-    wrapper.vm.failFetchBatches()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    wrapper.vm.save()
+    expect(wrapper.emitted().save.length).toBe(1)
   })
 })

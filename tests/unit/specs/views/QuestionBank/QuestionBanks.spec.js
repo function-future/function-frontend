@@ -97,6 +97,18 @@ describe('QuestionBanks', () => {
     expect(wrapper.vm.fetchQuestionBankList).toHaveBeenCalledTimes(1)
   })
 
+  test('successFetchingQuestionBankQuestionList', () => {
+    initComponent()
+    const paging = {
+      page: 1,
+      size: 10,
+      totalRecords: 20
+    }
+    const spy = jest.spyOn(wrapper.vm, 'loadPage')
+    wrapper.vm.successFetchingQuestionBankList(paging)
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
   test('failFetchingQuestionBankQuestionList', () => {
     initComponent()
     wrapper.vm.failFetchingQuestionBankList()
@@ -163,9 +175,16 @@ describe('QuestionBanks', () => {
 
   test('loadPage', () => {
     initComponent()
+    const paging = {
+      page: 1,
+      size: 10,
+      totalRecords: 20
+    }
     const spy = jest.spyOn(wrapper.vm, 'initPage')
-    wrapper.vm.loadPage(1)
+    wrapper.vm.loadPage(paging)
     expect(wrapper.vm.paging.page).toEqual(1)
+    expect(wrapper.vm.paging.size).toEqual(10)
+    expect(wrapper.vm.paging.totalRecords).toEqual(20)
     expect(spy).toHaveBeenCalledTimes(1)
   })
 

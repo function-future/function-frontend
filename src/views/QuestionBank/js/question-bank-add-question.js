@@ -17,7 +17,7 @@ export default {
     return {
       selectedAnswer: '',
       question: {
-        text: '',
+        label: '',
         options: [
           {
             label: ''

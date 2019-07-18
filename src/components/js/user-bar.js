@@ -26,10 +26,14 @@ export default {
       'attemptLogout'
     ]),
     extendUserBar: function () {
-      this.isExtend = true
+      if (this.loggedIn) {
+        this.isExtend = true
+      }
     },
     shrinkUserBar: function () {
-      this.isExtend = false
+      if (this.loggedIn) {
+        this.isExtend = false
+      }
     },
     login () {
       if (!this.loggedIn) {
@@ -44,6 +48,9 @@ export default {
     successAttemptLogout () {
       this.$cookies.remove('Function-Session')
       this.$router.push({ name: 'login' })
+    },
+    goToProfile () {
+      this.$router.push({ name: 'profile' })
     }
   }
 }

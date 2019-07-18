@@ -117,7 +117,7 @@ describe('StudentQuizDetail', () => {
     expect(routeSpy).toHaveBeenCalledWith({
       name: 'studentQuizQuestions',
       params: {
-        studentId: 'sample-id-1',
+        studentId: 'sample-id',
         quizId: 'QZ0001'
       }
     })
@@ -125,13 +125,13 @@ describe('StudentQuizDetail', () => {
 
   test('returnButtonClicked', () => {
     initComponent()
-    store.state.currentUser.id = 'sample-id-1'
+    store.state.currentUser.id = 'sample-id'
     const routerSpy = jest.spyOn(wrapper.vm.$router, 'push')
     wrapper.vm.returnButtonClicked()
     expect(routerSpy).toHaveBeenCalledWith({
       name: 'studentQuizzes',
       params: {
-        studentId: 'sample-id-1'
+        studentId: 'sample-id'
       }
     })
   })
