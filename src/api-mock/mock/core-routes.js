@@ -594,7 +594,7 @@ export const activityBlogDetail = [
 export const resources = [
   {
     method: 'POST',
-    url: '/api/core/resources?origin=ACTIVITY-BLOG',
+    url: '/api/core/resources?origin=BLOG',
     response: {
       'code': 201,
       'status': 'CREATED',

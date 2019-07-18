@@ -22,7 +22,7 @@ const deleteActivityBlog = function (callback, data, errorHandler) {
 }
 
 const uploadResource = function (callback, data, errorHandler, configuration) {
-  request.postRequest(config.api.core.resources.post('ACTIVITY-BLOG'), callback, data, errorHandler, configuration)
+  request.postRequest(config.api.core.resources.post('BLOG'), callback, data, errorHandler, configuration)
 }
 
 export default {
