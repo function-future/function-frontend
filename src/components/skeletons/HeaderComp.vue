@@ -4,7 +4,7 @@
       <img src="@/assets/logo.png">
     </router-link>
     <ul class="menu">
-      <li><router-link :to="{ name: 'feeds' }" class="navbar-link">Feeds</router-link></li>
+      <li><router-link :to="{ name: 'feeds' }" class="navbar-link" exact>Feeds</router-link></li>
       <li><router-link :to="{ name: 'announcements' }" class="navbar-link">Announcements</router-link></li>
       <li><router-link :to="{ name: 'activityBlogs' }" class="navbar-link">Blogs</router-link></li>
       <li v-if="menuList.courses"><router-link :to="{ name: 'courseBatches' }" class="navbar-link">Courses</router-link></li>
@@ -77,7 +77,7 @@
     opacity: 0.7;
   }
 
-  .router-link-exact-active {
+  .router-link-exact-active, .router-link-active {
     font-weight: bold;
   }
 

@@ -125,10 +125,12 @@ export default {
     submitCopyModal (batchDestination) {
       if (batchDestination === '') return
       let data = {
-        batchCode: batchDestination,
+        batchCode: batchDestination
       }
-      let payload = {...this.assignmentList.find(i => i.id === this.selectedId)}
-      payload.batch = batchDestination
+      let payload = {
+        assignmentId: this.selectedId,
+        batchId: batchDestination
+      }
       this.copyAssignment({
         data,
         payload,

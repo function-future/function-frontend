@@ -5,6 +5,7 @@ import assignmentBatchForm from '@/views/Assignment/AssignmentBatchForm'
 import assignments from '@/views/Assignment/Assignments'
 import addAssignment from '@/views/Assignment/AddAssignment'
 import assignmentRooms from '@/views/Assignment/AssignmentRooms'
+import assignmentRoomDetail from '@/views/Assignment/AssignmentRoomDetail'
 import assignmentDetail from '@/views/Assignment/AssignmentDetail'
 import questionBanks from '@/views/QuestionBank/QuestionBanks'
 import questionBankDetail from '@/views/QuestionBank/QuestionBankDetail'
@@ -18,6 +19,9 @@ import quizzes from '@/views/Quiz/Quiz'
 import addQuiz from '@/views/Quiz/AddQuiz'
 import addQuizDetail from '@/views/Quiz/AddQuizDetail'
 import quizDetail from '@/views/Quiz/QuizDetail'
+import studentQuizList from '@/views/Quiz/StudentQuizList'
+import studentQuizDetail from '@/views/Quiz/StudentQuizDetail'
+import quizQuestions from '@/views/Quiz/QuizQuestions'
 import points from '@/views/Point/Point'
 import feeds from '@/views/Feeds/Feeds.vue'
 import announcements from '@/views/Announcements/Announcements.vue'
@@ -41,6 +45,8 @@ import masterCourseForm from '@/views/Courses/MasterCourseForm.vue'
 import config from '@/config/index'
 import chatrooms from '@/views/Chatrooms/Chatrooms'
 import login from '@/views/Auth/Login'
+import profile from '@/views/User/Profile'
+import changePassword from '@/views/User/ChangePassword'
 import store from '../store/index.js'
 
 Vue.use(Router)
@@ -55,6 +61,31 @@ const router = new Router({
       component: login
     },
     {
+      path: config.app.pages.user.profile,
+      name: 'profile',
+      component: profile,
+      meta: {
+        title: 'Profile',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Profile', link: 'profile' }
+        ]
+      }
+    },
+    {
+      path: config.app.pages.user.changePassword,
+      name: 'changePassword',
+      component: changePassword,
+      meta: {
+        title: 'Change Password',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Profile', link: 'profile' },
+          { name: 'Change Password', link: 'changePassword' }
+        ]
+      }
+    },
+    {
       path: config.app.pages.feeds,
       name: 'feeds',
       component: feeds,
@@ -67,7 +98,11 @@ const router = new Router({
       name: 'activityBlogs',
       component: activityBlogs,
       meta: {
-        title: 'Activity Blogs'
+        title: 'Activity Blogs',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Activity Blogs', link: 'activityBlogs' }
+        ]
       }
     },
     {
@@ -75,7 +110,12 @@ const router = new Router({
       name: 'activityBlogDetail',
       component: activityBlogDetail,
       meta: {
-        title: 'Activity Blog Detail'
+        title: 'Activity Blog Detail',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Activity Blogs', link: 'activityBlogs' },
+          { name: 'Activity Blog Detail', link: 'activityBlogDetail' }
+        ]
       }
     },
     {
@@ -85,7 +125,12 @@ const router = new Router({
       meta: {
         auth: true,
         add: true,
-        title: 'Add Activity Blog'
+        title: 'Add Activity Blog',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Activity Blogs', link: 'activityBlogs' },
+          { name: 'Add Activity Blog', link: 'addActivityBlog' }
+        ]
       },
       props: { editMode: false }
     },
@@ -96,7 +141,12 @@ const router = new Router({
       meta: {
         auth: true,
         edit: true,
-        title: 'Edit Activity Blog'
+        title: 'Edit Activity Blog',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Activity Blogs', link: 'activityBlogs' },
+          { name: 'Edit Activity Blog', link: 'editActivityBlog' }
+        ]
       },
       props: { editMode: true }
     },
@@ -105,7 +155,11 @@ const router = new Router({
       name: 'announcements',
       component: announcements,
       meta: {
-        title: 'Announcements'
+        title: 'Announcements',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Announcements', link: 'announcements' }
+        ]
       }
     },
     {
@@ -113,7 +167,12 @@ const router = new Router({
       name: 'announcementDetail',
       component: announcementDetail,
       meta: {
-        title: 'Announcements Detail'
+        title: 'Announcements Detail',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Announcements', link: 'announcements' },
+          { name: 'Announcement Detail', link: 'announcementDetail' }
+        ]
       }
     },
     {
@@ -123,7 +182,12 @@ const router = new Router({
       meta: {
         auth: true,
         edit: true,
-        title: 'Edit Announcements'
+        title: 'Edit Announcements',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Announcements', link: 'announcements' },
+          { name: 'Edit Announcement', link: 'editAnnouncement' }
+        ]
       },
       props: { editMode: true }
     },
@@ -134,7 +198,12 @@ const router = new Router({
       meta: {
         auth: true,
         add: true,
-        title: 'Add Announcements'
+        title: 'Add Announcements',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Announcements', link: 'announcements' },
+          { name: 'Add Announcement', link: 'addAnnouncement' }
+        ]
       },
       props: { editMode: false }
     },
@@ -146,6 +215,7 @@ const router = new Router({
         auth: true,
         title: 'Select Course Batch',
         breadcrumb: [
+          { name: 'Home', link: 'feeds' },
           { name: 'Batches', link: 'courseBatches' }
         ]
       }
@@ -159,6 +229,7 @@ const router = new Router({
         add: true,
         title: 'Add Batch',
         breadcrumb: [
+          { name: 'Home', link: 'feeds' },
           { name: 'Batches', link: 'courseBatches' },
           { name: 'Add Batch', link: 'addBatch' }
         ]
@@ -174,6 +245,7 @@ const router = new Router({
         edit: true,
         title: 'Edit Batch',
         breadcrumb: [
+          { name: 'Home', link: 'feeds' },
           { name: 'Batches', link: 'courseBatches' },
           { name: 'Edit Batch', link: 'editBatch' }
         ]
@@ -188,6 +260,7 @@ const router = new Router({
         auth: true,
         title: 'Courses',
         breadcrumb: [
+          { name: 'Home', link: 'feeds' },
           { name: 'Batches', link: 'courseBatches' },
           { name: 'Courses', link: 'courses' }
         ]
@@ -201,6 +274,7 @@ const router = new Router({
         auth: true,
         title: 'Course Detail',
         breadcrumb: [
+          { name: 'Home', link: 'feeds' },
           { name: 'Batches', link: 'courseBatches' },
           { name: 'Courses', link: 'courses' },
           { name: 'Course Detail', link: 'courseDetail' }
@@ -216,6 +290,7 @@ const router = new Router({
         add: true,
         title: 'Add Course',
         breadcrumb: [
+          { name: 'Home', link: 'feeds' },
           { name: 'Batches', link: 'courseBatches' },
           { name: 'Courses', link: 'courses' },
           { name: 'Add Course', link: 'addCourse' }
@@ -232,6 +307,7 @@ const router = new Router({
         edit: true,
         title: 'Edit Course',
         breadcrumb: [
+          { name: 'Home', link: 'feeds' },
           { name: 'Batches', link: 'courseBatches' },
           { name: 'Courses', link: 'courses' },
           { name: 'Edit Course', link: 'editCourse' }
@@ -247,6 +323,7 @@ const router = new Router({
         auth: true,
         title: 'Master Courses',
         breadcrumb: [
+          { name: 'Home', link: 'feeds' },
           { name: 'Batches', link: 'courseBatches' },
           { name: 'Master Courses', link: 'masterCourses' }
         ]
@@ -260,6 +337,7 @@ const router = new Router({
         auth: true,
         title: 'Master Course Detail',
         breadcrumb: [
+          { name: 'Home', link: 'feeds' },
           { name: 'Batches', link: 'courseBatches' },
           { name: 'Master Courses', link: 'masterCourses' },
           { name: 'Master Course Detail', link: 'masterCourseDetail' }
@@ -275,6 +353,7 @@ const router = new Router({
         add: true,
         title: 'Add Master Course',
         breadcrumb: [
+          { name: 'Home', link: 'feeds' },
           { name: 'Batches', link: 'courseBatches' },
           { name: 'Master Courses', link: 'masterCourses' },
           { name: 'Add Master Course', link: 'addMasterCourse' }
@@ -291,6 +370,7 @@ const router = new Router({
         edit: true,
         title: 'Edit Master Course',
         breadcrumb: [
+          { name: 'Home', link: 'feeds' },
           { name: 'Batches', link: 'courseBatches' },
           { name: 'Master Courses', link: 'masterCourses' },
           { name: 'Edit Master Course', link: 'editMasterCourse' }
@@ -385,7 +465,11 @@ const router = new Router({
       name: 'stickyNotes',
       component: stickyNotes,
       meta: {
-        title: 'Sticky Notes'
+        title: 'Sticky Notes',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Sticky Notes', link: 'stickyNotes' }
+        ]
       }
     },
     {
@@ -395,7 +479,12 @@ const router = new Router({
       meta: {
         auth: true,
         edit: true,
-        title: 'Edit Sticky Note'
+        title: 'Edit Sticky Note',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Sticky Notes', link: 'stickyNotes' },
+          { name: 'Edit Sticky Notes', link: 'editStickyNote' }
+        ]
       }
     },
     {
@@ -504,6 +593,30 @@ const router = new Router({
       }
     },
     {
+      path: config.app.pages.students.quizzes.list,
+      name: 'studentQuizzes',
+      component: studentQuizList,
+      meta: {
+        title: 'Quizzes'
+      }
+    },
+    {
+      path: config.app.pages.students.quizzes.detail,
+      name: 'studentQuizDetail',
+      component: studentQuizDetail,
+      meta: {
+        title: 'Quiz Detail'
+      }
+    },
+    {
+      path: config.app.pages.students.quizzes.questions,
+      name: 'studentQuizQuestions',
+      component: quizQuestions,
+      meta: {
+        title: 'Questions'
+      }
+    },
+    {
       path: config.app.pages.assignments.batches.list,
       name: 'assignmentBatch',
       component: assignmentBatch,
@@ -572,9 +685,14 @@ const router = new Router({
     {
       path: config.app.pages.assignments.rooms.detail,
       name: 'assignmentRoomDetail',
-      component: quizDetail,
+      component: assignmentRoomDetail,
       meta: {
-        title: 'Assignment'
+        title: 'Room Detail',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Assignments', link: 'assignments' },
+          { name: 'Rooms', link: 'assignmentRooms' }
+        ]
       }
     },
     {
@@ -621,20 +739,18 @@ router.afterEach((to, from) => {
     return
   }
 
-  if (Object.keys(store.getters.currentUser).length) {
-    store.dispatch('getAccessList', {
-      data: encodeURIComponent(to.fullPath),
-      callback: () => {
-        if (!store.getters.accessList.read ||
-          (to.meta.add && store.getters.accessList.add !== to.meta.add) ||
-          (to.meta.edit && store.getters.accessList.edit !== to.meta.edit)) {
-          Vue.toasted.error('You do not have permission to access the page')
-          router.push({ name: 'feeds' })
-        }
-      },
-      fail: () => {}
-    })
-  }
+  store.dispatch('getAccessList', {
+    data: encodeURIComponent(to.fullPath),
+    callback: () => {
+      if (!store.getters.accessList.read ||
+        (to.meta.add && store.getters.accessList.add !== to.meta.add) ||
+        (to.meta.edit && store.getters.accessList.edit !== to.meta.edit)) {
+        Vue.toasted.error('You do not have permission to access the page')
+        router.push({ name: 'feeds' })
+      }
+    },
+    fail: () => {}
+  })
 })
 
 export default router

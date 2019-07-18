@@ -80,7 +80,8 @@
               <div class="batch-select">
                 <BaseInput v-model="userDetail.batch.code"
                            v-validate.continues="'required'"
-                           name="batch" :disabled="true">
+                           name="batch" :disabled="true"
+                           placeholder="Select Student Batch">
                 </BaseInput>
               </div>
               <div v-if="errors.has('batch')"><span class="input-invalid-message">{{ errors.first('batch') }}</span></div>

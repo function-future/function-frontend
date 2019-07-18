@@ -29,4 +29,33 @@ describe('Assignment Controller', () => {
     api.getAssignmentRoomById(callback, data, errorHandler)
     expect(spy).toBeCalledTimes(1)
   })
+
+  test('updateAssignmentRoomScore', () => {
+    const spy = jest.spyOn(request, 'putRequest')
+    const data = {}
+    const payload = {}
+    const callback = jest.fn()
+    const errorHandler = jest.fn()
+    api.updateAssignmentRoomScore(callback, data, payload, errorHandler)
+    expect(spy).toBeCalledTimes(1)
+  })
+
+  test('getAssignmentRoomComments', () => {
+    const spy = jest.spyOn(request, 'getRequest')
+    const data = {}
+    const callback = jest.fn()
+    const errorHandler = jest.fn()
+    api.getAssignmentRoomComments(callback, data, errorHandler)
+    expect(spy).toBeCalledTimes(1)
+  })
+
+  test('createAssignmentRoomComment', () => {
+    const spy = jest.spyOn(request, 'postRequest')
+    const data = {}
+    const payload = {}
+    const callback = jest.fn()
+    const errorHandler = jest.fn()
+    api.createAssignmentRoomComment(callback, data, payload, errorHandler)
+    expect(spy).toBeCalledTimes(1)
+  })
 })

@@ -137,8 +137,10 @@ export default {
       let data = {
         batchCode: batchDestination
       }
-      let payload = {...this.quizList.find(i => i.id === this.selectedId)}
-      payload.batch = batchDestination
+      let payload = {
+        batchId: batchDestination,
+        quizId: this.selectedId
+      }
       this.copyQuiz({
         data,
         payload,
