@@ -121,7 +121,7 @@ export default {
     submitAddQuestion (value) {
       console.log(value)
       console.log(this.$route.params.questionnaireId)
-      questionnaireApi.addQuestionQuestionnaire(response => {
+      questionnaireApi.createQuestionQuestionnaire(response => {
         this.$toasted.success('success create question')
       }, this.submitQuestionErrorCallback,
       {
