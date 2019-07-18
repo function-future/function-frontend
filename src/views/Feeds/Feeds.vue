@@ -8,7 +8,7 @@
         {{ stickyNote.updatedAt | moment("dddd, MMMM Do YYYY") }}
       </div>
       <div class="sticky-notes-content">
-        <span>{{ stickyNotesDescriptionPreview || 'Insert Sticky Notes Here...' }}</span>
+        <span>{{ stickyNote.description || 'Insert Sticky Notes Here...' }}</span>
       </div>
     </BaseCard>
     <BaseCard class="announcement-card" @click.native="goToAnnouncementPage" cardClass="card-hover no-pointer">

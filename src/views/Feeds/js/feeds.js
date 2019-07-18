@@ -26,10 +26,7 @@ export default {
     ...mapGetters([
       'stickyNotes',
       'announcementList'
-    ]),
-    stickyNotesDescriptionPreview () {
-      return this.stickyNote.description.substr(0, 100) + '...' || ''
-    }
+    ])
   },
   methods: {
     ...mapActions([
@@ -75,5 +72,13 @@ export default {
     failLoadAnnouncementList () {
       this.$toasted.error('Fail to load announcement list')
     }
+    // stickyNotesDescriptionPreview (stickyNote) {
+    //   if (stickyNote) {
+    //     if (stickyNote.description.length > 100) {
+    //       return stickyNote.description.substr(0, 100) + '...'
+    //     } else {
+    //       return stickyNote.description
+    //     }
+    //   }
   }
 }
