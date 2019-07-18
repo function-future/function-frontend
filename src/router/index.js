@@ -98,7 +98,11 @@ const router = new Router({
       name: 'activityBlogs',
       component: activityBlogs,
       meta: {
-        title: 'Activity Blogs'
+        title: 'Activity Blogs',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Activity Blogs', link: 'activityBlogs' }
+        ]
       }
     },
     {
@@ -106,7 +110,12 @@ const router = new Router({
       name: 'activityBlogDetail',
       component: activityBlogDetail,
       meta: {
-        title: 'Activity Blog Detail'
+        title: 'Activity Blog Detail',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Activity Blogs', link: 'activityBlogs' },
+          { name: 'Activity Blog Detail', link: 'activityBlogDetail' }
+        ]
       }
     },
     {
@@ -116,7 +125,12 @@ const router = new Router({
       meta: {
         auth: true,
         add: true,
-        title: 'Add Activity Blog'
+        title: 'Add Activity Blog',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Activity Blogs', link: 'activityBlogs' },
+          { name: 'Add Activity Blog', link: 'addActivityBlog' }
+        ]
       },
       props: { editMode: false }
     },
@@ -127,7 +141,12 @@ const router = new Router({
       meta: {
         auth: true,
         edit: true,
-        title: 'Edit Activity Blog'
+        title: 'Edit Activity Blog',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Activity Blogs', link: 'activityBlogs' },
+          { name: 'Edit Activity Blog', link: 'editActivityBlog' }
+        ]
       },
       props: { editMode: true }
     },
@@ -136,7 +155,11 @@ const router = new Router({
       name: 'announcements',
       component: announcements,
       meta: {
-        title: 'Announcements'
+        title: 'Announcements',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Announcements', link: 'announcements' }
+        ]
       }
     },
     {
@@ -144,7 +167,12 @@ const router = new Router({
       name: 'announcementDetail',
       component: announcementDetail,
       meta: {
-        title: 'Announcements Detail'
+        title: 'Announcements Detail',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Announcements', link: 'announcements' },
+          { name: 'Announcement Detail', link: 'announcementDetail' }
+        ]
       }
     },
     {
@@ -154,7 +182,12 @@ const router = new Router({
       meta: {
         auth: true,
         edit: true,
-        title: 'Edit Announcements'
+        title: 'Edit Announcements',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Announcements', link: 'announcements' },
+          { name: 'Edit Announcement', link: 'editAnnouncement' }
+        ]
       },
       props: { editMode: true }
     },
@@ -165,7 +198,12 @@ const router = new Router({
       meta: {
         auth: true,
         add: true,
-        title: 'Add Announcements'
+        title: 'Add Announcements',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Announcements', link: 'announcements' },
+          { name: 'Add Announcement', link: 'addAnnouncement' }
+        ]
       },
       props: { editMode: false }
     },
@@ -427,7 +465,11 @@ const router = new Router({
       name: 'stickyNotes',
       component: stickyNotes,
       meta: {
-        title: 'Sticky Notes'
+        title: 'Sticky Notes',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Sticky Notes', link: 'stickyNotes' }
+        ]
       }
     },
     {
@@ -437,7 +479,12 @@ const router = new Router({
       meta: {
         auth: true,
         edit: true,
-        title: 'Edit Sticky Note'
+        title: 'Edit Sticky Note',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Sticky Notes', link: 'stickyNotes' },
+          { name: 'Edit Sticky Notes', link: 'editStickyNote' }
+        ]
       }
     },
     {
