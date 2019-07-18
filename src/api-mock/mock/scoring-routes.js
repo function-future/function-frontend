@@ -1024,7 +1024,12 @@ export const finalJudging = [
           "uploadedDate" : 15000000000,
           "usedAt" : 15000000000
         }
-      ]
+      ],
+      "paging": {
+        "page": 1,
+        "size": 10,
+        "totalRecords": 13
+      }
     }
   },
   {
