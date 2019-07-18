@@ -24,10 +24,7 @@
           <p>{{ selectedUsers.length }} members</p>
           <div class="selected-user">
             <template v-for="(user, index) in selectedUsers">
-              <div class="selected-user-card" :key="user.id">
-                <p>{{ user.name }}</p>
-                <font-awesome-icon icon="times" class="selected-user-remove" @click="selectedUsers.splice(index, 1)" size="lg" />
-              </div>
+              <UserSimpleCard @remove="selectedUsers.splice(index, 1)" :key="user.id" :index="index" :user="user"/>
             </template>
           </div>
           <BaseInput
@@ -48,39 +45,14 @@
   </div>
 </template>
 
-<script type="text/javascript" src="./js/modal-chatroom.js"></script>
+<script src="./js/modal-chatroom.js">
+</script>
 
 <style lang="scss" scoped>
 
   .selected-user {
     display: flex;
     flex-wrap: wrap;
-  }
-
-  .selected-user-card {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    margin: 3px;
-    padding: 5px;
-    border-radius: 10px;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    -webkit-box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.1);
-    -moz-box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.1);
-    box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.1);
-  }
-
-  .selected-user-card > p, .selected-user-remove {
-    margin: 0;
-    font-size: 0.8rem;
-  }
-
-  .selected-user-remove {
-    margin-left: 10px;
-    cursor: pointer;
   }
 
   .modal {
