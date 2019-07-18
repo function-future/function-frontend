@@ -1,7 +1,6 @@
-
 import { mapActions, mapGetters } from 'vuex'
 import BaseCard from '@/components/BaseCard.vue'
-import config from '@/config/index'
+const MAX_STICKY_NOTE_PREVIEW_LENGTH = 200
 
 export default {
   name: 'feeds',
@@ -10,7 +9,11 @@ export default {
   },
   data () {
     return {
-      stickyNote: {},
+      stickyNote: {
+        title: '',
+        description: '',
+        updatedAt: ''
+      },
       announcements: [],
       paging: {
         page: 1,
@@ -71,14 +74,13 @@ export default {
     },
     failLoadAnnouncementList () {
       this.$toasted.error('Fail to load announcement list')
+    },
+    stickyNotesDescriptionPreview (description) {
+      if (description.length > MAX_STICKY_NOTE_PREVIEW_LENGTH) {
+        return description.substr(0, MAX_STICKY_NOTE_PREVIEW_LENGTH) + '...'
+      } else {
+        return description
+      }
     }
-    // stickyNotesDescriptionPreview (stickyNote) {
-    //   if (stickyNote) {
-    //     if (stickyNote.description.length > 100) {
-    //       return stickyNote.description.substr(0, 100) + '...'
-    //     } else {
-    //       return stickyNote.description
-    //     }
-    //   }
   }
 }
