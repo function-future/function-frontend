@@ -27,6 +27,7 @@ export default {
     deleteQuestionnaireWithId (questionnaireId) {
       questionnaireApi.deleteQuestionnaire(response => {
         this.$toasted.success('successs delete')
+        window.location.reload(true)
       }, this.submitMessageErrorCallback,
       {
         params: {

@@ -12,7 +12,7 @@
         />
         <div class="title-placeholder">
           <h2>Questions</h2>
-          <BaseButton button-class="button-save" class="button-save">Add</BaseButton>
+          <BaseButton button-class="button-save" class="button-save" @click="showAddQuestion = true">Add</BaseButton>
         </div>
         <hr>
         <div class="question-container-list">
@@ -57,6 +57,10 @@
 <!--          ></QuestionnaireParticipantCard>-->
         </div>
       </div>
+      <modal-add-question :description="question.description" v-if="showAddQuestion"
+             @close="showAddQuestion = !showAddQuestion"
+             @submit="submitAddQuestion"
+      ></modal-add-question>
     </div>
 </template>
 

@@ -42,10 +42,20 @@ const deleteQuestionnaire = function (callback, error, data) {
   )
 }
 
+const addQuestionQuestionnaire = function (callback, error, data) {
+  request.postRequest(
+    config.api.communication.questionnaire.createQuestionQuestionnaire(data.params.questionnaireId),
+    callback,
+    data.body,
+    error
+  )
+}
+
 export default {
   getQuestionnaires,
   getQuestionnaire,
   createQuestionnaire,
   updateQuestionnaire,
-  deleteQuestionnaire
+  deleteQuestionnaire,
+  addQuestionQuestionnaire
 }

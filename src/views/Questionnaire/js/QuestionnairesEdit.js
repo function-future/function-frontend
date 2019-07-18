@@ -2,6 +2,8 @@ import QuestionnaireForm from '../QuestionnaireForm'
 import QuestionCard from '../QuestionCard'
 import QuestionnaireParticipantCard from '../QuestionnaireParticipantCard'
 import BaseButton from '@/components/BaseButton'
+import Modal from '@/components/modals/Modal'
+import ModalAddQuestion from '@/views/Questionnaire/ModalAddQuestion'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 import questionnaireApi from '@/api/controller/questionnaire'
 
@@ -11,7 +13,9 @@ export default {
     QuestionnaireForm,
     QuestionCard,
     QuestionnaireParticipantCard,
-    BaseButton
+    BaseButton,
+    Modal,
+    ModalAddQuestion
   },
   data () {
     return {
@@ -41,7 +45,12 @@ export default {
         }
       ],
       i: 1,
-      currentQuestionnaire: {}
+      currentQuestionnaire: {},
+      showAddQuestion: false,
+      question: {
+        id: '',
+        description: ''
+      },
     }
   },
   computed: {
@@ -91,7 +100,7 @@ export default {
           body: {
             title: this.currentQuestionnaireAdmin.title,
             desc: this.currentQuestionnaireAdmin.description,
-            startDate: isNaN(Date.parse(this.currentQuestionnaireAdmin.startDate)) ? this.currentQuestionnaireAdmin.startDate : this.currentQuestionnaireAdmin.startDate.getTime() ,
+            startDate: isNaN(Date.parse(this.currentQuestionnaireAdmin.startDate)) ? this.currentQuestionnaireAdmin.startDate : this.currentQuestionnaireAdmin.startDate.getTime(),
             dueDate: isNaN(Date.parse(this.currentQuestionnaireAdmin.dueDate)) ? this.currentQuestionnaireAdmin.dueDate : this.currentQuestionnaireAdmin.dueDate.getTime()
           }
         })
@@ -108,6 +117,23 @@ export default {
     },
     AlertDelete () {
       alert('this one delete')
+    },
+    submitAddQuestion (value) {
+      console.log(value)
+      console.log(this.$route.params.questionnaireId)
+      questionnaireApi.addQuestionQuestionnaire(response => {
+        this.$toasted.success('success create question')
+      }, this.submitQuestionErrorCallback,
+      {
+        body: value,
+        params: {
+          questionnaireId: this.$route.params.questionnaireId
+        }
+      })
+    },
+    submitQuestionErrorCallback (err) {
+      console.log(err)
+      this.$toasted.error('Fail to createQuestion')
     }
   },
   created () {

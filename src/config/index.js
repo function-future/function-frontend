@@ -386,16 +386,16 @@ module.exports = {
           return `/api/communication/questionnaires/${questionnaireId}/appraiser/${questionnaireparticipantId}`
         },
         getQuestionsQuestionnaire (questionnaireId) {
-          return `/api/ccommunication/questionnaires/${questionnaireId}/questions`
+          return `/api/communication/questionnaires/${questionnaireId}/questions`
         },
         createQuestionQuestionnaire (questionnaireId) {
-          return `/api/ccommunication/questionnaires/${questionnaireId}/questions`
+          return `/api/communication/questionnaires/${questionnaireId}/questions`
         },
         updateQuestionQuestionnaire (questionnaireId, questionId) {
-          return `/api/ccommunication/questionnaires/${questionnaireId}/questions/${questionId}`
+          return `/api/communication/questionnaires/${questionnaireId}/questions/${questionId}`
         },
         deleteQuestionQuestionnaire (questionnaireId, questionId) {
-          return `/api/ccommunication/questionnaires/${questionnaireId}/questions/${questionId}`
+          return `/api/communication/questionnaires/${questionnaireId}/questions/${questionId}`
         }
       },
       questionnaireResponse: {
