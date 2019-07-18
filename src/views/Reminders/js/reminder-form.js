@@ -60,7 +60,7 @@ export default {
         description: this.description,
         isRepeatedMonthly: this.timeType === 'MONTHLY',
         members: this.members.map(member => member.id),
-        repeatDays: this.daysChosen,
+        repeatDays: this.timeType === 'EVERY_DAY' ? this.days : this.daysChosen,
         monthlyDate: this.date,
         minute: this.parseTime().minute,
         hour: this.parseTime().hour
