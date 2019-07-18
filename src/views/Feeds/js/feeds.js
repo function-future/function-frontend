@@ -26,7 +26,10 @@ export default {
     ...mapGetters([
       'stickyNotes',
       'announcementList'
-    ])
+    ]),
+    stickyNotesDescriptionPreview () {
+      return this.stickyNote.description.substr(0, 100) + '...' || ''
+    }
   },
   methods: {
     ...mapActions([
