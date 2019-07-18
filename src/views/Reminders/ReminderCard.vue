@@ -7,7 +7,7 @@
         <p class="reminder__element-card__content__time"><font-awesome-icon :icon="['far', 'clock']" size="lg"></font-awesome-icon> &nbsp; {{ formatDay(reminder) }} at {{ reminder.time }}</p>
         <p class="reminder__element-card__content__user"><font-awesome-icon icon="user" size="lg"></font-awesome-icon> &nbsp; {{ reminder.memberCount + ' ' + (reminder.memberCount > 1 ? 'Members': 'Member') }}</p>
       </div>
-      <font-awesome-icon @click="$emit('remove', reminder.id)" icon="times" class="reminder__element-card__close-btn"></font-awesome-icon>
+      <font-awesome-icon @click.stop="$emit('remove', reminder.id)" icon="times" class="reminder__element-card__close-btn"></font-awesome-icon>
     </div>
   </BaseCard>
 </template>
