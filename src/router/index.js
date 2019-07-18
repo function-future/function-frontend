@@ -67,6 +67,7 @@ const router = new Router({
       meta: {
         title: 'Profile',
         breadcrumb: [
+          { name: 'Home', link: 'feeds' },
           { name: 'Profile', link: 'profile' }
         ]
       }
@@ -78,6 +79,7 @@ const router = new Router({
       meta: {
         title: 'Change Password',
         breadcrumb: [
+          { name: 'Home', link: 'feeds' },
           { name: 'Profile', link: 'profile' },
           { name: 'Change Password', link: 'changePassword' }
         ]
@@ -175,6 +177,7 @@ const router = new Router({
         auth: true,
         title: 'Select Course Batch',
         breadcrumb: [
+          { name: 'Home', link: 'feeds' },
           { name: 'Batches', link: 'courseBatches' }
         ]
       }
@@ -188,6 +191,7 @@ const router = new Router({
         add: true,
         title: 'Add Batch',
         breadcrumb: [
+          { name: 'Home', link: 'feeds' },
           { name: 'Batches', link: 'courseBatches' },
           { name: 'Add Batch', link: 'addBatch' }
         ]
@@ -203,6 +207,7 @@ const router = new Router({
         edit: true,
         title: 'Edit Batch',
         breadcrumb: [
+          { name: 'Home', link: 'feeds' },
           { name: 'Batches', link: 'courseBatches' },
           { name: 'Edit Batch', link: 'editBatch' }
         ]
@@ -217,6 +222,7 @@ const router = new Router({
         auth: true,
         title: 'Courses',
         breadcrumb: [
+          { name: 'Home', link: 'feeds' },
           { name: 'Batches', link: 'courseBatches' },
           { name: 'Courses', link: 'courses' }
         ]
@@ -230,6 +236,7 @@ const router = new Router({
         auth: true,
         title: 'Course Detail',
         breadcrumb: [
+          { name: 'Home', link: 'feeds' },
           { name: 'Batches', link: 'courseBatches' },
           { name: 'Courses', link: 'courses' },
           { name: 'Course Detail', link: 'courseDetail' }
@@ -245,6 +252,7 @@ const router = new Router({
         add: true,
         title: 'Add Course',
         breadcrumb: [
+          { name: 'Home', link: 'feeds' },
           { name: 'Batches', link: 'courseBatches' },
           { name: 'Courses', link: 'courses' },
           { name: 'Add Course', link: 'addCourse' }
@@ -261,6 +269,7 @@ const router = new Router({
         edit: true,
         title: 'Edit Course',
         breadcrumb: [
+          { name: 'Home', link: 'feeds' },
           { name: 'Batches', link: 'courseBatches' },
           { name: 'Courses', link: 'courses' },
           { name: 'Edit Course', link: 'editCourse' }
@@ -276,6 +285,7 @@ const router = new Router({
         auth: true,
         title: 'Master Courses',
         breadcrumb: [
+          { name: 'Home', link: 'feeds' },
           { name: 'Batches', link: 'courseBatches' },
           { name: 'Master Courses', link: 'masterCourses' }
         ]
@@ -289,6 +299,7 @@ const router = new Router({
         auth: true,
         title: 'Master Course Detail',
         breadcrumb: [
+          { name: 'Home', link: 'feeds' },
           { name: 'Batches', link: 'courseBatches' },
           { name: 'Master Courses', link: 'masterCourses' },
           { name: 'Master Course Detail', link: 'masterCourseDetail' }
@@ -304,6 +315,7 @@ const router = new Router({
         add: true,
         title: 'Add Master Course',
         breadcrumb: [
+          { name: 'Home', link: 'feeds' },
           { name: 'Batches', link: 'courseBatches' },
           { name: 'Master Courses', link: 'masterCourses' },
           { name: 'Add Master Course', link: 'addMasterCourse' }
@@ -320,6 +332,7 @@ const router = new Router({
         edit: true,
         title: 'Edit Master Course',
         breadcrumb: [
+          { name: 'Home', link: 'feeds' },
           { name: 'Batches', link: 'courseBatches' },
           { name: 'Master Courses', link: 'masterCourses' },
           { name: 'Edit Master Course', link: 'editMasterCourse' }
@@ -629,6 +642,7 @@ const router = new Router({
       meta: {
         title: 'Room Detail',
         breadcrumb: [
+          { name: 'Home', link: 'feeds' },
           { name: 'Assignments', link: 'assignments' },
           { name: 'Rooms', link: 'assignmentRooms' }
         ]
