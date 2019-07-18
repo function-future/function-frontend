@@ -9,7 +9,8 @@ describe('UserSimpleCard', () => {
   test('Rendered correctly', () => {
     const wrapper = shallowMount(UserSimpleCard, {
       propsData: {
-        user: {}
+        user: {},
+        showRemove: true
       },
       stubs: ['font-awesome-icon']
     })

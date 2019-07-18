@@ -1,6 +1,10 @@
 export default {
   name: 'UserSimpleCard',
   props: {
-    user: {}
+    user: {},
+    showRemove: {
+      default: true,
+      required: false
+    }
   }
 }

@@ -25,7 +25,7 @@ export default {
     }
   },
   props: {
-    chatroomId: String,
+    chatroomId: String
   },
   computed: {
     ...mapGetters([

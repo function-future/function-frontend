@@ -1,7 +1,7 @@
 <template>
     <div class="selected-user-card">
         <p>{{ user.name }}</p>
-        <font-awesome-icon icon="times" class="selected-user-remove" @click="$emit('remove', user.id)" size="lg"/>
+        <font-awesome-icon v-if="showRemove" icon="times" class="selected-user-remove" @click="$emit('remove', user.id)" size="lg"/>
     </div>
 </template>
 <script src="./js/user-simple-card.js">
