@@ -60,20 +60,22 @@ export default {
       this.$toasted.error('Something went wrong')
     },
     removeHandler (reminderId) {
-      reminderApi.deleteReminder(response => {
-        this.$toasted.success('Reminder has been successfully deleted')
-        this.reminders = []
-        this.page = 1
-        if (this.keyword) {
-          this.searchHandler(this.keyword)
-        } else {
-          this.$refs.infiniteLoading.stateChanger.reset()
-        }
-      }, this.errorCallback, {
-        params: {
-          reminderId
-        }
-      })
+      if (confirm('Are you sure want to delete this reminder ?')) {
+        reminderApi.deleteReminder(response => {
+          this.$toasted.success('Reminder has been successfully deleted')
+          this.reminders = []
+          this.page = 1
+          if (this.keyword) {
+            this.searchHandler(this.keyword)
+          } else {
+            this.$refs.infiniteLoading.stateChanger.reset()
+          }
+        }, this.errorCallback, {
+          params: {
+            reminderId
+          }
+        })
+      }
     },
     createHandler () {
       this.resetState()
