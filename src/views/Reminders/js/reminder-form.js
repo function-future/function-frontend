@@ -15,11 +15,14 @@ export default {
     BaseTextArea
   },
   props: {
-    editMode: Boolean
+    editMode: Boolean,
+    createMode: {
+      default: false,
+      type: Boolean
+    }
   },
   data () {
     return {
-      edit: this.editMode,
       reminder: null,
       showModalMember: false
     }
@@ -31,15 +34,15 @@ export default {
   },
   methods: {
     handleTopBtnClick () {
-      if (this.edit) {
-        this.edit = false
+      if (this.editMode) {
         this.save()
       } else {
-        this.edit = true
+        this.$router.push({ name: 'reminderEdit', params: { reminderId: this.$route.params.reminderId } })
       }
     },
     save () {
       console.log('save')
+      this.$router.replace({ name: 'reminderDetail', params: { reminderId: this.$route.params.reminderId } })
     },
     errorHandler (err) {
       console.log(err)
@@ -53,12 +56,14 @@ export default {
     }
   },
   created () {
-    reminderApi.getReminder(response => {
-      this.reminder = response.data
-    }, this.errorHandler, {
-      params: {
-        reminderId: this.$route.params.reminderId
-      }
-    })
+    if (!this.createMode) {
+      reminderApi.getReminder(response => {
+        this.reminder = response.data
+      }, this.errorHandler, {
+        params: {
+          reminderId: this.$route.params.reminderId
+        }
+      })
+    }
   }
 }

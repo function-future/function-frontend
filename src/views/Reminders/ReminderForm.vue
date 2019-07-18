@@ -1,16 +1,16 @@
 <template>
   <div class="reminder-form__container">
-    <BaseButton @click="handleTopBtnClick" buttonClass="button-save" class="reminder-form__edit-btn">{{ edit ? 'Save' : 'Edit' }}</BaseButton>
+    <BaseButton @click="handleTopBtnClick" buttonClass="button-save" class="reminder-form__edit-btn">{{ editMode ? 'Save' : 'Edit' }}</BaseButton>
     <h3>Title</h3>
-    <BaseInput maxlength="30" class="reminder-form__input" inputType="reminder-input" :disabled="!edit" :value="reminder ? reminder.title : ''"></BaseInput>
+    <BaseInput maxlength="30" class="reminder-form__input" inputType="reminder-input" :disabled="!editMode" :value="reminder ? reminder.title : ''"></BaseInput>
     <h3>Description</h3>
-    <BaseTextArea maxlength="140" class="reminder-form__input" inputType="reminder-input" :disabled="!edit" :value="reminder ? reminder.description : ''"></BaseTextArea>
+    <BaseTextArea maxlength="140" class="reminder-form__input" inputType="reminder-input" :disabled="!editMode" :value="reminder ? reminder.description : ''"></BaseTextArea>
     <h3>Members</h3>
     <div class="reminder-form__member">
       <template v-for="(user, index) in computedUser">
-        <UserSimpleCard :showRemove="edit" @remove="removeMember(index)" class="reminder-form__member__card" :user="user" :key="user.id"></UserSimpleCard>
+        <UserSimpleCard :showRemove="editMode" @remove="removeMember(index)" class="reminder-form__member__card" :user="user" :key="user.id"></UserSimpleCard>
       </template>
-      <font-awesome-icon v-if="edit" @click="showModalMember = true" icon="plus" class="reminder-form__add-member-btn"></font-awesome-icon>
+      <font-awesome-icon v-if="editMode" @click="showModalMember = true" icon="plus" class="reminder-form__add-member-btn"></font-awesome-icon>
     </div>
     <h3>Time</h3>
     <!--    {{ editMode }}-->
