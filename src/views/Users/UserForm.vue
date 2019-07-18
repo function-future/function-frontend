@@ -76,8 +76,8 @@
           </div>
           <div class="input-wrapper" v-if="studentMode">
             <div class="input-label inline">Batch</div>
-            <div class="input inline" @click="showSelectBatchModal = true">
-              <div class="batch-select">
+            <div class="input inline">
+              <div class="batch-select" @click="showSelectBatchModal = true">
                 <BaseInput v-model="userDetail.batch.code"
                            v-validate.continues="'required'"
                            name="batch" :disabled="true"
