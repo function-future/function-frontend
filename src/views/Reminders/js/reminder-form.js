@@ -1,4 +1,5 @@
 import BaseInput from '@/components/BaseInput'
+import BaseTextArea from '@/components/BaseTextArea'
 import BaseButton from '@/components/BaseButton'
 import UserSimpleCard from '@/components/UserSimpleCard'
 import reminderApi from '@/api/controller/reminders'
@@ -10,7 +11,8 @@ export default {
     BaseInput,
     BaseButton,
     UserSimpleCard,
-    ReminderMemberModal
+    ReminderMemberModal,
+    BaseTextArea
   },
   props: {
     editMode: Boolean

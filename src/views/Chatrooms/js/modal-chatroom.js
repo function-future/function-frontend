@@ -21,7 +21,8 @@ export default {
       users: [],
       selectedUsers: [],
       name: null,
-      wrongName: false
+      wrongName: false,
+      nameMember: ''
     }
   },
   props: {
@@ -44,6 +45,11 @@ export default {
       result.push(this.currentUser.id)
       return result
     },
+    enterSearchHandler (event) {
+      if (event.keyCode === 13 && this.nameMember) {
+        this.selectedUsers.push(this.usersWithoutSelectedOne[0])
+      }
+    },
     close () {
       this.$emit('close')
     },
@@ -59,6 +65,7 @@ export default {
       }
     },
     changeKeyword (value) {
+      this.nameMember = value
       this.callSearchUserApi(value)
     },
     callSearchUserApi (name) {

@@ -2,9 +2,9 @@
   <div class="reminder-form__container">
     <BaseButton @click="handleTopBtnClick" buttonClass="button-save" class="reminder-form__edit-btn">{{ edit ? 'Save' : 'Edit' }}</BaseButton>
     <h3>Title</h3>
-    <BaseInput maxlength="30" class="reminder-form__input" inputType="reminder-input" :disabled="!edit" value="Test123"></BaseInput>
+    <BaseInput maxlength="30" class="reminder-form__input" inputType="reminder-input" :disabled="!edit" :value="reminder ? reminder.title : ''"></BaseInput>
     <h3>Description</h3>
-    <BaseInput maxlength="140" class="reminder-form__input" inputType="reminder-input" :disabled="!edit" value="Test123"></BaseInput>
+    <BaseTextArea maxlength="140" class="reminder-form__input" inputType="reminder-input" :disabled="!edit" :value="reminder ? reminder.description : ''"></BaseTextArea>
     <h3>Members</h3>
     <div class="reminder-form__member">
       <template v-for="(user, index) in computedUser">
