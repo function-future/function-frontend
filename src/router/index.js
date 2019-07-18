@@ -22,6 +22,9 @@ import quizDetail from '@/views/Quiz/QuizDetail'
 import studentQuizList from '@/views/Quiz/StudentQuizList'
 import studentQuizDetail from '@/views/Quiz/StudentQuizDetail'
 import quizQuestions from '@/views/Quiz/QuizQuestions'
+import judgingList from '@/views/FinalJudging/JudgingList'
+import judgingBatch from '@/views/FinalJudging/JudgingBatch'
+import judgingBatchForm from '@/views/FinalJudging/JudgingBatchForm'
 import points from '@/views/Point/Point'
 import feeds from '@/views/Feeds/Feeds.vue'
 import announcements from '@/views/Announcements/Announcements.vue'
@@ -402,14 +405,6 @@ const router = new Router({
       }
     },
     {
-      path: config.app.pages.grades,
-      name: 'grades',
-      component: feeds,
-      meta: {
-        title: 'Grades'
-      }
-    },
-    {
       path: config.app.pages.stickyNotes.detail,
       name: 'stickyNotes',
       component: stickyNotes,
@@ -643,9 +638,39 @@ const router = new Router({
       }
     },
     {
-      path: config.app.pages.finalJudging,
-      name: 'finalJudging',
-      component: feeds
+      path: config.app.pages.finalJudging.batches.list,
+      name: 'judgingBatch',
+      component: judgingBatch,
+      meta: {
+        title: 'Judging Batch List'
+      }
+    },
+    {
+      path: config.app.pages.finalJudging.batches.add,
+      name: 'addJudgingBatch',
+      component: judgingBatchForm,
+      meta: {
+        title: 'Judging Batch List'
+      }
+    },
+    {
+      path: config.app.pages.finalJudging.batches.edit,
+      name: 'editJudgingBatch',
+      component: judgingBatchForm,
+      meta: {
+        title: 'Judging Batch List'
+      },
+      props: {
+        editMode: true
+      }
+    },
+    {
+      path: config.app.pages.finalJudging.list,
+      name: 'judgingList',
+      component: judgingList,
+      meta: {
+        title: 'Judging'
+      }
     }
   ]
 })

@@ -89,7 +89,7 @@ module.exports = {
         }
       },
       finalJudging: {
-        list: '/final-judging',
+        list: '/final-judging/:batchCode',
         batches: {
           list: '/final-judging/batches',
           add: '/final-judging/batches/add',
