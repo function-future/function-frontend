@@ -442,8 +442,8 @@ module.exports = {
         addAppraisee (questionnaireId) {
           return `/api/communication/questionnaires/${questionnaireId}/appraisee`
         },
-        deleteAppraisee (questionnaireId, questionnaireparticipantId) {
-          return `/api/communication/questionnaires/${questionnaireId}/appraisee/${questionnaireparticipantId}`
+        deleteAppraisee (questionnaireId, questionnaireParticipantId) {
+          return `/api/communication/questionnaires/${questionnaireId}/appraisee/${questionnaireParticipantId}`
         },
         getAppraiserQuestionnaire (questionnaireId, page, size) {
           return `/api/communication/questionnaires/${questionnaireId}/appraiser?page=${page}&size=${size}`
@@ -451,8 +451,8 @@ module.exports = {
         addAppraiser (questionnaireId) {
           return `/api/communication/questionnaires/${questionnaireId}/appraiser`
         },
-        deleteAppraiser (questionnaireId, questionnaireparticipantId) {
-          return `/api/communication/questionnaires/${questionnaireId}/appraiser/${questionnaireparticipantId}`
+        deleteAppraiser (questionnaireId, questionnaireParticipantId) {
+          return `/api/communication/questionnaires/${questionnaireId}/appraiser/${questionnaireParticipantId}`
         },
         getQuestionsQuestionnaire (questionnaireId) {
           return `/api/communication/questionnaires/${questionnaireId}/questions`

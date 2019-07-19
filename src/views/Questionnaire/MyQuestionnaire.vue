@@ -1,4 +1,4 @@
-<template xmlns="http://www.w3.org/1999/html">
+<template>
   <div class="my-questionnaire-outer">
     <div class="my-questionnaire-container">
       <div class="search-bar-my-questionnaire">
@@ -8,7 +8,7 @@
         <QuestionnaireCard v-for="myQuestionnaire in myQuestionnaires"
                            :key="myQuestionnaire.id"
                            :title="myQuestionnaire.title"
-                           :desc="myQuestionnaire.description"
+                           :description="myQuestionnaire.description"
                            :startDate="myQuestionnaire.startDate"
                            :dueDate="myQuestionnaire.dueDate"
                            :isDisable="myQuestionnaire.dueDate < Date.now()"

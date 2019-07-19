@@ -25,7 +25,12 @@ export default {
     return {
       questionModal: false,
       participantModal: false,
+      participantModalAppraiser: false,
       currentAppraiseeTemp: {
+        type: Array,
+        default: null
+      },
+      currentAppraiserTemp: {
         type: Array,
         default: null
       },
@@ -39,6 +44,12 @@ export default {
         id: '',
         selectedIndex: '',
         description: ''
+      },
+      deleteConfirmationModalParticipant: {
+        show: false,
+        participantId: '',
+        name: '',
+        isAppraisee: false
       }
     }
   },
@@ -53,18 +64,24 @@ export default {
   watch: {
     currentAppraiseeTemp () {
       this.computedAppraisee()
+    },
+    currentAppraiserTemp () {
+      this.computedAppraiser()
     }
   },
   methods: {
     computedAppraisee () {
-      console.log('dalam computed appraisee', this.currentAppraiseeTemp)
       return this.currentAppraiseeTemp ? this.currentAppraisee : []
+    },
+    computedAppraiser () {
+      return this.currentAppraiserTemp ? this.currentAppraiser : []
     },
     ...mapActions([
       'fetchCurrentQuestionnaireAdmin',
       'setCurrentQuestionnaireAdmin',
       'fetchCurrentQuestions',
-      'fetchCurrentAppraisee'
+      'fetchCurrentAppraisee',
+      'fetchCurrentAppraiser'
     ]),
     ...mapMutations([
       'RESET_CURRENT_QUESTIONNAIRE_ADMIN',
@@ -130,10 +147,6 @@ export default {
       this.deleteConfirmationModalQuestion.selectedIndex = index + 1
       this.deleteConfirmationModalQuestion.description = question.description
     },
-    closeDeleteConfirmationModalQuestion () {
-      this.deleteConfirmationModalQuestion.show = false
-      this.resetDeleteConfirmationModalQuestion()
-    },
     submitAddQuestion (value) {
       questionnaireApi.addQuestionQuestionnaire(response => {
         this.$toasted.success('success create question')
@@ -166,7 +179,7 @@ export default {
       questionnaireApi.deleteQuestionQuestionnaire(response => {
         this.$toasted.success('success delete question')
         this.fetchingQuestions()
-        this.closeDeleteConfirmationModalQuestion()
+        this.resetDeleteConfirmationModalQuestion()
       }, this.deleteErrorCallback,
       {
         params: {
@@ -182,6 +195,10 @@ export default {
     updateErrorCallback (err) {
       console.log(err)
       this.$toasted.error('Fail to update')
+    },
+    addErrorCallback (err) {
+      console.log(err)
+      this.$toasted.error('Fail to add')
     },
     openEditModal (newQuestion) {
       this.questionModal = true
@@ -214,8 +231,19 @@ export default {
       )
     },
     submitParticipant (member) {
-      alert('open modal')
-      console.log(member)
+      questionnaireApi.addAppraiseeQuestionnaire(response => {
+        this.participantModal = false
+        this.$toasted.success('success Add Appraisee')
+        this.fetchingAppraisee()
+      }, this.addErrorCallback,
+      {
+        params: {
+          questionnaireId: this.$route.params.questionnaireId
+        },
+        body: {
+          idParticipant: member.id
+        }
+      })
     },
     fetchingAppraisee () {
       this.fetchCurrentAppraisee({
@@ -230,12 +258,87 @@ export default {
           console.log(err)
         },
         cb: (response) => {
-          console.log('ada :', response.data)
           this.currentAppraiseeTemp = response.data
-          console.log('hasil :', this.currentAppraiseeTemp)
         }
       })
-    }
+    },
+    openDeleteConfirmationModalParticipantAppraisee (appraisee) {
+      this.deleteConfirmationModalParticipant.show = true
+      this.deleteConfirmationModalParticipant.participantId = appraisee.participantId
+      this.deleteConfirmationModalParticipant.name = appraisee.name
+      this.deleteConfirmationModalParticipant.isAppraisee = true
+    },
+    openDeleteConfirmationModalParticipantAppraiser (appraisee) {
+      this.deleteConfirmationModalParticipant.show = true
+      this.deleteConfirmationModalParticipant.participantId = appraisee.participantId
+      this.deleteConfirmationModalParticipant.name = appraisee.name
+      this.deleteConfirmationModalParticipant.isAppraisee = false
+    },
+    closeDeleteConfirmationModalParticipant () {
+      this.deleteConfirmationModalParticipant.show = false
+      this.deleteConfirmationModalParticipant.participantId = ''
+      this.deleteConfirmationModalParticipant.name = ''
+      this.deleteConfirmationModalParticipant.isAppraisee = false
+    },
+    deleteTheParticipant () {
+      if (this.deleteConfirmationModalParticipant.isAppraisee) {
+        questionnaireApi.deleteAppraiseeQuestionnaire(response => {
+          this.$toasted.success('success delete Appraisee')
+          this.fetchingAppraisee()
+          this.closeDeleteConfirmationModalParticipant()
+        }, this.deleteErrorCallback,
+        {
+          params: {
+            questionnaireId: this.$route.params.questionnaireId,
+            questionnaireParticipantId: this.deleteConfirmationModalParticipant.participantId
+          }
+        })
+      } else {
+        questionnaireApi.deleteAppraiseeQuestionnaire(response => {
+          this.$toasted.success('success delete Appraiser')
+          this.fetchingAppraiser()
+          this.closeDeleteConfirmationModalParticipant()
+        }, this.deleteErrorCallback,
+        {
+          params: {
+            questionnaireId: this.$route.params.questionnaireId,
+            questionnaireParticipantId: this.deleteConfirmationModalParticipant.participantId
+          }
+        })
+      }
+    },
+    fetchingAppraiser () {
+      this.fetchCurrentAppraiser({
+        data: {
+          params: {
+            questionnaireId: this.$route.params.questionnaireId,
+            page: 1,
+            size: 10
+          }
+        },
+        fail: (err) => {
+          console.log(err)
+        },
+        cb: (response) => {
+          this.currentAppraiserTemp = response.data
+        }
+      })
+    },
+    submitParticipantAppraiser (member) {
+      questionnaireApi.addAppraiserQuestionnaire(response => {
+        this.participantModalAppraiser = false
+        this.$toasted.success('success Add Appraiser')
+        this.fetchingAppraiser()
+      }, this.addErrorCallback,
+      {
+        params: {
+          questionnaireId: this.$route.params.questionnaireId
+        },
+        body: {
+          idParticipant: member.id
+        }
+      })
+    },
   },
   created () {
     this.fetchCurrentQuestionnaireAdmin({
@@ -250,5 +353,6 @@ export default {
     })
     this.fetchingQuestions()
     this.fetchingAppraisee()
+    this.fetchingAppraiser()
   }
 }

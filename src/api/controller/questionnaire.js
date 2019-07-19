@@ -84,6 +84,48 @@ const getAppraiseeQuestionnaire = function (callback, error, data) {
   )
 }
 
+const addAppraiseeQuestionnaire = function (callback, error, data) {
+  request.postRequest(
+    config.api.communication.questionnaire.addAppraisee(data.params.questionnaireId),
+    callback,
+    data.body,
+    error
+  )
+}
+
+const deleteAppraiseeQuestionnaire = function (callback, error, data) {
+  request.deleteRequest(
+    config.api.communication.questionnaire.deleteAppraisee(data.params.questionnaireId, data.params.questionnaireParticipantId),
+    callback,
+    error
+  )
+}
+
+const getAppraiserQuestionnaire = function (callback, error, data) {
+  request.getRequest(
+    config.api.communication.questionnaire.getAppraiserQuestionnaire(data.params.questionnaireId, data.params.page, data.params.size),
+    callback,
+    error
+  )
+}
+
+const addAppraiserQuestionnaire = function (callback, error, data) {
+  request.postRequest(
+    config.api.communication.questionnaire.addAppraiser(data.params.questionnaireId),
+    callback,
+    data.body,
+    error
+  )
+}
+
+const deleteAppraiserQuestionnaire = function (callback, error, data) {
+  request.deleteRequest(
+    config.api.communication.questionnaire.deleteAppraiser(data.params.questionnaireId, data.params.questionnaireParticipantId),
+    callback,
+    error
+  )
+}
+
 
 export default {
   getQuestionnaires,
@@ -95,5 +137,10 @@ export default {
   getQuestionsQuestionnaire,
   updateQuestionQuestionnaire,
   deleteQuestionQuestionnaire,
-  getAppraiseeQuestionnaire
+  getAppraiseeQuestionnaire,
+  addAppraiseeQuestionnaire,
+  deleteAppraiseeQuestionnaire,
+  getAppraiserQuestionnaire,
+  addAppraiserQuestionnaire,
+  deleteAppraiserQuestionnaire
 }

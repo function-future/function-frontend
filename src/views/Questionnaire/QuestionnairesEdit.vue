@@ -26,7 +26,7 @@
           ></QuestionCard>
         </div>
         <div class="title-placeholder">
-          <h2>Appraisee</h2>
+          <h2>Participant - Appraisee</h2>
           <BaseButton button-class="button-save" class="button-save" @click="participantModal = true">Add</BaseButton>
         </div>
         <hr>
@@ -38,22 +38,24 @@
                                         :university="appraisee.university"
                                         :batch="appraisee.batch"
                                         :isEdit="true"
+                                        @delete="openDeleteConfirmationModalParticipantAppraisee(appraisee)"
           ></QuestionnaireParticipantCard>
         </div>
         <div class="title-placeholder">
-          <h2>Appraiser</h2>
-          <BaseButton button-class="button-save" class="button-save">Add</BaseButton>
+          <h2>Participant - Appraiser</h2>
+          <BaseButton button-class="button-save" class="button-save" @click="participantModalAppraiser = true">Add</BaseButton>
         </div>
         <hr>
         <div class="appraisee-container-list">
-<!--          <QuestionnaireParticipantCard v-for="a in 10"-->
-<!--                                        :name="appraisee.name"-->
-<!--                                        :avatar="appraisee.avatar"-->
-<!--                                        :role="appraisee.role"-->
-<!--                                        :university="appraisee.university"-->
-<!--                                        :batch="appraisee.batch"-->
-<!--                                        :isEdit="true"-->
-<!--          ></QuestionnaireParticipantCard>-->
+          <QuestionnaireParticipantCard v-for="appraisee in currentAppraiser"
+                                        :name="appraisee.name"
+                                        :avatar="appraisee.avatar"
+                                        :role="appraisee.role"
+                                        :university="appraisee.university"
+                                        :batch="appraisee.batch"
+                                        :isEdit="true"
+                                        @delete="openDeleteConfirmationModalParticipantAppraiser(appraisee)"
+          ></QuestionnaireParticipantCard>
         </div>
       </div>
       <modal-add-question :description="question.description" :isUpdate="question.isUpdate" v-if="questionModal"
@@ -63,7 +65,7 @@
       ></modal-add-question>
       <modal-delete-confirmation
           v-if="deleteConfirmationModalQuestion.show"
-          @close="closeDeleteConfirmationModalQuestion"
+          @close="resetDeleteConfirmationModalQuestion"
           @clickDelete="deleteTheQuestionQuestionnaire">
         <div slot="description">
           to delete question Number {{this.deleteConfirmationModalQuestion.selectedIndex}}
@@ -76,6 +78,19 @@
         :isQuestionnaireSearch="true"
         @close="participantModal = false"
         v-if="participantModal"></ReminderMemberModal>
+      <ReminderMemberModal
+        @addMember="submitParticipantAppraiser"
+        :selectedUsers="currentAppraiserTemp"
+        :isQuestionnaireSearch="true"
+        @close="participantModalAppraiser = false"
+        v-if="participantModalAppraiser"></ReminderMemberModal>
+      <modal-delete-confirmation
+        v-if="deleteConfirmationModalParticipant.show"
+        @close="closeDeleteConfirmationModalParticipant"
+        @clickDelete="deleteTheParticipant">
+        <div slot="description">
+          to delete {{deleteConfirmationModalParticipant.name}} as participant
+        </div>></modal-delete-confirmation>
     </div>
 </template>
 

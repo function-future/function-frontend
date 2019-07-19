@@ -4,8 +4,8 @@
       <div class="question-container">
         <div class="no-question">{{ noQuestion}}</div>
         <div class="question-content">
-          <div class="question-desc-and-score">
-            <div class="question-desc">{{ questionDescription }}</div>
+          <div class="question-desc-and-score">}}
+            <div class="question-desc">{{ question.description }}</div>
             <div class="question-score">
               <section>
                 <span>score : </span>
@@ -36,8 +36,7 @@
     display: flex;
     justify-content: center;
     overflow: auto;
-    height: 50vh;
-  }
+    }
   .questionnaire-form-card {
     width: 100%;
     padding: 5px 5px;

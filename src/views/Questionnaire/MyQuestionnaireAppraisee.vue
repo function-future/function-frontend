@@ -31,11 +31,17 @@
         </div>
         <div v-else class="form-questionnaire">
           <div class="title-questionnaire">
-            <p><i>Questionnaire for {{ currentAppraiseeName }}</i></p>
+            <p><i>Questionnaire for {{ currentAppraiseeToScore }}</i></p>
           </div>
-          <QuestionnaireForm/>
+          <div class="form-questionnaire-content">
+            {{currentQuestionsQuestionnaire}}
+            <MyQuestionnaireForm v-for="(question, index) in currentQuestionsQuestionnaire"
+                                  :noQuestion="index+1"
+                                  :question="question"
+            ></MyQuestionnaireForm>
+          </div>
           <div class="submit-button">
-            <BaseButton type="submit" buttonClass="button-save">Submit</BaseButton>
+            <BaseButton type="submit" buttonClass="button-save" @click="printScore">Submit</BaseButton>
           </div>
         </div>
       </div>
@@ -127,16 +133,23 @@
     align-self: flex-start;
   }
 
-  .my-appraisees-list-containner, .form-questionnaire{
+  .my-appraisees-list-containner {
     overflow: auto;
     padding: 10px;
-    min-height: 800vh;
+    min-height: 80vh;
     align-self: start;
   }
 
   .form-questionnaire {
     display : flex;
     flex-direction: column;
+    min-height: 80vh;
+  }
+
+  .form-questionnaire-content {
+    height: 80%;
+    overflow: auto;
+    padding-bottom: 5px;
   }
 
   .title-appraisee, .title-questionnaire {

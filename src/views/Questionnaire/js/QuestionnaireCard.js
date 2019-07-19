@@ -54,5 +54,8 @@ export default {
     computedDueDate () {
       return moment(this.dueDate).format('DD/MM/YYYY')
     }
+  },
+  created() {
+    console.log(this.description)
   }
 }

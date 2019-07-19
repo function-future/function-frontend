@@ -15,7 +15,7 @@
       </div>
       <div v-if="isEdit" class="delete-placeholder">
         <span>
-          <font-awesome-icon icon="times" class="icon-delete"></font-awesome-icon>
+          <font-awesome-icon icon="times" class="icon-delete" @click="$emit('delete')"></font-awesome-icon>
         </span>
       </div>
     </BaseCard>
