@@ -1,5 +1,5 @@
 <template>
-  <div class="pagination-wrapper" v-if="paging">
+  <div class="pagination-wrapper" v-if="paging.totalRecords">
     <ul class="base-pagination">
       <li class="pagination-item">
         <button
