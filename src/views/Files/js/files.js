@@ -15,7 +15,9 @@ export default {
       isLoading: false,
       selectedId: '',
       previousFolderId: '',
-      showDeleteConfirmationModal: false
+      showDeleteConfirmationModal: false,
+      fileList: [],
+      folderList: []
     }
   },
   computed: {
@@ -45,11 +47,19 @@ export default {
     successFetchFiles (res) {
       this.isLoading = false
       this.previousFolderId = res.parentId
+      this.fileList = res.content.filter(i => { return i.type === 'FILE' })
+      this.folderList = res.content.filter(i => { return i.type === 'FOLDER' })
     },
-    failFetchFiles (err) {
-      console.log(err)
+    failFetchFiles () {
       this.isLoading = false
       this.$toasted.error('Fail to load files, please try again')
+    },
+    showLimitedPreviewText (text) {
+      let maximumCharacters = 15
+      if (text.length > maximumCharacters) {
+        return text.slice(0, maximumCharacters) + '...'
+      }
+      return text
     },
     goToFolder () {},
     goToPreviousFolder () {},

@@ -2,7 +2,7 @@
   <div>
     <div class="button__wrapper">
       <span class="button-back"
-            v-if="$route.params.parentId !== 'root'"
+            v-if="previousFolderId"
             @click="goToPreviousFolder">
         <font-awesome-icon icon="arrow-left" class="icon" size="lg"></font-awesome-icon>
         Previous Folder
@@ -20,10 +20,11 @@
       <div>
         <h3 class="title">Folders</h3>
         <div class="file__wrapper">
-          <div class="file" v-for="index in 6" @click="goToFolder">
+          <div class="file" @click="goToFolder"
+               v-for="folder in folderList" :key="folder.id">
             <BaseCard cardClass="card-hover" class="file__card">
               <font-awesome-icon icon="folder" class="icon" size="lg"></font-awesome-icon>
-              <div class="file__title">Folder (17 chars)...</div>
+              <div class="file__title">{{ showLimitedPreviewText(folder.name) }}</div>
               <div class="actions" v-if="true">
               <span class="delete-btn" @click="openDeleteConfirmationModal" v-if="accessList.delete">
                 <font-awesome-icon icon="trash-alt" class="action-icon red"></font-awesome-icon>
@@ -36,10 +37,11 @@
       <div>
         <h3 class="title">Files</h3>
         <div class="file__wrapper">
-          <div class="file" v-for="index in 6" @click="downloadFileFromUrl">
+          <div class="file" @click="downloadFileFromUrl"
+               v-for="file in fileList" :key="file.id">
             <BaseCard cardClass="card-hover" class="file__card">
               <font-awesome-icon icon="file" class="icon" size="lg"></font-awesome-icon>
-              <div class="file__title">File (17 chars)...</div>
+              <div class="file__title">{{ showLimitedPreviewText(file.name) }}</div>
               <div class="actions" v-if="true">
               <span class="delete-btn" @click="openDeleteConfirmationModal(1)" v-if="accessList.delete">
                 <font-awesome-icon icon="trash-alt" class="action-icon red"></font-awesome-icon>
@@ -74,7 +76,7 @@
       flex: 0 0 25%;
     }
 
-    @media only screen and (max-width: 1200px) {
+    @media only screen and (max-width: 1225px) {
       flex: 0 0 33%;
     }
 
