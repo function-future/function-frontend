@@ -10,12 +10,12 @@
       <span class="folder-title">{{ currentFolder }}</span>
       <div class="button-div" v-if="accessList.add">
         <BaseButton type="submit" buttonClass="button-save" @click="">
-          <span><font-awesome-icon icon="plus" class="icon"/> Folder</span>
+          <span><font-awesome-icon icon="plus" class="icon"/> Add</span>
         </BaseButton>
       </div>
-      <div class="button-div end" v-if="accessList.add && currentUser.role !== 'ADMIN'">
+      <div class="button-div end" v-if="accessList.add && currentUser.role === 'ADMIN'">
         <BaseButton type="submit" buttonClass="button-save" @click="">
-          <span><font-awesome-icon icon="plus" class="icon"/> Add</span>
+          <span><font-awesome-icon icon="plus" class="icon"/> Folder</span>
         </BaseButton>
       </div>
     </div>
@@ -75,13 +75,13 @@
 <style lang="scss" scoped>
   .button-div {
     margin-bottom: 0;
+    margin-right: 0;
     margin-left: auto;
     font-size: 14px;
   }
 
   .end {
-    margin-right: 30px;
-    margin-left: 0;
+    margin-left: 10px;
     margin-bottom: 0;
   }
 
@@ -185,7 +185,8 @@
       display: flex;
       align-items: center;
       padding-left: 10px;
-      margin: 10px 0;
+      margin-left: 10px;
+      margin-right: 30px;
     }
   }
 
