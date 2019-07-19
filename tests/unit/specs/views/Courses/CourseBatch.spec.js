@@ -146,11 +146,13 @@ describe('CourseBatch', () => {
 
   test('successFetchBatches', () => {
     wrapper.vm.successFetchBatches()
+    expect(wrapper.vm.isLoading).toEqual(false)
     expect(wrapper.vm.batches).toEqual(wrapper.vm.batchList)
   })
 
   test('failFetchBatches', () => {
     wrapper.vm.failFetchBatches()
+    expect(wrapper.vm.isLoading).toEqual(false)
     expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
   })
 

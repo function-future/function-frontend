@@ -21,7 +21,7 @@ Vue.use(require('vue-moment'))
 Vue.use(Toasted, {
   theme: 'bubble',
   className: 'toaster',
-  duration: 4000,
+  duration: 6000,
   position: 'bottom-right'
 })
 

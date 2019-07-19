@@ -14,6 +14,7 @@ export default {
   },
   data () {
     return {
+      isLoading: false,
       paging: {
         page: 1,
         size: 10,
@@ -55,6 +56,7 @@ export default {
       })
     },
     loadAnnouncementList () {
+      this.isLoading = true
       this.paging = { ...this.paging }
       let data = { ...this.paging }
       this.fetchAnnouncements({
@@ -64,9 +66,11 @@ export default {
       })
     },
     successLoadAnnouncementList (paging) {
+      this.isLoading = false
       this.paging = paging
     },
     failLoadingAnnouncementList () {
+      this.isLoading = false
       this.$toasted.error('Fail to load announcement list')
     },
     textPreview: function (announcement) {

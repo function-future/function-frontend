@@ -3,7 +3,7 @@ import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import VueRouter from 'vue-router'
 
-describe('Assignment', () => {
+describe('Feeds', () => {
   let store
   let wrapper
   let localVue
@@ -51,11 +51,11 @@ describe('Assignment', () => {
           'updatedAt': 1555980050616
         }
       ],
-      stickyNotes: {
-        noteTitle: 'Mock Note',
-        noteDescription: 'Note for testing purpose',
+      stickyNotes: [{
+        title: 'Mock Note',
+        description: 'Note for testing purpose',
         updatedAt: '123456789'
-      }
+      }]
     }
     const actions = {
       fetchAnnouncements: jest.fn(),
@@ -70,8 +70,7 @@ describe('Assignment', () => {
         feeds: {
           state,
           actions,
-          getters,
-          namespaced: true
+          getters
         }
       }
     })
@@ -102,6 +101,11 @@ describe('Assignment', () => {
         'font-awesome-icon',
         'vue-toasted'
       ],
+      propsData: {
+        stickyNote: {
+          description: 'sticky note description'
+        }
+      },
       mocks: {
         $toasted
       },
@@ -151,7 +155,7 @@ describe('Assignment', () => {
   test('successLoadStickyNote', () => {
     initComponent()
     wrapper.vm.successLoadStickyNote()
-    expect(wrapper.vm.stickyNote).toBe(wrapper.vm.stickyNotes)
+    expect(wrapper.vm.stickyNote).toBe(wrapper.vm.stickyNotes[0])
   })
 
   test('failLoadStickyNote', () => {
@@ -170,5 +174,10 @@ describe('Assignment', () => {
     initComponent()
     wrapper.vm.failLoadAnnouncementList()
     expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+  })
+
+  test('stickyNotesDescriptionPreview', () => {
+    initComponent()
+    expect(wrapper.vm.stickyNotesDescriptionPreview('Note for testing purpose')).toEqual('Note for testing purpose')
   })
 })

@@ -15,10 +15,12 @@
       <div>
         <BaseTextArea
           v-model="announcementDetail.summary"
-          placeholder="Announcement summary">
+          placeholder="Announcement summary"
+          v-validate.continues="'max:70'"
+          name="summary">
         </BaseTextArea>
       </div>
-      <div></div>
+      <div v-if="errors.has('summary')" class="flex"><span class="input-invalid-message">{{ errors.first('summary') }}</span></div>
       <div class="description">
         <mavon-editor class="editor"
                       placeholder="Announcement description"
@@ -82,5 +84,9 @@
     display: inline-block;
     padding-left: 5px;
     padding-right: 5px;
+  }
+
+  .flex {
+    display: flex;
   }
 </style>

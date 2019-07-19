@@ -14,11 +14,11 @@ describe('StickyNotesDetail.vue', () => {
   const initPage = jest.fn()
   beforeEach(() => {
     state = {
-      stickyNote: {
+      stickyNotes: [{
         title: 'Mock Note',
         description: 'Note for testing purpose',
         updatedAt: '123456789'
-      },
+      }],
       accessList: {
         add: true,
         delete: true,
@@ -30,7 +30,7 @@ describe('StickyNotesDetail.vue', () => {
       fetchStickyNotes: jest.fn(() => true)
     }
     getters = {
-      stickyNotes: state => state.stickyNote,
+      stickyNotes: state => state.stickyNotes,
       accessList: state => state.accessList
     }
     store = new Vuex.Store({
@@ -62,10 +62,6 @@ describe('StickyNotesDetail.vue', () => {
 
   test('Is an instance', () => {
     expect(wrapper.isVueInstance()).toBe(true)
-  })
-
-  test('Render template correctly', () => {
-    expect(wrapper.find('.header').text()).toBe('Mock Note')
   })
 
   test('Render components correctly', () => {

@@ -47,7 +47,7 @@ export default {
     },
     successAttemptLogout () {
       this.$cookies.remove('Function-Session')
-      this.$router.push({ name: 'login' })
+      this.$router.push({ name: 'feeds' })
     },
     goToProfile () {
       this.$router.push({ name: 'profile' })

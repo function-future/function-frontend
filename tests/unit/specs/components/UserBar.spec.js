@@ -178,7 +178,7 @@ describe('UserBar', () => {
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.successAttemptLogout()
     expect(wrapper.vm.$cookies.remove).toHaveBeenCalledTimes(1)
-    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'login' })
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'feeds' })
   })
 
   test('goToProfile', () => {
