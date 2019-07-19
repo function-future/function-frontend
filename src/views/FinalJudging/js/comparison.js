@@ -44,9 +44,8 @@ export default {
         this.scores[index] = item.point
       })
     },
-    failedFetchingComparison (err) {
+    failedFetchingComparison () {
       this.$toasted.error('Something went wrong')
-      console.log(err)
     },
     returnButtonClicked () {
       this.$router.go(-1)
