@@ -1110,24 +1110,39 @@ export const finalJudgingComparisons = [
       "status": "OK",
       "data" : [
         {
+          "studentId": "student-id-1",
           "studentName" : "Student 1",
-          "batchCode" : 1,
+          "batchCode" : "1",
           "university": "Binus University",
+          "avatar": "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
+          "point": 100,
           "scores" : [
             {
-              "id" : "QZ0001",
               "title" : "Quiz #1",
               "type": "QUIZ",
               "point" : 100
             },
             {
-              "id" : "QZ0002",
               "title" : "Quiz #2",
               "type": "QUIZ",
               "point" : 80
             },
             {
-              "id" : "ASG0001",
+              "title" : "Assignment #1",
+              "type": "ASSIGNMENT",
+              "point" : 80
+            },
+            {
+              "title" : "Quiz #1",
+              "type": "QUIZ",
+              "point" : 100
+            },
+            {
+              "title" : "Quiz #2",
+              "type": "QUIZ",
+              "point" : 80
+            },
+            {
               "title" : "Assignment #1",
               "type": "ASSIGNMENT",
               "point" : 80
@@ -1135,24 +1150,24 @@ export const finalJudgingComparisons = [
           ]
         },
         {
+          "studentId": "student-id-2",
           "studentName" : "Student 2",
-          "batchCode" : 1,
+          "batchCode" : "1",
           "university": "Binus University",
+          "avatar": "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
+          "point": 100,
           "scores" : [
             {
-              "id" : "QZ0001",
               "title" : "Quiz #1",
               "type": "QUIZ",
               "point" : 100
             },
             {
-              "id" : "QZ0002",
               "title" : "Quiz #2",
               "type": "QUIZ",
               "point" : 80
             },
             {
-              "id" : "ASG0001",
               "title" : "Assignment #1",
               "type": "ASSIGNMENT",
               "point" : 80

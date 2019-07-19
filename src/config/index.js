@@ -89,14 +89,14 @@ module.exports = {
         }
       },
       finalJudging: {
-        list: '/final-judging/:batchCode',
+        list: '/batches/:batchCode/final-judging',
         batches: {
           list: '/final-judging/batches',
           add: '/final-judging/batches/add',
           edit: '/final-judging/batches/:batchCode/edit',
         },
-        detail: '/final-judging/:judgingId/detail',
-        comparisons: '/final-judging/:judgingId/comparison'
+        detail: '/batches/:batchCode/final-judging/:judgingId/detail',
+        comparisons: '/batches/:batchCode/final-judging/:judgingId/comparison'
       },
       stickyNotes: {
         detail: '/sticky-notes',
