@@ -382,15 +382,7 @@ const router = new Router({
     {
       path: config.app.pages.files.root,
       name: 'files',
-      component: files,
-      meta: {
-        auth: true,
-        title: 'Files',
-        breadcrumb: [
-          { name: 'Home', link: 'feeds' },
-          { name: 'Files', link: 'files' }
-        ]
-      }
+      redirect: config.app.pages.files.root + '/root'
     },
     {
       path: config.app.pages.files.folder,
@@ -398,12 +390,7 @@ const router = new Router({
       component: files,
       meta: {
         auth: true,
-        title: 'Folder',
-        breadcrumb: [
-          { name: 'Home', link: 'feeds' },
-          { name: 'Files', link: 'files' },
-          { name: 'Folder', link: 'folder' }
-        ]
+        title: 'Files'
       }
     },
     {

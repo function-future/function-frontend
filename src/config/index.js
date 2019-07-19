@@ -43,7 +43,7 @@ module.exports = {
       },
       files: {
         root: '/files',
-        folder: '/files/:id'
+        folder: '/files/:parentId'
       },
       users: {
         list: '/users',
@@ -210,6 +210,9 @@ module.exports = {
           get (code, id, page) { return `/api/core/batches/${code}/courses/${id}/discussions?page=${page}` },
           post (code, id) { return `/api/core/batches/${code}/courses/${id}/discussions` }
         }
+      },
+      files: {
+        list (parentId) { return `/api/core/files/${parentId}` }
       }
     },
     scoring: {
