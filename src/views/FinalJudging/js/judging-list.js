@@ -65,7 +65,7 @@ export default {
     },
     goToJudgingDetail (id) {
       this.$router.push({
-        name: 'finalJudgingDetail',
+        name: 'judgingDetail',
         params: {
           bankId: id
         }

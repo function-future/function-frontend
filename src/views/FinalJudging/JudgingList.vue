@@ -14,19 +14,24 @@
         <div class="judging__card-header">
           {{judging.title}}
         </div>
-        <div class="judging__card-header-action">
-          <font-awesome-icon
-            icon="poll"
-            class="icon blue"
-            size="lg"
-            @click.stop="goToComparison(judging.id)">
-          </font-awesome-icon>
-          <span>
+        <div class="judging__card-header-info">
+          <div class="judging__card-header-info-date">
+            {{ judging.uploadedDate |  moment("dddd, MMMM Do YYYY") }}
+          </div>
+          <div class="judging__card-header-info-action">
+            <font-awesome-icon
+              icon="poll"
+              class="icon blue"
+              size="lg"
+              @click.stop="goToComparison(judging.id)">
+            </font-awesome-icon>
+            <span>
             <font-awesome-icon
               icon="trash-alt"
               class="icon red"
               size="lg"
               @click.stop="openDeleteConfirmationModal(judging.id)"></font-awesome-icon></span>
+          </div>
         </div>
       </div>
       <div class="judging__card-body">
@@ -72,11 +77,19 @@
         font-weight: bolder;
         font-size: 1.4em;
         display: inline-block;
-        &-action {
+        &-info {
           float: right;
-          border-left: 1px solid #BDBDBD;
           padding-left: 15px;
           display: inline-block;
+          &-date {
+            display: inline-block;
+            padding-right: 15px;
+          }
+          &-action {
+            border-left: 1px solid #BDBDBD;
+            padding-left: 15px;
+            display: inline-block;
+          }
           & span {
             padding-left: 15px;
           }
