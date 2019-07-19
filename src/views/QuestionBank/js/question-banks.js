@@ -46,8 +46,10 @@ export default {
         fail: this.failFetchingQuestionBankList
       })
     },
-    successFetchingQuestionBankList (page) {
-      this.loadPage(page)
+    successFetchingQuestionBankList (paging) {
+      this.paging.page = paging.page
+      this.paging.pageSize = paging.size
+      this.paging.totalRecords = paging.totalRecords
     },
     failFetchingQuestionBankList () {
       this.$toasted.error('Something went wrong')
@@ -95,10 +97,8 @@ export default {
     failDeletingQuestionBank () {
       this.$toasted.error('Something went wrong')
     },
-    loadPage (paging) {
-      this.paging.page = paging.page
-      this.paging.pageSize = paging.size
-      this.paging.totalRecords = paging.totalRecords
+    loadPage (page) {
+      this.paging.page = page
       this.initPage()
     },
     loadPreviousPage () {
