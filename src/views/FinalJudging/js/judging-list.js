@@ -82,7 +82,8 @@ export default {
     deleteThisJudging () {
       this.deleteJudging({
         data: {
-          id: this.selectedId
+          batchCode: this.$route.params.batchCode,
+          judgingId: this.selectedId
         },
         callback: this.successDeletingJudging,
         fail: this.failDeletingJudging

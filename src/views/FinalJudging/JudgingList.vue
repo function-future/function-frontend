@@ -16,7 +16,7 @@
         </div>
         <div class="judging__card-header-action">
           <font-awesome-icon
-            icon="eye"
+            icon="poll"
             class="icon blue"
             size="lg"
             @click.stop="goToComparison(judging.id)">
