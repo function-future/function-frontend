@@ -6,7 +6,7 @@ export const state = {
 
 export const mutations = {
   SET_FILES (state, payload) {
-    state.files = [ ...payload ]
+    state.files = { ...payload }
   }
 }
 
