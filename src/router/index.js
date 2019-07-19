@@ -385,16 +385,25 @@ const router = new Router({
       component: files,
       meta: {
         auth: true,
-        title: 'Files'
+        title: 'Files',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Files', link: 'files' }
+        ]
       }
     },
     {
       path: config.app.pages.files.folder,
-      name: 'files',
+      name: 'folder',
       component: files,
       meta: {
         auth: true,
-        title: 'Files'
+        title: 'Folder',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Files', link: 'files' },
+          { name: 'Folder', link: 'folder' }
+        ]
       }
     },
     {
