@@ -1580,7 +1580,24 @@ export const files = [
           {
             'id': 'id-2',
             'type': 'FILE',
-            'name': 'Name',
+            'name': 'Name of File',
+            'file': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png',
+            'versions': {
+              '2': {
+                'timestamp': 1555980050616,
+                'url': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png'
+              },
+              '1': {
+                'timestamp': 1555980050616,
+                'url': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png'
+              }
+            },
+            'parentId': 'root'
+          },
+          {
+            'id': 'id-3',
+            'type': 'FILE',
+            'name': 'File Name This',
             'file': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png',
             'versions': {
               '2': {
@@ -1616,13 +1633,42 @@ export const files = [
           {
             'id': 'id-1',
             'type': 'FOLDER',
-            'name': 'Name 2',
+            'name': 'Folder Folderan',
+            'parentId': 'parent-id'
+          },
+          {
+            'id': 'id-3',
+            'type': 'FOLDER',
+            'name': 'Folder This',
+            'parentId': 'parent-id'
+          },
+          {
+            'id': 'id-4',
+            'type': 'FOLDER',
+            'name': 'Folder That',
             'parentId': 'parent-id'
           },
           {
             'id': 'id-2',
             'type': 'FILE',
-            'name': 'Name',
+            'name': 'File Name Lala',
+            'file': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png',
+            'versions': {
+              '2': {
+                'timestamp': 1555980050616,
+                'url': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png'
+              },
+              '1': {
+                'timestamp': 1555980050616,
+                'url': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png'
+              }
+            },
+            'parentId': 'parent-id'
+          },
+          {
+            'id': 'id-5',
+            'type': 'FILE',
+            'name': 'File Name This',
             'file': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png',
             'versions': {
               '2': {
