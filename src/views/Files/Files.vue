@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="button__wrapper">
-      <span class="button-back"
+      <span class="button-back disable-selection"
             v-if="previousFolderId"
             @click="goToPreviousFolder">
         <font-awesome-icon icon="arrow-left" class="icon" size="lg"></font-awesome-icon>
@@ -195,5 +195,13 @@
     margin-left: 10px;
     padding-left: 10px;
     border-left: 1px solid #BDBDBD;
+  }
+
+  .disable-selection {
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer */
+    -khtml-user-select: none; /* KHTML browsers (e.g. Konqueror) */
+    -webkit-user-select: none; /* Chrome, Safari, and Opera */
+    -webkit-touch-callout: none; /* Disable Android and iOS callouts*/
   }
 </style>
