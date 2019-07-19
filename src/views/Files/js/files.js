@@ -14,6 +14,7 @@ export default {
     return {
       isLoading: false,
       selectedId: '',
+      currentFolder: '',
       previousFolderId: '',
       showDeleteConfirmationModal: false,
       fileList: [],
@@ -47,9 +48,11 @@ export default {
     successFetchFiles (res) {
       this.isLoading = false
       this.previousFolderId = res.parentId
+      this.$route.params.parentId === 'root'
+        ? this.currentFolder = 'Root Folder'
+        : this.currentFolder = this.folderList[0].parentId
       this.fileList = res.content.filter(i => { return i.type === 'FILE' })
       this.folderList = res.content.filter(i => { return i.type === 'FOLDER' })
-      // if (this.$route.params.parentId !== 'root') this.$route.meta.title = this.folderList[0].parentId
     },
     failFetchFiles () {
       this.isLoading = false

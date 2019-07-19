@@ -5,8 +5,9 @@
             v-if="previousFolderId"
             @click="goToPreviousFolder">
         <font-awesome-icon icon="arrow-left" class="icon" size="lg"></font-awesome-icon>
-        Previous Folder
+        <span>Previous Folder</span>
       </span>
+      <span class="folder-title">{{ currentFolder }}</span>
       <div class="button-div" v-if="accessList.add">
         <BaseButton type="submit" buttonClass="button-save" @click="">
           <span><font-awesome-icon icon="plus" class="icon"/> Add</span>
@@ -159,6 +160,7 @@
     &-back {
       cursor: pointer;
       padding: 10px 5px;
+      font-size: 12px;
 
       &:hover {
         opacity: 0.9;
@@ -171,5 +173,13 @@
       padding-left: 10px;
       margin: 10px 0;
     }
+  }
+
+  .folder-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-left: 10px;
+    padding-left: 10px;
+    border-left: 1px solid #BDBDBD;
   }
 </style>
