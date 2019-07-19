@@ -11,10 +11,14 @@
       </div>
     </div>
     <h3 class="title" v-if="currentUser.role !== 'STUDENT'">Batches</h3>
-    <div class="batch-div">
+    <div v-if="isLoading" class="loading">
+      <font-awesome-icon icon="spinner" spin class="icon-loading" size="lg"></font-awesome-icon>
+    </div>
+    <div v-if="!isLoading" class="batch-div">
       <div class="batch" v-for="batch in batches" :key="batch.id">
         <BatchCard :batch="batch" @click.native="goToCourse(batch.code)"
-                   @edit="editBatch" @delete="openDeleteConfirmationModal(batch.id)" :showAction="true"></BatchCard>
+                   @edit="editBatch" @delete="openDeleteConfirmationModal(batch.id)" :showAction="true">
+        </BatchCard>
       </div>
     </div>
     <modal-delete-confirmation v-if="showDeleteConfirmationModal"
@@ -61,5 +65,13 @@
     text-align: right;
     margin-right: 30px;
     margin-bottom: 0;
+  }
+
+  .loading {
+    margin-top: 50px;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 </style>
