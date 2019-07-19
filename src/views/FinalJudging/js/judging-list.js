@@ -46,8 +46,8 @@ export default {
         fail: this.failFetchingJudgingList
       })
     },
-    successFetchingJudgingList (page) {
-      this.loadPage(page)
+    successFetchingJudgingList (paging) {
+      this.paging = paging
     },
     failFetchingJudgingList () {
       this.$toasted.error('Something went wrong')
@@ -95,8 +95,8 @@ export default {
     failDeletingJudging () {
       this.$toasted.error('Something went wrong')
     },
-    loadPage (paging) {
-      this.paging = paging
+    loadPage (page) {
+      this.paging.page = page
       this.initPage()
     },
     loadPreviousPage () {
