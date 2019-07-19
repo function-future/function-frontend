@@ -54,6 +54,7 @@
     "fs-extra": "^8.0.1",
     "inject-loader": "^4.0.1",
     "jest": "^24.8.0",
+    "jest-css-modules": "^2.1.0",
     "moxios": "^0.4.0",
     "npm": "^6.9.0",
     "replace-in-file": "^2.5.0",

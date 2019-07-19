@@ -53,7 +53,10 @@ export default {
           size: 10,
           name: this.name
         }
-      }, err => console.log(err))
+      }, this.errorHandler)
+    },
+    errorHandler (err) {
+      console.log(err)
     }
   },
   created () {

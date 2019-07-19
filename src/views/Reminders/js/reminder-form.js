@@ -77,7 +77,7 @@ export default {
         const reminderId = this.$route.params.reminderId
         reminderApi.updateReminder(response => {
           this.$toasted.success('Reminder has been successfully updated')
-          this.$router.replace({ name: 'reminderDetail', params: { reminderId: this.$route.params.reminderId } })
+          this.$router.replace({ name: 'reminderDetail', params: { reminderId } })
         }, this.errorHandler, {
           body: data,
           params: {

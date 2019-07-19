@@ -101,16 +101,19 @@ describe('Reminders', () => {
     }
     const spy = jest.spyOn(Reminders.methods, 'searchHandler')
       .mockImplementation(() => Promise.resolve())
+    window.confirm = jest.fn(() => true)
     initComponent()
     wrapper.vm.keyword = 'keyword'
     wrapper.vm.removeHandler('reminderId')
     expect(spy).toBeCalledTimes(1)
+    expect(window.confirm).toBeCalledTimes(1)
   })
 
   test('removeHandler without keyword', () => {
     reminderApi.deleteReminder = success => {
       success()
     }
+    window.confirm = jest.fn(() => true)
     initComponent()
     wrapper.vm.$refs.infiniteLoading = {
       stateChanger: {
@@ -119,6 +122,17 @@ describe('Reminders', () => {
     }
     wrapper.vm.removeHandler('reminderId')
     expect(wrapper.vm.$refs.infiniteLoading.stateChanger.reset).toBeCalledTimes(1)
+    expect(window.confirm).toBeCalledTimes(1)
+  })
+
+  test('removeHandler confirm no', () => {
+    reminderApi.deleteReminder = jest.fn()
+    window.confirm = jest.fn(() => false)
+    initComponent()
+    wrapper.vm.keyword = 'keyword'
+    wrapper.vm.removeHandler('reminderId')
+    expect(reminderApi.deleteReminder).toBeCalledTimes(0)
+    expect(window.confirm).toBeCalledTimes(1)
   })
 
   test('createHandler', () => {

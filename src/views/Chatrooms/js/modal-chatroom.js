@@ -68,6 +68,9 @@ export default {
       this.nameMember = value
       this.callSearchUserApi(value)
     },
+    errorHandler (err) {
+      console.log(err)
+    },
     callSearchUserApi (name) {
       usersApi.searchUser(response => {
         this.users = response.data
@@ -77,7 +80,7 @@ export default {
           size: 10,
           name: name
         }
-      }, err => console.log(err))
+      }, this.errorHandler)
     },
     enterPressed (event) {
       if (event.keyCode === 13 && (this.selectedUsers.length > 1 && this.name)) {
@@ -97,7 +100,7 @@ export default {
           this.name = response.data.name
         }
         this.selectedUsers = response.data.members.filter(user => user.id !== this.currentUser.id)
-      }, err => console.log(err), {
+      }, this.errorHandler, {
         params: {
           chatroomId: this.chatroomId
         }
