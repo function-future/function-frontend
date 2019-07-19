@@ -14,7 +14,8 @@ import {
   discussions,
   batches,
   resources,
-  users
+  users,
+  files
 } from '@/api-mock/mock/core-routes'
 import {
   assignments,
@@ -102,6 +103,10 @@ batches.forEach(data => {
 })
 
 discussions.forEach(data => {
+  mock[methodMap[data.method]](data.url).reply(200, data.response)
+})
+
+files.forEach(data => {
   mock[methodMap[data.method]](data.url).reply(200, data.response)
 })
 

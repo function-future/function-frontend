@@ -1554,3 +1554,132 @@ export const users = [
     }
   }
 ]
+
+export const files = [
+  {
+    method: 'GET',
+    url: '/api/core/files/root',
+    response: {
+      'code': 200,
+      'status': 'OK',
+      'data': {
+        'parentId': null,
+        'content': [
+          {
+            'id': 'id-0',
+            'type': 'FOLDER',
+            'name': 'Name 1',
+            'parentId': 'root'
+          },
+          {
+            'id': 'id-1',
+            'type': 'FOLDER',
+            'name': 'Name 2',
+            'parentId': 'root'
+          },
+          {
+            'id': 'id-2',
+            'type': 'FILE',
+            'name': 'Name',
+            'file': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png',
+            'versions': {
+              '2': {
+                'timestamp': 1555980050616,
+                'url': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png'
+              },
+              '1': {
+                'timestamp': 1555980050616,
+                'url': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png'
+              }
+            },
+            'parentId': 'root'
+          }
+        ]
+      }
+    }
+  },
+  {
+    method: 'GET',
+    url: '/api/core/files/parent-id',
+    response: {
+      'code': 200,
+      'status': 'OK',
+      'data': {
+        'parentId': 'root',
+        'content': [
+          {
+            'id': 'id-0',
+            'type': 'FOLDER',
+            'name': 'Name 1',
+            'parentId': 'parent-id'
+          },
+          {
+            'id': 'id-1',
+            'type': 'FOLDER',
+            'name': 'Name 2',
+            'parentId': 'parent-id'
+          },
+          {
+            'id': 'id-2',
+            'type': 'FILE',
+            'name': 'Name',
+            'file': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png',
+            'versions': {
+              '2': {
+                'timestamp': 1555980050616,
+                'url': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png'
+              },
+              '1': {
+                'timestamp': 1555980050616,
+                'url': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png'
+              }
+            },
+            'parentId': 'parent-id'
+          }
+        ]
+      }
+    }
+  },
+  {
+    method: 'GET',
+    url: '/api/core/files/parent-id-1',
+    response: {
+      'code': 200,
+      'status': 'OK',
+      'data': {
+        'parentId': 'parent-id',
+        'content': [
+          {
+            'id': 'id-0',
+            'type': 'FOLDER',
+            'name': 'Name 1',
+            'parentId': 'parent-id-1'
+          },
+          {
+            'id': 'id-1',
+            'type': 'FOLDER',
+            'name': 'Name 2',
+            'parentId': 'parent-id-1'
+          },
+          {
+            'id': 'id-2',
+            'type': 'FILE',
+            'name': 'Name',
+            'file': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png',
+            'versions': {
+              '2': {
+                'timestamp': 1555980050616,
+                'url': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png'
+              },
+              '1': {
+                'timestamp': 1555980050616,
+                'url': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png'
+              }
+            },
+            'parentId': 'parent-id-1'
+          }
+        ]
+      }
+    }
+  }
+]
