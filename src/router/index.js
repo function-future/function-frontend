@@ -47,6 +47,7 @@ import chatrooms from '@/views/Chatrooms/Chatrooms'
 import login from '@/views/Auth/Login'
 import profile from '@/views/User/Profile'
 import changePassword from '@/views/User/ChangePassword'
+import files from '@/views/Files/Files'
 import store from '../store/index.js'
 
 Vue.use(Router)
@@ -381,10 +382,14 @@ const router = new Router({
     {
       path: config.app.pages.files,
       name: 'files',
-      component: feeds,
+      component: files,
       meta: {
         auth: true,
-        title: 'Files'
+        title: 'Files',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Files', link: 'files' }
+        ]
       }
     },
     {
