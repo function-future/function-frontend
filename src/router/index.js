@@ -380,16 +380,21 @@ const router = new Router({
       props: { editMode: true }
     },
     {
-      path: config.app.pages.files,
+      path: config.app.pages.files.root,
       name: 'files',
       component: files,
       meta: {
         auth: true,
-        title: 'Files',
-        breadcrumb: [
-          { name: 'Home', link: 'feeds' },
-          { name: 'Files', link: 'files' }
-        ]
+        title: 'Files'
+      }
+    },
+    {
+      path: config.app.pages.files.folder,
+      name: 'files',
+      component: files,
+      meta: {
+        auth: true,
+        title: 'Files'
       }
     },
     {

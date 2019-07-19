@@ -41,7 +41,10 @@ module.exports = {
         detail: '/batches/:code/courses/:id/detail',
         edit: '/batches/:code/courses/:id/edit'
       },
-      files: '/files',
+      files: {
+        root: '/files',
+        folder: '/files/:id'
+      },
       users: {
         list: '/users',
         add: {
