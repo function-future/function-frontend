@@ -33,8 +33,7 @@ export default {
       }
       return this.users.filter(user => {
         return (!this.selectedUsers.map(usr => usr.id).includes(user.id) &&
-                (user.role === 'STUDENT' || user.role === 'MENTOR'
-                ))
+                (user.role === 'STUDENT' || user.role === 'MENTOR'))
       })
     }
   },

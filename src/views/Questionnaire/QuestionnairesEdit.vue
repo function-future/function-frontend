@@ -26,7 +26,7 @@
           ></QuestionCard>
         </div>
         <div class="title-placeholder">
-          <h2>Appraiser</h2>
+          <h2>Appraisee</h2>
           <BaseButton button-class="button-save" class="button-save" @click="participantModal = true">Add</BaseButton>
         </div>
         <hr>
@@ -41,7 +41,7 @@
           ></QuestionnaireParticipantCard>
         </div>
         <div class="title-placeholder">
-          <h2>Appraisee</h2>
+          <h2>Appraiser</h2>
           <BaseButton button-class="button-save" class="button-save">Add</BaseButton>
         </div>
         <hr>
@@ -72,7 +72,7 @@
         </div>></modal-delete-confirmation>
       <ReminderMemberModal
         @addMember="submitParticipant"
-        :selectedUsers="currentAppraisee"
+        :selectedUsers="currentAppraiseeTemp"
         :isQuestionnaireSearch="true"
         @close="participantModal = false"
         v-if="participantModal"></ReminderMemberModal>

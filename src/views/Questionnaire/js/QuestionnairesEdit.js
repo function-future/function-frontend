@@ -23,9 +23,12 @@ export default {
   },
   data () {
     return {
-      currentQuestionnaire: {},
       questionModal: false,
       participantModal: false,
+      currentAppraiseeTemp: {
+        type: Array,
+        default: null
+      },
       question: {
         id: '',
         description: '',
@@ -47,7 +50,16 @@ export default {
       'currentAppraiser'
     ])
   },
+  watch: {
+    currentAppraiseeTemp () {
+      this.computedAppraisee()
+    }
+  },
   methods: {
+    computedAppraisee () {
+      console.log('dalam computed appraisee', this.currentAppraiseeTemp)
+      return this.currentAppraiseeTemp ? this.currentAppraisee : []
+    },
     ...mapActions([
       'fetchCurrentQuestionnaireAdmin',
       'setCurrentQuestionnaireAdmin',
@@ -216,6 +228,11 @@ export default {
         },
         fail: (err) => {
           console.log(err)
+        },
+        cb: (response) => {
+          console.log('ada :', response.data)
+          this.currentAppraiseeTemp = response.data
+          console.log('hasil :', this.currentAppraiseeTemp)
         }
       })
     }
