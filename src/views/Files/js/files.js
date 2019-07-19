@@ -24,7 +24,33 @@ export default {
       'accessList'
     ])
   },
+  created () {
+    this.initPage()
+  },
   methods: {
+    ...mapActions([
+      'fetchFiles'
+    ]),
+    initPage () {
+      this.isLoading = true
+      const data = {
+        parentId: 'root'
+      }
+      this.fetchFiles({
+        data: data,
+        callback: this.successFetchFiles,
+        fail: this.failFetchFiles
+      })
+    },
+    successFetchFiles (res) {
+      this.isLoading = false
+      this.previousFolderId = res.parentId
+    },
+    failFetchFiles (err) {
+      console.log(err)
+      this.isLoading = false
+      this.$toasted.error('Fail to load files, please try again')
+    },
     goToFolder () {},
     goToPreviousFolder () {},
     downloadFileFromUrl () {},

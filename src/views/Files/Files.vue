@@ -13,41 +13,40 @@
         </BaseButton>
       </div>
     </div>
-    <div>
-      <h3 class="title">Folders</h3>
-      <div class="loading" v-if="isLoading">
-        <font-awesome-icon icon="spinner" spin class="icon-loading" size="lg"></font-awesome-icon>
-      </div>
-      <div class="file__wrapper" v-if="!isLoading">
-        <div class="file" v-for="index in 6" @click="goToFolder">
-          <BaseCard cardClass="card-hover" class="file__card">
-            <font-awesome-icon icon="folder" class="icon" size="lg"></font-awesome-icon>
-            <div class="file__title">Folder (17 chars)...</div>
-            <div class="actions" v-if="true">
+    <div class="loading" v-if="isLoading">
+      <font-awesome-icon icon="spinner" spin class="icon-loading" size="lg"></font-awesome-icon>
+    </div>
+    <div v-if="!isLoading">
+      <div>
+        <h3 class="title">Folders</h3>
+        <div class="file__wrapper">
+          <div class="file" v-for="index in 6" @click="goToFolder">
+            <BaseCard cardClass="card-hover" class="file__card">
+              <font-awesome-icon icon="folder" class="icon" size="lg"></font-awesome-icon>
+              <div class="file__title">Folder (17 chars)...</div>
+              <div class="actions" v-if="true">
               <span class="delete-btn" @click="openDeleteConfirmationModal" v-if="accessList.delete">
                 <font-awesome-icon icon="trash-alt" class="action-icon red"></font-awesome-icon>
               </span>
-            </div>
-          </BaseCard>
+              </div>
+            </BaseCard>
+          </div>
         </div>
       </div>
-    </div>
-    <div>
-      <h3 class="title">Files</h3>
-      <div class="loading" v-if="isLoading">
-        <font-awesome-icon icon="spinner" spin class="icon-loading" size="lg"></font-awesome-icon>
-      </div>
-      <div class="file__wrapper" v-if="!isLoading">
-        <div class="file" v-for="index in 6" @click="downloadFileFromUrl">
-          <BaseCard cardClass="card-hover" class="file__card">
-            <font-awesome-icon icon="file" class="icon" size="lg"></font-awesome-icon>
-            <div class="file__title">File (17 chars)...</div>
-            <div class="actions" v-if="true">
+      <div>
+        <h3 class="title">Files</h3>
+        <div class="file__wrapper">
+          <div class="file" v-for="index in 6" @click="downloadFileFromUrl">
+            <BaseCard cardClass="card-hover" class="file__card">
+              <font-awesome-icon icon="file" class="icon" size="lg"></font-awesome-icon>
+              <div class="file__title">File (17 chars)...</div>
+              <div class="actions" v-if="true">
               <span class="delete-btn" @click="openDeleteConfirmationModal(1)" v-if="accessList.delete">
                 <font-awesome-icon icon="trash-alt" class="action-icon red"></font-awesome-icon>
               </span>
-            </div>
-          </BaseCard>
+              </div>
+            </BaseCard>
+          </div>
         </div>
       </div>
     </div>
