@@ -48,11 +48,11 @@ export default {
     successFetchFiles (res) {
       this.isLoading = false
       this.previousFolderId = res.parentId
+      this.fileList = res.content.filter(i => { return i.type === 'FILE' })
+      this.folderList = res.content.filter(i => { return i.type === 'FOLDER' })
       this.$route.params.parentId === 'root'
         ? this.currentFolder = 'Root Folder'
         : this.currentFolder = this.folderList[0].parentId
-      this.fileList = res.content.filter(i => { return i.type === 'FILE' })
-      this.folderList = res.content.filter(i => { return i.type === 'FOLDER' })
     },
     failFetchFiles () {
       this.isLoading = false

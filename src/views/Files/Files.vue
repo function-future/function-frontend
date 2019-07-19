@@ -159,7 +159,6 @@
   .button {
     &-back {
       cursor: pointer;
-      padding: 10px 5px;
       font-size: 12px;
 
       &:hover {
