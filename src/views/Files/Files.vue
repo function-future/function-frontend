@@ -8,7 +8,7 @@
         <span>Previous Folder</span>
       </span>
       <span class="folder-title">{{ currentFolder }}</span>
-      <div class="button-div" v-if="accessList.add">
+      <div class="button-div" v-if="accessList.add && currentUser.role === 'ADMIN'">
         <BaseButton type="submit" buttonClass="button-save" @click="">
           <span><font-awesome-icon icon="plus" class="icon"/> Add</span>
         </BaseButton>
