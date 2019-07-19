@@ -1,8 +1,11 @@
 <template>
   <div>
     <div class="button__wrapper">
-      <span class="button-back" v-if="$route.name === 'folder'">
-        <font-awesome-icon icon="arrow-left" class="icon" size="lg"></font-awesome-icon> Previous Folder
+      <span class="button-back"
+            v-if="$route.name === 'folder'"
+            @click="goToPreviousFolder">
+        <font-awesome-icon icon="arrow-left" class="icon" size="lg"></font-awesome-icon>
+        Previous Folder
       </span>
       <div class="button-div" v-if="accessList.add">
         <BaseButton type="submit" buttonClass="button-save" @click="">
@@ -16,7 +19,7 @@
         <font-awesome-icon icon="spinner" spin class="icon-loading" size="lg"></font-awesome-icon>
       </div>
       <div class="file__wrapper" v-if="!isLoading">
-        <div class="file" v-for="index in 6">
+        <div class="file" v-for="index in 6" @click="goToFolder">
           <BaseCard cardClass="card-hover" class="file__card">
             <font-awesome-icon icon="folder" class="icon" size="lg"></font-awesome-icon>
             <div class="file__title">Folder (17 chars)...</div>
@@ -35,12 +38,12 @@
         <font-awesome-icon icon="spinner" spin class="icon-loading" size="lg"></font-awesome-icon>
       </div>
       <div class="file__wrapper" v-if="!isLoading">
-        <div class="file" v-for="index in 6">
+        <div class="file" v-for="index in 6" @click="downloadFileFromUrl">
           <BaseCard cardClass="card-hover" class="file__card">
             <font-awesome-icon icon="file" class="icon" size="lg"></font-awesome-icon>
             <div class="file__title">File (17 chars)...</div>
             <div class="actions" v-if="true">
-              <span class="delete-btn" @click="openDeleteConfirmationModal" v-if="accessList.delete">
+              <span class="delete-btn" @click="openDeleteConfirmationModal(1)" v-if="accessList.delete">
                 <font-awesome-icon icon="trash-alt" class="action-icon red"></font-awesome-icon>
               </span>
             </div>

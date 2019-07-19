@@ -14,6 +14,7 @@ export default {
     return {
       isLoading: false,
       selectedId: '',
+      previousFolderId: '',
       showDeleteConfirmationModal: false
     }
   },
@@ -24,6 +25,13 @@ export default {
     ])
   },
   methods: {
+    goToFolder () {},
+    goToPreviousFolder () {},
+    downloadFileFromUrl () {},
+    openDeleteConfirmationModal (id) {
+      this.selectedId = id
+      this.showDeleteConfirmationModal = true
+    },
     deleteThisFile () {}
   }
 }
