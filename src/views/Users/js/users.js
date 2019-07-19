@@ -16,6 +16,7 @@ export default {
   },
   data () {
     return {
+      isLoading: false,
       tabs: [
         { title: 'Students', value: 'student' },
         { title: 'Admins', value: 'admin' },
@@ -60,6 +61,7 @@ export default {
       'setJudgeList'
     ]),
     initPage () {
+      this.isLoading = true
       this.fetchTabList()
     },
     changeTab (destinationTab) {
@@ -80,6 +82,7 @@ export default {
       })
     },
     successGetUserList (response) {
+      this.isLoading = false
       this.paging = response.paging
       switch (this.currentTab) {
         case 'student': {
@@ -101,6 +104,7 @@ export default {
       }
     },
     failGetUserList () {
+      this.isLoading = false
       this.$toasted.error('Fail to fetch list')
     },
     goToAddUser () {

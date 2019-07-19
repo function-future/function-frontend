@@ -137,6 +137,7 @@ describe('Users', () => {
     ]
     wrapper.vm.currentTab = 'student'
     wrapper.vm.successGetUserList(response)
+    expect(wrapper.vm.isLoading).toEqual(false)
     expect(spy).toHaveBeenCalledTimes(1)
   })
 
@@ -165,6 +166,7 @@ describe('Users', () => {
     ]
     wrapper.vm.currentTab = 'admin'
     wrapper.vm.successGetUserList(response)
+    expect(wrapper.vm.isLoading).toEqual(false)
     expect(spy).toHaveBeenCalledTimes(1)
   })
 
@@ -193,6 +195,7 @@ describe('Users', () => {
     ]
     wrapper.vm.currentTab = 'mentor'
     wrapper.vm.successGetUserList(response)
+    expect(wrapper.vm.isLoading).toEqual(false)
     expect(spy).toHaveBeenCalledTimes(1)
   })
 
@@ -221,12 +224,14 @@ describe('Users', () => {
     ]
     wrapper.vm.currentTab = 'judge'
     wrapper.vm.successGetUserList(response)
+    expect(wrapper.vm.isLoading).toEqual(false)
     expect(spy).toHaveBeenCalledTimes(1)
   })
 
   test('failGetUserList', () => {
     initComponent()
     wrapper.vm.failGetUserList()
+    expect(wrapper.vm.isLoading).toEqual(false)
     expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
   })
 
