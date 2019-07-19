@@ -5,34 +5,38 @@
         <span><font-awesome-icon icon="plus" class="icon"/> New</span>
       </BaseButton>
     </div>
-    <BaseCard
-      v-for="activityBlog in activityBlogs"
-      v-bind:key="activityBlog.id"
-      @click.native="goToActivityBlogDetail(activityBlog.id)"
-      class="blog-card"
-      cardClass="card-hover">
-      <div class="blog-header blog-title">
-        <h3>{{ activityBlog.title }}</h3>
-      </div>
-      <div class="blog-header float-right">
-        <div class="blog-date">
-          {{ activityBlog.createdAt | moment("dddd, MMMM Do YYYY") }}
+    <div v-if="isLoading" class="loading">
+      <font-awesome-icon icon="spinner" spin class="icon-loading" size="lg"></font-awesome-icon>
+    </div>
+    <div v-if="!isLoading">
+      <BaseCard v-for="activityBlog in activityBlogs"
+                v-bind:key="activityBlog.id"
+                @click.native="goToActivityBlogDetail(activityBlog.id)"
+                class="blog-card"
+                cardClass="card-hover">
+        <div class="blog-header blog-title">
+          <h3>{{ activityBlog.title }}</h3>
         </div>
-        <div class="blog-actions">
+        <div class="blog-header float-right">
+          <div class="blog-date">
+            {{ activityBlog.createdAt | moment("dddd, MMMM Do YYYY") }}
+          </div>
+          <div class="blog-actions">
           <span @click.stop="goToEditActivityBlog(activityBlog.id)"
                 v-if="accessList.edit && (currentUser.id === activityBlog.author.id)">
             <font-awesome-icon icon="edit" class="icon blue" size="lg"></font-awesome-icon>
           </span>
-          <span @click.stop="openDeleteConfirmationModal(activityBlog.id)"
-                v-if="accessList.delete && (currentUser.id === activityBlog.author.id)">
+            <span @click.stop="openDeleteConfirmationModal(activityBlog.id)"
+                  v-if="accessList.delete && (currentUser.id === activityBlog.author.id)">
             <font-awesome-icon icon="trash-alt" class="icon red" size="lg"></font-awesome-icon>
           </span>
+          </div>
         </div>
-      </div>
-      <div class="blog-preview">
-        <span v-html="compileToMarkdown(activityBlog.description)"></span>
-      </div>
-    </BaseCard>
+        <div class="blog-preview">
+          <span v-html="compileToMarkdown(activityBlog.description)"></span>
+        </div>
+      </BaseCard>
+    </div>
     <BasePagination :paging="paging"
                     @loadPage="loadPage"
                     @previousPage="loadPreviousPage"
@@ -102,5 +106,13 @@
 
   .float-right {
     float: right;
+  }
+
+  .loading {
+    margin-top: 50px;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 </style>

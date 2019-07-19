@@ -21,11 +21,11 @@ describe('EditStickyNotes', () => {
 
   function initStore () {
     const state = {
-      stickyNotes: {
+      stickyNotes: [{
         title: 'Mock Note',
         description: 'Note for testing purpose',
         updatedAt: '123456789'
-      }
+      }]
     }
     const actions = {
       fetchStickyNotes: jest.fn(),
@@ -113,7 +113,7 @@ describe('EditStickyNotes', () => {
   test('setStickyNote', () => {
     initComponent()
     wrapper.vm.setStickyNote()
-    expect(wrapper.vm.stickyNote).toEqual(store.state.stickyNotes)
+    expect(wrapper.vm.stickyNote).toEqual(store.state.stickyNotes[0])
   })
 
   test('validateBeforeSubmit is resolved', (done) => {
