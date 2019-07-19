@@ -9,7 +9,6 @@ import { mapActions, mapGetters, mapMutations } from 'vuex'
 import questionnaireApi from '@/api/controller/questionnaire'
 import ReminderMemberModal from '@/views/Reminders/ReminderMemberModal'
 
-
 export default {
   name: 'QuestionnaireEdit',
   components: {
@@ -37,7 +36,7 @@ export default {
         id: '',
         selectedIndex: '',
         description: ''
-      },
+      }
     }
   },
   computed: {
@@ -131,7 +130,7 @@ export default {
       {
         body: value,
         params: {
-          questionnaireId: this.$route.params.questionnaireId,
+          questionnaireId: this.$route.params.questionnaireId
         }
       })
     },
