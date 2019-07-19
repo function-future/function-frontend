@@ -437,7 +437,7 @@ module.exports = {
           return `/api/communication/questionnaires/${questionnaireId}`
         },
         getAppraiseeQuestionnaire (questionnaireId, page, size) {
-          return `/api/ccommunication/questionnaires/${questionnaireId}/appraisee?page=${page}&size=${size}`
+          return `/api/communication/questionnaires/${questionnaireId}/appraisee?page=${page}&size=${size}`
         },
         addAppraisee (questionnaireId) {
           return `/api/communication/questionnaires/${questionnaireId}/appraisee`
@@ -446,7 +446,7 @@ module.exports = {
           return `/api/communication/questionnaires/${questionnaireId}/appraisee/${questionnaireparticipantId}`
         },
         getAppraiserQuestionnaire (questionnaireId, page, size) {
-          return `/api/ccommunication/questionnaires/${questionnaireId}/appraiser?page=${page}&size=${size}`
+          return `/api/communication/questionnaires/${questionnaireId}/appraiser?page=${page}&size=${size}`
         },
         addAppraiser (questionnaireId) {
           return `/api/communication/questionnaires/${questionnaireId}/appraiser`
@@ -469,13 +469,13 @@ module.exports = {
       },
       questionnaireResponse: {
         getQuestionnaireSimpleSummary (appraiseeId, page, size) {
-          return `/api/communication/questionniare-response?appraiseeId=${appraiseeId}&page=${page}&size=${size}`
+          return `/api/communication/questionnaire-response?appraiseeId=${appraiseeId}&page=${page}&size=${size}`
         },
         getQuestionnaireSummaryDetail (questionnaireResponseSummaryId) {
-          return `/api/communication/questionniare-response/${questionnaireResponseSummaryId}`
+          return `/api/communication/questionnaire-response/${questionnaireResponseSummaryId}`
         },
         getQuestionSummaryResponse (questionnaireResponseSummaryId, appraiseeId) {
-          return `/api/communication/questionniare-response/${questionnaireResponseSummaryId}/questions/${appraiseeId}`
+          return `/api/communication/questionnaire-response/${questionnaireResponseSummaryId}/questions/${appraiseeId}`
         }
       },
       questionnaireResults: {

@@ -7,6 +7,8 @@ import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation
 import ModalChatroom from '@/views/Chatrooms/ModalChatroom'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 import questionnaireApi from '@/api/controller/questionnaire'
+import ReminderMemberModal from '@/views/Reminders/ReminderMemberModal'
+
 
 export default {
   name: 'QuestionnaireEdit',
@@ -17,7 +19,8 @@ export default {
     BaseButton,
     ModalAddQuestion,
     ModalDeleteConfirmation,
-    ModalChatroom
+    ModalChatroom,
+    ReminderMemberModal
   },
   data () {
     return {
@@ -34,20 +37,23 @@ export default {
         id: '',
         selectedIndex: '',
         description: ''
-      }
+      },
     }
   },
   computed: {
     ...mapGetters([
       'currentQuestionnaireAdmin',
-      'currentQuestions'
+      'currentQuestions',
+      'currentAppraisee',
+      'currentAppraiser'
     ])
   },
   methods: {
     ...mapActions([
       'fetchCurrentQuestionnaireAdmin',
       'setCurrentQuestionnaireAdmin',
-      'fetchCurrentQuestions'
+      'fetchCurrentQuestions',
+      'fetchCurrentAppraisee'
     ]),
     ...mapMutations([
       'RESET_CURRENT_QUESTIONNAIRE_ADMIN',
@@ -125,7 +131,7 @@ export default {
       {
         body: value,
         params: {
-          questionnaireId: this.$route.params.questionnaireId
+          questionnaireId: this.$route.params.questionnaireId,
         }
       })
     },
@@ -196,8 +202,23 @@ export default {
       }
       )
     },
-    submitParticipant () {
+    submitParticipant (member) {
       alert('open modal')
+      console.log(member)
+    },
+    fetchingAppraisee () {
+      this.fetchCurrentAppraisee({
+        data: {
+          params: {
+            questionnaireId: this.$route.params.questionnaireId,
+            page: 1,
+            size: 10
+          }
+        },
+        fail: (err) => {
+          console.log(err)
+        }
+      })
     }
   },
   created () {
@@ -212,5 +233,6 @@ export default {
       }
     })
     this.fetchingQuestions()
+    this.fetchingAppraisee()
   }
 }

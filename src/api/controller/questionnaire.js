@@ -76,6 +76,14 @@ const deleteQuestionQuestionnaire = function (callback, error, data) {
   )
 }
 
+const getAppraiseeQuestionnaire = function (callback, error, data) {
+  request.getRequest(
+    config.api.communication.questionnaire.getAppraiseeQuestionnaire(data.params.questionnaireId, data.params.page, data.params.size),
+    callback,
+    error
+  )
+}
+
 export default {
   getQuestionnaires,
   getQuestionnaire,
@@ -85,5 +93,6 @@ export default {
   addQuestionQuestionnaire,
   getQuestionsQuestionnaire,
   updateQuestionQuestionnaire,
-  deleteQuestionQuestionnaire
+  deleteQuestionQuestionnaire,
+  getAppraiseeQuestionnaire
 }

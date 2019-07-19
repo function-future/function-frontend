@@ -8,7 +8,7 @@
     <h3>Members</h3>
     <div class="reminder-form__member">
       <template v-for="(user, index) in computedUser">
-        <UserSimpleCard :showRemove="edit" @remove="removeMember(index)" class="reminder-form__member__card" :user="user" :key="user.id"></UserSimpleCard>
+        <UserSimpleCard :showRemove=" edit" @remove="removeMember(index)" class="reminder-form__member__card" :user="user" :key="user.id"></UserSimpleCard>
       </template>
       <font-awesome-icon v-if="edit" @click="showModalMember = true" icon="plus" class="reminder-form__add-member-btn"></font-awesome-icon>
     </div>

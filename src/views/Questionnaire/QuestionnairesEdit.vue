@@ -31,14 +31,14 @@
         </div>
         <hr>
         <div class="appraiser-container-list">
-<!--          <QuestionnaireParticipantCard v-for="a in 10"-->
-<!--                                        :name="appraisee.name"-->
-<!--                                        :avatar="appraisee.avatar"-->
-<!--                                        :role="appraisee.role"-->
-<!--                                        :university="appraisee.university"-->
-<!--                                        :batch="appraisee.batch"-->
-<!--                                        :isEdit="true"-->
-<!--          ></QuestionnaireParticipantCard>-->
+          <QuestionnaireParticipantCard v-for="appraisee in currentAppraisee"
+                                        :name="appraisee.name"
+                                        :avatar="appraisee.avatar"
+                                        :role="appraisee.role"
+                                        :university="appraisee.university"
+                                        :batch="appraisee.batch"
+                                        :isEdit="true"
+          ></QuestionnaireParticipantCard>
         </div>
         <div class="title-placeholder">
           <h2>Appraisee</h2>
@@ -70,8 +70,12 @@
           <br>
           " {{ this.deleteConfirmationModalQuestion.description}} "
         </div>></modal-delete-confirmation>
-      <ModalChatroom @submit="submitParticipant" @close="participantModal = false" v-if="participantModal">
-      </ModalChatroom>
+      <ReminderMemberModal
+        @addMember="submitParticipant"
+        :selectedUsers="currentAppraisee"
+        :isQuestionnaireSearch="true"
+        @close="participantModal = false"
+        v-if="participantModal"></ReminderMemberModal>
     </div>
 </template>
 

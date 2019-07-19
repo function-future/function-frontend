@@ -64,7 +64,10 @@ export const actions = {
     }, fail, data)
   },
   fetchCurrentAppraisee ({ state, commit }, { data, fail }) {
-
+    questionnaireApi.getAppraiseeQuestionnaire(response => {
+      commit('RESET_CURRENT_APPRAISEE')
+      commit('PUSH_CURRENT_APPRAISEE', response.data)
+    }, fail, data)
   },
   fetchCurrentAppraiser ({ state, commit }, { data, fail }) {
 
