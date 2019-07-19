@@ -27,7 +27,9 @@
               <font-awesome-icon icon="folder" class="icon" size="lg"></font-awesome-icon>
               <div class="file__title">{{ showLimitedPreviewText(folder.name) }}</div>
               <div class="actions" v-if="true">
-              <span class="delete-btn" @click="openDeleteConfirmationModal" v-if="accessList.delete">
+              <span class="delete-btn"
+                    @click.stop="openDeleteConfirmationModal(folder.id, folder.type)"
+                    v-if="accessList.delete">
                 <font-awesome-icon icon="trash-alt" class="action-icon red"></font-awesome-icon>
               </span>
               </div>
@@ -44,7 +46,9 @@
               <font-awesome-icon icon="file" class="icon" size="lg"></font-awesome-icon>
               <div class="file__title">{{ showLimitedPreviewText(file.name) }}</div>
               <div class="actions" v-if="true">
-              <span class="delete-btn" @click="openDeleteConfirmationModal(1)" v-if="accessList.delete">
+              <span class="delete-btn"
+                    @click.stop="openDeleteConfirmationModal(file.id, file.type)"
+                    v-if="accessList.delete">
                 <font-awesome-icon icon="trash-alt" class="action-icon red"></font-awesome-icon>
               </span>
               </div>
@@ -56,7 +60,7 @@
     <modal-delete-confirmation v-if="showDeleteConfirmationModal"
                                @close="showDeleteConfirmationModal = false"
                                @clickDelete="deleteThisFile">
-      <div slot="description">Are you sure you want to delete this file?</div>
+      <div slot="description">Are you sure you want to delete this {{ selectedFileType }}?</div>
     </modal-delete-confirmation>
   </div>
 </template>

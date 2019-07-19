@@ -80,8 +80,9 @@ export default {
       })
     },
     downloadFileFromUrl () {},
-    openDeleteConfirmationModal (id) {
+    openDeleteConfirmationModal (id, type) {
       this.selectedId = id
+      this.selectedFileType = type.toLowerCase()
       this.showDeleteConfirmationModal = true
     },
     deleteThisFile () {}
