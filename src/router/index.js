@@ -25,6 +25,8 @@ import quizQuestions from '@/views/Quiz/QuizQuestions'
 import judgingList from '@/views/FinalJudging/JudgingList'
 import judgingBatch from '@/views/FinalJudging/JudgingBatch'
 import judgingBatchForm from '@/views/FinalJudging/JudgingBatchForm'
+import judgingDetail from '@/views/FinalJudging/JudgingDetail'
+import comparison from '@/views/FinalJudging/Comparison'
 import points from '@/views/Point/Point'
 import feeds from '@/views/Feeds/Feeds.vue'
 import announcements from '@/views/Announcements/Announcements.vue'
@@ -670,6 +672,22 @@ const router = new Router({
       component: judgingList,
       meta: {
         title: 'Judging'
+      }
+    },
+    {
+      path: config.app.pages.finalJudging.detail,
+      name: 'judgingDetail',
+      component: judgingDetail,
+      meta: {
+        title: 'Judging Detail'
+      }
+    },
+    {
+      path: config.app.pages.finalJudging.comparisons,
+      name: 'comparison',
+      component: comparison,
+      meta: {
+        title: 'Comparison'
       }
     }
   ]

@@ -59,7 +59,7 @@ export default {
       this.$router.push({
         name: 'comparison',
         params: {
-          bankId: id
+          judgingId: id
         }
       })
     },
@@ -67,7 +67,7 @@ export default {
       this.$router.push({
         name: 'judgingDetail',
         params: {
-          bankId: id
+          judgingId: id
         }
       })
     },
