@@ -2,7 +2,7 @@
   <div>
     <div class="button__wrapper">
       <span class="button-back"
-            v-if="$route.name === 'folder'"
+            v-if="$route.params.parentId !== 'root'"
             @click="goToPreviousFolder">
         <font-awesome-icon icon="arrow-left" class="icon" size="lg"></font-awesome-icon>
         Previous Folder
