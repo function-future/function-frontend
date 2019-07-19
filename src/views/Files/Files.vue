@@ -1,9 +1,14 @@
 <template>
   <div>
-    <div class="button-div" v-if="accessList.add">
-      <BaseButton type="submit" buttonClass="button-save" @click="">
-        <span><font-awesome-icon icon="plus" class="icon"/> Add</span>
-      </BaseButton>
+    <div class="button__wrapper">
+      <span class="button-back" v-if="true">
+        <font-awesome-icon icon="arrow-left" class="icon" size="lg"></font-awesome-icon> Previous Folder
+      </span>
+      <div class="button-div" v-if="accessList.add">
+        <BaseButton type="submit" buttonClass="button-save" @click="">
+          <span><font-awesome-icon icon="plus" class="icon"/> Add</span>
+        </BaseButton>
+      </div>
     </div>
     <div>
       <h3 class="title">Folders</h3>
@@ -11,7 +16,7 @@
         <font-awesome-icon icon="spinner" spin class="icon-loading" size="lg"></font-awesome-icon>
       </div>
       <div class="file__wrapper" v-if="!isLoading">
-        <div class="file">
+        <div class="file" v-for="index in 6">
           <BaseCard cardClass="card-hover" class="file__card">
             <font-awesome-icon icon="folder" class="icon" size="lg"></font-awesome-icon>
             <div class="file__title">Folder (17 chars)...</div>
@@ -30,7 +35,7 @@
         <font-awesome-icon icon="spinner" spin class="icon-loading" size="lg"></font-awesome-icon>
       </div>
       <div class="file__wrapper" v-if="!isLoading">
-        <div class="file">
+        <div class="file" v-for="index in 6">
           <BaseCard cardClass="card-hover" class="file__card">
             <font-awesome-icon icon="file" class="icon" size="lg"></font-awesome-icon>
             <div class="file__title">File (17 chars)...</div>
@@ -55,9 +60,9 @@
 
 <style lang="scss" scoped>
   .button-div {
-    text-align: right;
     margin-right: 30px;
     margin-bottom: 0;
+    margin-left: auto;
   }
 
   .file {
@@ -140,5 +145,23 @@
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  .button {
+    &-back {
+      cursor: pointer;
+      padding: 10px 5px;
+
+      &:hover {
+        opacity: 0.9;
+      }
+    }
+
+    &__wrapper {
+      display: flex;
+      align-items: center;
+      padding-left: 10px;
+      margin: 10px 0;
+    }
   }
 </style>
