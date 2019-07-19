@@ -14,11 +14,6 @@
         <font-awesome-icon icon="copy" class="icon"></font-awesome-icon> Copy Selected Course
       </BaseButton>
       </span>
-      <!--<span v-if="accessList.add">-->
-        <!--<BaseButton type="submit" buttonClass="button-save" @click="goToAddCourse">-->
-        <!--<span><font-awesome-icon icon="plus" class="icon"/> Add</span>-->
-      <!--</BaseButton>-->
-      <!--</span>-->
     </div>
     <div v-for="course in courses" :key="course.id" class="course__row">
       <div class="course__col">
