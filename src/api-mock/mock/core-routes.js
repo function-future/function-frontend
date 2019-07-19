@@ -1566,9 +1566,9 @@ export const files = [
         'parentId': null,
         'content': [
           {
-            'id': 'id-0',
+            'id': 'parent-id',
             'type': 'FOLDER',
-            'name': 'Name 1',
+            'name': 'Parent Id',
             'parentId': 'root'
           },
           {
@@ -1608,9 +1608,9 @@ export const files = [
         'parentId': 'root',
         'content': [
           {
-            'id': 'id-0',
+            'id': 'parent-id-1',
             'type': 'FOLDER',
-            'name': 'Name 1',
+            'name': 'Parent Id 1',
             'parentId': 'parent-id'
           },
           {
@@ -1650,9 +1650,9 @@ export const files = [
         'parentId': 'parent-id',
         'content': [
           {
-            'id': 'id-0',
+            'id': 'parent-id-2',
             'type': 'FOLDER',
-            'name': 'Name 1',
+            'name': 'Parent Id 2',
             'parentId': 'parent-id-1'
           },
           {

@@ -36,7 +36,7 @@ export default {
     initPage () {
       this.isLoading = true
       const data = {
-        parentId: 'root'
+        parentId: this.$route.params.parentId
       }
       this.fetchFiles({
         data: data,
@@ -49,9 +49,12 @@ export default {
       this.previousFolderId = res.parentId
       this.fileList = res.content.filter(i => { return i.type === 'FILE' })
       this.folderList = res.content.filter(i => { return i.type === 'FOLDER' })
+      // if (this.$route.params.parentId !== 'root') this.$route.meta.title = this.folderList[0].parentId
     },
     failFetchFiles () {
       this.isLoading = false
+      this.fileList = []
+      this.folderList = []
       this.$toasted.error('Fail to load files, please try again')
     },
     showLimitedPreviewText (text) {
@@ -61,13 +64,28 @@ export default {
       }
       return text
     },
-    goToFolder () {},
-    goToPreviousFolder () {},
+    goToFolder (id) {
+      this.$router.push({
+        name: 'folder',
+        params: { parentId: id }
+      })
+    },
+    goToPreviousFolder () {
+      this.$router.push({
+        name: 'folder',
+        params: { parentId: this.previousFolderId }
+      })
+    },
     downloadFileFromUrl () {},
     openDeleteConfirmationModal (id) {
       this.selectedId = id
       this.showDeleteConfirmationModal = true
     },
     deleteThisFile () {}
+  },
+  watch: {
+    $route () {
+      this.initPage()
+    }
   }
 }

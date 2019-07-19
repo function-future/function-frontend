@@ -17,10 +17,10 @@
       <font-awesome-icon icon="spinner" spin class="icon-loading" size="lg"></font-awesome-icon>
     </div>
     <div v-if="!isLoading">
-      <div>
+      <div class="wrapper">
         <h3 class="title">Folders</h3>
         <div class="file__wrapper">
-          <div class="file" @click="goToFolder"
+          <div class="file" @click="goToFolder(folder.id)"
                v-for="folder in folderList" :key="folder.id">
             <BaseCard cardClass="card-hover" class="file__card">
               <font-awesome-icon icon="folder" class="icon" size="lg"></font-awesome-icon>
@@ -67,6 +67,10 @@
     margin-right: 30px;
     margin-bottom: 0;
     margin-left: auto;
+  }
+
+  .wrapper {
+    margin-bottom: 10px;
   }
 
   .file {
@@ -136,8 +140,8 @@
 
   .title {
     text-align: left;
-    margin: 0;
     padding-left: 15px;
+    margin-bottom: 5px;
   }
 
   .file {
