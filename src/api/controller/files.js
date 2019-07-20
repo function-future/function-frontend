@@ -5,6 +5,11 @@ const getFileList = function (callback, data, errorHandler) {
   request.getRequest(config.api.core.files.list(data.parentId), callback, errorHandler)
 }
 
+const createFolder = function (callback, data, errorHandler) {
+  request.postRequest(config.api.core.files.create(data.parentId), callback, data.content, errorHandler)
+}
+
 export default {
-  getFileList
+  getFileList,
+  createFolder
 }

@@ -212,7 +212,8 @@ module.exports = {
         }
       },
       files: {
-        list (parentId) { return `/api/core/files/${parentId}` }
+        list (parentId) { return `/api/core/files/${parentId}` },
+        create (parentId) { return `/api/core/files/${parentId}` }
       }
     },
     scoring: {

@@ -16,6 +16,11 @@ export const actions = {
       commit('SET_FILES', response)
       callback(response)
     }, data, fail)
+  },
+  createFolder ({ commit }, { data, callback, fail }) {
+    api.createFolder(({ data: response }) => {
+      callback(response)
+    }, data, fail)
   }
 }
 
