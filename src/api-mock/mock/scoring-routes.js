@@ -1059,17 +1059,23 @@ export const finalJudgingDetail = [
   {
     method: 'GET',
     url: '/api/scoring/batches/1/judgings/FNC0001',
-    response: {
-      "code": 200,
-      "status": "OK",
-      "data": {
-        "id": "FNC0001",
-        "title": "Final Comparison 1",
-        "description": "Final Comparison of Students",
-        "usedAt": 15000000000,
-        "studentCount": 3
+    response:
+      {
+        "code": 200,
+        "status": "OK",
+        "data": {
+          "id": "FNC0001",
+          "name": "Final Comparison 1",
+          "description": "Final Comparison of Students",
+          "studentIds": [
+            "student-id",
+            "student-id-2"
+          ],
+          "batchCode": "3",
+          "uploadedDate": 15000000000,
+          "studentCount": 3
+        }
       }
-    }
   },
   {
     method: 'PUT',
