@@ -27,8 +27,7 @@ export default {
       this.validateBeforeSubmit(this.validationSuccess)
     },
     validationSuccess () {
-      this.title = ''
-      this.$emit('create')
+      this.$emit('create', this.title)
     }
   }
 }
