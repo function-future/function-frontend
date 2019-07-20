@@ -9,12 +9,13 @@
       </span>
       <span class="folder-title">{{ currentFolder }}</span>
       <div class="button-div" v-if="accessList.add">
-        <BaseButton type="submit" buttonClass="button-save" @click="">
-          <span><font-awesome-icon icon="plus" class="icon"/> Add</span>
-        </BaseButton>
+        <label class="add-button">
+          <input type="file" :name="file" @change="onFileChange($event)">
+          <span><font-awesome-icon icon="plus" class="icon"/> File</span>
+        </label>
       </div>
       <div class="button-div end" v-if="accessList.add && currentUser.role === 'ADMIN'">
-        <BaseButton type="submit" buttonClass="button-save" @click="">
+        <BaseButton type="submit" buttonClass="button-save" @click="showCreateModal = true">
           <span><font-awesome-icon icon="plus" class="icon"/> Folder</span>
         </BaseButton>
       </div>
@@ -67,6 +68,9 @@
                                @clickDelete="deleteThisFile">
       <div slot="description">Are you sure you want to delete this {{ selectedFileType }}?</div>
     </modal-delete-confirmation>
+    <modal-create-folder v-if="showCreateModal"
+                         @close="showCreateModal = false"
+                         @create="createFolderFromModal"></modal-create-folder>
   </div>
 </template>
 
@@ -204,5 +208,31 @@
     -khtml-user-select: none; /* KHTML browsers (e.g. Konqueror) */
     -webkit-user-select: none; /* Chrome, Safari, and Opera */
     -webkit-touch-callout: none; /* Disable Android and iOS callouts*/
+  }
+
+  .add-button {
+    background: #02AAF3;
+    border: none;
+    padding: 5px 20px 5px 20px;
+    width: 125px;
+    border-radius: 30px;
+    color: white;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 1.2em;
+    line-height: normal;
+    text-align: center;
+    -webkit-transition: all .2s ease;
+    transition: all .2s ease;
+    margin: 2px 0 2px 0;
+    cursor: pointer;
+
+    &:hover {
+      box-shadow: 2px 2px 8px rgba(0,0,0,0.08), 2px 2px 10px rgba(0,0,0,0.15);
+    }
+
+    input {
+      display: none;
+    }
   }
 </style>

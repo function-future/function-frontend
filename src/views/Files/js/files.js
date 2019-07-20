@@ -2,13 +2,15 @@ import { mapActions, mapGetters } from 'vuex'
 import BaseCard from '@/components/BaseCard.vue'
 import BaseButton from '@/components/BaseButton.vue'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
+import ModalCreateFolder from '@/components/modals/ModalCreateFolder'
 
 export default {
   name: 'files',
   components: {
     BaseCard,
     BaseButton,
-    ModalDeleteConfirmation
+    ModalDeleteConfirmation,
+    ModalCreateFolder
   },
   data () {
     return {
@@ -17,6 +19,7 @@ export default {
       currentFolder: '',
       previousFolderId: '',
       showDeleteConfirmationModal: false,
+      showCreateModal: false,
       fileList: [],
       folderList: []
     }
@@ -32,7 +35,8 @@ export default {
   },
   methods: {
     ...mapActions([
-      'fetchFiles'
+      'fetchFiles',
+      'createFolder'
     ]),
     initPage () {
       this.isLoading = true
@@ -84,6 +88,29 @@ export default {
       this.selectedId = id
       this.selectedFileType = type.toLowerCase()
       this.showDeleteConfirmationModal = true
+    },
+    onFileChange (e) {},
+    createFolderFromModal (title) {
+      this.showCreateModal = false
+      const data = {
+        parentId: this.$route.params.parentId,
+        content: {
+          name: title,
+          type: 'FOLDER'
+        }
+      }
+      this.createFolder({
+        data: data,
+        callback: this.successCreateFolder,
+        fail: this.failCreateFolder
+      })
+    },
+    successCreateFolder () {
+      this.$toasted.success('Folder created')
+      this.initPage()
+    },
+    failCreateFolder () {
+      this.$toasted.error('Fail to create folder, please try again')
     },
     deleteThisFile () {}
   },
