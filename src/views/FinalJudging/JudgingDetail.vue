@@ -2,24 +2,27 @@
   <div class="judging-detail__container">
     <div class="judging-detail__container-header">
       <!--Header-->
-      <BaseInput placeholder="Input title here"></BaseInput>
+      <BaseInput placeholder="Input title here" v-model="judgingDetail.name"></BaseInput>
     </div>
     <div class="judging-detail__container-body">
       <!--Body-->
-      <BaseTextArea class="judging-detail__container-body-description" placeholder="Input description here" :style="{'height': '100%'}"></BaseTextArea>
-      <BaseCard v-if="isLoading" class="judging-detail__container-body-student-list" :style="{'margin': '10px 0 10px 15px'}">
+      <BaseTextArea class="judging-detail__container-body-description" placeholder="Input description here" :style="{'height': '100%'}" v-model="judgingDetail.description"></BaseTextArea>
+      <BaseCard v-if="!isLoading" class="judging-detail__container-body-student-list" :style="{'padding': '15px 10px' ,'margin': '10px 0 10px 15px'}">
         <div class="judging-detail__container-body-student-list__header">
           <div class="judging-detail__container-body-student-list__header-title">
             Students
           </div>
           <div class="judging-detail__container-body-student-list__header-button">
             <font-awesome-icon icon="edit" class="icon blue" size="lg"></font-awesome-icon>
-            <!--Style this ^^-->
           </div>
         </div>
         <div class="judging-detail__container-body-student-list__content">
-          <BaseCard v-for="student in studentId">
-<!--Make template and logic-->
+          <BaseCard v-for="student in selectedStudents" :key="student.id" :style="{'padding': '15px 5px', 'margin': '10px 0'}" class="judging-detail__container-body-student-list__content-item">
+            <img :src="student.avatar" alt="" class="judging-detail__container-body-student-list__content-item-image">
+            <div class="judging-detail__container-body-student-list__content-item-detail">
+              <span class="judging-detail__container-body-student-list__content-item-detail-name">{{student.name}}</span>
+              <span class="judging-detail__container-body-student-list__content-item-detail-university">{{student.university}}</span>
+            </div>
           </BaseCard>
         </div>
       </BaseCard>
@@ -58,6 +61,55 @@
       &-student-list {
         width: 20%;
         height: 100%;
+        &__header {
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding-bottom: 5px;
+          border-bottom: 1px solid #BDBDBD;
+        }
+        &__content {
+          padding-left: 5px;
+          overflow: auto;
+          max-height: 90%;
+          &::-webkit-scrollbar-track
+          {
+            background-color: #F5F5F5;
+            border-radius: 10px;
+          }
+
+          &::-webkit-scrollbar
+          {
+            width: 10px;
+            background-color: #02AAF3;
+            border-radius: 10px;
+          }
+
+          &::-webkit-scrollbar-thumb
+          {
+            border-radius: 10px;
+            background-color: #02AAF3;
+          }
+          &-item {
+            width: 90%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            &-image {
+              flex: 1;
+            }
+            &-detail {
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+              &-university {
+                font-size: smaller;
+              }
+            }
+          }
+        }
       }
     }
     &-action {

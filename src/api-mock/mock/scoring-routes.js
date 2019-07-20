@@ -1068,8 +1068,9 @@ export const finalJudgingDetail = [
           "name": "Final Comparison 1",
           "description": "Final Comparison of Students",
           "studentIds": [
-            "student-id",
-            "student-id-2"
+            "sample-id-student",
+            "sample-id-2",
+            "sample-id-3"
           ],
           "batchCode": "3",
           "uploadedDate": 15000000000,
