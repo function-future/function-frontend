@@ -46,7 +46,7 @@ describe('UserBar', () => {
     }
   }
 
-  function createWrapper (store, options) {
+  function createWrapper (store, options, name = '') {
     const router = new VueRouter([])
     const $toasted = {
       error: jest.fn(),
@@ -55,7 +55,15 @@ describe('UserBar', () => {
     const $cookies = {
       remove: jest.fn()
     }
+    const $route = {
+      name: name
+    }
     return shallowMount(userBar, {
+      mocks: {
+        $toasted,
+        $cookies,
+        $route
+      },
       ...options,
       store,
       localVue,
@@ -68,10 +76,6 @@ describe('UserBar', () => {
         'v-date-picker',
         'font-awesome-icon'
       ],
-      mocks: {
-        $toasted,
-        $cookies
-      },
       sync: false
     })
   }
@@ -191,11 +195,44 @@ describe('UserBar', () => {
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'profile' })
   })
 
-  test('goToNotifications', () => {
+  test('goToNotifications case 1', () => {
     initComponent()
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.goToNotifications()
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'notifications' })
+  })
+
+  test('goToNotifications case 2', () => {
+    window.location.reload = jest.fn()
+    const $route = {
+      name: 'notifications'
+    }
+    const $router = {
+      push: jest.fn()
+    }
+    const lv = createLocalVue()
+    lv.use(Vuex)
+    store = initStore()
+    wrapper = shallowMount(userBar, {
+      mocks: {
+        $route,
+        $router
+      },
+      store,
+      localVue: lv,
+      stubs: [
+        'BaseCard',
+        'BaseButton',
+        'BaseInput',
+        'BaseSelect',
+        'v-date-picker',
+        'font-awesome-icon'
+      ],
+      sync: false
+    })
+    wrapper.vm.goToNotifications()
+    expect(wrapper.vm.$router.push).toHaveBeenCalledTimes(0)
+    expect(window.location.reload).toHaveBeenCalled()
   })
 
   test('errorHandler', () => {

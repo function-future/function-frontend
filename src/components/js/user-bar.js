@@ -44,7 +44,11 @@ export default {
       }
     },
     goToNotifications () {
-      this.$router.push({ name: 'notifications' })
+      if (this.$route.name === 'notifications') {
+        window.location.reload()
+      } else {
+        this.$router.push({ name: 'notifications' })
+      }
     },
     logout () {
       this.attemptLogout({

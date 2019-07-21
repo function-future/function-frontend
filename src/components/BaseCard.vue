@@ -24,6 +24,11 @@
     padding: 15px;
   }
 
+  .notification-card {
+    border-radius: 10px;
+    padding: 15px;
+  }
+
   .card-hover:hover {
     cursor: pointer;
     transition: all .3s ease;
