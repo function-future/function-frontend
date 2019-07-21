@@ -110,7 +110,8 @@ module.exports = {
         detail: '/reminders/:reminderId/detail',
         edit: '/reminders/:reminderId/edit',
         create: '/reminders/create'
-      }
+      },
+      notifications: '/notifications'
     }
   },
   api: {

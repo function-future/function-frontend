@@ -49,6 +49,7 @@ import reminders from '@/views/Reminders/Reminders'
 import reminderForm from '@/views/Reminders/ReminderForm'
 import profile from '@/views/User/Profile'
 import changePassword from '@/views/User/ChangePassword'
+import notifications from '@/views/Notifications/Notifications'
 import store from '../store/index.js'
 
 Vue.use(Router)
@@ -748,6 +749,15 @@ const router = new Router({
         auth: true
       },
       props: { editMode: true, createMode: true }
+    },
+    {
+      path: config.app.pages.notifications,
+      name: 'notifications',
+      component: notifications,
+      meta: {
+        title: 'Notifications',
+        auth: true
+      }
     }
   ]
 })

@@ -2,6 +2,9 @@ import userBar from '@/components/UserBar'
 import { createLocalVue, shallowMount } from '@vue/test-utils'
 import Vuex from 'vuex'
 import VueRouter from 'vue-router'
+import notificationApi from '@/api/controller/notifications'
+
+jest.mock('@/api/controller/notifications')
 
 describe('UserBar', () => {
   let store
@@ -186,5 +189,45 @@ describe('UserBar', () => {
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.goToProfile()
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'profile' })
+  })
+
+  test('goToNotifications', () => {
+    initComponent()
+    wrapper.vm.$router.push = jest.fn()
+    wrapper.vm.goToNotifications()
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'notifications' })
+  })
+
+  test('errorHandler', () => {
+    initComponent()
+    global.console.log = jest.fn()
+    wrapper.vm.errorHandler('err')
+    expect(console.log).toHaveBeenCalledWith('err')
+  })
+
+  test('notificationPollingHandler', () => {
+    notificationApi.getTotalUnseen = success => {
+      success({
+        data: {
+          total: 10
+        }
+      })
+    }
+    initComponent()
+    wrapper.vm.notificationPollingHandler()
+    expect(wrapper.vm.unreadNotifications).toEqual(10)
+  })
+
+  test('created', () => {
+    jest.useFakeTimers()
+    initComponent()
+    expect(setInterval).toHaveBeenCalledTimes(1)
+  })
+
+  test('destroyed', () => {
+    jest.useFakeTimers()
+    initComponent()
+    wrapper.destroy()
+    expect(clearInterval).toHaveBeenCalledTimes(1)
   })
 })
