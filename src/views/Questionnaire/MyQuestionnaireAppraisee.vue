@@ -34,7 +34,6 @@
             <p><i>Questionnaire for {{ currentAppraiseeToScore }}</i></p>
           </div>
           <div class="form-questionnaire-content">
-            {{currentQuestionsQuestionnaire}}
             <MyQuestionnaireForm v-for="(question, index) in currentQuestionsQuestionnaire"
                                   :noQuestion="index+1"
                                   :question="question"
@@ -64,6 +63,7 @@
 
     .questionnaire-detail {
       width: 800px;
+      max-height: 30vh;
     }
 
     .form-questionnaire {
@@ -84,7 +84,6 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    padding-top: 30px;
   }
 
   .questionnaire-detail {
@@ -95,7 +94,6 @@
   }
 
   .questionnaire-title {
-    padding: 10px 0px 10px 0px;
   }
 
   .questionnaire-title > strong {
@@ -136,7 +134,7 @@
   .my-appraisees-list-containner {
     overflow: auto;
     padding: 10px;
-    min-height: 80vh;
+    height: 100%;
     align-self: start;
   }
 
@@ -147,7 +145,7 @@
   }
 
   .form-questionnaire-content {
-    height: 80%;
+    max-height: 60vh;
     overflow: auto;
     padding-bottom: 5px;
   }

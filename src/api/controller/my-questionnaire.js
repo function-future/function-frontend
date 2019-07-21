@@ -37,6 +37,7 @@ const addQuestionnaireResponse = function (callback, error, data) {
   request.postRequest(
     config.api.communication.myQuestionnaire.addQuestionnaireResponse(data.params.questionnaireId, data.params.appraiseeId),
     callback,
+    data.body,
     error
   )
 }

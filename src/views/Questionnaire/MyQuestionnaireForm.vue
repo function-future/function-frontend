@@ -4,7 +4,7 @@
       <div class="question-container">
         <div class="no-question">{{ noQuestion}}</div>
         <div class="question-content">
-          <div class="question-desc-and-score">}}
+          <div class="question-desc-and-score">
             <div class="question-desc">{{ question.description }}</div>
             <div class="question-score">
               <section>

@@ -4,6 +4,7 @@ import BaseCard from '@/components/BaseCard'
 import QuestionnaireCard from '../QuestionnaireCard'
 import QuestionnaireParticipantCard from '../QuestionnaireParticipantCard'
 import MyQuestionnaireForm from '../MyQuestionnaireForm'
+import myQuestionnaireApi from '@/api/controller/my-questionnaire'
 import { mapGetters, mapActions, mapMutations } from 'vuex'
 import moment from 'moment'
 
@@ -35,7 +36,8 @@ export default {
       questionnaireForm: {
         type: Array,
         default: []
-      }
+      },
+      responses: [],
     }
   },
   methods: {
@@ -91,16 +93,44 @@ export default {
     printScore () {
       let submitScore = true
       console.log('lastScore')
+
       this.currentQuestionnaireForm.forEach(questionnaireScore => {
         if (questionnaireScore.score === 0) {
           submitScore = false
         }
+        this.responses.push({
+          idQuestion: questionnaireScore.id,
+          score: questionnaireScore.score,
+          comment: questionnaireScore.comment
+        })
       })
       if (!submitScore) {
         this.$toasted.error('there are still unaswered question')
       } else {
-
+        myQuestionnaireApi.addQuestionnaireResponse(response => {
+          this.$toasted.success('success submit questionnaire response')
+          this.backToAppraiseePage()
+        }, this.errorCallback,
+        {
+          params: {
+            questionnaireId: this.$route.params.questionnaireId,
+            appraiseeId: this.$route.params.appraiseeId
+          },
+          body: {
+            responses: this.responses
+          }
+        })
       }
+    },
+    errorCallback (err) {
+      console.log(err)
+      this.$toasted.error('connection error')
+    },
+    backToAppraiseePage () {
+      this.$router.push({
+        name: 'myQuestionnaireAppraisee',
+        params: { questionnaireId: this.$route.params.questionnaireId }
+      })
     }
   },
   computed: {
