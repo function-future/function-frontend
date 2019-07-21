@@ -1727,5 +1727,19 @@ export const files = [
         ]
       }
     }
+  },
+  {
+    method: 'POST',
+    url: '/api/core/files/root',
+    response: {
+      'code': 201,
+      'status': 'CREATED',
+      'data': {
+        'id': 'id',
+        'type': 'FOLDER',
+        'name': 'Name 2',
+        'parentId': 'parent-id'
+      }
+    }
   }
 ]
