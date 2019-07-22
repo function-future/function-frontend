@@ -12,8 +12,9 @@
       </div>
       <div class="button-div" v-if="accessList.add">
         <label class="add-button">
-          <input type="file" @change="onFileChange($event)">
-          <span><font-awesome-icon icon="plus" class="icon"/> File</span>
+          <input type="file" @change="onFileChange($event)" v-if="!isUploading">
+          <span v-if="!isUploading"><font-awesome-icon icon="plus" class="icon"/> File</span>
+          <span v-if="isUploading"><font-awesome-icon icon="spinner" spin class="icon"/> File</span>
         </label>
       </div>
       <div class="button-div end" v-if="accessList.add && currentUser.role === 'ADMIN'">
@@ -80,7 +81,10 @@
     </modal-create-folder>
     <transition name="slide-fade" mode="out-in">
       <modal-file-upload-progress v-if="showFileUploadModal"
-                                  @close="showFileUploadModal = false"></modal-file-upload-progress>
+                                  @close="closeFileUploadModal"
+                                  :list="fileUploadList"
+                                  :isUploading="isUploading">
+      </modal-file-upload-progress>
     </transition>
   </div>
 </template>

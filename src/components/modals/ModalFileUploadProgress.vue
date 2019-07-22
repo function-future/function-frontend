@@ -8,20 +8,20 @@
       </span>
     </div>
     <div class="scrollable-container">
-      <div class="file__wrapper">
+      <div class="file__wrapper" v-for="(file, index) in list" :key="index">
         <div class="file">
           <div class="file__title">
             <font-awesome-icon icon="file" class="icon"></font-awesome-icon>
-            <span>booadasdsadsadsaadsaask.docx</span>
+            <span>{{ file.name }}</span>
           </div>
-          <div class="file__finished" v-if="!isUploading">
+          <div class="file__finished" v-if="file.progress === 100">
             <font-awesome-icon icon="check-circle" class="icon" v-if="true"></font-awesome-icon>
             <font-awesome-icon icon="times-circle" class="icon red" v-if="false"></font-awesome-icon>
           </div>
         </div>
-        <div class="file__progress-wrapper" v-if="!isUploading">
+        <div class="file__progress-wrapper" v-if="file.progress !== 100">
           <div class="file__progress-background">
-            <div class="file__progress-inner"></div>
+            <div class="file__progress-inner" :style="{ width: file.progress + '%' }"></div>
           </div>
         </div>
       </div>
@@ -137,6 +137,7 @@
         width: 20%;
         border-radius: 25px;
         background-color: #02AAF3;
+        transition: width 1s linear;
       }
     }
   }

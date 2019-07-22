@@ -24,9 +24,11 @@ export default {
       paths: [],
       showDeleteConfirmationModal: false,
       showCreateModal: false,
-      showFileUploadModal: true,
+      showFileUploadModal: false,
+      isUploading: false,
       fileList: [],
       folderList: [],
+      fileUploadList: [],
       paging: {
         page: 1,
         size: 10
@@ -109,10 +111,33 @@ export default {
       this.showDeleteConfirmationModal = true
     },
     onFileChange (e) {
+      this.isUploading = true
+      this.showFileUploadModal = true
       this.file = e.target.files[0]
+      let file = {
+        name: this.file.name,
+        progress: 0
+      }
+      this.fileUploadList.unshift(file)
       this.upload(this.file)
     },
-    upload (file) {},
+    upload (file) {
+      let config = {
+        onUploadProgress (progressEvent) {
+          this.fileUploadList[0].progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+        }
+      }
+    },
+    successUploadFile () {
+      this.isUploading = false
+    },
+    failUploadFile () {
+      this.isUploading = false
+    },
+    closeFileUploadModal () {
+      this.showFileUploadModal = false
+      this.fileUploadList = []
+    },
     createFolderFromModal (title) {
       this.showCreateModal = false
       const data = {

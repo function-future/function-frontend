@@ -6,7 +6,8 @@ export default {
     BaseButton
   },
   props: [
-    'isUploading'
+    'isUploading',
+    'list'
   ],
   methods: {
     close () {
