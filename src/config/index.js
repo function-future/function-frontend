@@ -212,7 +212,7 @@ module.exports = {
         }
       },
       files: {
-        list (parentId) { return `/api/core/files/${parentId}` },
+        list (parentId, page, size) { return `/api/core/files/${parentId}?page=${page}&size=${size}` },
         create (parentId) { return `/api/core/files/${parentId}` }
       }
     },
