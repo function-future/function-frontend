@@ -31,6 +31,11 @@ export const actions = {
     api.deleteFile(({ data: response }) => {
       callback()
     }, data, fail)
+  },
+  downloadFile ({ commit }, { data, configuration, callback, fail }) {
+    api.downloadFile(({ data: response }) => {
+      callback(response)
+    }, data, fail, configuration)
   }
 }
 

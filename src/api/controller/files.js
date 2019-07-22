@@ -17,9 +17,14 @@ const deleteFile = function (callback, data, errorHandler) {
   request.deleteRequest(config.api.core.files.delete(data.parentId, data.id), callback, errorHandler)
 }
 
+const downloadFile = function (callback, data, errorHandler, configuration) {
+  request.getRequest(data, callback, errorHandler, configuration)
+}
+
 export default {
   getFileList,
   createFolder,
   uploadFile,
-  deleteFile
+  deleteFile,
+  downloadFile
 }
