@@ -3,6 +3,7 @@ import BaseCard from '@/components/BaseCard.vue'
 import BaseButton from '@/components/BaseButton.vue'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
 import ModalCreateFolder from '@/components/modals/ModalCreateFolder'
+import InfiniteLoading from 'vue-infinite-loading'
 
 export default {
   name: 'files',
@@ -10,18 +11,24 @@ export default {
     BaseCard,
     BaseButton,
     ModalDeleteConfirmation,
-    ModalCreateFolder
+    ModalCreateFolder,
+    InfiniteLoading
   },
   data () {
     return {
-      isLoading: false,
+      state: '',
       selectedId: '',
       currentFolder: '',
-      previousFolderId: '',
+      paths: [],
       showDeleteConfirmationModal: false,
       showCreateModal: false,
       fileList: [],
-      folderList: []
+      folderList: [],
+      paging: {
+        page: 1,
+        size: 10
+      },
+      infiniteId: +new Date()
     }
   },
   computed: {
@@ -30,18 +37,17 @@ export default {
       'accessList'
     ])
   },
-  created () {
-    this.initPage()
-  },
   methods: {
     ...mapActions([
       'fetchFiles',
       'createFolder'
     ]),
-    initPage () {
-      this.isLoading = true
+    initPage ($state) {
+      this.state = $state
       const data = {
-        parentId: this.$route.params.parentId
+        parentId: this.$route.params.parentId,
+        page: this.paging.page,
+        size: this.paging.size
       }
       this.fetchFiles({
         data: data,
@@ -50,19 +56,29 @@ export default {
       })
     },
     successFetchFiles (res) {
-      this.isLoading = false
-      this.previousFolderId = res.parentId
-      this.fileList = res.content.filter(i => { return i.type === 'FILE' })
-      this.folderList = res.content.filter(i => { return i.type === 'FOLDER' })
-      this.$route.params.parentId === 'root'
-        ? this.currentFolder = 'Root Folder'
-        : this.currentFolder = this.folderList[0].parentId
+      if (res.content.length) {
+        this.paging.page++
+        this.paths = res.paths
+        this.fileList = this.fileList.concat(res.content.filter(i => { return i.type === 'FILE' }))
+        this.folderList = this.folderList.concat(res.content.filter(i => { return i.type === 'FOLDER' }))
+        this.$route.params.parentId === 'root'
+          ? this.currentFolder = 'Root Folder'
+          : this.currentFolder = this.folderList[0].parentId
+        this.state.loaded()
+      } else {
+        this.state.complete()
+      }
     },
     failFetchFiles () {
-      this.isLoading = false
       this.fileList = []
       this.folderList = []
       this.$toasted.error('Fail to load files, please try again')
+    },
+    resetPage () {
+      this.paging.page = 1
+      this.fileList = []
+      this.folderList = []
+      this.infiniteId += 1
     },
     showLimitedPreviewText (text) {
       let maximumCharacters = 15
@@ -77,10 +93,10 @@ export default {
         params: { parentId: id }
       })
     },
-    goToPreviousFolder () {
+    goToPreviousFolder (path) {
       this.$router.push({
         name: 'folder',
-        params: { parentId: this.previousFolderId }
+        params: { parentId: path }
       })
     },
     downloadFileFromUrl () {},
@@ -107,7 +123,7 @@ export default {
     },
     successCreateFolder () {
       this.$toasted.success('Folder created')
-      this.initPage()
+      this.resetPage()
     },
     failCreateFolder () {
       this.$toasted.error('Fail to create folder, please try again')
@@ -116,7 +132,7 @@ export default {
   },
   watch: {
     $route () {
-      this.initPage()
+      this.resetPage()
     }
   }
 }

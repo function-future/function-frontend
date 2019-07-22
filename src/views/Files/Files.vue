@@ -1,16 +1,18 @@
 <template>
   <div>
     <div class="button__wrapper">
-      <span class="button-back disable-selection"
-            v-if="previousFolderId"
-            @click="goToPreviousFolder">
-        <font-awesome-icon icon="arrow-left" class="icon" size="lg"></font-awesome-icon>
-        <span>Previous Folder</span>
-      </span>
-      <span class="folder-title">{{ currentFolder }}</span>
+      <div class="breadcrumb-wrapper" v-if="paths.length">
+        <ul class="breadcrumb">
+          <li v-for="(path, index) in paths" :key="index" class="breadcrumb-list">
+            <span class="breadcrumb-name" @click="goToPreviousFolder(path)"
+                  :class="{ bold: path === $route.params.parentId }">{{ path }}</span>
+            <span class="divider" v-if="index+1 !== paths.length"> > </span>
+          </li>
+        </ul>
+      </div>
       <div class="button-div" v-if="accessList.add">
         <label class="add-button">
-          <input type="file" :name="file" @change="onFileChange($event)">
+          <input type="file" @change="onFileChange($event)">
           <span><font-awesome-icon icon="plus" class="icon"/> File</span>
         </label>
       </div>
@@ -20,10 +22,7 @@
         </BaseButton>
       </div>
     </div>
-    <div class="loading" v-if="isLoading">
-      <font-awesome-icon icon="spinner" spin class="icon-loading" size="lg"></font-awesome-icon>
-    </div>
-    <div v-if="!isLoading">
+    <div class="scrollable-container">
       <div class="wrapper">
         <h3 class="title">Folders</h3>
         <div class="file__wrapper">
@@ -43,7 +42,7 @@
           </div>
         </div>
       </div>
-      <div>
+      <div class="wrapper">
         <h3 class="title">Files</h3>
         <div class="file__wrapper">
           <div class="file" @click="downloadFileFromUrl"
@@ -63,6 +62,13 @@
         </div>
       </div>
     </div>
+    <infinite-loading @infinite="initPage"
+                      :identifier="infiniteId"
+                      spinner="spiral"
+                      force-use-infinite-wrapper=".scrollable-container">
+      <div slot="no-more"></div>
+      <div slot="no-results"></div>
+    </infinite-loading>
     <modal-delete-confirmation v-if="showDeleteConfirmationModal"
                                @close="showDeleteConfirmationModal = false"
                                @clickDelete="deleteThisFile">
@@ -188,8 +194,6 @@
     &__wrapper {
       display: flex;
       align-items: center;
-      padding-left: 10px;
-      margin-left: 10px;
       margin-right: 30px;
     }
   }
@@ -234,5 +238,42 @@
     input {
       display: none;
     }
+  }
+
+  .breadcrumb-wrapper {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    flex: 0 1 auto;
+    margin-bottom: 5px;
+  }
+
+  .breadcrumb {
+    align-items: center;
+    display: inline-flex;
+    margin: 0;
+    padding-left: 5px;
+    list-style-type: none;
+  }
+
+  .breadcrumb-name {
+    color: #02AAF3;
+    text-decoration: underline;
+    padding-left: 5px;
+    cursor: pointer;
+  }
+
+  .breadcrumb-name:hover {
+    opacity: 0.8;
+  }
+
+  .divider {
+    text-decoration: none;
+    color: #505050;
+    padding: 0 5px;
+  }
+
+  .bold {
+    font-weight: bold;
   }
 </style>
