@@ -9,7 +9,12 @@ const createFolder = function (callback, data, errorHandler) {
   request.postRequest(config.api.core.files.create(data.parentId), callback, data.content, errorHandler)
 }
 
+const uploadFile = function (callback, data, errorHandler) {
+  request.postRequest(config.api.core.files.create(data.parentId), callback, data.content, errorHandler)
+}
+
 export default {
   getFileList,
-  createFolder
+  createFolder,
+  uploadFile
 }
