@@ -3,7 +3,9 @@
     <div class="upload-modal__header">
       <h5 class="upload-modal__header-title" v-if="isUploading">Uploading file</h5>
       <h5 class="upload-modal__header-title" v-if="!isUploading">Upload complete</h5>
-      <span class="upload-modal__header-close"><font-awesome-icon icon="times" class="icon" @click="close"></font-awesome-icon></span>
+      <span class="upload-modal__header-close" @click="close">
+        <font-awesome-icon icon="times" class="icon"></font-awesome-icon>
+      </span>
     </div>
     <div class="scrollable-container">
       <div class="file__wrapper">
@@ -72,16 +74,16 @@
       flex-direction: column;
       align-items: flex-end;
       justify-content: flex-start;
-      width: 20vw;
+      width: 25vw;
       min-height: 15vh;
       max-height: 50vh;
       box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.25);
       border-radius: 10px;
       background-color: #FFFFFF;
-      z-index: 10000;
+      z-index: 9997;
       position: fixed;
-      right: 4vw;
-      bottom: 8vh;
+      right: 3%;
+      bottom: 5%;
     }
   }
 
@@ -96,6 +98,7 @@
       min-height: 35px;
       margin: 5px 10px 5px 20px;
       padding: 5px 0;
+      cursor: default;
     }
 
     &__title {
@@ -119,6 +122,7 @@
     &__progress {
       &-wrapper {
         padding: 5px;
+        margin-right: 7px;
       }
 
       &-background {
