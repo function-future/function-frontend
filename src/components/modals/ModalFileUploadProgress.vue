@@ -1,8 +1,7 @@
 <template>
   <div class="upload-modal__wrapper">
     <div class="upload-modal__header">
-      <h5 class="upload-modal__header-title" v-if="isUploading">Uploading file</h5>
-      <h5 class="upload-modal__header-title" v-if="!isUploading">Upload complete</h5>
+      <h4 class="upload-modal__header-title">File Upload</h4>
       <span class="upload-modal__header-close" @click="close">
         <font-awesome-icon icon="times" class="icon"></font-awesome-icon>
       </span>
@@ -33,7 +32,6 @@
 
 <style lang="scss" scoped>
   .scrollable-container {
-    margin-bottom: 5px;
     width: 100%;
   }
   .upload-modal {
