@@ -54,7 +54,7 @@
               <div class="actions" v-if="true">
               <span class="delete-btn"
                     @click.stop="openDeleteConfirmationModal(file.id, file.type)"
-                    v-if="accessList.delete && (currentUser.id === file.author.id)">
+                    v-if="accessList.delete && ((currentUser.id === file.author.id) || currentUser.role === 'ADMIN')">
                 <font-awesome-icon icon="trash-alt" class="action-icon red"></font-awesome-icon>
               </span>
               </div>
