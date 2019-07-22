@@ -151,6 +151,7 @@ export default {
     },
     successUploadFile () {
       this.isUploading = false
+      this.resetPage()
     },
     failUploadFile () {
       this.fileUploadList[0].progress = 101
