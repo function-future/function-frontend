@@ -22,10 +22,10 @@ export const actions = {
       callback(response)
     }, data, fail)
   },
-  uploadFile ({ commit }, { data, callback, fail }) {
+  uploadFile ({ commit }, { data, configuration, callback, fail }) {
     api.uploadFile(({ data: response }) => {
       callback(response)
-    }, data, fail)
+    }, data, fail, configuration)
   }
 }
 
