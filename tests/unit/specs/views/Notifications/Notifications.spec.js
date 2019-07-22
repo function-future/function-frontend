@@ -23,6 +23,13 @@ describe('Notifications', () => {
     expect(true).toBe(true)
   })
 
+  test('readNotification', () => {
+    notificationApi.readNotification = jest.fn()
+    initWrapper()
+    wrapper.vm.readNotification('id')
+    expect(notificationApi.readNotification).toHaveBeenCalled()
+  })
+
   test('infiniteHandler case 1', () => {
     const data = [
       {
@@ -95,13 +102,6 @@ describe('Notifications', () => {
     initWrapper()
     wrapper.vm.infiniteHandler($state)
     expect($state.complete).toHaveBeenCalled()
-  })
-
-  test('readNotification', () => {
-    notificationApi.readNotification = jest.fn()
-    initWrapper()
-    wrapper.vm.readNotification()
-    expect(notificationApi.readNotification).toHaveBeenCalled()
   })
 
   test('convertClock', () => {

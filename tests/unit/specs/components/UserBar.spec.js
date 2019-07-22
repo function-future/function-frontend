@@ -254,17 +254,4 @@ describe('UserBar', () => {
     wrapper.vm.notificationPollingHandler()
     expect(wrapper.vm.unreadNotifications).toEqual(10)
   })
-
-  test('created', () => {
-    jest.useFakeTimers()
-    initComponent()
-    expect(setInterval).toHaveBeenCalledTimes(1)
-  })
-
-  test('destroyed', () => {
-    jest.useFakeTimers()
-    initComponent()
-    wrapper.destroy()
-    expect(clearInterval).toHaveBeenCalledTimes(1)
-  })
 })

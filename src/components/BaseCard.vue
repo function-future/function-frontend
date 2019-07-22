@@ -1,5 +1,5 @@
 <template>
-    <div @click="$emit('click')" class="card" :class="cardClass">
+    <div class="card" :class="cardClass">
       <slot></slot>
     </div>
 </template>

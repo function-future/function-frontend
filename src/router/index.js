@@ -48,8 +48,8 @@ import login from '@/views/Auth/Login'
 import reminders from '@/views/Reminders/Reminders'
 import reminderForm from '@/views/Reminders/ReminderForm'
 import profile from '@/views/User/Profile'
+import notifications from '@/views/Notifications/Notifications.vue'
 import changePassword from '@/views/User/ChangePassword'
-import notifications from '@/views/Notifications/Notifications'
 import store from '../store/index.js'
 
 Vue.use(Router)

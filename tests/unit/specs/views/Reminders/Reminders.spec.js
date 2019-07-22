@@ -74,6 +74,35 @@ describe('Reminders', () => {
     expect($state.complete).toBeCalledTimes(1)
   })
 
+  test('infiniteHandler page 2 response data === 0', () => {
+    reminderApi.getReminders = success => {
+      success({
+        data: []
+      })
+    }
+    const $state = {
+      loaded: jest.fn(),
+      complete: jest.fn()
+    }
+
+    initComponent()
+    wrapper.vm.page = 2
+    wrapper.vm.infiniteHandler($state)
+    expect($state.complete).toBeCalledTimes(1)
+  })
+
+  test('infiniteHandler with keyword', () => {
+    const $state = {
+      loaded: jest.fn(),
+      complete: jest.fn()
+    }
+
+    initComponent()
+    wrapper.vm.keyword = 'keyword'
+    wrapper.vm.infiniteHandler($state)
+    expect($state.complete).toBeCalledTimes(1)
+  })
+
   test('searchHandler', () => {
     reminderApi.getReminders = success => {
       success({

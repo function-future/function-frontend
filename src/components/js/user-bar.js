@@ -15,7 +15,13 @@ export default {
       'currentUser'
     ]),
     loggedIn () {
-      return Object.keys(this.currentUser).length
+      if (Object.keys(this.currentUser).length) {
+        this.notificationPollingInterval = setInterval(this.notificationPollingHandler, 2000)
+        return true
+      } else {
+        clearInterval(this.notificationPollingInterval)
+        return false
+      }
     },
     name () {
       return this.currentUser.name || ''
@@ -58,6 +64,7 @@ export default {
     successAttemptLogout () {
       this.$cookies.remove('Function-Session')
       this.$router.push({ name: 'feeds' })
+      this.isExtend = false
     },
     goToProfile () {
       this.$router.push({ name: 'profile' })
@@ -71,12 +78,5 @@ export default {
       }, this.errorHandler
       )
     }
-  },
-  created () {
-    this.notificationPollingInterval = setInterval(this.notificationPollingHandler, 2000
-    )
-  },
-  destroyed () {
-    clearInterval(this.notificationPollingInterval)
   }
 }
