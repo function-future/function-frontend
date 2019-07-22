@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="file-page-wrapper">
     <div class="button__wrapper">
       <div class="breadcrumb-wrapper" v-if="paths.length">
         <ul class="breadcrumb">
@@ -62,14 +62,14 @@
           </div>
         </div>
       </div>
+      <infinite-loading @infinite="initPage"
+                        :identifier="infiniteId"
+                        spinner="spiral"
+                        force-use-infinite-wrapper=".scrollable-container">
+        <div slot="no-more"></div>
+        <div slot="no-results"></div>
+      </infinite-loading>
     </div>
-    <infinite-loading @infinite="initPage"
-                      :identifier="infiniteId"
-                      spinner="spiral"
-                      force-use-infinite-wrapper=".scrollable-container">
-      <div slot="no-more"></div>
-      <div slot="no-results"></div>
-    </infinite-loading>
     <modal-delete-confirmation v-if="showDeleteConfirmationModal"
                                @close="closeDeleteConfirmationModal"
                                @clickDelete="deleteThisFile">
@@ -92,11 +92,20 @@
 <script type="text/javascript" src="./js/files.js"></script>
 
 <style lang="scss" scoped>
+  .file-page-wrapper {
+    height: 95%;
+  }
+
   .button-div {
     margin-bottom: 0;
     margin-right: 0;
     margin-left: auto;
     font-size: 14px;
+    height: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 
   .end {
@@ -177,6 +186,7 @@
     text-align: left;
     padding-left: 15px;
     margin-bottom: 5px;
+    margin-top: 7px;
   }
 
   .file {
@@ -227,7 +237,7 @@
     background: #02AAF3;
     border: none;
     padding: 5px 20px 5px 20px;
-    width: 125px;
+    width: 75px;
     border-radius: 30px;
     color: white;
     font-style: normal;
