@@ -1,11 +1,11 @@
 import myQuestionnaireApi from '@/api/controller/my-questionnaire'
 import questionnaireApi from '@/api/controller/questionnaire'
-import api from '@/api/controller/user'
 
 export const state = {
   myQuestionnaires: [],
   myListAppraisees: [],
   currentQuestionnaire: {},
+  currentQuestionnaireData: {},
   currentAppraiseeToScore: {},
   currentQuestionsQuestionnaire: []
 }
@@ -28,6 +28,12 @@ export const mutations = {
   },
   ASSIGN_CURRENT_QUESTIONNAIRE (state, payload) {
     state.currentQuestionnaire = payload
+  },
+  RESET_CURRENT_QUESTIONNAIRE_DATA (state) {
+    state.currentQuestionnaireData = {}
+  },
+  ASSIGN_CURRENT_QUESTIONNAIRE_DATA (state, payload) {
+    state.currentQuestionnaireData = payload
   },
   RESET_CURRENT_APPRAISEE_TO_SCORE (state) {
     state.currentAppraiseeToScore = {}
@@ -72,6 +78,13 @@ export const actions = {
       commit('PUSH_QUESTIONS_QUESTIONNAIRE', response.data)
       cb(response)
     }, fail, data)
+  },
+  fetchCurrentQuestionnaireData ({ state, commit }, { data, fail, cb }) {
+    myQuestionnaireApi.getQuestionnaireData(response => {
+      commit('RESET_CURRENT_QUESTIONNAIRE_DATA')
+      commit('ASSIGN_CURRENT_QUESTIONNAIRE_DATA', response.data)
+      cb(response)
+    }, fail, data)
   }
 }
 
@@ -84,6 +97,9 @@ export const getters = {
   },
   currentQuestionnaire (state) {
     return state.currentQuestionnaire
+  },
+  currentQuestionnaireData (state) {
+    return state.currentQuestionnaireData
   },
   currentAppraiseeToScore (state) {
     return state.currentAppraiseeToScore

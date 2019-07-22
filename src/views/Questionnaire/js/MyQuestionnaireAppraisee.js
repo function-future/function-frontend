@@ -26,24 +26,18 @@ export default {
   },
   data () {
     return {
-      myQuestionnaire: {
-        id: '5d2352f94534202434730f2a',
-        title: 'future batch 3',
-        description: 'future 3 bootcamp questionnaire',
-        startDate: 1562596044000,
-        dueDate: 1562682444000
-      },
       questionnaireForm: {
         type: Array,
         default: []
       },
-      responses: [],
+      responses: []
     }
   },
   methods: {
     ...mapActions([
       'fetchMyListApprisees',
       'fetchCurrentQuestionnaire',
+      'fetchCurrentQuestionnaireData',
       'fetchCurrentQuestions',
       'saveAppraisee',
       'fetchCurrentQuestionsQuestionnaire'
@@ -53,6 +47,8 @@ export default {
       'PUSH_MY_LIST_APPRAISEE',
       'RESET_CURRENT_QUESTIONNAIRE',
       'ASSIGN_CURRENT_QUESTIONNAIRE',
+      'RESET_CURRENT_QUESTIONNAIRE_DATA',
+      'ASSIGN_CURRENT_QUESTIONNAIRE_DATA',
       'ASSIGN_CURRENT_APPRAISEE_TO_SCORE',
       'RESET_QUESTIONS_QUESTIONNAIRE',
       'PUSH_QUESTIONS_QUESTIONNAIRE'
@@ -61,9 +57,7 @@ export default {
       return moment(date).format('DD/MM/YYYY')
     },
     goToInputQuestionnaireAnswer (appraisee) {
-      this.saveAppraisee({
-        name: appraisee.name
-      })
+      this.fetchingQuestionnaireData(appraisee.id)
       this.$router.push({
         name: 'myQuestionnaireForm',
         params: { appraiseeId: appraisee.id }
@@ -90,10 +84,24 @@ export default {
         }
       })
     },
+    fetchingQuestionnaireData (appraiseeId) {
+      this.fetchCurrentQuestionnaireData({
+        data: {
+          params: {
+            questionnaireId: this.$route.params.questionnaireId,
+            appraiseeId: appraiseeId
+          }
+        },
+        fail: (err) => {
+          console.log(err)
+        },
+        cb: (response) => {
+          console.log(response)
+        }
+      })
+    },
     printScore () {
       let submitScore = true
-      console.log('lastScore')
-
       this.currentQuestionnaireForm.forEach(questionnaireScore => {
         if (questionnaireScore.score === 0) {
           submitScore = false
@@ -131,12 +139,22 @@ export default {
         name: 'myQuestionnaireAppraisee',
         params: { questionnaireId: this.$route.params.questionnaireId }
       })
+    },
+    updateCurrentQuestionanireForm (questionNewValue) {
+      console.log(questionNewValue)
+      this.currentQuestionnaireForm.forEach(question => {
+        if (question.id === questionNewValue.id) {
+          question.score = questionNewValue.score
+          question.comment = questionNewValue.comment
+        }
+      })
     }
   },
   computed: {
     ...mapGetters([
       'myListAppraisees',
       'currentQuestionnaire',
+      'currentQuestionnaireData',
       'currentAppraiseeToScore',
       'currentQuestionsQuestionnaire'
     ])
@@ -163,6 +181,13 @@ export default {
       }
     })
     this.fetchingQuestions()
+    if (this.$route.params.appraiseeId) {
+      this.fetchingQuestionnaireData(this.$route.params.appraiseeId)
+    }
+  },
+  destroyed () {
+    this.questionnaireForm = this.questionnaireForm.default
+    this.responses = []
   }
 
 }

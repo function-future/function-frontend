@@ -31,12 +31,13 @@
         </div>
         <div v-else class="form-questionnaire">
           <div class="title-questionnaire">
-            <p><i>Questionnaire for {{ currentAppraiseeToScore }}</i></p>
+            <p><i>Questionnaire for {{currentQuestionnaireData.appraisee.name }}</i></p>
           </div>
           <div class="form-questionnaire-content">
             <MyQuestionnaireForm v-for="(question, index) in currentQuestionsQuestionnaire"
                                   :noQuestion="index+1"
                                   :question="question"
+                                  @input="updateCurrentQuestionanireForm"
             ></MyQuestionnaireForm>
           </div>
           <div class="submit-button">
