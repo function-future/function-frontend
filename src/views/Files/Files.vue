@@ -71,7 +71,7 @@
       <div slot="no-results"></div>
     </infinite-loading>
     <modal-delete-confirmation v-if="showDeleteConfirmationModal"
-                               @close="showDeleteConfirmationModal = false"
+                               @close="closeDeleteConfirmationModal"
                                @clickDelete="deleteThisFile">
       <div slot="description">Are you sure you want to delete this {{ selectedFileType }}?</div>
     </modal-delete-confirmation>

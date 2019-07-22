@@ -46,7 +46,8 @@ export default {
     ...mapActions([
       'fetchFiles',
       'createFolder',
-      'uploadFile'
+      'uploadFile',
+      'deleteFile'
     ]),
     initPage ($state) {
       this.state = $state
@@ -181,7 +182,29 @@ export default {
     failCreateFolder () {
       this.$toasted.error('Fail to create folder, please try again')
     },
-    deleteThisFile () {}
+    deleteThisFile () {
+      let data = {
+        parentId: this.$route.params.parentId,
+        id: this.selectedId
+      }
+      this.deleteFile({
+        data,
+        callback: this.successDeleteFile,
+        fail: this.failDeleteFile
+      })
+    },
+    successDeleteFile () {
+      this.$toasted.success('successfully delete file')
+      this.closeDeleteConfirmationModal()
+    },
+    failDeleteFile () {
+      this.$toasted.error('Fail to delete file, please try again')
+      this.closeDeleteConfirmationModal()
+    },
+    closeDeleteConfirmationModal () {
+      this.showDeleteConfirmationModal = false
+      this.selectedId = ''
+    }
   },
   watch: {
     $route () {
