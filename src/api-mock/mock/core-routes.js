@@ -2016,5 +2016,13 @@ export const files = [
         'parentId': 'parent-id'
       }
     }
+  },
+  {
+    method: 'DELETE',
+    url: '/api/core/files/root/id-20',
+    response: {
+      'code': 200,
+      'status': 'OK'
+    }
   }
 ]
