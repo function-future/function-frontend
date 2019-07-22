@@ -76,7 +76,10 @@
     </modal-delete-confirmation>
     <modal-create-folder v-if="showCreateModal"
                          @close="showCreateModal = false"
-                         @create="createFolderFromModal"></modal-create-folder>
+                         @create="createFolderFromModal">
+    </modal-create-folder>
+    <modal-file-upload-progress v-if="true">
+    </modal-file-upload-progress>
   </div>
 </template>
 

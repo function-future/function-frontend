@@ -3,6 +3,7 @@ import BaseCard from '@/components/BaseCard.vue'
 import BaseButton from '@/components/BaseButton.vue'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
 import ModalCreateFolder from '@/components/modals/ModalCreateFolder'
+import ModalFileUploadProgress from '@/components/modals/ModalFileUploadProgress'
 import InfiniteLoading from 'vue-infinite-loading'
 
 export default {
@@ -12,6 +13,7 @@ export default {
     BaseButton,
     ModalDeleteConfirmation,
     ModalCreateFolder,
+    ModalFileUploadProgress,
     InfiniteLoading
   },
   data () {
@@ -105,7 +107,11 @@ export default {
       this.selectedFileType = type.toLowerCase()
       this.showDeleteConfirmationModal = true
     },
-    onFileChange (e) {},
+    onFileChange (e) {
+      this.file = e.target.files[0]
+      this.upload(this.file)
+    },
+    upload (file) {},
     createFolderFromModal (title) {
       this.showCreateModal = false
       const data = {
