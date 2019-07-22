@@ -1558,27 +1558,208 @@ export const users = [
 export const files = [
   {
     method: 'GET',
-    url: '/api/core/files/root',
+    url: '/api/core/files/root?page=1&size=10',
     response: {
       'code': 200,
       'status': 'OK',
       'data': {
-        'parentId': null,
+        'paths': [],
         'content': [
           {
             'id': 'parent-id',
             'type': 'FOLDER',
             'name': 'Parent Id',
-            'parentId': 'root'
+            'parentId': 'root',
+            'author': {
+              'id': 'sample-id',
+              'name': 'name'
+            }
           },
           {
             'id': 'id-1',
             'type': 'FOLDER',
             'name': 'Name 2',
-            'parentId': 'root'
+            'parentId': 'root',
+            'author': {
+              'id': 'sample-id-1',
+              'name': 'name'
+            }
           },
           {
-            'id': 'id-2',
+            'id': 'id-4',
+            'type': 'FOLDER',
+            'name': 'Folder Name 4',
+            'parentId': 'root',
+            'author': {
+              'id': 'sample-id-1',
+              'name': 'name'
+            }
+          },
+          {
+            'id': 'id-6',
+            'type': 'FOLDER',
+            'name': 'Folder Name 6',
+            'parentId': 'root',
+            'author': {
+              'id': 'sample-id-1',
+              'name': 'name'
+            }
+          },
+          {
+            'id': 'id-7',
+            'type': 'FOLDER',
+            'name': 'Folder Name 7',
+            'parentId': 'root',
+            'author': {
+              'id': 'sample-id-1',
+              'name': 'name'
+            }
+          },
+          {
+            'id': 'id-8',
+            'type': 'FOLDER',
+            'name': 'Folder Name 8',
+            'parentId': 'root',
+            'author': {
+              'id': 'sample-id-1',
+              'name': 'name'
+            }
+          },
+          {
+            'id': 'id-9',
+            'type': 'FOLDER',
+            'name': 'Folder Name 9',
+            'parentId': 'root',
+            'author': {
+              'id': 'sample-id-1',
+              'name': 'name'
+            }
+          },
+          {
+            'id': 'id-10',
+            'type': 'FOLDER',
+            'name': 'Folder Name 10',
+            'parentId': 'root',
+            'author': {
+              'id': 'sample-id-1',
+              'name': 'name'
+            }
+          },
+          {
+            'id': 'id-00',
+            'type': 'FOLDER',
+            'name': 'Folder Name 10',
+            'parentId': 'root',
+            'author': {
+              'id': 'sample-id-1',
+              'name': 'name'
+            }
+          },
+          {
+            'id': 'id-000',
+            'type': 'FOLDER',
+            'name': 'Folder Name 10',
+            'parentId': 'root',
+            'author': {
+              'id': 'sample-id-1',
+              'name': 'name'
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    method: 'GET',
+    url: '/api/core/files/root?page=2&size=10',
+    response: {
+      'code': 200,
+      'status': 'OK',
+      'data': {
+        'paths': [],
+        'content': [
+          {
+            'id': 'id-12',
+            'type': 'FOLDER',
+            'name': 'ID 12',
+            'parentId': 'root',
+            'author': {
+              'id': 'sample-id',
+              'name': 'name'
+            }
+          },
+          {
+            'id': 'id-13',
+            'type': 'FOLDER',
+            'name': 'Name 2',
+            'parentId': 'root',
+            'author': {
+              'id': 'sample-id-1',
+              'name': 'name'
+            }
+          },
+          {
+            'id': 'id-14',
+            'type': 'FOLDER',
+            'name': 'Folder Name 4',
+            'parentId': 'root',
+            'author': {
+              'id': 'sample-id-1',
+              'name': 'name'
+            }
+          },
+          {
+            'id': 'id-15',
+            'type': 'FOLDER',
+            'name': 'Folder Name 6',
+            'parentId': 'root',
+            'author': {
+              'id': 'sample-id-1',
+              'name': 'name'
+            }
+          },
+          {
+            'id': 'id-16',
+            'type': 'FOLDER',
+            'name': 'Folder Name 7',
+            'parentId': 'root',
+            'author': {
+              'id': 'sample-id-1',
+              'name': 'name'
+            }
+          },
+          {
+            'id': 'id-17',
+            'type': 'FOLDER',
+            'name': 'Folder Name 8',
+            'parentId': 'root',
+            'author': {
+              'id': 'sample-id-1',
+              'name': 'name'
+            }
+          },
+          {
+            'id': 'id-18',
+            'type': 'FOLDER',
+            'name': 'Folder Name 9',
+            'parentId': 'root',
+            'author': {
+              'id': 'sample-id-1',
+              'name': 'name'
+            }
+          },
+          {
+            'id': 'id-19',
+            'type': 'FOLDER',
+            'name': 'Folder Name 10',
+            'parentId': 'root',
+            'author': {
+              'id': 'sample-id-1',
+              'name': 'name'
+            }
+          },
+          {
+            'id': 'id-20',
             'type': 'FILE',
             'name': 'Name of File',
             'file': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png',
@@ -1592,10 +1773,14 @@ export const files = [
                 'url': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png'
               }
             },
-            'parentId': 'root'
+            'parentId': 'root',
+            'author': {
+              'id': 'sample-id-1',
+              'name': 'name'
+            }
           },
           {
-            'id': 'id-3',
+            'id': 'id-21',
             'type': 'FILE',
             'name': 'File Name This',
             'file': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png',
@@ -1609,7 +1794,11 @@ export const files = [
                 'url': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png'
               }
             },
-            'parentId': 'root'
+            'parentId': 'root',
+            'author': {
+              'id': 'sample-id-1',
+              'name': 'name'
+            }
           }
         ]
       }
@@ -1617,36 +1806,67 @@ export const files = [
   },
   {
     method: 'GET',
-    url: '/api/core/files/parent-id',
+    url: '/api/core/files/root?page=3&size=10',
     response: {
       'code': 200,
       'status': 'OK',
       'data': {
-        'parentId': 'root',
+        'paths': [],
+        'content': []
+      }
+    }
+  },
+  {
+    method: 'GET',
+    url: '/api/core/files/parent-id?page=1&size=10',
+    response: {
+      'code': 200,
+      'status': 'OK',
+      'data': {
+        'paths': [
+          'root',
+          'parent-id'
+        ],
         'content': [
           {
             'id': 'parent-id-1',
             'type': 'FOLDER',
             'name': 'Parent Id 1',
-            'parentId': 'parent-id'
+            'parentId': 'parent-id',
+            'author': {
+              'id': 'sample-id',
+              'name': 'name'
+            }
           },
           {
             'id': 'id-1',
             'type': 'FOLDER',
             'name': 'Folder Folderan',
-            'parentId': 'parent-id'
+            'parentId': 'parent-id',
+            'author': {
+              'id': 'sample-id',
+              'name': 'name'
+            }
           },
           {
             'id': 'id-3',
             'type': 'FOLDER',
             'name': 'Folder This',
-            'parentId': 'parent-id'
+            'parentId': 'parent-id',
+            'author': {
+              'id': 'sample-id',
+              'name': 'name'
+            }
           },
           {
             'id': 'id-4',
             'type': 'FOLDER',
             'name': 'Folder That',
-            'parentId': 'parent-id'
+            'parentId': 'parent-id',
+            'author': {
+              'id': 'sample-id',
+              'name': 'name'
+            }
           },
           {
             'id': 'id-2',
@@ -1663,7 +1883,11 @@ export const files = [
                 'url': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png'
               }
             },
-            'parentId': 'parent-id'
+            'parentId': 'parent-id-1',
+            'author': {
+              'id': 'sample-id',
+              'name': 'name'
+            }
           },
           {
             'id': 'id-5',
@@ -1680,7 +1904,11 @@ export const files = [
                 'url': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png'
               }
             },
-            'parentId': 'parent-id'
+            'parentId': 'parent-id',
+            'author': {
+              'id': 'sample-id',
+              'name': 'name'
+            }
           }
         ]
       }
@@ -1688,24 +1916,51 @@ export const files = [
   },
   {
     method: 'GET',
-    url: '/api/core/files/parent-id-1',
+    url: '/api/core/files/parent-id?page=2&size=10',
     response: {
       'code': 200,
       'status': 'OK',
       'data': {
-        'parentId': 'parent-id',
+        'paths': [
+          'root',
+          'parent-id'
+        ],
+        'content': []
+      }
+    }
+  },
+  {
+    method: 'GET',
+    url: '/api/core/files/parent-id-1?page=1&size=10',
+    response: {
+      'code': 200,
+      'status': 'OK',
+      'data': {
+        'paths': [
+          'root',
+          'parent-id',
+          'parent-id-1'
+        ],
         'content': [
           {
             'id': 'parent-id-2',
             'type': 'FOLDER',
             'name': 'Parent Id 2',
-            'parentId': 'parent-id-1'
+            'parentId': 'parent-id-1',
+            'author': {
+              'id': 'sample-id-1',
+              'name': 'name'
+            }
           },
           {
             'id': 'id-1',
             'type': 'FOLDER',
             'name': 'Name 2',
-            'parentId': 'parent-id-1'
+            'parentId': 'parent-id-1',
+            'author': {
+              'id': 'sample-id',
+              'name': 'name'
+            }
           },
           {
             'id': 'id-2',
@@ -1722,9 +1977,29 @@ export const files = [
                 'url': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png'
               }
             },
-            'parentId': 'parent-id-1'
+            'parentId': 'parent-id-1',
+            'author': {
+              'id': 'sample-id',
+              'name': 'name'
+            }
           }
         ]
+      }
+    }
+  },
+  {
+    method: 'GET',
+    url: '/api/core/files/parent-id-1?page=2&size=10',
+    response: {
+      'code': 200,
+      'status': 'OK',
+      'data': {
+        'paths': [
+          'root',
+          'parent-id',
+          'parent-id-1'
+        ],
+        'content': []
       }
     }
   },
