@@ -13,7 +13,8 @@
             <span>booadasdsadsadsaadsaask.docx</span>
           </div>
           <div class="file__finished" v-if="!isUploading">
-            <font-awesome-icon icon="check-circle" class="icon"></font-awesome-icon>
+            <font-awesome-icon icon="check-circle" class="icon" v-if="true"></font-awesome-icon>
+            <font-awesome-icon icon="times-circle" class="icon red" v-if="false"></font-awesome-icon>
           </div>
         </div>
         <div class="file__progress-wrapper" v-if="!isUploading">
@@ -87,7 +88,7 @@
     &__wrapper {
       display: flex;
       flex-direction: column;
-      min-height: 45px;
+      min-height: 35px;
       margin: 5px 10px 5px 20px;
       padding: 5px 0;
     }
