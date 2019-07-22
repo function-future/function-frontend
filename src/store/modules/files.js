@@ -26,6 +26,11 @@ export const actions = {
     api.uploadFile(({ data: response }) => {
       callback(response)
     }, data, fail, configuration)
+  },
+  deleteFile ({ commit }, { data, callback, fail }) {
+    api.deleteFile(({ data: response }) => {
+      callback()
+    }, data, fail)
   }
 }
 
