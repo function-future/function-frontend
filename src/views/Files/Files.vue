@@ -46,7 +46,7 @@
       <div class="wrapper">
         <h3 class="title">Files</h3>
         <div class="file__wrapper">
-          <div class="file" @click="downloadFileFromUrl"
+          <div class="file" @click="downloadFileFromUrl(file.file)"
                v-for="file in fileList" :key="file.id">
             <BaseCard cardClass="card-hover" class="file__card">
               <font-awesome-icon icon="file" class="icon" size="lg"></font-awesome-icon>
