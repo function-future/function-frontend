@@ -2,18 +2,18 @@
   <div class="judging-detail__container">
     <div class="judging-detail__container-header">
       <!--Header-->
-      <BaseInput placeholder="Input title here" v-model="judgingDetail.name"></BaseInput>
+      <BaseInput placeholder="Input title here" v-model="judgingDetail.title" :disabled="!editMode"></BaseInput>
     </div>
     <div class="judging-detail__container-body">
       <!--Body-->
-      <BaseTextArea class="judging-detail__container-body-description" placeholder="Input description here" :style="{'height': '100%'}" v-model="judgingDetail.description"></BaseTextArea>
+      <BaseTextArea class="judging-detail__container-body-description" placeholder="Input description here" :style="{'height': '100%'}" v-model="judgingDetail.description" :disabled="!editMode"></BaseTextArea>
       <BaseCard v-if="!isLoading" class="judging-detail__container-body-student-list" :style="{'padding': '15px 10px' ,'margin': '10px 0 10px 15px'}">
         <div class="judging-detail__container-body-student-list__header">
           <div class="judging-detail__container-body-student-list__header-title">
             Students
           </div>
           <div class="judging-detail__container-body-student-list__header-button">
-            <font-awesome-icon icon="edit" class="icon blue" size="lg"></font-awesome-icon>
+            <font-awesome-icon v-if="editMode" icon="edit" class="icon blue" size="lg" @click="toggleSelectStudentModal"></font-awesome-icon>
           </div>
         </div>
         <div class="judging-detail__container-body-student-list__content">
@@ -29,13 +29,19 @@
     </div>
     <div class="judging-detail__container-action">
       <!--Action-->
-      <BaseButton @click="goToComparison()">Compare</BaseButton>
+      <BaseButton class="button-save" @click="goToComparison()">Compare</BaseButton>
     </div>
     <div class="judging-detail__container-footer">
       <!--Footer-->
-      <BaseButton>Return</BaseButton>
-      <BaseButton>Edit</BaseButton>
+      <BaseButton class="button-cancel" @click="returnButtonClicked">Return</BaseButton>
+      <BaseButton class="button-save" @click="actionButtonClicked">Edit</BaseButton>
     </div>
+    <ModalSelectMultipleStudents  v-if="showSelectStudentModal"
+                                  :currentlySelected="selectedStudents"
+                                  @close="closeSelectStudentModal"
+                                  @selected="setSelectedStudents">
+
+    </ModalSelectMultipleStudents>
   </div>
 </template>
 

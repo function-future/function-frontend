@@ -3,6 +3,7 @@ import BaseInput from '@/components/BaseInput'
 import BaseCard from '@/components/BaseCard'
 import BaseButton from '@/components/BaseButton'
 import BaseTextArea from '@/components/BaseTextArea'
+import ModalSelectMultipleStudents from '@/components/modals/ModalSelectMultipleStudents'
 
 export default {
   name: 'JudgingDetail',
@@ -10,18 +11,20 @@ export default {
     BaseInput,
     BaseCard,
     BaseButton,
-    BaseTextArea
+    BaseTextArea,
+    ModalSelectMultipleStudents
   },
   data () {
     return {
       judgingDetail: {
-        name: '',
+        title: '',
         description: '',
         students: []
       },
       selectedStudents: [],
       isLoading: true,
-      editMode: false
+      editMode: false,
+      showSelectStudentModal: false
     }
   },
   created () {
@@ -31,15 +34,7 @@ export default {
     ...mapGetters([
       'judging',
       'students'
-    ]),
-    // selectedStudent () {
-    //   let chosen = []
-    //   this.judgingDetail.studentIds.forEach((item, index) => {
-    //     this.students.find((student) => {
-    //       console.log(student)
-    //     })
-    //   })
-    // }
+    ])
   },
   methods: {
     ...mapActions([
@@ -90,6 +85,49 @@ export default {
           judgingId: this.$route.params.judgingId
         }
       })
+    },
+    toggleSelectStudentModal () {
+      this.showSelectStudentModal = true
+    },
+    closeSelectStudentModal () {
+      this.showSelectStudentModal = false
+    },
+    setSelectedStudents (selectedStudentList) {
+      this.selectedStudents = selectedStudentList
+      this.closeSelectStudentModal()
+    },
+    actionButtonClicked () {
+      if (this.editMode) {
+        //TODO: CHANGE THIS ACCORDING TO BACKEND RESPONSE AND REQUEST
+        console.log(this.judgingDetail)
+        this.selectedStudents.forEach((item) => {
+          this.judgingDetail.students.push(item.id)
+        })
+        let data = {
+          batchCode: this.$route.params.batchCode,
+          judgingId: this.$route.params.judgingId
+        }
+        let payload = {
+          id: this.$route.params.judgingId,
+          ...this.judgingDetail
+        }
+        this.updateJudging({
+          data,
+          payload,
+          callback: this.successUpdatingJudging,
+          fail: this.failUpdatingJudging
+        })
+      }
+      this.editMode = !this.editMode
+    },
+    returnButtonClicked () {
+      alert()
+    },
+    successUpdatingJudging () {
+      this.$toasted.success('Successfully updated final judging')
+    },
+    failUpdatingJudging () {
+      this.$toasted.error('Something went wrong')
     }
   }
 }
