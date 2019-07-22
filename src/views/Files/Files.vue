@@ -78,8 +78,10 @@
                          @close="showCreateModal = false"
                          @create="createFolderFromModal">
     </modal-create-folder>
-    <modal-file-upload-progress v-if="true">
-    </modal-file-upload-progress>
+    <transition name="slide-fade" mode="out-in">
+      <modal-file-upload-progress v-if="showFileUploadModal"
+                                  @close="showFileUploadModal = false"></modal-file-upload-progress>
+    </transition>
   </div>
 </template>
 
@@ -278,5 +280,16 @@
 
   .bold {
     font-weight: bold;
+  }
+
+  .slide-fade-enter-active {
+    transition: all .3s ease;
+  }
+  .slide-fade-leave-active {
+    transition: all .2s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
+  .slide-fade-enter, .slide-fade-leave-to {
+    transform: translateY(10px);
+    opacity: 0;
   }
 </style>

@@ -24,6 +24,7 @@ export default {
       paths: [],
       showDeleteConfirmationModal: false,
       showCreateModal: false,
+      showFileUploadModal: true,
       fileList: [],
       folderList: [],
       paging: {

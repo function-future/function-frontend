@@ -6,7 +6,7 @@
       <span class="upload-modal__header-close"><font-awesome-icon icon="times" class="icon" @click="close"></font-awesome-icon></span>
     </div>
     <div class="scrollable-container">
-      <div class="file__wrapper" v-for="index in 4">
+      <div class="file__wrapper">
         <div class="file">
           <div class="file__title">
             <font-awesome-icon icon="file" class="icon"></font-awesome-icon>
@@ -31,6 +31,7 @@
 
 <style lang="scss" scoped>
   .scrollable-container {
+    margin-bottom: 5px;
     width: 100%;
   }
   .upload-modal {
@@ -41,10 +42,13 @@
       align-items: center;
       justify-content: center;
       margin-bottom: 5px;
+      background-color: #02AAF3;
+      border-radius: 10px 10px 0 0;
+      color: #FFFFFF;
 
       &-title {
         margin: 5px;
-        padding: 0.5rem 0.5rem 0.5rem 1rem;
+        padding: 0.7rem 0.5rem 0.7rem 1rem;
         align-self: flex-start;
       }
 
@@ -70,13 +74,14 @@
       justify-content: flex-start;
       width: 20vw;
       min-height: 15vh;
+      max-height: 50vh;
       box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.25);
       border-radius: 10px;
+      background-color: #FFFFFF;
       z-index: 10000;
       position: fixed;
       right: 4vw;
-      bottom: 6vh;
-      padding: 10px 5px;
+      bottom: 8vh;
     }
   }
 
