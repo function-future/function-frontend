@@ -150,6 +150,7 @@ export default {
       })
     },
     successUploadFile () {
+      this.fileUploadList[0].progress = 100
       this.isUploading = false
       this.resetPage()
     },
