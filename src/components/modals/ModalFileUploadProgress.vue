@@ -14,12 +14,12 @@
             <font-awesome-icon icon="file" class="icon"></font-awesome-icon>
             <span>{{ file.name }}</span>
           </div>
-          <div class="file__finished" v-if="file.progress === 100">
-            <font-awesome-icon icon="check-circle" class="icon" v-if="true"></font-awesome-icon>
-            <font-awesome-icon icon="times-circle" class="icon red" v-if="false"></font-awesome-icon>
+          <div class="file__finished" v-if="file.progress >= 100">
+            <font-awesome-icon icon="check-circle" class="icon" v-if="file.progress === 100"></font-awesome-icon>
+            <font-awesome-icon icon="times-circle" class="icon red" v-if="file.progress === 101"></font-awesome-icon>
           </div>
         </div>
-        <div class="file__progress-wrapper" v-if="file.progress !== 100">
+        <div class="file__progress-wrapper" v-if="file.progress < 100">
           <div class="file__progress-background">
             <div class="file__progress-inner" :style="{ width: file.progress + '%' }"></div>
           </div>
@@ -75,7 +75,7 @@
       align-items: flex-end;
       justify-content: flex-start;
       width: 25vw;
-      min-height: 15vh;
+      min-height: 10vh;
       max-height: 50vh;
       box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.25);
       border-radius: 10px;

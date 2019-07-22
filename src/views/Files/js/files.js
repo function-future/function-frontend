@@ -45,7 +45,8 @@ export default {
   methods: {
     ...mapActions([
       'fetchFiles',
-      'createFolder'
+      'createFolder',
+      'uploadFile'
     ]),
     initPage ($state) {
       this.state = $state
@@ -121,17 +122,37 @@ export default {
       this.fileUploadList.unshift(file)
       this.upload(this.file)
     },
+    constructFormData (file) {
+      let data = JSON.stringify({
+        name: file.name,
+        type: 'FILE'
+      })
+      let formData = new FormData()
+      formData.append(data, file)
+      return formData
+    },
     upload (file) {
+      const data = {
+        parentId: this.$route.params.parentId,
+        content: this.constructFormData(file)
+      }
       let config = {
         onUploadProgress (progressEvent) {
           this.fileUploadList[0].progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
         }
       }
+      this.uploadFile({
+        data: data,
+        configuration: config,
+        callback: this.successUploadFile,
+        fail: this.failUploadFile
+      })
     },
     successUploadFile () {
       this.isUploading = false
     },
     failUploadFile () {
+      this.fileUploadList[0].progress = 101
       this.isUploading = false
     },
     closeFileUploadModal () {
