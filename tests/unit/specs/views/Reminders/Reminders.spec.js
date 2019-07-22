@@ -124,44 +124,36 @@ describe('Reminders', () => {
     expect(console.log).toBeCalledTimes(1)
   })
 
-  test('removeHandler with keyword', () => {
+  test('deleteReminder with keyword', () => {
     reminderApi.deleteReminder = success => {
       success()
     }
     const spy = jest.spyOn(Reminders.methods, 'searchHandler')
       .mockImplementation(() => Promise.resolve())
-    window.confirm = jest.fn(() => true)
     initComponent()
     wrapper.vm.keyword = 'keyword'
-    wrapper.vm.removeHandler('reminderId')
+    wrapper.vm.deleteReminder()
     expect(spy).toBeCalledTimes(1)
-    expect(window.confirm).toBeCalledTimes(1)
   })
 
-  test('removeHandler without keyword', () => {
+  test('deleteReminder without keyword', () => {
     reminderApi.deleteReminder = success => {
       success()
     }
-    window.confirm = jest.fn(() => true)
     initComponent()
     wrapper.vm.$refs.infiniteLoading = {
       stateChanger: {
         reset: jest.fn()
       }
     }
-    wrapper.vm.removeHandler('reminderId')
+    wrapper.vm.deleteReminder()
     expect(wrapper.vm.$refs.infiniteLoading.stateChanger.reset).toBeCalledTimes(1)
-    expect(window.confirm).toBeCalledTimes(1)
   })
 
-  test('removeHandler confirm no', () => {
-    reminderApi.deleteReminder = jest.fn()
-    window.confirm = jest.fn(() => false)
+  test('removeHandler', () => {
     initComponent()
-    wrapper.vm.keyword = 'keyword'
     wrapper.vm.removeHandler('reminderId')
-    expect(reminderApi.deleteReminder).toBeCalledTimes(0)
-    expect(window.confirm).toBeCalledTimes(1)
+    expect(wrapper.vm.showDeleteConfirmation).toBe(true)
   })
 
   test('createHandler', () => {
