@@ -16,10 +16,10 @@ export default {
     ]),
     loggedIn () {
       if (Object.keys(this.currentUser).length) {
-        this.notificationPollingInterval = setInterval(this.notificationPollingHandler, 2000)
+        this.startPolling()
         return true
       } else {
-        clearInterval(this.notificationPollingInterval)
+        this.stopPolling()
         return false
       }
     },
@@ -34,6 +34,15 @@ export default {
     ...mapActions([
       'attemptLogout'
     ]),
+    startPolling () {
+      if (!this.notificationPollingInterval) {
+        this.notificationPollingInterval = setInterval(this.notificationPollingHandler, 2000)
+      }
+    },
+    stopPolling () {
+      clearInterval(this.notificationPollingInterval)
+      this.notificationPollingInterval = null
+    },
     extendUserBar: function () {
       if (this.loggedIn) {
         this.isExtend = true

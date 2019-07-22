@@ -254,4 +254,26 @@ describe('UserBar', () => {
     wrapper.vm.notificationPollingHandler()
     expect(wrapper.vm.unreadNotifications).toEqual(10)
   })
+
+  test('startPolling with notificationPollingInterval null', () => {
+    jest.useFakeTimers()
+    initComponent()
+    wrapper.vm.startPolling()
+    expect(setInterval).toHaveBeenCalled()
+  })
+
+  test('startPolling with notificationPollingInterval', () => {
+    jest.useFakeTimers()
+    initComponent()
+    wrapper.vm.notificationPollingInterval = 'test'
+    wrapper.vm.startPolling()
+    expect(setInterval).toHaveBeenCalledTimes(0)
+  })
+
+  test('stopPolling', () => {
+    jest.useFakeTimers()
+    initComponent()
+    wrapper.vm.stopPolling()
+    expect(clearInterval).toHaveBeenCalled()
+  })
 })
