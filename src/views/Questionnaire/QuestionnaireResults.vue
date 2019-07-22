@@ -2,7 +2,16 @@
   <div class="questionnaire-results-outer">
     <BaseCard class="batch-select-card">
       <strong>Choose Batch to Questionnaire Results</strong>
-      <BaseSelect v-model="batch" :options="batches" class="select-placeholder"></BaseSelect>
+      <div class="input inline" @click="showSelectBatchModal = true">
+        <div class="batch-select">
+          <BaseInput v-model="batch"
+                     :disabled="true">
+          </BaseInput>
+        </div>
+      </div>
+      <modal-select-batch v-if="showSelectBatchModal" @close="closeModal"
+                          @select="selectBatch" class="black">
+      </modal-select-batch>
       <div class="button-placeholder">
         <BaseButton button-class="button-save" class="button-choose" @click="goToMembers">Choose</BaseButton>
       </div>
@@ -19,7 +28,6 @@
     justify-content: center;
     height: 100%;
   }
-
 
   .batch-select-card {
     margin-top: 25vh;

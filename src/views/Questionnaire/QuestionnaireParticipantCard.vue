@@ -11,7 +11,7 @@
       </div>
       <div v-if="isResult" class="score-placeholder">
         <span><font-awesome-icon icon="star" size="3x" class="star-icon"></font-awesome-icon></span>
-        <span class="score-number"><strong>5.0/6.0</strong></span>
+        <span class="score-number"><strong>{{score.toFixed(2)}}/6.0</strong></span>
       </div>
       <div v-if="isEdit" class="delete-placeholder">
         <span>

@@ -13,7 +13,7 @@
       </div>
       <div v-if="isResult" class="score-placeholder">
         <span><font-awesome-icon icon="star" size="2x" class="star-icon"></font-awesome-icon></span>
-        <span class="score-number"><strong>{{score}}/6</strong></span>
+        <span class="score-number"><strong>{{score.toFixed(2)}}/6</strong></span>
       </div>
     </BaseCard>
 

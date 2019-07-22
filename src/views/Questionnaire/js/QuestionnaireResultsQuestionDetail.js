@@ -1,6 +1,7 @@
 import QuestionnaireCard from '../QuestionnaireCard'
 import QuestionCard from '../QuestionCard'
 import QuestionnaireParticipantSimpleCard from '../QuestionnaireParticipantSimpleCard'
+import {mapActions, mapGetters, mapMutations} from 'vuex';
 export default {
   name: 'QuestionnaireResultsQuestionDetail',
   components: {
@@ -82,5 +83,62 @@ export default {
         }
       ]
     }
+  },
+  methods: {
+    ...mapActions([
+      'fetchCurrentQuestionnaireDetail',
+      'fetchCurrentResultQuestionDetail',
+      'fetchCurrentResultsQuestionDetailResponsesList'
+    ]),
+    ...mapMutations([
+      'RESET_CURRENT_QUESTIONNAIRE_DETAIL',
+      'ASSIGN_CURRENT_QUESTIONNAIRE_DETAIL',
+      'RESET_CURRENT_QUESTION_DETAIL',
+      'ASSIGN_CURRENT_QUESTION_DETAIL',
+      'RESET_CURRENT_QUESTION_DETAIL_RESPONSES_LIST',
+      'PUSH_CURRENT_QUESTION_DETAIL_RESPONSES_LIST'
+    ])
+  },
+  computed: {
+    ...mapGetters([
+      'currentResultQuestionnaireDetail',
+      'currentResultQuestionDetail',
+      'currentResultsQuestionDetailResponsesList'
+    ])
+  },
+  created () {
+    this.fetchCurrentQuestionnaireDetail({
+      data: {
+        params: {
+          questionnaireResponseSummaryId: this.$route.params.questionnaireId
+        }
+      },
+      fail: (err) => {
+        console.log(err)
+      }
+    })
+    this.fetchCurrentResultQuestionDetail({
+      data: {
+        params: {
+          questionResponseSummaryId: this.$route.params.questionId
+        }
+      },
+      fail: (err) => {
+        console.log(err)
+      }
+    })
+    this.fetchCurrentResultsQuestionDetailResponsesList({
+      data: {
+        params: {
+          questionResponseSummaryId: this.$route.params.questionId
+        }
+      },
+      fail: (err) => {
+        console.log(err)
+      },
+      cb: (response) => {
+        console.log(response)
+      }
+    })
   }
 }

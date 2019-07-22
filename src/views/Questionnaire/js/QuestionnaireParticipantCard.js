@@ -12,7 +12,8 @@ export default {
     role: String,
     batch: String,
     isEdit: Boolean,
-    isResult: Boolean
+    isResult: Boolean,
+    score: Number
   },
   method: {
   },

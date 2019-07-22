@@ -1,5 +1,6 @@
 import SearchBar from '@/components/SearchBar'
 import QuestionnaireParticipantCard from '../QuestionnaireParticipantCard'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 
 export default {
   name: 'QuestionnaireResultsMembers',
@@ -19,15 +20,41 @@ export default {
       }
     }
   },
+  computed: {
+    ...mapGetters([
+      'listAppraiseeResults'
+    ])
+  },
   methods: {
-    goToMemberDetail (appraiseeId) {
+    ...mapActions([
+      'fetchAppraiseeResults'
+    ]),
+    ...mapMutations([
+      'RESET_LIST_APPRAISEE_RESULTS',
+      'PUSH_LIST_APPRAISEE_RESULTS'
+    ]),
+    goToMemberDetail (userSummaryId) {
       this.$router.push({
         name: 'questionnaireResultsMemberDetail',
         params: {
           batchCode: this.$route.params.batchCode,
-          memberId: appraiseeId
+          userSummaryId: userSummaryId
         }
       })
     }
+  },
+  created () {
+    this.fetchAppraiseeResults({
+      data: {
+        params: {
+          batchCode: this.$route.params.batchCode,
+          page: 1,
+          size: 10
+        }
+      },
+      fail: (err) => {
+        console.log(err)
+      }
+    })
   }
 }

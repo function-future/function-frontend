@@ -31,15 +31,9 @@
         </div>
         <hr>
         <div class="appraiser-container-list">
-          <QuestionnaireParticipantCard v-for="appraisee in currentAppraisee"
-                                        :name="appraisee.name"
-                                        :avatar="appraisee.avatar"
-                                        :role="appraisee.role"
-                                        :university="appraisee.university"
-                                        :batch="appraisee.batch"
-                                        :isEdit="true"
-                                        @delete="openDeleteConfirmationModalParticipantAppraisee(appraisee)"
-          ></QuestionnaireParticipantCard>
+          <template v-for="appraisee in currentAppraisee">
+            <UserSimpleCard :user="appraisee" @remove="openDeleteConfirmationModalParticipantAppraisee(appraisee)"></UserSimpleCard>
+          </template>
         </div>
         <div class="title-placeholder">
           <h2>Participant - Appraiser</h2>
@@ -47,15 +41,9 @@
         </div>
         <hr>
         <div class="appraisee-container-list">
-          <QuestionnaireParticipantCard v-for="appraisee in currentAppraiser"
-                                        :name="appraisee.name"
-                                        :avatar="appraisee.avatar"
-                                        :role="appraisee.role"
-                                        :university="appraisee.university"
-                                        :batch="appraisee.batch"
-                                        :isEdit="true"
-                                        @delete="openDeleteConfirmationModalParticipantAppraiser(appraisee)"
-          ></QuestionnaireParticipantCard>
+          <template v-for="appraiser in currentAppraiser">
+            <UserSimpleCard :user="appraiser" @remove="openDeleteConfirmationModalParticipantAppraiser(appraiser)"></UserSimpleCard>
+          </template>
         </div>
       </div>
       <modal-add-question :description="question.description" :isUpdate="question.isUpdate" v-if="questionModal"
@@ -117,14 +105,19 @@
     max-width: 800px;
   }
 
-  .question-container-list,
-  .appraiser-container-list,
-  .appraisee-container-list {
+  .question-container-list
+   {
     height: auto;
     max-height: 75vh;
     overflow: auto;
     max-width: 95%;
     padding: 0% 2.5%;
+  }
+
+  .appraiser-container-list,
+  .appraisee-container-list {
+    display: flex;
+    flex-wrap: wrap;
   }
 
   .title-placeholder {

@@ -10,7 +10,7 @@
         <p class="participant participant-status">{{ computedRole }} - {{ batch }}</p>
         <div class="score-placeholder">
           <span><font-awesome-icon icon="star" size="lg" class="star-icon"></font-awesome-icon></span>
-          <span class="score-number"><strong>{{score}}/6.0</strong></span>
+          <span class="score-number"><strong>{{score.toFixed(2)}}/6.0</strong></span>
         </div>
       </div>
     </BaseCard>

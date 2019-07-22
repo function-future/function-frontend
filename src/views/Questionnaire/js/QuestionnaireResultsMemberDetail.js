@@ -1,5 +1,6 @@
 import QuestionnaireParticipantDetailCard from '../QuestionnaireParticipantDetailCard'
 import QuestionnaireCard from '../QuestionnaireCard'
+import {mapActions, mapGetters, mapMutations} from 'vuex'
 
 export default {
   name: 'QuestionnaireResultsMemberDetail',
@@ -46,19 +47,67 @@ export default {
           dueDate: 15626824440000,
           score: 5.7
         }
-      ]
+      ],
+      appraiseeTemp: {}
     }
   },
   methods: {
+    ...mapActions([
+      'fetchCurrentAppraiseeResults',
+      'fetchCurrentAppraiseeResultsQuestionnaires'
+    ]),
+    ...mapMutations([
+      'RESET_CURRENT_APPRAISEE_RESULTS',
+      'ASSIGN_CURRENT_APPRAISEE_RESULTS',
+      'RESET_CURRENT_APPRAISEE_RESULTS_QUESTIONNAIRES',
+      'PUSH_CURRENT_APPRAISEE_RESULTS_QUESTIONNAIRES'
+    ]),
     goToQuestionnaireResult (questionnaireId) {
       this.$router.push({
         name: 'questionnaireResultsQuestionnaireDetail',
         params: {
           batchCode: this.$route.params.batchCode,
-          memberId: this.$route.params.memberId,
+          userSummaryId: this.$route.params.userSummaryId,
           questionnaireId: questionnaireId
         }
       })
     }
+  },
+  computed: {
+    ...mapGetters([
+      'currentAppraiseeResult',
+      'currentAppraiseeResultQuetionnaires'
+    ])
+  },
+  watch: {
+    currentAppraiseeResult () {
+      this.appraiseeTemp = this.currentAppraiseeResult.member
+      console.log(this.appraiseeTemp)
+    }
+  },
+  created () {
+    this.fetchCurrentAppraiseeResults({
+      data: {
+        params: {
+          batchCode: this.$route.params.batchCode,
+          userSummaryId: this.$route.params.userSummaryId
+        }
+      },
+      fail: (err) => {
+        console.log(err)
+      }
+    })
+    this.fetchCurrentAppraiseeResultsQuestionnaires({
+      data: {
+        params: {
+          userSummaryId: this.$route.params.userSummaryId,
+          page: 1,
+          size: 10
+        }
+      },
+      fail: (err) => {
+        console.log(err)
+      }
+    })
   }
 }

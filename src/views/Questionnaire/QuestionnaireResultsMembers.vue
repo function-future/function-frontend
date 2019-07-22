@@ -10,12 +10,14 @@
           </div>
         </div>
         <div class="participant-list-container">
-          <QuestionnaireParticipantCard v-for="a in 5"
-                                        :name="appraisee.name"
-                                        :avatar="appraisee.avatar"
-                                        :role="appraisee.role"
+          <QuestionnaireParticipantCard v-for="appraisee in listAppraiseeResults"
+                                        :id="appraisee.id"
+                                        :name="appraisee.member.name"
+                                        :avatar="appraisee.member.avatar"
+                                        :role="appraisee.member.role"
                                         :university="appraisee.university"
-                                        :batch="appraisee.batch"
+                                        :batch="appraisee.member.batch.code"
+                                        :score="appraisee.rating"
                                         :isResult="true"
                                         v-on:click="goToMemberDetail(appraisee.id)"
           ></QuestionnaireParticipantCard>

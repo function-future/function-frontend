@@ -124,9 +124,9 @@ module.exports = {
       questionnaireResults: {
         default: '/questionnaire-results',
         members: '/questionnaire-results/:batchCode/members',
-        memberDetail: '/questionnaire-results/:batchCode/members/:memberId',
-        questionnaireDetail: '/questionnaire-results/:batchCode/members/:memberId/questionnaire/:questionnaireId',
-        questionDetail: '/questionnaire-results/:batchCode/members/:memberId/questionnaire/:questionnaireId/question/:questionId'
+        memberDetail: '/questionnaire-results/:batchCode/members/:userSummaryId',
+        questionnaireDetail: '/questionnaire-results/:batchCode/members/:userSummaryId/questionnaire/:questionnaireId',
+        questionDetail: '/questionnaire-results/:batchCode/members/:userSummaryId/questionnaire/:questionnaireId/question/:questionId'
       }
     }
   },
@@ -468,19 +468,22 @@ module.exports = {
         }
       },
       questionnaireResponse: {
-        getQuestionnaireSimpleSummary (appraiseeId, page, size) {
-          return `/api/communication/questionnaire-response?appraiseeId=${appraiseeId}&page=${page}&size=${size}`
+        getQuestionnaireSimpleSummary (userSummaryId, page, size) {
+          return `/api/communication/questionnaire-response?userSummaryId=${userSummaryId}&page=${page}&size=${size}`
         },
         getQuestionnaireSummaryDetail (questionnaireResponseSummaryId) {
           return `/api/communication/questionnaire-response/${questionnaireResponseSummaryId}`
         },
-        getQuestionSummaryResponse (questionnaireResponseSummaryId, appraiseeId) {
-          return `/api/communication/questionnaire-response/${questionnaireResponseSummaryId}/questions/${appraiseeId}`
+        getQuestionSummaryResponse (questionnaireResponseSummaryId, userSummaryId) {
+          return `/api/communication/questionnaire-response/${questionnaireResponseSummaryId}/questions/${userSummaryId}`
         }
       },
       questionnaireResults: {
-        getUserSummary (batchId, page, size) {
-          return `/api/communication/questionnaire-results?batchId=${batchId}&page=${page}&size=${size}`
+        getUserSummary (batchCode, page, size) {
+          return `/api/communication/questionnaire-results?batchCode=${batchCode}&page=${page}&size=${size}`
+        },
+        getUserSummaryById (batchCode, userSummaryId) {
+          return `/api/communication/questionnaire-results/${batchCode}/user-summary-response/${userSummaryId}`
         }
       },
       questionResponse: {

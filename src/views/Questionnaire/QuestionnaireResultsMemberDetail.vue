@@ -1,21 +1,24 @@
 <template>
     <div class="questionnaire-results-member-detail-outer">
       <div class="questionnaire-results-participant-detail-card-container">
-        <QuestionnaireParticipantDetailCard :avatar="appraisee.avatar"
-                                            :nameParticipant="appraisee.name"
-                                            :university="appraisee.university"
-                                            :batch="appraisee.batch.name"
-                                            :role="appraisee.role"
-                                            :score="appraisee.score"
+
+        <QuestionnaireParticipantDetailCard
+          v-if="currentAppraiseeResult"
+          :avatar="currentAppraiseeResult.member.avatar"
+                                            :nameParticipant="currentAppraiseeResult.member.name"
+                                            :university="currentAppraiseeResult.member.university"
+                                            :batch="currentAppraiseeResult.member.batch.name"
+                                            :role="currentAppraiseeResult.member.role"
+                                            :score="currentAppraiseeResult.rating"
         ></QuestionnaireParticipantDetailCard>
       </div>
       <div class="questionnaire-results-questionnaire-detail-card-container">
         <h3>Appraised on</h3>
         <div class="questionnaire-card-list">
-          <QuestionnaireCard v-for="myQuestionnaire in myQuestionnairesDummy"
+          <QuestionnaireCard v-for="myQuestionnaire in currentAppraiseeResultQuetionnaires"
                              :key="myQuestionnaire.id"
                              :title="myQuestionnaire.title"
-                             :desc="myQuestionnaire.description"
+                             :description="myQuestionnaire.description"
                              :startDate="myQuestionnaire.startDate"
                              :dueDate="myQuestionnaire.dueDate"
                              :score="myQuestionnaire.score"

@@ -19,6 +19,7 @@ import questionBanks from './modules/question-banks'
 import points from './modules/points'
 import myQuestionnaires from './modules/my-questionnaire'
 import questionnaire from './modules/questionnaire'
+import questionnaireResults from './modules/questionnaire-results'
 
 Vue.use(Vuex)
 
@@ -41,6 +42,7 @@ export default new Vuex.Store({
     questionBanks,
     points,
     myQuestionnaires,
-    questionnaire
+    questionnaire,
+    questionnaireResults
   }
 })

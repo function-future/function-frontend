@@ -2,26 +2,26 @@
     <div class="questionnaire-results-questionnaire-detail-outer">
       <div class="questionnaire-results-questionnaire-detail-container">
         <QuestionnaireCard class="without-border-and-shadow"
-                           :key="currentQuestionnaire.id"
-                           :title="currentQuestionnaire.title"
-                           :desc="currentQuestionnaire.description"
-                           :startDate="currentQuestionnaire.startDate"
-                           :dueDate="currentQuestionnaire.dueDate"
-                           :score="currentQuestionnaire.score"
+                           v-if="Object.keys(currentResultQuestionnaireDetail).length"
+                           :key="currentResultQuestionnaireDetail.questionnaireDetail.id"
+                           :title="currentResultQuestionnaireDetail.questionnaireDetail.title"
+                           :description="currentResultQuestionnaireDetail.questionnaireDetail.description"
+                           :startDate="currentResultQuestionnaireDetail.questionnaireDetail.startDate"
+                           :dueDate="currentResultQuestionnaireDetail.questionnaireDetail.dueDate"
+                           :score="currentResultQuestionnaireDetail.rating"
                            :isResult="true"
                            :isDetail="true"
         ></QuestionnaireCard>
-        <h2><i>Appraisals for {{currentUser.name}}</i></h2>
+        <h2 v-if="Object.keys(currentResultQuestionnaireDetail).length"><i>Appraisals for {{currentResultQuestionnaireDetail.appraisee.name}}</i></h2>
         <br>
         <h2>Questions</h2>
         <div class="questionnaire-results-question-list">
-          <QuestionCard v-for="question in questions"
-                        :key="question.id"
-                        :number="i++"
-                        :description="question.description"
-                        :score="question.score"
+          <QuestionCard v-for="(questionResponse, index) in currentResultQuestionResponsesList"
+                        :number="index+1"
+                        :description="questionResponse.question.description"
+                        :score="questionResponse.score"
                         :isResult="true"
-                        v-on:click="goToQuestionDetail(question.id)"
+                        v-on:click="goToQuestionDetail(questionResponse.id)"
           ></QuestionCard>
         </div>
       </div>

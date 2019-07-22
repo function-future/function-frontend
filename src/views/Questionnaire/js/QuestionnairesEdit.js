@@ -8,6 +8,7 @@ import ModalChatroom from '@/views/Chatrooms/ModalChatroom'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 import questionnaireApi from '@/api/controller/questionnaire'
 import ReminderMemberModal from '@/views/Reminders/ReminderMemberModal'
+import UserSimpleCard from '@/components/UserSimpleCard'
 
 export default {
   name: 'QuestionnaireEdit',
@@ -19,7 +20,8 @@ export default {
     ModalAddQuestion,
     ModalDeleteConfirmation,
     ModalChatroom,
-    ReminderMemberModal
+    ReminderMemberModal,
+    UserSimpleCard
   },
   data () {
     return {

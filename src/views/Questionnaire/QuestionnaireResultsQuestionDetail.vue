@@ -2,29 +2,31 @@
   <div class="questionnaire-results-question-detail-outer">
     <div class="questionnaire-results-question-detail-container">
       <QuestionnaireCard class="without-border-and-shadow"
-                         :key="currentQuestionnaire.id"
-                         :title="currentQuestionnaire.title"
-                         :desc="currentQuestionnaire.description"
-                         :startDate="currentQuestionnaire.startDate"
-                         :dueDate="currentQuestionnaire.dueDate"
-                         :score="currentQuestionnaire.score"
+                         v-if="Object.keys(currentResultQuestionnaireDetail).length"
+                         :key="currentResultQuestionnaireDetail.questionnaireDetail.id"
+                         :title="currentResultQuestionnaireDetail.questionnaireDetail.title"
+                         :description="currentResultQuestionnaireDetail.questionnaireDetail.description"
+                         :startDate="currentResultQuestionnaireDetail.questionnaireDetail.startDate"
+                         :dueDate="currentResultQuestionnaireDetail.questionnaireDetail.dueDate"
+                         :score="currentResultQuestionnaireDetail.rating"
                          :isResult="true"
                          :isDetail="true"
-                         v-on:click="goToQuestionnaireResult(currentQuestionnaire.id)"
+                         v-on:click="goToQuestionnaireResult(currentResultQuestionnaireDetail.id)"
       ></QuestionnaireCard>
-      <h2><i>Appraisals for {{currentUser.name}}</i></h2>
+      <h2 v-if="Object.keys(currentResultQuestionnaireDetail).length"><i>Appraisals for {{currentResultQuestionnaireDetail.appraisee.name}}</i></h2>
       <br>
       <h2>Question</h2>
       <QuestionCard class="without-border-and-shadow"
-                    :key="currentQuestion.id"
-                    :description="currentQuestion.description"
-                    :score="currentQuestion.score"
+                    v-if="Object.keys(currentResultQuestionDetail).length"
+                    :key="currentResultQuestionDetail.id"
+                    :description="currentResultQuestionDetail.question.description"
+                    :score="currentResultQuestionDetail.score"
                     :isResult="true"
       ></QuestionCard>
       <br>
       <h2>Appraised By</h2>
       <div class="questionnaire-results-question-list">
-        <QuestionnaireParticipantSimpleCard v-for="appraiser in appraisers"
+        <QuestionnaireParticipantSimpleCard v-for="appraiser in currentResultsQuestionDetailResponsesList"
                                             :name="appraiser.name"
                                             :avatar="appraiser.avatar"
                                             :score="appraiser.score"
