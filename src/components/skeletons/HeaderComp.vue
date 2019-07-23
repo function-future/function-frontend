@@ -27,6 +27,9 @@
       <li v-if="menuList.chatrooms">
         <router-link class="navbar-link" :to="{ name: 'chatrooms' }">Chatrooms</router-link>
       </li>
+      <li v-if="menuList.reminders">
+        <router-link class="navbar-link" :to="{ name: 'reminders' }">Reminders</router-link>
+      </li>
     </ul>
   </nav>
 </template>

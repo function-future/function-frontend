@@ -4,59 +4,34 @@
       <div class="modal__container">
         <div class="modal__header">
           <span class="modal__close"><font-awesome-icon icon="times" class="icon" @click="close" size="lg"></font-awesome-icon></span>
-          <p class="modal__header__title"><strong>{{ chatroomId ? 'Update Chatroom' : 'Create Chatroom' }}</strong></p>
+          <p class="modal__header__title"><strong>Add Member</strong></p>
         </div>
         <div class="modal__body">
-          <SearchBar @keyup="enterSearchHandler" @input="changeKeyword" />
-          <div v-if="usersWithoutSelectedOne.length > 0" class="modal__body__result">
+          <SearchBar @input="changeKeyword" @keyup="enterPressHandler" />
             <template v-for="(user, index) in usersWithoutSelectedOne">
               <UserListCard :name="user.name"
-                            :class="{'recommendation-user': index === 0 && nameMember}"
+                            :class="{'recommendation-user': index === 0 && name}"
                             :university="user.university"
                             :role="user.role"
                             :batch="user.batch ? user.batch.name : null"
                             :key="user.id"
                             :avatar="user.avatar"
-                            @click="selectedUsers.push(user)"
+                            @click="addMemberHandler(user)"
                             class="modal__body__card"></UserListCard>
             </template>
-
-          </div>
-          <p>{{ selectedUsers.length }} members</p>
-          <div class="selected-user">
-            <template v-for="(user, index) in selectedUsers">
-              <UserSimpleCard @remove="selectedUsers.splice(index, 1)" :key="user.id" :index="index" :user="user"/>
-            </template>
-          </div>
-          <BaseInput
-            v-model="name"
-            v-if="selectedUsers.length > 1 || chatroomId"
-            placeholder="Group Name"
-            @focus="wrongName = false"
-            @keyup="enterPressed"
-            maxlength="29"
-            class="group-name-input"
-            :inputType="wrongName ? 'wrong-input' : ''" />
         </div>
-        <div class="modal__footer">
-          <BaseButton class="modal__footer__button" buttonClass="button-save" @click="create">{{ chatroomId ? 'Update' : 'Create' }}</BaseButton>
-        </div>
+        <div class="modal__footer"></div>
       </div>
     </div>
   </div>
 </template>
 
-<script src="./js/modal-chatroom.js">
+<script src="./js/reminder-member-modal.js">
 </script>
 
 <style lang="scss" scoped>
   .recommendation-user {
     border: 2px solid #0074D9;
-  }
-
-  .selected-user {
-    display: flex;
-    flex-wrap: wrap;
   }
 
   .modal {
@@ -107,7 +82,7 @@
     }
 
     &__body {
-      margin: 5px 30px;
+      margin: 5px 30px 10px 30px;
       text-align: left;
 
       &__result {
