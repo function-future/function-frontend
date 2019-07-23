@@ -1,6 +1,6 @@
 <template>
   <div class="search-outer" :class="searchClass">
-    <BaseInput placeholder="search" inputType="search-box" class="search-input" @input="emitValue"/>
+    <BaseInput placeholder="search" @keyup="event => $emit('keyup', event)" inputType="search-box" class="search-input" @input="emitValue"/>
     <div class="search-circle"><font-awesome-icon icon="search" class="search-icon" /></div>
   </div>
 </template>

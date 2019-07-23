@@ -45,7 +45,10 @@ import masterCourseForm from '@/views/Courses/MasterCourseForm.vue'
 import config from '@/config/index'
 import chatrooms from '@/views/Chatrooms/Chatrooms'
 import login from '@/views/Auth/Login'
+import reminders from '@/views/Reminders/Reminders'
+import reminderForm from '@/views/Reminders/ReminderForm'
 import profile from '@/views/User/Profile'
+import notifications from '@/views/Notifications/Notifications.vue'
 import changePassword from '@/views/User/ChangePassword'
 import store from '../store/index.js'
 
@@ -707,6 +710,54 @@ const router = new Router({
       path: config.app.pages.finalJudging,
       name: 'finalJudging',
       component: feeds
+    },
+    {
+      path: config.app.pages.reminders.list,
+      name: 'reminders',
+      component: reminders,
+      meta: {
+        title: 'Reminders',
+        auth: true
+      }
+    },
+    {
+      path: config.app.pages.reminders.detail,
+      name: 'reminderDetail',
+      component: reminderForm,
+      meta: {
+        title: 'Reminder Detail',
+        auth: true
+      },
+      props: { editMode: false }
+    },
+    {
+      path: config.app.pages.reminders.edit,
+      name: 'reminderEdit',
+      component: reminderForm,
+      meta: {
+        title: 'Edit Reminder',
+        auth: true
+      },
+      props: { editMode: true }
+    },
+    {
+      path: config.app.pages.reminders.create,
+      name: 'reminderCreate',
+      component: reminderForm,
+      meta: {
+        title: 'Create Reminder',
+        auth: true
+      },
+      props: { editMode: true, createMode: true }
+    },
+    {
+      path: config.app.pages.notifications,
+      name: 'notifications',
+      component: notifications,
+      meta: {
+        title: 'Notifications',
+        auth: true
+      }
     }
   ]
 })

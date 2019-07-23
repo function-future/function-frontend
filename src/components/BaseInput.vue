@@ -71,6 +71,11 @@
     border: 2px solid #02AAF3;
   }
 
+  .reminder-input:disabled {
+    background: #ffffff;
+    color: rgb(84, 84, 84);
+  }
+
   .wrong-input {
     border: 2px solid #cb2431;
   }
