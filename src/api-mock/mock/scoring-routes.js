@@ -1090,11 +1090,13 @@ export const finalJudgingDetail = [
           "title": "Final Comparison 1",
           "description": "Final Comparison of Students",
           "usedAt": 150000000,
-          "students": [
+          "batchCode": "3",
+          "studentIds": [
             "USR0001",
             "USR0002",
             "USR0003"
-          ]
+          ],
+          "studentCount": 3
         }
       }
   },

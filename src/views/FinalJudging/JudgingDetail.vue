@@ -2,7 +2,7 @@
   <div class="judging-detail__container">
     <div class="judging-detail__container-header">
       <!--Header-->
-      <BaseInput placeholder="Input title here" v-model="judgingDetail.title" :disabled="!editMode"></BaseInput>
+      <BaseInput placeholder="Input title here" v-model="judgingDetail.name" :disabled="!editMode"></BaseInput>
     </div>
     <div class="judging-detail__container-body">
       <!--Body-->
@@ -14,6 +14,7 @@
           </div>
           <div class="judging-detail__container-body-student-list__header-button">
             <font-awesome-icon v-if="editMode" icon="edit" class="icon blue" size="lg" @click="toggleSelectStudentModal"></font-awesome-icon>
+            <font-awesome-icon v-else icon="poll" class="icon blue" size="lg" @click="goToComparison"></font-awesome-icon>
           </div>
         </div>
         <div class="judging-detail__container-body-student-list__content">
@@ -27,14 +28,10 @@
         </div>
       </BaseCard>
     </div>
-    <div class="judging-detail__container-action">
-      <!--Action-->
-      <BaseButton class="button-save" @click="goToComparison()">Compare</BaseButton>
-    </div>
     <div class="judging-detail__container-footer">
       <!--Footer-->
-      <BaseButton class="button-cancel" @click="returnButtonClicked">Return</BaseButton>
-      <BaseButton class="button-save" @click="actionButtonClicked">Edit</BaseButton>
+      <BaseButton class="button-cancel" @click="returnButtonClicked">{{returnButtonText}}</BaseButton>
+      <BaseButton class="button-save" @click="actionButtonClicked">{{actionButtonText}}</BaseButton>
     </div>
     <ModalSelectMultipleStudents  v-if="showSelectStudentModal"
                                   :currentlySelected="selectedStudents"

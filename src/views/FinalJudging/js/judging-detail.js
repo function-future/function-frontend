@@ -17,9 +17,9 @@ export default {
   data () {
     return {
       judgingDetail: {
-        title: '',
+        name: '',
         description: '',
-        students: []
+        studentIds: []
       },
       selectedStudents: [],
       isLoading: true,
@@ -34,7 +34,13 @@ export default {
     ...mapGetters([
       'judging',
       'students'
-    ])
+    ]),
+    returnButtonText () {
+      return this.editMode ? 'Cancel' : 'Return'
+    },
+    actionButtonText () {
+      return this.editMode ? 'Save' : 'Edit'
+    }
   },
   methods: {
     ...mapActions([
@@ -54,6 +60,8 @@ export default {
       })
     },
     successFetchingJudgingDetail () {
+      //TODO: NEED TO GET ALL STUDENTS NOT BY PAGE
+      //TODO: NEED TO INFINITE LOAD STUDENT MODAL
       this.fetchUsersByRole({
         data: {
           page: 1,
@@ -63,7 +71,8 @@ export default {
         callback: this.successFetchingUsersByRole,
         fail: this.failedFetchingUsersByRole
       })
-      this.judgingDetail = { ...this.judging }
+      this.judgingDetail.name = this.judging.name
+      this.judgingDetail.description = this.judging.description
     },
     successFetchingUsersByRole (response) {
       this.setStudentList({ data: response.data })
@@ -98,10 +107,8 @@ export default {
     },
     actionButtonClicked () {
       if (this.editMode) {
-        //TODO: CHANGE THIS ACCORDING TO BACKEND RESPONSE AND REQUEST
-        console.log(this.judgingDetail)
         this.selectedStudents.forEach((item) => {
-          this.judgingDetail.students.push(item.id)
+          this.judgingDetail.studentIds.push(item.id)
         })
         let data = {
           batchCode: this.$route.params.batchCode,
@@ -111,6 +118,7 @@ export default {
           id: this.$route.params.judgingId,
           ...this.judgingDetail
         }
+        console.log(payload)
         this.updateJudging({
           data,
           payload,
@@ -121,10 +129,21 @@ export default {
       this.editMode = !this.editMode
     },
     returnButtonClicked () {
-      alert()
+      this.editMode ? this.editMode = !this.editMode : this.$router.push({
+        name: 'judgingList',
+        params: {
+          batchCode: this.$route.params.batchCode
+        }
+      })
     },
     successUpdatingJudging () {
       this.$toasted.success('Successfully updated final judging')
+      this.$router.push({
+        name: 'judgingList',
+        params: {
+          batchCode: this.$route.params.batchCode
+        }
+      })
     },
     failUpdatingJudging () {
       this.$toasted.error('Something went wrong')
