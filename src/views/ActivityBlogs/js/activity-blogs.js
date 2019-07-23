@@ -15,6 +15,7 @@ export default {
   },
   data () {
     return {
+      isLoading: false,
       paging: {
         page: 1,
         size: 10
@@ -28,7 +29,9 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'activityBlogs'
+      'activityBlogs',
+      'currentUser',
+      'accessList'
     ])
   },
   methods: {
@@ -37,6 +40,7 @@ export default {
       'deleteActivityBlogById'
     ]),
     loadActivityBlogList () {
+      this.isLoading = true
       this.paging = { ...this.paging }
       let data = { ...this.paging }
       this.fetchActivityBlogs({
@@ -46,7 +50,7 @@ export default {
       })
     },
     compileToMarkdown: function (description) {
-      return marked(description)
+      return marked(description.replace(/\!\[.*\]\(.*\)/,''))
     },
     goToActivityBlogDetail (id) {
       this.$router.push({
@@ -84,13 +88,15 @@ export default {
       })
     },
     successLoadActivityBlogList (paging) {
+      this.isLoading = false
       this.paging = paging
     },
     failLoadActivityBlogList () {
+      this.isLoading = false
       this.$toasted.error('Fail to load activity blogs list')
     },
     successDeleteActivityBlogById () {
-      this.$router.push({ name: 'activityBlogs' })
+      this.loadActivityBlogList()
       this.$toasted.success('Successfully delete activity blog')
       this.closeDeleteConfirmationModal()
     },

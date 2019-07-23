@@ -2,14 +2,16 @@
   <div class="scrollable-container">
     <BaseCard class="card" cardClass="card-hover">
       <div class="header">
-        <h3 class="title">{{ stickyNotes.title || 'Sticky Note' }}</h3>
+        <h3 class="title">{{ stickyNote.title || 'Sticky Note' }}</h3>
       </div>
       <div class="header float-right">
         <div class="date">
-          {{ stickyNotes.updatedAt | moment("dddd, MMMM Do YYYY") }}
+          {{ stickyNote.updatedAt | moment("dddd, MMMM Do YYYY") }}
         </div>
         <div class="action">
-          <span class="add-btn" @click="goToAddStickyNote"><font-awesome-icon icon="edit" class="icon blue" size="lg"></font-awesome-icon></span>
+          <span class="add-btn" @click="goToAddStickyNote" v-if="accessList.edit">
+            <font-awesome-icon icon="edit" class="icon blue" size="lg"></font-awesome-icon>
+          </span>
         </div>
       </div>
       <div class="preview">

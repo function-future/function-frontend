@@ -11,7 +11,8 @@ module.exports = {
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
     '@mock-api(.*)$': '<rootDir>/src/api-mock/',
-    '@tests/(.*)$': '<rootDir>/tests/$1'
+    '@tests/(.*)$': '<rootDir>/tests/$1',
+    '\\.(css|less|scss|sss|styl)$': '<rootDir>/node_modules/jest-css-modules'
   },
   snapshotSerializers: [
     'jest-serializer-vue'

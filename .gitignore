@@ -2,6 +2,7 @@
 node_modules
 /dist
 tests/unit/coverage
+.scannerwork
 
 # local env files
 .env.local

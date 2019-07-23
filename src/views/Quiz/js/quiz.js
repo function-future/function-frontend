@@ -47,7 +47,7 @@ export default {
     initPage () {
       this.fetchQuizList({
         data: {
-          batchCode: 'futur3',
+          batchCode: this.$route.params.batchCode,
           page: this.paging.page,
           pageSize: this.paging.size
         },
@@ -62,19 +62,22 @@ export default {
       this.$toasted.error('Something went wrong')
     },
     addQuiz () {
-      this.$router.push({ name: 'addQuiz' })
+      this.$router.push({
+        name: 'addQuiz',
+        params: {
+          batchCode: this.$route.params.batchCode
+        }
+      })
     },
     isComplete(deadline) {
       return deadline < new Date() ? 'Done' : 'Ongoing'
     },
-    goToQuizDetail (id, batch) {
+    goToQuizDetail (id) {
       this.$router.push({
         name: 'quizDetail',
         params: {
-          quizId: id
-        },
-        query: {
-          batchCode: batch
+          quizId: id,
+          batchCode: this.$route.params.batchCode
         }
       })
     },
@@ -89,7 +92,7 @@ export default {
     deleteThisQuiz () {
       this.deleteQuizById({
         data: {
-          batchCode: 'futur3',
+          batchCode: this.$route.params.batchCode,
           id: this.selectedId
         },
         callback: this.successDeletingQuiz,
@@ -97,7 +100,12 @@ export default {
       })
     },
     successDeletingQuiz () {
-      this.$router.push({ name: 'quizzes' })
+      this.$router.push({
+        name: 'quizzes',
+        params: {
+          batchCode: this.$route.params.batchCode
+        }
+      })
       this.$toasted.success('Successfully delete quiz')
       this.closeDeleteConfirmationModal()
     },
@@ -129,8 +137,10 @@ export default {
       let data = {
         batchCode: batchDestination
       }
-      let payload = {...this.quizList.find(i => i.id === this.selectedId)}
-      payload.batch = batchDestination
+      let payload = {
+        batchId: batchDestination,
+        quizId: this.selectedId
+      }
       this.copyQuiz({
         data,
         payload,

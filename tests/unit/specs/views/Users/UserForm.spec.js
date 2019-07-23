@@ -107,18 +107,21 @@ describe('UserForm', () => {
     expect(wrapper.isVueInstance()).toBe(true)
   })
 
-  test('initPage', () => {
+  test('initPage editMode false', () => {
+    wrapper.vm.editMode = false
     const initialStateSpy = jest.spyOn(UserForm.methods, 'initialState')
-    const getUserDetailSpy = jest.spyOn(UserForm.methods, 'getUserDetail')
     initComponent()
     expect(initialStateSpy).toHaveBeenCalledTimes(1)
-    expect(getUserDetailSpy).toHaveBeenCalledTimes(1)
   })
 
   test('initPage editMode true', () => {
+    wrapper.vm.editMode = true
     const spy = jest.spyOn(UserForm.methods, 'initialState')
+    const getUserDetailSpy = jest.spyOn(UserForm.methods, 'getUserDetail')
     initComponent()
+    expect(wrapper.vm.isLoading).toEqual(true)
     expect(spy).toHaveBeenCalledTimes(1)
+    expect(getUserDetailSpy).toHaveBeenCalledTimes(1)
   })
 
   test('getUserDetail', () => {
@@ -131,6 +134,7 @@ describe('UserForm', () => {
     const spy = jest.spyOn(UserForm.methods, 'setUserDetail')
     initComponent()
     wrapper.vm.successFetchUserById()
+    expect(wrapper.vm.isLoading).toEqual(false)
     expect(spy).toHaveBeenCalledTimes(1)
   })
 
@@ -269,5 +273,18 @@ describe('UserForm', () => {
     initComponent()
     wrapper.vm.failCreateOrEditUser()
     expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+  })
+
+  test('selectBatch', () => {
+    initComponent()
+    wrapper.vm.selectBatch('futur3')
+    expect(wrapper.vm.userDetail.batch.code).toEqual('futur3')
+    expect(wrapper.vm.showSelectBatchModal).toEqual(false)
+  })
+
+  test('closeModal', () => {
+    initComponent()
+    wrapper.vm.closeModal()
+    expect(wrapper.vm.showSelectBatchModal).toEqual(false)
   })
 })

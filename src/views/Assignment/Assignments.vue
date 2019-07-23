@@ -8,7 +8,7 @@
     <BaseCard class="assignment-card"
               v-for="assignment in assignmentList"
               :key="assignment.id"
-              @click.native="goToAssignmentDetail(assignment.id, assignment.batch)"
+              @click.native="goToAssignmentDetail(assignment.id)"
               cardClass="card-hover">
       <div class="card-header-section">
         <div class="card-header">
@@ -25,12 +25,13 @@
               size="lg"
               @click.stop="openCopyModal(assignment.id)">
             </font-awesome-icon>
-            <span>
-            <font-awesome-icon
-              icon="trash-alt"
-              class="icon red"
-              size="lg"
-              @click.stop="openDeleteConfirmationModal(assignment.id)"></font-awesome-icon></span>
+            <span style="margin-left: 10px">
+              <font-awesome-icon
+                icon="trash-alt"
+                class="icon red"
+                size="lg"
+                @click.stop="openDeleteConfirmationModal(assignment.id)"></font-awesome-icon>
+            </span>
           </div>
         </div>
       </div>
@@ -50,7 +51,7 @@
         </div>
         <div class="assignment-deadline">
           <font-awesome-icon icon="calendar"></font-awesome-icon>
-          {{assignment.deadline | moment("dddd, MMMM Do YYYY")}}
+          <span style="margin-left: 5px">{{assignment.deadline | moment("dddd, MMMM Do YYYY")}}</span>
         </div>
       </div>
     </BaseCard>

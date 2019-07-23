@@ -8,13 +8,17 @@
         </span>
         <span>Select All</span>
       </label>
-      <BaseButton @click.stop="openCopySelectedCourseModal"
-                  type="submit" buttonClass="button-save button-icon" class="copy" :disabled="!this.selectedIds.length">
+      <span v-if="accessList.add">
+        <BaseButton @click.stop="openCopySelectedCourseModal"
+                    type="submit" buttonClass="button-save button-icon" class="copy" :disabled="!this.selectedIds.length">
         <font-awesome-icon icon="copy" class="icon"></font-awesome-icon> Copy Selected Course
       </BaseButton>
-      <BaseButton type="submit" buttonClass="button-save" @click="goToAddMasterCourse">
+      </span>
+      <span v-if="accessList.add">
+        <BaseButton type="submit" buttonClass="button-save" @click="goToAddMasterCourse">
         <span><font-awesome-icon icon="plus" class="icon"/> Add</span>
       </BaseButton>
+      </span>
     </div>
     <div v-for="course in masterCourses" :key="course.id" class="course__row">
       <div class="course__col">
@@ -41,7 +45,7 @@
                                @clickDelete="deleteThisMasterCourse">
       <div slot="description">Are you sure you want to delete this master course?</div>
     </modal-delete-confirmation>
-    <modal-copy-course v-if="showCopyCourseModal" @close="showCopyCourseModal = false" @copy="submitCopyCourse"></modal-copy-course>
+    <modal-copy v-if="showCopyCourseModal" @close="showCopyCourseModal = false" @copy="submitCopyCourse"></modal-copy>
   </div>
 </template>
 

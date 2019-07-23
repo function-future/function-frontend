@@ -1,24 +1,47 @@
 <template>
   <div>
-    <div class="block" v-bind:class="{'block-extend': isExtend, 'block-shrink': isExtend === false}">
-      <div class="block-list disable-selection">
-        <font-awesome-icon icon="user-circle" class="icon" /> Karnando
+    <div class="block" v-bind:class="{'block-extend': isExtend, 'block-shrink': isExtend === false, 'login': !loggedIn}"
+         @click="login" @mouseover="extendUserBar" @mouseleave="shrinkUserBar">
+      <div v-if="loggedIn">
+        <div class="block-list disable-selection">
+          <div v-if="!unreadNotifications || isExtend">
+            <font-awesome-icon icon="user-circle" class="icon" />
+            <span class="name">{{ firstName }}</span>
+          </div>
+          <div class="notification-div" v-else>
+            <font-awesome-icon icon="user-circle" class="icon" />
+            <span class="name">{{ firstName }}</span>
+            <div class="circle-notification-span"><font-awesome-icon icon="circle" class="icon new-notification"/></div>
+          </div>
+        </div>
+        <div class="more-block">
+          <span class="more-menu" v-show="!isExtend">
+            <font-awesome-icon icon="chevron-down" class="icon"/>
+          </span>
+          <span class="more-menu" v-show="isExtend">
+            <font-awesome-icon icon="chevron-up" class="icon" />
+          </span>
+        </div>
       </div>
-      <div class="more-block">
-        <span class="more-menu" v-on:click="extendUserBar" v-show="!isExtend">
-          <font-awesome-icon icon="chevron-down" class="icon"/>
-        </span>
-        <span class="more-menu" v-on:click="shrinkUserBar" v-show="isExtend">
-          <font-awesome-icon icon="chevron-up" class="icon" />
-        </span>
+      <div v-else>
+        <div class="login block-list disable-selection">
+          <font-awesome-icon icon="sign-in-alt" class="login-icon" /> Login
+        </div>
       </div>
-      <transition name="fade" >
-        <div class="block-list disable-selection" v-if="isExtend">
+      <transition name="fade">
+        <div class="block-list disable-selection" v-if="isExtend" @click="goToNotifications">
+          <font-awesome-icon icon="bell" class="icon" :class="{'new-notification': unreadNotifications > 0}" />
+          <span v-if="unreadNotifications > 0" class="new-notification"> {{ unreadNotifications }} unread notification</span>
+          <span v-else> Notification</span>
+        </div>
+      </transition>
+      <transition name="fade">
+        <div class="block-list disable-selection" v-if="isExtend" @click="goToProfile">
           <font-awesome-icon icon="cog" class="icon" /> Profile
         </div>
       </transition>
       <transition name="fade">
-        <div class="block-list disable-selection" v-if="isExtend">
+        <div class="block-list disable-selection" v-if="isExtend" @click="logout">
           <font-awesome-icon icon="sign-out-alt" class="icon" /> Logout
         </div>
       </transition>
@@ -35,13 +58,13 @@
       height: 50px;
     }
     100% {
-      height: 150px;
+      height: 200px;
     }
   }
 
   @keyframes shrinkUserBar {
     0% {
-      height: 150px;
+      height: 200px;
     }
     100% {
       height: 50px;
@@ -49,6 +72,8 @@
   }
 
   .block {
+    display: flex;
+    flex-direction: column;
     width: 260px;
     height: 50px;
     background: #FFFFFF;
@@ -84,6 +109,21 @@
     cursor: pointer;
   }
 
+  .new-notification {
+    color: #cb2431;
+  }
+
+  .notification-div {
+    display: flex;
+    align-items: center;
+  }
+
+  .circle-notification-span {
+    width: 100%;
+    text-align: end;
+    font-size: 0.6rem;
+  }
+
   .block-list:hover {
     opacity: 0.8;
   }
@@ -107,8 +147,20 @@
     transition: all .3s ease;
   }
 
+  .name {
+    margin-left: 5px;
+  }
+
   .icon {
     margin-right: 5px;
+  }
+
+  .login {
+    width: 200px;
+  }
+
+  .login-icon {
+    margin-right: 35px;
   }
 
   .fade-enter-active {

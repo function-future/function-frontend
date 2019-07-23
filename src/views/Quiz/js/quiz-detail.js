@@ -21,7 +21,6 @@ export default {
         endDate: new Date(),
         timeLimit: 0,
         trials: 0,
-        batch: '',
         questionCount: 0
       }
     }
@@ -51,7 +50,7 @@ export default {
     initPage () {
       this.fetchQuizById({
         data: {
-          batchCode: this.$route.query.batchCode,
+          batchCode: this.$route.params.batchCode,
           id: this.$route.params.quizId
         },
         callback: this.successFetchingQuizById,
@@ -68,10 +67,15 @@ export default {
     },
     actionButtonClicked () {
       if (this.editMode) {
+        let payload = {
+          ...this.quizDetail,
+          startDate: new Date().getTime()
+        }
+        payload.endDate = new Date(payload.endDate).getTime()
         this.updateQuizDetail({
-          payload: this.quizDetail,
+          payload,
           data: {
-            batchCode: this.$route.query.batchCode,
+            batchCode: this.$route.params.batchCode,
             id: this.$route.params.quizId
           },
           callback: this.successUpdatingQuiz,
@@ -86,7 +90,12 @@ export default {
         this.editMode = !this.editMode
         return
       }
-      this.$router.push({name: 'quizzes'})
+      this.$router.push({
+        name: 'quizzes',
+        params: {
+          batchCode: this.$route.params.batchCode
+        }
+      })
     },
     successUpdatingQuiz () {
       this.$toasted.success(`Quiz ${this.$route.params.quizId} successfully updated`)

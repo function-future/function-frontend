@@ -5,7 +5,7 @@
         <font-awesome-icon icon="plus" class="icon"/> Add
       </BaseButton>
     </div>
-    <BaseCard class="quiz-card" v-for="quiz in quizList" @click.native="goToQuizDetail(quiz.id, quiz.batch)">
+    <BaseCard class="quiz-card" v-for="quiz in quizList" @click.native="goToQuizDetail(quiz.id)">
       <div class="card-header-section">
         <div class="card-header">
           {{quiz.title}}
@@ -21,11 +21,12 @@
               size="lg"
               @click.stop="openCopyModal(quiz.id)">
             </font-awesome-icon>
-            <span>
-            <font-awesome-icon
-              icon="trash-alt"
-              class="icon red"
-              size="lg" @click.stop="openDeleteConfirmationModal(quiz.id)"></font-awesome-icon></span>
+            <span style="margin-left: 10px;">
+              <font-awesome-icon
+                icon="trash-alt"
+                class="icon red"
+                size="lg" @click.stop="openDeleteConfirmationModal(quiz.id)"></font-awesome-icon>
+            </span>
           </div>
         </div>
       </div>
@@ -45,11 +46,13 @@
         </div>
         <div class="quiz-deadline">
           <font-awesome-icon icon="calendar"></font-awesome-icon>
-          {{quiz.endDate | moment("dddd, MMMM Do YYYY")}}
+          <span style="margin-left: 5px;">
+            {{quiz.endDate | moment("dddd, MMMM Do YYYY")}}
+          </span>
         </div>
         <div class="retry-count">
           <font-awesome-icon icon="redo"></font-awesome-icon>
-          <span>3/5 tries</span>
+          <span style="margin-left: 7px; font-size: 15px">{{quiz.trials}} tries</span>
         </div>
       </div>
     </BaseCard>

@@ -16,6 +16,7 @@ export default {
   },
   data () {
     return {
+      isLoading: false,
       tabs: [
         { title: 'Students', value: 'student' },
         { title: 'Admins', value: 'admin' },
@@ -36,7 +37,8 @@ export default {
       'students',
       'admins',
       'mentors',
-      'judges'
+      'judges',
+      'accessList'
     ]),
     addUserButtonLabel () {
       if (this.currentTab === 'student') {
@@ -59,6 +61,7 @@ export default {
       'setJudgeList'
     ]),
     initPage () {
+      this.isLoading = true
       this.fetchTabList()
     },
     changeTab (destinationTab) {
@@ -70,7 +73,7 @@ export default {
       let data = {
         page: this.paging.page,
         size: this.paging.size,
-        role: this.currentTab
+        role: this.currentTab.toUpperCase()
       }
       this.fetchUsersByRole({
         data,
@@ -79,6 +82,7 @@ export default {
       })
     },
     successGetUserList (response) {
+      this.isLoading = false
       this.paging = response.paging
       switch (this.currentTab) {
         case 'student': {
@@ -100,6 +104,7 @@ export default {
       }
     },
     failGetUserList () {
+      this.isLoading = false
       this.$toasted.error('Fail to fetch list')
     },
     goToAddUser () {
@@ -135,7 +140,7 @@ export default {
       })
     },
     successDeleteUserById () {
-      this.$router.push({ name: 'users' })
+      this.fetchTabList()
       this.$toasted.success('successfully delete user')
       this.closeDeleteConfirmationModal()
     },

@@ -18,7 +18,7 @@
   </div>
 </template>
 
-<script src="./js/ChatroomCard.js">
+<script src="./js/chatroom-card.js">
 </script>
 
 <style scoped>

@@ -21,6 +21,33 @@ describe('Chatroom Controller', () => {
     expect(spy).toBeCalledTimes(1)
   })
 
+  test('getMessagesBeforePivot', () => {
+    const spy = jest.spyOn(request, 'getRequest')
+    const callback = jest.fn()
+    const data = { params: {} }
+    const errorHandler = jest.fn()
+    api.getMessagesBeforePivot(callback, errorHandler, data)
+    expect(spy).toBeCalledTimes(1)
+  })
+
+  test('getMessagesAfterPivot', () => {
+    const spy = jest.spyOn(request, 'getRequest')
+    const callback = jest.fn()
+    const data = { params: {} }
+    const errorHandler = jest.fn()
+    api.getMessagesAfterPivot(callback, errorHandler, data)
+    expect(spy).toBeCalledTimes(1)
+  })
+
+  test('getPublicMessages', () => {
+    const spy = jest.spyOn(request, 'getRequest')
+    const callback = jest.fn()
+    const data = { params: {} }
+    const errorHandler = jest.fn()
+    api.getPublicMessages(callback, errorHandler, data)
+    expect(spy).toBeCalledTimes(1)
+  })
+
   test('getChatroomDetails', () => {
     const spy = jest.spyOn(request, 'getRequest')
     const callback = jest.fn()

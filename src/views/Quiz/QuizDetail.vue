@@ -50,17 +50,6 @@
                    :disabled="!editMode"/>
           </BaseCard>
         </div>
-        <div class="detail-container__info-batch">
-          <BaseCard :style="{height: '100%', margin: 0}"
-                    class="detail-card">
-            <div class="detail-card__caption">Participant</div>
-            <input type="text"
-                   class="detail-card__content"
-                   v-model="quizDetail.batch"
-                   :disabled="!editMode"/>
-          </BaseCard>
-          <!--TODO Change this to baseSelect after core team made API call for batches-->
-        </div>
       </div>
       <div class="detail-container__question">
         <div class="detail-container__question-card">

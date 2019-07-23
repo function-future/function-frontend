@@ -8,7 +8,8 @@ export const auth = [
       'code': 200,
       'status': 'OK',
       'data': {
-        'role': 'STUDENT',
+        'id': 'sample-id-1',
+        'role': 'ADMIN',
         'email': 'user@user.com',
         'name': 'User Name',
         'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
@@ -23,7 +24,8 @@ export const auth = [
       'code': 200,
       'status': 'OK',
       'data': {
-        'role': 'STUDENT',
+        'id': 'sample-id-1',
+        'role': 'ADMIN',
         'email': 'user@user.com',
         'name': 'User Name',
         'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
@@ -41,28 +43,104 @@ export const auth = [
   }
 ]
 
-// access-list
-export const accessList = {
-  method: 'GET',
-  url: '/api/core/user/access-list?url=/feeds',
-  response: {
-    'add': true,
-    'delete': true
+export const profile = [
+  {
+    method: 'GET',
+    url: '/api/core/user/profile',
+    response: {
+      'code': 200,
+      'status': 'OK',
+      'data': {
+        'id': 'sample-id',
+        'role': 'STUDENT',
+        'email': 'user@user.com',
+        'name': 'User Name',
+        'phone': '088888888888',
+        'address': 'Jl. Address 1 Address 2',
+        'deleted': false,
+        'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+        'batch': {
+          'id': 'sample-id',
+          'name': 'Batch Name',
+          'code': '3'
+        },
+        'university': 'Bina Nusantara University'
+      }
+    }
+  },
+  {
+    method: 'PUT',
+    url: '/api/core/user/password',
+    response: {
+      'code': 200,
+      'status': 'OK'
+    }
+  },
+  {
+    method: 'PUT',
+    url: '/api/core/user/profile/picture',
+    response: {
+      'code': 200,
+      'status': 'OK',
+      'data': {
+        'avatar': ['sample-id']
+      }
+    }
   }
-}
+]
+
+// access-list
+export const accessList = [
+  {
+    method: 'GET',
+    url: '/api/core/user/access-list?url=%2F',
+    response: {
+      'add': true,
+      'delete': true,
+      'edit': true,
+      'read': true
+    }
+  },
+  {
+    method: 'GET',
+    url: '/api/core/user/access-list?url=%2Fannouncements',
+    response: {
+      'add': true,
+      'delete': true,
+      'edit': true,
+      'read': true
+    }
+  },
+  {
+    method: 'GET',
+    url: '/api/core/user/access-list?url=%2Fsticky-notes',
+    response: {
+      'add': true,
+      'delete': true,
+      'edit': true,
+      'read': true
+    }
+  }
+]
 
 // menu-list
-export const menuList = {
-  method: 'GET',
-  url: '/api/core/user/menu-list',
-  response: {
-    'courses': true,
-    'files': true,
-    'users': true,
-    'grades': true,
-    'chatroom': true
+export const menuList = [
+  {
+    method: 'GET',
+    url: '/api/core/user/menu-list',
+    response: {
+      'courses': true,
+      'files': true,
+      'users': true,
+      'chatroom': true,
+      'questionBanks': true,
+      'quizzes': true,
+      'assignments': true,
+      'comparisons': true,
+      'points': true
+    }
   }
-}
+]
 
 export const stickyNotes = [
   {
@@ -338,7 +416,7 @@ export const activityBlogs = [
             }
           ],
           "author": {
-            "id": "sample-id",
+            "id": "sample-id-1",
             "name": "Student 1"
           }
         },
@@ -516,7 +594,7 @@ export const activityBlogDetail = [
 export const resources = [
   {
     method: 'POST',
-    url: '/api/core/resources?source=activity-blog',
+    url: '/api/core/resources?origin=BLOG',
     response: {
       'code': 201,
       'status': 'CREATED',
@@ -532,7 +610,23 @@ export const resources = [
   },
   {
     method: 'POST',
-    url: '/api/core/resources?source=course',
+    url: '/api/core/resources?origin=COURSE',
+    response: {
+      'code': 201,
+      'status': 'CREATED',
+      'data': {
+        'id': 'sample-id',
+        'name': 'File Name',
+        'file': {
+          'full': 'https://i.pinimg.com/originals/8c/cf/ec/8ccfec7d5cb3c92265cbf153523eb9b5.jpg',
+          'thumbnail': null
+        }
+      }
+    }
+  },
+  {
+    method: 'POST',
+    url: '/api/core/resources?origin=USER',
     response: {
       'code': 201,
       'status': 'CREATED',
@@ -1132,7 +1226,7 @@ export const discussions = [
 export const users = [
   {
     method: 'GET',
-    url: '/api/core/users?page=1&size=10&role=student',
+    url: '/api/core/users?page=1&size=10&role=STUDENT',
     response: {
       "code": 200,
       "status": "OK",
@@ -1237,7 +1331,7 @@ export const users = [
   },
   {
     method: 'GET',
-    url: '/api/core/users?page=1&size=10&role=mentor',
+    url: '/api/core/users?page=1&size=10&role=MENTOR',
     response: {
       "code": 200,
       "status": "OK",
@@ -1270,7 +1364,7 @@ export const users = [
   },
   {
     method: 'GET',
-    url: '/api/core/users?page=1&size=10&role=judge',
+    url: '/api/core/users?page=1&size=10&role=JUDGE',
     response: {
       "code": 200,
       "status": "OK",
@@ -1294,7 +1388,7 @@ export const users = [
   },
   {
     method: 'GET',
-    url: '/api/core/users?page=1&size=10&role=admin',
+    url: '/api/core/users?page=1&size=10&role=ADMIN',
     response: {
       "code": 200,
       "status": "OK",

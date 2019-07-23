@@ -5,7 +5,7 @@ jest.mock('@/api/default-request')
 
 describe('User Controller', () => {
   afterEach(() => {
-    jest.restoreAllMocks()
+    jest.resetAllMocks()
   })
 
   test('Sanity test', () => {
@@ -26,6 +26,15 @@ describe('User Controller', () => {
     const callback = jest.fn()
     const errorHandler = jest.fn()
     api.changePassword(callback, data, errorHandler)
+    expect(spy).toBeCalledTimes(1)
+  })
+
+  test('updateProfilePicture ', () => {
+    const spy = jest.spyOn(request, 'putRequest')
+    const data = {}
+    const callback = jest.fn()
+    const errorHandler = jest.fn()
+    api.updateProfilePicture(callback, data, errorHandler)
     expect(spy).toBeCalledTimes(1)
   })
 })

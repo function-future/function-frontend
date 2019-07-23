@@ -15,7 +15,7 @@ export default {
   data () {
     return {
       questionDetail: {
-        text: '',
+        label: '',
         options: [
           {
             label: ''
@@ -76,8 +76,9 @@ export default {
         let defaultIndex
         this.question.options.find((option, index) => {if (option.correct) defaultIndex = index })
         delete this.questionDetail.options[defaultIndex].correct
-        this.submittedQuestion = JSON.parse(JSON.stringify(this.question))
+        this.submittedQuestion = JSON.parse(JSON.stringify(this.questionDetail))
         this.submittedQuestion.options[selectedIndex].correct = true
+        console.log(this.submittedQuestion)
         this.updateQuestion({
           payload: {...this.submittedQuestion},
           data: {

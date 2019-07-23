@@ -13,7 +13,7 @@
   </div>
 </template>
 
-<script src="./js/MessageBubbleReceived.js">
+<script src="./js/message-bubble-received.js">
 
 </script>
 

@@ -5,6 +5,7 @@
       @input="updateValue"
       class="select-box"
       v-bind="$attrs"><!-- Binding attrs allows attribute inheritance such as type="text" , etc! -->
+      <option disabled selected>Select...</option>
       <option
         v-for="option in options"
         :key="option.value"

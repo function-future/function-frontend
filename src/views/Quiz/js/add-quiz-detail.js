@@ -20,7 +20,6 @@ export default {
         endDate: new Date(),
         timeLimit: 0,
         trials: 0,
-        batch: '',
         questionCount: 0
       }
     }
@@ -35,26 +34,36 @@ export default {
       'createQuiz'
     ]),
     actionButtonClicked () {
-      const payload = {
+      let payload = {
         ...this.quizDetail,
-        questionBankId: [...this.selectedBank]
+        questionBanks: [...this.selectedBank],
+        startDate: new Date().getTime()
       }
+      payload.endDate = new Date(payload.endDate).getTime()
       this.createQuiz({
-        payload: payload,
+        payload,
         data: {
-          batchCode: this.quizDetail.batch,
+          batchCode: this.$route.params.batchCode,
         },
         callback: this.successCreatingQuiz,
         fail: this.failCreatingQuiz
       })
     },
     returnButtonClicked () {
-      this.$router.push({name: 'quizzes'})
+      this.$router.push({
+        name: 'quizzes',
+        params: {
+          batchCode: this.$route.params.batchCode
+        }
+      })
     },
     successCreatingQuiz () {
       this.$toasted.success(`Quiz successfully created`)
       this.$router.push({
-        name: 'quizzes'
+        name: 'quizzes',
+        params: {
+          batchCode: this.$route.params.batchCode
+        }
       })
     },
     failCreatingQuiz () {

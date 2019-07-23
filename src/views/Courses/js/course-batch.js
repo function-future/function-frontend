@@ -14,6 +14,7 @@ export default {
   },
   data () {
     return {
+      isLoading: false,
       masterCourse: {
         id: 'master',
         code: 'master',
@@ -26,7 +27,9 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'batchList'
+      'batchList',
+      'currentUser',
+      'accessList'
     ])
   },
   created () {
@@ -56,6 +59,7 @@ export default {
       })
     },
     initPage () {
+      this.isLoading = true
       this.fetchBatches({
         callback: this.successFetchBatches,
         fail: this.failFetchBatches
@@ -63,8 +67,10 @@ export default {
     },
     successFetchBatches () {
       this.batches = this.batchList
+      this.isLoading = false
     },
     failFetchBatches () {
+      this.isLoading = false
       this.$toasted.error('Fail to fetch batches, please try again')
     },
     editBatch (id) {
@@ -89,7 +95,7 @@ export default {
     },
     successDeleteBatch () {
       this.selectedId = ''
-      this.$router.push({ name: 'courseBatches' })
+      this.initPage()
       this.$toasted.success('Successfully delete batch')
       this.showDeleteConfirmationModal = false
     },

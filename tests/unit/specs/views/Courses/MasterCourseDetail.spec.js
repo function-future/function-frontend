@@ -36,7 +36,13 @@ describe('MasterCourseDetail', () => {
           'description': 'Course Description Goes Here',
           'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
         }
-      ]
+      ],
+      accessList: {
+        add: true,
+        delete: true,
+        read: true,
+        edit: true
+      }
     }
     const actions = {
       fetchMasterCourses: jest.fn(),
@@ -46,7 +52,8 @@ describe('MasterCourseDetail', () => {
     }
     const getters = {
       masterCourse: state => state.masterCourse,
-      masterCourseList: state => state.masterCourseList
+      masterCourseList: state => state.masterCourseList,
+      accessList: state => state.accessList
     }
     const store = new Vuex.Store({
       modules: {

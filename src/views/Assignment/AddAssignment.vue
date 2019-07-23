@@ -15,9 +15,6 @@
                         name="description"/>
         </div>
         <div class="assignment-detail">
-          <div class="assignment-detail-batch">
-            <BaseSelect v-model="assignment.batch" :options="batches"></BaseSelect>
-          </div>
           <v-date-picker class="assignment-detail-deadline" v-model="assignment.deadline" is-inline>
           </v-date-picker>
           <div class="assignment-detail-file">
@@ -77,7 +74,7 @@
     width: 22%;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-between;
   }
 
   .assignment-detail-file {

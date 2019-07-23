@@ -21,7 +21,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'announcement'
+      'announcement',
+      'accessList'
     ]),
     descriptionCompiledMarkdown: function () {
       return marked(this.announcementDescriptionMarkdown)

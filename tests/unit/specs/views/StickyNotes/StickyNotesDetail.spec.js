@@ -1,7 +1,6 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import StickyNotesDetail from '@/views/StickyNotes/StickyNotesDetail'
 import Vuex from 'vuex'
-import { stickyNotes }from '@/store/modules/stickyNotes'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -15,17 +14,24 @@ describe('StickyNotesDetail.vue', () => {
   const initPage = jest.fn()
   beforeEach(() => {
     state = {
-      stickyNote: {
+      stickyNotes: [{
         title: 'Mock Note',
         description: 'Note for testing purpose',
         updatedAt: '123456789'
+      }],
+      accessList: {
+        add: true,
+        delete: true,
+        read: true,
+        edit: true
       }
     }
     actions = {
       fetchStickyNotes: jest.fn(() => true)
     }
     getters = {
-      stickyNotes: state => state.stickyNote
+      stickyNotes: state => state.stickyNotes,
+      accessList: state => state.accessList
     }
     store = new Vuex.Store({
       modules: {
@@ -58,10 +64,6 @@ describe('StickyNotesDetail.vue', () => {
     expect(wrapper.isVueInstance()).toBe(true)
   })
 
-  test('Render template correctly', () => {
-    expect(wrapper.find('.header').text()).toBe('Mock Note')
-  })
-
   test('Render components correctly', () => {
     expect(wrapper.html()).toContain('basecard')
   })
@@ -79,13 +81,20 @@ describe('StickyNotesDetail.js', () => {
         title: 'Mock Note',
         description: 'Note for testing purpose',
         updatedAt: '123456789'
+      },
+      accessList: {
+        add: true,
+        delete: true,
+        read: true,
+        edit: true
       }
     }
     actions = {
       fetchStickyNotes: jest.fn()
     }
     getters = {
-      stickyNotes: state => state.stickyNote
+      stickyNotes: state => state.stickyNote,
+      accessList: state => state.accessList
     }
     store = new Vuex.Store({
       modules: {
@@ -143,5 +152,25 @@ describe('StickyNotesDetail.js', () => {
     wrapper.find('.add-btn').trigger('click')
     await wrapper.vm.$nextTick()
     expect(wrapper.vm.$route.name).toBe($route.name)
+  })
+
+  test('stickyNotesDescription computed', async () => {
+    const $route = {
+      name: 'editStickyNote'
+    }
+    const $router = {
+      push: jest.fn()
+    }
+    wrapper = shallowMount(StickyNotesDetail, {
+      store,
+      localVue,
+      mocks: {
+        $route,
+        $router
+      },
+      sync: false
+    })
+    wrapper.vm.stickyNotes.description = undefined
+    expect(wrapper.vm.stickyNotesDescription).toEqual('Insert Sticky Notes Here...')
   })
 })

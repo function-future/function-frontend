@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div class="left-nav">
+    <div class="left-nav" v-if="!isLoginPage">
       <HeaderComp></HeaderComp>
     </div>
     <div class="content">
@@ -9,7 +9,7 @@
           <BaseTitle>{{ title }}</BaseTitle>
           <Breadcrumbs></Breadcrumbs>
         </div>
-        <div class="user-section">
+        <div class="user-section" v-if="!isLoginPage">
           <UserBar></UserBar>
         </div>
         <router-view/>
@@ -66,6 +66,7 @@
     position: absolute;
     top: 0;
     right: 5vw;
+    z-index: 999;
   }
 
   .scrollable-container {

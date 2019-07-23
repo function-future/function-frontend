@@ -3,7 +3,7 @@ import BaseCard from '@/components/BaseCard.vue'
 import CourseCard from '@/components/courses/CourseCard.vue'
 import BaseButton from '@/components/BaseButton'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
-import ModalCopyCourse from '@/components/modals/ModalCopyCourse'
+import ModalCopy from '@/components/modals/ModalCopy'
 import BasePagination from '@/components/BasePagination'
 import InfiniteLoading from 'vue-infinite-loading'
 
@@ -14,7 +14,7 @@ export default {
     CourseCard,
     BaseButton,
     ModalDeleteConfirmation,
-    ModalCopyCourse,
+    ModalCopy,
     BasePagination,
     InfiniteLoading
   },
@@ -35,11 +35,9 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'masterCourseList'
-    ]),
-    isMaximumPage () {
-      return Math.ceil(this.paging.totalRecords / this.paging.size) === this.paging.page
-    }
+      'masterCourseList',
+      'accessList'
+    ])
   },
   created () {
   },
@@ -63,11 +61,11 @@ export default {
     successFetchMasterCourses (response, paging) {
       this.paging = paging
       this.masterCourses.push(...response)
-      if (this.isMaximumPage) {
-        this.state.complete()
-      } else {
+      if (response.length) {
         this.paging.page++
         this.state.loaded()
+      } else {
+        this.state.complete()
       }
     },
     failFetchMasterCourses () {
@@ -139,6 +137,7 @@ export default {
     successSubmitCopyCourse () {
       this.selectedIds = []
       this.showCopyCourseModal = false
+      this.$toasted.success('Successfully copy course')
     },
     failSubmitCopyCourse () {
       this.showCopyCourseModal = false

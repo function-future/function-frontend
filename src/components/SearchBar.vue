@@ -1,33 +1,12 @@
 <template>
   <div class="search-outer" :class="searchClass">
-    <BaseInput placeholder="search" inputType="search-box" class="search-input" @input="emitValue"/>
+    <BaseInput placeholder="search" @keyup="event => $emit('keyup', event)" inputType="search-box" class="search-input" @input="emitValue"/>
     <div class="search-circle"><font-awesome-icon icon="search" class="search-icon" /></div>
   </div>
 </template>
 
-<script>
-import BaseInput from './BaseInput'
-export default {
-  name: 'SearchBar',
-  components: {
-    BaseInput
-  },
-  props: {
-    searchClass: {
-      type: String
-    }
-  },
-  data () {
-    return {
+<script src="./js/search-bar.js">
 
-    }
-  },
-  methods: {
-    emitValue (value) {
-      this.$emit('input', value)
-    }
-  }
-}
 </script>
 
 <style scoped>

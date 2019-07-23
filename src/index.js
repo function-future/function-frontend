@@ -1,3 +1,4 @@
+import { mapActions, mapGetters } from 'vuex'
 import HeaderComp from '@/components/skeletons/HeaderComp'
 import BaseButton from '@/components/BaseButton'
 import BaseInput from '@/components/BaseInput'
@@ -20,5 +21,23 @@ export default {
   },
   mixins: [
     ChangePageTitleMixins
-  ]
+  ],
+  methods: {
+    ...mapActions([
+      'getMenuList'
+    ])
+  },
+  computed: {
+    ...mapGetters([
+      'currentUser'
+    ]),
+    isLoginPage () {
+      return this.$route.path === '/login'
+    }
+  },
+  watch: {
+    currentUser () {
+      this.getMenuList()
+    }
+  }
 }

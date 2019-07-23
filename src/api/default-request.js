@@ -1,8 +1,19 @@
 import axios from 'axios'
+axios.defaults.withCredentials = true
 
 if (process.env.NODE_ENV === 'development') {
   require('@mock-api')
 }
+
+axios.interceptors.response.use((response) => {
+  return response
+}, (error) => {
+  if (error.response.status === 403) {
+    this.$toasted.error('You are unauthorized, redirecting you to homepage')
+    this.$router.push({ name: 'feeds' })
+  }
+  return Promise.reject(error)
+})
 
 const getRequest = function (path, callback, errorHandler, configuration) {
   axios.get(path, configuration)
@@ -22,6 +33,7 @@ const postRequest = function (path, callback, data, errorHandler, configuration)
       callback(data)
     })
     .catch(error => {
+      console.log(path)
       if (typeof errorHandler === 'function') {
         errorHandler(error)
       }

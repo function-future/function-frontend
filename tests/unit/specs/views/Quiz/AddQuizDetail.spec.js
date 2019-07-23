@@ -108,17 +108,29 @@ describe('Quiz', () => {
 
   test('returnButtonClicked', () => {
     initComponent()
+    wrapper.vm.$route.params.batchCode = '1'
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.returnButtonClicked()
-    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({name: 'quizzes'})
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
+      name: 'quizzes',
+      params: {
+        batchCode: '1'
+      }
+    })
   })
 
   test('successCreatingQuiz', () => {
     initComponent()
+    wrapper.vm.$route.params.batchCode = '1'
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.successCreatingQuiz()
     expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
-    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({name: 'quizzes'})
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
+      name: 'quizzes',
+      params: {
+        batchCode: '1'
+      }
+    })
   })
 
   test('failCreatingQuiz', () => {

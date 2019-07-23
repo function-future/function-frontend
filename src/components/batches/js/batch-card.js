@@ -1,3 +1,4 @@
+import { mapGetters } from 'vuex'
 import BaseCard from '@/components/BaseCard'
 
 export default {
@@ -9,6 +10,11 @@ export default {
     'batch',
     'showAction'
   ],
+  computed: {
+    ...mapGetters([
+      'accessList'
+    ])
+  },
   methods: {
     edit () {
       this.$emit('edit', this.batch.id)

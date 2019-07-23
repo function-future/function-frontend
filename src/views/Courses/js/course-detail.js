@@ -39,13 +39,11 @@ export default {
   computed: {
     ...mapGetters([
       'course',
-      'courseDiscussions'
+      'courseDiscussions',
+      'accessList'
     ]),
     descriptionCompiledMarkdown: function () {
       return marked(this.courseDetail.description)
-    },
-    isMaximumPage () {
-      return Math.ceil(this.discussionPaging.totalRecords / this.discussionPaging.size) === this.discussionPaging.page
     }
   },
   created () {
@@ -95,11 +93,11 @@ export default {
     successFetchCourseDiscussions (response, paging) {
       this.discussionPaging = paging
       this.discussions.push(...response)
-      if (this.isMaximumPage) {
-        this.state.complete()
-      } else {
+      if (response.length) {
         this.discussionPaging.page++
         this.state.loaded()
+      } else {
+        this.state.complete()
       }
     },
     failFetchCourseDiscussions () {
@@ -127,6 +125,7 @@ export default {
     },
     downloadMaterial (url) {
       let configuration = { responseType: 'arraybuffer' }
+      url = url.replace('8080', '10001')
       this.downloadCourseMaterial({
         data: url,
         configuration,
@@ -137,7 +136,8 @@ export default {
     successDownloadMaterial (response) {
       this.forceFileDownload(response)
     },
-    failDownloadMaterial () {
+    failDownloadMaterial (err) {
+      console.log(err)
       this.$toasted.error('Fail to download material, please try again')
     },
     forceFileDownload (response) {
