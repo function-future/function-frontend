@@ -1824,8 +1824,14 @@ export const files = [
       'status': 'OK',
       'data': {
         'paths': [
-          'root',
-          'parent-id'
+          {
+            'id': 'root',
+            'name': 'root'
+          },
+          {
+            'id': 'parent-id',
+            'name': 'Parent ID'
+          }
         ],
         'content': [
           {
@@ -1922,8 +1928,14 @@ export const files = [
       'status': 'OK',
       'data': {
         'paths': [
-          'root',
-          'parent-id'
+          {
+            'id': 'root',
+            'name': 'root'
+          },
+          {
+            'id': 'parent-id',
+            'name': 'Parent ID'
+          }
         ],
         'content': []
       }
@@ -1937,9 +1949,18 @@ export const files = [
       'status': 'OK',
       'data': {
         'paths': [
-          'root',
-          'parent-id',
-          'parent-id-1'
+          {
+            'id': 'root',
+            'name': 'root'
+          },
+          {
+            'id': 'parent-id',
+            'name': 'Parent ID'
+          },
+          {
+            'id': 'parent-id-1',
+            'name': 'Parent ID 1'
+          }
         ],
         'content': [
           {
@@ -1995,9 +2016,18 @@ export const files = [
       'status': 'OK',
       'data': {
         'paths': [
-          'root',
-          'parent-id',
-          'parent-id-1'
+          {
+            'id': 'root',
+            'name': 'root'
+          },
+          {
+            'id': 'parent-id',
+            'name': 'Parent ID'
+          },
+          {
+            'id': 'parent-id-1',
+            'name': 'Parent ID 1'
+          }
         ],
         'content': []
       }
