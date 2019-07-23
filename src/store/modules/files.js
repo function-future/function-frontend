@@ -17,10 +17,10 @@ export const actions = {
       callback(response)
     }, data, fail)
   },
-  createFolder ({ commit }, { data, callback, fail }) {
+  createFolder ({ commit }, { data, configuration, callback, fail }) {
     api.createFolder(({ data: response }) => {
       callback(response)
-    }, data, fail)
+    }, data, fail, configuration)
   },
   uploadFile ({ commit }, { data, configuration, callback, fail }) {
     api.uploadFile(({ data: response }) => {
