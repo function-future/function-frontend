@@ -146,10 +146,10 @@ export default {
       this.fileUploadList.unshift(file)
       this.upload(this.file)
     },
-    constructFormData (file) {
+    constructFormData (file, type) {
       let data = JSON.stringify({
         name: file.name,
-        type: 'FILE'
+        type: type
       })
       let formData = new FormData()
       formData.append(data, file)
@@ -158,7 +158,7 @@ export default {
     upload (file) {
       const data = {
         parentId: this.$route.params.parentId,
-        content: this.constructFormData(file)
+        content: this.constructFormData(file, 'FILE')
       }
       let config = {
         headers: { 'Content-Type': 'multipart/form-data' },
@@ -187,16 +187,16 @@ export default {
       this.fileUploadList = []
     },
     createFolderFromModal (title) {
+      const folder = { name: title }
       this.showCreateModal = false
+      let config = { headers: { 'Content-Type': 'multipart/form-data' } }
       const data = {
         parentId: this.$route.params.parentId,
-        content: {
-          name: title,
-          type: 'FOLDER'
-        }
+        content: this.constructFormData(folder, 'FOLDER')
       }
       this.createFolder({
         data: data,
+        configuration: config,
         callback: this.successCreateFolder,
         fail: this.failCreateFolder
       })
