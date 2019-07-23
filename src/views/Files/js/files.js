@@ -20,7 +20,6 @@ export default {
     return {
       state: '',
       selectedId: '',
-      currentFolder: '',
       paths: [],
       showDeleteConfirmationModal: false,
       showCreateModal: false,
@@ -69,9 +68,6 @@ export default {
         this.paths = res.paths
         this.fileList = this.fileList.concat(res.content.filter(i => { return i.type === 'FILE' }))
         this.folderList = this.folderList.concat(res.content.filter(i => { return i.type === 'FOLDER' }))
-        this.$route.params.parentId === 'root'
-          ? this.currentFolder = 'Root Folder'
-          : this.currentFolder = this.folderList[0].parentId
         this.state.loaded()
       } else {
         this.state.complete()
