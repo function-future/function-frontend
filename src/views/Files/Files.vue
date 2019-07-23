@@ -4,7 +4,7 @@
       <div class="breadcrumb-wrapper" v-if="paths.length">
         <ul class="breadcrumb">
           <li v-for="(path, index) in paths" :key="index" class="breadcrumb-list">
-            <span class="breadcrumb-name" @click="goToPreviousFolder(path.id)"
+            <span class="breadcrumb-name" @click="goToFolder(path.id)"
                   :class="{ bold: path.id === $route.params.parentId }">{{ path.name }}</span>
             <span class="divider" v-if="index+1 !== paths.length"> > </span>
           </li>
