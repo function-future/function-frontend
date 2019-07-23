@@ -97,12 +97,6 @@ export default {
         params: { parentId: id }
       })
     },
-    goToPreviousFolder (path) {
-      this.$router.push({
-        name: 'folder',
-        params: { parentId: path }
-      })
-    },
     downloadFileFromUrl (url) {
       let configuration = { responseType: 'arraybuffer' }
       url = url.replace('8080', '10001')
