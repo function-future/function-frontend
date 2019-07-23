@@ -161,6 +161,7 @@ export default {
         content: this.constructFormData(file)
       }
       let config = {
+        headers: { 'Content-Type': 'multipart/form-data' },
         onUploadProgress (progressEvent) {
           this.fileUploadList[0].progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
         }
