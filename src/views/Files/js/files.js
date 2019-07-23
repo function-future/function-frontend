@@ -52,7 +52,7 @@ export default {
     ]),
     initPage ($state) {
       this.state = $state
-      const data = {
+      let data = {
         parentId: this.$route.params.parentId,
         page: this.paging.page,
         size: this.paging.size
@@ -156,7 +156,7 @@ export default {
       return formData
     },
     upload (file) {
-      const data = {
+      let data = {
         parentId: this.$route.params.parentId,
         content: this.constructFormData(file, 'FILE')
       }
@@ -187,10 +187,10 @@ export default {
       this.fileUploadList = []
     },
     createFolderFromModal (title) {
-      const folder = { name: title }
       this.showCreateModal = false
+      let folder = { name: title }
       let config = { headers: { 'Content-Type': 'multipart/form-data' } }
-      const data = {
+      let data = {
         parentId: this.$route.params.parentId,
         content: this.constructFormData(folder, 'FOLDER')
       }
