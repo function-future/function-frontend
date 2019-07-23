@@ -85,6 +85,9 @@ export const actions = {
       commit('ASSIGN_CURRENT_QUESTIONNAIRE_DATA', response.data)
       cb(response)
     }, fail, data)
+  },
+  resetQuestionnaireList ( { state, commit } ) {
+    commit('RESET_MY_LIST_APPRAISEES')
   }
 }
 

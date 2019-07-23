@@ -11,8 +11,8 @@
                            :description="myQuestionnaire.description"
                            :startDate="myQuestionnaire.startDate"
                            :dueDate="myQuestionnaire.dueDate"
-                           :isDisable="myQuestionnaire.dueDate < Date.now()"
-                           v-on:click="goToListAppraisees(myQuestionnaire.id, myQuestionnaire.dueDate < Date.now())"
+                           :isDisable="myQuestionnaire.dueDate < Date.now() || myQuestionnaire.startDate > Date.now()"
+                           v-on:click="goToListAppraisees(myQuestionnaire.id, myQuestionnaire.dueDate < Date.now() || myQuestionnaire.startDate > Date.now())"
         ></QuestionnaireCard>
       </div>
     </div>

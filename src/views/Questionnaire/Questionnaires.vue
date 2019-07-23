@@ -6,20 +6,31 @@
           <BaseButton type="submit" buttonClass="button-save" @click="goToCreate">New</BaseButton>
         </div>
         <div class="search-bar-questionnaire">
-          <SearchBar/>
+          <SearchBar @input="searchHandler"></SearchBar>
         </div>
       </div>
       <div class="questionnaire-list-container">
-        <QuestionnaireCard v-for="myQuestionnaire in listQuestionnaires"
+        <QuestionnaireCard v-for="myQuestionnaire in questionnaires"
                            :id="myQuestionnaire.id"
                            :title="myQuestionnaire.title"
                            :description="myQuestionnaire.description"
                            :startDate="myQuestionnaire.startDate"
                            :dueDate="myQuestionnaire.dueDate"
                            :isEdit="true"
-                           :isDisable="false"
-                           @clickDelete="deleteQuestionnaireWithId(myQuestionnaire.id)"
+                           :isDisable="Date.now() > myQuestionnaire.startDate"
+                           @clickDelete="openDeleteModal(myQuestionnaire)"
         ></QuestionnaireCard>
+        <infinite-loading ref="infiniteLoading" :identifier="keyword" @infinite="infiniteHandler">
+          <div slot="no-more"></div>
+          <div slot="no-results"></div>
+        </infinite-loading>
+        <modal-delete-confirmation
+          v-if="deleteConfirmationModal.show"
+          @close="closeDeleteModal"
+          @clickDelete="deleteQuestionnaireWithId">
+          <div slot="description">
+            to delete questionnaire "{{deleteConfirmationModal.title}} "
+          </div>></modal-delete-confirmation>
       </div>
     </div>
   </div>

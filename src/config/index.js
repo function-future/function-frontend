@@ -421,8 +421,12 @@ module.exports = {
         }
       },
       questionnaire: {
-        getQuestionnaires (page, size) {
-          return `/api/communication/questionnaires?page=${page}&size=${size}`
+        getQuestionnaires (page, size, keyword) {
+          if( keyword == null) {
+            return `/api/communication/questionnaires?page=${page}&size=${size}`
+          } else {
+            return `/api/communication/questionnaires?page=${page}&size=${size}&search=${keyword}`
+          }
         },
         createQuestionnaire () {
           return `/api/communication/questionnaires`
