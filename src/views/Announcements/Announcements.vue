@@ -5,20 +5,23 @@
         <span><font-awesome-icon icon="plus" class="icon"/> Add</span>
       </BaseButton>
     </div>
-    <BaseCard
-      v-for="announcement in announcementList"
-      v-bind:key="announcement.id"
-      class="announcement-card"
-      cardClass="card-hover"
-      @click.native="goToAnnouncementDetail(announcement.id)">
-      <div class="announcement-header announcement-title">
-        <h3>{{ announcement.title }}</h3>
-      </div>
-      <div class="announcement-header float-right">
-        <div class="announcement-date">
-          {{ announcement.updatedAt |  moment("dddd, MMMM Do YYYY") }}
+    <div v-if="isLoading" class="loading">
+      <font-awesome-icon icon="spinner" spin class="icon-loading" size="lg"></font-awesome-icon>
+    </div>
+    <div v-if="!isLoading">
+      <BaseCard v-for="announcement in announcementList"
+                v-bind:key="announcement.id"
+                class="announcement-card"
+                cardClass="card-hover"
+                @click.native="goToAnnouncementDetail(announcement.id)">
+        <div class="announcement-header announcement-title">
+          <h3>{{ announcement.title }}</h3>
         </div>
-        <div class="announcement-action">
+        <div class="announcement-header float-right">
+          <div class="announcement-date">
+            {{ announcement.updatedAt |  moment("dddd, MMMM Do YYYY") }}
+          </div>
+          <div class="announcement-action">
           <span v-if="accessList.edit">
             <font-awesome-icon
               icon="edit"
@@ -27,17 +30,18 @@
               @click.stop="goToEditAnnouncement(announcement.id)">
             </font-awesome-icon>
           </span>
-          <span v-if="accessList.delete">
+            <span v-if="accessList.delete">
             <font-awesome-icon
-            icon="trash-alt"
-            class="icon red"
-            size="lg" @click.stop="openDeleteConfirmationModal(announcement.id)"></font-awesome-icon></span>
+              icon="trash-alt"
+              class="icon red"
+              size="lg" @click.stop="openDeleteConfirmationModal(announcement.id)"></font-awesome-icon></span>
+          </div>
         </div>
-      </div>
-      <div class="announcement-preview">
-        <span>{{ textPreview(announcement) }}</span>
-      </div>
-    </BaseCard>
+        <div class="announcement-preview">
+          <span>{{ textPreview(announcement) }}</span>
+        </div>
+      </BaseCard>
+    </div>
     <BasePagination :paging="paging"
                     @loadPage="loadPage"
                     @previousPage="loadPreviousPage"
@@ -102,5 +106,13 @@
   .button-div {
     text-align: right;
     margin-right: 20px;
+  }
+
+  .loading {
+    margin-top: 50px;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 </style>

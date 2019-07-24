@@ -155,6 +155,7 @@ describe('ActivityBlogs', () => {
 
   test('failLoadActivityBlogList', () => {
     wrapper.vm.failLoadActivityBlogList()
+    expect(wrapper.vm.isLoading).toEqual(false)
     expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
   })
 
@@ -186,6 +187,7 @@ describe('ActivityBlogs', () => {
       totalRecords: 20
     }
     wrapper.vm.successLoadActivityBlogList(paging)
+    expect(wrapper.vm.isLoading).toEqual(false)
     expect(wrapper.vm.paging).toEqual(paging)
   })
 

@@ -17,7 +17,7 @@ describe('ReminderCard', () => {
 
   test('toFirstUpperCase', () => {
     initWrapper({ reminder: { repeatDays: [] } })
-    expect(wrapper.vm.toFirstUpperCase('test')).toEqual('Test')
+    expect(wrapper.vm.toFirstUpperCase('tes')).toEqual('Tes')
   })
 
   test('formatDay repeatedMonthly', () => {
@@ -27,7 +27,7 @@ describe('ReminderCard', () => {
       repeatDays: []
     }
     initWrapper({ reminder })
-    expect(wrapper.vm.formatDay(reminder)).toEqual(24)
+    expect(wrapper.vm.formatDay(reminder)).toEqual('Every month on 24')
   })
 
   test('formatDay repeated weekly every day', () => {
@@ -47,6 +47,6 @@ describe('ReminderCard', () => {
       repeatDays: ['SUNDAY', 'MONDAY', 'TUESDAY']
     }
     initWrapper({ reminder })
-    expect(wrapper.vm.formatDay(reminder)).toEqual('Sunday, Monday, Tuesday')
+    expect(wrapper.vm.formatDay(reminder)).toEqual('Sun, Mon, Tue')
   })
 })

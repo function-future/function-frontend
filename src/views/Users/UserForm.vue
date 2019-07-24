@@ -1,6 +1,6 @@
 <template>
   <div class="scrollable-container">
-    <div class="form-container">
+    <div class="form-container" v-if="!isLoading || !editMode">
       <div class="row">
         <div class="column image-column">
           <div class="image" :style="{ backgroundImage: 'url(' + avatarPreview + ')' }">
@@ -22,7 +22,7 @@
             <div class="input inline">
               <BaseInput autofocus
                          v-model="userDetail.name"
-                         v-validate.continues="'required'"
+                         v-validate.continues="'required|alpha_spaces'"
                          name="name"></BaseInput>
               <div v-if="errors.has('name')"><span class="input-invalid-message">{{ errors.first('name') }}</span></div>
             </div>
@@ -31,7 +31,7 @@
             <div class="input-label inline">Phone</div>
             <div class="input inline">
               <BaseInput v-model="userDetail.phone"
-                         v-validate.continues="'required|numeric|min:9|max:14'"
+                         v-validate.continues="'required|numeric|min:10|max:13'"
                          name="phone" type="tel"></BaseInput>
               <div v-if="errors.has('phone')"><span class="input-invalid-message">{{ errors.first('phone') }}</span></div>
             </div>
@@ -62,7 +62,7 @@
                 v-validate.continues="'required'"
                 name="role"
                 :options="roles"></BaseSelect>
-              <div v-if="errors.has('roles')"><span class="input-invalid-message">{{ errors.first('roles') }}</span></div>
+              <div v-if="errors.has('role')"><span class="input-invalid-message">{{ errors.first('role') }}</span></div>
             </div>
           </div>
           <div class="input-wrapper">
@@ -76,11 +76,12 @@
           </div>
           <div class="input-wrapper" v-if="studentMode">
             <div class="input-label inline">Batch</div>
-            <div class="input inline" @click="showSelectBatchModal = true">
-              <div class="batch-select">
+            <div class="input inline">
+              <div class="batch-select" @click="showSelectBatchModal = true">
                 <BaseInput v-model="userDetail.batch.code"
                            v-validate.continues="'required'"
-                           name="batch" :disabled="true">
+                           name="batch" :disabled="true"
+                           placeholder="Select Student Batch">
                 </BaseInput>
               </div>
               <div v-if="errors.has('batch')"><span class="input-invalid-message">{{ errors.first('batch') }}</span></div>
@@ -96,6 +97,9 @@
           <BaseButton type="submit" buttonClass="button-save" @click="save">Save</BaseButton>
         </div>
       </div>
+    </div>
+    <div class="loading" v-if="isLoading && editMode">
+      <font-awesome-icon icon="spinner" spin class="icon-loading" size="lg"></font-awesome-icon>
     </div>
     <modal-select-batch v-if="showSelectBatchModal" @close="closeModal"
                 @select="selectBatch">
@@ -204,5 +208,13 @@
     font-size: 0.75em;
     float: left;
     margin-left: 2vw;
+  }
+
+  .loading {
+    margin-top: 50px;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 </style>

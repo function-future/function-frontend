@@ -111,6 +111,8 @@ module.exports = {
         edit: '/reminders/:reminderId/edit',
         create: '/reminders/create'
       },
+      notifications: '/notifications'
+      },
       myQuestionnaire: {
         default: '/my-questionnaire',
         appraisee: '/my-questionnaire/:questionnaireId/appraisees',
@@ -276,9 +278,7 @@ module.exports = {
         list (page, pageSize) {
           return `/api/scoring/question-banks?page=${page}&size=${pageSize}`
         },
-        create (page, pageSize) {
-          return `/api/scoring/question-banks`
-        },
+        create: `/api/scoring/question-banks`,
         detail (id) {
           return `/api/scoring/question-banks/${id}`
         },

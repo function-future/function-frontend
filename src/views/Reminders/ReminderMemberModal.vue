@@ -7,7 +7,7 @@
           <p class="modal__header__title"><strong>Add Member</strong></p>
         </div>
         <div class="modal__body">
-          <SearchBar @input="changeKeyword" />
+          <SearchBar @input="changeKeyword" @keyup="enterPressHandler" />
             <template v-for="(user, index) in usersWithoutSelectedOne">
               <UserListCard :name="user.name"
                             :class="{'recommendation-user': index === 0 && name}"

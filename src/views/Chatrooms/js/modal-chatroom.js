@@ -21,7 +21,8 @@ export default {
       users: [],
       selectedUsers: [],
       name: null,
-      wrongName: false
+      wrongName: false,
+      nameMember: ''
     }
   },
   props: {
@@ -44,6 +45,11 @@ export default {
       result.push(this.currentUser.id)
       return result
     },
+    enterSearchHandler (event) {
+      if (event.keyCode === 13 && this.nameMember) {
+        this.selectedUsers.push(this.usersWithoutSelectedOne[0])
+      }
+    },
     close () {
       this.$emit('close')
     },
@@ -59,7 +65,11 @@ export default {
       }
     },
     changeKeyword (value) {
+      this.nameMember = value
       this.callSearchUserApi(value)
+    },
+    errorHandler (err) {
+      console.log(err)
     },
     callSearchUserApi (name) {
       usersApi.searchUser(response => {
@@ -70,7 +80,7 @@ export default {
           size: 10,
           name: name
         }
-      }, err => console.log(err))
+      }, this.errorHandler)
     },
     enterPressed (event) {
       if (event.keyCode === 13 && (this.selectedUsers.length > 1 && this.name)) {
@@ -90,7 +100,7 @@ export default {
           this.name = response.data.name
         }
         this.selectedUsers = response.data.members.filter(user => user.id !== this.currentUser.id)
-      }, err => console.log(err), {
+      }, this.errorHandler, {
         params: {
           chatroomId: this.chatroomId
         }

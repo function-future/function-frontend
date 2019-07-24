@@ -13,6 +13,7 @@
         <div slot="no-results"></div>
       </infinite-loading>
     </div>
+    <ModalDeleteConfirmation v-if="showDeleteConfirmation" @clickDelete="deleteReminder" @close="showDeleteConfirmation = false" />
   </div>
 </template>
 

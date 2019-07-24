@@ -45,6 +45,11 @@ export default {
       this.$emit('addMember', user)
       this.close()
     },
+    enterPressHandler (event) {
+      if (event.keyCode === 13 && this.users.length > 0) {
+        this.addMemberHandler(this.users[0])
+      }
+    },
     changeKeyword (value) {
       this.name = value
       this.callSearchUserApi()
@@ -58,7 +63,10 @@ export default {
           size: 10,
           name: this.name
         }
-      }, err => console.log(err))
+      }, this.errorHandler)
+    },
+    errorHandler (err) {
+      console.log(err)
     }
   },
   created () {
