@@ -40,7 +40,8 @@ export default {
       'fetchCurrentQuestionnaireData',
       'fetchCurrentQuestions',
       'saveAppraisee',
-      'fetchCurrentQuestionsQuestionnaire'
+      'fetchCurrentQuestionsQuestionnaire',
+      'resetQuestionnaireList'
     ]),
     ...mapMutations([
       'RESET_MY_LIST_APPRAISEE',
@@ -118,6 +119,7 @@ export default {
         myQuestionnaireApi.addQuestionnaireResponse(response => {
           this.$toasted.success('success submit questionnaire response')
           this.backToAppraiseePage()
+          this.resetQuestionnaireList()
         }, this.errorCallback,
         {
           params: {
@@ -141,7 +143,6 @@ export default {
       })
     },
     updateCurrentQuestionanireForm (questionNewValue) {
-      console.log(questionNewValue)
       this.currentQuestionnaireForm.forEach(question => {
         if (question.id === questionNewValue.id) {
           question.score = questionNewValue.score
@@ -188,6 +189,7 @@ export default {
   destroyed () {
     this.questionnaireForm = this.questionnaireForm.default
     this.responses = []
+
   }
 
 }

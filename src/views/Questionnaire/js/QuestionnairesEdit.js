@@ -101,8 +101,10 @@ export default {
       })
     },
     goToUpdateDescription () {
-      console.log('send update')
-      if (this.currentQuestionnaireAdmin.title === ' ' || this.currentQuestionnaireAdmin.description === ' ') {
+
+      if (this.currentQuestionnaireAdmin.title[0] === ' ') {
+        this.$toasted.error(' first character in title cannot be white space')
+      } else if (this.currentQuestionnaireAdmin.title === ' ' || this.currentQuestionnaireAdmin.description === ' ') {
         this.$toasted.error(' title and description must be filled')
       } else if (this.currentQuestionnaireAdmin.startDate >= this.currentQuestionnaireAdmin.dueDate) {
         this.$toasted.error('due date should greater than start date ')
@@ -129,13 +131,8 @@ export default {
       }
     },
     submitMessageErrorCallback (err) {
-      this.resetProps()
       console.log(err)
-      this.$toasted.error('Fail to createQuestionnaire')
-    },
-    AlertEdit (question) {
-      alert('this one edit')
-      console.log(question)
+      this.$toasted.error('Fail to updateQuestionnaire')
     },
     resetDeleteConfirmationModalQuestion () {
       this.deleteConfirmationModalQuestion.show = false

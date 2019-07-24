@@ -1,37 +1,58 @@
 import SearchBar from '@/components/SearchBar'
 import BaseButton from '@/components/BaseButton'
 import QuestionnaireCard from '../QuestionnaireCard'
-import { mapGetters, mapActions, mapMutations } from 'vuex'
 import questionnaireApi from '@/api/controller/questionnaire'
+import InfiniteLoading from 'vue-infinite-loading'
+import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
 
 export default {
   name: 'Questionnaires',
   components: {
     SearchBar,
     BaseButton,
-    QuestionnaireCard
+    QuestionnaireCard,
+    InfiniteLoading,
+    ModalDeleteConfirmation
+  },
+  data () {
+    return {
+      questionnaires: [],
+      keyword: null,
+      page: 1,
+      size: 10,
+      deleteConfirmationModal: {
+        show: false,
+        id: '',
+        title: ''
+      }
+    }
   },
   methods: {
-    ...mapActions([
-      'fetchListQuestionnaires'
-    ]),
-    ...mapMutations([
-      'RESET_LIST_QUESTIONNAIRES',
-      'PUSH_LIST_QUESTIONNAIRES'
-    ]),
     goToCreate () {
       this.$router.push({
         name: 'questionnairesCreate'
       })
     },
-    deleteQuestionnaireWithId (questionnaireId) {
+    openDeleteModal (value) {
+      this.deleteConfirmationModal.show = true
+      this.deleteConfirmationModal.id = value.id
+      this.deleteConfirmationModal.title = value.title
+    },
+    closeDeleteModal () {
+      this.deleteConfirmationModal.show = false
+      this.deleteConfirmationModal.id = ''
+      this.deleteConfirmationModal.title = ''
+    },
+    deleteQuestionnaireWithId () {
       questionnaireApi.deleteQuestionnaire(response => {
         this.$toasted.success('successs delete')
-        this.fecthingDataQuestionnaires()
+        this.$refs.infiniteLoading.stateChanger.reset()
+        this.resetState()
+        this.closeDeleteModal()
       }, this.submitMessageErrorCallback,
       {
         params: {
-          questionnaireId: questionnaireId
+          questionnaireId: this.deleteConfirmationModal.id
         }
       })
     },
@@ -39,32 +60,48 @@ export default {
       console.log(err)
       this.$toasted.error('Fail to deleteQuestionnaire')
     },
-    fecthingDataQuestionnaires () {
-      this.fetchListQuestionnaires({
-        data: {
-          page: 1,
-          size: 10
-        },
-        fail: (err) => {
-          console.log(err)
+    searchHandler (value) {
+      this.page = 1
+      this.keyword = value
+      questionnaireApi.getQuestionnaires(response => {
+        this.questionnaires = response.data
+      }, this.errorCallback, {
+        params: {
+          page: this.page,
+          size: this.size,
+          keyword: this.keyword
         }
       })
-    }
-  },
-  computed: {
-    ...mapGetters([
-      'listQuestionnaires'
-    ])
-  },
-  created () {
-    this.fetchListQuestionnaires({
-      data: {
-        page: 1,
-        size: 10
-      },
-      fail: (err) => {
-        console.log(err)
+    },
+    infiniteHandler ($state) {
+      if (!this.keyword) {
+        questionnaireApi.getQuestionnaires(response => {
+          if (this.page === 1) {
+            this.questionnaires = []
+          }
+          if (response.data.length) {
+            this.page += 1
+            this.questionnaires.push(...response.data)
+            $state.loaded()
+          } else {
+            $state.complete()
+          }
+        }, this.errorCallback, {
+          params: {
+            page: this.page,
+            size: this.size,
+            keyword: this.keyword
+          }
+        })
+      } else {
+        $state.complete()
       }
-    })
+    },
+    resetState () {
+      this.questionnaires = []
+      this.keyword = ''
+      this.page = 1
+      this.size = 10
+    }
   }
 }
