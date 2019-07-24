@@ -30,16 +30,13 @@
       <li v-if="menuList.reminders">
         <router-link class="navbar-link" :to="{ name: 'reminders' }">Reminders</router-link>
       </li>
-      <li>
+      <li v-if="menuList.myQuestionnaire">
         <router-link class="navbar-link" :to="{ name: 'myQuestionnaire'}" >My Questionnaire</router-link>
       </li>
-      <li class="navbar-link questionnaire-menu" @click="toggleQuestionnaireMenu" v-if="!showQuestionnaire">
+      <li class="navbar-link questionnaire-menu" @click="toggleQuestionnaireMenu" v-if="menuList.questionnaireAdmin">
         <span>Questionnaires Admin</span>
-        <font-awesome-icon icon="chevron-down" class="icon icon-questionnaire"/>
-      </li>
-      <li class="navbar-link questionnaire-menu" @click="toggleQuestionnaireMenu" v-else>
-        <span>Questionnaires Admin</span>
-        <font-awesome-icon icon="chevron-up" class="icon icon-questionnaire"/>
+        <font-awesome-icon icon="chevron-down" class="icon icon-questionnaire" v-if="!showQuestionnaire"/>
+        <font-awesome-icon icon="chevron-up" class="icon icon-questionnaire" v-else/>
       </li>
       <transition name="fade">
         <ul v-if="showQuestionnaire" class="questionnaire-submenu">
