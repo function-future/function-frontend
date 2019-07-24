@@ -13,7 +13,7 @@
           </BaseCard>
         </div>
         <div class="modal__body scrollable-container">
-          <label class="batch__row" v-for="student in students" :key="student.id">
+          <label class="batch__row" v-for="student in studentList" :key="student.id">
             <div class="batch__col"><input type="checkbox"
                                            :value="student"
                                            :disabled="selectedStudents.length >=3 && selectedStudents.indexOf(student) === -1"
@@ -25,6 +25,13 @@
                                                            :key="student.id"
                                                            :avatar="student.avatar"></UserListCard></div>
           </label>
+          <infinite-loading direction="top"
+                            @infinite="initStudents"
+                            spinner="spiral"
+                            force-use-infinite-wrapper=".scrollable">
+            <div slot="no-more"></div>
+            <div slot="no-results"></div>
+          </infinite-loading>
         </div>
         <div class="modal__footer">
           <BaseButton class="modal__footer__button" type="cancel" buttonClass="button-cancel" @click="close">Cancel</BaseButton>
