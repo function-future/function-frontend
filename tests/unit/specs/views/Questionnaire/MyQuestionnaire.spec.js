@@ -59,6 +59,10 @@ describe('ModalAddQuestion', () => {
     })
   }
 
+  afterEach(() => {
+    jest.resetAllMocks()
+  })
+
   test('sanity test', () => {
     expect(true).toBe(true)
   })

@@ -111,8 +111,7 @@ module.exports = {
         edit: '/reminders/:reminderId/edit',
         create: '/reminders/create'
       },
-      notifications: '/notifications'
-      },
+      notifications: '/notifications',
       myQuestionnaire: {
         default: '/my-questionnaire',
         appraisee: '/my-questionnaire/:questionnaireId/appraisees',
@@ -278,7 +277,9 @@ module.exports = {
         list (page, pageSize) {
           return `/api/scoring/question-banks?page=${page}&size=${pageSize}`
         },
-        create: `/api/scoring/question-banks`,
+        create (page, pageSize) {
+          return `/api/scoring/question-banks`
+        },
         detail (id) {
           return `/api/scoring/question-banks/${id}`
         },
@@ -422,7 +423,7 @@ module.exports = {
       },
       questionnaire: {
         getQuestionnaires (page, size, keyword) {
-          if( keyword == null) {
+          if ( keyword == null) {
             return `/api/communication/questionnaires?page=${page}&size=${size}`
           } else {
             return `/api/communication/questionnaires?page=${page}&size=${size}&search=${keyword}`

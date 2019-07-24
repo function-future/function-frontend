@@ -15,7 +15,9 @@ describe('Questionnaire Controller', () => {
   test('getQuestionnaires', () => {
     const spy = jest.spyOn(request, 'getRequest')
     const callback = jest.fn()
-    const data = {}
+    const data = {
+      params: {}
+    }
     const errorHandler = jest.fn()
     questionnaireApi.getQuestionnaires(callback, errorHandler, data)
     expect(spy).toBeCalledTimes(1)
