@@ -26,7 +26,7 @@
     </div>
 </template>
 
-<script src="./js/QuestionnaireResultsMembers.js">
+<script src="./js/questionnaire-results-members.js">
 </script>
 
 <style scoped>

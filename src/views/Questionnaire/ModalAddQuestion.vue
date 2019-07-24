@@ -20,7 +20,7 @@
   </div>
 </template>
 
-<script type="text/javascript" src="./js/ModalAddQuestion.js"></script>
+<script type="text/javascript" src="./js/modal-add-question.js"></script>
 
 <style lang="scss" scoped>
   .modal {

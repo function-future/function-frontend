@@ -82,7 +82,7 @@
     </div>
 </template>
 
-<script src="./js/QuestionnairesEdit.js">
+<script src="./js/questionnaires-edit.js">
 </script>
 
 <style scoped>

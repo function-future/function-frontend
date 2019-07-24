@@ -19,7 +19,7 @@
   </div>
 </template>
 
-<script src="./js/MyQuestionnaire.js">
+<script src="./js/my-questionnaire.js">
 
 </script>
 

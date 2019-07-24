@@ -15,7 +15,7 @@
   </div>
 </template>
 
-<script src="./js/QuestionnaireParticipantSimpleCard.js">
+<script src="./js/questionnaire-participant-simple-card.js">
 
 </script>
 

@@ -15,7 +15,7 @@
   </div>
 </template>
 
-<script src="./js/QuestionnairesCreate.js">
+<script src="./js/questionnaires-create.js">
 </script>
 
 <style scoped>

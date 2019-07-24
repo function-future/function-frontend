@@ -48,7 +48,7 @@
     </div>
 </template>
 
-<script src="./js/MyQuestionnaireAppraisee.js">
+<script src="./js/my-questionnaire-appraisee.js">
 </script>
 
 <style scoped>

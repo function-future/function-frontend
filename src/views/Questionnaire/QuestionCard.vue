@@ -20,7 +20,7 @@
   </div>
 </template>
 
-<script src="./js/QuestionCard.js">
+<script src="./js/question-card.js">
 
 </script>
 

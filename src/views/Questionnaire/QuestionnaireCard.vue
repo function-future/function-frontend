@@ -37,7 +37,7 @@
     </div>
 </template>
 
-<script src="./js/QuestionnaireCard.js">
+<script src="./js/questionnaire-card.js">
 </script>
 
 <style scoped>
