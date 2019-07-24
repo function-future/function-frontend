@@ -112,7 +112,6 @@ export default {
           id: this.$route.params.judgingId,
           ...this.judgingDetail
         }
-        console.log(payload)
         this.updateJudging({
           data,
           payload,
