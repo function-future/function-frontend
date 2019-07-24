@@ -69,7 +69,7 @@ export default {
             id: item.id
           },
           callback: this.getUserById,
-          fail: (err) => {console.log(err)}
+          fail: this.failedFetchingJudgingDetail
         })
       })
       this.isLoading = false
