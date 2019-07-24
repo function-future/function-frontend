@@ -1,7 +1,7 @@
 import BaseCard from '@/components/BaseCard'
 import SearchBar from '@/components/SearchBar'
-import QuestionnaireCard from '../QuestionnaireCard'
-import { mapActions, mapGetters, mapMutations } from 'vuex'
+import QuestionnaireCard from '@/views/Questionnaire/QuestionnaireCard'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'MyQuestionnaire',
@@ -23,10 +23,6 @@ export default {
     ...mapActions([
       'fetchMyQuestionnaires'
     ]),
-    ...mapMutations([
-      'RESET_MY_QUESTIONNAIRE',
-      'PUSH_MY_QUESTIONNAIRE'
-    ]),
     goToListAppraisees (questionnaireId, disabled) {
       if (!disabled) {
         this.$router.push({
@@ -34,6 +30,9 @@ export default {
           params: { questionnaireId: questionnaireId }
         })
       }
+    },
+    errorHandler (err) {
+      console.log(err)
     }
   },
   created () {
@@ -44,9 +43,7 @@ export default {
           size: 10
         }
       },
-      fail: (err) => {
-        console.log(err)
-      }
+      fail: this.errorHandler
     }
     )
   }
