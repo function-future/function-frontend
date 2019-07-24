@@ -97,10 +97,11 @@
           &-item {
             width: 90%;
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             justify-content: center;
             &-image {
               flex: 1;
+              width: 30%;
             }
             &-detail {
               display: flex;

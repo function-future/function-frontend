@@ -19,7 +19,7 @@ export default {
       judgingDetail: {
         name: '',
         description: '',
-        studentIds: []
+        students: []
       },
       selectedStudents: [],
       isLoading: true,
@@ -33,7 +33,8 @@ export default {
   computed: {
     ...mapGetters([
       'judging',
-      'students'
+      'students',
+      'user'
     ]),
     returnButtonText () {
       return this.editMode ? 'Cancel' : 'Return'
@@ -45,9 +46,8 @@ export default {
   methods: {
     ...mapActions([
       'fetchJudgingDetail',
-      'updateJudging',
-      'fetchUsersByRole',
-      'setStudentList'
+      'fetchUserById',
+      'updateJudging'
     ]),
     initPage () {
       this.fetchJudgingDetail({
@@ -60,29 +60,22 @@ export default {
       })
     },
     successFetchingJudgingDetail () {
-      //TODO: NEED TO GET ALL STUDENTS NOT BY PAGE
-      //TODO: NEED TO INFINITE LOAD STUDENT MODAL
-      this.fetchUsersByRole({
-        data: {
-          page: 1,
-          size: 10,
-          role: 'STUDENT',
-        },
-        callback: this.successFetchingUsersByRole,
-        fail: this.failedFetchingUsersByRole
-      })
       this.judgingDetail.name = this.judging.name
       this.judgingDetail.description = this.judging.description
-    },
-    successFetchingUsersByRole (response) {
-      this.setStudentList({ data: response.data })
-      this.judging.studentIds.forEach((item) => {
-        this.selectedStudents.push(this.students.find((student) => student.id === item))
+      this.judgingDetail.students = this.judging.students
+      this.judging.students.forEach((item) => {
+        this.fetchUserById({
+          data: {
+            id: item.id
+          },
+          callback: this.getUserById,
+          fail: (err) => {console.log(err)}
+        })
       })
       this.isLoading = false
     },
-    failedFetchingUsersByRole (err) {
-      console.log(err)
+    getUserById () {
+      this.selectedStudents.push(this.user)
     },
     failedFetchingJudgingDetail () {
       this.$toasted.error('Something went wrong')
@@ -107,8 +100,9 @@ export default {
     },
     actionButtonClicked () {
       if (this.editMode) {
+        this.judgingDetail.students = []
         this.selectedStudents.forEach((item) => {
-          this.judgingDetail.studentIds.push(item.id)
+          this.judgingDetail.students.push(item.id)
         })
         let data = {
           batchCode: this.$route.params.batchCode,

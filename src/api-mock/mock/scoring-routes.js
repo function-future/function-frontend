@@ -1067,14 +1067,25 @@ export const finalJudgingDetail = [
           "id": "FNC0001",
           "name": "Final Comparison 1",
           "description": "Final Comparison of Students",
-          "studentIds": [
-            "sample-id-student",
-            "sample-id-2",
-            "sample-id-3"
-          ],
           "batchCode": "3",
           "uploadedDate": 15000000000,
-          "studentCount": 3
+          "studentCount": 3,
+          "students": [
+            {
+              "id": "sample-id-student",
+              "name": "Student",
+              "university": "University",
+              "avatar": "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
+              "batchCode": "3"
+            },
+            {
+              "id": "sample-id-2",
+              "name": "Student 2",
+              "university": "University",
+              "avatar": "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
+              "batchCode": "3"
+            }
+          ]
         }
       }
   },

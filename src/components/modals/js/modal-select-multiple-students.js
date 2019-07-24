@@ -13,7 +13,6 @@ export default {
   props: ['currentlySelected'],
   data () {
     return {
-      studentList: [],
       selectedStudents: [],
       paging: {
         page: 1,
@@ -53,9 +52,9 @@ export default {
         fail: this.failFetchingUsers
       })
     },
-    successFetchingUsers () {
+    successFetchingUsers (response) {
+      this.setStudentList({ data: response.data })
       this.selectedStudents = [ ...this.currentlySelected ]
-      // this.students = this.batchList.filter(batch => batch.code !== this.$route.params.batchCode)
     },
     failFetchingUsers () {
       this.$toasted.error('Fail to fetch batches, please try again')
