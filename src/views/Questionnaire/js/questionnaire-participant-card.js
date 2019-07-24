@@ -15,8 +15,6 @@ export default {
     isResult: Boolean,
     score: Number
   },
-  method: {
-  },
   computed: {
     computedRole () {
       let res = this.role.substring(1, this.role.length).toLocaleLowerCase()
