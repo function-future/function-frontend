@@ -52,7 +52,7 @@ export const mutations = {
   },
   PUSH_CURRENT_QUESTION_DETAIL_RESPONSES_LIST (state, payload) {
     state.currentResultsQuestionDetailResponsesList.push(...payload)
-  },
+  }
 }
 
 export const actions = {
@@ -62,13 +62,13 @@ export const actions = {
       commit('PUSH_LIST_APPRAISEE_RESULTS', response.data)
     }, fail, data)
   },
-  fetchCurrentAppraiseeResults ( { state, commit }, { data, fail }) {
+  fetchCurrentAppraiseeResults ({ state, commit }, { data, fail }) {
     questionnaireResultsApi.getUserSummaryById(response => {
       commit('RESET_CURRENT_APPRAISEE_RESULTS')
       commit('ASSIGN_CURRENT_APPRAISEE_RESULTS', response.data)
     }, fail, data)
   },
-  fetchCurrentAppraiseeResultsQuestionnaires ( { state, commit }, { data, fail }) {
+  fetchCurrentAppraiseeResultsQuestionnaires ({ state, commit }, { data, fail }) {
     questionnaireResultsApi.getQuestionnairesSimpleSummary(response => {
       commit('RESET_CURRENT_APPRAISEE_RESULTS_QUESTIONNAIRES')
       commit('PUSH_CURRENT_APPRAISEE_RESULTS_QUESTIONNAIRES', response.data)
@@ -96,7 +96,6 @@ export const actions = {
     questionnaireResultsApi.getQuestionnaireAnswerDetailResponse(response => {
       commit('RESET_CURRENT_QUESTION_DETAIL_RESPONSES_LIST')
       commit('PUSH_CURRENT_QUESTION_DETAIL_RESPONSES_LIST', response.data)
-      console.log('masuk sini')
       cb(response)
     }, fail, data)
   }
