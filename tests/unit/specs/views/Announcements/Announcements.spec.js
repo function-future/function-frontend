@@ -1,9 +1,8 @@
 import announcements from '@/views/Announcements/Announcements'
 import { shallowMount, mount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
-import BaseCard from '@/components/BaseCard'
 
- const localVue = createLocalVue()
+const localVue = createLocalVue()
 localVue.use(Vuex)
 
 describe('Announcements', () => {
@@ -141,31 +140,6 @@ describe('Announcements', () => {
     expect(wrapper.isVueInstance()).toBe(true)
   })
 
-  test('goToAnnouncementDetail is called @click', () => {
-    const spy = jest.spyOn(announcements.methods, 'goToAnnouncementDetail')
-    const $route = {
-      path: '/announcements',
-      name: 'announcements',
-      meta: {
-        title: 'Announcements'
-      }
-    }
-    const $router = {
-      push: jest.fn()
-    }
-    wrapper = shallowMount(announcements, {
-      store,
-      localVue,
-      mocks: {
-        $route,
-        $router
-      },
-      sync: false
-    })
-    wrapper.find('.announcement-card').trigger('click')
-    expect(spy).toBeCalledTimes(1)
-  })
-
   test('goToAnnouncementDetail $route.push to announcementDetail', () => {
     const push = jest.fn()
     const $route = {
@@ -248,31 +222,6 @@ describe('Announcements', () => {
     expect(push).toBeCalledWith({name: 'addAnnouncement'})
   })
 
-  test('goToEditAnnouncement is called @click', () => {
-    const spy = jest.spyOn(announcements.methods, 'goToEditAnnouncement')
-    const $route = {
-      path: '/announcements',
-      name: 'announcements',
-      meta: {
-        title: 'Announcements'
-      }
-    }
-    const $router = {
-      push: jest.fn()
-    }
-    wrapper = mount(announcements, {
-      store,
-      localVue,
-      mocks: {
-        $route,
-        $router
-      },
-      sync: false
-    })
-    wrapper.find('.blue').trigger('click')
-    expect(spy).toBeCalledTimes(1)
-  })
-
   test('goToEditAnnouncement $route.push to editAnnouncement', () => {
     const push = jest.fn()
     const $route = {
@@ -325,9 +274,11 @@ describe('Announcements', () => {
       },
       sync: false
     })
-    console.log(wrapper.vm.$store.getters.announcementList)
+    const announcement = {
+      summary: 'Summary goes here. Maximum 70 characters?'
+    }
+    wrapper.vm.textPreview(announcement)
     expect(spy).toBeCalledWith('Summary goes here. Maximum 70 characters?')
-    expect(spy).toBeCalledTimes(5)
   })
 
   test('textPreview without summary', () => {
@@ -351,8 +302,12 @@ describe('Announcements', () => {
       },
       sync: false
     })
+    const announcement = {
+      summary: '',
+      description: 'Description goes here. Currently there is no limit to description length.'
+    }
+    wrapper.vm.textPreview(announcement)
     expect(spy).toBeCalledWith('Description goes here. Currently there is no limit to description length.')
-    expect(spy).toBeCalledTimes(5)
   })
 
   test('openDeleteConfirmationModal', () => {
@@ -449,6 +404,7 @@ describe('Announcements', () => {
       sync: false
     })
     wrapper.vm.failLoadingAnnouncementList()
+    expect(wrapper.vm.isLoading).toEqual(false)
     expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
   })
 
@@ -499,6 +455,7 @@ describe('Announcements', () => {
       totalRecords: 20
     }
     wrapper.vm.successLoadAnnouncementList(paging)
+    expect(wrapper.vm.isLoading).toEqual(false)
     expect(wrapper.vm.paging).toEqual(paging)
   })
 

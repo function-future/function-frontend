@@ -1,5 +1,5 @@
 <template>
-    <div @click="$emit('click')" class="card" :class="cardClass">
+    <div class="card" :class="cardClass">
       <slot></slot>
     </div>
 </template>
@@ -21,6 +21,11 @@
 
   .custom-card {
     border-radius: 15px;
+    padding: 15px;
+  }
+
+  .notification-card {
+    border-radius: 10px;
     padding: 15px;
   }
 

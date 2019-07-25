@@ -22,7 +22,7 @@
   </div>
 </template>
 
-<script src="./js/QuestionnaireParticipantCard.js">
+<script src="./js/questionnaire-participant-card.js">
 </script>
 
 <style scoped>

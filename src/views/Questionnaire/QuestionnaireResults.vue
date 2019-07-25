@@ -19,7 +19,7 @@
   </div>
 </template>
 
-<script src="./js/QuestionnaireResults.js">
+<script src="./js/questionnaire-results.js">
 </script>
 
 <style scoped>

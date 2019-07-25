@@ -72,7 +72,7 @@ export const actions = {
   saveAppraisee ({ commit }, data) {
     commit('ASSIGN_CURRENT_APPRAISEE_TO_SCORE', data.name)
   },
-  fetchCurrentQuestionsQuestionnaire ({ state, commit }, { data, fail, cb}) {
+  fetchCurrentQuestionsQuestionnaire ({ state, commit }, { data, fail, cb }) {
     myQuestionnaireApi.getQuestion(response => {
       commit('RESET_QUESTIONS_QUESTIONNAIRE')
       commit('PUSH_QUESTIONS_QUESTIONNAIRE', response.data)
@@ -86,7 +86,7 @@ export const actions = {
       cb(response)
     }, fail, data)
   },
-  resetQuestionnaireList ( { state, commit } ) {
+  resetQuestionnaireList ({ state, commit }) {
     commit('RESET_MY_LIST_APPRAISEES')
   }
 }

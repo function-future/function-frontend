@@ -27,10 +27,6 @@ export default {
       dueDateDisplay: 0
     }
   },
-  computed: {
-  },
-  methods: {
-  },
   watch: {
     value () {
       this.$emit('input', this.value)

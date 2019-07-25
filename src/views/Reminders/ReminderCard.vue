@@ -1,5 +1,5 @@
 <template>
-  <BaseCard @click="$emit('click', reminder.id)" cardClass="custom-card" class="reminder__element-card">
+  <BaseCard @click.native="$emit('click', reminder.id)" cardClass="custom-card" class="reminder__element-card">
     <div class="reminder__element-card__wrapper">
       <div class="reminder__element-card__content">
         <h3>{{ reminder.title }}</h3>

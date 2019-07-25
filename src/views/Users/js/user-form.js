@@ -20,6 +20,7 @@ export default {
   ],
   data () {
     return {
+      isLoading: false,
       showSelectBatchModal: false,
       maximumSizeAlert: false,
       avatarPreview: '',
@@ -72,6 +73,7 @@ export default {
     initPage () {
       this.initialState()
       if (this.editMode) {
+        this.isLoading = true
         this.getUserDetail()
       }
     },
@@ -85,6 +87,7 @@ export default {
       })
     },
     successFetchUserById () {
+      this.isLoading = false
       this.setUserDetail()
     },
     failFetchUserById () {

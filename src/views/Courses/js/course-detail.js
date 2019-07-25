@@ -125,6 +125,7 @@ export default {
     },
     downloadMaterial (url) {
       let configuration = { responseType: 'arraybuffer' }
+      url = url.replace('8080', '10001')
       this.downloadCourseMaterial({
         data: url,
         configuration,
@@ -135,7 +136,8 @@ export default {
     successDownloadMaterial (response) {
       this.forceFileDownload(response)
     },
-    failDownloadMaterial () {
+    failDownloadMaterial (err) {
+      console.log(err)
       this.$toasted.error('Fail to download material, please try again')
     },
     forceFileDownload (response) {

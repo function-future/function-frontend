@@ -15,6 +15,7 @@ export default {
   },
   data () {
     return {
+      isLoading: false,
       paging: {
         page: 1,
         size: 10
@@ -39,6 +40,7 @@ export default {
       'deleteActivityBlogById'
     ]),
     loadActivityBlogList () {
+      this.isLoading = true
       this.paging = { ...this.paging }
       let data = { ...this.paging }
       this.fetchActivityBlogs({
@@ -86,9 +88,11 @@ export default {
       })
     },
     successLoadActivityBlogList (paging) {
+      this.isLoading = false
       this.paging = paging
     },
     failLoadActivityBlogList () {
+      this.isLoading = false
       this.$toasted.error('Fail to load activity blogs list')
     },
     successDeleteActivityBlogById () {

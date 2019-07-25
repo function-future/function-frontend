@@ -72,8 +72,8 @@
   }
 
   .reminder-input:disabled {
-    background: #F5F5F5;
-    color: #333333;
+    background: #ffffff;
+    color: rgb(84, 84, 84);
   }
 
   .wrong-input {

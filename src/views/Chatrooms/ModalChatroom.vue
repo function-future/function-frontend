@@ -7,10 +7,11 @@
           <p class="modal__header__title"><strong>{{ chatroomId ? 'Update Chatroom' : 'Create Chatroom' }}</strong></p>
         </div>
         <div class="modal__body">
-          <SearchBar @input="changeKeyword" />
+          <SearchBar @keyup="enterSearchHandler" @input="changeKeyword" />
           <div v-if="usersWithoutSelectedOne.length > 0" class="modal__body__result">
-            <template v-for="user in usersWithoutSelectedOne">
+            <template v-for="(user, index) in usersWithoutSelectedOne">
               <UserListCard :name="user.name"
+                            :class="{'recommendation-user': index === 0 && nameMember}"
                             :university="user.university"
                             :role="user.role"
                             :batch="user.batch ? user.batch.name : null"
@@ -49,6 +50,9 @@
 </script>
 
 <style lang="scss" scoped>
+  .recommendation-user {
+    border: 2px solid #0074D9;
+  }
 
   .selected-user {
     display: flex;

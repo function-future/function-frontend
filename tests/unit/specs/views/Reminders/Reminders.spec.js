@@ -74,6 +74,35 @@ describe('Reminders', () => {
     expect($state.complete).toBeCalledTimes(1)
   })
 
+  test('infiniteHandler page 2 response data === 0', () => {
+    reminderApi.getReminders = success => {
+      success({
+        data: []
+      })
+    }
+    const $state = {
+      loaded: jest.fn(),
+      complete: jest.fn()
+    }
+
+    initComponent()
+    wrapper.vm.page = 2
+    wrapper.vm.infiniteHandler($state)
+    expect($state.complete).toBeCalledTimes(1)
+  })
+
+  test('infiniteHandler with keyword', () => {
+    const $state = {
+      loaded: jest.fn(),
+      complete: jest.fn()
+    }
+
+    initComponent()
+    wrapper.vm.keyword = 'keyword'
+    wrapper.vm.infiniteHandler($state)
+    expect($state.complete).toBeCalledTimes(1)
+  })
+
   test('searchHandler', () => {
     reminderApi.getReminders = success => {
       success({
@@ -95,7 +124,7 @@ describe('Reminders', () => {
     expect(console.log).toBeCalledTimes(1)
   })
 
-  test('removeHandler with keyword', () => {
+  test('deleteReminder with keyword', () => {
     reminderApi.deleteReminder = success => {
       success()
     }
@@ -103,11 +132,11 @@ describe('Reminders', () => {
       .mockImplementation(() => Promise.resolve())
     initComponent()
     wrapper.vm.keyword = 'keyword'
-    wrapper.vm.removeHandler('reminderId')
+    wrapper.vm.deleteReminder()
     expect(spy).toBeCalledTimes(1)
   })
 
-  test('removeHandler without keyword', () => {
+  test('deleteReminder without keyword', () => {
     reminderApi.deleteReminder = success => {
       success()
     }
@@ -117,8 +146,14 @@ describe('Reminders', () => {
         reset: jest.fn()
       }
     }
-    wrapper.vm.removeHandler('reminderId')
+    wrapper.vm.deleteReminder()
     expect(wrapper.vm.$refs.infiniteLoading.stateChanger.reset).toBeCalledTimes(1)
+  })
+
+  test('removeHandler', () => {
+    initComponent()
+    wrapper.vm.removeHandler('reminderId')
+    expect(wrapper.vm.showDeleteConfirmation).toBe(true)
   })
 
   test('createHandler', () => {

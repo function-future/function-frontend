@@ -1,11 +1,11 @@
 import SearchBar from '@/components/SearchBar'
 import BaseButton from '@/components/BaseButton'
 import BaseCard from '@/components/BaseCard'
-import QuestionnaireCard from '../QuestionnaireCard'
-import QuestionnaireParticipantCard from '../QuestionnaireParticipantCard'
-import MyQuestionnaireForm from '../MyQuestionnaireForm'
+import QuestionnaireCard from '@/views/Questionnaire/QuestionnaireCard'
+import QuestionnaireParticipantCard from '@/views/Questionnaire/QuestionnaireParticipantCard'
+import MyQuestionnaireForm from '@/views/Questionnaire/MyQuestionnaireForm'
 import myQuestionnaireApi from '@/api/controller/my-questionnaire'
-import { mapGetters, mapActions, mapMutations } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import moment from 'moment'
 
 export default {
@@ -30,6 +30,7 @@ export default {
         type: Array,
         default: []
       },
+      currentQuestionnaireForm: [],
       responses: []
     }
   },
@@ -42,17 +43,6 @@ export default {
       'saveAppraisee',
       'fetchCurrentQuestionsQuestionnaire',
       'resetQuestionnaireList'
-    ]),
-    ...mapMutations([
-      'RESET_MY_LIST_APPRAISEE',
-      'PUSH_MY_LIST_APPRAISEE',
-      'RESET_CURRENT_QUESTIONNAIRE',
-      'ASSIGN_CURRENT_QUESTIONNAIRE',
-      'RESET_CURRENT_QUESTIONNAIRE_DATA',
-      'ASSIGN_CURRENT_QUESTIONNAIRE_DATA',
-      'ASSIGN_CURRENT_APPRAISEE_TO_SCORE',
-      'RESET_QUESTIONS_QUESTIONNAIRE',
-      'PUSH_QUESTIONS_QUESTIONNAIRE'
     ]),
     computedDate (date) {
       return moment(date).format('DD/MM/YYYY')
@@ -73,17 +63,16 @@ export default {
             appraiseeId: this.$route.params.appraiseeId
           }
         },
-        fail: (err) => {
-          console.log(err)
-        },
-        cb: (response) => {
-          this.currentQuestionnaireForm = response.data
-          for (let i = 0; i < response.data.length; i++) {
-            this.currentQuestionnaireForm[i].score = 0
-            this.currentQuestionnaireForm[i].comment = ''
-          }
-        }
+        fail: this.errorCallback,
+        cb: this.fetchingQuestionsCallback
       })
+    },
+    fetchingQuestionsCallback (response) {
+      this.currentQuestionnaireForm = response.data
+      for (let i = 0; i < response.data.length; i++) {
+        this.currentQuestionnaireForm[i].score = 0
+        this.currentQuestionnaireForm[i].comment = ''
+      }
     },
     fetchingQuestionnaireData (appraiseeId) {
       this.fetchCurrentQuestionnaireData({
@@ -93,12 +82,7 @@ export default {
             appraiseeId: appraiseeId
           }
         },
-        fail: (err) => {
-          console.log(err)
-        },
-        cb: (response) => {
-          console.log(response)
-        }
+        fail: this.errorCallback
       })
     },
     printScore () {
@@ -156,7 +140,6 @@ export default {
       'myListAppraisees',
       'currentQuestionnaire',
       'currentQuestionnaireData',
-      'currentAppraiseeToScore',
       'currentQuestionsQuestionnaire'
     ])
   },
@@ -167,9 +150,7 @@ export default {
           questionnaireId: this.$route.params.questionnaireId
         }
       },
-      fail: (err) => {
-        console.log(err)
-      }
+      fail: this.errorCallback
     })
     this.fetchMyListApprisees({
       data: {
@@ -177,9 +158,7 @@ export default {
           questionnaireId: this.$route.params.questionnaireId
         }
       },
-      fail: (err) => {
-        console.log(err)
-      }
+      fail: this.errorCallback
     })
     this.fetchingQuestions()
     if (this.$route.params.appraiseeId) {
@@ -189,7 +168,5 @@ export default {
   destroyed () {
     this.questionnaireForm = this.questionnaireForm.default
     this.responses = []
-
   }
-
 }

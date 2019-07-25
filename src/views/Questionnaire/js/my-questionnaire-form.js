@@ -27,7 +27,6 @@ export default {
   },
   watch: {
     score () {
-      console.log('A', this.score)
       this.questionTemp.score = this.score
       this.questionTemp.comment = this.comment
       this.$emit('input', this.questionTemp)

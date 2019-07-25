@@ -7,6 +7,11 @@ export default {
   components: {
     BaseCard
   },
+  data () {
+    return {
+      stickyNote: {}
+    }
+  },
   created () {
     this.initPage()
   },
@@ -16,7 +21,7 @@ export default {
       'accessList'
     ]),
     stickyNotesDescription () {
-      return this.stickyNotes.description || 'Insert Sticky Notes Here...'
+      return this.stickyNote.description || 'Insert Sticky Notes Here...'
     },
     stickyNoteCompiledMarkdown () {
       return marked(this.stickyNotesDescription)
@@ -28,9 +33,12 @@ export default {
     ]),
     initPage () {
       this.fetchStickyNotes({
-        callback: () => {},
+        callback: this.successFetchStickyNote,
         fail: this.fetchStickyNoteFailed
       })
+    },
+    successFetchStickyNote () {
+      this.stickyNote = this.stickyNotes[0]
     },
     fetchStickyNoteFailed () {
       this.$toasted.error('Fail to load sticky note detail, please refresh the page')

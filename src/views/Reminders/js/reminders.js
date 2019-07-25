@@ -3,6 +3,7 @@ import SearchBar from '@/components/SearchBar'
 import BaseButton from '@/components/BaseButton'
 import InfiniteLoading from 'vue-infinite-loading'
 import reminderApi from '@/api/controller/reminders'
+import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
 
 export default {
   name: 'Reminders',
@@ -10,13 +11,16 @@ export default {
     SearchBar,
     BaseButton,
     ReminderCard,
-    InfiniteLoading
+    InfiniteLoading,
+    ModalDeleteConfirmation
   },
   data () {
     return {
       reminders: [],
       keyword: '',
-      page: 1
+      page: 1,
+      showDeleteConfirmation: false,
+      reminderIdForRemove: ''
     }
   },
   methods: {
@@ -60,10 +64,16 @@ export default {
       this.$toasted.error('Something went wrong')
     },
     removeHandler (reminderId) {
+      this.reminderIdForRemove = reminderId
+      this.showDeleteConfirmation = true
+    },
+    deleteReminder () {
+      this.showDeleteConfirmation = false
       reminderApi.deleteReminder(response => {
         this.$toasted.success('Reminder has been successfully deleted')
         this.reminders = []
         this.page = 1
+        this.reminderIdForRemove = ''
         if (this.keyword) {
           this.searchHandler(this.keyword)
         } else {
@@ -71,7 +81,7 @@ export default {
         }
       }, this.errorCallback, {
         params: {
-          reminderId
+          reminderId: this.reminderIdForRemove
         }
       })
     },
