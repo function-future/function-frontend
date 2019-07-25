@@ -17,12 +17,6 @@ export default {
       'fetchCurrentQuestionnaireDetail',
       'fetchCurrentQuestionResponses'
     ]),
-    ...mapMutations([
-      'RESET_CURRENT_QUESTIONNAIRE_DETAIL',
-      'ASSIGN_CURRENT_QUESTIONNAIRE_DETAIL',
-      'RESET_CURRENT_QUESTION_RESPONSES_LIST',
-      'PUSH_CURRENT_QUESTION_RESPONSES_LIST'
-    ]),
     goToQuestionnaireResult (questionnaireId) {
       this.$router.push({
         name: 'questionnaireResultsQuestionnaireDetail',
@@ -43,6 +37,9 @@ export default {
           questionId: questionId
         }
       })
+    },
+    errorHandler (err) {
+      console.log(err)
     }
   },
   computed: {
@@ -58,9 +55,7 @@ export default {
           questionnaireResponseSummaryId: this.$route.params.questionnaireId
         }
       },
-      fail: (err) => {
-        console.log(err)
-      }
+      fail: this.errorHandler
     })
     this.fetchCurrentQuestionResponses({
       data: {
@@ -69,9 +64,7 @@ export default {
           userSummaryId: this.$route.params.userSummaryId
         }
       },
-      fail: (err) => {
-        console.log(err)
-      }
+      fail: this.errorHandler
     })
   }
 }

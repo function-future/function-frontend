@@ -1,7 +1,7 @@
-import QuestionnaireCard from '../QuestionnaireCard'
-import QuestionCard from '../QuestionCard'
-import QuestionnaireParticipantSimpleCard from '../QuestionnaireParticipantSimpleCard'
-import {mapActions, mapGetters, mapMutations} from 'vuex';
+import QuestionnaireCard from '@/views/Questionnaire/QuestionnaireCard'
+import QuestionCard from '@/views/Questionnaire/QuestionCard'
+import QuestionnaireParticipantSimpleCard from '@/views/Questionnaire/QuestionnaireParticipantSimpleCard'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'QuestionnaireResultsQuestionDetail',
   components: {
@@ -46,7 +46,7 @@ export default {
           name: 'Tzuyu',
           avatar: 'https://rankedwiki.com/wp-content/uploads/2018/12/Tzuyu-Wiki-Net-Worth-Dating-286x286.jpg',
           score: 6.0
-        },{
+        }, {
           id: '5d2352954534202434730f29',
           name: 'Tzuyu',
           avatar: 'https://rankedwiki.com/wp-content/uploads/2018/12/Tzuyu-Wiki-Net-Worth-Dating-286x286.jpg',
@@ -63,7 +63,7 @@ export default {
           name: 'Tzuyu',
           avatar: 'https://rankedwiki.com/wp-content/uploads/2018/12/Tzuyu-Wiki-Net-Worth-Dating-286x286.jpg',
           score: 6.0
-        },{
+        }, {
           id: '5d2352954534202434730f29',
           name: 'Tzuyu',
           avatar: 'https://rankedwiki.com/wp-content/uploads/2018/12/Tzuyu-Wiki-Net-Worth-Dating-286x286.jpg',
@@ -90,14 +90,9 @@ export default {
       'fetchCurrentResultQuestionDetail',
       'fetchCurrentResultsQuestionDetailResponsesList'
     ]),
-    ...mapMutations([
-      'RESET_CURRENT_QUESTIONNAIRE_DETAIL',
-      'ASSIGN_CURRENT_QUESTIONNAIRE_DETAIL',
-      'RESET_CURRENT_QUESTION_DETAIL',
-      'ASSIGN_CURRENT_QUESTION_DETAIL',
-      'RESET_CURRENT_QUESTION_DETAIL_RESPONSES_LIST',
-      'PUSH_CURRENT_QUESTION_DETAIL_RESPONSES_LIST'
-    ])
+    errorHandler (err) {
+      console.log(err)
+    }
   },
   computed: {
     ...mapGetters([
@@ -113,9 +108,7 @@ export default {
           questionnaireResponseSummaryId: this.$route.params.questionnaireId
         }
       },
-      fail: (err) => {
-        console.log(err)
-      }
+      fail: this.errorHandler
     })
     this.fetchCurrentResultQuestionDetail({
       data: {
@@ -123,9 +116,7 @@ export default {
           questionResponseSummaryId: this.$route.params.questionId
         }
       },
-      fail: (err) => {
-        console.log(err)
-      }
+      fail: this.errorHandler
     })
     this.fetchCurrentResultsQuestionDetailResponsesList({
       data: {
@@ -133,12 +124,7 @@ export default {
           questionResponseSummaryId: this.$route.params.questionId
         }
       },
-      fail: (err) => {
-        console.log(err)
-      },
-      cb: (response) => {
-        console.log(response)
-      }
+      fail: this.errorHandler
     })
   }
 }

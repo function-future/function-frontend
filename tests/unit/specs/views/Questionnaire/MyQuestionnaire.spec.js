@@ -2,6 +2,9 @@ import MyQuestionnaire from '@/views/Questionnaire/MyQuestionnaire'
 import { createLocalVue, shallowMount } from '@vue/test-utils'
 import Vuex from 'vuex'
 import VueRouter from 'vue-router'
+import myQuestionnaireApi from '@/api/controller/my-questionnaire'
+
+jest.mock('@/api/controller/my-questionnaire')
 
 describe('ModalAddQuestion', () => {
   let wrapper
@@ -51,7 +54,8 @@ describe('ModalAddQuestion', () => {
       stubs: [
         'BaseButton',
         'BaseTextArea',
-        'font-awesome-icon'
+        'font-awesome-icon',
+        'InfiniteLoading'
       ],
       mocks: {
         $toasted
@@ -89,5 +93,37 @@ describe('ModalAddQuestion', () => {
     initWrapper()
     wrapper.vm.errorHandler('err')
     expect(console.log).toHaveBeenCalledWith('err')
+  })
+
+  test('infiniteHandler case 1', () => {
+    myQuestionnaireApi.getMyQuestionnaires = success => {
+      success({
+        data: []
+      })
+    }
+    const $state = {
+      loaded: jest.fn(),
+      complete: jest.fn()
+    }
+    initWrapper()
+    wrapper.vm.page = 1
+    wrapper.vm.infiniteHandler($state)
+    expect($state.complete).toHaveBeenCalled()
+  })
+
+  test('infiniteHandler case 2', () => {
+    myQuestionnaireApi.getMyQuestionnaires = success => {
+      success({
+        data: [1, 2, 3]
+      })
+    }
+    const $state = {
+      loaded: jest.fn(),
+      complete: jest.fn()
+    }
+    initWrapper()
+    wrapper.vm.page = 2
+    wrapper.vm.infiniteHandler($state)
+    expect($state.loaded).toHaveBeenCalled()
   })
 })

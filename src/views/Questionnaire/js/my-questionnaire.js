@@ -43,7 +43,7 @@ export default {
         } else {
           $state.complete()
         }
-      }, this.errorCallback, {
+      }, this.errorHandler, {
         params: {
           page: this.page,
           size: this.size

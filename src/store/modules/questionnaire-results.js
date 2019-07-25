@@ -52,7 +52,7 @@ export const mutations = {
   },
   PUSH_CURRENT_QUESTION_DETAIL_RESPONSES_LIST (state, payload) {
     state.currentResultsQuestionDetailResponsesList.push(...payload)
-  },
+  }
 }
 
 export const actions = {
@@ -97,7 +97,7 @@ export const actions = {
       commit('RESET_CURRENT_QUESTION_DETAIL_RESPONSES_LIST')
       commit('PUSH_CURRENT_QUESTION_DETAIL_RESPONSES_LIST', response.data)
       console.log('masuk sini')
-      cb(response)
+      cb && cb(response)
     }, fail, data)
   }
 }

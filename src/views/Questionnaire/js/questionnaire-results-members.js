@@ -1,5 +1,5 @@
 import SearchBar from '@/components/SearchBar'
-import QuestionnaireParticipantCard from '../QuestionnaireParticipantCard'
+import QuestionnaireParticipantCard from '@/views/Questionnaire/QuestionnaireParticipantCard'
 import InfiniteLoading from 'vue-infinite-loading'
 import questionnaireResultsApi from '@/api/controller/questionnaire-results'
 
@@ -16,8 +16,6 @@ export default {
       page: 1,
       size: 10
     }
-  },
-  computed: {
   },
   methods: {
     goToMemberDetail (userSummaryId) {
@@ -41,13 +39,16 @@ export default {
         } else {
           $state.complete()
         }
-      }, this.errorCallback, {
+      }, this.errorHandler, {
         params: {
           page: this.page,
           size: this.size,
           batchCode: this.$route.params.batchCode,
         }
       })
+    },
+    errorHandler (err) {
+      console.log(err)
     }
   }
 }
