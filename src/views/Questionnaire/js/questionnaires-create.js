@@ -1,5 +1,5 @@
 import BaseButton from '@/components/BaseButton'
-import QuestionnaireForm from '../QuestionnaireForm'
+import QuestionnaireForm from '@/views/Questionnaire/QuestionnaireForm'
 import questionnaireApi from '@/api/controller/questionnaire'
 
 export default {
@@ -60,15 +60,6 @@ export default {
     },
     setCurrentQuestionnaire (data) {
       this.questionnaire = data
-      console.log('update :', this.questionnaire)
     }
-  },
-  watch: {
-    questionnaire: function (val) {
-      this.questionnaire = val
-    }
-  },
-  created () {
-    console.log('B', this.questionnaire)
   }
 }
