@@ -16,7 +16,7 @@ const getUserSummaryById = function (callback, error, data) {
   )
 }
 
-const getQuestionnairesSimpleSummary = function (callback, error, data) {
+const getQuestionnaireSimpleSummary = function (callback, error, data) {
   request.getRequest(
     config.api.communication.questionnaireResponse.getQuestionnaireSimpleSummary(data.params.userSummaryId, data.params.page, data.params.size),
     callback,
@@ -59,7 +59,7 @@ const getQuestionnaireAnswerDetailResponse = function (callback, error, data) {
 export default {
   getUserSummary,
   getUserSummaryById,
-  getQuestionnairesSimpleSummary,
+  getQuestionnaireSimpleSummary,
   getQuestionnaireSummaryDetail,
   getQuestionSummaryResponse,
   getQuestionQuestionnaireSummaryResponse,

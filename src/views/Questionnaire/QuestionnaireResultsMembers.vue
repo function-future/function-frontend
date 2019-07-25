@@ -10,7 +10,7 @@
 <!--          </div>-->
         </div>
         <div class="participant-list-container">
-          <QuestionnaireParticipantCard v-for="appraisee in listAppraiseeResults"
+          <QuestionnaireParticipantCard v-for="appraisee in appraiseeResults"
                                         :id="appraisee.id"
                                         :name="appraisee.member.name"
                                         :avatar="appraisee.member.avatar"
@@ -21,6 +21,10 @@
                                         :isResult="true"
                                         v-on:click="goToMemberDetail(appraisee.id)"
           ></QuestionnaireParticipantCard>
+          <infinite-loading ref="infiniteLoading" @infinite="infiniteHandler">
+            <div slot="no-more"></div>
+            <div slot="no-results"></div>
+          </infinite-loading>
         </div>
       </div>
     </div>

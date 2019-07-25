@@ -11,8 +11,8 @@ export default {
   data () {
     return {
       questionnaire: {
-        title: ' ',
-        description: ' ',
+        title: '',
+        description: '',
         startDate: null,
         dueDate: null
       }
@@ -20,7 +20,7 @@ export default {
   },
   methods: {
     goToCreate () {
-      if (this.questionnaire.title === ' ' || this.questionnaire.description === ' ') {
+      if (this.questionnaire.title === '' || this.questionnaire.description === '') {
         this.$toasted.error(' title and description must be filled')
       } else if (this.questionnaire.startDate > this.questionnaire.dueDate) {
         this.$toasted.error('due date should greater than start date ')

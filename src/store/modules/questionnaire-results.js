@@ -69,7 +69,7 @@ export const actions = {
     }, fail, data)
   },
   fetchCurrentAppraiseeResultsQuestionnaires ( { state, commit }, { data, fail }) {
-    questionnaireResultsApi.getQuestionnairesSimpleSummary(response => {
+    questionnaireResultsApi.getQuestionnaireSimpleSummary(response => {
       commit('RESET_CURRENT_APPRAISEE_RESULTS_QUESTIONNAIRES')
       commit('PUSH_CURRENT_APPRAISEE_RESULTS_QUESTIONNAIRES', response.data)
     }, fail, data)

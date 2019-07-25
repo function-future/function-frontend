@@ -14,6 +14,10 @@
                            :isDisable="myQuestionnaire.dueDate < Date.now() || myQuestionnaire.startDate > Date.now()"
                            v-on:click="goToListAppraisees(myQuestionnaire.id, myQuestionnaire.dueDate < Date.now() || myQuestionnaire.startDate > Date.now())"
         ></QuestionnaireCard>
+        <infinite-loading ref="infiniteLoading" @infinite="infiniteHandler">
+          <div slot="no-more"></div>
+          <div slot="no-results"></div>
+        </infinite-loading>
       </div>
     </div>
   </div>

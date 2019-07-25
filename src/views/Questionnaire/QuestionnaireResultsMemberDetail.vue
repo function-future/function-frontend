@@ -15,7 +15,7 @@
       <div class="questionnaire-results-questionnaire-detail-card-container">
         <h3>Appraised on</h3>
         <div class="questionnaire-card-list">
-          <QuestionnaireCard v-for="myQuestionnaire in currentAppraiseeResultQuetionnaires"
+          <QuestionnaireCard v-for="myQuestionnaire in appraiseeResultsQuestionnaires"
                              :key="myQuestionnaire.id"
                              :title="myQuestionnaire.title"
                              :description="myQuestionnaire.description"
@@ -25,6 +25,10 @@
                              :isResult="true"
                              v-on:click="goToQuestionnaireResult(myQuestionnaire.id)"
           ></QuestionnaireCard>
+          <infinite-loading ref="infiniteLoading" @infinite="infiniteHandler">
+            <div slot="no-more"></div>
+            <div slot="no-results"></div>
+          </infinite-loading>
         </div>
       </div>
     </div>
