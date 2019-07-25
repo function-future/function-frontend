@@ -1,16 +1,12 @@
-import QuestionnaireCard from '../QuestionnaireCard'
-import QuestionCard from '../QuestionCard'
-import {mapActions, mapGetters, mapMutations} from 'vuex'
+import QuestionnaireCard from '@/views/Questionnaire/QuestionnaireCard'
+import QuestionCard from '@/views/Questionnaire/QuestionCard'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'QuestionnaireResultsQuestionnaireDetail',
   components: {
     QuestionnaireCard,
     QuestionCard
-  },
-  data () {
-    return {
-    }
   },
   methods: {
     ...mapActions([

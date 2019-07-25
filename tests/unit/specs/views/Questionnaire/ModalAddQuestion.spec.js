@@ -46,4 +46,20 @@ describe('ModalAddQuestion', () => {
     expect(wrapper.emitted('submit')).toBeFalsy()
     expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
   })
+
+  test('update success', () => {
+    const props = { description: 'description' }
+    const spy = jest.spyOn(ModalAddQuestion.methods, 'close')
+    initWrapper(props)
+    wrapper.vm.updateQuestion()
+    expect(wrapper.emitted('update')).toBeTruthy()
+    expect(spy).toHaveBeenCalled()
+  })
+
+  test('update fail', () => {
+    initWrapper()
+    wrapper.vm.updateQuestion()
+    expect(wrapper.emitted('update')).toBeFalsy()
+    expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
+  })
 })

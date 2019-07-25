@@ -1,11 +1,11 @@
-import QuestionnaireForm from '../QuestionnaireForm'
-import QuestionCard from '../QuestionCard'
-import QuestionnaireParticipantCard from '../QuestionnaireParticipantCard'
+import QuestionnaireForm from '@/views/Questionnaire/QuestionnaireForm'
+import QuestionCard from '@/views/Questionnaire/QuestionCard'
+import QuestionnaireParticipantCard from '@/views/Questionnaire/QuestionnaireParticipantCard'
 import BaseButton from '@/components/BaseButton'
 import ModalAddQuestion from '@/views/Questionnaire/ModalAddQuestion'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
 import ModalChatroom from '@/views/Chatrooms/ModalChatroom'
-import { mapActions, mapGetters, mapMutations } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import questionnaireApi from '@/api/controller/questionnaire'
 import ReminderMemberModal from '@/views/Reminders/ReminderMemberModal'
 import UserSimpleCard from '@/components/UserSimpleCard'
@@ -85,26 +85,13 @@ export default {
       'fetchCurrentAppraisee',
       'fetchCurrentAppraiser'
     ]),
-    ...mapMutations([
-      'RESET_CURRENT_QUESTIONNAIRE_ADMIN',
-      'ASSIGN_CURRENT_QUESTIONNAIRE_ADMIN',
-      'RESET_CURRENT_QUESTIONS',
-      'PUSH_CURRENT_QUESTIONS',
-      'RESET_CURRENT_APPRAISEE',
-      'PUSH_CURRENT_APPRAISEE',
-      'RESET_CURRENT_APPRAISER',
-      'PUSH_CURRENT_APPRAISER'
-    ]),
     setCurrentQuestionnaire (data) {
       this.setCurrentQuestionnaireAdmin({
         data: data
       })
     },
     goToUpdateDescription () {
-
-      if (this.currentQuestionnaireAdmin.title[0] === ' ') {
-        this.$toasted.error(' first character in title cannot be white space')
-      } else if (this.currentQuestionnaireAdmin.title === ' ' || this.currentQuestionnaireAdmin.description === ' ') {
+      if (this.currentQuestionnaireAdmin.title === ' ' || this.currentQuestionnaireAdmin.description === ' ') {
         this.$toasted.error(' title and description must be filled')
       } else if (this.currentQuestionnaireAdmin.startDate >= this.currentQuestionnaireAdmin.dueDate) {
         this.$toasted.error('due date should greater than start date ')
@@ -169,9 +156,7 @@ export default {
             questionnaireId: this.$route.params.questionnaireId
           }
         },
-        fail: (err) => {
-          console.log(err)
-        }
+        fail: this.errorHandler
       })
     },
     deleteTheQuestionQuestionnaire () {
@@ -253,13 +238,12 @@ export default {
             size: 10
           }
         },
-        fail: (err) => {
-          console.log(err)
-        },
-        cb: (response) => {
-          this.currentAppraiseeTemp = response.data
-        }
+        fail: this.errorHandler,
+        cb: this.fetchingAppraiseeCallback
       })
+    },
+    fetchingAppraiseeCallback (response) {
+      this.currentAppraiseeTemp = response.data
     },
     openDeleteConfirmationModalParticipantAppraisee (appraisee) {
       this.deleteConfirmationModalParticipant.show = true
@@ -293,7 +277,7 @@ export default {
           }
         })
       } else {
-        questionnaireApi.deleteAppraiseeQuestionnaire(response => {
+        questionnaireApi.deleteAppraiserQuestionnaire(response => {
           this.$toasted.success('success delete Appraiser')
           this.fetchingAppraiser()
           this.closeDeleteConfirmationModalParticipant()
@@ -315,13 +299,12 @@ export default {
             size: 10
           }
         },
-        fail: (err) => {
-          console.log(err)
-        },
-        cb: (response) => {
-          this.currentAppraiserTemp = response.data
-        }
+        fail: this.errorHandler,
+        cb: this.fetchingAppraiserCallback
       })
+    },
+    fetchingAppraiserCallback (response) {
+      this.currentAppraiserTemp = response.data
     },
     submitParticipantAppraiser (member) {
       questionnaireApi.addAppraiserQuestionnaire(response => {
@@ -338,6 +321,9 @@ export default {
         }
       })
     },
+    errorHandler (err) {
+      console.log(err)
+    }
   },
   created () {
     this.fetchCurrentQuestionnaireAdmin({
@@ -346,9 +332,7 @@ export default {
           questionnaireId: this.$route.params.questionnaireId
         }
       },
-      fail: (err) => {
-        console.log(err)
-      }
+      fail: this.errorHandler
     })
     this.fetchingQuestions()
     this.fetchingAppraisee()

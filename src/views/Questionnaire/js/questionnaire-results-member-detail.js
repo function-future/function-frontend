@@ -65,7 +65,6 @@ export default {
   watch: {
     currentAppraiseeResult () {
       this.appraiseeTemp = this.currentAppraiseeResult.member
-      console.log(this.appraiseeTemp)
     }
   },
   created () {

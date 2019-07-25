@@ -60,6 +60,28 @@ describe('MyQuestionnaireForm', () => {
     expect(wrapper.vm.computedTitle).toEqual(title)
   })
 
+  test('computedDescription case 1', () => {
+    const spy = jest.spyOn(QuestionnaireCard.computed, 'computedTitle')
+    const description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mattis dolor magna, eleifend ' +
+      'vulputate felis malesuada id. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus ' +
+      'mus. Suspendisse dapibus non mi eu accumsan. Cras eu felis finibus, consectetur diam quis metus.'
+    initWrapper({
+      description
+    })
+    expect(spy).toHaveBeenCalled()
+    expect(wrapper.vm.computedDescription).toEqual(description.substring(0, 200).concat('...'))
+  })
+
+  test('computedDescription case 2', () => {
+    const spy = jest.spyOn(QuestionnaireCard.computed, 'computedTitle')
+    const description = 'Lorem ipsum'
+    initWrapper({
+      description
+    })
+    expect(spy).toHaveBeenCalled()
+    expect(wrapper.vm.computedDescription).toEqual(description)
+  })
+
   test('computedStartDate', () => {
     const spy = jest.spyOn(QuestionnaireCard.computed, 'computedStartDate')
     const startDate = Date.now()

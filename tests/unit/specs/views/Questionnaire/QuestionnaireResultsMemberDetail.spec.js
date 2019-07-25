@@ -12,7 +12,8 @@ describe('QuestionnaireResultsMemberDetail', () => {
   function initStore (initState) {
     const state = {
       currentAppraiseeResult: null,
-      currentAppraiseeResultQuetionnaires: []
+      currentAppraiseeResultQuetionnaires: [],
+      ...initState
     }
     const getters = {
       currentAppraiseeResult: () => state.currentAppraiseeResult,
