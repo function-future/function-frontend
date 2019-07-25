@@ -1,6 +1,6 @@
 import SearchBar from '@/components/SearchBar'
 import BaseButton from '@/components/BaseButton'
-import QuestionnaireCard from '../QuestionnaireCard'
+import QuestionnaireCard from '@/views/Questionnaire/QuestionnaireCard'
 import questionnaireApi from '@/api/controller/questionnaire'
 import InfiniteLoading from 'vue-infinite-loading'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
