@@ -8,7 +8,7 @@ describe('QuestionnaireResultsMemberDetail', () => {
 
   function initStore (initState) {
     const state = {
-      currentAppraiseeResult: {},
+      currentAppraiseeResult: null,
       currentAppraiseeResultQuetionnaires: []
     }
     const getters = {
@@ -56,5 +56,23 @@ describe('QuestionnaireResultsMemberDetail', () => {
     })
   }
 
-  test('')
+  test('created', () => {
+    initWrapper()
+    expect(store.actions.fetchCurrentAppraiseeResults).toHaveBeenCalled()
+    expect(store.actions.fetchCurrentAppraiseeResultsQuestionnaires).toHaveBeenCalled()
+  })
+
+  test('goToQuestionnaireResult', () => {
+    initWrapper()
+    wrapper.vm.$router.push = jest.fn()
+    wrapper.vm.goToQuestionnaireResult()
+    expect(wrapper.vm.$router.push).toHaveBeenCalled()
+  })
+
+  test('error handler', () => {
+    global.console.log = jest.fn()
+    initWrapper()
+    wrapper.vm.errorHandler('err')
+    expect(console.log).toHaveBeenCalledWith('err')
+  })
 })

@@ -29,10 +29,6 @@ export default {
     ...mapActions([
       'fetchAppraiseeResults'
     ]),
-    ...mapMutations([
-      'RESET_LIST_APPRAISEE_RESULTS',
-      'PUSH_LIST_APPRAISEE_RESULTS'
-    ]),
     goToMemberDetail (userSummaryId) {
       this.$router.push({
         name: 'questionnaireResultsMemberDetail',

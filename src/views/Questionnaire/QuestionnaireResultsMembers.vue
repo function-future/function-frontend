@@ -5,9 +5,6 @@
           <div class="title-bar">
             <h2><strong>Members</strong></h2>
           </div>
-<!--          <div class="search-bar">-->
-<!--            <SearchBar/>-->
-<!--          </div>-->
         </div>
         <div class="participant-list-container">
           <QuestionnaireParticipantCard v-for="appraisee in listAppraiseeResults"
