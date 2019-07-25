@@ -234,9 +234,9 @@ describe('ModalAddQuestion', () => {
 
   test('backToAppraiseePage', () => {
     initWrapper()
-    wrapper.vm.$router.push = jest.fn()
+    wrapper.vm.$router.replace = jest.fn()
     wrapper.vm.backToAppraiseePage()
-    expect(wrapper.vm.$router.push).toHaveBeenCalled()
+    expect(wrapper.vm.$router.replace).toHaveBeenCalled()
   })
 
   test('updateCurrentQuestionanireForm case 1', () => {

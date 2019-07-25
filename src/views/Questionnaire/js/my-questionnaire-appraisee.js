@@ -121,7 +121,7 @@ export default {
       this.$toasted.error('connection error')
     },
     backToAppraiseePage () {
-      this.$router.push({
+      this.$router.replace({
         name: 'myQuestionnaireAppraisee',
         params: { questionnaireId: this.$route.params.questionnaireId }
       })
