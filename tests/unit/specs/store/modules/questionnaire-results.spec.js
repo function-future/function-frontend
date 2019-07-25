@@ -131,12 +131,14 @@ describe('mutations', () => {
 
     test('fetchCurrentAppraiseeResultsQuestionnaires', () => {
       const response = {}
-      questionnaireResultsApi.getQuestionnairesSimpleSummary = success => {
+      questionnaireResultsApi.getQuestionnaireSimpleSummary = success => {
         success(response)
       }
       const state = {}
       const commit = jest.fn()
-      const data = {}
+      const data = {
+        params: {}
+      }
       const fail = jest.fn()
       store.actions.fetchCurrentAppraiseeResultsQuestionnaires({ state, commit }, { data, fail })
       expect(commit).toHaveBeenCalledWith('RESET_CURRENT_APPRAISEE_RESULTS_QUESTIONNAIRES')

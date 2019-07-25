@@ -67,11 +67,6 @@ describe('ModalAddQuestion', () => {
     expect(true).toBe(true)
   })
 
-  test('created', () => {
-    initWrapper()
-    expect(store.actions.fetchMyQuestionnaires).toHaveBeenCalled()
-  })
-
   test('goToListAppraisees enabled', () => {
     initWrapper()
     wrapper.vm.$router.push = jest.fn()

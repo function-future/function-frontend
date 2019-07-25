@@ -1,6 +1,6 @@
 import BaseCard from '@/components/BaseCard'
 import SearchBar from '@/components/SearchBar'
-import QuestionnaireCard from '../QuestionnaireCard'
+import QuestionnaireCard from '@/views/Questionnaire/QuestionnaireCard'
 import InfiniteLoading from 'vue-infinite-loading'
 import myQuestionnaireApi from '@/api/controller/my-questionnaire'
 
@@ -28,6 +28,9 @@ export default {
         })
       }
     },
+    errorHandler (err) {
+      console.log(err)
+    },
     infiniteHandler ($state) {
       myQuestionnaireApi.getMyQuestionnaires(response => {
         if (this.page === 1) {
@@ -43,7 +46,7 @@ export default {
       }, this.errorCallback, {
         params: {
           page: this.page,
-          size: this.size,
+          size: this.size
         }
       })
     }
