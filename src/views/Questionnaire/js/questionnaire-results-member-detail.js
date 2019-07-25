@@ -1,17 +1,27 @@
 import QuestionnaireParticipantDetailCard from '@/views/Questionnaire/QuestionnaireParticipantDetailCard'
 import QuestionnaireCard from '@/views/Questionnaire/QuestionnaireCard'
 import { mapActions, mapGetters } from 'vuex'
+import InfiniteLoading from 'vue-infinite-loading'
+import questionnaireResultsApi from '@/api/controller/questionnaire-results'
 
 export default {
   name: 'QuestionnaireResultsMemberDetail',
   components: {
     QuestionnaireParticipantDetailCard,
-    QuestionnaireCard
+    QuestionnaireCard,
+    InfiniteLoading
+  },
+  data () {
+    return {
+      appraiseeTemp: {},
+      appraiseeResultsQuestionnaires: [],
+      page: 1,
+      size: 10
+    }
   },
   methods: {
     ...mapActions([
-      'fetchCurrentAppraiseeResults',
-      'fetchCurrentAppraiseeResultsQuestionnaires'
+      'fetchCurrentAppraiseeResults'
     ]),
     goToQuestionnaireResult (questionnaireId) {
       this.$router.push({
@@ -23,15 +33,40 @@ export default {
         }
       })
     },
-    errorHandler (err) {
+    infiniteHandler ($state) {
+      questionnaireResultsApi.getQuestionnaireSimpleSummary(response => {
+        if (this.page === 1) {
+          this.appraiseeResultsQuestionnaires = []
+        }
+        if (response.data.length) {
+          this.page += 1
+          this.appraiseeResultsQuestionnaires.push(...response.data)
+          $state.loaded()
+        } else {
+          $state.complete()
+        }
+      }, this.errorCallback, {
+        params: {
+          page: this.page,
+          size: this.size,
+          userSummaryId: this.$route.params.userSummaryId
+        }
+      })
+    },
+    errorCallback (err) {
       console.log(err)
     }
   },
   computed: {
     ...mapGetters([
-      'currentAppraiseeResult',
-      'currentAppraiseeResultQuetionnaires'
+      'currentAppraiseeResult'
     ])
+  },
+  watch: {
+    currentAppraiseeResult () {
+      this.appraiseeTemp = this.currentAppraiseeResult.member
+      console.log(this.appraiseeTemp)
+    }
   },
   created () {
     this.fetchCurrentAppraiseeResults({
@@ -39,16 +74,6 @@ export default {
         params: {
           batchCode: this.$route.params.batchCode,
           userSummaryId: this.$route.params.userSummaryId
-        }
-      },
-      fail: this.errorHandler
-    })
-    this.fetchCurrentAppraiseeResultsQuestionnaires({
-      data: {
-        params: {
-          userSummaryId: this.$route.params.userSummaryId,
-          page: 1,
-          size: 10
         }
       },
       fail: this.errorHandler

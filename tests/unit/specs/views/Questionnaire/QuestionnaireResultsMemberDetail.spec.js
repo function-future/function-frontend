@@ -1,6 +1,9 @@
 import QuestionnaireResultsMemberDetail from '@/views/Questionnaire/QuestionnaireResultsMemberDetail'
 import Vuex from 'vuex'
 import { createLocalVue, shallowMount } from '@vue/test-utils'
+import questionnaireResultsApi from '@/api/controller/questionnaire-results'
+
+jest.mock('@/api/controller/questionnaire-results')
 
 describe('QuestionnaireResultsMemberDetail', () => {
   let wrapper
@@ -47,7 +50,8 @@ describe('QuestionnaireResultsMemberDetail', () => {
       store: store.store,
       stubs: [
         'QuestionnaireParticipantDetailCard',
-        'QuestionnaireCard'
+        'QuestionnaireCard',
+        'InfiniteLoading'
       ],
       mocks: {
         $router,
@@ -59,7 +63,6 @@ describe('QuestionnaireResultsMemberDetail', () => {
   test('created', () => {
     initWrapper()
     expect(store.actions.fetchCurrentAppraiseeResults).toHaveBeenCalled()
-    expect(store.actions.fetchCurrentAppraiseeResultsQuestionnaires).toHaveBeenCalled()
   })
 
   test('goToQuestionnaireResult', () => {
@@ -69,10 +72,42 @@ describe('QuestionnaireResultsMemberDetail', () => {
     expect(wrapper.vm.$router.push).toHaveBeenCalled()
   })
 
-  test('error handler', () => {
+  test('infiniteHandler case 1', () => {
+    questionnaireResultsApi.getQuestionnaireSimpleSummary = success => {
+      success({
+        data: []
+      })
+    }
+    const $state = {
+      loaded: jest.fn(),
+      complete: jest.fn()
+    }
+    initWrapper()
+    wrapper.vm.page = 1
+    wrapper.vm.infiniteHandler($state)
+    expect($state.complete).toHaveBeenCalled()
+  })
+
+  test('infiniteHandler case 2', () => {
+    questionnaireResultsApi.getQuestionnaireSimpleSummary = success => {
+      success({
+        data: [1, 2, 3]
+      })
+    }
+    const $state = {
+      loaded: jest.fn(),
+      complete: jest.fn()
+    }
+    initWrapper()
+    wrapper.vm.page = 2
+    wrapper.vm.infiniteHandler($state)
+    expect($state.loaded).toHaveBeenCalled()
+  })
+
+  test('errorHandler', () => {
     global.console.log = jest.fn()
     initWrapper()
-    wrapper.vm.errorHandler('err')
+    wrapper.vm.errorCallback('err')
     expect(console.log).toHaveBeenCalledWith('err')
   })
 })
