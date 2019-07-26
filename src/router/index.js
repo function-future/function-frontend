@@ -51,6 +51,7 @@ import profile from '@/views/User/Profile'
 import notifications from '@/views/Notifications/Notifications.vue'
 import changePassword from '@/views/User/ChangePassword'
 import files from '@/views/Files/Files'
+import fileDetail from '@/views/Files/FileDetail'
 import store from '../store/index.js'
 
 Vue.use(Router)
@@ -394,6 +395,15 @@ const router = new Router({
       meta: {
         auth: true,
         title: 'Files'
+      }
+    },
+    {
+      path: config.app.pages.files.detail,
+      name: 'fileDetail',
+      component: fileDetail,
+      meta: {
+        auth: true,
+        title: 'File Detail'
       }
     },
     {

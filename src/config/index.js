@@ -43,7 +43,8 @@ module.exports = {
       },
       files: {
         root: '/files',
-        folder: '/files/:parentId'
+        folder: '/files/:parentId',
+        detail: '/files/:parentId/:id'
       },
       users: {
         list: '/users',
