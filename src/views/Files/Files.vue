@@ -86,6 +86,9 @@
                                   :isUploading="isUploading">
       </modal-file-upload-progress>
     </transition>
+    <transition name="slide-fade" mode="out-in">
+      <modal-file-detail></modal-file-detail>
+    </transition>
   </div>
 </template>
 

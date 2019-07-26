@@ -4,6 +4,7 @@ import BaseButton from '@/components/BaseButton.vue'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
 import ModalCreateFolder from '@/components/modals/ModalCreateFolder'
 import ModalFileUploadProgress from '@/components/modals/ModalFileUploadProgress'
+import ModalFileDetail from '@/components/modals/ModalFileDetail'
 import InfiniteLoading from 'vue-infinite-loading'
 
 export default {
@@ -14,6 +15,7 @@ export default {
     ModalDeleteConfirmation,
     ModalCreateFolder,
     ModalFileUploadProgress,
+    ModalFileDetail,
     InfiniteLoading
   },
   data () {
