@@ -222,24 +222,17 @@ describe('Files', () => {
     })
   })
 
-  test('downloadFileFromUrl', () => {
-    const spy = jest.spyOn(wrapper.vm, 'downloadFile')
-    const url = 'http://localhost:8080/file/function/image.jpg'
-    wrapper.vm.downloadFileFromUrl(url)
-    expect(spy).toHaveBeenCalledTimes(1)
+  test('openFileDetail', () => {
+    const id = 'sample-id'
+    wrapper.vm.openFileDetail(id)
+    expect(wrapper.vm.selectedId).toEqual(id)
+    expect(wrapper.vm.showFileDetail).toEqual(true)
   })
 
-  test('successDownloadFile', () => {
-    const spy = jest.spyOn(wrapper.vm, 'forceFileDownload')
-    const res = {}
-    global.URL.createObjectURL = jest.fn()
-    wrapper.vm.successDownloadFile(res)
-    expect(spy).toHaveBeenCalledTimes(1)
-  })
-
-  test('failDownloadFile', () => {
-    wrapper.vm.failDownloadFile()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
+  test('closeFileDetail', () => {
+    wrapper.vm.closeFileDetail()
+    expect(wrapper.vm.selectedId).toEqual('')
+    expect(wrapper.vm.showFileDetail).toEqual(false)
   })
 
   test('openDeleteConfirmationModal', () => {
