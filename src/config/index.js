@@ -222,7 +222,8 @@ module.exports = {
       files: {
         list (parentId, page, size) { return `/api/core/files/${parentId}?page=${page}&size=${size}` },
         create (parentId) { return `/api/core/files/${parentId}` },
-        delete (parentId, id) { return `/api/core/files/${parentId}/${id}` }
+        delete (parentId, id) { return `/api/core/files/${parentId}/${id}` },
+        detail (parentId, id) { return `/api/core/files/${parentId}/${id}` }
       }
     },
     scoring: {
