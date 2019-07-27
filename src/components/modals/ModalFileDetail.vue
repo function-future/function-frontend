@@ -27,11 +27,6 @@
                 <font-awesome-icon icon="edit" class="icon blue"></font-awesome-icon>Edit
               </span>
             </div>
-            <div class="actions-div disable-selection">
-              <span>
-                <font-awesome-icon icon="trash-alt" class="icon red"></font-awesome-icon> Delete
-              </span>
-            </div>
           </BaseCard>
           <BaseCard  class="version__wrapper">
             <div class="title">File Version</div>
