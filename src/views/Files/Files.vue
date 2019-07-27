@@ -87,7 +87,9 @@
       </modal-file-upload-progress>
     </transition>
     <transition name="slide-fade" mode="out-in">
-      <modal-file-detail></modal-file-detail>
+      <modal-file-detail v-if="showFileDetail"
+                         @close="showFileDetail = false">
+      </modal-file-detail>
     </transition>
   </div>
 </template>

@@ -23,6 +23,7 @@ export default {
       state: '',
       selectedId: '',
       paths: [],
+      showFileDetail: false,
       showDeleteConfirmationModal: false,
       showCreateModal: false,
       showFileUploadModal: false,
@@ -100,6 +101,7 @@ export default {
       })
     },
     downloadFileFromUrl (url) {
+      this.showFileDetail = true
       let configuration = { responseType: 'arraybuffer' }
       url = url.replace('8080', '10001')
       this.downloadFile({
