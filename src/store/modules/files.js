@@ -36,6 +36,11 @@ export const actions = {
     api.downloadFile(({ data: response }) => {
       callback(response)
     }, data, fail, configuration)
+  },
+  getFileDetail ({ commit }, { data, callback, fail }) {
+    api.getFileDetail(({ data: response }) => {
+      callback(response)
+    }, data, fail)
   }
 }
 

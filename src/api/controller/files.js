@@ -21,10 +21,15 @@ const downloadFile = function (callback, data, errorHandler, configuration) {
   request.getRequest(data, callback, errorHandler, configuration)
 }
 
+const getFileDetail = function (callback, data, errorHandler) {
+  request.getRequest(config.api.core.files.detail(data.parentId, data.id), callback, errorHandler)
+}
+
 export default {
   getFileList,
   createFolder,
   uploadFile,
   deleteFile,
-  downloadFile
+  downloadFile,
+  getFileDetail
 }
