@@ -8,18 +8,47 @@ export default {
   },
   data () {
     return {
+      fileDetail: {},
       isLoading: false
     }
+  },
+  props: {
+    id: String
   },
   computed: {
     ...mapGetters([
       'accessList'
     ])
   },
+  created () {
+    this.initData()
+  },
   methods: {
     ...mapActions([
-      'downloadFile'
+      'downloadFile',
+      'getFileDetail'
     ]),
+    initData () {
+      this.isLoading = true
+      const data = {
+        parentId: this.$route.params.parentId,
+        id: this.id
+      }
+      this.getFileDetail({
+        data,
+        callback: this.successGetFileDetail,
+        fail: this.failGetFileDetail
+      })
+    },
+    successGetFileDetail (res) {
+      this.isLoading = false
+      this.fileDetail = res.content
+    },
+    failGetFileDetail () {
+      this.isLoading = false
+      this.fileDetail = {}
+      this.$toasted.error('Fail to get file detail, please try again')
+    },
     close () {
       this.$emit('close')
     },

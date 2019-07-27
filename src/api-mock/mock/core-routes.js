@@ -2081,7 +2081,7 @@ export const files = [
           'parentId': 'parent-id',
           'author': {
             'id': 'sample-id',
-            'name': 'name'
+            'name': 'Karnando Sepryan'
           }
         }
       }

@@ -3,9 +3,9 @@
     <div class="modal__wrapper">
       <div class="modal__container">
         <div class="modal__header">
-          <h3 class="modal__header__title">File Name Blablabla.docx</h3>
-          <span class="modal__close">
-            <font-awesome-icon icon="times" class="icon" @click="close" size="lg"></font-awesome-icon>
+          <h3 class="modal__header__title">{{ fileDetail.name }}</h3>
+          <span class="modal__close" @click="close">
+            <font-awesome-icon icon="times" class="icon" size="lg"></font-awesome-icon>
           </span>
         </div>
         <div class="modal__body loading" v-if="isLoading">
@@ -13,8 +13,12 @@
         </div>
         <div class="modal__body" v-if="!isLoading">
           <BaseCard  class="file__wrapper">
+            <div class="details">
+              <div class="details__title">Uploaded by</div>
+              <div class="details__name">{{ fileDetail.author.name }}</div>
+            </div>
             <div class="file__header">
-              <div class="download-button">
+              <div class="download-button" @click="downloadFileFromUrl(fileDetail.file)">
                 <font-awesome-icon icon="download" class="icon"></font-awesome-icon>Download
               </div>
             </div>
@@ -32,11 +36,11 @@
           <BaseCard  class="version__wrapper">
             <div class="title">File Version</div>
             <div class="version__scrollable">
-              <div class="version__card disable-selection" v-for="index in 4">
-                <div class="version__card-number">{{index}}</div>
+              <div class="version__card disable-selection" v-for="(value, name) in fileDetail.versions" :key="name">
+                <div class="version__card-number">{{ name }}</div>
                 <div class="version__card-detail">
-                  <div class="version__card-date">January 15, 2019</div>
-                  <div class="version__card-download">
+                  <div class="version__card-date">{{ value.timestamp | moment("MMMM Do, YYYY") }}</div>
+                  <div class="version__card-download" @click="downloadFileFromUrl(value.url)">
                     <font-awesome-icon icon="download" class="icon-download"></font-awesome-icon>
                     Download
                   </div>
@@ -82,6 +86,10 @@
       box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
       transition: all .3s ease;
       font-family: Helvetica, Arial, sans-serif;
+
+      @media only screen and (max-width: 1200px) {
+        width: 65vw;
+      }
     }
 
     &__header {
@@ -162,10 +170,6 @@
       flex-direction: column;
       height: 45vh;
       width: 40%;
-
-      @media only screen and (max-width: 1200px) {
-        width: 50%;
-      }
     }
   }
 
@@ -175,10 +179,6 @@
       flex-direction: column;
       height: 45vh;
       width: 65%;
-
-      @media only screen and (max-width: 1200px) {
-        width: 50%;
-      }
     }
 
     &__scrollable {
@@ -230,6 +230,10 @@
     color: #505050;
     cursor: pointer;
     margin-bottom: 10px;
+
+    &:hover {
+      background-color: #F2F2F2;
+    }
   }
 
   .icon {
@@ -244,6 +248,19 @@
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  .details {
+    padding: 5px;
+    margin-bottom: 5px;
+
+    &__title {
+      font-size: 0.8rem;
+    }
+
+    &__name {
+      font-weight: bold;
+    }
   }
 
   .disable-selection {
