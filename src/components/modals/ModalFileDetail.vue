@@ -3,25 +3,30 @@
     <div class="modal__wrapper">
       <div class="modal__container">
         <div class="modal__header">
-          <h3 class="modal__header__title">File Name</h3>
+          <h3 class="modal__header__title">File Name Blablabla.docx</h3>
           <span class="modal__close">
             <font-awesome-icon icon="times" class="icon" @click="close" size="lg"></font-awesome-icon>
           </span>
         </div>
-        <div class="modal__body">
+        <div class="modal__body loading" v-if="isLoading">
+          <font-awesome-icon icon="spinner" spin class="icon-loading" size="lg"></font-awesome-icon>
+        </div>
+        <div class="modal__body" v-if="!isLoading">
           <BaseCard  class="file__wrapper">
-            <div class="file__header row">
-              <div class="col">
-                <div class="title">File Name</div>
+            <div class="file__header">
+              <div class="download-button">
+                <font-awesome-icon icon="download" class="icon"></font-awesome-icon>Download
               </div>
-              <div class="col actions-div">
-              <span @click.stop="" v-if="accessList.edit">
-                <font-awesome-icon icon="edit" class="icon blue" size="lg"></font-awesome-icon>
+            </div>
+            <div class="actions-div disable-selection">
+              <span>
+                <font-awesome-icon icon="edit" class="icon blue"></font-awesome-icon>Edit
               </span>
-                <span @click.stop="" v-if="accessList.delete">
-                <font-awesome-icon icon="trash-alt" class="icon red" size="lg"></font-awesome-icon>
+            </div>
+            <div class="actions-div disable-selection">
+              <span>
+                <font-awesome-icon icon="trash-alt" class="icon red"></font-awesome-icon> Delete
               </span>
-              </div>
             </div>
           </BaseCard>
           <BaseCard  class="version__wrapper">
@@ -63,14 +68,13 @@
 
     &__wrapper {
       display: table-cell;
-      padding-top: 20vh;
+      padding-top: 15vh;
     }
 
     &__container {
       display: flex;
       flex-direction: column;
       width: 50vw;
-      height: 55vh;
       margin: 0 auto;
       padding: 10px 20px;
       background-color: #fff;
@@ -84,6 +88,7 @@
       display: flex;
       align-items: flex-start;
       margin-top: 0.5rem;
+      margin-left: 15px;
 
       &__title {
         font-size: 1.3rem;
@@ -112,6 +117,8 @@
       display: flex;
       width: 100%;
       flex-direction: row;
+      padding-bottom: 15px;
+      min-height: 20vh;
     }
   }
 
@@ -127,13 +134,10 @@
   }
 
   .actions-div {
-    border-left: 1px solid #BDBDBD;
-    padding: 5px 5px 5px 15px;
-    margin: auto 0 auto auto;
-    align-self: flex-end;
-    flex-direction: row;
+    padding: 5px;
 
     span{
+      cursor: pointer;
       transition: all .2s ease;
 
       &:hover {
@@ -181,6 +185,7 @@
       overflow: auto;
       display: flex;
       flex-direction: column;
+      padding-right: 10px;
     }
 
     &__card {
@@ -218,12 +223,27 @@
     }
   }
 
+  .download-button {
+    border: 1px solid #828282;
+    border-radius: 10px;
+    padding: 10px 20px;
+    color: #505050;
+    cursor: pointer;
+    margin-bottom: 10px;
+  }
+
   .icon {
     margin-right: 10px;
 
     &-download {
       margin-right: 5px;
     }
+  }
+
+  .loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .disable-selection {
