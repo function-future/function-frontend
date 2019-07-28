@@ -1,7 +1,10 @@
 <template>
   <div class="scrollable-container">
     <div class="page-header">
-      <BaseButton class="add-btn" type="submit" buttonClass="button-save" @click="addJudging">
+      <BaseButton class="add-btn"
+                  type="submit"
+                  buttonClass="button-save"
+                  @click="addJudging">
         <font-awesome-icon icon="plus" class="icon"/> Add
       </BaseButton>
     </div>

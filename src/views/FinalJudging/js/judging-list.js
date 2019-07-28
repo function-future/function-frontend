@@ -91,6 +91,12 @@ export default {
     },
     successDeletingJudging () {
       this.$toasted.success('Successfully deleted question bank')
+      this.$router.push({
+        name: 'judgingList',
+        params: {
+          batchCode: this.$route.params.batchCode
+        }
+      })
       this.closeDeleteConfirmationModal()
     },
     failDeletingJudging () {
