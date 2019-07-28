@@ -1,9 +1,9 @@
-import QuizBatch from '@/views/Quiz/QuizBatch'
+import JudgingBatch from '@/views/FinalJudging/JudgingBatch'
 import { createLocalVue, shallowMount } from '@vue/test-utils'
 import Vuex from 'vuex'
 import VueRouter from 'vue-router'
 
-describe('QuizBatch', () => {
+describe('JudgingBatch', () => {
   let store
   let wrapper
   let localVue
@@ -71,7 +71,7 @@ describe('QuizBatch', () => {
       error: jest.fn(),
       success: jest.fn()
     }
-    return shallowMount(QuizBatch, {
+    return shallowMount(JudgingBatch, {
       ...options,
       store,
       localVue,
@@ -112,11 +112,11 @@ describe('QuizBatch', () => {
     expect(wrapper.isVueInstance()).toBe(true)
   })
 
-  test('goToQuizzes', () => {
+  test('goToJudgingList', () => {
     wrapper.vm.$router.push = jest.fn()
-    wrapper.vm.goToQuizList('3')
+    wrapper.vm.goToJudgingList('3')
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
-      name: 'quizzes',
+      name: 'judgingList',
       params: { batchCode: '3' }
     })
   })
@@ -124,7 +124,7 @@ describe('QuizBatch', () => {
   test('createNewBatch', () => {
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.createNewBatch()
-    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'addQuizBatch' })
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'addJudgingBatch' })
   })
 
   test('successFetchBatches', () => {
@@ -141,7 +141,7 @@ describe('QuizBatch', () => {
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.editBatch('sample-id-1')
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
-      name: 'editQuizBatch',
+      name: 'editJudgingBatch',
       params: { batchCode: 'sample-id-1' }
     })
   })
@@ -161,7 +161,7 @@ describe('QuizBatch', () => {
   test('successDeleteBatch', () => {
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.successDeleteBatch()
-    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'quizBatch' })
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'judgingBatch' })
     expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
     expect(wrapper.vm.selectedId).toEqual('')
   })
