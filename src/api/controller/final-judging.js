@@ -6,7 +6,7 @@ const getJudgingList = function (callback, data, errorHandler) {
 }
 
 const createJudging = function (callback, data, payload, errorHandler) {
-  request.postRequest(config.api.scoring.finalJudging.create, callback, payload, errorHandler)
+  request.postRequest(config.api.scoring.finalJudging.create(data.batchCode), callback, payload, errorHandler)
 }
 
 const getJudgingDetail = function (callback, data, errorHandler) {

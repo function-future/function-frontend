@@ -325,7 +325,9 @@ module.exports = {
         list (page, pageSize) {
           return `/api/scoring/judgings?page=${page}&size=${pageSize}`
         },
-        create: '/api/scoring/judgings',
+        create (batchCode) {
+          return `/api/scoring/batches/${batchCode}/judgings`
+        },
         detail (batchCode, judgingId) {
           return `/api/scoring/batches/${batchCode}/judgings/${judgingId}`
         },

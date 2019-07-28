@@ -1034,7 +1034,7 @@ export const finalJudging = [
   },
   {
     method: 'POST',
-    url: '/api/scoring/judgings',
+    url: '/api/scoring/batches/1/judgings',
     response:
       {
         "code": 201,
@@ -1043,13 +1043,25 @@ export const finalJudging = [
           "id": "FNC0001",
           "name": "Final Comparison #1",
           "description": "Final Comparison Decription #1",
+          "batchCode": "3",
+          "studentCount": 3,
+          "uploadedDate": 15000000000,
           "students": [
-            "SDT0001",
-            "SDT0002",
-            "SDT0003"
-          ],
-          "usedAt": 15000000000,
-          "uploadedDate": 15000000000
+            {
+              "studentId": "student-id",
+              "studentName": "Student",
+              "university": "University",
+              "avatar": "http://localhost:8080/avatar.png",
+              "batchCode": "3"
+            },
+            {
+              "studentId": "student-id-2",
+              "studentName": "Student 2",
+              "university": "University",
+              "avatar": "http://localhost:8080/avatar-2.png",
+              "batchCode": "3"
+            }
+          ]
         }
       }
   }
