@@ -1,8 +1,11 @@
 <template>
   <div class="scrollable-container">
     <div class="page-header">
-      <BaseButton class="add-btn" type="submit" buttonClass="button-save" @click="addQuestionBank">
-        <font-awesome-icon icon="plus" class="icon"/> Add
+      <BaseButton class="add-btn"
+                  type="submit"
+                  buttonClass="button-save"
+                  @click="addQuestionBank">
+        <font-awesome-icon icon="plus"class="icon"/> Add
       </BaseButton>
     </div>
     <BaseCard class="question-bank__card"

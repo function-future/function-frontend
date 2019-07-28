@@ -1,4 +1,4 @@
-import Comparisons from '@/views/Comparison/Comparisons'
+import Comparison from '@/views/FinalJudging/Comparison'
 import { createLocalVue, shallowMount } from '@vue/test-utils'
 import Vuex from 'vuex'
 import VueRouter from 'vue-router'
@@ -40,7 +40,7 @@ describe('Comparisons', () => {
 
   function createWrapper (store, options) {
     const router = new VueRouter([])
-    return shallowMount(Comparisons, {
+    return shallowMount(Comparison, {
       ...options,
       store,
       localVue,
