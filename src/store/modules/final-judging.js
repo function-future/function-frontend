@@ -16,9 +16,6 @@ export const mutations = {
   },
   GET_COMPARISON (state, payload) {
     state.comparison = payload
-  },
-  SET_SCORE (state, payload) {
-    state.score = payload
   }
 }
 
