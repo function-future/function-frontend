@@ -13,6 +13,10 @@ const uploadFile = function (callback, data, errorHandler, configuration) {
   request.postRequest(config.api.core.files.create(data.parentId), callback, data.content, errorHandler, configuration)
 }
 
+const updateFile = function (callback, data, errorHandler, configuration) {
+  request.putRequest(config.api.core.files.update(data.parentId, data.id), callback, data.content, errorHandler, configuration)
+}
+
 const deleteFile = function (callback, data, errorHandler) {
   request.deleteRequest(config.api.core.files.delete(data.parentId, data.id), callback, errorHandler)
 }
@@ -29,6 +33,7 @@ export default {
   getFileList,
   createFolder,
   uploadFile,
+  updateFile,
   deleteFile,
   downloadFile,
   getFileDetail
