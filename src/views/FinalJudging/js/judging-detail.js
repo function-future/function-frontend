@@ -33,8 +33,6 @@ export default {
   computed: {
     ...mapGetters([
       'judging',
-      'students',
-      'user'
     ]),
     returnButtonText () {
       return this.editMode ? 'Cancel' : 'Return'
@@ -46,7 +44,6 @@ export default {
   methods: {
     ...mapActions([
       'fetchJudgingDetail',
-      'fetchUserById',
       'updateJudging'
     ]),
     initPage () {
