@@ -78,12 +78,15 @@ describe('ModalFileDetail', () => {
     jest.resetAllMocks()
   })
 
+  beforeEach(() => {
+    initComponent()
+  })
+
   test('Sanity test', () => {
     expect(true).toBe(true)
   })
 
   test('Rendered correctly', () => {
-    initComponent()
     expect(wrapper.isVueInstance()).toBe(true)
   })
 
@@ -125,7 +128,6 @@ describe('ModalFileDetail', () => {
   })
 
   test('close', () => {
-    initComponent()
     wrapper.vm.close()
     expect(wrapper.emitted().close.length).toBe(1)
   })
@@ -148,5 +150,47 @@ describe('ModalFileDetail', () => {
   test('failDownloadFile', () => {
     wrapper.vm.failDownloadFile()
     expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
+  })
+
+  test('onFileChange', () => {
+    const spy = jest.spyOn(wrapper.vm, 'upload')
+    const e = {
+      target: {
+        files: [
+          {
+            name: 'test.png',
+            size: 2000000,
+            type: 'image/png'
+          }
+        ]
+      }
+    }
+    wrapper.vm.onFileChange(e)
+    expect(wrapper.vm.isUploading).toEqual(true)
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('upload', () => {
+    wrapper.vm.fileDetail.id = 'id-20'
+    const file = {
+      name: 'file name'
+    }
+    const spy = jest.spyOn(wrapper.vm, 'updateFile')
+    wrapper.vm.upload(file)
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('successUpdateFile', () => {
+    const spy = jest.spyOn(wrapper.vm, 'initData')
+    wrapper.vm.successUpdateFile()
+    expect(wrapper.vm.isUploading).toEqual(false)
+    expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('failUpdateFile', () => {
+    wrapper.vm.failUpdateFile()
+    expect(wrapper.vm.isUploading).toEqual(false)
+    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
   })
 })

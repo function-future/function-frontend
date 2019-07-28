@@ -41,6 +41,16 @@ describe('Files Controller', () => {
     expect(spy).toBeCalledTimes(1)
   })
 
+  test('updateFile', () => {
+    const spy = jest.spyOn(request, 'putRequest')
+    const data = {}
+    const callback = jest.fn()
+    const errorHandler = jest.fn()
+    const configuration = { headers: { 'Content-Type': 'multipart/form-data' } }
+    api.updateFile(callback, data, errorHandler, configuration)
+    expect(spy).toBeCalledTimes(1)
+  })
+
   test('deleteFile', () => {
     const spy = jest.spyOn(request, 'deleteRequest')
     const data = {}
@@ -57,6 +67,16 @@ describe('Files Controller', () => {
     const errorHandler = jest.fn()
     const configuration = {}
     api.downloadFile(callback, data, errorHandler, configuration)
+    expect(spy).toBeCalledTimes(1)
+  })
+
+  test('getFileDetail', () => {
+    const spy = jest.spyOn(request, 'getRequest')
+    const data = {}
+    const callback = jest.fn()
+    const errorHandler = jest.fn()
+    const configuration = {}
+    api.getFileDetail(callback, data, errorHandler, configuration)
     expect(spy).toBeCalledTimes(1)
   })
 })

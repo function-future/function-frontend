@@ -134,6 +134,51 @@ describe('files store module', () => {
       expect(callback).toHaveBeenCalledTimes(1)
     })
 
+    test('updateFile', () => {
+      api.updateFile = (success) => {
+        success({
+          'code': 200,
+          'status': 'OK',
+          'data': {
+            'paths': ['root', 'parent-id'],
+            'content': {
+              'id': 'id',
+              'type': 'FILE',
+              'name': 'File Name',
+              'file': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png',
+              'versions': {
+                '2': {
+                  'timestamp': 1555980050616,
+                  'url': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png'
+                },
+                '1': {
+                  'timestamp': 1555980054000,
+                  'url': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png'
+                }
+              },
+              'parentId': 'parent-id',
+              'author': {
+                'id': 'sample-id',
+                'name': 'Karnando Sepryan'
+              }
+            }
+          }
+        })
+      }
+      const data = {
+        'id': 'id',
+        'type': 'FILE',
+        'parentId': 'parent-id'
+      }
+      const commit = jest.fn()
+      const callback = jest.fn()
+      const fail = jest.fn()
+      const configuration = { headers: { 'Content-Type': 'multipart/form-data' } }
+      store.actions.updateFile({ commit }, { data, configuration, callback, fail })
+      expect(fail).not.toHaveBeenCalled()
+      expect(callback).toHaveBeenCalledTimes(1)
+    })
+
     test('deleteFile', () => {
       api.deleteFile = (success) => {
         success({
@@ -169,6 +214,50 @@ describe('files store module', () => {
       const fail = jest.fn()
       const configuration = { headers: { 'Content-Type': 'multipart/form-data' } }
       store.actions.downloadFile({ commit }, { data, configuration, callback, fail })
+      expect(fail).not.toHaveBeenCalled()
+      expect(callback).toHaveBeenCalledTimes(1)
+    })
+
+    test('getFileDetail', () => {
+      api.getFileDetail = (success) => {
+        success({
+          'code': 200,
+          'status': 'OK',
+          'data': {
+            'paths': ['root', 'parent-id'],
+            'content': {
+              'id': 'id',
+              'type': 'FILE',
+              'name': 'File Name',
+              'file': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png',
+              'versions': {
+                '2': {
+                  'timestamp': 1555980050616,
+                  'url': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png'
+                },
+                '1': {
+                  'timestamp': 1555980054000,
+                  'url': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png'
+                }
+              },
+              'parentId': 'parent-id',
+              'author': {
+                'id': 'sample-id',
+                'name': 'Karnando Sepryan'
+              }
+            }
+          }
+        })
+      }
+      const data = {
+        parentId: 'sample-id',
+        id: 'id-20'
+      }
+      const commit = jest.fn()
+      const callback = jest.fn()
+      const fail = jest.fn()
+      const configuration = { headers: { 'Content-Type': 'multipart/form-data' } }
+      store.actions.getFileDetail({ commit }, { data, configuration, callback, fail })
       expect(fail).not.toHaveBeenCalled()
       expect(callback).toHaveBeenCalledTimes(1)
     })
