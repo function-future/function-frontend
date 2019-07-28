@@ -23,9 +23,16 @@
               </div>
             </div>
             <div class="actions-div disable-selection">
-              <span>
-                <font-awesome-icon icon="edit" class="icon blue"></font-awesome-icon>Edit
-              </span>
+              <label class="update-file-button" v-if="!isUploading">
+                <input type="file" @change="onFileChange($event)" v-if="!isUploading">
+                <font-awesome-icon icon="edit" class="icon blue"></font-awesome-icon>Update File
+              </label>
+              <div class="file__progress-wrapper" v-if="isUploading">
+                <div class="file__progress-text">Uploading...</div>
+                <div class="file__progress-background">
+                  <div class="file__progress-inner" :style="{ width: uploadProgress + '%' }"></div>
+                </div>
+              </div>
             </div>
           </BaseCard>
           <BaseCard  class="version__wrapper">
@@ -137,20 +144,7 @@
   }
 
   .actions-div {
-    padding: 5px;
-
-    span{
-      cursor: pointer;
-      transition: all .2s ease;
-
-      &:hover {
-        opacity: 0.8;
-      }
-
-      &:active {
-        opacity: 0.9;
-      }
-    }
+    padding: 5px 0;
   }
 
   .title {
@@ -255,6 +249,52 @@
 
     &__name {
       font-weight: bold;
+    }
+  }
+
+  .file {
+    &__progress {
+      &-wrapper {
+        padding: 5px;
+      }
+
+      &-text {
+        font-size: 0.9rem;
+        margin-bottom: 5px;
+      }
+
+      &-background {
+        height: 5px;
+        border-radius: 25px;
+        background-color: #e5e5e5;
+      }
+
+      &-inner {
+        display: flex;
+        height: 100%;
+        width: 20%;
+        border-radius: 25px;
+        background-color: #02AAF3;
+        transition: width 1s linear;
+      }
+    }
+  }
+
+  .update-file-button {
+    padding: 0 5px;
+    cursor: pointer;
+    transition: all .2s ease;
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    &:active {
+      opacity: 0.9;
+    }
+
+    input {
+      display: none;
     }
   }
 

@@ -9,7 +9,9 @@ export default {
   data () {
     return {
       fileDetail: {},
-      isLoading: false
+      isLoading: false,
+      isUploading: false,
+      uploadProgress: 0
     }
   },
   props: {
@@ -26,7 +28,8 @@ export default {
   methods: {
     ...mapActions([
       'downloadFile',
-      'getFileDetail'
+      'getFileDetail',
+      'updateFile'
     ]),
     initData () {
       this.isLoading = true
@@ -74,6 +77,48 @@ export default {
     },
     failDownloadFile () {
       this.$toasted.error('Fail to download file, please try again')
+    },
+    onFileChange (e) {
+      this.isUploading = true
+      this.file = e.target.files[0]
+      this.upload(this.file)
+    },
+    constructFormData (file, type) {
+      let data = JSON.stringify({
+        name: this.fileDetail.name,
+        type: type
+      })
+      let formData = new FormData()
+      formData.append(data, file)
+      return formData
+    },
+    upload (file) {
+      let data = {
+        parentId: this.$route.params.parentId,
+        id: this.fileDetail.id,
+        content: this.constructFormData(file, 'FILE')
+      }
+      let config = {
+        headers: { 'Content-Type': 'multipart/form-data' },
+        onUploadProgress (progressEvent) {
+          this.uploadProgress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+        }
+      }
+      this.updateFile({
+        data: data,
+        configuration: config,
+        callback: this.successUpdateFile,
+        fail: this.failUpdateFile
+      })
+    },
+    successUpdateFile () {
+      this.isUploading = false
+      this.$toasted.success('Successfully updated file')
+      this.initData()
+    },
+    failUpdateFile () {
+      this.isUploading = false
+      this.$toasted.error('Fail to update file, please try again')
     }
   }
 }
