@@ -25,6 +25,7 @@ import quizQuestions from '@/views/Quiz/QuizQuestions'
 import judgingList from '@/views/FinalJudging/JudgingList'
 import judgingBatch from '@/views/FinalJudging/JudgingBatch'
 import judgingBatchForm from '@/views/FinalJudging/JudgingBatchForm'
+import addJudging from '@/views/FinalJudging/AddJudging'
 import judgingDetail from '@/views/FinalJudging/JudgingDetail'
 import comparison from '@/views/FinalJudging/Comparison'
 import points from '@/views/Point/Point'
@@ -672,6 +673,14 @@ const router = new Router({
       component: judgingList,
       meta: {
         title: 'Judging'
+      }
+    },
+    {
+      path: config.app.pages.finalJudging.add,
+      name: 'addJudging',
+      component: addJudging,
+      meta: {
+        title: 'Add Judging Session'
       }
     },
     {

@@ -95,6 +95,7 @@ module.exports = {
           add: '/final-judging/batches/add',
           edit: '/final-judging/batches/:batchCode/edit',
         },
+        add: '/batches/:batchCode/final-judging/add',
         detail: '/batches/:batchCode/final-judging/:judgingId/detail',
         comparisons: '/batches/:batchCode/final-judging/:judgingId/comparison'
       },
