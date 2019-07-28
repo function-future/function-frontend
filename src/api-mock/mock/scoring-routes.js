@@ -1072,18 +1072,34 @@ export const finalJudgingDetail = [
           "studentCount": 3,
           "students": [
             {
-              "id": "sample-id-student",
-              "name": "Student",
-              "university": "University",
-              "avatar": "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
-              "batchCode": "3"
+              'id': 'sample-id-student',
+              'role': 'STUDENT',
+              'email': 'user@user.com',
+              'name': 'User Student 1',
+              'phone': '088888888888',
+              'address': 'Jl. Address 1 Address 2',
+              'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+              'batch': {
+                'id': 'sample-id',
+                'name': 'Batch Name',
+                'code': '3'
+              },
+              'university': 'Bina Nusantara University'
             },
             {
-              "id": "sample-id-2",
-              "name": "Student 2",
-              "university": "University",
-              "avatar": "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
-              "batchCode": "3"
+              'id': 'sample-id-2',
+              'role': 'STUDENT',
+              'email': 'user@user.com',
+              'name': 'User Student 2',
+              'phone': '088888888888',
+              'address': 'Jl. Address 1 Address 2',
+              'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+              'batch': {
+                'id': 'sample-id',
+                'name': 'Batch Name',
+                'code': '3'
+              },
+              'university': 'Bina Nusantara University'
             }
           ]
         }

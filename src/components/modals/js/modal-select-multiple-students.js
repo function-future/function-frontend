@@ -30,9 +30,6 @@ export default {
       'students'
     ])
   },
-  created () {
-    this.initData()
-  },
   methods: {
     ...mapActions([
       'fetchUsersByRole',
@@ -43,26 +40,6 @@ export default {
     },
     selectStudents () {
       this.$emit('selected', this.selectedStudents)
-    },
-    initData () {
-      let data = {
-        page: this.paging.page,
-        size: this.paging.size,
-        role: 'STUDENT'
-      }
-      this.fetchUsersByRole({
-        data,
-        callback: this.successFetchingUsers,
-        fail: this.failFetchingUsers
-      })
-    },
-    successFetchingUsers (response) {
-      this.setStudentList({ data: response.data })
-      this.studentList = [ ...this.students ]
-      this.selectedStudents = [ ...this.currentlySelected ]
-    },
-    failFetchingUsers () {
-      this.$toasted.error('Something went wrong')
     },
     initStudents ($state) {
       this.state = $state
@@ -80,15 +57,17 @@ export default {
     successFetchingStudentList (response) {
       this.paging = response.paging
       this.studentList.push(...response.data)
-      if (response.length) {
-        this.discussionPaging.page++
+      if (response.data.length) {
+        this.setStudentList({ data: response.data })
+        this.studentList = [ ...this.students ]
+        this.selectedStudents = [ ...this.currentlySelected ]
+        this.paging.page++
         this.state.loaded()
       } else {
         this.state.complete()
       }
     },
-    failedFetchingStudentList (err) {
-      console.log(err)
+    failedFetchingStudentList () {
       this.$toasted.error('Something went wrong')
     },
   }

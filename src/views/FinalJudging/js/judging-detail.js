@@ -63,20 +63,10 @@ export default {
       this.judgingDetail.name = this.judging.name
       this.judgingDetail.description = this.judging.description
       this.judgingDetail.students = this.judging.students
-      this.judging.students.forEach((item) => {
-        this.fetchUserById({
-          data: {
-            id: item.id
-          },
-          callback: this.getUserById,
-          fail: this.failedFetchingJudgingDetail
-        })
-      })
+      this.selectedStudents = this.judging.students
       this.isLoading = false
     },
-    getUserById () {
-      this.selectedStudents.push(this.user)
-    },
+
     failedFetchingJudgingDetail () {
       this.$toasted.error('Something went wrong')
     },
