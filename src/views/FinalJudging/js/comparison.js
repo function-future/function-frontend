@@ -51,8 +51,10 @@ export default {
       this.$router.go(-1)
     },
     submitButtonClicked () {
-      let payload = []
-      this.comparison.forEach((item, index) => payload.push({
+      let payload = {
+        scores: []
+      }
+      this.comparison.forEach((item, index) => payload.scores.push({
         studentId: item.studentId,
         score: this.scores[index]
       }))
