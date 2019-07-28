@@ -3,7 +3,7 @@ import { createLocalVue, shallowMount } from '@vue/test-utils'
 import Vuex from 'vuex'
 import VueRouter from 'vue-router'
 
-describe('Quiz', () => {
+describe('JudgingList', () => {
   let store
   let wrapper
   let localVue
