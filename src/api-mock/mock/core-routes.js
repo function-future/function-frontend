@@ -2064,6 +2064,38 @@ export const files = [
       'data': {
         'paths': ['root', 'parent-id'],
         'content': {
+          'id': 'id-20',
+          'type': 'FILE',
+          'name': 'File Name',
+          'file': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png',
+          'versions': {
+            '2': {
+              'timestamp': 1555980050616,
+              'url': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png'
+            },
+            '1': {
+              'timestamp': 1555980054000,
+              'url': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png'
+            }
+          },
+          'parentId': 'parent-id',
+          'author': {
+            'id': 'sample-id',
+            'name': 'Karnando Sepryan'
+          }
+        }
+      }
+    }
+  },
+  {
+    method: 'PUT',
+    url: '/api/core/files/root/id-20',
+    response: {
+      'code': 200,
+      'status': 'OK',
+      'data': {
+        'paths': ['root', 'parent-id'],
+        'content': {
           'id': 'id',
           'type': 'FILE',
           'name': 'File Name',
