@@ -14,6 +14,7 @@ export default {
   },
   data () {
     return {
+      isLoading: false,
       masterCourse: {
         id: 'master',
         code: 'master',
@@ -58,6 +59,7 @@ export default {
       })
     },
     initPage () {
+      this.isLoading = true
       this.fetchBatches({
         callback: this.successFetchBatches,
         fail: this.failFetchBatches
@@ -65,8 +67,10 @@ export default {
     },
     successFetchBatches () {
       this.batches = this.batchList
+      this.isLoading = false
     },
     failFetchBatches () {
+      this.isLoading = false
       this.$toasted.error('Fail to fetch batches, please try again')
     },
     editBatch (id) {

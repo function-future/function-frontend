@@ -61,7 +61,7 @@
               <BaseInput v-model="profile.batch.code" disabled></BaseInput>
             </div>
           </div>
-          <div class="input-wrapper change-password-wrapper" v-if="profile.role === 'STUDENT'">
+          <div class="input-wrapper change-password-wrapper">
             <div class="input-label inline"></div>
             <BaseButton type="submit" buttonClass="button-save" @click="goToChangePassword"
                         class="change-password-button">

@@ -66,6 +66,7 @@
     position: absolute;
     top: 0;
     right: 5vw;
+    z-index: 999;
   }
 
   .scrollable-container {

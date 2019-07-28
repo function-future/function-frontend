@@ -16,24 +16,29 @@
       </span>
     </div>
     <div class="tab-container">
-      <div class="scrollable-tab" v-if="currentTab === 'student'">
-        <div v-for="student in students" :key="student.id">
-          <UserCard :user="student" @edit="goToEditUser" @delete="openDeleteConfirmationModal"></UserCard>
-        </div>
+      <div v-if="isLoading" class="loading">
+        <font-awesome-icon icon="spinner" spin class="icon-loading" size="lg"></font-awesome-icon>
       </div>
-      <div class="scrollable-tab" v-if="currentTab === 'admin'">
-        <div v-for="admin in admins" :key="admin.id">
-          <UserCard :user="admin" @edit="goToEditUser" @delete="openDeleteConfirmationModal"></UserCard>
+      <div v-if="!isLoading">
+        <div class="scrollable-tab" v-if="currentTab === 'student'">
+          <div v-for="student in students" :key="student.id">
+            <UserCard :user="student" @edit="goToEditUser" @delete="openDeleteConfirmationModal"></UserCard>
+          </div>
         </div>
-      </div>
-      <div class="scrollable-tab" v-if="currentTab === 'mentor'">
-        <div v-for="mentor in mentors" :key="mentor.id">
-          <UserCard :user="mentor" @edit="goToEditUser" @delete="openDeleteConfirmationModal"></UserCard>
+        <div class="scrollable-tab" v-if="currentTab === 'admin'">
+          <div v-for="admin in admins" :key="admin.id">
+            <UserCard :user="admin" @edit="goToEditUser" @delete="openDeleteConfirmationModal"></UserCard>
+          </div>
         </div>
-      </div>
-      <div class="scrollable-tab" v-if="currentTab === 'judge'">
-        <div v-for="judge in judges" :key="judge.id">
-          <UserCard :user="judge" @edit="goToEditUser" @delete="openDeleteConfirmationModal"></UserCard>
+        <div class="scrollable-tab" v-if="currentTab === 'mentor'">
+          <div v-for="mentor in mentors" :key="mentor.id">
+            <UserCard :user="mentor" @edit="goToEditUser" @delete="openDeleteConfirmationModal"></UserCard>
+          </div>
+        </div>
+        <div class="scrollable-tab" v-if="currentTab === 'judge'">
+          <div v-for="judge in judges" :key="judge.id">
+            <UserCard :user="judge" @edit="goToEditUser" @delete="openDeleteConfirmationModal"></UserCard>
+          </div>
         </div>
       </div>
       <BasePagination :paging="paging"
@@ -124,5 +129,13 @@
     height: 2px;
     background-color: #02AAF3;
     transition: transform 0.4s ease, width 0.4s ease;
+  }
+
+  .loading {
+    margin-top: 50px;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 </style>

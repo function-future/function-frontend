@@ -10,7 +10,7 @@ jest.mock('@/api/controller/users')
 describe('ModalChatroom', () => {
   let wrapper
   const user1 = {
-    id: 'id1',
+    id: 'idUser',
     name: 'Priagung'
   }
 
@@ -34,7 +34,7 @@ describe('ModalChatroom', () => {
     return localVue
   }
 
-  function initComponent () {
+  function initComponent (withoutChatroom) {
     const localVue = generateLocalVue()
     const store = new Vuex.Store({
       modules: {
@@ -46,9 +46,9 @@ describe('ModalChatroom', () => {
     })
 
     wrapper = shallowMount(ModalChatroom, {
-      propsData: {
+      propsData: !withoutChatroom ? {
         chatroomId: 'idChatroom'
-      },
+      } : {},
       localVue,
       stubs: ['font-awesome-icon'],
       store
@@ -84,7 +84,11 @@ describe('ModalChatroom', () => {
       })
     }
 
-    initComponent()
+    initComponent({
+      propsData: {
+        chatroomId: 'idChatroom'
+      }
+    })
 
     expect(wrapper.vm.usersWithoutSelectedOne).toEqual([user2])
   })
@@ -128,6 +132,7 @@ describe('ModalChatroom', () => {
     }
 
     initComponent()
+    wrapper.vm.selectedUsers = [1,2,3]
 
     wrapper.vm.create()
     expect(wrapper.vm.wrongName).toBe(true)
@@ -192,5 +197,58 @@ describe('ModalChatroom', () => {
 
     wrapper.vm.enterPressed({ keyCode: 13 })
     expect(wrapper.emitted()).toBeTruthy()
+  })
+
+  test('enterSearchHandler', () => {
+    const event = { keyCode: 13 }
+    initComponent()
+    wrapper.vm.nameMember = 'name'
+    wrapper.vm.users = [user2]
+    wrapper.vm.selectedUsers = []
+    wrapper.vm.enterSearchHandler(event)
+    expect(wrapper.vm.selectedUsers[0].id).toEqual(user2.id)
+  })
+
+  test('enterSearchHandler wrong keycode', () => {
+    const event = { keyCode: 12 }
+    initComponent()
+    wrapper.vm.nameMember = 'name'
+    wrapper.vm.users = [user2]
+    wrapper.vm.selectedUsers = []
+    wrapper.vm.enterSearchHandler(event)
+    expect(wrapper.vm.selectedUsers.length).toEqual(0)
+  })
+
+  test('enterSearchHandler without name member', () => {
+    const event = { keyCode: 13 }
+    initComponent()
+    wrapper.vm.nameMember = ''
+    wrapper.vm.users = [user2]
+    wrapper.vm.selectedUsers = []
+    wrapper.vm.enterSearchHandler(event)
+    expect(wrapper.vm.selectedUsers.length).toEqual(0)
+  })
+
+  test('enterSearchHandler without name member and wrong keycode', () => {
+    const event = { keyCode: 12 }
+    initComponent()
+    wrapper.vm.nameMember = ''
+    wrapper.vm.users = [user2]
+    wrapper.vm.selectedUsers = []
+    wrapper.vm.enterSearchHandler(event)
+    expect(wrapper.vm.selectedUsers.length).toEqual(0)
+  })
+
+  test('error handler', () => {
+    global.console.log = jest.fn()
+    initComponent()
+    wrapper.vm.errorHandler('test')
+    expect(console.log).toBeCalledTimes(1)
+  })
+
+  test('created without chatroomId', () => {
+    const spy = jest.spyOn(ModalChatroom.methods, 'callSearchUserApi')
+    initComponent(true)
+    expect(spy).toBeCalledTimes(1)
   })
 })

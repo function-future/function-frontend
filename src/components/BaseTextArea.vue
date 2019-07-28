@@ -31,6 +31,7 @@
     width: 100%;
     height: 100%;
     outline: none;
+    font-family: Helvetica, Arial, sans-serif;
   }
 
   .textarea-box:hover {
