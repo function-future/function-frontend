@@ -51,7 +51,6 @@ export default {
       let payload = {
         ...this.judgingDetail
       }
-      console.log(payload)
       this.createJudging({
         data,
         payload,
