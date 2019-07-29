@@ -346,4 +346,48 @@ describe('Files', () => {
     expect(wrapper.vm.showDeleteConfirmationModal).toEqual(false)
     expect(wrapper.vm.selectedId).toEqual('')
   })
+
+  test('openRenameFileFolderModal', () => {
+    const id = 'sample-id'
+    const title = 'sampe title 1'
+    const type = 'FOLDER'
+    wrapper.vm.openRenameFileFolderModal(id, title, type)
+    expect(wrapper.vm.showRenameFileFolderModal).toEqual(true)
+    expect(wrapper.vm.selectedId).toEqual(id)
+    expect(wrapper.vm.currentTitle).toEqual(title)
+    expect(wrapper.vm.selectedType).toEqual(type)
+  })
+
+  test('closeRenameFileFolderModal', () => {
+    wrapper.vm.showRenameFileFolderModal = true
+    wrapper.vm.selectedId = 'sample-id'
+    wrapper.vm.currentTitle = 'sampe title 1'
+    wrapper.vm.selectedType = 'FOLDER'
+    wrapper.vm.closeRenameFileFolderModal()
+    expect(wrapper.vm.showRenameFileFolderModal).toEqual(false)
+    expect(wrapper.vm.selectedId).toEqual('')
+    expect(wrapper.vm.currentTitle).toEqual('')
+    expect(wrapper.vm.selectedType).toEqual('')
+  })
+
+  test('renameFileFolderFromModal', () => {
+    const title = 'new title 2'
+    const spy = jest.spyOn(wrapper.vm, 'updateFile')
+    wrapper.vm.renameFileFolderFromModal(title)
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('successUpdateFile', () => {
+    const spy = jest.spyOn(wrapper.vm, 'closeRenameFileFolderModal')
+    wrapper.vm.successUpdateFile()
+    expect(wrapper.vm.$toasted.success).toHaveBeenCalled()
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('failUpdateFile', () => {
+    const spy = jest.spyOn(wrapper.vm, 'closeRenameFileFolderModal')
+    wrapper.vm.failUpdateFile()
+    expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
 })
