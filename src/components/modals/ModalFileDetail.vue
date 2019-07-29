@@ -31,6 +31,9 @@
                   <div class="file__progress-inner" :style="{ width: uploadProgress + '%' }"></div>
                 </div>
               </div>
+              <div class="disable-selection action-button" @click="openRenameFileFolderModal(fileDetail.name)">
+                <font-awesome-icon icon="edit" class="icon blue"></font-awesome-icon>Rename
+              </div>
             </div>
           </BaseCard>
           <BaseCard  class="version__wrapper">
@@ -51,6 +54,11 @@
         </div>
       </div>
     </div>
+    <modal-rename-file-folder v-if="showRenameFileFolderModal"
+                              :currentTitle="fileDetail.name"
+                              @close="closeRenameFileFolderModal"
+                              @submit="renameFileFolderFromModal">
+    </modal-rename-file-folder>
   </div>
 </template>
 

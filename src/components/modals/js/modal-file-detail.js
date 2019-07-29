@@ -1,16 +1,19 @@
 import { mapGetters, mapActions } from 'vuex'
 import BaseCard from '@/components/BaseCard'
+import ModalRenameFileFolder from '@/components/modals/ModalRenameFileFolder'
 
 export default {
   name: 'modal-file-detail',
   components: {
-    BaseCard
+    BaseCard,
+    ModalRenameFileFolder
   },
   data () {
     return {
       fileDetail: {},
       isLoading: false,
       isUploading: false,
+      showRenameFileFolderModal: false,
       uploadProgress: 0
     }
   },
@@ -85,21 +88,19 @@ export default {
     },
     constructFormData (file, type, isRenameMode) {
       let data = JSON.stringify({
-        name: this.fileDetail.name,
+        name: isRenameMode ? file.name : this.fileDetail.name,
         type: type
       })
       let formData = new FormData()
       formData.append('data', data)
-      type === 'FOLDER' || isRenameMode
-        ? formData.append('file', '')
-        : formData.append('file', file)
+      isRenameMode ? formData.append('file', '') : formData.append('file', file)
       return formData
     },
     upload (file) {
       let data = {
         parentId: this.$route.params.parentId,
         id: this.fileDetail.id,
-        content: this.constructFormData(file, 'FILE', true)
+        content: this.constructFormData(file, 'FILE', false)
       }
       let config = {
         headers: { 'Content-Type': 'multipart/form-data' },
@@ -122,6 +123,38 @@ export default {
     failUpdateFile () {
       this.isUploading = false
       this.$toasted.error('Fail to update file, please try again')
+    },
+    openRenameFileFolderModal (title) {
+      this.showRenameFileFolderModal = true
+    },
+    closeRenameFileFolderModal () {
+      this.showRenameFileFolderModal = false
+    },
+    renameFileFolderFromModal (title) {
+      let newTitle = { name: title }
+      let data = {
+        parentId: this.$route.params.parentId,
+        id: this.fileDetail.id,
+        content: this.constructFormData(newTitle, this.fileDetail.type, true)
+      }
+      let config = {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      }
+      this.updateFile({
+        data: data,
+        configuration: config,
+        callback: this.successRenameFile,
+        fail: this.failRenameFile
+      })
+    },
+    successRenameFile () {
+      this.showRenameFileFolderModal = false
+      this.$toasted.success('Rename successful')
+      this.initData()
+    },
+    failRenameFile () {
+      this.showRenameFileFolderModal = false
+      this.$toasted.error('Rename failed, please try again')
     }
   }
 }
