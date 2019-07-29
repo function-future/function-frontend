@@ -108,9 +108,6 @@ module.exports = {
           list: '/quizzes',
           detail: '/quizzes/:quizId/detail',
           questions: '/quizzes/:quizId/questions'
-        },
-        assignments: {
-
         }
       },
       chatrooms: '/chatrooms',
