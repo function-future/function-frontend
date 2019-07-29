@@ -148,12 +148,12 @@ export default {
       })
     },
     successRenameFile () {
-      this.showRenameFileFolderModal = false
+      this.closeRenameFileFolderModal()
       this.$toasted.success('Rename successful')
       this.initData()
     },
     failRenameFile () {
-      this.showRenameFileFolderModal = false
+      this.closeRenameFileFolderModal()
       this.$toasted.error('Rename failed, please try again')
     }
   }
