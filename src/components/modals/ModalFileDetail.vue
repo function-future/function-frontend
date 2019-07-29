@@ -18,12 +18,10 @@
               <div class="details__name">{{ fileDetail.author.name }}</div>
             </div>
             <div class="file__header">
-              <div class="download-button" @click="downloadFileFromUrl(fileDetail.file)">
+              <div class="disable-selection action-button" @click="downloadFileFromUrl(fileDetail.file)">
                 <font-awesome-icon icon="download" class="icon"></font-awesome-icon>Download
               </div>
-            </div>
-            <div class="actions-div disable-selection">
-              <label class="update-file-button" v-if="!isUploading">
+              <label class="disable-selection action-button" v-if="!isUploading">
                 <input type="file" @change="onFileChange($event)" v-if="!isUploading">
                 <font-awesome-icon icon="edit" class="icon blue"></font-awesome-icon>Update File
               </label>
@@ -143,10 +141,6 @@
     flex-direction: column;
   }
 
-  .actions-div {
-    padding: 5px 0;
-  }
-
   .title {
     font-size: 1.3rem;
     font-weight: bold;
@@ -212,16 +206,22 @@
     }
   }
 
-  .download-button {
+  .action-button {
     border: 1px solid #828282;
     border-radius: 10px;
     padding: 10px 20px;
     color: #505050;
     cursor: pointer;
     margin-bottom: 10px;
+    transition: all .2s ease;
+    display: block;
 
     &:hover {
       background-color: #F2F2F2;
+    }
+
+    input {
+      display: none;
     }
   }
 
@@ -277,24 +277,6 @@
         background-color: #02AAF3;
         transition: width 1s linear;
       }
-    }
-  }
-
-  .update-file-button {
-    padding: 0 5px;
-    cursor: pointer;
-    transition: all .2s ease;
-
-    &:hover {
-      opacity: 0.8;
-    }
-
-    &:active {
-      opacity: 0.9;
-    }
-
-    input {
-      display: none;
     }
   }
 
