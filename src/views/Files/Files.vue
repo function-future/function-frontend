@@ -33,7 +33,7 @@
               <font-awesome-icon icon="folder" class="icon" size="lg"></font-awesome-icon>
               <div class="file__title">{{ showLimitedPreviewText(folder.name) }}</div>
               <div class="actions" v-if="true">
-                <span class="delete-btn"
+                <span class="rename-btn"
                       @click.stop="openRenameFileFolderModal(folder.id, folder.name, folder.type)"
                       v-if="accessList.edit && currentUser.role === 'ADMIN'">
                   <font-awesome-icon icon="edit" class="action-icon blue"></font-awesome-icon>
@@ -57,6 +57,11 @@
               <font-awesome-icon icon="file" class="icon" size="lg"></font-awesome-icon>
               <div class="file__title">{{ showLimitedPreviewText(file.name) }}</div>
               <div class="actions" v-if="true">
+                <span class="rename-btn"
+                      @click.stop="openRenameFileFolderModal(file.id, file.name, file.type)"
+                      v-if="accessList.edit && ((currentUser.id === file.author.id) || currentUser.role === 'ADMIN')">
+                  <font-awesome-icon icon="edit" class="action-icon blue"></font-awesome-icon>
+                </span>
               <span class="delete-btn"
                     @click.stop="openDeleteConfirmationModal(file.id, file.type)"
                     v-if="accessList.delete && ((currentUser.id === file.author.id) || currentUser.role === 'ADMIN')">

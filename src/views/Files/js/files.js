@@ -132,13 +132,16 @@ export default {
       this.fileUploadList.unshift(file)
       this.upload(this.file)
     },
-    constructFormData (file, type) {
+    constructFormData (file, type, isRenameMode) {
       let data = JSON.stringify({
         name: file.name,
         type: type
       })
       let formData = new FormData()
-      formData.append(data, file)
+      formData.append('data', data)
+      type === 'FOLDER' || isRenameMode
+        ? formData.append('file', '')
+        : formData.append('file', file)
       return formData
     },
     upload (file) {
@@ -235,7 +238,7 @@ export default {
       let data = {
         parentId: this.$route.params.parentId,
         id: this.selectedId,
-        content: this.constructFormData(newTitle, this.selectedType)
+        content: this.constructFormData(newTitle, this.selectedType, true)
       }
       let config = {
         headers: { 'Content-Type': 'multipart/form-data' }
