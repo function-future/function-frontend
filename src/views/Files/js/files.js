@@ -3,6 +3,7 @@ import BaseCard from '@/components/BaseCard.vue'
 import BaseButton from '@/components/BaseButton.vue'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
 import ModalCreateFolder from '@/components/modals/ModalCreateFolder'
+import ModalRenameFileFolder from '@/components/modals/ModalRenameFileFolder'
 import ModalFileUploadProgress from '@/components/modals/ModalFileUploadProgress'
 import ModalFileDetail from '@/components/modals/ModalFileDetail'
 import InfiniteLoading from 'vue-infinite-loading'
@@ -14,6 +15,7 @@ export default {
     BaseButton,
     ModalDeleteConfirmation,
     ModalCreateFolder,
+    ModalRenameFileFolder,
     ModalFileUploadProgress,
     ModalFileDetail,
     InfiniteLoading
@@ -22,12 +24,15 @@ export default {
     return {
       state: '',
       selectedId: '',
+      selectedType: '',
       paths: [],
       showFileDetail: false,
       showDeleteConfirmationModal: false,
       showCreateModal: false,
+      showRenameFileFolderModal: false,
       showFileUploadModal: false,
       isUploading: false,
+      file: {},
       fileList: [],
       folderList: [],
       fileUploadList: [],
@@ -35,7 +40,8 @@ export default {
         page: 1,
         size: 10
       },
-      infiniteId: +new Date()
+      infiniteId: +new Date(),
+      currentTitle: ''
     }
   },
   computed: {
@@ -50,7 +56,8 @@ export default {
       'createFolder',
       'uploadFile',
       'deleteFile',
-      'downloadFile'
+      'downloadFile',
+      'updateFile'
     ]),
     initPage ($state) {
       this.state = $state
@@ -83,6 +90,7 @@ export default {
     },
     resetPage () {
       this.paging.page = 1
+      this.file = {}
       this.fileList = []
       this.folderList = []
       this.infiniteId += 1
@@ -158,6 +166,7 @@ export default {
     },
     failUploadFile () {
       this.fileUploadList[0].progress = 101
+      this.file = {}
       this.isUploading = false
     },
     closeFileUploadModal () {
@@ -208,6 +217,44 @@ export default {
     closeDeleteConfirmationModal () {
       this.showDeleteConfirmationModal = false
       this.selectedId = ''
+    },
+    openRenameFileFolderModal (id, title, type) {
+      this.showRenameFileFolderModal = true
+      this.selectedId = id
+      this.selectedType = type
+      this.currentTitle = title
+    },
+    closeRenameFileFolderModal () {
+      this.showRenameFileFolderModal = false
+      this.selectedId = ''
+      this.selectedType = ''
+      this.currentTitle = ''
+    },
+    renameFileFolderFromModal (title) {
+      let newTitle = { name: title }
+      let data = {
+        parentId: this.$route.params.parentId,
+        id: this.selectedId,
+        content: this.constructFormData(newTitle, this.selectedType)
+      }
+      let config = {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      }
+      this.updateFile({
+        data: data,
+        configuration: config,
+        callback: this.successUpdateFile,
+        fail: this.failUpdateFile
+      })
+    },
+    successUpdateFile () {
+      this.closeRenameFileFolderModal()
+      this.$toasted.success('Rename successful')
+      this.resetPage()
+    },
+    failUpdateFile () {
+      this.closeRenameFileFolderModal()
+      this.$toasted.error('Rename failed, please try again')
     }
   },
   watch: {

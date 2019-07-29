@@ -33,11 +33,16 @@
               <font-awesome-icon icon="folder" class="icon" size="lg"></font-awesome-icon>
               <div class="file__title">{{ showLimitedPreviewText(folder.name) }}</div>
               <div class="actions" v-if="true">
-              <span class="delete-btn"
-                    @click.stop="openDeleteConfirmationModal(folder.id, folder.type)"
-                    v-if="accessList.delete && currentUser.role === 'ADMIN'">
-                <font-awesome-icon icon="trash-alt" class="action-icon red"></font-awesome-icon>
-              </span>
+                <span class="delete-btn"
+                      @click.stop="openRenameFileFolderModal(folder.id, folder.name, folder.type)"
+                      v-if="accessList.edit && currentUser.role === 'ADMIN'">
+                  <font-awesome-icon icon="edit" class="action-icon blue"></font-awesome-icon>
+                </span>
+                <span class="delete-btn"
+                      @click.stop="openDeleteConfirmationModal(folder.id, folder.type)"
+                      v-if="accessList.delete && currentUser.role === 'ADMIN'">
+                  <font-awesome-icon icon="trash-alt" class="action-icon red"></font-awesome-icon>
+                </span>
               </div>
             </BaseCard>
           </div>
@@ -79,6 +84,11 @@
                          @close="showCreateModal = false"
                          @create="createFolderFromModal">
     </modal-create-folder>
+    <modal-rename-file-folder v-if="showRenameFileFolderModal"
+                              :currentTitle="currentTitle"
+                              @close="closeRenameFileFolderModal"
+                              @submit="renameFileFolderFromModal">
+    </modal-rename-file-folder>
     <transition name="slide-fade" mode="out-in">
       <modal-file-upload-progress v-if="showFileUploadModal"
                                   @close="closeFileUploadModal"
