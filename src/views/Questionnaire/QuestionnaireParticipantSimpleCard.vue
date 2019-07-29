@@ -1,0 +1,66 @@
+<template>
+  <div class="questionnaire-participant-card-outer">
+    <BaseCard class="questionnaire-participant-card-container">
+      <div v-if="avatar" class="questionnaire-participant-card-avatar">
+        <img :src="avatar">
+      </div>
+      <div class="questionnaire-participant-card-content">
+        <p class="participant-name"><strong>{{ name }}</strong></p>
+      </div>
+      <div class="score-placeholder">
+        <span><font-awesome-icon icon="star" size="lg" class="star-icon"></font-awesome-icon></span>
+        <span class="score-number"><strong>{{score.toFixed(1)}}/6.0</strong></span>
+      </div>
+    </BaseCard>
+  </div>
+</template>
+
+<script src="./js/questionnaire-participant-simple-card.js">
+
+</script>
+
+<style scoped>
+  .questionnaire-participant-card-outer {
+    display: flex;
+    width: 90%;
+    justify-content: center;
+    margin: 0% 5%;
+  }
+
+  .questionnaire-participant-card-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    padding: 0px 10px;
+    margin: 5px 0px;
+  }
+
+  .questionnaire-participant-card-avatar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 10px;
+  }
+
+  .questionnaire-participant-card-avatar > img {
+    border-radius: 100%;
+    height: 30px;
+    width: 30px;
+    padding: 10px;
+  }
+
+  .score-placeholder{
+    padding-right: 10px;
+  }
+
+  .star-icon {
+    color: #f1c40f;
+    padding-right: 5px;
+  }
+
+  .score-number {
+    text-align: center;
+    padding-top: 10px;
+  }
+</style>

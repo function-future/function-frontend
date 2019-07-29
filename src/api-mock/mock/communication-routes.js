@@ -428,3 +428,83 @@ export const chatrooms = [
     }
   }
 ]
+
+export const myQuestionnaires = [
+  {
+    // get my questionnaire
+    method: 'GET',
+    url: config.api.communication.myQuestionnaire.getMyquestionnnaires(1, 10),
+    response: {
+      'code': 200,
+      'status': 'OK',
+      'data': [
+        {
+          'id': '5d2352f94534202434730f2a',
+          'title': 'future batch 3',
+          'description': 'future 3 bootcamp questionnaire',
+          'startDate': 1562596044000,
+          'dueDate': 1562682444000
+        },
+        {
+          'id': '5d2352f94534202434730f2b',
+          'title': 'future batch 3',
+          'description': 'future 3 bootcamp questionnaire',
+          'startDate': 1562596044000,
+          'dueDate': 1562682444000
+        },
+        {
+          'id': '5d2352f94534202434730f2c',
+          'title': 'future batch 3',
+          'description': 'future 3 bootcamp questionnaire',
+          'startDate': 1562596044000,
+          'dueDate': 15626824440000
+        }
+      ],
+      'paging': {
+        'page': 1,
+        'size': 10,
+        'totalRecord': 3
+      }
+    }
+  },
+  {
+    method: 'GET',
+    url: config.api.communication.myQuestionnaire.getListAppraisees('5d22aee604fa850f6cc8d2c3'),
+    response: {
+      'code': 200,
+      'status': 'OK',
+      'data': [
+        {
+          'id': '5d2bdf7504fa851318ff8c9d',
+          'name': 'ricky',
+          'avatar': 'http://localhost:8080/api/core/resources/user/cc5e1eb5-a580-4d5b-8d84-28ab17da9132-thumbnail.jpg',
+          'role': 'STUDENT',
+          'batch': {
+            'id': '5d22b17104fa851d34aa97d6',
+            'name': '3',
+            'code': '3'
+          },
+          'university': 'ITB'
+        }
+      ]
+    }
+  }
+]
+
+export const questionnaire = [
+  {
+    method: 'GET',
+    url: config.api.communication.questionnaire.getQuestionnaire('5d22aee604fa850f6cc8d2c3'),
+    response: {
+      'code': 200,
+      'status': 'OK',
+      'data': {
+        'id': '5d22aee604fa850f6cc8d2c3',
+        'title': 'Future 3 bootcamp',
+        'description': 'lorem ipsum',
+        'startDate': 1562664929000,
+        'dueDate': 156291008529000
+      }
+    }
+  }
+]
