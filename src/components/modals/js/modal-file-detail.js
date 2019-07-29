@@ -22,7 +22,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'accessList'
+      'accessList',
+      'currentUser'
     ])
   },
   created () {

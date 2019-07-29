@@ -21,18 +21,20 @@
               <div class="disable-selection action-button" @click="downloadFileFromUrl(fileDetail.file)">
                 <font-awesome-icon icon="download" class="icon"></font-awesome-icon>Download
               </div>
-              <label class="disable-selection action-button" v-if="!isUploading">
-                <input type="file" @change="onFileChange($event)" v-if="!isUploading">
-                <font-awesome-icon icon="edit" class="icon blue"></font-awesome-icon>Update File
-              </label>
-              <div class="file__progress-wrapper" v-if="isUploading">
-                <div class="file__progress-text">Uploading...</div>
-                <div class="file__progress-background">
-                  <div class="file__progress-inner" :style="{ width: uploadProgress + '%' }"></div>
+              <div v-if="accessList.edit && ((currentUser.id === fileDetail.author.id) || currentUser.role === 'ADMIN')">
+                <label class="disable-selection action-button" v-if="!isUploading">
+                  <input type="file" @change="onFileChange($event)" v-if="!isUploading">
+                  <font-awesome-icon icon="edit" class="icon blue"></font-awesome-icon>Update File
+                </label>
+                <div class="file__progress-wrapper" v-if="isUploading">
+                  <div class="file__progress-text">Uploading...</div>
+                  <div class="file__progress-background">
+                    <div class="file__progress-inner" :style="{ width: uploadProgress + '%' }"></div>
+                  </div>
                 </div>
-              </div>
-              <div class="disable-selection action-button" @click="openRenameFileFolderModal(fileDetail.name)">
-                <font-awesome-icon icon="edit" class="icon blue"></font-awesome-icon>Rename
+                <div class="disable-selection action-button" @click="openRenameFileFolderModal(fileDetail.name)">
+                  <font-awesome-icon icon="edit" class="icon blue"></font-awesome-icon>Rename
+                </div>
               </div>
             </div>
           </BaseCard>
