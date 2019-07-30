@@ -313,35 +313,6 @@ describe('CourseDetail', () => {
     expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
   })
 
-  test('downloadMaterial', () => {
-    const spy = jest.spyOn(wrapper.vm, 'downloadCourseMaterial')
-    wrapper.vm.downloadMaterial('https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png')
-    expect(spy).toHaveBeenCalledTimes(1)
-  })
-
-  test('successDownloadMaterial', () => {
-    const spy = jest.spyOn(wrapper.vm, 'forceFileDownload')
-    const response = {
-      data: ''
-    }
-    global.URL.createObjectURL = jest.fn()
-    wrapper.vm.successDownloadMaterial(response)
-    expect(spy).toHaveBeenCalledTimes(1)
-  })
-
-  test('forceFileDownload', () => {
-    const response = {
-      data: ''
-    }
-    global.URL.createObjectURL = jest.fn()
-    wrapper.vm.forceFileDownload(response)
-  })
-
-  test('failDownloadMaterial', () => {
-    wrapper.vm.failDownloadMaterial()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
-  })
-
   test('goToEditCourse', () => {
     wrapper.vm.$route.params.id = 'sample-id'
     wrapper.vm.$route.params.code = '3'
