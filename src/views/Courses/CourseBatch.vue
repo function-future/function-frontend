@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="button-div" v-if="accessList.add">
-      <BaseButton type="submit" buttonClass="button-save" @click="createNewBatch">
-        <span><font-awesome-icon icon="plus" class="icon"/> New</span>
+      <BaseButton type="submit" buttonClass="button-save" @click="createNewBatch" class="new-batch-button">
+        <span><font-awesome-icon icon="plus" class="icon"/> New Batch</span>
       </BaseButton>
     </div>
     <div class="batch-div master" v-if="currentUser.role !== 'STUDENT'">
@@ -73,5 +73,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  .new-batch-button {
+    width: auto;
+    font-size: 1rem;
+    padding: 10px 20px;
   }
 </style>

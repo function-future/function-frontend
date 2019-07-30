@@ -186,6 +186,86 @@ export const announcements = [
   {
     // Get list of announcements
     method: 'GET',
+    url: '/api/core/announcements?page=1&size=5',
+    response: {
+      'code': 200,
+      'status': 'OK',
+      'data': [
+        {
+          'id': 'sample-id-1',
+          'title': 'Announcement 1',
+          'summary': 'Summary goes here. Maximum 70 characters?',
+          'description': 'Description goes here. Currently there is no limit to description length.',
+          'files': [
+            {
+              'id': 'sample-id',
+              'file': {
+                'full': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png',
+                'thumbnail': null
+              }
+            }
+          ],
+          'updatedAt': 1555980050616
+        },
+        {
+          'id': 'sample-id-2',
+          'title': 'Announcement 2',
+          'summary': 'Summary goes here. Maximum 70 characters?',
+          'description': 'Description goes here. Currently there is no limit to description length.',
+          'files': [
+            {
+              'id': 'sample-id',
+              'file': {
+                'full': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png',
+                'thumbnail': null
+              }
+            }
+          ],
+          'updatedAt': 1555980050616
+        },
+        {
+          'id': 'sample-id-3',
+          'title': 'Announcement 3',
+          'summary': 'Summary goes here. Maximum 70 characters?',
+          'description': 'Description goes here. Currently there is no limit to description length.',
+          'files': [
+            {
+              'id': 'sample-id',
+              'file': {
+                'full': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png',
+                'thumbnail': null
+              }
+            }
+          ],
+          'updatedAt': 1555980050616
+        },
+        {
+          'id': 'sample-id-4',
+          'title': 'Announcement 4',
+          'summary': 'Summary goes here. Maximum 70 characters?',
+          'description': 'Description goes here. Currently there is no limit to description length.',
+          'files': [
+            {
+              'id': 'sample-id',
+              'file': {
+                'full': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png',
+                'thumbnail': null
+              }
+            }
+          ],
+          'updatedAt': 1555980050616
+        }
+      ],
+      'paging': {
+        'page': 1,
+        'size': 10,
+        'totalRecords': 100
+      }
+    }
+  },
+  {
+    // Get list of announcements
+    method: 'GET',
     url: '/api/core/announcements?page=1&size=10',
     response: {
       'code': 200,
@@ -415,6 +495,7 @@ export const activityBlogs = [
               }
             }
           ],
+          "updatedAt": 1555980050616,
           "author": {
             "id": "sample-id-1",
             "name": "Student 1"
