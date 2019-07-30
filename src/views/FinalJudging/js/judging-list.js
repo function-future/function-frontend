@@ -39,6 +39,7 @@ export default {
     initPage () {
       this.fetchJudgingList({
         data: {
+          batchCode: this.$route.params.batchCode,
           page: this.paging.page,
           pageSize: this.paging.size
         },

@@ -326,8 +326,8 @@ module.exports = {
         }
       },
       finalJudging: {
-        list (page, pageSize) {
-          return `/api/scoring/judgings?page=${page}&size=${pageSize}`
+        list (batchCode, page, pageSize) {
+          return `/api/scoring/batches/${batchCode}/judgings?page=${page}&size=${pageSize}`
         },
         create (batchCode) {
           return `/api/scoring/batches/${batchCode}/judgings`

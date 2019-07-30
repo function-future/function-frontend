@@ -2,7 +2,7 @@ import request from '../default-request'
 import config from '@/config/index'
 
 const getJudgingList = function (callback, data, errorHandler) {
-  request.getRequest(config.api.scoring.finalJudging.list(data.page, data.pageSize), callback, errorHandler)
+  request.getRequest(config.api.scoring.finalJudging.list(data.batchCode, data.page, data.pageSize), callback, errorHandler)
 }
 
 const createJudging = function (callback, data, payload, errorHandler) {
