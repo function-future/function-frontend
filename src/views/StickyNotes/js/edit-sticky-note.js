@@ -45,7 +45,7 @@ export default {
         title: '',
         description: ''
       },
-      isSubmitting: true
+      isSubmitting: false
     }
   },
   created () {
