@@ -44,12 +44,23 @@ import masterCourseDetail from '@/views/Courses/MasterCourseDetail.vue'
 import masterCourseForm from '@/views/Courses/MasterCourseForm.vue'
 import config from '@/config/index'
 import chatrooms from '@/views/Chatrooms/Chatrooms'
+import myQuestionnaire from '@/views/Questionnaire/MyQuestionnaire'
+import myQuestionnaireAppraisee from '@/views/Questionnaire/MyQuestionnaireAppraisee'
+import questionnaires from '@/views/Questionnaire/Questionnaires'
+import questionnairesCreate from '@/views/Questionnaire/QuestionnairesCreate'
+import questionnairesEdit from '@/views/Questionnaire/QuestionnairesEdit'
+import questionnaireResults from '@/views/Questionnaire/QuestionnaireResults'
+import questionnaireResultsMembers from '@/views/Questionnaire/QuestionnaireResultsMembers'
+import questionnaireResultsMemberDetail from '@/views/Questionnaire/QuestionnaireResultsMemberDetail'
+import questionnaireResultsQuestionnaireDetail from '@/views/Questionnaire/QuestionnaireResultsQuestionnaireDetail'
+import questionnaireResultsQuestionDetail from '@/views/Questionnaire/QuestionnaireResultsQuestionDetail'
 import login from '@/views/Auth/Login'
 import reminders from '@/views/Reminders/Reminders'
 import reminderForm from '@/views/Reminders/ReminderForm'
 import profile from '@/views/User/Profile'
 import notifications from '@/views/Notifications/Notifications.vue'
 import changePassword from '@/views/User/ChangePassword'
+import files from '@/views/Files/Files'
 import store from '../store/index.js'
 
 Vue.use(Router)
@@ -382,9 +393,14 @@ const router = new Router({
       props: { editMode: true }
     },
     {
-      path: config.app.pages.files,
+      path: config.app.pages.files.root,
       name: 'files',
-      component: feeds,
+      redirect: config.app.pages.files.root + '/root'
+    },
+    {
+      path: config.app.pages.files.folder,
+      name: 'folder',
+      component: files,
       meta: {
         auth: true,
         title: 'Files'
@@ -758,6 +774,94 @@ const router = new Router({
         title: 'Notifications',
         auth: true
       }
+    },
+    {
+      path: config.app.pages.myQuestionnaire.default,
+      name: 'myQuestionnaire',
+      component: myQuestionnaire,
+      meta: {
+        title: 'My Questionnaire'
+      }
+    },
+    {
+      path: config.app.pages.myQuestionnaire.appraisee,
+      name: 'myQuestionnaireAppraisee',
+      component: myQuestionnaireAppraisee,
+      meta: {
+        title: 'My Questionnaire - Appraisee'
+      }
+    },
+    {
+      path: config.app.pages.myQuestionnaire.form,
+      name: 'myQuestionnaireForm',
+      component: myQuestionnaireAppraisee,
+      meta: {
+        title: 'My Questionnaire - Form'
+      }
+    },
+    {
+      path: config.app.pages.questionnaires.default,
+      name: 'questionnaires',
+      component: questionnaires,
+      meta: {
+        title: 'Questionnaires'
+      }
+    },
+    {
+      path: config.app.pages.questionnaires.create,
+      name: 'questionnairesCreate',
+      component: questionnairesCreate,
+      meta: {
+        title: 'Questionnaires - Create'
+      }
+    },
+    {
+      path: config.app.pages.questionnaires.edit,
+      name: 'questionnairesEdit',
+      component: questionnairesEdit,
+      meta: {
+        title: 'Questionnaires - Edit'
+      }
+    },
+    {
+      path: config.app.pages.questionnaireResults.default,
+      name: 'questionnaireResults',
+      component: questionnaireResults,
+      meta: {
+        title: 'Questionnaire Results'
+      }
+    },
+    {
+      path: config.app.pages.questionnaireResults.members,
+      name: 'questionnaireResultsMembers',
+      component: questionnaireResultsMembers,
+      meta: {
+        title: 'Questionnaire Results - Members'
+      }
+    },
+    {
+      path: config.app.pages.questionnaireResults.memberDetail,
+      name: 'questionnaireResultsMemberDetail',
+      component: questionnaireResultsMemberDetail,
+      meta: {
+        title: 'Questionnaire Results - Member Detail'
+      }
+    },
+    {
+      path: config.app.pages.questionnaireResults.questionnaireDetail,
+      name: 'questionnaireResultsQuestionnaireDetail',
+      component: questionnaireResultsQuestionnaireDetail,
+      meta: {
+        title: 'Questionnaire Results - Questionnaire Detail'
+      }
+    },
+    {
+      path: config.app.pages.questionnaireResults.questionDetail,
+      name: 'questionnaireResultsQuestionDetail',
+      component: questionnaireResultsQuestionDetail,
+      meta: {
+        title: 'Questionnaire Results - Question Detail'
+      }
     }
   ]
 })
@@ -797,7 +901,7 @@ router.afterEach((to, from) => {
         (to.meta.add && store.getters.accessList.add !== to.meta.add) ||
         (to.meta.edit && store.getters.accessList.edit !== to.meta.edit)) {
         Vue.toasted.error('You do not have permission to access the page')
-        router.push({ name: 'feeds' })
+        // router.push({ name: 'feeds' })
       }
     },
     fail: () => {}
