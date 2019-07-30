@@ -3,7 +3,7 @@ import request from '../default-request.js'
 
 const getLoggingRoomsByMember = function (callback, error, data) {
   request.getRequest(
-    config.api.communication.loggingRoom.getLoggingRoomsByMember(data.param.keyword, data.param.size, data.param.page),
+    config.api.communication.loggingRoom.getLoggingRoomsByMember(data.params.keyword, data.params.page, data.params.size),
     callback,
     error
   )

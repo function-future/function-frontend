@@ -130,9 +130,9 @@ module.exports = {
         questionDetail: '/questionnaire-results/:batchCode/members/:userSummaryId/questionnaire/:questionnaireId/question/:questionId'
       },
       loggingRoom: {
-        default: '/logging-romms',
+        default: '/logging-rooms',
         topics: '/logging-rooms/:loggingRoomId/topics',
-        logMessages : '/logging-rooms/:loggingRoomId/topics/:topicId'
+        logMessages: '/logging-rooms/:loggingRoomId/topics/:topicId'
       }
     }
   },

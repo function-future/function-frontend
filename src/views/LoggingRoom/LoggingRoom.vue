@@ -2,13 +2,17 @@
     <div class="logging-room">
       <div class="logging-room__container">
         <div class="logging-room__top-bar-container">
-          <SearchBar class="logging-room__search-bar"/>
+          <SearchBar class="logging-room__search-bar" @input="searchHandler"/>
         </div>
         <div class="logging-room__list-card">
 
           <logging-room-card class="logging-room__list-card__card"
-                              v-for="i in 200"
-                              :memberCount="i"
+                              v-for="loggingRoom in loggingRooms"
+                              :key="loggingRoom.id"
+                              :title="loggingRoom.title"
+                              :description="loggingRoom.description"
+                              :memberCount="loggingRoom.members.length"
+
           ></logging-room-card>
           <infinite-loading ref="infiniteLoading" @infinite="infiniteHandler">
             <div slot="no-more"></div>
