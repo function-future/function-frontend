@@ -60,6 +60,7 @@ import reminderForm from '@/views/Reminders/ReminderForm'
 import profile from '@/views/User/Profile'
 import notifications from '@/views/Notifications/Notifications.vue'
 import changePassword from '@/views/User/ChangePassword'
+import loggingRoom from '@/views/LoggingRoom/LoggingRoom.vue'
 import store from '../store/index.js'
 
 Vue.use(Router)
@@ -855,6 +856,14 @@ const router = new Router({
       component: questionnaireResultsQuestionDetail,
       meta: {
         title: 'Questionnaire Results - Question Detail'
+      }
+    },
+    {
+      path: config.app.pages.loggingRoom.default,
+      name: 'loggingRoom',
+      component: loggingRoom,
+      meta: {
+        title: 'Logging Rooms'
       }
     }
   ]

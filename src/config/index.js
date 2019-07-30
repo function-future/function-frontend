@@ -128,6 +128,11 @@ module.exports = {
         memberDetail: '/questionnaire-results/:batchCode/members/:userSummaryId',
         questionnaireDetail: '/questionnaire-results/:batchCode/members/:userSummaryId/questionnaire/:questionnaireId',
         questionDetail: '/questionnaire-results/:batchCode/members/:userSummaryId/questionnaire/:questionnaireId/question/:questionId'
+      },
+      loggingRoom: {
+        default: '/logging-romms',
+        topics: '/logging-rooms/:loggingRoomId/topics',
+        logMessages : '/logging-rooms/:loggingRoomId/topics/:topicId'
       }
     }
   },

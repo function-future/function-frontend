@@ -44,6 +44,9 @@
           <li><router-link :to="{ name: 'questionnaireResults' }" class="navbar-link">Results</router-link></li>
         </ul>
       </transition>
+      <li>
+        <router-link class="navbar-link" :to="{ name: 'loggingRoom'}" >LoggingRoom</router-link>
+      </li>
     </ul>
   </nav>
 </template>
