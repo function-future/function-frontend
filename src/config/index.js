@@ -503,6 +503,45 @@ module.exports = {
         getQuestionnaireAnswerDetailSummary (questionResponseSummaryId) {
           return `/api/communication/question-response/${questionResponseSummaryId}/responses`
         }
+      },
+      loggingRoom: {
+        getLoggingRoomsByMember (search, page, size) {
+          return `/api/communication/logging-rooms?search=${search}&page=${page}&size=${size}`
+        },
+        createLoggingRoom () {
+          return `/api/communication/logging-rooms`
+        },
+        getLoggingRoom (loggingRoomId) {
+          return `/api/communication/logging-rooms/${loggingRoomId}`
+        },
+        updateLoggingRoom (loggingRoomId) {
+          return `/api/communication/logging-rooms/${loggingRoomId}`
+        },
+        deleteLoggingRoom (loggingRoomId) {
+          return `/api/communication/logging-rooms/${loggingRoomId}`
+        },
+        getLoggingRoomTopic (loggingRoomId) {
+          return `/api/communication/logging-rooms/${loggingRoomId}/topics`
+        },
+        createTopic (loggingRoomId) {
+          return `/api/communication/logging-rooms/${loggingRoomId}/topics`
+        },
+        getTopic (loggingRoomId, topicId) {
+          return `/api/communication/logging-rooms/${loggingRoomId}/topics/${topicId}`
+        },
+        updateTopic (loggingRoomId, topicId) {
+          return `/api/communication/logging-rooms/${loggingRoomId}/topics/${topicId}`
+        },
+        deleteTopic (loggingRoomId, topicId) {
+          return `/api/communication/logging-rooms/${loggingRoomId}/topics/${topicId}`
+        },
+        getLogMessagges (loggingRoomId, topicId) {
+          return `/api/communication/logging-rooms/${loggingRoomId}/topics/${topicId}/log-messages`
+        },
+        createLogMessage (loggingRoomId, topicId) {
+          return `/api/communication/logging-rooms/${loggingRoomId}/topics/${topicId}`
+        }
+
       }
     }
   },
