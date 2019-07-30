@@ -541,7 +541,6 @@ module.exports = {
         createLogMessage (loggingRoomId, topicId) {
           return `/api/communication/logging-rooms/${loggingRoomId}/topics/${topicId}`
         }
-
       }
     }
   },
