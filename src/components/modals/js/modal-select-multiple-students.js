@@ -32,7 +32,7 @@ export default {
   },
   methods: {
     ...mapActions([
-      'fetchUsersByRole',
+      'fetchStudentsByBatch',
       'setStudentList'
     ]),
     close () {
@@ -46,9 +46,10 @@ export default {
       let data = {
         page: this.paging.page,
         size: this.paging.size,
+        batchCode: this.$route.params.batchCode,
         role: 'STUDENT'
       }
-      this.fetchUsersByRole({
+      this.fetchStudentsByBatch({
         data,
         callback: this.successFetchingStudentList,
         fail: this.failedFetchingStudentList

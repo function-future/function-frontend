@@ -20,7 +20,7 @@ describe('ModalSelectMultipleStundents', () => {
       students: []
     }
     const actions = {
-      fetchUsersByRole: jest.fn(),
+      fetchStudentsByBatch: jest.fn(),
       setStudentList: jest.fn()
     }
     const getters = {
@@ -101,7 +101,7 @@ describe('ModalSelectMultipleStundents', () => {
 
   test('initStudents', () => {
     initComponent()
-    const spy = jest.spyOn(store.actions, 'fetchUsersByRole')
+    const spy = jest.spyOn(store.actions, 'fetchStudentsByBatch')
     wrapper.vm.initStudents()
     expect(spy).toHaveBeenCalledTimes(1)
   })
