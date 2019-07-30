@@ -30,6 +30,20 @@
       <li v-if="menuList.reminders">
         <router-link class="navbar-link" :to="{ name: 'reminders' }">Reminders</router-link>
       </li>
+      <li v-if="menuList.myQuestionnaire">
+        <router-link class="navbar-link" :to="{ name: 'myQuestionnaire'}" >My Questionnaire</router-link>
+      </li>
+      <li class="navbar-link questionnaire-menu" @click="toggleQuestionnaireMenu" v-if="menuList.questionnaireAdmin">
+        <span>Questionnaires Admin</span>
+        <font-awesome-icon icon="chevron-down" class="icon icon-questionnaire" v-if="!showQuestionnaire"/>
+        <font-awesome-icon icon="chevron-up" class="icon icon-questionnaire" v-else/>
+      </li>
+      <transition name="fade">
+        <ul v-if="showQuestionnaire" class="questionnaire-submenu">
+          <li><router-link :to="{ name: 'questionnaires' }" class="navbar-link">Questionnaires</router-link></li>
+          <li><router-link :to="{ name: 'questionnaireResults' }" class="navbar-link">Results</router-link></li>
+        </ul>
+      </transition>
     </ul>
   </nav>
 </template>
@@ -84,13 +98,13 @@
     font-weight: bold;
   }
 
-  .grades-menu {
+  .grades-menu, .questionnaire-menu {
     display: flex;
     justify-content: space-between;
     cursor: pointer;
   }
 
-  .grades-submenu {
+  .grades-submenu, .questionnaire-submenu {
     list-style-type: none;
   }
 
@@ -117,7 +131,7 @@
       margin-left: 25px;
     }
 
-    .grades-submenu {
+    .grades-submenu, .questionnaire-submenu {
       font-size: 0.8em;
     }
   }
@@ -133,9 +147,15 @@
       padding-top: 10px;
     }
 
-    .grades-submenu {
+    .grades-submenu, .questionnaire-submenu {
       font-size: 0.6em;
     }
 
+  }
+
+  @media only screen and (max-width: 1700px) {
+    .icon-questionnaire {
+      padding-top: 15px;
+    }
   }
 </style>

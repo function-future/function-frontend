@@ -18,6 +18,9 @@ import studentQuizzes from './modules/student-quiz'
 import questionBanks from './modules/question-banks'
 import points from './modules/points'
 import finalJudging from './modules/final-judging'
+import myQuestionnaires from './modules/my-questionnaire'
+import questionnaire from './modules/questionnaire'
+import questionnaireResults from './modules/questionnaire-results'
 
 Vue.use(Vuex)
 
@@ -39,6 +42,9 @@ export default new Vuex.Store({
     studentQuizzes,
     questionBanks,
     points,
-    finalJudging
+    finalJudging,
+    myQuestionnaires,
+    questionnaire,
+    questionnaireResults
   }
 })
