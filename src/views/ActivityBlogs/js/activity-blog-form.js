@@ -89,10 +89,10 @@ export default {
       })
     },
     sendActivityBlog () {
-      this.isSubmitting = true
       this.validateBeforeSubmit(this.validationSuccess)
     },
     validationSuccess () {
+      this.isSubmitting = true
       let data = {
         ...this.activityBlogDetail,
         files: this.imageIds

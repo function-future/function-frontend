@@ -60,10 +60,10 @@ export default {
       })
     },
     sendBatch () {
-      this.isSubmitting = true
       this.validateBeforeSubmit(this.validationSuccess)
     },
     validationSuccess () {
+      this.isSubmitting = true
       const data = {
         id: this.$route.params.id,
         content: { ...this.batch }

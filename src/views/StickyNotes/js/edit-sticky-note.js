@@ -81,10 +81,10 @@ export default {
       this.$validator.validateAll().then(callback)
     },
     postStickyNote () {
-      this.isSubmitting = true
       this.validateBeforeSubmit(this.validationSuccess)
     },
     validationSuccess (result) {
+      this.isSubmitting = true
       if (result) {
         let data = { ...this.stickyNote }
         this.postStickyNotes({

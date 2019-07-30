@@ -75,10 +75,10 @@ export default {
       })
     },
     sendAnnouncement () {
-      this.isSubmitting = true
       this.validateBeforeSubmit(this.validationSuccess)
     },
     validationSuccess () {
+      this.isSubmitting = true
       let data = {
         ...this.announcementDetail,
         files: this.imageIds

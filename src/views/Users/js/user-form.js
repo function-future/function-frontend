@@ -142,10 +142,10 @@ export default {
       })
     },
     save () {
-      this.isSubmitting = true
       this.validateBeforeSubmit(this.validationSuccess)
     },
     validationSuccess () {
+      this.isSubmitting = true
       let userData = {
         id: this.userDetail.id || '',
         role: this.userDetail.role,
