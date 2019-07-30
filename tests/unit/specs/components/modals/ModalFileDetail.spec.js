@@ -132,26 +132,6 @@ describe('ModalFileDetail', () => {
     expect(wrapper.emitted().close.length).toBe(1)
   })
 
-  test('downloadFileFromUrl', () => {
-    const spy = jest.spyOn(wrapper.vm, 'downloadFile')
-    const url = 'http://localhost:8080/file/function/image.jpg'
-    wrapper.vm.downloadFileFromUrl(url)
-    expect(spy).toHaveBeenCalledTimes(1)
-  })
-
-  test('successDownloadFile', () => {
-    const spy = jest.spyOn(wrapper.vm, 'forceFileDownload')
-    const res = {}
-    global.URL.createObjectURL = jest.fn()
-    wrapper.vm.successDownloadFile(res)
-    expect(spy).toHaveBeenCalledTimes(1)
-  })
-
-  test('failDownloadFile', () => {
-    wrapper.vm.failDownloadFile()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
-  })
-
   test('onFileChange', () => {
     const spy = jest.spyOn(wrapper.vm, 'upload')
     const e = {
