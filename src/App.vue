@@ -104,6 +104,17 @@
     border-radius: 0 0 10px 10px;
   }
 
+  .wrap-word{
+    white-space: -moz-pre-wrap !important;  /* Mozilla, since 1999 */
+    white-space: -webkit-pre-wrap; /*Chrome & Safari */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    white-space: pre-wrap;       /* css-3 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+    word-break: break-all;
+    white-space: normal;
+  }
+
   @media only screen and (min-width: 875px) {
     .left-nav {
       width: 24vw;

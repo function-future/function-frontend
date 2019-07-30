@@ -33,7 +33,7 @@
           </span>
           </div>
         </div>
-        <div class="blog-preview">
+        <div class="blog-preview wrap-word">
           <span v-html="compileToMarkdown(activityBlog.description)"></span>
         </div>
       </BaseCard>

@@ -7,7 +7,7 @@
       <div class="sticky-notes-header sticky-notes-date">
         {{ stickyNote.updatedAt | moment("dddd, MMMM Do YYYY") }}
       </div>
-      <div class="sticky-notes-content">
+      <div class="sticky-notes-content wrap-word">
         <span>{{ stickyNotesDescriptionPreview(stickyNote.description) || 'Insert Sticky Notes Here...' }}</span>
       </div>
     </BaseCard>
@@ -22,7 +22,7 @@
             <div class="announcement-title-col"><h4>{{ announcement.title }}</h4></div>
             <div class="announcement-date-col"><span>{{ announcement.updatedAt | moment("dddd, MMMM Do YYYY") }}</span></div>
           </div>
-          <div class="announcement-box-content">
+          <div class="announcement-box-content wrap-word">
             <span>{{ announcementPreview(announcement) }}</span>
           </div>
         </BaseCard>

@@ -18,7 +18,7 @@
           </span>
         </div>
       </div>
-      <div class="preview">
+      <div class="preview wrap-word">
         <span v-html="descriptionCompiledMarkdown"></span>
       </div>
     </BaseCard>
