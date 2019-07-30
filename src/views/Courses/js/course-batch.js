@@ -92,17 +92,16 @@ export default {
         callback: this.successDeleteBatch,
         fail: this.failDeleteBatch
       })
+      this.showDeleteConfirmationModal = false
     },
     successDeleteBatch () {
       this.selectedId = ''
       this.initPage()
       this.$toasted.success('Successfully delete batch')
-      this.showDeleteConfirmationModal = false
     },
     failDeleteBatch () {
       this.selectedId = ''
       this.$toasted.error('Fail to delete batch')
-      this.showDeleteConfirmationModal = false
     }
   }
 }

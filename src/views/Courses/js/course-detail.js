@@ -145,15 +145,14 @@ export default {
         callback: this.successDeleteCourseById,
         fail: this.failDeleteCourseById
       })
+      this.showDeleteConfirmationModal = false
     },
     successDeleteCourseById () {
       this.$router.push({ name: 'courseDetail' })
       this.$toasted.success('Successfully delete course')
-      this.showDeleteConfirmationModal = false
     },
     failDeleteCourseById () {
       this.$toasted.error('Fail to delete course')
-      this.showDeleteConfirmationModal = false
     }
   }
 }

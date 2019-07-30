@@ -208,14 +208,13 @@ export default {
         callback: this.successDeleteFile,
         fail: this.failDeleteFile
       })
+      this.closeDeleteConfirmationModal()
     },
     successDeleteFile () {
       this.$toasted.success('successfully delete file')
-      this.closeDeleteConfirmationModal()
     },
     failDeleteFile () {
       this.$toasted.error('Fail to delete file, please try again')
-      this.closeDeleteConfirmationModal()
     },
     closeDeleteConfirmationModal () {
       this.showDeleteConfirmationModal = false

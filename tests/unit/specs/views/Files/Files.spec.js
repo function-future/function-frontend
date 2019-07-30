@@ -322,23 +322,21 @@ describe('Files', () => {
   })
 
   test('deleteThisFile', () => {
+    const closeDeleteConfirmationModalSpy = jest.spyOn(wrapper.vm, 'closeDeleteConfirmationModal')
     const spy = jest.spyOn(wrapper.vm, 'deleteFile')
     wrapper.vm.deleteThisFile()
     expect(spy).toHaveBeenCalledTimes(1)
+    expect(closeDeleteConfirmationModalSpy).toHaveBeenCalledTimes(1)
   })
 
   test('successDeleteFile', () => {
-    const spy = jest.spyOn(wrapper.vm, 'closeDeleteConfirmationModal')
     wrapper.vm.successDeleteFile()
     expect(wrapper.vm.$toasted.success).toHaveBeenCalled()
-    expect(spy).toHaveBeenCalledTimes(1)
   })
 
   test('failDeleteFile', () => {
-    const spy = jest.spyOn(wrapper.vm, 'closeDeleteConfirmationModal')
     wrapper.vm.failDeleteFile()
     expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
-    expect(spy).toHaveBeenCalledTimes(1)
   })
 
   test('closeDeleteConfirmationModal', () => {

@@ -100,15 +100,14 @@ export default {
         callback: this.successDeleteMasterById,
         fail: this.failDeleteMasterById
       })
+      this.showDeleteConfirmationModal = false
     },
     successDeleteMasterById () {
       this.$router.push({ name: 'masterCourses' })
       this.$toasted.success('Successfully delete master course')
-      this.showDeleteConfirmationModal = false
     },
     failDeleteMasterById () {
       this.$toasted.error('Fail to delete master course')
-      this.showDeleteConfirmationModal = false
     },
     openCopySelectedCourseModal () {
       if (this.selectedIds.length) {

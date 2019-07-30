@@ -104,11 +104,11 @@ export default {
         callback: this.successDeleteAnnouncementById,
         fail: this.failDeleteAnnouncementById
       })
+      this.closeDeleteConfirmationModal()
     },
     successDeleteAnnouncementById () {
       this.loadAnnouncementList()
       this.$toasted.success('successfully delete announcement')
-      this.closeDeleteConfirmationModal()
     },
     failDeleteAnnouncementById () {
       this.$toasted.error('Fail to delete announcement')

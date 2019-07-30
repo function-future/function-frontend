@@ -367,6 +367,7 @@ describe('Announcements', () => {
 
   test('deleteThisAnnouncement', () => {
     const spy = jest.spyOn(announcements.methods, 'deleteAnnouncementById')
+    const closeDeleteConfirmationModalSpy = jest.spyOn(announcements.methods, 'closeDeleteConfirmationModal')
     const $route = {
       path: '/announcements',
       name: 'announcements',
@@ -389,6 +390,7 @@ describe('Announcements', () => {
     wrapper.vm.selectedId = 'sample-id-1'
     wrapper.vm.deleteThisAnnouncement()
     expect(spy).toBeCalledTimes(1)
+    expect(closeDeleteConfirmationModalSpy).toBeCalledTimes(1)
   })
 
   test('failLoadingAnnouncementList', () => {
@@ -425,11 +427,9 @@ describe('Announcements', () => {
       sync: false
     })
     const loadAnnouncementListSpy = jest.spyOn(wrapper.vm, 'loadAnnouncementList')
-    const spy = jest.spyOn(wrapper.vm, 'closeDeleteConfirmationModal')
     wrapper.vm.successDeleteAnnouncementById()
     expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
     expect(loadAnnouncementListSpy).toHaveBeenCalledTimes(1)
-    expect(spy).toHaveBeenCalledTimes(1)
   })
 
   test('failDeleteAnnouncementById', () => {

@@ -336,6 +336,7 @@ describe('CourseDetail', () => {
     const spy = jest.spyOn(wrapper.vm, 'deleteCourseById')
     wrapper.vm.deleteCourse()
     expect(spy).toHaveBeenCalledTimes(1)
+    expect(wrapper.vm.showDeleteConfirmationModal).toEqual(false)
   })
 
   test('successDeleteCourseById', () => {
@@ -343,12 +344,10 @@ describe('CourseDetail', () => {
     wrapper.vm.successDeleteCourseById()
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'courseDetail' })
     expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
-    expect(wrapper.vm.showDeleteConfirmationModal).toEqual(false)
   })
 
   test('failDeleteCourseById', () => {
     wrapper.vm.failDeleteCourseById()
     expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
-    expect(wrapper.vm.showDeleteConfirmationModal).toEqual(false)
   })
 })
