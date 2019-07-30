@@ -75,9 +75,9 @@ export default {
     },
     textPreview: function (announcement) {
       if (announcement.summary) {
-        return this.showLimitedPreviewText(announcement.summary)
+        return this.showLimitedPreviewText(announcement.summary.replace(/\!\[.*\]\(.*\)/,''))
       } else {
-        return this.showLimitedPreviewText(announcement.description)
+        return this.showLimitedPreviewText(announcement.description.replace(/\!\[.*\]\(.*\)/,''))
       }
     },
     showLimitedPreviewText: function (text) {
