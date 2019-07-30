@@ -2,7 +2,8 @@
   <div class="scrollable-container">
     <BaseCard class="card" cardClass="card-hover no-pointer">
       <div class="header">
-        <h3>{{ activityBlog.title }}</h3>
+        <h3 class="blog-title">{{ activityBlog.title }}</h3>
+        <div class="blog-author">by <span>{{ activityBlog.author.name }}</span></div>
       </div>
       <div class="header float-right">
         <div class="date">
@@ -32,7 +33,7 @@
 <script type="text/javascript" src="./js/activity-blog-detail.js">
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .card {
     min-height: 80vh;
   }
@@ -83,5 +84,19 @@
     margin-left: auto;
     margin-right: auto;
     max-height: 300px;
+  }
+
+  .blog-title {
+    margin-bottom: 5px;
+  }
+
+  .blog-author {
+    font-size: 0.9rem;
+    padding-left: 5px;
+    border-left: 1px solid #BDBDBD;
+
+    span {
+      font-weight: bold;
+    }
   }
 </style>
