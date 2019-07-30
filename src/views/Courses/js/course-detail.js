@@ -123,30 +123,6 @@ export default {
     failSubmitCourseDiscussion () {
       this.$toasted.error('Fail to post course discussion, please try again')
     },
-    downloadMaterial (url) {
-      let configuration = { responseType: 'arraybuffer' }
-      url = url.replace('8080', '10001')
-      this.downloadCourseMaterial({
-        data: url,
-        configuration,
-        callback: this.successDownloadMaterial,
-        fail: this.failDownloadMaterial
-      })
-    },
-    successDownloadMaterial (response) {
-      this.forceFileDownload(response)
-    },
-    failDownloadMaterial (err) {
-      console.log(err)
-      this.$toasted.error('Fail to download material, please try again')
-    },
-    forceFileDownload (response) {
-      const url = window.URL.createObjectURL(new Blob([response.data]))
-      const link = document.createElement('a')
-      link.href = url
-      document.body.appendChild(link)
-      link.click()
-    },
     goToEditCourse () {
       this.$router.push({
         name: 'editCourse',
