@@ -342,10 +342,10 @@ module.exports = {
           return `/api/scoring/batches/${batchCode}/judgings/${judgingId}`
         },
         comparisons (batchCode, judgingId) {
-          return `/api/scoring/batches/${batchCode}/final-judgings/${judgingId}/comparison`
+          return `/api/scoring/batches/${batchCode}/final-judgings/${judgingId}/comparisons`
         },
         score (batchCode, judgingId) {
-          return `/api/scoring/batches/${batchCode}/final-judgings/${judgingId}/comparison`
+          return `/api/scoring/batches/${batchCode}/final-judgings/${judgingId}/comparisons`
         }
       },
       points: {
