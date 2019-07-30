@@ -41,7 +41,11 @@ module.exports = {
         detail: '/batches/:code/courses/:id/detail',
         edit: '/batches/:code/courses/:id/edit'
       },
-      files: '/files',
+      files: {
+        root: '/files',
+        folder: '/files/:parentId',
+        detail: '/files/:parentId/:id'
+      },
       users: {
         list: '/users',
         add: {
@@ -231,6 +235,13 @@ module.exports = {
           get (code, id, page) { return `/api/core/batches/${code}/courses/${id}/discussions?page=${page}` },
           post (code, id) { return `/api/core/batches/${code}/courses/${id}/discussions` }
         }
+      },
+      files: {
+        list (parentId, page, size) { return `/api/core/files/${parentId}?page=${page}&size=${size}` },
+        create (parentId) { return `/api/core/files/${parentId}` },
+        delete (parentId, id) { return `/api/core/files/${parentId}/${id}` },
+        detail (parentId, id) { return `/api/core/files/${parentId}/${id}` },
+        update (parentId, id) { return `/api/core/files/${parentId}/${id}` }
       }
     },
     scoring: {

@@ -60,6 +60,7 @@ import reminderForm from '@/views/Reminders/ReminderForm'
 import profile from '@/views/User/Profile'
 import notifications from '@/views/Notifications/Notifications.vue'
 import changePassword from '@/views/User/ChangePassword'
+import files from '@/views/Files/Files'
 import store from '../store/index.js'
 
 Vue.use(Router)
@@ -392,9 +393,14 @@ const router = new Router({
       props: { editMode: true }
     },
     {
-      path: config.app.pages.files,
+      path: config.app.pages.files.root,
       name: 'files',
-      component: feeds,
+      redirect: config.app.pages.files.root + '/root'
+    },
+    {
+      path: config.app.pages.files.folder,
+      name: 'folder',
+      component: files,
       meta: {
         auth: true,
         title: 'Files'
