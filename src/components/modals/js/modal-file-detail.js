@@ -59,29 +59,6 @@ export default {
     close () {
       this.$emit('close')
     },
-    downloadFileFromUrl (url) {
-      let configuration = { responseType: 'arraybuffer' }
-      url = url.replace('8080', '10001')
-      this.downloadFile({
-        data: url,
-        configuration,
-        callback: this.successDownloadFile,
-        fail: this.failDownloadFile
-      })
-    },
-    successDownloadFile (response) {
-      this.forceFileDownload(response)
-    },
-    forceFileDownload (response) {
-      const url = window.URL.createObjectURL(new Blob([response.data]))
-      const link = document.createElement('a')
-      link.href = url
-      document.body.appendChild(link)
-      link.click()
-    },
-    failDownloadFile () {
-      this.$toasted.error('Fail to download file, please try again')
-    },
     onFileChange (e) {
       this.isUploading = true
       this.file = e.target.files[0]
