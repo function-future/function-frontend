@@ -27,7 +27,7 @@
           <BaseButton type="cancel" buttonClass="button-cancel" @click="cancel">Cancel</BaseButton>
         </div>
         <div class="action-button">
-          <BaseButton type="submit" buttonClass="button-save" @click="sendBatch">Save</BaseButton>
+          <BaseButton type="submit" buttonClass="button-save" @click="sendBatch" :disabled="isSubmitting">Save</BaseButton>
         </div>
       </div>
     </div>
