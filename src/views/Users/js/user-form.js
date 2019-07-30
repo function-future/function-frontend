@@ -20,6 +20,7 @@ export default {
   ],
   data () {
     return {
+      isSubmitting: false,
       isLoading: false,
       showSelectBatchModal: false,
       maximumSizeAlert: false,
@@ -141,6 +142,7 @@ export default {
       })
     },
     save () {
+      this.isSubmitting = true
       this.validateBeforeSubmit(this.validationSuccess)
     },
     validationSuccess () {
@@ -186,6 +188,7 @@ export default {
       this.$toasted.success('Successfully ' + msg + ' user')
     },
     failCreateOrEditUser () {
+      this.isSubmitting = false
       let msg = ''
       this.editMode ? msg = 'save edited' : msg = 'create new'
       this.$toasted.error('Fail to ' + msg + ' user')
