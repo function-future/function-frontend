@@ -901,7 +901,7 @@ router.afterEach((to, from) => {
         (to.meta.add && store.getters.accessList.add !== to.meta.add) ||
         (to.meta.edit && store.getters.accessList.edit !== to.meta.edit)) {
         Vue.toasted.error('You do not have permission to access the page')
-        // router.push({ name: 'feeds' })
+        router.push({ name: 'feeds' })
       }
     },
     fail: () => {}
