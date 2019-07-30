@@ -1,9 +1,9 @@
-import QuestionBanks from '@/views/QuestionBank/QuestionBanks'
+import JudgingList from '@/views/FinalJudging/JudgingList'
 import { createLocalVue, shallowMount } from '@vue/test-utils'
 import Vuex from 'vuex'
 import VueRouter from 'vue-router'
 
-describe('QuestionBanks', () => {
+describe('JudgingList', () => {
   let store
   let wrapper
   let localVue
@@ -17,24 +17,19 @@ describe('QuestionBanks', () => {
 
   function initStore() {
     const state = {
-      questionBanks: {}
+      judgingList: []
     }
     const actions = {
-      fetchQuestionBankList: jest.fn(),
-      deleteQuestionBankById: jest.fn()
+      fetchJudgingList: jest.fn(),
+      deleteJudging: jest.fn()
     }
     const getters = {
-      questionBanks: state => state.questionBanks
+      judgingList: state => state.judgingList
     }
     const store = new Vuex.Store({
-      modules: {
-        questionBanks: {
-          state,
-          actions,
-          getters,
-          namespaced: true
-        }
-      }
+      state,
+      actions,
+      getters
     })
 
     return {
@@ -47,7 +42,11 @@ describe('QuestionBanks', () => {
 
   function createWrapper(store, options) {
     const router = new VueRouter([])
-    return shallowMount(QuestionBanks, {
+    const $toasted = {
+      error: jest.fn(),
+      success: jest.fn()
+    }
+    return shallowMount(JudgingList, {
       ...options,
       store,
       localVue,
@@ -58,15 +57,8 @@ describe('QuestionBanks', () => {
         'font-awesome-icon'
       ],
       mocks: {
-        $toasted: {
-          error: jest.fn(),
-          success: jest.fn()
-        },
-        $router: {
-          push: jest.fn()
-        }
+        $toasted
       },
-      attachToDocument: true,
       sync: false
     })
   }
@@ -79,7 +71,10 @@ describe('QuestionBanks', () => {
 
   afterEach(() => {
     jest.restoreAllMocks()
-    wrapper.destroy()
+  })
+
+  test('Sanity test', () => {
+    expect(true).toBe(true)
   })
 
   test('Rendered correctly', () => {
@@ -87,53 +82,54 @@ describe('QuestionBanks', () => {
     expect(wrapper.isVueInstance()).toBe(true)
   })
 
-  test('initPage', () => {
+  test('successFetchingJudgingList', () => {
     initComponent()
-    wrapper.vm.fetchQuestionBankList = jest.fn()
-    wrapper.vm.initPage()
-    expect(wrapper.vm.fetchQuestionBankList).toHaveBeenCalledTimes(1)
-  })
-
-  test('successFetchingQuestionBankQuestionList', () => {
-    initComponent()
-    const paging = {
+    const data = {
       page: 1,
-      size: 10,
+      pageSize: 10,
       totalRecords: 20
     }
-    wrapper.vm.successFetchingQuestionBankList(paging)
-    expect(wrapper.vm.paging.page).toEqual(paging.page)
-    expect(wrapper.vm.paging.pageSize).toEqual(paging.size)
-    expect(wrapper.vm.paging.totalRecords).toEqual(paging.totalRecords)
+    wrapper.vm.successFetchingJudgingList(data)
+    expect(wrapper.vm.paging).toEqual(data)
   })
 
-  test('failFetchingQuestionBankQuestionList', () => {
+  test('failFetchingJudgingList', () => {
     initComponent()
-    wrapper.vm.failFetchingQuestionBankList()
+    wrapper.vm.failFetchingJudgingList()
     expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
   })
 
-  test('addQuestionBank', () => {
+  test('addJudging', () => {
     initComponent()
     wrapper.vm.$router.push = jest.fn()
-    wrapper.vm.addQuestionBank()
+    wrapper.vm.addJudging()
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
-      name: 'addQuestionBank'
+      name: 'addJudging'
     })
   })
 
-  test('goToQuestionBankQuestions', () => {
+  test('goToComparison', () => {
     initComponent()
     wrapper.vm.$router.push = jest.fn()
-    wrapper.vm.goToQuestionBankQuestions()
-    expect(wrapper.vm.$router.push).toHaveBeenCalledTimes(1)
+    wrapper.vm.goToComparison(1)
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
+      name: 'comparison',
+      params: {
+        judgingId: 1
+      }
+    })
   })
 
-  test('goToQuestionBankDetail', () => {
+  test('goToJudgingDetail', () => {
     initComponent()
     wrapper.vm.$router.push = jest.fn()
-    wrapper.vm.goToQuestionBankDetail()
-    expect(wrapper.vm.$router.push).toHaveBeenCalledTimes(1)
+    wrapper.vm.goToJudgingDetail(1)
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
+      name: 'judgingDetail',
+      params: {
+        judgingId: 1
+      }
+    })
   })
 
   test('openDeleteConfirmationModal', () => {
@@ -150,36 +146,40 @@ describe('QuestionBanks', () => {
     expect(wrapper.vm.showDeleteConfirmationModal).toEqual(false)
   })
 
-  test('deleteThisQuestionBanks', () => {
+  test('deleteThisJudging', () => {
     initComponent()
-    const spy = jest.spyOn(wrapper.vm, 'deleteQuestionBankById')
-    wrapper.vm.deleteThisQuestionBank()
+    const spy = jest.spyOn(wrapper.vm, 'deleteJudging')
+    wrapper.vm.deleteThisJudging()
     expect(spy).toHaveBeenCalledTimes(1)
   })
 
-  test('successDeletingQuestionBanks', () => {
+  test('successDeletingJudging', () => {
     initComponent()
+    wrapper.vm.$route.params.batchCode = '1'
+    wrapper.vm.selectedId = 'FNC0001'
+    const routerSpy = jest.spyOn(wrapper.vm.$router, 'push')
     const closeDeleteConfirmationModal = jest.spyOn(wrapper.vm, 'closeDeleteConfirmationModal')
-    wrapper.vm.successDeletingQuestionBank()
+    wrapper.vm.successDeletingJudging()
+    expect(routerSpy).toHaveBeenCalledWith({
+      name: 'judgingList',
+      params: {
+        batchCode: '1'
+      }
+    })
     expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
     expect(closeDeleteConfirmationModal).toHaveBeenCalledTimes(1)
   })
 
-  test('failedDeletingQuestionBanks', () => {
+  test('failDeletingJudging', () => {
     initComponent()
-    wrapper.vm.failDeletingQuestionBank()
+    wrapper.vm.failDeletingJudging()
     expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
   })
 
   test('loadPage', () => {
     initComponent()
-    const paging = {
-      page: 1,
-      size: 10,
-      totalRecords: 20
-    }
     const spy = jest.spyOn(wrapper.vm, 'initPage')
-    wrapper.vm.loadPage(paging.page)
+    wrapper.vm.loadPage(1)
     expect(wrapper.vm.paging.page).toEqual(1)
     expect(spy).toHaveBeenCalledTimes(1)
   })

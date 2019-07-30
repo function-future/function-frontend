@@ -78,7 +78,6 @@ export default {
         delete this.questionDetail.options[defaultIndex].correct
         this.submittedQuestion = JSON.parse(JSON.stringify(this.questionDetail))
         this.submittedQuestion.options[selectedIndex].correct = true
-        console.log(this.submittedQuestion)
         this.updateQuestion({
           payload: {...this.submittedQuestion},
           data: {

@@ -31,6 +31,9 @@ import {
   questionBankDetail,
   questionBankQuestions,
   questionBankQuestionDetail,
+  finalJudging,
+  finalJudgingDetail,
+  finalJudgingComparisons,
   points
 } from '@/api-mock/mock/scoring-routes'
 import {
@@ -165,6 +168,18 @@ questionBankQuestionDetail.forEach(data => {
 
 myQuestionnaires.forEach(data => {
   mock[methodMap[data.method]](data.url).reply(200, data.response)
+})
+
+finalJudging.forEach(data => {
+  mock[methodMap[data.method]] (data.url).reply(200, data.response)
+})
+
+finalJudgingDetail.forEach(data => {
+  mock[methodMap[data.method]] (data.url).reply(200, data.response)
+})
+
+finalJudgingComparisons.forEach(data => {
+  mock[methodMap[data.method]] (data.url).reply(200, data.response)
 })
 
 points.forEach(data => {

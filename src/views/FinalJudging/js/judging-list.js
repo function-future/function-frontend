@@ -5,7 +5,7 @@ import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation
 import BasePagination from '@/components/BasePagination'
 
 export default {
-  name: 'QuestionBanks',
+  name: 'FinalJudgingList',
   components: {
     BaseCard,
     BaseButton,
@@ -28,48 +28,47 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'questionBanks'
+      'judgingList'
     ])
   },
   methods: {
     ...mapActions([
-      'fetchQuestionBankList',
-      'deleteQuestionBankById'
+      'fetchJudgingList',
+      'deleteJudging'
     ]),
     initPage () {
-      this.fetchQuestionBankList({
+      this.fetchJudgingList({
         data: {
+          batchCode: this.$route.params.batchCode,
           page: this.paging.page,
           pageSize: this.paging.size
         },
-        callback: this.successFetchingQuestionBankList,
-        fail: this.failFetchingQuestionBankList
+        callback: this.successFetchingJudgingList,
+        fail: this.failFetchingJudgingList
       })
     },
-    successFetchingQuestionBankList (paging) {
-      this.paging.page = paging.page
-      this.paging.pageSize = paging.size
-      this.paging.totalRecords = paging.totalRecords
+    successFetchingJudgingList (paging) {
+      this.paging = paging
     },
-    failFetchingQuestionBankList () {
+    failFetchingJudgingList () {
       this.$toasted.error('Something went wrong')
     },
-    addQuestionBank () {
-      this.$router.push({name: 'addQuestionBank'})
+    addJudging () {
+      this.$router.push({name: 'addJudging'})
     },
-    goToQuestionBankQuestions (id) {
+    goToComparison (id) {
       this.$router.push({
-        name: 'questionBankQuestionList',
+        name: 'comparison',
         params: {
-          bankId: id
+          judgingId: id
         }
       })
     },
-    goToQuestionBankDetail (id) {
+    goToJudgingDetail (id) {
       this.$router.push({
-        name: 'questionBankDetail',
+        name: 'judgingDetail',
         params: {
-          bankId: id
+          judgingId: id
         }
       })
     },
@@ -81,20 +80,27 @@ export default {
       this.selectedId = ''
       this.showDeleteConfirmationModal = false
     },
-    deleteThisQuestionBank () {
-      this.deleteQuestionBankById({
+    deleteThisJudging () {
+      this.deleteJudging({
         data: {
-          id: this.selectedId
+          batchCode: this.$route.params.batchCode,
+          judgingId: this.selectedId
         },
-        callback: this.successDeletingQuestionBank,
-        fail: this.failDeletingQuestionBank
+        callback: this.successDeletingJudging,
+        fail: this.failDeletingJudging
       })
     },
-    successDeletingQuestionBank () {
+    successDeletingJudging () {
       this.$toasted.success('Successfully deleted question bank')
+      this.$router.push({
+        name: 'judgingList',
+        params: {
+          batchCode: this.$route.params.batchCode
+        }
+      })
       this.closeDeleteConfirmationModal()
     },
-    failDeletingQuestionBank () {
+    failDeletingJudging () {
       this.$toasted.error('Something went wrong')
     },
     loadPage (page) {

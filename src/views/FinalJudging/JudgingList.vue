@@ -4,37 +4,42 @@
       <BaseButton class="add-btn"
                   type="submit"
                   buttonClass="button-save"
-                  @click="addQuestionBank">
-        <font-awesome-icon icon="plus"class="icon"/> Add
+                  @click="addJudging">
+        <font-awesome-icon icon="plus" class="icon"/> Add
       </BaseButton>
     </div>
-    <BaseCard class="question-bank__card"
-              v-for="questionBank in questionBanks"
-              :key="questionBank.id"
-              @click.native="goToQuestionBankDetail(questionBank.id)"
+    <BaseCard class="judging__card"
+              v-for="judging in judgingList"
+              :key="judging.id"
+              @click.native="goToJudgingDetail(judging.id)"
               cardClass="card-hover">
-      <div class="question-bank__card-header-section">
-        <div class="question-bank__card-header">
-          {{questionBank.title}}
+      <div class="judging__card-header-section">
+        <div class="judging__card-header">
+          {{judging.title}}
         </div>
-        <div class="question-bank__card-header-action">
-          <font-awesome-icon
-            icon="eye"
-            class="icon blue"
-            size="lg"
-            @click.stop="goToQuestionBankQuestions(questionBank.id)">
-          </font-awesome-icon>
-          <span>
+        <div class="judging__card-header-info">
+          <div class="judging__card-header-info-date">
+            {{ judging.uploadedDate |  moment("dddd, MMMM Do YYYY") }}
+          </div>
+          <div class="judging__card-header-info-action">
+            <font-awesome-icon
+              icon="poll"
+              class="icon blue"
+              size="lg"
+              @click.stop="goToComparison(judging.id)">
+            </font-awesome-icon>
+            <span>
             <font-awesome-icon
               icon="trash-alt"
               class="icon red"
               size="lg"
-              @click.stop="openDeleteConfirmationModal(questionBank.id)"></font-awesome-icon></span>
+              @click.stop="openDeleteConfirmationModal(judging.id)"></font-awesome-icon></span>
+          </div>
         </div>
       </div>
-      <div class="question-bank__card-body">
-        <div class="question-bank__card-body-description">
-          {{questionBank.description}}
+      <div class="judging__card-body">
+        <div class="judging__card-body-description">
+          {{judging.description}}
         </div>
       </div>
     </BaseCard>
@@ -45,13 +50,13 @@
     </BasePagination>
     <modal-delete-confirmation v-if="showDeleteConfirmationModal"
                                @close="closeDeleteConfirmationModal"
-                               @clickDelete="deleteThisQuestionBank">
+                               @clickDelete="deleteThisJudging">
       <div slot="description">{{selectedId}}</div>
     </modal-delete-confirmation>
   </div>
 </template>
 
-<script type="text/javascript" src="./js/question-banks.js">
+<script type="text/javascript" src="./js/judging-list.js">
 </script>
 
 <style lang="scss" scoped>
@@ -61,7 +66,7 @@
     align-items: center;
     justify-content: flex-start;
   }
-  .question-bank {
+  .judging {
     &__card {
       min-height: 175px;
       display: flex;
@@ -75,11 +80,19 @@
         font-weight: bolder;
         font-size: 1.4em;
         display: inline-block;
-        &-action {
+        &-info {
           float: right;
-          border-left: 1px solid #BDBDBD;
           padding-left: 15px;
           display: inline-block;
+          &-date {
+            display: inline-block;
+            padding-right: 15px;
+          }
+          &-action {
+            border-left: 1px solid #BDBDBD;
+            padding-left: 15px;
+            display: inline-block;
+          }
           & span {
             padding-left: 15px;
           }
