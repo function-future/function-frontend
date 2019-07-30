@@ -73,9 +73,9 @@ export default {
       })
     },
     successFetchFiles (res) {
+      this.paths = res.paths
       if (res.content.length) {
         this.paging.page++
-        this.paths = res.paths
         this.fileList = this.fileList.concat(res.content.filter(i => { return i.type === 'FILE' }))
         this.folderList = this.folderList.concat(res.content.filter(i => { return i.type === 'FOLDER' }))
         this.state.loaded()
