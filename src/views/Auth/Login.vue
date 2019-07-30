@@ -33,6 +33,13 @@
               </BaseInput>
               <div v-if="errors.has('password')"><span class="input-invalid-message">{{ errors.first('password') }}</span></div>
             </div>
+            <div class="tooltip">
+              <font-awesome-icon icon="info-circle" class="icon" size="lg"/> Password Hint
+              <span class="tooltiptext">
+                Default: <b>[lowercase full name]functionapp</b><br>
+                Example: <b>oliversebastianfunctionapp</b>
+              </span>
+            </div>
             <BaseButton type="submit" buttonClass="button-save" @click="login" class="login-button">
               <span v-if="!loggingIn">Login</span>
               <span v-if="loggingIn"><font-awesome-icon icon="spinner" spin class="icon"></font-awesome-icon></span>
@@ -182,5 +189,40 @@
     to {
       opacity: 1;
     }
+  }
+
+  .tooltip {
+    font-size: 0.8rem;
+    position: relative;
+    display: inline-block;
+  }
+
+  .tooltip .tooltiptext {
+    margin-top: 5px;
+    padding: 10px 15px;
+    transition: all .2s ease;
+    visibility: hidden;
+    width: 300px;
+    background-color: #505050;
+    color: #fff;
+    text-align: left;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+  }
+
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+  }
+
+  .tooltip .tooltiptext::after {
+    content: " ";
+    position: absolute;
+    bottom: 100%; /* At the bottom of the tooltip */
+    left: 10%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent #505050 transparent;
   }
 </style>
