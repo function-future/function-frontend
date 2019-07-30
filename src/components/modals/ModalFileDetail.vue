@@ -18,7 +18,7 @@
               <div class="details__name">{{ fileDetail.author.name }}</div>
             </div>
             <div class="file__header">
-              <a class="disable-selection action-button" :href="fileDetail.file">
+              <a class="disable-selection action-button" :href="fileDetail.file" target="_blank">
                 <font-awesome-icon icon="download" class="icon"></font-awesome-icon>Download
               </a>
               <div v-if="accessList.edit && ((currentUser.id === fileDetail.author.id) || currentUser.role === 'ADMIN')">
@@ -45,7 +45,7 @@
                 <div class="version__card-number">{{ name }}</div>
                 <div class="version__card-detail">
                   <div class="version__card-date">{{ value.timestamp | moment("MMMM Do, YYYY") }}</div>
-                  <a class="version__card-download" :href="value.url">
+                  <a class="version__card-download" :href="value.url" target="_blank">
                     <font-awesome-icon icon="download" class="icon-download"></font-awesome-icon>
                     Download
                   </a>

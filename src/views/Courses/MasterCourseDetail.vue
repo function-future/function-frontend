@@ -15,7 +15,7 @@
         </div>
       </div>
       <div class="scrollable">
-        <a v-if="masterCourseDetail.material !== ''" :href="masterCourseDetail.material" class="download-button">
+        <a v-if="masterCourseDetail.material !== ''" :href="masterCourseDetail.material" target="_blank" class="download-button">
             <font-awesome-icon icon="download" class="icon"></font-awesome-icon>Download material
         </a>
         <span v-html="descriptionCompiledMarkdown"></span>
