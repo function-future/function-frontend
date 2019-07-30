@@ -12,7 +12,7 @@
       </div>
     </BaseCard>
     <BaseCard class="announcement-card" @click.native="goToAnnouncementPage" cardClass="card-hover no-pointer">
-      <h3>Announcements</h3>
+      <h3 style="cursor: pointer;">Announcements</h3>
       <div class="announcement-card-scrollable">
         <BaseCard class="announcement-box"
                   v-for="announcement in announcements"
@@ -23,7 +23,7 @@
             <div class="announcement-date-col"><span>{{ announcement.updatedAt | moment("dddd, MMMM Do YYYY") }}</span></div>
           </div>
           <div class="announcement-box-content">
-            <span>{{ announcement.summary }}</span>
+            <span>{{ announcementPreview(announcement) }}</span>
           </div>
         </BaseCard>
       </div>
