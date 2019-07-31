@@ -21,13 +21,13 @@
                             :batch="student.batch ? student.batch.name : null"
                             :key="student.id"
                             :avatar="student.avatar">
-                <div class="batch__col student_checkbox" :class="{active: selectedStudents.find(value => value.id === student.id) !== undefined}">
+                <div class="batch__col student_checkbox" :class="{active: selectedStudents.find(value => value.id === student.id)}">
                   <span class="checkbox">
-                    <font-awesome-icon icon="check" class="check" style="color: white; margin-left: 1px" size="s" v-if="selectedStudents.find(value => value.id === student.id) !== undefined"/>
+                    <font-awesome-icon icon="check" class="check" style="color: white; margin-left: 1px" v-if="selectedStudents.find(value => value.id === student.id)"/>
                   </span>
                   <input type="checkbox"
                          :value="student"
-                         :disabled="selectedStudents.length >=3 && selectedStudents.find(value => value.id === student.id) === undefined"
+                         :disabled="selectedStudents.length >=3 && !selectedStudents.find(value => value.id === student.id)"
                          v-model="selectedStudents" style="visibility: hidden;">
                 </div>
               </UserListCard>
