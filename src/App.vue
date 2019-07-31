@@ -26,6 +26,8 @@
     height: 100%;
     margin: 0;
     color: #505050;
+    font-size: 100%;
+    line-height: 1.4rem;
   }
 
   #app {
