@@ -51,6 +51,9 @@ export const actions = {
   },
   setCurrentUser ({ commit }, { data }) {
     commit('SET_CURRENT_USER', data)
+  },
+  setMenuList ({ commit }, { data }) {
+    commit('SET_MENU_LIST', data)
   }
 }
 

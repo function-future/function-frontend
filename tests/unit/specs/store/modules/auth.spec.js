@@ -126,6 +126,13 @@ describe('auth store module', () => {
       store.actions.setCurrentUser({ commit }, { data })
       expect(commit).toHaveBeenCalledTimes(1)
     })
+
+    test('setMenuList', () => {
+      const data = {}
+      const commit = jest.fn()
+      store.actions.setMenuList({ commit }, { data })
+      expect(commit).toHaveBeenCalledTimes(1)
+    })
   })
 
   describe('courses setter getters', () => {

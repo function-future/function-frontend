@@ -936,6 +936,7 @@ router.beforeEach((to, from, next) => {
     callback: () => { return to.fullPath === '/login' ? next({ name: 'feeds' }) : next() },
     fail: () => {
       store.dispatch('setCurrentUser', { data: {} })
+      store.dispatch('setMenuList', { data: {} })
       return !to.meta.auth ? next() : (to.path !== '/login' ? next('/login') : next())
     }
   })
