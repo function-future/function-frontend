@@ -2,18 +2,25 @@
   <div class="scrollable-container">
     <BaseCard class="sticky-notes-card" @click.native="goToStickyNotesDetail" cardClass="card-hover">
       <div class="sticky-notes-header sticky-notes-title">
-        <h3>{{ stickyNote.title || 'Sticky Note' }}</h3>
+        <h3 v-if="stickyNote">{{ stickyNote.title }}</h3>
+        <h3 v-else>Sticky Note</h3>
       </div>
       <div class="sticky-notes-header sticky-notes-date">
-        {{ stickyNote.updatedAt | moment("dddd, MMMM Do YYYY") }}
+        <span v-if="stickyNote">
+          {{ stickyNote.updatedAt | moment("dddd, MMMM Do YYYY") }}
+        </span>
       </div>
       <div class="sticky-notes-content wrap-word">
-        <span>{{ stickyNotesDescriptionPreview(stickyNote.description) || 'Insert Sticky Notes Here...' }}</span>
+        <span v-if="stickyNote">{{ stickyNotesDescriptionPreview(stickyNote.description) }}</span>
+        <span v-else>Insert Sticky Notes Here...</span>
       </div>
     </BaseCard>
     <BaseCard class="announcement-card" @click.native="goToAnnouncementPage" cardClass="card-hover no-pointer">
       <h3 style="cursor: pointer;">Announcements</h3>
-      <div class="announcement-card-scrollable">
+      <div v-if="isLoadingAnnouncement" class="loading">
+        <font-awesome-icon icon="spinner" spin class="icon-loading" size="lg"></font-awesome-icon>
+      </div>
+      <div class="announcement-card-scrollable" v-if="!isLoadingAnnouncement">
         <BaseCard class="announcement-box"
                   v-for="announcement in announcements"
                   v-bind:key="announcement.id"
@@ -92,5 +99,13 @@
 
   .announcement-date-col {
     font-size: 12px;
+  }
+
+  .loading {
+    margin-top: 35px;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 </style>

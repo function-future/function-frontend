@@ -18,7 +18,8 @@ export default {
       paging: {
         page: 1,
         size: 5
-      }
+      },
+      isLoadingAnnouncement: false
     }
   },
   created () {
@@ -61,6 +62,7 @@ export default {
       this.$toasted.error('Fail to load sticky note detail, please refresh the page')
     },
     loadAnnouncementList () {
+      this.isLoadingAnnouncement = true
       this.paging = { ...this.paging }
       let data = { ...this.paging }
       this.fetchAnnouncements({
@@ -71,9 +73,11 @@ export default {
     },
     successLoadAnnouncementList () {
       this.announcements = this.announcementList
+      this.isLoadingAnnouncement = false
     },
     failLoadAnnouncementList () {
       this.$toasted.error('Fail to load announcement list')
+      this.isLoadingAnnouncement = false
     },
     stickyNotesDescriptionPreview (description) {
       if (description.length > MAX_STICKY_NOTE_PREVIEW_LENGTH) {
