@@ -4,7 +4,7 @@ import Vuex from 'vuex'
 import VueRouter from 'vue-router'
 import VeeValidate from 'vee-validate'
 
-describe('UserForm', () => {
+describe('Profile', () => {
   let store
   let wrapper
   let localVue
