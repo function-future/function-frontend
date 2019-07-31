@@ -108,7 +108,7 @@ export default {
     },
     successDeleteAnnouncementById () {
       this.loadAnnouncementList()
-      this.$toasted.success('successfully delete announcement')
+      this.$toasted.success('Successfully delete announcement')
     },
     failDeleteAnnouncementById () {
       this.$toasted.error('Fail to delete announcement')

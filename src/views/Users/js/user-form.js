@@ -146,6 +146,7 @@ export default {
     },
     validationSuccess () {
       this.isSubmitting = true
+      let studentData = {}
       let userData = {
         id: this.userDetail.id || '',
         role: this.userDetail.role,
@@ -155,15 +156,15 @@ export default {
         address: this.userDetail.address,
         avatar: this.userDetail.avatar
       }
-      let studentData = {
-        ...userData,
-        role: 'STUDENT',
-        batch: this.userDetail.batch.code,
-        university: this.userDetail.university
+      if (this.studentMode) {
+        userData = {
+          ...userData,
+          role: 'STUDENT',
+          batch: this.userDetail.batch.code,
+          university: this.userDetail.university
+        }
       }
-      let data = {}
-      this.studentMode ? data = { ...studentData } : data = { ...userData }
-      this.sendData(data)
+      this.sendData(userData)
     },
     sendData (data) {
       if (this.editMode) {
