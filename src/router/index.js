@@ -61,6 +61,7 @@ import profile from '@/views/User/Profile'
 import notifications from '@/views/Notifications/Notifications.vue'
 import changePassword from '@/views/User/ChangePassword'
 import loggingRoom from '@/views/LoggingRoom/LoggingRoom.vue'
+import loggingRoomDetail from '@/views/LoggingRoom/LoggingRoomDetail.vue'
 import store from '../store/index.js'
 
 Vue.use(Router)
@@ -864,6 +865,14 @@ const router = new Router({
       component: loggingRoom,
       meta: {
         title: 'Logging Rooms'
+      }
+    },
+    {
+      path: config.app.pages.loggingRoom.topics,
+      name: 'loggingRoomDetail',
+      component: loggingRoomDetail,
+      meta: {
+        title: 'Logging Room - Detail'
       }
     }
   ]

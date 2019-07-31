@@ -61,6 +61,15 @@ export default {
     getErrorCallback (err) {
       console.log(err)
       this.$toasted.error('Fail to get logging room')
+    },
+    goToLoggingRoomDetail(loggingRoomId) {
+      console.log('clicked')
+      this.$router.push({
+        name: 'loggingRoomDetail',
+        params: {
+          loggingRoomId : loggingRoomId
+        }
+      })
     }
   }
 }

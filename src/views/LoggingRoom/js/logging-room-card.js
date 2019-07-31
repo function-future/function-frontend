@@ -45,5 +45,4 @@ export default {
       return this.memberCount.toString().concat(' Members')
     }
   }
-
 }

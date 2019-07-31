@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div @click="$emit('click')">
       <BaseCard class="logging-room-card__outer">
         <div class="logging-room-card__container">
           <div class="logging-room-card__title">
@@ -31,6 +31,7 @@
     &__outer {
       height: 20vh;
       padding: 15px;
+      cursor: pointer;
     }
 
     &__container {
@@ -40,10 +41,10 @@
     }
 
     &__title {
-      height: 7vh;
+      height: 5vh;
     }
     &__description {
-      height: 7vh;
+      height: 9vh;
     }
     &__member-information {
       font-size: 2vh;
