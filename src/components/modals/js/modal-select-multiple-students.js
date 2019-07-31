@@ -70,6 +70,6 @@ export default {
     },
     failedFetchingStudentList () {
       this.$toasted.error('Something went wrong')
-    },
+    }
   }
 }

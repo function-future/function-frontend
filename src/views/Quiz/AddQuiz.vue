@@ -7,7 +7,7 @@
                  @change="toggleAllBank"
                  :checked="selectedBank.length === questionBankList.length">
           <span class="checkmark">
-            <font-awesome-icon icon="check" class="blue check" size="xs" style="margin-right: 1px; margin-top: 6px" v-if="selectedBank.length === questionBankList.length"/>
+            <font-awesome-icon icon="check" class="blue check" size="xs" style="margin-right: 1px; margin-top: 7px" v-if="selectedBank.length === questionBankList.length"/>
           </span>
         </label></BaseButton>
     </div>

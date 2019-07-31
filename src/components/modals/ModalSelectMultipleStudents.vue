@@ -12,7 +12,7 @@
             <font-awesome-icon icon="times" class="icon" @click="selectedStudents.splice(index, 1)" size="lg"></font-awesome-icon>
           </BaseCard>
         </div>
-        <div class="modal__body scrollable-container">
+        <div class="modal__body scrollable-container" style="border-radius: 10px">
           <label class="batch__row" v-for="student in studentList" :key="student.id">
             <div class="batch__col--batches">
               <UserListCard :name="student.name"
@@ -21,13 +21,13 @@
                             :batch="student.batch ? student.batch.name : null"
                             :key="student.id"
                             :avatar="student.avatar">
-                <div class="batch__col student_checkbox" :class="{active: selectedStudents.includes(student)}">
+                <div class="batch__col student_checkbox" :class="{active: selectedStudents.find(value => value.id === student.id) !== undefined}">
                   <span class="checkbox">
-                    <font-awesome-icon icon="check" class="check" style="color: white;" size="s" v-if="selectedStudents.includes(student)"/>
+                    <font-awesome-icon icon="check" class="check" style="color: white; margin-left: 1px" size="s" v-if="selectedStudents.find(value => value.id === student.id) !== undefined"/>
                   </span>
                   <input type="checkbox"
                          :value="student"
-                         :disabled="selectedStudents.length >=3 && selectedStudents.indexOf(student) === -1"
+                         :disabled="selectedStudents.length >=3 && selectedStudents.find(value => value.id === student.id) === undefined"
                          v-model="selectedStudents" style="visibility: hidden;">
                 </div>
               </UserListCard>
@@ -139,6 +139,7 @@
   }
   .batch {
     &__row {
+      margin: 5px 5px;
       display: flex;
       flex-direction: row;
       align-items: center;
