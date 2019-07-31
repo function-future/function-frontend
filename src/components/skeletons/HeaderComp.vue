@@ -119,11 +119,11 @@
 
   .slide-fade-enter-active {
     height: 123px;
-    animation: height-animation-in 500ms ease-out, opacity-animation-in 500ms ease-out;
+    animation: height-animation-in 400ms ease-out, opacity-animation-in 400ms ease-out;
   }
   .slide-fade-leave-active {
     height: 123px;
-    animation: height-animation-out 500ms ease-in, opacity-animation-out 500ms ease-in;
+    animation: height-animation-out 350ms ease-out, opacity-animation-out 250ms ease-out;
   }
   .slide-fade-enter, .slide-fade-leave-to
     /* .slide-fade-leave-active below version 2.1.8 */ {
