@@ -7,12 +7,12 @@
       <div class="sticky-notes-header sticky-notes-date">
         {{ stickyNote.updatedAt | moment("dddd, MMMM Do YYYY") }}
       </div>
-      <div class="sticky-notes-content">
+      <div class="sticky-notes-content wrap-word">
         <span>{{ stickyNotesDescriptionPreview(stickyNote.description) || 'Insert Sticky Notes Here...' }}</span>
       </div>
     </BaseCard>
     <BaseCard class="announcement-card" @click.native="goToAnnouncementPage" cardClass="card-hover no-pointer">
-      <h3>Announcements</h3>
+      <h3 style="cursor: pointer;">Announcements</h3>
       <div class="announcement-card-scrollable">
         <BaseCard class="announcement-box"
                   v-for="announcement in announcements"
@@ -22,8 +22,8 @@
             <div class="announcement-title-col"><h4>{{ announcement.title }}</h4></div>
             <div class="announcement-date-col"><span>{{ announcement.updatedAt | moment("dddd, MMMM Do YYYY") }}</span></div>
           </div>
-          <div class="announcement-box-content">
-            <span>{{ announcement.summary }}</span>
+          <div class="announcement-box-content wrap-word">
+            <span>{{ announcementPreview(announcement) }}</span>
           </div>
         </BaseCard>
       </div>

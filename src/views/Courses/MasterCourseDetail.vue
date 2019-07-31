@@ -15,9 +15,9 @@
         </div>
       </div>
       <div class="scrollable">
-        <div v-if="masterCourseDetail.material !== ''" @click="downloadMaterial(masterCourseDetail.material)" class="download-button">
+        <a v-if="masterCourseDetail.material !== ''" :href="masterCourseDetail.material" target="_blank" class="download-button">
             <font-awesome-icon icon="download" class="icon"></font-awesome-icon>Download material
-        </div>
+        </a>
         <span v-html="descriptionCompiledMarkdown"></span>
       </div>
     </BaseCard>
@@ -75,6 +75,7 @@
   }
 
   .download-button {
+    display: block;
     border: 1px solid #828282;
     border-radius: 10px;
     padding: 10px 20px;

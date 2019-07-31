@@ -13,7 +13,8 @@ export default {
     return {
       activityBlogDetail: {},
       img_file: {},
-      imageIds: []
+      imageIds: [],
+      isSubmitting: false
     }
   },
   props: [
@@ -91,6 +92,7 @@ export default {
       this.validateBeforeSubmit(this.validationSuccess)
     },
     validationSuccess () {
+      this.isSubmitting = true
       let data = {
         ...this.activityBlogDetail,
         files: this.imageIds
@@ -123,6 +125,7 @@ export default {
       this.$toasted.success('Successfully created new activity blog')
     },
     failCreateActivityBlog () {
+      this.isSubmitting = false
       this.$toasted.error('Fail to create new activity blog')
     },
     successUpdateActivityBlog () {
@@ -134,6 +137,7 @@ export default {
       this.initialState()
     },
     failUpdateActivityBlog () {
+      this.isSubmitting = false
       this.$toasted.error('Fail to update activity blog')
     }
   }

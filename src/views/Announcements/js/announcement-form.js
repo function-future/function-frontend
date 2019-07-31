@@ -14,7 +14,8 @@ export default {
     return {
       announcementDetail: {},
       img_file: {},
-      imageIds: []
+      imageIds: [],
+      isSubmitting: false
     }
   },
   props: [
@@ -77,6 +78,7 @@ export default {
       this.validateBeforeSubmit(this.validationSuccess)
     },
     validationSuccess () {
+      this.isSubmitting = true
       let data = {
         ...this.announcementDetail,
         files: this.imageIds
@@ -96,6 +98,7 @@ export default {
       this.$toasted.success('Successfully created new announcement')
     },
     failSendCreateAnnouncementData () {
+      this.isSubmitting = false
       this.$toasted.error('Fail to create new announcement')
     },
     sendUpdateAnnouncementData (data) {
@@ -114,6 +117,7 @@ export default {
       this.initialState()
     },
     failSendUpdateAnnouncementData () {
+      this.isSubmitting = false
       this.$toasted.error('Fail to update announcement')
     },
     cancel () {

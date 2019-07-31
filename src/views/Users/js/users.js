@@ -138,15 +138,14 @@ export default {
         callback: this.successDeleteUserById,
         fail: this.failDeleteUserById
       })
+      this.closeDeleteConfirmationModal()
     },
     successDeleteUserById () {
       this.fetchTabList()
       this.$toasted.success('successfully delete user')
-      this.closeDeleteConfirmationModal()
     },
     failDeleteUserById () {
       this.$toasted.error('Fail to delete user')
-      this.closeDeleteConfirmationModal()
     },
     loadPage (page) {
       this.paging.page = page

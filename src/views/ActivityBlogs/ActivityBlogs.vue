@@ -14,12 +14,13 @@
                 @click.native="goToActivityBlogDetail(activityBlog.id)"
                 class="blog-card"
                 cardClass="card-hover">
-        <div class="blog-header blog-title">
-          <h3>{{ activityBlog.title }}</h3>
+        <div class="blog-header">
+          <h3 class="blog-title">{{ activityBlog.title }}</h3>
+          <div class="blog-author">by <span>{{ activityBlog.author.name }}</span></div>
         </div>
         <div class="blog-header float-right">
           <div class="blog-date">
-            {{ activityBlog.createdAt | moment("dddd, MMMM Do YYYY") }}
+            {{ activityBlog.updatedAt | moment("dddd, MMMM Do YYYY") }}
           </div>
           <div class="blog-actions">
           <span @click.stop="goToEditActivityBlog(activityBlog.id)"
@@ -32,7 +33,7 @@
           </span>
           </div>
         </div>
-        <div class="blog-preview">
+        <div class="blog-preview wrap-word">
           <span v-html="compileToMarkdown(activityBlog.description)"></span>
         </div>
       </BaseCard>
@@ -53,13 +54,27 @@
 <script type="text/javascript" src="./js/activity-blogs.js">
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .blog-card {
     min-height: 175px;
   }
 
   .blog-header {
     display: inline-block;
+  }
+
+  .blog-title {
+    margin-bottom: 5px;
+  }
+
+  .blog-author {
+    font-size: 0.9rem;
+    padding-left: 5px;
+    border-left: 1px solid #BDBDBD;
+
+    span {
+      font-weight: bold;
+    }
   }
 
   .blog-date {

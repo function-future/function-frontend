@@ -17,9 +17,6 @@ export default {
       uploadProgress: 0
     }
   },
-  props: {
-    id: String
-  },
   computed: {
     ...mapGetters([
       'accessList',
@@ -39,7 +36,7 @@ export default {
       this.isLoading = true
       const data = {
         parentId: this.$route.params.parentId,
-        id: this.id
+        id: this.$route.params.id
       }
       this.getFileDetail({
         data,
@@ -58,29 +55,6 @@ export default {
     },
     close () {
       this.$emit('close')
-    },
-    downloadFileFromUrl (url) {
-      let configuration = { responseType: 'arraybuffer' }
-      url = url.replace('8080', '10001')
-      this.downloadFile({
-        data: url,
-        configuration,
-        callback: this.successDownloadFile,
-        fail: this.failDownloadFile
-      })
-    },
-    successDownloadFile (response) {
-      this.forceFileDownload(response)
-    },
-    forceFileDownload (response) {
-      const url = window.URL.createObjectURL(new Blob([response.data]))
-      const link = document.createElement('a')
-      link.href = url
-      document.body.appendChild(link)
-      link.click()
-    },
-    failDownloadFile () {
-      this.$toasted.error('Fail to download file, please try again')
     },
     onFileChange (e) {
       this.isUploading = true

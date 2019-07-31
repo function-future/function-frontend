@@ -7,6 +7,7 @@ import ModalRenameFileFolder from '@/components/modals/ModalRenameFileFolder'
 import ModalFileUploadProgress from '@/components/modals/ModalFileUploadProgress'
 import ModalFileDetail from '@/components/modals/ModalFileDetail'
 import InfiniteLoading from 'vue-infinite-loading'
+import config from '@/config/index'
 
 export default {
   name: 'files',
@@ -26,7 +27,6 @@ export default {
       selectedId: '',
       selectedType: '',
       paths: [],
-      showFileDetail: false,
       showDeleteConfirmationModal: false,
       showCreateModal: false,
       showRenameFileFolderModal: false,
@@ -48,7 +48,13 @@ export default {
     ...mapGetters([
       'currentUser',
       'accessList'
-    ])
+    ]),
+    baseUrl () {
+      return config.app.pages.files.root + '/' + this.$route.params.parentId + '/'
+    },
+    FileDetail () {
+      return this.$route.params.id ? 'ModalFileDetail' : ''
+    }
   },
   methods: {
     ...mapActions([
@@ -73,9 +79,9 @@ export default {
       })
     },
     successFetchFiles (res) {
+      this.paths = res.paths
       if (res.content.length) {
         this.paging.page++
-        this.paths = res.paths
         this.fileList = this.fileList.concat(res.content.filter(i => { return i.type === 'FILE' }))
         this.folderList = this.folderList.concat(res.content.filter(i => { return i.type === 'FOLDER' }))
         this.state.loaded()
@@ -109,12 +115,13 @@ export default {
       })
     },
     openFileDetail (id) {
-      this.showFileDetail = true
-      this.selectedId = id
+      this.$router.push(this.baseUrl + id)
     },
     closeFileDetail () {
-      this.showFileDetail = false
-      this.selectedId = ''
+      this.$router.push({
+        name: 'folder',
+        params: { parentId: this.$route.params.parentId }
+      })
     },
     openDeleteConfirmationModal (id, type) {
       this.selectedId = id
@@ -208,14 +215,13 @@ export default {
         callback: this.successDeleteFile,
         fail: this.failDeleteFile
       })
+      this.closeDeleteConfirmationModal()
     },
     successDeleteFile () {
       this.$toasted.success('successfully delete file')
-      this.closeDeleteConfirmationModal()
     },
     failDeleteFile () {
       this.$toasted.error('Fail to delete file, please try again')
-      this.closeDeleteConfirmationModal()
     },
     closeDeleteConfirmationModal () {
       this.showDeleteConfirmationModal = false

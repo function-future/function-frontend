@@ -24,7 +24,7 @@
       </div>
     </div>
     <div class="scrollable-container">
-      <div class="wrapper">
+      <div class="wrapper" v-if="folderList.length">
         <h3 class="title">Folders</h3>
         <div class="file__wrapper">
           <div class="file" @click="goToFolder(folder.id)"
@@ -48,7 +48,7 @@
           </div>
         </div>
       </div>
-      <div class="wrapper">
+      <div class="wrapper" v-if="fileList.length">
         <h3 class="title">Files</h3>
         <div class="file__wrapper">
           <div class="file" @click="openFileDetail(file.id)"
@@ -77,7 +77,7 @@
                         spinner="spiral"
                         force-use-infinite-wrapper=".scrollable-container">
         <div slot="no-more"></div>
-        <div slot="no-results"></div>
+        <div slot="no-results" class="is-empty">This folder is empty</div>
       </infinite-loading>
     </div>
     <modal-delete-confirmation v-if="showDeleteConfirmationModal"
@@ -102,10 +102,7 @@
       </modal-file-upload-progress>
     </transition>
     <transition name="slide-fade" mode="out-in">
-      <modal-file-detail v-if="showFileDetail"
-                         :id="selectedId"
-                         @close="closeFileDetail">
-      </modal-file-detail>
+      <component :is="FileDetail" @close="closeFileDetail"></component>
     </transition>
   </div>
 </template>
@@ -315,6 +312,10 @@
 
   .bold {
     font-weight: bold;
+  }
+
+  .is-empty {
+    margin-top: 50px;
   }
 
   .slide-fade-enter-active {

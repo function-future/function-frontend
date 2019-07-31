@@ -37,7 +37,7 @@
               size="lg" @click.stop="openDeleteConfirmationModal(announcement.id)"></font-awesome-icon></span>
           </div>
         </div>
-        <div class="announcement-preview">
+        <div class="announcement-preview wrap-word">
           <span>{{ textPreview(announcement) }}</span>
         </div>
       </BaseCard>

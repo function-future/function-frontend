@@ -7,8 +7,8 @@
           <span class="modal__close"><font-awesome-icon icon="times" class="icon" @click="close" size="lg"></font-awesome-icon></span>
         </div>
         <div class="modal__body scrollable-container">
-          <label class="batch__row" v-for="batch in batches" :key="batch.id">
-            <div class="batch__col"><input type="radio" :value="batch.id" v-model="batchDestination"></div>
+          <label class="batch__row" v-for="batch in batches" :key="batch.code">
+            <div class="batch__col"><input type="radio" :value="batch.code" v-model="batchDestination"></div>
             <div class="batch__col--batches"><BatchCard :batch="batch" :showAction="false"></BatchCard></div>
           </label>
         </div>

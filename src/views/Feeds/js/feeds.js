@@ -17,7 +17,7 @@ export default {
       announcements: [],
       paging: {
         page: 1,
-        size: 10
+        size: 5
       }
     }
   },
@@ -80,6 +80,17 @@ export default {
         return description.substr(0, MAX_STICKY_NOTE_PREVIEW_LENGTH) + '...'
       } else {
         return description
+      }
+    },
+    showLimitedPreviewText: function (text) {
+      let maximumCharacters = 70
+      return text.length > 70 ? text.slice(0, maximumCharacters) + '...' : text
+    },
+    announcementPreview: function (announcement) {
+      if (announcement.summary) {
+        return this.showLimitedPreviewText(announcement.summary.replace(/\!\[.*\]\(.*\)/,''))
+      } else {
+        return this.showLimitedPreviewText(announcement.description.replace(/\!\[.*\]\(.*\)/,''))
       }
     }
   }

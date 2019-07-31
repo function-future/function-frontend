@@ -18,9 +18,9 @@
               <div class="details__name">{{ fileDetail.author.name }}</div>
             </div>
             <div class="file__header">
-              <div class="disable-selection action-button" @click="downloadFileFromUrl(fileDetail.file)">
+              <a class="disable-selection action-button" :href="fileDetail.file" target="_blank">
                 <font-awesome-icon icon="download" class="icon"></font-awesome-icon>Download
-              </div>
+              </a>
               <div v-if="accessList.edit && ((currentUser.id === fileDetail.author.id) || currentUser.role === 'ADMIN')">
                 <label class="disable-selection action-button" v-if="!isUploading">
                   <input type="file" @change="onFileChange($event)" v-if="!isUploading">
@@ -45,10 +45,10 @@
                 <div class="version__card-number">{{ name }}</div>
                 <div class="version__card-detail">
                   <div class="version__card-date">{{ value.timestamp | moment("MMMM Do, YYYY") }}</div>
-                  <div class="version__card-download" @click="downloadFileFromUrl(value.url)">
+                  <a class="version__card-download" :href="value.url" target="_blank">
                     <font-awesome-icon icon="download" class="icon-download"></font-awesome-icon>
                     Download
-                  </div>
+                  </a>
                 </div>
               </div>
             </div>
@@ -210,6 +210,8 @@
       }
 
       &-download {
+        text-decoration: none;
+        color: #505050;
         cursor: pointer;
         font-size: 0.9rem;
       }
@@ -225,6 +227,7 @@
     margin-bottom: 10px;
     transition: all .2s ease;
     display: block;
+    text-decoration: none;
 
     &:hover {
       background-color: #F2F2F2;

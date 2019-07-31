@@ -86,6 +86,7 @@ export default {
         callback: this.successDeleteActivityBlogById,
         fail: this.failDeleteActivityBlogById
       })
+      this.closeDeleteConfirmationModal()
     },
     successLoadActivityBlogList (paging) {
       this.isLoading = false
@@ -98,11 +99,9 @@ export default {
     successDeleteActivityBlogById () {
       this.loadActivityBlogList()
       this.$toasted.success('Successfully delete activity blog')
-      this.closeDeleteConfirmationModal()
     },
     failDeleteActivityBlogById () {
       this.$toasted.error('Fail to delete activity blog')
-      this.closeDeleteConfirmationModal()
     },
     loadPage (page) {
       this.paging.page = page

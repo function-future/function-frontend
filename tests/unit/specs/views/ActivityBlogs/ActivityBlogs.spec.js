@@ -160,24 +160,22 @@ describe('ActivityBlogs', () => {
   })
 
   test('deleteThisActivityBlog', () => {
+    const closeDeleteConfirmationModalSpy = jest.spyOn(wrapper.vm, 'closeDeleteConfirmationModal')
     const spy = jest.spyOn(wrapper.vm, 'deleteActivityBlogById')
     wrapper.vm.deleteThisActivityBlog()
     expect(spy).toHaveBeenCalledTimes(1)
+    expect(closeDeleteConfirmationModalSpy).toHaveBeenCalledTimes(1)
   })
 
   test('successDeleteActivityBlogById', () => {
-    const spy = jest.spyOn(wrapper.vm, 'closeDeleteConfirmationModal')
     const loadActivityBlogListSpy = jest.spyOn(wrapper.vm, 'loadActivityBlogList')
     wrapper.vm.successDeleteActivityBlogById()
-    expect(spy).toHaveBeenCalledTimes(1)
     expect(loadActivityBlogListSpy).toHaveBeenCalledTimes(1)
   })
 
   test('failDeleteActivityBlogById', () => {
-    const spy = jest.spyOn(wrapper.vm, 'closeDeleteConfirmationModal')
     wrapper.vm.failDeleteActivityBlogById()
     expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
-    expect(spy).toHaveBeenCalledTimes(1)
   })
 
   test('successLoadActivityBlogList', () => {

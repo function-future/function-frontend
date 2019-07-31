@@ -99,4 +99,10 @@ describe('HeaderComp', () => {
     wrapper.vm.toggleGradesMenu()
     expect(wrapper.vm.gradesSubmenuVisibility).toBe(true)
   })
+
+  test('toggleQuestionnaireMenu', () => {
+    expect(wrapper.vm.questionnaireSubmenuVisibility).toBe(false)
+    wrapper.vm.toggleQuestionnaireMenu()
+    expect(wrapper.vm.questionnaireSubmenuVisibility).toBe(true)
+  })
 })

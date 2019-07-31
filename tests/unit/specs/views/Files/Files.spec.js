@@ -224,15 +224,15 @@ describe('Files', () => {
 
   test('openFileDetail', () => {
     const id = 'sample-id'
+    wrapper.vm.$router.push = jest.fn()
     wrapper.vm.openFileDetail(id)
-    expect(wrapper.vm.selectedId).toEqual(id)
-    expect(wrapper.vm.showFileDetail).toEqual(true)
+    expect(wrapper.vm.$router.push).toHaveBeenCalledTimes(1)
   })
 
   test('closeFileDetail', () => {
+    wrapper.vm.$router.push = jest.fn()
     wrapper.vm.closeFileDetail()
-    expect(wrapper.vm.selectedId).toEqual('')
-    expect(wrapper.vm.showFileDetail).toEqual(false)
+    expect(wrapper.vm.$router.push).toHaveBeenCalledTimes(1)
   })
 
   test('openDeleteConfirmationModal', () => {
@@ -322,23 +322,21 @@ describe('Files', () => {
   })
 
   test('deleteThisFile', () => {
+    const closeDeleteConfirmationModalSpy = jest.spyOn(wrapper.vm, 'closeDeleteConfirmationModal')
     const spy = jest.spyOn(wrapper.vm, 'deleteFile')
     wrapper.vm.deleteThisFile()
     expect(spy).toHaveBeenCalledTimes(1)
+    expect(closeDeleteConfirmationModalSpy).toHaveBeenCalledTimes(1)
   })
 
   test('successDeleteFile', () => {
-    const spy = jest.spyOn(wrapper.vm, 'closeDeleteConfirmationModal')
     wrapper.vm.successDeleteFile()
     expect(wrapper.vm.$toasted.success).toHaveBeenCalled()
-    expect(spy).toHaveBeenCalledTimes(1)
   })
 
   test('failDeleteFile', () => {
-    const spy = jest.spyOn(wrapper.vm, 'closeDeleteConfirmationModal')
     wrapper.vm.failDeleteFile()
     expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
-    expect(spy).toHaveBeenCalledTimes(1)
   })
 
   test('closeDeleteConfirmationModal', () => {

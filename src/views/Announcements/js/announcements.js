@@ -75,9 +75,9 @@ export default {
     },
     textPreview: function (announcement) {
       if (announcement.summary) {
-        return this.showLimitedPreviewText(announcement.summary)
+        return this.showLimitedPreviewText(announcement.summary.replace(/\!\[.*\]\(.*\)/,''))
       } else {
-        return this.showLimitedPreviewText(announcement.description)
+        return this.showLimitedPreviewText(announcement.description.replace(/\!\[.*\]\(.*\)/,''))
       }
     },
     showLimitedPreviewText: function (text) {
@@ -104,11 +104,11 @@ export default {
         callback: this.successDeleteAnnouncementById,
         fail: this.failDeleteAnnouncementById
       })
+      this.closeDeleteConfirmationModal()
     },
     successDeleteAnnouncementById () {
       this.loadAnnouncementList()
       this.$toasted.success('successfully delete announcement')
-      this.closeDeleteConfirmationModal()
     },
     failDeleteAnnouncementById () {
       this.$toasted.error('Fail to delete announcement')
