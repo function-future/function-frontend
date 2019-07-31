@@ -30,7 +30,7 @@ export const actions = {
     authApi.getLoginStatus(({ data: response }) => {
       commit('SET_CURRENT_USER', response)
       callback()
-    }, () => { commit('SET_CURRENT_USER', {}) })
+    }, fail)
   },
   attemptLogout ({ commit }, { callback, fail }) {
     authApi.attemptLogout(({ data: response }) => {
@@ -48,6 +48,9 @@ export const actions = {
       commit('SET_ACCESS_LIST', response)
       callback()
     }, data, fail)
+  },
+  setCurrentUser ({ commit }, { data }) {
+    commit('SET_CURRENT_USER', data)
   }
 }
 
