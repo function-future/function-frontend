@@ -87,8 +87,8 @@ export default {
       }
     },
     showLimitedPreviewText: function (text) {
-      let maximumCharacters = 70
-      return text.length > 70 ? text.slice(0, maximumCharacters) + '...' : text
+      let maximumCharacters = 175
+      return text.length > maximumCharacters ? text.slice(0, maximumCharacters) + '...' : text
     },
     announcementPreview: function (announcement) {
       if (announcement.summary) {

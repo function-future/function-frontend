@@ -81,8 +81,8 @@ export default {
       }
     },
     showLimitedPreviewText: function (text) {
-      let maximumCharacters = 70
-      if (text.length > 70) {
+      let maximumCharacters = 250
+      if (text.length > maximumCharacters) {
         return text.slice(0, maximumCharacters) + '...'
       }
       return text

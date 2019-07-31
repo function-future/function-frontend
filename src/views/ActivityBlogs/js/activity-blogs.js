@@ -50,7 +50,11 @@ export default {
       })
     },
     compileToMarkdown: function (description) {
-      return marked(description.replace(/\!\[.*\]\(.*\)/,''))
+      return marked(this.showLimitedPreviewText(description.replace(/\!\[.*\]\(.*\)/,'')))
+    },
+    showLimitedPreviewText: function (text) {
+      let maximumCharacters = 350
+      return text.length > maximumCharacters ? text.slice(0, maximumCharacters) + '...' : text
     },
     goToActivityBlogDetail (id) {
       this.$router.push({
