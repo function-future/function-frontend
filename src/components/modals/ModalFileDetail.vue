@@ -210,6 +210,8 @@
       }
 
       &-download {
+        text-decoration: none;
+        color: #505050;
         cursor: pointer;
         font-size: 0.9rem;
       }
@@ -225,6 +227,7 @@
     margin-bottom: 10px;
     transition: all .2s ease;
     display: block;
+    text-decoration: none;
 
     &:hover {
       background-color: #F2F2F2;

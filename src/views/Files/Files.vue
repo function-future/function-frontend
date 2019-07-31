@@ -102,10 +102,7 @@
       </modal-file-upload-progress>
     </transition>
     <transition name="slide-fade" mode="out-in">
-      <modal-file-detail v-if="showFileDetail"
-                         :id="selectedId"
-                         @close="closeFileDetail">
-      </modal-file-detail>
+      <component :is="FileDetail" @close="closeFileDetail"></component>
     </transition>
   </div>
 </template>

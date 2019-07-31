@@ -407,6 +407,15 @@ const router = new Router({
       }
     },
     {
+      path: config.app.pages.files.detail,
+      name: 'fileDetail',
+      component: files,
+      meta: {
+        auth: true,
+        title: 'Files'
+      }
+    },
+    {
       path: config.app.pages.users.list,
       name: 'users',
       component: users,

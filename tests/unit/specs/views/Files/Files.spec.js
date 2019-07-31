@@ -224,15 +224,15 @@ describe('Files', () => {
 
   test('openFileDetail', () => {
     const id = 'sample-id'
+    wrapper.vm.$router.push = jest.fn()
     wrapper.vm.openFileDetail(id)
-    expect(wrapper.vm.selectedId).toEqual(id)
-    expect(wrapper.vm.showFileDetail).toEqual(true)
+    expect(wrapper.vm.$router.push).toHaveBeenCalledTimes(1)
   })
 
   test('closeFileDetail', () => {
+    wrapper.vm.$router.push = jest.fn()
     wrapper.vm.closeFileDetail()
-    expect(wrapper.vm.selectedId).toEqual('')
-    expect(wrapper.vm.showFileDetail).toEqual(false)
+    expect(wrapper.vm.$router.push).toHaveBeenCalledTimes(1)
   })
 
   test('openDeleteConfirmationModal', () => {

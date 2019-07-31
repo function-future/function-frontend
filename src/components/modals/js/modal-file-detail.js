@@ -17,9 +17,6 @@ export default {
       uploadProgress: 0
     }
   },
-  props: {
-    id: String
-  },
   computed: {
     ...mapGetters([
       'accessList',
@@ -39,7 +36,7 @@ export default {
       this.isLoading = true
       const data = {
         parentId: this.$route.params.parentId,
-        id: this.id
+        id: this.$route.params.id
       }
       this.getFileDetail({
         data,
