@@ -70,22 +70,31 @@
           align-items: center;
           padding-bottom: 5px;
           border-bottom: 1px solid #BDBDBD;
+          &-title {
+            font-weight: bold;
+            font-size: 20px;
+            margin-left: 5px;
+          }
+          &-button {
+            margin-right: 5px;
+            cursor: pointer;
+          }
         }
         &__content {
-          padding-left: 5px;
+          padding-left: 10px;
           overflow: auto;
           max-height: 90%;
           &::-webkit-scrollbar-track
           {
             background-color: #F5F5F5;
-            border-radius: 10px;
+            border-radius: 7px;
           }
 
           &::-webkit-scrollbar
           {
-            width: 10px;
+            width: 2px;
             background-color: #02AAF3;
-            border-radius: 10px;
+            border-radius: 7px;
           }
 
           &::-webkit-scrollbar-thumb
@@ -94,21 +103,25 @@
             background-color: #02AAF3;
           }
           &-item {
-            width: 90%;
+            width: 95%;
             display: flex;
-            flex-direction: row;
-            justify-content: center;
+            height: 80px;
             &-image {
-              flex: 1;
-              width: 30%;
+              width: 70px;
+              height: 50px;
+              margin: 0 10px;
+              border-radius: 7px;
             }
             &-detail {
               display: flex;
               flex-direction: column;
-              justify-content: center;
+              font-size: 15px;
               align-items: center;
+              margin: 10px auto;
+              font-weight: bold;
               &-university {
-                font-size: smaller;
+                margin-top: 3px;
+                font-size: 13px;
               }
             }
           }
