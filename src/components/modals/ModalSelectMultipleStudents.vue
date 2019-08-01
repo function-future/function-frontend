@@ -9,7 +9,7 @@
         <div class="modal__selected-list">
           <BaseCard v-for="(student, index) in selectedStudents" class="modal__selected-list-item" :style="{'margin': '10px', 'padding': '10px 15px', 'width': '30%', 'font-weight': 'bold'}">
             <span>{{student.name}}</span>
-            <font-awesome-icon icon="times" class="icon" @click="selectedStudents.splice(index, 1)" size="lg"></font-awesome-icon>
+            <font-awesome-icon icon="times" class="icon" @click="selectedStudents.splice(index, 1)" size="lg" style="cursor: pointer;"></font-awesome-icon>
           </BaseCard>
         </div>
         <div class="modal__body scrollable-container" style="border-radius: 10px">
