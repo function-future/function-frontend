@@ -519,6 +519,7 @@ const router = new Router({
       name: 'questionBanks',
       component: questionBanks,
       meta: {
+        auth: true,
         title: 'Question Banks',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
@@ -531,6 +532,7 @@ const router = new Router({
       name: 'questionBankDetail',
       component: questionBankDetail,
       meta: {
+        auth: true,
         title: 'Question Bank Detail',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
@@ -544,6 +546,7 @@ const router = new Router({
       name: 'addQuestionBank',
       component: addQuestionBank,
       meta: {
+        auth: true,
         title: 'Add Question Bank',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
@@ -557,6 +560,7 @@ const router = new Router({
       name: 'questionBankQuestionList',
       component: questionBankQuestionList,
       meta: {
+        auth: true,
         title: 'Question List',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
@@ -571,6 +575,7 @@ const router = new Router({
       name: 'questionBankAddQuestion',
       component: questionBankAddQuestion,
       meta: {
+        auth: true,
         title: 'Add Question',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
@@ -586,6 +591,7 @@ const router = new Router({
       name: 'questionBankQuestionDetail',
       component: questionBankQuestionDetail,
       meta: {
+        auth: true,
         title: 'Question Detail',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
@@ -601,6 +607,7 @@ const router = new Router({
       name: 'quizBatch',
       component: quizBatch,
       meta: {
+        auth: true,
         title: 'Quiz Batch List',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
@@ -613,6 +620,7 @@ const router = new Router({
       name: 'addQuizBatch',
       component: quizBatchForm,
       meta: {
+        auth: true,
         title: 'Quiz Batch List',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
@@ -626,6 +634,7 @@ const router = new Router({
       name: 'editQuizBatch',
       component: quizBatchForm,
       meta: {
+        auth: true,
         title: 'Quiz Batch List',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
@@ -640,6 +649,7 @@ const router = new Router({
       name: 'quizzes',
       component: quizzes,
       meta: {
+        auth: true,
         title: 'Quizzes',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
@@ -653,6 +663,7 @@ const router = new Router({
       name: 'addQuiz',
       component: addQuiz,
       meta: {
+        auth: true,
         title: 'Add Quiz',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
@@ -667,6 +678,7 @@ const router = new Router({
       name: 'addQuizDetail',
       component: addQuizDetail,
       meta: {
+        auth: true,
         title: 'Add Detail',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
@@ -682,6 +694,7 @@ const router = new Router({
       name: 'quizDetail',
       component: quizDetail,
       meta: {
+        auth: true,
         title: 'Quiz Detail',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
@@ -696,6 +709,7 @@ const router = new Router({
       name: 'studentQuizzes',
       component: studentQuizList,
       meta: {
+        auth: true,
         title: 'Quizzes',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
@@ -708,6 +722,7 @@ const router = new Router({
       name: 'studentQuizDetail',
       component: studentQuizDetail,
       meta: {
+        auth: true,
         title: 'Quiz Detail',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
@@ -721,6 +736,7 @@ const router = new Router({
       name: 'studentQuizQuestions',
       component: quizQuestions,
       meta: {
+        auth: true,
         title: 'Questions',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
@@ -735,6 +751,7 @@ const router = new Router({
       name: 'assignmentBatch',
       component: assignmentBatch,
       meta: {
+        auth: true,
         title: 'Assignment Batch List',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
@@ -747,6 +764,7 @@ const router = new Router({
       name: 'addAssignmentBatch',
       component: assignmentBatchForm,
       meta: {
+        auth: true,
         title: 'Assignment Batch List',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
@@ -760,6 +778,7 @@ const router = new Router({
       name: 'editAssignmentBatch',
       component: assignmentBatchForm,
       meta: {
+        auth: true,
         title: 'Assignment Batch List',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
@@ -774,6 +793,7 @@ const router = new Router({
       name: 'studentAssignments',
       component: studentAssignments,
       meta: {
+        auth: true,
         title: 'Assignments'
       }
     },
@@ -782,6 +802,7 @@ const router = new Router({
       name: 'assignments',
       component: assignments,
       meta: {
+        auth: true,
         title: 'Assignments',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
@@ -795,6 +816,7 @@ const router = new Router({
       name: 'assignmentDetail',
       component: assignmentDetail,
       meta: {
+        auth: true,
         title: 'Assignment Detail',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
@@ -809,6 +831,7 @@ const router = new Router({
       name: 'addAssignment',
       component: addAssignment,
       meta: {
+        auth: true,
         title: 'Add Assignments',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
@@ -823,6 +846,7 @@ const router = new Router({
       name: 'assignmentRooms',
       component: assignmentRooms,
       meta: {
+        auth: true,
         title: 'Rooms',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
@@ -838,6 +862,7 @@ const router = new Router({
       name: 'assignmentRoomDetail',
       component: assignmentRoomDetail,
       meta: {
+        auth: true,
         title: 'Room Detail',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
@@ -853,6 +878,7 @@ const router = new Router({
       name: 'points',
       component: points,
       meta: {
+        auth: true,
         title: 'Points',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
@@ -865,6 +891,7 @@ const router = new Router({
       name: 'judgingBatch',
       component: judgingBatch,
       meta: {
+        auth: true,
         title: 'Judging Batch List',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
@@ -877,6 +904,7 @@ const router = new Router({
       name: 'addJudgingBatch',
       component: judgingBatchForm,
       meta: {
+        auth: true,
         title: 'Judging Batch List',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
@@ -890,6 +918,7 @@ const router = new Router({
       name: 'editJudgingBatch',
       component: judgingBatchForm,
       meta: {
+        auth: true,
         title: 'Judging Batch List',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
@@ -906,6 +935,7 @@ const router = new Router({
       name: 'judgingList',
       component: judgingList,
       meta: {
+        auth: true,
         title: 'Judging Sessions',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
@@ -919,6 +949,7 @@ const router = new Router({
       name: 'addJudging',
       component: addJudging,
       meta: {
+        auth: true,
         title: 'Add Judging Session',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
@@ -932,6 +963,7 @@ const router = new Router({
       name: 'judgingDetail',
       component: judgingDetail,
       meta: {
+        auth: true,
         title: 'Judging Detail',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
@@ -946,6 +978,7 @@ const router = new Router({
       name: 'comparison',
       component: comparison,
       meta: {
+        auth: true,
         title: 'Comparison',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
