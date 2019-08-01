@@ -39,6 +39,7 @@
     transition: all 1s ease-in-out;
 
     &-list {
+      display: flex;
       animation: fadein .5s;
     }
   }
@@ -49,7 +50,7 @@
   }
 
   .breadcrumb-name {
-    max-width: 100px;
+    max-width: 150px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
