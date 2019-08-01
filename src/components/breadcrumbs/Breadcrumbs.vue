@@ -54,7 +54,6 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    padding-left: 5px;
     cursor: pointer;
   }
 
@@ -65,7 +64,7 @@
   .divider {
     text-decoration: none;
     color: #828282;
-    padding: 0 5px;
+    padding: 0 10px;
   }
 
   .active {
