@@ -170,12 +170,12 @@ export default {
       })
     },
     successUploadFile () {
-      this.fileUploadList[0].progress = 100
+      this.fileUploadList[0].progress = 101
       this.isUploading = false
       this.resetPage()
     },
     failUploadFile () {
-      this.fileUploadList[0].progress = 101
+      this.fileUploadList[0].progress = 102
       this.file = {}
       this.isUploading = false
     },
