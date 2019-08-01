@@ -16,7 +16,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'points'
+      'points',
+      'currentUser'
     ])
   },
   methods: {
@@ -26,7 +27,7 @@ export default {
     initPage () {
       this.fetchPointList({
         data: {
-          studentId: '5d1db5dcc299ea1fc8596234' //TODO: CURRENTLY HARDCODED
+          studentId: this.currentUser.id
         },
         fail: this.failFetchingPointList
       })

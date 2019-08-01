@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import assignmentBatch from '@/views/Assignment/AssignmentBatch'
 import assignmentBatchForm from '@/views/Assignment/AssignmentBatchForm'
+import studentAssignments from '@/views/Assignment/StudentAssignments'
 import assignments from '@/views/Assignment/Assignments'
 import addAssignment from '@/views/Assignment/AddAssignment'
 import assignmentRooms from '@/views/Assignment/AssignmentRooms'
@@ -666,6 +667,14 @@ const router = new Router({
         title: 'Assignment Batch List'
       },
       props: { editMode: true }
+    },
+    {
+      path: config.app.pages.students.assignments,
+      name: 'studentAssignments',
+      component: studentAssignments,
+      meta: {
+        title: 'Assignments'
+      }
     },
     {
       path: config.app.pages.assignments.list,

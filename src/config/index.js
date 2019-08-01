@@ -112,7 +112,8 @@ module.exports = {
           list: '/quizzes',
           detail: '/quizzes/:quizId/detail',
           questions: '/quizzes/:quizId/questions'
-        }
+        },
+        assignments: '/assignments'
       },
       chatrooms: '/chatrooms',
       reminders: {
@@ -289,6 +290,9 @@ module.exports = {
               return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/rooms/${roomId}/comments`
             },
           }
+        },
+        students (batchCode, assignmentId, studentId, page, size) {
+          return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/students/${studentId}/rooms?page=${page}&size=${size}`
         }
       },
       questionBanks: {
