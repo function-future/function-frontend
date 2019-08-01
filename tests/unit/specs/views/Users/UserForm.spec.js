@@ -217,6 +217,14 @@ describe('UserForm', () => {
     expect(spy).toHaveBeenCalledTimes(1)
   })
 
+  test('validationSuccess studentMode', () => {
+    initComponent()
+    wrapper.vm.studentMode = true
+    const spy = jest.spyOn(wrapper.vm, 'sendData')
+    wrapper.vm.validationSuccess()
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
   test('sendData not editMode', () => {
     initComponent()
     wrapper.vm.editMode = false
@@ -261,16 +269,34 @@ describe('UserForm', () => {
     expect(wrapper.vm.maximumSizeAlert).toEqual(true)
   })
 
-  test('successCreateOrEditUser', () => {
+  test('successCreateOrEditUser editMode false', () => {
     initComponent()
+    wrapper.vm.editMode = false
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.successCreateOrEditUser()
     expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'users' })
   })
 
-  test('failCreateOrEditUser', () => {
+  test('successCreateOrEditUser editMode true', () => {
     initComponent()
+    wrapper.vm.editMode = true
+    wrapper.vm.$router.push = jest.fn()
+    wrapper.vm.successCreateOrEditUser()
+    expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'users' })
+  })
+
+  test('failCreateOrEditUser editMode false', () => {
+    initComponent()
+    wrapper.vm.editMode = false
+    wrapper.vm.failCreateOrEditUser()
+    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+  })
+
+  test('failCreateOrEditUser editMode true', () => {
+    initComponent()
+    wrapper.vm.editMode = true
     wrapper.vm.failCreateOrEditUser()
     expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
   })
