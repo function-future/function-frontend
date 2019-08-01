@@ -65,7 +65,7 @@
     display: flex;
     flex-direction: column;
     margin: 0 20px 20px 15px;
-    height: 95vh;
+    height: 98vh;
   }
 
   .user-section {
