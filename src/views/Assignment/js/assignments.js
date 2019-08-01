@@ -71,9 +71,9 @@ export default {
       this.$router.push({
         name: 'assignmentDetail',
         params: {
-          id: id,
+          assignmentId: id,
           batchCode: this.$route.params.batchCode
-        },
+        }
       })
     },
     openDeleteConfirmationModal (id) {
