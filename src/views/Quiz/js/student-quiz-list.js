@@ -6,6 +6,7 @@ import BaseSelect from '@/components/BaseSelect'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
 import ModalCopy from '@/components/modals/ModalCopy'
 import BasePagination from '@/components/BasePagination'
+let marked = require('marked')
 
 export default {
   name: 'StudentQuizList',
@@ -83,6 +84,9 @@ export default {
     loadNextPage () {
       this.paging.page = this.paging.page + 1
       this.initPage()
+    },
+    descriptionCompiledMarkdown: function (description) {
+      return marked(description)
     }
   }
 }

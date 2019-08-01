@@ -17,7 +17,7 @@
       </div>
       <div class="card-body">
         <div class="assignment-description">
-          {{room.assignment.description}}
+          <span v-html="descriptionCompiledMarkdown(room.assignment.description)"></span>
         </div>
       </div>
       <div class="card-footer">

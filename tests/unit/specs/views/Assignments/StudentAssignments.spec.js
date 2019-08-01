@@ -90,6 +90,7 @@ describe('StudentAssignment', () => {
 
   function createWrapper (store, options) {
     const router = new VueRouter([])
+    const marked = jest.fn()
     const $toasted = {
       error: jest.fn(),
       success: jest.fn()
@@ -108,7 +109,8 @@ describe('StudentAssignment', () => {
         'vue-toasted'
       ],
       mocks: {
-        $toasted
+        $toasted,
+        marked
       },
       sync: false
     })
@@ -227,5 +229,11 @@ describe('StudentAssignment', () => {
     wrapper.vm.loadNextPage()
     expect(wrapper.vm.paging.page).toEqual(3)
     expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('descriptionCompiledMarkdown', () => {
+    initComponent()
+    const payload = 'Test Data'
+    expect(wrapper.vm.descriptionCompiledMarkdown(payload)).toEqual('<p>Test Data</p>\n')
   })
 })

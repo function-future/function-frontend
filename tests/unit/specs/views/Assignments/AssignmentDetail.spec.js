@@ -177,4 +177,11 @@ describe('AssignmentDetail', () => {
     wrapper.vm.failUpdatingAssignment()
     expect(wrapper.vm.$toasted.error).toBeCalledTimes(1)
   })
+
+  test('goToRoomList', () => {
+    initComponent()
+    const spy = jest.spyOn(wrapper.vm.$router, 'push')
+    wrapper.vm.goToRoomList()
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
 })

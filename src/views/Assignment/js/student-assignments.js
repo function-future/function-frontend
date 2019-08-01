@@ -4,6 +4,7 @@ import BaseButton from '@/components/BaseButton'
 import BaseInput from '@/components/BaseInput'
 import BaseSelect from '@/components/BaseSelect'
 import BasePagination from '@/components/BasePagination'
+let marked = require('marked')
 
 export default {
   name: 'StudentAssignment',
@@ -79,6 +80,9 @@ export default {
     loadNextPage () {
       this.paging.page = this.paging.page + 1
       this.initPage()
+    },
+    descriptionCompiledMarkdown: function (description) {
+      return marked(description)
     }
   }
 }

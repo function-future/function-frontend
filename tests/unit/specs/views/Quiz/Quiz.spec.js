@@ -315,4 +315,10 @@ describe('Quiz', () => {
     wrapper.vm.failSubmitCopyQuiz()
     expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
   })
+
+  test('descriptionCompiledMarkdown', () => {
+    initComponent()
+    const payload = 'Test Data'
+    expect(wrapper.vm.descriptionCompiledMarkdown(payload)).toContain('<p>Test Data</p>')
+  })
 })
