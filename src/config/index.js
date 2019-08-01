@@ -85,7 +85,7 @@ module.exports = {
           list: '/batches/:batchCode/assignments/:assignmentId/rooms',
           detail: '/batches/:batchCode/assignments/:assignmentId/rooms/:roomId'
         },
-        detail: '/batches/:batchCode/assignments/:id/detail',
+        detail: '/batches/:batchCode/assignments/:assignmentId/detail',
         batches: {
           list: '/assignment/batches',
           add: '/assignment/batches/add',
@@ -295,9 +295,7 @@ module.exports = {
         list (page, pageSize) {
           return `/api/scoring/question-banks?page=${page}&size=${pageSize}`
         },
-        create (page, pageSize) {
-          return `/api/scoring/question-banks`
-        },
+        create: `/api/scoring/question-banks`,
         detail (id) {
           return `/api/scoring/question-banks/${id}`
         },
