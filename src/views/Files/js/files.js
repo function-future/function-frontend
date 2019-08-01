@@ -55,13 +55,13 @@ export default {
     FileDetail () {
       return this.$route.params.id ? 'ModalFileDetail' : ''
     },
-    pathNavigation () {
-      if (this.paths.length > 5) {
-        let pathSummary = [
+    breadcrumbs () {
+      if (this.paths.length > 4) {
+        return [
           ...this.paths.slice(0, 2),
           { name: '...' },
-          ...this.paths.slice(this.paths.length - 2, this.paths.length) ]
-        return pathSummary
+          ...this.paths.slice(this.paths.length - 2, this.paths.length)
+        ]
       }
       return this.paths
     }

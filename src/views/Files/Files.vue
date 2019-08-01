@@ -3,12 +3,12 @@
     <div class="button__wrapper">
       <div class="breadcrumb-wrapper" v-if="paths.length">
         <ul class="breadcrumb">
-          <li v-for="(path, index) in pathNavigation" :key="index" class="breadcrumb-list">
-            <span class="breadcrumb-name" @click="goToFolder(path.id)"
-                  :class="{ active: path.id === $route.params.parentId, 'no-pointer': !path.id }">
-              {{ path.name }}
+          <li v-for="(breadcrumb, index) in breadcrumbs" :key="index" class="breadcrumb-list">
+            <span class="breadcrumb-name" @click="goToFolder(breadcrumb.id)"
+                  :class="{ active: breadcrumb.id === $route.params.parentId, 'no-pointer': !breadcrumb.id }">
+              {{ breadcrumb.name }}
             </span>
-            <span class="divider" v-if="index+1 !== pathNavigation.length">
+            <span class="divider" v-if="index+1 !== breadcrumbs.length">
               <font-awesome-icon icon="chevron-right"/>
             </span>
           </li>

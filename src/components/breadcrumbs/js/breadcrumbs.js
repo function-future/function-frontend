@@ -13,12 +13,12 @@ export default {
       return this.breadcrumbList
     },
     breadcrumbs () {
-      if (this.breadcrumbList.length > 5) {
-        let breadcrumbs = [
+      if (this.breadcrumbList.length > 4) {
+        return [
           ...this.breadcrumbList.slice(0, 2),
           { name: '...' },
-          ...this.breadcrumbList.slice(this.paths.length - 2, this.paths.length) ]
-        return breadcrumbs
+          ...this.breadcrumbList.slice(this.breadcrumbList.length - 2, this.breadcrumbList.length)
+        ]
       }
       return this.breadcrumbList
     }
