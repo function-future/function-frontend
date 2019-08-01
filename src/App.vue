@@ -59,7 +59,7 @@
   }
 
   .container {
-    margin: 0 20px 20px 20px;
+    margin: 0 20px 20px 15px;
     height: 95vh;
   }
 
@@ -75,6 +75,10 @@
     max-height: 90%;
     overflow: auto;
     padding-right: 5px;
+  }
+
+  .title {
+    margin-left: 10px;
   }
 
   .blue {

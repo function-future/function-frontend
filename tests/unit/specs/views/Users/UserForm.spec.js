@@ -115,13 +115,14 @@ describe('UserForm', () => {
   })
 
   test('initPage editMode true', () => {
-    wrapper.vm.editMode = true
     const spy = jest.spyOn(UserForm.methods, 'initialState')
     const getUserDetailSpy = jest.spyOn(UserForm.methods, 'getUserDetail')
     initComponent()
+    wrapper.vm.editMode = true
+    wrapper.vm.initPage()
     expect(wrapper.vm.isLoading).toEqual(true)
-    expect(spy).toHaveBeenCalledTimes(1)
-    expect(getUserDetailSpy).toHaveBeenCalledTimes(1)
+    expect(spy).toHaveBeenCalledTimes(2)
+    expect(getUserDetailSpy).toHaveBeenCalledTimes(2)
   })
 
   test('getUserDetail', () => {
