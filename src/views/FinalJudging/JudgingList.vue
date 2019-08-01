@@ -15,7 +15,7 @@
               cardClass="card-hover">
       <div class="judging__card-header-section">
         <div class="judging__card-header">
-          {{judging.title}}
+          {{judging.name}}
         </div>
         <div class="judging__card-header-info">
           <div class="judging__card-header-info-date">

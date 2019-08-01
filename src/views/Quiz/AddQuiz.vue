@@ -1,12 +1,15 @@
 <template>
   <div>
     <div class="page-header">
-      <BaseButton :buttonClass="selectedBank.length === questionBankList.length ? 'button-save' : ''">
-        <label class="add-quiz__select-section-label">{{selectedBank.length}} / {{questionBankList.length}}
+      <BaseButton :style="{'width': '15vh'}">
+        <label class="add-quiz__select-section-label" :class="{label_active: selectedBank.length === questionBankList.length}">
+          {{selectedBank.length}} / {{questionBankList.length}}
           <input type="checkbox"
                  @change="toggleAllBank"
                  :checked="selectedBank.length === questionBankList.length">
-          <span class="checkmark"></span>
+          <span class="checkmark">
+            <font-awesome-icon icon="check" class="check" size="xs" style="margin-left: 0.05vw; margin-top: 7px; color: white;" v-if="selectedBank.length === questionBankList.length"/>
+          </span>
         </label></BaseButton>
     </div>
     <div class="scrollable-container">
@@ -17,7 +20,9 @@
             <input type="checkbox" name="selected-banks"
                    @click="questionBankSelected(questionBank.id)"
                    :value="questionBank.id">
-            <span class="checkmark"></span>
+            <span class="checkmark">
+              <font-awesome-icon icon="check" class="check add-quiz__select-section-label-icon" size="xs" style="margin-left: 7px; margin-top: 7px; color: white;"/>
+            </span>
           </label>
         </div>
         <div class="add-quiz__card">
@@ -41,12 +46,13 @@
 <script type="text/javascript" src="./js/add-quiz.js">
 </script>
 
-
 <style lang="scss" scoped>
   .page-header {
     display: flex;
     justify-content: flex-start;
     margin-left: 20px;
+    width: 15vw;
+    height: 5vh;
   }
   .add-quiz {
     &__container {
@@ -57,15 +63,14 @@
     &__select-section {
       &-label {
         position: relative;
-        padding-left: 35px;
-        margin-bottom: 12px;
+        top: 0px;
+        padding-left: 40px;
         cursor: pointer;
         font-size: 22px;
         -webkit-user-select: none;
         -moz-user-select: none;
         -ms-user-select: none;
         user-select: none;
-
         & input[type=checkbox] {
           position: absolute;
           opacity: 0;
@@ -77,41 +82,42 @@
         }
 
         & input[type=checkbox]:checked ~ .checkmark {
-          background-color: #2196F3;
-
-          &:after {
-            display: block;
-          }
-        }
-
-        .checkmark:after {
-          top: 9px;
-          left: 9px;
-          width: 8px;
-          height: 8px;
-          border-radius: 50%;
-          background: white;
+          background-color: rgba(2, 170, 243, 0.8);
         }
       }
     }
     &__card {
       min-height: 75px;
+      margin-left: 10px;
+      margin-top: 25px;
+      &-header {
+        font-weight: bold;
+        font-size: 20px;
+      }
+      &-body {
+        margin-top: 5px;
+        font-size: 18px;
+      }
     }
   }
   .checkmark {
     position: absolute;
-    top: 0;
-    left: 0;
-    height: 25px;
-    width: 25px;
+    top: -2px;
+    left: -10px;
+    height: 30px;
+    width: 30px;
     background-color: #eee;
     border-radius: 50%;
-    &:after {
-      content: "";
-      position: absolute;
-      display: none;
-    }
   }
+
+  .active {
+    background-color: rgba(2, 170, 243, 0.8);
+  }
+
+  .label_active {
+    color: rgba(0, 0, 0, 0.5);
+  }
+
   .scrollable-container {
     max-height: 70vh;
     overflow: auto;

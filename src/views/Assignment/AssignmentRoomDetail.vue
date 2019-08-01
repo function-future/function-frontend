@@ -66,7 +66,7 @@
   }
 
   .room-detail-card {
-    height: 20vh;
+    max-height: 26vh;
   }
 
   .discussion-wrapper {

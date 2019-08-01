@@ -44,7 +44,7 @@ export default {
     initPage () {
       this.fetchAssignmentDetail({
         data: {
-          id: this.$route.params.id,
+          id: this.$route.params.assignmentId,
           batchCode: this.$route.params.batchCode
         },
         callback: this.successFetchingAssignmentDetail,
@@ -77,7 +77,7 @@ export default {
         payload,
         data: {
           batchCode: this.$route.params.batchCode,
-          id: this.$route.params.id
+          id: this.$route.params.assignmentId
         },
         callback: this.successUpdatingAssignment,
         fail: this.failUpdatingAssignment

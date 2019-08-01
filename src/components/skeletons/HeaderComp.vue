@@ -15,8 +15,8 @@
         <span v-if="!showGrades"><font-awesome-icon icon="chevron-down" class="icon"/></span>
         <span v-if="showGrades"><font-awesome-icon icon="chevron-up" class="icon"/></span>
       </li>
-      <transition name="fade">
-        <ul v-if="showGrades" class="grades-submenu">
+      <transition name="slide-fade">
+        <ul v-if="showGrades" class="grades-submenu scoring-menu" :class="{active: showGrades}">
           <li v-if="menuList.questionBanks"><router-link :to="{ name: 'questionBanks' }" class="navbar-link">Question Banks</router-link></li>
           <li v-if="menuList.quizzes"><router-link :to="{ name: quizRoute }" class="navbar-link">Quizzes</router-link></li>
           <li v-if="menuList.assignments"><router-link :to="{ name: assignmentRoute }" class="navbar-link">Assignments</router-link></li>
@@ -106,6 +106,68 @@
 
   .grades-submenu, .questionnaire-submenu {
     list-style-type: none;
+  }
+
+  /*.scoring-menu {*/
+  /*  height: 0;*/
+  /*  transition: height 800ms ease-out;*/
+  /*}*/
+
+  /*.scoring-menu.active {*/
+  /*  height: 130px;*/
+  /*}*/
+
+  .slide-fade-enter-active {
+    height: 123px;
+    animation: height-animation-in 400ms ease-out, opacity-animation-in 400ms ease-out;
+  }
+  .slide-fade-leave-active {
+    height: 123px;
+    animation: height-animation-out 350ms ease-out, opacity-animation-out 250ms ease-out;
+  }
+  .slide-fade-enter, .slide-fade-leave-to
+    /* .slide-fade-leave-active below version 2.1.8 */ {
+    height: 0;
+    opacity: 0;
+  }
+
+  @keyframes height-animation-in {
+    0% {
+      height: 0;
+    }
+    100% {
+      height: 123px;
+    }
+  }
+
+  @keyframes height-animation-out {
+    0% {
+      height: 123px;
+    }
+    100% {
+      height: 0;
+    }
+  }
+
+  @keyframes opacity-animation-in {
+    0% {
+      opacity: 0;
+    }
+    30% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes opacity-animation-out {
+    0% {
+      opacity: 1;
+    }
+    30% {
+      opacity: 0;
+    }
   }
 
   .fade-enter-active {

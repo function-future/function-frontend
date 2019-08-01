@@ -7,23 +7,31 @@
           <span class="modal__close"><font-awesome-icon icon="times" class="icon" @click="close" size="lg"></font-awesome-icon></span>
         </div>
         <div class="modal__selected-list">
-          <BaseCard v-for="(student, index) in selectedStudents" class="modal__selected-list-item" :style="{'margin': '10px', 'padding': '10px 15px', 'width': '30%'}">
+          <BaseCard v-for="(student, index) in selectedStudents" class="modal__selected-list-item" :style="{'margin': '10px', 'padding': '10px 15px', 'width': '30%', 'font-weight': 'bold'}">
             <span>{{student.name}}</span>
-            <font-awesome-icon icon="times" class="icon" @click="selectedStudents.splice(index, 1)" size="lg"></font-awesome-icon>
+            <font-awesome-icon icon="times" class="icon" @click="selectedStudents.splice(index, 1)" size="lg" style="cursor: pointer;"></font-awesome-icon>
           </BaseCard>
         </div>
-        <div class="modal__body scrollable-container">
+        <div class="modal__body scrollable-container" style="border-radius: 10px">
           <label class="batch__row" v-for="student in studentList" :key="student.id">
-            <div class="batch__col"><input type="checkbox"
-                                           :value="student"
-                                           :disabled="selectedStudents.length >=3 && selectedStudents.indexOf(student) === -1"
-                                           v-model="selectedStudents"></div>
-            <div class="batch__col--batches"><UserListCard :name="student.name"
-                                                           :university="student.university"
-                                                           :role="student.role"
-                                                           :batch="student.batch ? student.batch.name : null"
-                                                           :key="student.id"
-                                                           :avatar="student.avatar"></UserListCard></div>
+            <div class="batch__col--batches">
+              <UserListCard :name="student.name"
+                            :university="student.university"
+                            :role="student.role"
+                            :batch="student.batch ? student.batch.name : null"
+                            :key="student.id"
+                            :avatar="student.avatar">
+                <div class="batch__col student_checkbox" :class="{active: selectedStudents.find(value => value.id === student.id)}">
+                  <span class="checkbox">
+                    <font-awesome-icon icon="check" class="check" style="color: white; margin-left: 1px" v-if="selectedStudents.find(value => value.id === student.id)"/>
+                  </span>
+                  <input type="checkbox"
+                         :value="student"
+                         :disabled="selectedStudents.length >=3 && !selectedStudents.find(value => value.id === student.id)"
+                         v-model="selectedStudents" style="visibility: hidden;">
+                </div>
+              </UserListCard>
+            </div>
           </label>
           <infinite-loading direction="top"
                             @infinite="initStudents"
@@ -90,6 +98,10 @@
       font-size: small;
       justify-content: flex-start;
       align-items: center;
+      background-color: rgba(0, 0, 0, 0.1);
+      height: 7vh;
+      margin-top: 1vh;
+      border-radius: 25px;
       &-item {
         display: flex;
         justify-content: space-between;
@@ -127,6 +139,7 @@
   }
   .batch {
     &__row {
+      margin: 5px 5px;
       display: flex;
       flex-direction: row;
       align-items: center;
@@ -142,6 +155,22 @@
   }
   modal-enter-active, .modal-leave-active {
     opacity: 0;
+  }
+  .student_checkbox {
+    margin-left: auto;
+    margin-right: 25px;
+    width: 30px;
+    height: 30px;
+    background-color: rgba(0, 0, 0, 0.25);
+    border-radius: 50px;
+  }
+  .active {
+    background-color: rgba(2, 170, 243, 0.8);
+  }
+  .checkbox {
+    display: flex;
+    margin-top: 8px;
+    margin-left: 6px;
   }
   .modal-enter .modal-container,
   .modal-leave-active .modal-container {
