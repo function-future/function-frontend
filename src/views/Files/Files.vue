@@ -5,7 +5,7 @@
         <ul class="breadcrumb">
           <li v-for="(path, index) in paths" :key="index" class="breadcrumb-list">
             <span class="breadcrumb-name" @click="goToFolder(path.id)"
-                  :class="{ bold: path.id === $route.params.parentId }">{{ path.name }}</span>
+                  :class="{ active: path.id === $route.params.parentId }">{{ path.name }}</span>
             <span class="divider" v-if="index+1 !== paths.length"> > </span>
           </li>
         </ul>
@@ -286,16 +286,29 @@
   }
 
   .breadcrumb {
+    color: #828282;
+    font-size: 0.9rem;
     align-items: center;
     display: inline-flex;
-    margin: 0;
-    padding-left: 5px;
     list-style-type: none;
+    padding: 7px 25px;
+    border-radius: 30px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+    margin-top: 5px;
+    margin-left: 5px;
+    transition: all 1s ease-in-out;
+
+    &-list {
+      animation: fadein .5s;
+    }
   }
 
+  @keyframes fadein {
+     from {opacity: 0;}
+     to   {opacity: 1;}
+   }
+
   .breadcrumb-name {
-    color: #02AAF3;
-    text-decoration: underline;
     padding-left: 5px;
     cursor: pointer;
   }
@@ -306,12 +319,13 @@
 
   .divider {
     text-decoration: none;
-    color: #505050;
+    color: #828282;
     padding: 0 5px;
   }
 
-  .bold {
+  .active {
     font-weight: bold;
+    color: #02AAF3;
   }
 
   .is-empty {

@@ -22,17 +22,20 @@
 </script>
 
 <style>
+  @import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+
   html, body {
     height: 100%;
     margin: 0;
     color: #505050;
     font-size: 100%;
     line-height: 1.4rem;
+    font-family: 'Open Sans', Helvetica, Arial, sans-serif;
   }
 
   #app {
     height: 100%;
-    font-family: Helvetica, Arial, sans-serif;
+    font-family: 'Open Sans', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;

@@ -22,11 +22,12 @@
     display: flex;
     flex-wrap: wrap;
     flex: 0 1 auto;
+    margin-top: 15px;
   }
 
   .breadcrumb {
     color: #828282;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     align-items: center;
     display: inline-flex;
     list-style-type: none;
