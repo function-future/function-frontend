@@ -6,6 +6,7 @@ import BaseSelect from '@/components/BaseSelect'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
 import ModalCopy from '@/components/modals/ModalCopy'
 import BasePagination from '@/components/BasePagination'
+let marked = require('marked')
 
 export default {
   name: 'Assignment',
@@ -35,7 +36,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'assignmentList'
+      'assignmentList',
+      'accessList'
     ])
   },
   methods: {
@@ -129,7 +131,7 @@ export default {
       }
       let payload = {
         assignmentId: this.selectedId,
-        batchId: batchDestination
+        batchCode: batchDestination
       }
       this.copyAssignment({
         data,
@@ -145,6 +147,9 @@ export default {
     },
     failSubmitCopyAssignment () {
       this.$toasted.error('Something went wrong')
+    },
+    descriptionCompiledMarkdown: function (description) {
+      return marked(description)
     }
   }
 }

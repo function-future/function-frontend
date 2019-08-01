@@ -17,14 +17,16 @@ describe('JudgingDetail', () => {
 
   function initStore () {
     const state = {
-      judging: {}
+      judging: {},
+      accessList: {}
     }
     const actions = {
       updateJudging: jest.fn(),
       fetchJudgingDetail: jest.fn()
     }
     const getters = {
-      judging: state => state.judging
+      judging: state => state.judging,
+      accessList: state => state.accessList
     }
     const store = new Vuex.Store({
       state,

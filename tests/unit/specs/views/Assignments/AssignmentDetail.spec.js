@@ -17,24 +17,21 @@ describe('AssignmentDetail', () => {
 
   function initStore () {
     const state = {
-      assignment: {}
+      assignment: {},
+      accessList: {}
     }
     const actions = {
       updateAssignmentDetail: jest.fn(),
       fetchAssignmentDetail: jest.fn()
     }
     const getters = {
-      assignment: state => state.assignment
+      assignment: state => state.assignment,
+      accessList: state => state.accessList
     }
     const store = new Vuex.Store({
-      modules: {
-        assignments: {
-          state,
-          actions,
-          getters,
-          namespaced: true
-        }
-      }
+      state,
+      actions,
+      getters
     })
 
     return {
@@ -97,7 +94,7 @@ describe('AssignmentDetail', () => {
 
   test('successFetchingAssignmentDetail', () => {
     initComponent()
-    wrapper.vm.$store.getters.assignment = {
+    wrapper.vm.$store.state.assignment = {
       'id': 'ASG0001',
       'title': 'Assignment 1',
       'description': 'Description Number 1',

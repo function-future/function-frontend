@@ -33,7 +33,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'assignment'
+      'assignment',
+      'accessList'
     ])
   },
   methods: {
@@ -91,6 +92,15 @@ export default {
     },
     failUpdatingAssignment () {
       this.$toasted.error('Something went wrong, please try again')
+    },
+    goToRoomList () {
+      this.$router.push({
+        name: 'assignmentRooms',
+        params: {
+          batchCode: this.$route.params.batchCode,
+          assignmentId: this.assignmentDetail.id
+        }
+      })
     }
   }
 }

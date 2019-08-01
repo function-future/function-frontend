@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="button-div">
-      <BaseButton type="submit" buttonClass="button-save" @click="createNewBatch">
+      <BaseButton type="submit" buttonClass="button-save" @click="createNewBatch" v-if="accessList.add">
         <span><font-awesome-icon icon="plus" class="icon"/> New</span>
       </BaseButton>
     </div>
@@ -9,7 +9,7 @@
     <div class="batch-div">
       <div class="batch" v-for="batch in batches" :key="batch.id">
         <BatchCard :batch="batch" @click.native="goToJudgingList(batch.code)"
-                   @edit="editBatch" @delete="openDeleteConfirmationModal(batch.id)" :showAction="true"></BatchCard>
+                   @edit="editBatch" @delete="openDeleteConfirmationModal(batch.id)" :showAction="accessList.delete"></BatchCard>
       </div>
     </div>
     <modal-delete-confirmation v-if="showDeleteConfirmationModal"

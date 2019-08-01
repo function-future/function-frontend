@@ -1,7 +1,7 @@
 <template>
   <div class="scrollable-container">
     <div class="page-header">
-      <BaseButton class="add-btn" type="submit" buttonClass="button-save" @click="addAssignment">
+      <BaseButton class="add-btn" type="submit" buttonClass="button-save" @click="addAssignment" v-if="accessList.add">
         <font-awesome-icon icon="plus" class="icon"/> Add
       </BaseButton>
     </div>
@@ -20,12 +20,13 @@
           </div>
           <div class="assignment-action">
             <font-awesome-icon
+              v-if="accessList.add"
               icon="copy"
               class="icon blue"
               size="lg"
               @click.stop="openCopyModal(assignment.id)">
             </font-awesome-icon>
-            <span style="margin-left: 10px">
+            <span style="margin-left: 10px" v-if="accessList.delete">
               <font-awesome-icon
                 icon="trash-alt"
                 class="icon red"
@@ -37,7 +38,7 @@
       </div>
       <div class="card-body">
         <div class="assignment-description">
-          {{assignment.description}}
+          <span v-html="descriptionCompiledMarkdown(assignment.description)"></span>
         </div>
       </div>
       <div class="card-footer">

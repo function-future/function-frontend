@@ -17,13 +17,15 @@ describe('AssignmentRoom', () => {
 
   function initStore () {
     const state = {
-      roomList: []
+      roomList: [],
+      accessList: {}
     }
     const actions = {
       fetchRoomList: jest.fn()
     }
     const getters = {
-      roomList: state => state.roomList
+      roomList: state => state.roomList,
+      accessLIst: state => state.accessList
     }
     const store = new Vuex.Store({
       modules: {

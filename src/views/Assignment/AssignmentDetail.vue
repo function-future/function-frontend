@@ -47,7 +47,10 @@
               <BaseButton type="submit" buttonClass="button-save" @click="saveAssignment">Save</BaseButton>
             </div>
             <div class="action-button" v-if="!editMode">
-              <BaseButton type="submit" buttonClass="button-save" @click="editAssignment">Edit</BaseButton>
+              <BaseButton type="submit" buttonClass="button-save" @click="editAssignment" v-if="accessList.edit">Edit</BaseButton>
+            </div>
+            <div class="action-button" v-if="!editMode">
+              <BaseButton type="submit" buttonClass="button-save" @click="goToRoomList()">Rooms</BaseButton>
             </div>
           </div>
         </div>

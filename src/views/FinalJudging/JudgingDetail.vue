@@ -31,7 +31,7 @@
     <div class="judging-detail__container-footer">
       <!--Footer-->
       <BaseButton class="button-cancel" @click="returnButtonClicked">{{returnButtonText}}</BaseButton>
-      <BaseButton class="button-save" @click="actionButtonClicked">{{actionButtonText}}</BaseButton>
+      <BaseButton class="button-save" @click="actionButtonClicked" v-if="accessList.edit">{{actionButtonText}}</BaseButton>
     </div>
     <ModalSelectMultipleStudents  v-if="showSelectStudentModal"
                                   :currentlySelected="selectedStudents"

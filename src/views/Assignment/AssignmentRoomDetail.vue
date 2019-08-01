@@ -39,7 +39,7 @@
                         v-model="discussion.comment"></BaseTextArea>
         </div>
         <div class="discussion-button">
-          <BaseButton type="submit" buttonClass="button-save" @click="submitComment">Post</BaseButton>
+          <BaseButton type="submit" buttonClass="button-save" @click="submitComment" v-if="accessList.add">Post</BaseButton>
         </div>
       </div>
     </BaseCard>

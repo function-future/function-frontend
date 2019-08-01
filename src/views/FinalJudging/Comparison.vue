@@ -37,13 +37,13 @@
         </div>
         <div class="comparison-item__base-score">
           <span class="comparison-item__base-score-title">Final Score</span>
-          <BaseInput class="comparison-item__base-score-field" type="number" min="0" max="100" v-model="scores[index]"></BaseInput>
+          <BaseInput class="comparison-item__base-score-field" type="number" min="0" max="100" v-model="scores[index]" :disabled="!accessList.add"></BaseInput>
         </div>
       </div>
     </BaseCard>
     <div class="comparison__container-footer">
       <BaseButton class="button-cancel" @click="returnButtonClicked">Return</BaseButton>
-      <BaseButton class="button-save" @click="submitButtonClicked">Submit</BaseButton>
+      <BaseButton class="button-save" @click="submitButtonClicked" v-if="accessList.add">Submit</BaseButton>
     </div>
   </div>
 </template>
@@ -131,7 +131,7 @@
           &-card {
             overflow: auto;
             margin-bottom: 5px;
-            max-height: 25vh;
+            max-height: 18vh;
             &::-webkit-scrollbar-track
             {
               background-color: #F5F5F5;

@@ -40,7 +40,8 @@ export default {
   computed: {
     ...mapGetters([
       'room',
-      'comments'
+      'comments',
+      'accessList'
     ]),
     descriptionCompiledMarkdown: function () {
       return marked(this.roomDetail.assignment.description)

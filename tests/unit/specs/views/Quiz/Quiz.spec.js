@@ -74,7 +74,8 @@ describe('Quiz', () => {
           ],
           "batch": 3
         }
-      ]
+      ],
+      accessLIst: {}
     }
     const actions = {
       fetchQuizList: jest.fn(),
@@ -82,7 +83,8 @@ describe('Quiz', () => {
       copyQuiz: jest.fn()
     }
     const getters = {
-      quizList: state => state.quizList
+      quizList: state => state.quizList,
+      accessList: state => state.accessList
     }
     const store = new Vuex.Store({
       modules: {

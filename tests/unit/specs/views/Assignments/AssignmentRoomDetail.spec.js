@@ -21,6 +21,7 @@ describe('CourseDetail', () => {
     const state = {
       room: {},
       comments: [],
+      accessList: {}
     }
     const actions = {
       fetchRoomDetail: jest.fn(),
@@ -30,6 +31,7 @@ describe('CourseDetail', () => {
     const getters = {
       room: state => state.room,
       comments: state => state.comments,
+      accessList: state => state.accessList
     }
     const store = new Vuex.Store({
       modules: {
