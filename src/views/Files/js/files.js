@@ -175,7 +175,7 @@ export default {
       this.resetPage()
     },
     failUploadFile () {
-      this.fileUploadList[0].progress = 102
+      this.file.size > 200000000 ? this.fileUploadList[0].progress = 103 : this.fileUploadList[0].progress = 102
       this.file = {}
       this.isUploading = false
     },
