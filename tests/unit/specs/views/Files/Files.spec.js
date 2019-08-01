@@ -228,6 +228,12 @@ describe('Files', () => {
     })
   })
 
+  test('goToFolder no id', () => {
+    wrapper.vm.$router.push = jest.fn()
+    wrapper.vm.goToFolder('')
+    expect(wrapper.vm.$router.push).toHaveBeenCalledTimes(0)
+  })
+
   test('openFileDetail', () => {
     const id = 'sample-id'
     wrapper.vm.$router.push = jest.fn()
@@ -290,15 +296,33 @@ describe('Files', () => {
     expect(spy).toHaveBeenCalledTimes(1)
   })
 
-  test('failUploadFile', () => {
+  test('failUploadFile file < 200 MB', () => {
     wrapper.vm.fileUploadList = [
       {
         name: '',
         progress: 0
       }
     ]
+    wrapper.vm.file = {
+      size: 20000000
+    }
     wrapper.vm.failUploadFile()
     expect(wrapper.vm.fileUploadList[0].progress).toEqual(102)
+    expect(wrapper.vm.isUploading).toEqual(false)
+  })
+
+  test('failUploadFile show alert if exceed 200 MB', () => {
+    wrapper.vm.fileUploadList = [
+      {
+        name: '',
+        progress: 0
+      }
+    ]
+    wrapper.vm.file = {
+      size: 200000001
+    }
+    wrapper.vm.failUploadFile()
+    expect(wrapper.vm.fileUploadList[0].progress).toEqual(103)
     expect(wrapper.vm.isUploading).toEqual(false)
   })
 
