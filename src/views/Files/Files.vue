@@ -6,7 +6,9 @@
           <li v-for="(path, index) in paths" :key="index" class="breadcrumb-list">
             <span class="breadcrumb-name" @click="goToFolder(path.id)"
                   :class="{ active: path.id === $route.params.parentId }">{{ path.name }}</span>
-            <span class="divider" v-if="index+1 !== paths.length"> > </span>
+            <span class="divider" v-if="index+1 !== paths.length">
+              <font-awesome-icon icon="chevron-right"/>
+            </span>
           </li>
         </ul>
       </div>
@@ -294,8 +296,8 @@
     padding: 7px 25px;
     border-radius: 30px;
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
-    margin-top: 5px;
-    margin-left: 5px;
+    margin-top: 10px;
+    margin-left: 15px;
     transition: all 1s ease-in-out;
 
     &-list {
@@ -309,7 +311,6 @@
    }
 
   .breadcrumb-name {
-    padding-left: 5px;
     cursor: pointer;
   }
 
@@ -320,7 +321,7 @@
   .divider {
     text-decoration: none;
     color: #828282;
-    padding: 0 5px;
+    padding: 0 10px;
   }
 
   .active {
