@@ -1,12 +1,12 @@
 <template>
   <div class="breadcrumb-wrapper" v-if="breadcrumbAvailable">
     <ul class="breadcrumb">
-      <li v-for="(breadcrumb, index) in breadcrumbList" :key="index" class="breadcrumb-list" transition="list">
+      <li v-for="(breadcrumb, index) in breadcrumbs" :key="index" class="breadcrumb-list" transition="list">
         <span class="breadcrumb-name" @click="routeTo(index)"
               :class="{'active': breadcrumb.link === $route.name}">
               {{ breadcrumb.name }}
         </span>
-        <span class="divider" v-if="index+1 !== breadcrumbList.length">
+        <span class="divider" v-if="index+1 !== breadcrumbs.length">
           <font-awesome-icon icon="chevron-right" class="icon"/>
         </span>
       </li>

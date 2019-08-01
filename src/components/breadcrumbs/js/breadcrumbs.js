@@ -11,6 +11,16 @@ export default {
   computed: {
     breadcrumbAvailable () {
       return this.breadcrumbList
+    },
+    breadcrumbs () {
+      if (this.breadcrumbList.length > 5) {
+        let breadcrumbs = [
+          ...this.breadcrumbList.slice(0, 2),
+          { name: '...' },
+          ...this.breadcrumbList.slice(this.paths.length - 2, this.paths.length) ]
+        return breadcrumbs
+      }
+      return this.breadcrumbList
     }
   },
   methods: {
