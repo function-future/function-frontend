@@ -17,21 +17,19 @@ describe('HeaderComp', () => {
 
   function initStore () {
     const state = {
-      menuList: {}
+      menuList: {},
+      currentUser: {}
     }
     const actions = {
     }
     const getters = {
-      menuList: state => state.menuList
+      menuList: state => state.menuList,
+      currentUser: state => state.currentUser
     }
     const store = new Vuex.Store({
-      modules: {
-        auth: {
-          state,
-          actions,
-          getters
-        }
-      }
+      state,
+      actions,
+      getters
     })
 
     return {
@@ -104,5 +102,33 @@ describe('HeaderComp', () => {
     expect(wrapper.vm.questionnaireSubmenuVisibility).toBe(false)
     wrapper.vm.toggleQuestionnaireMenu()
     expect(wrapper.vm.questionnaireSubmenuVisibility).toBe(true)
+  })
+
+  test('quizRoute for student', () => {
+    wrapper.vm.$store.state.currentUser = {
+      role: 'STUDENT'
+    }
+    expect(wrapper.vm.quizRoute).toEqual('studentQuizzes')
+  })
+
+  test('quizRoute default', () => {
+    wrapper.vm.$store.state.currentUser = {
+      role: 'ADMIN'
+    }
+    expect(wrapper.vm.quizRoute).toEqual('quizBatch')
+  })
+
+  test('assignmentRoute for student', () => {
+    wrapper.vm.$store.state.currentUser = {
+      role: 'STUDENT'
+    }
+    expect(wrapper.vm.assignmentRoute).toEqual('studentAssignments')
+  })
+
+  test('assignmentRoute default', () => {
+    wrapper.vm.$store.state.currentUser = {
+      role: 'ADMIN'
+    }
+    expect(wrapper.vm.assignmentRoute).toEqual('assignmentBatch')
   })
 })
