@@ -49,6 +49,10 @@
   }
 
   .breadcrumb-name {
+    max-width: 100px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     padding-left: 5px;
     cursor: pointer;
   }
@@ -64,6 +68,7 @@
   }
 
   .active {
+    max-width: 150px;
     font-weight: bold;
     color: #02AAF3;
   }

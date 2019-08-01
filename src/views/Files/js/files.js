@@ -54,6 +54,16 @@ export default {
     },
     FileDetail () {
       return this.$route.params.id ? 'ModalFileDetail' : ''
+    },
+    pathNavigation () {
+      if (this.paths.length > 5) {
+        let pathSummary = [
+          ...this.paths.slice(0, 2),
+          { name: '...' },
+          ...this.paths.slice(this.paths.length - 2, this.paths.length) ]
+        return pathSummary
+      }
+      return this.paths
     }
   },
   methods: {
@@ -109,6 +119,7 @@ export default {
       return text
     },
     goToFolder (id) {
+      if (!id) return
       this.$router.push({
         name: 'folder',
         params: { parentId: id }

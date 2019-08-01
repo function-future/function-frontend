@@ -3,10 +3,10 @@
     <div class="button__wrapper">
       <div class="breadcrumb-wrapper" v-if="paths.length">
         <ul class="breadcrumb">
-          <li v-for="(path, index) in paths" :key="index" class="breadcrumb-list">
+          <li v-for="(path, index) in pathNavigation" :key="index" class="breadcrumb-list">
             <span class="breadcrumb-name" @click="goToFolder(path.id)"
                   :class="{ active: path.id === $route.params.parentId }">{{ path.name }}</span>
-            <span class="divider" v-if="index+1 !== paths.length">
+            <span class="divider" v-if="index+1 !== pathNavigation.length">
               <font-awesome-icon icon="chevron-right"/>
             </span>
           </li>
@@ -301,6 +301,7 @@
     transition: all 1s ease-in-out;
 
     &-list {
+      display: flex;
       animation: fadein .5s;
     }
   }
@@ -311,6 +312,10 @@
    }
 
   .breadcrumb-name {
+    max-width: 100px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     cursor: pointer;
   }
 
@@ -325,6 +330,7 @@
   }
 
   .active {
+    max-width: 150px;
     font-weight: bold;
     color: #02AAF3;
   }
