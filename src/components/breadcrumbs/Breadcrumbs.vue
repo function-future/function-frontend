@@ -3,7 +3,7 @@
     <ul class="breadcrumb">
       <li v-for="(breadcrumb, index) in breadcrumbs" :key="index" class="breadcrumb-list" transition="list">
         <span class="breadcrumb-name" @click="routeTo(index)"
-              :class="{'active': breadcrumb.link === $route.name}">
+              :class="{'active': breadcrumb.link === $route.name, 'no-pointer': !breadcrumb.link}">
               {{ breadcrumb.name }}
         </span>
         <span class="divider" v-if="index+1 !== breadcrumbs.length">
@@ -72,5 +72,9 @@
     max-width: 150px;
     font-weight: bold;
     color: #02AAF3;
+  }
+
+  .no-pointer {
+    cursor: default;
   }
 </style>

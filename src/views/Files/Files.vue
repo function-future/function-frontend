@@ -5,7 +5,9 @@
         <ul class="breadcrumb">
           <li v-for="(path, index) in pathNavigation" :key="index" class="breadcrumb-list">
             <span class="breadcrumb-name" @click="goToFolder(path.id)"
-                  :class="{ active: path.id === $route.params.parentId }">{{ path.name }}</span>
+                  :class="{ active: path.id === $route.params.parentId, 'no-pointer': !path.id }">
+              {{ path.name }}
+            </span>
             <span class="divider" v-if="index+1 !== pathNavigation.length">
               <font-awesome-icon icon="chevron-right"/>
             </span>
@@ -134,6 +136,7 @@
   }
 
   .wrapper {
+    margin-left: 5px;
     margin-bottom: 10px;
   }
 
@@ -204,9 +207,10 @@
 
   .title {
     text-align: left;
-    padding-left: 15px;
+    padding-left: 10px;
     margin-bottom: 5px;
     margin-top: 7px;
+    font-size: 0.9rem;
   }
 
   .file {
@@ -333,6 +337,10 @@
     max-width: 150px;
     font-weight: bold;
     color: #02AAF3;
+  }
+
+  .no-pointer {
+    cursor: default;
   }
 
   .is-empty {
