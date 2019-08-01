@@ -268,7 +268,7 @@ export default {
     }
   },
   watch: {
-    $route () {
+    '$route.params.parentId' () {
       this.resetPage()
     }
   }
