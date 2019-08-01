@@ -124,4 +124,47 @@ describe('Breadcrumbs', () => {
     })
     expect(wrapper.vm.breadcrumbAvailable).toEqual(wrapper.vm.breadcrumbList)
   })
+
+  test('computed breadcrumbs length < 4', () => {
+    const $route = {
+      meta: {
+        breadcrumb: [
+          { name: 'Batches', link: 'courseBatches' },
+          { name: 'Courses', link: 'courses' }
+        ]
+      }
+    }
+    const wrapper = shallowMount(Breadcrumbs, {
+      mocks: {
+        $route
+      },
+      sync: false
+    })
+    expect(wrapper.vm.breadcrumbs).toEqual(wrapper.vm.breadcrumbList)
+  })
+
+  test('computed breadcrumbs length > 4', () => {
+    const $route = { meta: { breadcrumb: [] } }
+    const wrapper = shallowMount(Breadcrumbs, {
+      mocks: {
+        $route
+      },
+      sync: false
+    })
+    wrapper.vm.breadcrumbList = [
+      { name: 'Home', link: 'feeds' },
+      { name: 'Activity Blogs', link: 'activityBlogs' },
+      { name: 'Activity Blog Detail', link: 'activityBlogDetail' },
+      { name: 'Edit Activity Blog', link: 'editActivityBlog' },
+      { name: 'Activity Blog List', link: 'activityBlogList' }
+    ]
+    const expectedData = [
+      { name: 'Home', link: 'feeds' },
+      { name: 'Activity Blogs', link: 'activityBlogs' },
+      { name: '...' },
+      { name: 'Edit Activity Blog', link: 'editActivityBlog' },
+      { name: 'Activity Blog List', link: 'activityBlogList' }
+    ]
+    expect(wrapper.vm.breadcrumbs).toEqual(expectedData)
+  })
 })

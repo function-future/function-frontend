@@ -60,6 +60,11 @@ describe('Files', () => {
 
   function createWrapper (store, options) {
     const router = new VueRouter([])
+    const $route = {
+      params: {
+        id: 'sample-id'
+      }
+    }
     const $toasted = {
       error: jest.fn(),
       success: jest.fn()
@@ -77,6 +82,7 @@ describe('Files', () => {
         'font-awesome-icon'
       ],
       mocks: {
+        $route,
         $toasted
       },
       sync: false
@@ -279,7 +285,7 @@ describe('Files', () => {
       }
     ]
     wrapper.vm.successUploadFile()
-    expect(wrapper.vm.fileUploadList[0].progress).toEqual(100)
+    expect(wrapper.vm.fileUploadList[0].progress).toEqual(101)
     expect(wrapper.vm.isUploading).toEqual(false)
     expect(spy).toHaveBeenCalledTimes(1)
   })
@@ -292,7 +298,7 @@ describe('Files', () => {
       }
     ]
     wrapper.vm.failUploadFile()
-    expect(wrapper.vm.fileUploadList[0].progress).toEqual(101)
+    expect(wrapper.vm.fileUploadList[0].progress).toEqual(102)
     expect(wrapper.vm.isUploading).toEqual(false)
   })
 
@@ -387,5 +393,74 @@ describe('Files', () => {
     wrapper.vm.failUpdateFile()
     expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
     expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('computed breadcrumbs length < 4', () => {
+    wrapper.vm.paths = [
+      {
+        'id': 'root',
+        'name': 'root'
+      },
+      {
+        'id': 'parent-id',
+        'name': 'Parent ID'
+      },
+      {
+        'id': 'parent-id-1',
+        'name': 'Parent ID 1'
+      }
+    ]
+    expect(wrapper.vm.breadcrumbs).toEqual(wrapper.vm.paths)
+  })
+
+  test('computed breadcrumbs length > 4', () => {
+    wrapper.vm.paths = [
+      {
+        'id': 'root',
+        'name': 'root'
+      },
+      {
+        'id': 'parent-id',
+        'name': 'Parent ID'
+      },
+      {
+        'id': 'parent-id-1',
+        'name': 'Parent ID 1'
+      },
+      {
+        'id': 'parent-id-2',
+        'name': 'Parent ID 2'
+      },
+      {
+        'id': 'parent-id-3',
+        'name': 'Parent ID 3'
+      },
+      {
+        'id': 'parent-id-4',
+        'name': 'Parent ID 4'
+      }
+    ]
+    const expectedResult = [
+      {
+        'id': 'root',
+        'name': 'root'
+      },
+      {
+        'id': 'parent-id',
+        'name': 'Parent ID'
+      },
+      {
+        'name': '...'
+      },
+      {
+        'id': 'parent-id-3',
+        'name': 'Parent ID 3'
+      },
+      {
+        'id': 'parent-id-4',
+        'name': 'Parent ID 4'
+      }
+    ]
+    expect(wrapper.vm.breadcrumbs).toEqual(expectedResult)
   })
 })

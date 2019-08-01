@@ -243,9 +243,9 @@ describe('MasterCourses', () => {
   })
 
   test('successDeleteMasterById', () => {
-    wrapper.vm.$router.push = jest.fn()
+    const spy = jest.spyOn(wrapper.vm, 'resetPage')
     wrapper.vm.successDeleteMasterById()
-    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'masterCourses' })
+    expect(spy).toHaveBeenCalledTimes(1)
     expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
     expect(wrapper.vm.showDeleteConfirmationModal).toEqual(false)
   })
