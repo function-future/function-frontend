@@ -10,28 +10,36 @@
         <div class="answer-container__option">
           <label class="answer-container__option-label">Option A
             <input type="radio" name="correct-answer" value="0" checked="checked">
-            <span class="checkmark"></span>
+            <span class="checkmark">
+              <font-awesome-icon icon="check" class="check" size="xs" style="margin-left: 0.25vw; margin-bottom: 0.01vh; color: white;" v-if="checked"/>
+            </span>
           </label>
           <BaseInput class="answer-container__option-input" v-model="question.options[0].label"></BaseInput>
         </div>
         <div class="answer-container__option">
           <label class="answer-container__option-label">Option B
             <input type="radio" name="correct-answer" value="1">
-            <span class="checkmark"></span>
+            <span class="checkmark">
+              <font-awesome-icon icon="check" class="check answer-container__option-label-icon" size="xs" style="margin-left: 0.25vw; margin-bottom: 0.01vh; color: white;" v-if="checked"/>
+            </span>
           </label>
           <BaseInput class="answer-container__option-input" v-model="question.options[1].label"></BaseInput>
         </div>
         <div class="answer-container__option">
           <label class="answer-container__option-label">Option C
             <input type="radio" name="correct-answer" value="2">
-            <span class="checkmark"></span>
+            <span class="checkmark">
+              <font-awesome-icon icon="check" class="check answer-container__option-label-icon" size="xs" style="margin-left: 0.25vw; margin-bottom: 0.01vh; color: white;" v-if="checked"/>
+            </span>
           </label>
           <BaseInput class="answer-container__option-input" v-model="question.options[2].label"></BaseInput>
         </div>
         <div class="answer-container__option">
           <label class="answer-container__option-label">Option D
             <input type="radio" name="correct-answer" value="3">
-            <span class="checkmark"></span>
+            <span class="checkmark">
+              <font-awesome-icon icon="check" class="check answer-container__option-label-icon" size="xs" style="margin-left: 0.25vw; margin-bottom: 0.01vh; color: white;" v-if="checked"/>
+            </span>
           </label>
           <BaseInput class="answer-container__option-input" v-model="question.options[3].label"></BaseInput>
         </div>
@@ -77,6 +85,9 @@
         -moz-user-select: none;
         -ms-user-select: none;
         user-select: none;
+        &-icon {
+        display: none;
+        }
         & input[type=radio] {
           position: absolute;
           opacity: 0;
@@ -86,18 +97,10 @@
           background-color: #ccc;
         }
         & input[type=radio]:checked ~ .checkmark {
-          background-color: #2196F3;
-          &:after {
-            display: block;
-          }
+          background-color: rgba(2, 170, 243, 0.8);
         }
-        .checkmark:after {
-          top: 9px;
-          left: 9px;
-          width: 8px;
-          height: 8px;
-          border-radius: 50%;
-          background: white;
+        & input[type=checkbox]:checked ~ .answer-container__option-label-icon {
+            display: block;
         }
       }
       &-input {
@@ -113,11 +116,6 @@
     width: 25px;
     background-color: #eee;
     border-radius: 50%;
-    &:after {
-      content: "";
-      position: absolute;
-      display: none;
-    }
   }
   .action-container {
     float: right;

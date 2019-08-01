@@ -159,7 +159,7 @@ describe('Assignment', () => {
     expect(wrapper.vm.$router.push).toBeCalledWith({
       name: 'assignmentDetail',
       params: {
-        id: 3,
+        assignmentId: 3,
         batchCode: '1'
       },
     })

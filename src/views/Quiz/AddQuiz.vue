@@ -1,13 +1,14 @@
 <template>
   <div>
     <div class="page-header">
-      <BaseButton :buttonClass="selectedBank.length === questionBankList.length ? 'button-save' : ''" :style="{'width': '15vh'}">
-        <label class="add-quiz__select-section-label">{{selectedBank.length}} / {{questionBankList.length}}
+      <BaseButton :style="{'width': '15vh'}">
+        <label class="add-quiz__select-section-label" :class="{label_active: selectedBank.length === questionBankList.length}">
+          {{selectedBank.length}} / {{questionBankList.length}}
           <input type="checkbox"
                  @change="toggleAllBank"
                  :checked="selectedBank.length === questionBankList.length">
           <span class="checkmark">
-            <font-awesome-icon icon="check" class="blue check" size="xs" style="margin-right: 1px; margin-top: 7px" v-if="selectedBank.length === questionBankList.length"/>
+            <font-awesome-icon icon="check" class="check" size="xs" style="margin-left: 0.05vw; margin-top: 7px; color: white;" v-if="selectedBank.length === questionBankList.length"/>
           </span>
         </label></BaseButton>
     </div>
@@ -19,8 +20,8 @@
             <input type="checkbox" name="selected-banks"
                    @click="questionBankSelected(questionBank.id)"
                    :value="questionBank.id">
-            <span class="checkmark-list">
-              <font-awesome-icon icon="check" class="blue check" size="xs" style="margin-left: 7px; margin-top: 7px" v-if="selectedBank.includes(questionBank.id)"/>
+            <span class="checkmark">
+              <font-awesome-icon icon="check" class="check add-quiz__select-section-label-icon" size="xs" style="margin-left: 7px; margin-top: 7px; color: white;"/>
             </span>
           </label>
         </div>
@@ -70,7 +71,6 @@
         -moz-user-select: none;
         -ms-user-select: none;
         user-select: none;
-
         & input[type=checkbox] {
           position: absolute;
           opacity: 0;
@@ -82,10 +82,7 @@
         }
 
         & input[type=checkbox]:checked ~ .checkmark {
-          background-color: #fff;
-        }
-        & input[type=checkbox]:checked ~ .checkmark-list {
-          background-color: #eee;
+          background-color: rgba(2, 170, 243, 0.8);
         }
       }
     }
@@ -103,7 +100,7 @@
       }
     }
   }
-  .checkmark, .checkmark-list {
+  .checkmark {
     position: absolute;
     top: -2px;
     left: -10px;
@@ -112,8 +109,13 @@
     background-color: #eee;
     border-radius: 50%;
   }
-  .checkmark-list {
-    border: 1px solid rgba(0, 0, 0, 0.1);
+
+  .active {
+    background-color: rgba(2, 170, 243, 0.8);
+  }
+
+  .label_active {
+    color: rgba(0, 0, 0, 0.5);
   }
 
   .scrollable-container {

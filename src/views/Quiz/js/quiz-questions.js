@@ -50,10 +50,11 @@ export default {
         number: this.currentNumber + 1,
         optionId
       }
+      event.target.classList.toggle('selected')
     },
-  viewQuestion (number) {
-      this.currentNumber = number - 1
-  },
+    viewQuestion (number) {
+      if (this.currentNumber !== 0) this.currentNumber = number - 1
+    },
     viewNextQuestion () {
       if (this.currentNumber !== this.studentQuizQuestions.length - 1) this.currentNumber++
     },

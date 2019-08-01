@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    Question Number {{ currentNumber + 1}}<!--IF POSSIBLE!-->
+    <div class="quiz-question__question-label">Question {{currentNumber + 1}}</div><!--IF POSSIBLE!-->
     <div class="quiz">
       <div class="quiz-content">
         <div class="quiz-content-question">
@@ -26,11 +26,11 @@
             </div>
             <div class="quiz-action-legend__content-area">
               <div v-for="question in studentQuizQuestions" class="quiz-action-legend__content-area-row">
-                <BaseCard :style="{ 'padding': '10px', 'margin': '15px 0 15px 0' }" @click.native="currentNumber = question.number-1">
+                <BaseCard :style="{ 'padding': '10px', 'margin': '15px 0 15px 0' }">
                   <label class="quiz-action-legend__content-area-row-item">
                     <input type="radio" v-model="currentNumber" @click="viewQuestion(question.number)">
-                    <span class="radio">
-                      <font-awesome-icon icon="check" class="blue check" size="xs" v-if="question.number - 1 === currentNumber"/>
+                    <span class="radio" :class="{active: question.number - 1 === currentNumber}">
+                      <font-awesome-icon icon="check" class="check" size="xs" v-if="question.number - 1 === currentNumber"/>
                     </span>
                     <span class="quiz-action-legend__content-area-row-item-text">
                       Question {{question.number}}
@@ -62,6 +62,11 @@
     display: flex;
     flex-direction: row;
     height: 75vh;
+    &-question__question-label {
+      font-weight: bold;
+      font-size: 20px;
+      margin-top: 5px;
+    }
     &-content {
       margin: 10px 25px 0 0;
       width: 80%;
@@ -141,7 +146,21 @@
     width: 20px;
   }
 
+  .radio.active {
+    border: 0;
+  }
+
   .check {
     margin: auto;
+  }
+
+  .selected {
+    background-color: rgb(2, 170, 243);
+    color: white;
+  }
+
+  .active {
+    background-color: rgba(2, 170, 243, 0.8);
+    color: white;
   }
 </style>
