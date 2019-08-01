@@ -36,7 +36,7 @@
         </CourseCard>
       </div>
     </div>
-    <infinite-loading @infinite="initPage" spinner="spiral">
+    <infinite-loading @infinite="initPage" spinner="spiral" :identifier="infiniteId">
       <div slot="no-more"></div>
       <div slot="no-results"></div>
     </infinite-loading>

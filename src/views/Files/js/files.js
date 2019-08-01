@@ -218,6 +218,7 @@ export default {
       this.closeDeleteConfirmationModal()
     },
     successDeleteFile () {
+      this.resetPage()
       this.$toasted.success('successfully delete file')
     },
     failDeleteFile () {
