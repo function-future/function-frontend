@@ -15,7 +15,7 @@
       </BaseButton>
       </span>
     </div>
-    <div v-for="course in courses" :key="course.id" class="course__row">
+    <div v-for="(course, index) in courses" :key="index" class="course__row">
       <div class="course__col">
         <label v-if="accessList.add">
           <input type="checkbox" :value="course.id" v-model="selectedIds" @click="select">

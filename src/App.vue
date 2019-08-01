@@ -156,4 +156,26 @@
       width: 83vw;
     }
   }
+
+  ::-webkit-scrollbar-track {
+    background-color: #F5F5F5;
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    background-color: #02AAF3;
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #02AAF3;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+  }
+
+  ::-webkit-scrollbar-thumb:active {
+  }
 </style>
