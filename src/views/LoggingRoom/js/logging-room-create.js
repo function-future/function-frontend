@@ -101,7 +101,7 @@ export default {
     },
 
   },
-  created() {
+  created () {
     this.titleTemp = this.title
     this.descriptionTemp = this.description
     this.membersTemp = this.members

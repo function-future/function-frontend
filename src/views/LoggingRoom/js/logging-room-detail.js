@@ -2,6 +2,10 @@ import ParticipantCard from '@/views/LoggingRoom/ParticipantCard'
 import TopicCard from '@/views/LoggingRoom/TopicCard'
 import InfiniteLoading from 'vue-infinite-loading'
 import loggingRoomApi from '@/api/controller/logging-room'
+import BaseButton from '@/components/BaseButton'
+import ModalAddQuestion from '@/views/Questionnaire/ModalAddQuestion'
+import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
+
 
 export default {
   name: 'logging-room-detail',
@@ -9,14 +13,29 @@ export default {
     ParticipantCard,
     TopicCard,
     loggingRoomApi,
-    InfiniteLoading
+    InfiniteLoading,
+    BaseButton,
+    ModalAddQuestion,
+    ModalDeleteConfirmation
   },
   data () {
     return {
       topics: [],
       page: 1,
       size: 10,
-      loggingRoom: {}
+      loggingRoom: {},
+      topic: {
+        id: '',
+        title: '',
+        isUpdate: false,
+        type: 'Topic'
+      },
+      topicModal: false,
+      modalDeleteConfirmation: {
+        show: false,
+        title: '',
+        id: ''
+      }
     }
   },
   methods: {
@@ -59,6 +78,47 @@ export default {
       }, this.errorCallBack, {
         params: {
           loggingRoomId: this.$route.params.loggingRoomId
+        }
+      })
+    },
+    closeTopicModal () {
+      this.topic.id = ''
+      this.topic.title = ''
+      this.topic.isUpdate = false
+      this.topicModal = false
+    },
+    createTopic (value) {
+      console.log(value)
+      alert('hold')
+      loggingRoomApi.createTopic(response => {
+        this.$toasted.success('success create question')
+      }, this.errorCallBack, {
+        body: {
+          title: value.description
+        },
+        params: {
+          loggingRoomId: this.$route.params.loggingRoomId
+        }
+      })
+    },
+    openDeleteModal (topic) {
+      this.modalDeleteConfirmation.show = true
+      this.modalDeleteConfirmation.id = topic.id
+      this.modalDeleteConfirmation.title = topic.title
+    },
+    resetDeleteModal () {
+      this.modalDeleteConfirmation.show = false
+      this.modalDeleteConfirmation.id = ''
+      this.modalDeleteConfirmation.title = ''
+    },
+    deleteTopic () {
+      loggingRoomApi.deleteTopic(response => {
+        this.$toasted.success('success delete topic')
+        this.resetDeleteModal()
+      }, this.errorCallBack, {
+        params: {
+          loggingRoomId: this.modalDeleteConfirmation.id,
+          topicId: this.modalDeleteConfirmation.id
         }
       })
     }

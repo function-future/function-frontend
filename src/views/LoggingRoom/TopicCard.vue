@@ -1,7 +1,12 @@
 <template>
-  <div class="topic-card" @click="$emit('click')">
+  <div class="topic-card">
     <BaseCard class="topic-card__content">
-      <h3> {{title}}</h3>
+      <div class="topic-card__content__title" @click="$emit('click')">
+        <h3> {{title}}</h3>
+      </div>
+      <div class="topic-card__content__delete-icon">
+        <font-awesome-icon class="icon icon-delete" icon="times" @click="$emit('delete')"/>
+      </div>
     </BaseCard>
   </div>
 </template>
@@ -25,7 +30,12 @@
     &__content {
       width: 100%;
       margin: 0px;
-      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      &__title {
+        flex-grow: 2;
+        cursor: pointer;
+      }
     }
   }
 </style>
