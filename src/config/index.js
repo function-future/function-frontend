@@ -282,6 +282,9 @@ module.exports = {
           update(batchCode, assignmentId, roomId) {
             return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/rooms/${roomId}`
           },
+          score(batchCode, assignmentId, roomId) {
+            return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/rooms/${roomId}`
+          },
           comments: {
             list(batchCode, assignmentId, roomId, page, pageSize) {
               return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/rooms/${roomId}/comments?page=${page}&size=${pageSize}`

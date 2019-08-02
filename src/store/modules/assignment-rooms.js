@@ -41,6 +41,11 @@ export const actions = {
     assignmentRoomApi.createAssignmentRoomComment(() => {
       callback && callback()
     }, data, payload, fail)
+  },
+  postAssignmentScore ({ commit }, { data, payload, callback, fail }) {
+    assignmentRoomApi.updateAssignmentScore(() => {
+      callback && callback()
+    }, data, payload, fail)
   }
 }
 

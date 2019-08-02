@@ -26,7 +26,8 @@ describe('CourseDetail', () => {
     const actions = {
       fetchRoomDetail: jest.fn(),
       fetchComments: jest.fn(),
-      postComment: jest.fn()
+      postComment: jest.fn(),
+      postAssignmentScore: jest.fn()
     }
     const getters = {
       room: state => state.room,
@@ -34,13 +35,9 @@ describe('CourseDetail', () => {
       accessList: state => state.accessList
     }
     const store = new Vuex.Store({
-      modules: {
-        assignmentRooms: {
-          state,
-          actions,
-          getters
-        }
-      }
+      state,
+      actions,
+      getters
     })
 
     return {
@@ -203,6 +200,21 @@ describe('CourseDetail', () => {
 
   test('failSubmitComment', () => {
     wrapper.vm.failSubmitComment()
+    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+  })
+
+  test('updateScore', () => {
+    wrapper.vm.updateScore()
+    expect(store.actions.postAssignmentScore).toHaveBeenCalledTimes(1)
+  })
+
+  test('successUpdatingScore', () => {
+    wrapper.vm.successUpdatingScore()
+    expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
+  })
+
+  test('failedUpdatingScore', () => {
+    wrapper.vm.failedUpdatingScore()
     expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
   })
 })
