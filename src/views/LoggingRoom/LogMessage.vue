@@ -34,17 +34,20 @@
   }
 
   .message-container {
+    width: 90%;
     display: flex;
+    align-items: center;
   }
 
   .message-content {
+    width: 100%;
     display: flex;
     flex-direction: column;
     background: #F2F2F2;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    margin: 0 10px;
+    margin: 5px 10px;
     border-radius: 10px;
   }
 

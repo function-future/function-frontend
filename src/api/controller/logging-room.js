@@ -87,7 +87,7 @@ const deleteTopic = function (callback, error, data) {
 
 const getLogMessages = function (callback, error, data) {
   request.getRequest(
-    config.api.communication.loggingRoom.getLogMessagges(data.params.loggingRoomId, data.params.topicId),
+    config.api.communication.loggingRoom.getLogMessages(data.params.loggingRoomId, data.params.topicId, data.params.page, data.params.size),
     callback,
     error
   )
@@ -97,6 +97,7 @@ const createLogMessage = function (callback, error, data) {
   request.postRequest(
     config.api.communication.loggingRoom.createLogMessage(data.params.loggingRoomId, data.params.topicId),
     callback,
+    data.body,
     error
   )
 }

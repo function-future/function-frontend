@@ -535,11 +535,11 @@ module.exports = {
         deleteTopic (loggingRoomId, topicId) {
           return `/api/communication/logging-rooms/${loggingRoomId}/topics/${topicId}`
         },
-        getLogMessagges (loggingRoomId, topicId) {
-          return `/api/communication/logging-rooms/${loggingRoomId}/topics/${topicId}/log-messages`
+        getLogMessages (loggingRoomId, topicId, page, size) {
+          return `/api/communication/logging-rooms/${loggingRoomId}/topics/${topicId}/log-messages?page=${page}&size=${size}`
         },
         createLogMessage (loggingRoomId, topicId) {
-          return `/api/communication/logging-rooms/${loggingRoomId}/topics/${topicId}`
+          return `/api/communication/logging-rooms/${loggingRoomId}/topics/${topicId}/log-messages`
         }
       }
     }
