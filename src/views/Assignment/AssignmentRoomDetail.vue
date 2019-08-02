@@ -1,14 +1,21 @@
 <template>
-  <div class="scrollable-container">
+  <div class="scrollable-container" v-if="!isLoading">
     <div class="room-detail">
       <BaseCard class="room-detail-card" cardClass="no-pointer">
         <div class="header">
           <h3>{{ roomDetail.assignment.title }}</h3>
         </div>
+        <div class="header float-right">
+          <div class="action">
+            <span class="edit-btn">
+              {{roomDetail.assignment.deadline | moment('dddd, MMMM Do YYYY')}}
+            </span>
+          </div>
+        </div>
+        <a v-if="roomDetail.assignment.file !== ''" :href="roomDetail.assignment.file" target="_blank" class="download-button">
+          <font-awesome-icon icon="download" class="icon"></font-awesome-icon>Download material
+        </a>
         <div class="scrollable">
-          <!--<div v-if="courseDetail.material !== ''" @click="downloadMaterial(courseDetail.material)" class="download-button">-->
-          <!--<font-awesome-icon icon="download" class="icon"></font-awesome-icon>Download material-->
-          <!--</div>-->
           <span v-html="descriptionCompiledMarkdown"></span>
         </div>
       </BaseCard>
@@ -75,7 +82,7 @@
   }
 
   .room-detail {
-    height: 26vh;
+    height: 70vh;
     display: flex;
   }
 
@@ -210,5 +217,18 @@
 
   .icon {
     margin-right: 5px;
+  }
+
+  .download-button {
+    display: block;
+    border: 1px solid #828282;
+    border-radius: 10px;
+    padding: 10px 20px;
+    color: #505050;
+    cursor: pointer;
+  }
+
+  .download-button:hover {
+    background-color: #F2F2F2;
   }
 </style>

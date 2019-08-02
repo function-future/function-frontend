@@ -36,7 +36,8 @@ export default {
         size: 4,
         totalRecords: 0
       },
-      state: ''
+      state: '',
+      isLoading: true
     }
   },
   computed: {
@@ -72,6 +73,7 @@ export default {
     },
     successFetchRoomById () {
       this.roomDetail = this.room
+      this.isLoading = false
     },
     failFetchRoomById () {
       this.$toasted.error('Something went wrong')

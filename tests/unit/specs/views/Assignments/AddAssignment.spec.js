@@ -271,7 +271,7 @@ describe('AddAssignment', () => {
     wrapper.vm.file.name = 'sample-file-name'
     wrapper.vm.successUploadMaterial(response)
     expect(wrapper.vm.uploadingFile).toEqual(false)
-    expect(wrapper.vm.assignment.file).toEqual(response.id)
+    expect(wrapper.vm.assignment.files).toEqual([response.id])
     expect(wrapper.vm.filePreviewName).toEqual('sample-file-name')
   })
 
