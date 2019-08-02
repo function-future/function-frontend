@@ -7,6 +7,7 @@ describe('BaseCard', () => {
   let store
   let wrapper
   let localVue
+  let propsTitle = ''
 
   function generateLocalVue () {
     const lv = createLocalVue()
@@ -60,7 +61,7 @@ describe('BaseCard', () => {
       router,
       propsData: {
         course: {
-          title: 'course title course title course title course title course title course title course title',
+          title: propsTitle,
           id: 'sample-id-1'
         }
       },
@@ -113,8 +114,14 @@ describe('BaseCard', () => {
   })
 
   test('computed title > 40', () => {
+    propsTitle = 'course title course title course title course title course title course title course title'
     initComponent()
-    wrapper.vm.course.title = 'course title course title course title course title course title course title course title'
     expect(wrapper.vm.title).toEqual(wrapper.vm.course.title.slice(0, 40) + '...')
+  })
+
+  test('computed title < 40', () => {
+    propsTitle = 'course title'
+    initComponent()
+    expect(wrapper.vm.title).toEqual(propsTitle)
   })
 })
