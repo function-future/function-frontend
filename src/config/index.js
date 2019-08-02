@@ -132,7 +132,9 @@ module.exports = {
       loggingRoom: {
         default: '/logging-rooms',
         topics: '/logging-rooms/:loggingRoomId/topics',
-        logMessages: '/logging-rooms/:loggingRoomId/topics/:topicId'
+        logMessages: '/logging-rooms/:loggingRoomId/topics/:topicId',
+        create: '/logging-rooms/_create',
+        edit: '/logging-rooms/:loggingRoomId/_edit'
       }
     }
   },

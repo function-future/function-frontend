@@ -2,6 +2,8 @@ import SearchBar from '@/components/SearchBar'
 import LoggingRoomCard from '@/views/LoggingRoom/LoggingRoomCard'
 import InfiniteLoading from 'vue-infinite-loading'
 import loggingRoomApi from '@/api/controller/logging-room'
+import BaseButton from '@/components/BaseButton'
+import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
 
 export default {
   name: 'logging-room',
@@ -9,14 +11,21 @@ export default {
     SearchBar,
     LoggingRoomCard,
     InfiniteLoading,
-    loggingRoomApi
+    loggingRoomApi,
+    BaseButton,
+    ModalDeleteConfirmation
   },
   data () {
     return {
       loggingRooms: [],
       keyword: '',
       page: 1,
-      size: 10
+      size: 10,
+      modalDeleteConfirmation: {
+        show: false,
+        title: '',
+        id: ''
+      }
     }
   },
   methods: {
@@ -68,6 +77,40 @@ export default {
         name: 'loggingRoomDetail',
         params: {
           loggingRoomId: loggingRoomId
+        }
+      })
+    },
+    goToCreate () {
+      this.$router.push({
+        name: 'loggingRoomCreate'
+      })
+    },
+    editLoggingRoom (id) {
+      alert('test')
+      this.$router.push({
+        name: 'loggingRoomEdit',
+        params: {
+          loggingRoomId: id
+        }
+      })
+    },
+    openDeleteModal (loggingRoom) {
+      this.modalDeleteConfirmation.show = true
+      this.modalDeleteConfirmation.id = loggingRoom.id
+      this.modalDeleteConfirmation.title = loggingRoom.title
+    },
+    resetDeleteModal () {
+      this.modalDeleteConfirmation.show = false
+      this.modalDeleteConfirmation.id = ''
+      this.modalDeleteConfirmation.title = ''
+    },
+    deleteLoggingRoom () {
+      loggingRoomApi.deleteLoggingRoom(response => {
+        this.$toasted.success('success delete loggingRoom')
+        this.resetDeleteModal()
+      }, this.errorCallBack, {
+        params: {
+          loggingRoomId: this.modalDeleteConfirmation.id
         }
       })
     }

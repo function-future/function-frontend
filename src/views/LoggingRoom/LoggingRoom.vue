@@ -2,6 +2,9 @@
     <div class="logging-room">
       <div class="logging-room__container">
         <div class="logging-room__top-bar-container">
+          <BaseButton class="btn-add" type="submit" buttonClass="button-save" @click="goToCreate">
+            <font-awesome-icon icon="plus" class="icon"/> New
+          </BaseButton>
           <SearchBar class="logging-room__search-bar" @input="searchHandler"/>
         </div>
         <div class="logging-room__list-card">
@@ -12,6 +15,8 @@
                               :description="loggingRoom.description"
                               :memberCount="loggingRoom.members.length"
                               @click="goToLoggingRoomDetail(loggingRoom.id)"
+                              @edit="editLoggingRoom(loggingRoom.id)"
+                              @delete="openDeleteModal(loggingRoom)"
           ></logging-room-card>
           <infinite-loading ref="infiniteLoading" @infinite="infiniteHandler">
             <div slot="no-more"></div>
@@ -19,6 +24,13 @@
           </infinite-loading>
         </div>
       </div>
+      <modal-delete-confirmation
+        v-if="modalDeleteConfirmation.show"
+        @close="resetDeleteModal"
+        @clickDelete="deleteLoggingRoom">
+        <div slot="description">
+          to delete logging room "{{this.modalDeleteConfirmation.title}}" ?
+        </div>></modal-delete-confirmation>
     </div>
 </template>
 
@@ -46,7 +58,7 @@
 
     &__top-bar-container {
       display: flex;
-      justify-content: flex-end;
+      justify-content: space-between;
       margin: 0 15px;
       max-height: 10vh;
     }
@@ -62,6 +74,11 @@
 
       &__card {
       }
+    }
+
+    .btn-add {
+      height: 4vh;
+      margin: 15px 0px;
     }
   }
 </style>

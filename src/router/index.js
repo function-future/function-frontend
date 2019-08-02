@@ -63,6 +63,9 @@ import changePassword from '@/views/User/ChangePassword'
 import loggingRoom from '@/views/LoggingRoom/LoggingRoom.vue'
 import loggingRoomDetail from '@/views/LoggingRoom/LoggingRoomDetail.vue'
 import logMessageRoom from '@/views/LoggingRoom/LogMessageRoom.vue'
+import loggingRoomCreate from '@/views/LoggingRoom/LoggingRoomCreate'
+import loggingRoomEdit from '@/views/LoggingRoom/LoggingRoomEdit'
+
 import store from '../store/index.js'
 
 Vue.use(Router)
@@ -882,6 +885,22 @@ const router = new Router({
       component: logMessageRoom,
       meta: {
         title: 'Logging Room'
+      }
+    },
+    {
+      path: config.app.pages.loggingRoom.create,
+      name: 'loggingRoomCreate',
+      component: loggingRoomCreate,
+      meta: {
+        title: 'Logging Room - Create'
+      }
+    },
+    {
+      path: config.app.pages.loggingRoom.edit,
+      name: 'loggingRoomEdit',
+      component: loggingRoomEdit,
+      meta: {
+        title: 'Logging Room - Edit'
       }
     }
   ]
