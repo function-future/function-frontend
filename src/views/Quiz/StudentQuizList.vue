@@ -33,7 +33,7 @@
         </div>
         <div class="retry-count">
           <font-awesome-icon icon="redo"></font-awesome-icon>
-          <span>{{studentQuiz.quiz.trials}} tries</span>
+          <span>{{studentQuiz.trials}} tries</span>
         </div>
       </div>
     </BaseCard>
