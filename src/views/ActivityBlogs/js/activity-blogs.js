@@ -32,7 +32,10 @@ export default {
       'activityBlogs',
       'currentUser',
       'accessList'
-    ])
+    ]),
+    userId () {
+      return this.$route.query.userId
+    }
   },
   methods: {
     ...mapActions([
@@ -41,8 +44,7 @@ export default {
       'deleteActivityBlogById'
     ]),
     initPage () {
-      this.paging.page = 1
-      this.$route.query.userId ? this.loadUserActivityBlogList() : this.loadActivityBlogList()
+      this.userId ? this.loadUserActivityBlogList() : this.loadActivityBlogList()
     },
     loadActivityBlogList () {
       this.isLoading = true
@@ -59,7 +61,7 @@ export default {
       this.paging = { ...this.paging }
       let data = {
         ...this.paging,
-        userId: this.$route.query.userId
+        userId: this.userId
       }
       this.fetchUserActivityBlogs({
         data,
@@ -119,7 +121,7 @@ export default {
       this.closeDeleteConfirmationModal()
     },
     successDeleteActivityBlogById () {
-      this.loadActivityBlogList()
+      this.initPage()
       this.$toasted.success('Successfully delete activity blog')
     },
     failDeleteActivityBlogById () {
@@ -127,24 +129,28 @@ export default {
     },
     loadPage (page) {
       this.paging.page = page
-      this.loadActivityBlogList()
+      this.initPage()
     },
     loadPreviousPage () {
       this.paging.page = this.paging.page - 1
-      this.loadActivityBlogList()
+      this.initPage()
     },
     loadNextPage () {
       this.paging.page = this.paging.page + 1
-      this.loadActivityBlogList()
+      this.initPage()
     },
     goToUserBlog (id) {
       this.$router.push({
         query: { userId: id }
       })
+    },
+    goToActivityBlogs () {
+      this.$router.push({ name: 'activityBlogs' })
     }
   },
   watch: {
-    '$route.query.userId' () {
+    userId () {
+      this.paging.page = 1
       this.initPage()
     }
   }

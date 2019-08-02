@@ -1,7 +1,10 @@
 <template>
   <div class="scrollable-container">
     <div class="button-div" v-if="accessList.add">
-      <div class="user-name" v-if="activityBlogs.length && $route.query.userId">
+      <div class="user-name" v-if="activityBlogs.length && userId !== undefined">
+        <span class="back-arrow" @click="goToActivityBlogs">
+          <font-awesome-icon icon="arrow-left" class="icon" size="lg"/>
+        </span>
         Activity blogs by <span>{{ activityBlogs[0].author.name }}</span>
       </div>
       <BaseButton type="submit" buttonClass="button-save" @click="goToAddActivityBlog">
@@ -142,12 +145,21 @@
     justify-content: flex-start;
     align-items: center;
     font-size: 0.9rem;
-    padding-left: 10px;
-    border-left: 1px solid #BDBDBD;
 
     span {
       padding-left: 5px;
       font-weight: bold;
+    }
+  }
+
+  .back-arrow {
+    cursor: pointer;
+    padding-right: 10px;
+    border-right: 1px solid #BDBDBD;
+    margin-right: 10px;
+
+    &:hover {
+      opacity: 0.9;
     }
   }
 </style>
