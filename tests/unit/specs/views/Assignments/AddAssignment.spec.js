@@ -190,6 +190,20 @@ describe('AddAssignment', () => {
   })
 
   test('onFileChange', () => {
+    const wrapper = shallowMount(addAssignment, {
+      store,
+      localVue,
+      stubs: [
+        'BaseInput',
+        'BaseTextArea',
+        'BaseButton',
+        'BaseSelect',
+        'font-awesome-icon',
+        'v-date-picker',
+        'v-calendar'
+      ],
+      sync: false
+    })
     const spy = jest.spyOn(wrapper.vm, 'materialUpload')
     const e = {
       target: {
