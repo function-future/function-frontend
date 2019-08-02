@@ -25,7 +25,7 @@ export default {
     }
   },
   created () {
-    this.loadActivityBlogList()
+    this.initPage()
   },
   computed: {
     ...mapGetters([
@@ -37,8 +37,13 @@ export default {
   methods: {
     ...mapActions([
       'fetchActivityBlogs',
+      'fetchUserActivityBlogs',
       'deleteActivityBlogById'
     ]),
+    initPage () {
+      this.paging.page = 1
+      this.$route.query.userId ? this.loadUserActivityBlogList() : this.loadActivityBlogList()
+    },
     loadActivityBlogList () {
       this.isLoading = true
       this.paging = { ...this.paging }
@@ -48,6 +53,27 @@ export default {
         callback: this.successLoadActivityBlogList,
         fail: this.failLoadActivityBlogList
       })
+    },
+    loadUserActivityBlogList () {
+      this.isLoading = true
+      this.paging = { ...this.paging }
+      let data = {
+        ...this.paging,
+        userId: this.$route.query.userId
+      }
+      this.fetchUserActivityBlogs({
+        data,
+        callback: this.successLoadActivityBlogList,
+        fail: this.failLoadActivityBlogList
+      })
+    },
+    successLoadActivityBlogList (paging) {
+      this.isLoading = false
+      this.paging = paging
+    },
+    failLoadActivityBlogList () {
+      this.isLoading = false
+      this.$toasted.error('Fail to load activity blogs list')
     },
     compileToMarkdown: function (description) {
       return marked(this.showLimitedPreviewText(description.replace(/\!\[.*\]\(.*\)/,'')))
@@ -92,14 +118,6 @@ export default {
       })
       this.closeDeleteConfirmationModal()
     },
-    successLoadActivityBlogList (paging) {
-      this.isLoading = false
-      this.paging = paging
-    },
-    failLoadActivityBlogList () {
-      this.isLoading = false
-      this.$toasted.error('Fail to load activity blogs list')
-    },
     successDeleteActivityBlogById () {
       this.loadActivityBlogList()
       this.$toasted.success('Successfully delete activity blog')
@@ -118,6 +136,16 @@ export default {
     loadNextPage () {
       this.paging.page = this.paging.page + 1
       this.loadActivityBlogList()
+    },
+    goToUserBlog (id) {
+      this.$router.push({
+        query: { userId: id }
+      })
+    }
+  },
+  watch: {
+    '$route.query.userId' () {
+      this.initPage()
     }
   }
 }

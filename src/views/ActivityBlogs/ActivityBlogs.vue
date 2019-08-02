@@ -1,6 +1,9 @@
 <template>
   <div class="scrollable-container">
     <div class="button-div" v-if="accessList.add">
+      <div class="user-name" v-if="activityBlogs.length && $route.query.userId">
+        Activity blogs by <span>{{ activityBlogs[0].author.name }}</span>
+      </div>
       <BaseButton type="submit" buttonClass="button-save" @click="goToAddActivityBlog">
         <span><font-awesome-icon icon="plus" class="icon"/> New</span>
       </BaseButton>
@@ -16,7 +19,7 @@
                 cardClass="card-hover">
         <div class="blog-header">
           <h3 class="blog-title">{{ activityBlog.title }}</h3>
-          <div class="blog-author">by <span>{{ activityBlog.author.name }}</span></div>
+          <div class="blog-author">by <span @click.stop="goToUserBlog(activityBlog.author.id)">{{ activityBlog.author.name }}</span></div>
         </div>
         <div class="blog-header float-right">
           <div class="blog-date">
@@ -111,8 +114,10 @@
   }
 
   .button-div {
-    text-align: right;
-    margin-right: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin: 0 20px 15px 15px;
   }
 
   .button-save {
@@ -129,5 +134,20 @@
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  .user-name {
+    margin: 5px auto 5px 5px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 0.9rem;
+    padding-left: 10px;
+    border-left: 1px solid #BDBDBD;
+
+    span {
+      padding-left: 5px;
+      font-weight: bold;
+    }
   }
 </style>
