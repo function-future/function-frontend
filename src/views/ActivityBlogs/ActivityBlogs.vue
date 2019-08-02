@@ -1,7 +1,7 @@
 <template>
   <div class="scrollable-container">
     <div class="button-div" v-if="accessList.add">
-      <div class="user-name" v-if="activityBlogs.length && userId !== undefined">
+      <div class="user-name" v-if="activityBlogs.length && userId">
         <span class="back-arrow" @click="goToActivityBlogs">
           <font-awesome-icon icon="arrow-left" class="icon" size="lg"/>
         </span>

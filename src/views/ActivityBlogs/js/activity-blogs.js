@@ -34,7 +34,7 @@ export default {
       'accessList'
     ]),
     userId () {
-      return this.$route.query.userId
+      return this.$route.query.userId || ''
     }
   },
   methods: {

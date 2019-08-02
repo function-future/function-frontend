@@ -8,6 +8,14 @@ describe('ActivityBlogs', () => {
   let store
   let wrapper
   let localVue
+  let $route = {
+    params: {
+      id: 'sample-id'
+    },
+    query: {
+      userId: ''
+    }
+  }
 
   function generateLocalVue () {
     const lv = createLocalVue()
@@ -30,6 +38,7 @@ describe('ActivityBlogs', () => {
       initialState: jest.fn(),
       fetchActivityBlogById: jest.fn(),
       fetchActivityBlogs: jest.fn(),
+      fetchUserActivityBlogs: jest.fn(),
       uploadResource: jest.fn()
     }
     const getters = {
@@ -58,11 +67,6 @@ describe('ActivityBlogs', () => {
     const $toasted = {
       error: jest.fn(),
       success: jest.fn()
-    }
-    const $route = {
-      params: {
-        id: 'sample-id'
-      }
     }
     const $router = {
       push: jest.fn()
@@ -106,6 +110,26 @@ describe('ActivityBlogs', () => {
 
   test('Rendered correctly', () => {
     expect(wrapper.isVueInstance()).toBe(true)
+  })
+
+  test('initPage all blogs', () => {
+    $route.query.userId = undefined
+    const spy = jest.spyOn(wrapper.vm, 'loadActivityBlogList')
+    wrapper.vm.initPage()
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('initPage user blogs', () => {
+    $route.query.userId = 'id-1'
+    const spy = jest.spyOn(wrapper.vm, 'loadUserActivityBlogList')
+    wrapper.vm.initPage()
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('loadUserActivityBlogList', () => {
+    const spy = jest.spyOn(wrapper.vm, 'fetchUserActivityBlogs')
+    wrapper.vm.initPage()
+    expect(spy).toHaveBeenCalledTimes(1)
   })
 
   test('compileToMarkdown', () => {
@@ -173,7 +197,7 @@ describe('ActivityBlogs', () => {
   })
 
   test('successDeleteActivityBlogById', () => {
-    const loadActivityBlogListSpy = jest.spyOn(wrapper.vm, 'loadActivityBlogList')
+    const loadActivityBlogListSpy = jest.spyOn(wrapper.vm, 'initPage')
     wrapper.vm.successDeleteActivityBlogById()
     expect(loadActivityBlogListSpy).toHaveBeenCalledTimes(1)
   })
@@ -195,14 +219,14 @@ describe('ActivityBlogs', () => {
   })
 
   test('loadPage', () => {
-    const spy = jest.spyOn(wrapper.vm, 'loadActivityBlogList')
+    const spy = jest.spyOn(wrapper.vm, 'initPage')
     wrapper.vm.loadPage(1)
     expect(wrapper.vm.paging.page).toEqual(1)
     expect(spy).toHaveBeenCalledTimes(1)
   })
 
   test('loadPreviousPage', () => {
-    const spy = jest.spyOn(wrapper.vm, 'loadActivityBlogList')
+    const spy = jest.spyOn(wrapper.vm, 'initPage')
     wrapper.vm.paging.page = 2
     wrapper.vm.loadPreviousPage()
     expect(wrapper.vm.paging.page).toEqual(1)
@@ -210,10 +234,31 @@ describe('ActivityBlogs', () => {
   })
 
   test('loadNextPage', () => {
-    const spy = jest.spyOn(wrapper.vm, 'loadActivityBlogList')
+    const spy = jest.spyOn(wrapper.vm, 'initPage')
     wrapper.vm.paging.page = 2
     wrapper.vm.loadNextPage()
     expect(wrapper.vm.paging.page).toEqual(3)
     expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('goToUserBlog', () => {
+    wrapper.vm.$router.push = jest.fn()
+    wrapper.vm.goToUserBlog(1)
+    expect(wrapper.vm.$router.push).toHaveBeenCalledTimes(1)
+  })
+
+  test('goToActivityBlogs', () => {
+    wrapper.vm.$router.push = jest.fn()
+    wrapper.vm.goToActivityBlogs()
+    expect(wrapper.vm.$router.push).toHaveBeenCalledTimes(1)
+  })
+
+  test('watch userId', () => {
+    const spy = jest.spyOn(wrapper.vm, 'initPage')
+    $route.query.userId = 'id-1'
+    $route.query.userId = 'id-2'
+    wrapper.vm.$nextTick(() => {
+      expect(spy).toHaveBeenCalledTimes(1)
+    })
   })
 })
