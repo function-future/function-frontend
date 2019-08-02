@@ -22,7 +22,9 @@ describe('AssignmentDetail', () => {
     }
     const actions = {
       updateAssignmentDetail: jest.fn(),
-      fetchAssignmentDetail: jest.fn()
+      fetchAssignmentDetail: jest.fn(),
+      downloadCourseMaterial: jest.fn(),
+      uploadMaterial: jest.fn()
     }
     const getters = {
       assignment: state => state.assignment,
@@ -183,5 +185,60 @@ describe('AssignmentDetail', () => {
     const spy = jest.spyOn(wrapper.vm.$router, 'push')
     wrapper.vm.goToRoomList()
     expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('onFileChange', () => {
+    initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'materialUpload')
+    const e = {
+      target: {
+        files: [
+          {
+            name: 'test.png',
+            size: 2000000,
+            type: 'image/png'
+          }
+        ]
+      }
+    }
+    wrapper.vm.onFileChange(e)
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('materialUpload', () => {
+    initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'uploadMaterial')
+    const file = {
+      name: 'test.png',
+      size: 2000000,
+      type: 'image/png'
+    }
+    wrapper.vm.materialUpload(file)
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('successUploadMaterial', () => {
+    initComponent()
+    const response = {
+      'id': 'sample-id',
+      'name': 'File Name',
+      'file': {
+        'full': 'https://i.pinimg.com/originals/8c/cf/ec/8ccfec7d5cb3c92265cbf153523eb9b5.jpg',
+        'thumbnail': null
+      }
+    }
+    wrapper.vm.file.name = 'sample-file-name'
+    wrapper.vm.successUploadMaterial(response)
+    expect(wrapper.vm.uploadingFile).toEqual(false)
+    expect(wrapper.vm.assignment.file).toEqual(response.id)
+    expect(wrapper.vm.filePreviewName).toEqual('sample-file-name')
+  })
+
+  test('failUploadMaterial', () => {
+    initComponent()
+    wrapper.vm.failUploadMaterial()
+    expect(wrapper.vm.uploadingFile).toEqual(false)
+    expect(wrapper.vm.filePreviewName).toEqual('Fail to upload material, please try again')
+    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
   })
 })

@@ -28,16 +28,20 @@
                          is-required
                          is-inline>
           </v-date-picker>
-          <div class="assignment-detail-file">
-            <span class="assignment-detail-file-name">File.txt</span>
-            <div class="assignment-detail-file-actions">
-              <BaseButton buttonClass="button-icon">
-                <font-awesome-icon icon="file-upload" class="icon"/>
-              </BaseButton>
-              <BaseButton buttonClass="button-icon">
-                <font-awesome-icon icon="file-download" class="icon"/>
-              </BaseButton>
-            </div>
+          <a v-if="!editMode && assignmentDetail.file && assignmentDetail.file !== ''" :href="assignmentDetail.file" target="_blank" class="download-button">
+            <font-awesome-icon icon="download" class="icon"></font-awesome-icon>Download material
+          </a>
+          <div v-if="editMode && assignmentDetail.file" class="material-upload">
+            <label class="upload-button">
+              <input type="file" :name="file" @change="onFileChange($event)">
+              <span v-if="!uploadingFile">
+                <font-awesome-icon icon="upload" class="icon"></font-awesome-icon>
+                <span>Upload File</span> <!-- TODO: Display file name here instead of hardcoded text !-->
+              </span>
+              <span v-if="uploadingFile">
+            <font-awesome-icon icon="spinner" spin class="icon"></font-awesome-icon> Uploading ...
+          </span>
+            </label>
           </div>
           <div class="action">
             <div class="action-button" v-if="editMode">
@@ -62,7 +66,7 @@
 <script type="text/javascript" src="./js/assignment-detail.js">
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .edit-container {
     margin: 10px;
   }
@@ -116,5 +120,53 @@
   }
 
   .action-button {
+  }
+
+  .download-button {
+    display: block;
+    border: 1px solid #828282;
+    border-radius: 10px;
+    padding: 10px 20px;
+    color: #505050;
+    cursor: pointer;
+  }
+
+  .download-button:hover {
+    background-color: #F2F2F2;
+  }
+
+  .upload-button:hover {
+    background-color: #F2F2F2;
+  }
+
+  .icon {
+    margin-right: 5px;
+  }
+
+  .material-upload {
+    text-align: left;
+
+    p {
+      font-size: 12px;
+      padding-left: 10px;
+    }
+  }
+
+  .upload-button {
+    display: block;
+    border: 1px solid #BDBDBD;
+    border-radius: 10px;
+    padding: 10px 20px;
+    color: #505050;
+    cursor: pointer;
+    margin: 10px 0;
+  }
+
+  input[type=file] {
+    display: none;
+  }
+
+  .upload-button:hover {
+    background-color: #F2F2F2;
   }
 </style>
