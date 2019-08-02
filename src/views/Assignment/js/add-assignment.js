@@ -19,7 +19,7 @@ export default {
         description: '',
         deadline: new Date(),
         batchCode: '',
-        file: ''
+        files: ''
       },
       uploadingFile: false,
       filePreviewName: '',
@@ -77,7 +77,7 @@ export default {
     },
     successUploadMaterial (response) {
       this.uploadingFile = false
-      this.assignment.file = response.id
+      this.assignment.files = [ response.id ]
       this.filePreviewName = this.file.name
     },
     failUploadMaterial () {
