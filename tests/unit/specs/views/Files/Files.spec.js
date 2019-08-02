@@ -7,11 +7,15 @@ describe('Files', () => {
   let store
   let wrapper
   let localVue
+  let $route = {
+    params: {
+      id: 'sample-id'
+    }
+  }
 
   function generateLocalVue () {
     const lv = createLocalVue()
     lv.use(Vuex)
-    lv.use(VueRouter)
     return lv
   }
 
@@ -59,11 +63,8 @@ describe('Files', () => {
   }
 
   function createWrapper (store, options) {
-    const router = new VueRouter([])
-    const $route = {
-      params: {
-        id: 'sample-id'
-      }
+    const $router = {
+      push: jest.fn()
     }
     const $toasted = {
       error: jest.fn(),
@@ -73,7 +74,6 @@ describe('Files', () => {
       ...options,
       store,
       localVue,
-      router,
       stubs: [
         'BaseCard',
         'BaseButton',
@@ -83,6 +83,7 @@ describe('Files', () => {
       ],
       mocks: {
         $route,
+        $router,
         $toasted
       },
       sync: false
@@ -95,10 +96,6 @@ describe('Files', () => {
     wrapper = createWrapper(store.store)
   }
 
-  beforeEach(() => {
-    initComponent()
-  })
-
   afterEach(() => {
     jest.resetAllMocks()
   })
@@ -108,16 +105,19 @@ describe('Files', () => {
   })
 
   test('Rendered correctly', () => {
+    initComponent()
     expect(wrapper.isVueInstance()).toBe(true)
   })
 
   test('initPage', () => {
+    initComponent()
     const spy = jest.spyOn(wrapper.vm, 'fetchFiles')
     wrapper.vm.initPage()
     expect(spy).toHaveBeenCalledTimes(1)
   })
 
   test('successFetchFiles with data', () => {
+    initComponent()
     const res = {
       'paths': [
         {
@@ -173,6 +173,7 @@ describe('Files', () => {
   })
 
   test('successFetchFiles with empty data', () => {
+    initComponent()
     const res = {
       'paths': [
         {
@@ -196,6 +197,7 @@ describe('Files', () => {
   })
 
   test('failFetchFiles', () => {
+    initComponent()
     wrapper.vm.failFetchFiles()
     expect(wrapper.vm.fileList).toEqual([])
     expect(wrapper.vm.folderList).toEqual([])
@@ -203,6 +205,7 @@ describe('Files', () => {
   })
 
   test('resetPage', () => {
+    initComponent()
     wrapper.vm.resetPage()
     expect(wrapper.vm.paging.page).toEqual(1)
     expect(wrapper.vm.fileList).toEqual([])
@@ -210,16 +213,19 @@ describe('Files', () => {
   })
 
   test('showLimitedPreviewText > 15 characters', () => {
+    initComponent()
     const text = 'This text length is more than 15 characters'
     expect(wrapper.vm.showLimitedPreviewText(text)).toEqual(text.slice(0, 15) + '...')
   })
 
   test('showLimitedPreviewText < 15 characters', () => {
+    initComponent()
     const text = 'less 15 chars'
     expect(wrapper.vm.showLimitedPreviewText(text)).toEqual(text)
   })
 
   test('goToFolder', () => {
+    initComponent()
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.goToFolder('sample-id')
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
@@ -229,12 +235,14 @@ describe('Files', () => {
   })
 
   test('goToFolder no id', () => {
+    initComponent()
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.goToFolder('')
     expect(wrapper.vm.$router.push).toHaveBeenCalledTimes(0)
   })
 
   test('openFileDetail', () => {
+    initComponent()
     const id = 'sample-id'
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.openFileDetail(id)
@@ -242,12 +250,14 @@ describe('Files', () => {
   })
 
   test('closeFileDetail', () => {
+    initComponent()
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.closeFileDetail()
     expect(wrapper.vm.$router.push).toHaveBeenCalledTimes(1)
   })
 
   test('openDeleteConfirmationModal', () => {
+    initComponent()
     const id = 'sample-id'
     const type = 'FILE'
     wrapper.vm.openDeleteConfirmationModal(id, type)
@@ -257,6 +267,7 @@ describe('Files', () => {
   })
 
   test('onFileChange', () => {
+    initComponent()
     const spy = jest.spyOn(wrapper.vm, 'upload')
     const e = {
       target: {
@@ -274,6 +285,7 @@ describe('Files', () => {
   })
 
   test('upload', () => {
+    initComponent()
     const file = {
       name: 'file name'
     }
@@ -283,6 +295,7 @@ describe('Files', () => {
   })
 
   test('successUploadFile', () => {
+    initComponent()
     const spy = jest.spyOn(wrapper.vm, 'resetPage')
     wrapper.vm.fileUploadList = [
       {
@@ -297,6 +310,7 @@ describe('Files', () => {
   })
 
   test('failUploadFile file < 200 MB', () => {
+    initComponent()
     wrapper.vm.fileUploadList = [
       {
         name: '',
@@ -312,6 +326,7 @@ describe('Files', () => {
   })
 
   test('failUploadFile show alert if exceed 200 MB', () => {
+    initComponent()
     wrapper.vm.fileUploadList = [
       {
         name: '',
@@ -327,12 +342,14 @@ describe('Files', () => {
   })
 
   test('closeFileUploadModal', () => {
+    initComponent()
     wrapper.vm.closeFileUploadModal()
     expect(wrapper.vm.fileUploadList).toEqual([])
     expect(wrapper.vm.showFileUploadModal).toEqual(false)
   })
 
   test('createFolderFromModal', () => {
+    initComponent()
     const spy = jest.spyOn(wrapper.vm, 'createFolder')
     wrapper.vm.createFolderFromModal('Folder Name')
     expect(wrapper.vm.showCreateModal).toEqual(false)
@@ -340,6 +357,7 @@ describe('Files', () => {
   })
 
   test('successCreateFolder', () => {
+    initComponent()
     const spy = jest.spyOn(wrapper.vm, 'resetPage')
     wrapper.vm.successCreateFolder()
     expect(wrapper.vm.$toasted.success).toHaveBeenCalled()
@@ -347,11 +365,13 @@ describe('Files', () => {
   })
 
   test('failCreateFolder', () => {
+    initComponent()
     wrapper.vm.failCreateFolder()
     expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
   })
 
   test('deleteThisFile', () => {
+    initComponent()
     const closeDeleteConfirmationModalSpy = jest.spyOn(wrapper.vm, 'closeDeleteConfirmationModal')
     const spy = jest.spyOn(wrapper.vm, 'deleteFile')
     wrapper.vm.deleteThisFile()
@@ -360,22 +380,26 @@ describe('Files', () => {
   })
 
   test('successDeleteFile', () => {
+    initComponent()
     wrapper.vm.successDeleteFile()
     expect(wrapper.vm.$toasted.success).toHaveBeenCalled()
   })
 
   test('failDeleteFile', () => {
+    initComponent()
     wrapper.vm.failDeleteFile()
     expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
   })
 
   test('closeDeleteConfirmationModal', () => {
+    initComponent()
     wrapper.vm.closeDeleteConfirmationModal()
     expect(wrapper.vm.showDeleteConfirmationModal).toEqual(false)
     expect(wrapper.vm.selectedId).toEqual('')
   })
 
   test('openRenameFileFolderModal', () => {
+    initComponent()
     const id = 'sample-id'
     const title = 'sampe title 1'
     const type = 'FOLDER'
@@ -387,6 +411,7 @@ describe('Files', () => {
   })
 
   test('closeRenameFileFolderModal', () => {
+    initComponent()
     wrapper.vm.showRenameFileFolderModal = true
     wrapper.vm.selectedId = 'sample-id'
     wrapper.vm.currentTitle = 'sampe title 1'
@@ -399,6 +424,7 @@ describe('Files', () => {
   })
 
   test('renameFileFolderFromModal', () => {
+    initComponent()
     const title = 'new title 2'
     const spy = jest.spyOn(wrapper.vm, 'updateFile')
     wrapper.vm.renameFileFolderFromModal(title)
@@ -406,6 +432,7 @@ describe('Files', () => {
   })
 
   test('successUpdateFile', () => {
+    initComponent()
     const spy = jest.spyOn(wrapper.vm, 'closeRenameFileFolderModal')
     wrapper.vm.successUpdateFile()
     expect(wrapper.vm.$toasted.success).toHaveBeenCalled()
@@ -413,6 +440,7 @@ describe('Files', () => {
   })
 
   test('failUpdateFile', () => {
+    initComponent()
     const spy = jest.spyOn(wrapper.vm, 'closeRenameFileFolderModal')
     wrapper.vm.failUpdateFile()
     expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
@@ -420,6 +448,7 @@ describe('Files', () => {
   })
 
   test('computed breadcrumbs length < 4', () => {
+    initComponent()
     wrapper.vm.paths = [
       {
         'id': 'root',
@@ -438,6 +467,7 @@ describe('Files', () => {
   })
 
   test('computed breadcrumbs length > 4', () => {
+    initComponent()
     wrapper.vm.paths = [
       {
         'id': 'root',
@@ -486,5 +516,18 @@ describe('Files', () => {
       }
     ]
     expect(wrapper.vm.breadcrumbs).toEqual(expectedResult)
+  })
+
+  test('computed FileDetail have params id', () => {
+    initComponent()
+    expect(wrapper.vm.FileDetail).toEqual('ModalFileDetail')
+  })
+
+  test('computed FileDetail no params id', () => {
+    $route = {
+      params: {}
+    }
+    initComponent()
+    expect(wrapper.vm.FileDetail).toEqual('')
   })
 })
