@@ -108,10 +108,11 @@ describe('UserForm', () => {
   })
 
   test('initPage editMode false', () => {
-    wrapper.vm.editMode = false
     const initialStateSpy = jest.spyOn(UserForm.methods, 'initialState')
     initComponent()
-    expect(initialStateSpy).toHaveBeenCalledTimes(1)
+    wrapper.vm.editMode = false
+    wrapper.vm.initPage()
+    expect(initialStateSpy).toHaveBeenCalledTimes(2)
   })
 
   test('initPage editMode true', () => {
@@ -193,6 +194,18 @@ describe('UserForm', () => {
     wrapper.vm.validateBeforeSubmit(callback)
     wrapper.vm.$nextTick(() => {
       expect(wrapper.vm.$validator.validateAll).toHaveBeenCalledTimes(1)
+      done()
+    })
+  })
+
+  test('validateBeforeSubmit is resolved false', (done) => {
+    initComponent()
+    const callback = jest.fn()
+    wrapper.vm.$validator.validateAll = jest.fn().mockResolvedValue(false)
+    wrapper.vm.validateBeforeSubmit(callback)
+    wrapper.vm.$nextTick(() => {
+      expect(wrapper.vm.$validator.validateAll).toHaveBeenCalledTimes(1)
+      expect(callback).toHaveBeenCalledTimes(0)
       done()
     })
   })

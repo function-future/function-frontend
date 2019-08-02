@@ -136,6 +136,13 @@ describe('ActivityBlogForm', () => {
     expect(spy).toHaveBeenCalledTimes(1)
   })
 
+  test('$imgDel', () => {
+    wrapper.vm.img_file = [
+      { id: 1 }
+    ]
+    wrapper.vm.$imgDel(0)
+  })
+
   test('failUploadResource', () => {
     wrapper.vm.failUploadResource()
     expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
