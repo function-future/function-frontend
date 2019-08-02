@@ -45,7 +45,7 @@ const deleteLoggingRoom = function (callback, error, data) {
 
 const getLoggingRoomTopic = function (callback, error, data) {
   request.getRequest(
-    config.api.communication.loggingRoom.getLoggingRoomTopic(data.params.loggingRoomId),
+    config.api.communication.loggingRoom.getLoggingRoomTopic(data.params.loggingRoomId, data.params.page, data.params.size),
     callback,
     error
   )

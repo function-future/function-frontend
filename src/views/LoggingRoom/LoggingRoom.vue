@@ -42,7 +42,6 @@
       @media only screen and (min-width: 1300px) {
         width: 800px;
       }
-
     }
 
     &__top-bar-container {

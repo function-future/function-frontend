@@ -6,7 +6,7 @@ const MAX_CHAR_DESCRIPTION = 150
 export default {
   name: 'logging-room-card',
   components: {
-    BaseCard
+    BaseCard,
   },
   props: {
     title: {

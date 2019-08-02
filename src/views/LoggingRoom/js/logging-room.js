@@ -67,7 +67,7 @@ export default {
       this.$router.push({
         name: 'loggingRoomDetail',
         params: {
-          loggingRoomId : loggingRoomId
+          loggingRoomId: loggingRoomId
         }
       })
     }

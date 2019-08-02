@@ -520,8 +520,8 @@ module.exports = {
         deleteLoggingRoom (loggingRoomId) {
           return `/api/communication/logging-rooms/${loggingRoomId}`
         },
-        getLoggingRoomTopic (loggingRoomId) {
-          return `/api/communication/logging-rooms/${loggingRoomId}/topics`
+        getLoggingRoomTopic (loggingRoomId, page, size) {
+          return `/api/communication/logging-rooms/${loggingRoomId}/topics?page=${page}&size=${size}`
         },
         createTopic (loggingRoomId) {
           return `/api/communication/logging-rooms/${loggingRoomId}/topics`
