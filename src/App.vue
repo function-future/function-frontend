@@ -5,7 +5,7 @@
     </div>
     <div class="content">
       <div class="container">
-        <div class="title">
+        <div class="page-title">
           <BaseTitle>{{ title }}</BaseTitle>
           <Breadcrumbs></Breadcrumbs>
         </div>
@@ -82,7 +82,7 @@
     padding-right: 5px;
   }
 
-  .title {
+  .page-title {
     margin-left: 10px;
   }
 

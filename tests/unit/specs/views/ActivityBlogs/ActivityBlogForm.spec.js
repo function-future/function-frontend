@@ -143,6 +143,22 @@ describe('ActivityBlogForm', () => {
     wrapper.vm.$imgDel(0)
   })
 
+  test('successUploadResource', () => {
+    wrapper.vm.$refs = {
+      md: {
+        $img2Url: jest.fn()
+      }
+    }
+    const response = {
+      id: 'id-1',
+      file: {
+        full: 'google.com/images'
+      }
+    }
+    wrapper.vm.successUploadResource(response)
+    expect(wrapper.vm.imageIds).toEqual(['id-1'])
+  })
+
   test('failUploadResource', () => {
     wrapper.vm.failUploadResource()
     expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
