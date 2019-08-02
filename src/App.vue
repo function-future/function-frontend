@@ -173,7 +173,6 @@
 
   ::-webkit-scrollbar {
     width: 8px;
-    background-color: #02AAF3;
     border-radius: 10px;
   }
 
