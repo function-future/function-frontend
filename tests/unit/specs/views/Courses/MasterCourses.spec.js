@@ -156,6 +156,7 @@ describe('MasterCourses', () => {
     wrapper.vm.successFetchMasterCourses(response, paging)
     expect(wrapper.vm.masterCourses).toEqual(response)
     expect(wrapper.vm.paging).toEqual(paging)
+    expect(wrapper.vm.state.loaded).toHaveBeenCalledTimes(1)
   })
 
   test('successFetchMasterCourses max page', () => {
@@ -197,6 +198,22 @@ describe('MasterCourses', () => {
     wrapper.vm.successFetchMasterCourses(response, paging)
     expect(wrapper.vm.masterCourses).toEqual(response)
     expect(wrapper.vm.paging).toEqual(paging)
+    expect(wrapper.vm.state.loaded).toHaveBeenCalledTimes(1)
+  })
+
+  test('successFetchMasterCourses complete', () => {
+    const response = []
+    const paging = {
+      page: 4,
+      size: 10,
+      totalRecords: 25
+    }
+    wrapper.vm.state = {
+      loaded: jest.fn(),
+      complete: jest.fn()
+    }
+    wrapper.vm.successFetchMasterCourses(response, paging)
+    expect(wrapper.vm.state.complete).toHaveBeenCalledTimes(1)
   })
 
   test('failFetchMasterCourses', () => {

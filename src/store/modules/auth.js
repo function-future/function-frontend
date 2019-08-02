@@ -33,7 +33,7 @@ export const actions = {
     }, fail)
   },
   attemptLogout ({ commit }, { callback, fail }) {
-    authApi.attemptLogout(({ data: response }) => {
+    authApi.attemptLogout(() => {
       commit('SET_CURRENT_USER', {})
       callback()
     }, fail)

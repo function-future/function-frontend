@@ -157,6 +157,7 @@ describe('Courses', () => {
     wrapper.vm.successFetchCourses(response, paging)
     expect(wrapper.vm.courses).toEqual(response)
     expect(wrapper.vm.paging).toEqual(paging)
+    expect(wrapper.vm.state.loaded).toHaveBeenCalledTimes(1)
   })
 
   test('successFetchCourses max page', () => {
@@ -198,6 +199,22 @@ describe('Courses', () => {
     wrapper.vm.successFetchCourses(response, paging)
     expect(wrapper.vm.courses).toEqual(response)
     expect(wrapper.vm.paging).toEqual(paging)
+    expect(wrapper.vm.state.loaded).toHaveBeenCalledTimes(1)
+  })
+
+  test('successFetchCourses complete', () => {
+    const response = []
+    const paging = {
+      page: 3,
+      size: 10,
+      totalRecords: 25
+    }
+    wrapper.vm.state = {
+      loaded: jest.fn(),
+      complete: jest.fn()
+    }
+    wrapper.vm.successFetchCourses(response, paging)
+    expect(wrapper.vm.state.complete).toHaveBeenCalledTimes(1)
   })
 
   test('failFetchCourses', () => {
