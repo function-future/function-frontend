@@ -23,7 +23,7 @@
             </div>
             <div class="points-section__card-item-score">
               <div class="points-section__card-item-score-border">
-                <div class="points-section__card-item-score-border-point">9</div>
+                <div class="points-section__card-item-score-border-point">{{point.point}}</div>
               </div>
             </div>
           </BaseCard>
