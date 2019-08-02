@@ -1,8 +1,8 @@
 <template>
-  <div class="breadcrumb-wrapper" v-if="breadcrumbAvailable">
+  <div class="breadcrumb-wrapper disable-selection" v-if="breadcrumbAvailable">
     <ul class="breadcrumb">
       <li v-for="(breadcrumb, index) in breadcrumbs" :key="index" class="breadcrumb-list" transition="list">
-        <span class="breadcrumb-name" @click="routeTo(index)"
+        <span class="breadcrumb-name" @click="routeTo(breadcrumb.link)"
               :class="{'active': breadcrumb.link === $route.name, 'no-pointer': !breadcrumb.link}">
               {{ breadcrumb.name }}
         </span>
@@ -75,5 +75,13 @@
 
   .no-pointer {
     cursor: default;
+  }
+
+  .disable-selection {
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer */
+    -khtml-user-select: none; /* KHTML browsers (e.g. Konqueror) */
+    -webkit-user-select: none; /* Chrome, Safari, and Opera */
+    -webkit-touch-callout: none; /* Disable Android and iOS callouts*/
   }
 </style>

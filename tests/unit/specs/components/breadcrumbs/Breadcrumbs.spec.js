@@ -68,9 +68,33 @@ describe('Breadcrumbs', () => {
       sync: false
     })
     wrapper.vm.$router.push = jest.fn()
-    const index = 1
-    wrapper.vm.routeTo(index)
-    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'courses' })
+    const link = 'feeds'
+    wrapper.vm.routeTo(link)
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'feeds' })
+  })
+
+  test('routeTo no link', () => {
+    const $router = {
+      push: jest.fn()
+    }
+    const $route = {
+      meta: {
+        breadcrumb: [
+          { name: 'Batches', link: 'courseBatches' },
+          { name: 'Courses', link: 'courses' }
+        ]
+      }
+    }
+    const wrapper = shallowMount(Breadcrumbs, {
+      mocks: {
+        $route,
+        $router
+      },
+      sync: false
+    })
+    wrapper.vm.$router.push = jest.fn()
+    wrapper.vm.routeTo()
+    expect(wrapper.vm.$router.push).toHaveBeenCalledTimes(0)
   })
 
   test('watch changes on $route', () => {
