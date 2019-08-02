@@ -12,7 +12,8 @@ export default {
     return {
       currentNumber: '',
       selectedAnswer: '',
-      answers: []
+      answers: [],
+      isLoading: true
     }
   },
   created () {
@@ -32,7 +33,7 @@ export default {
     initPage () {
       this.fetchStudentQuizQuestions({
         data: {
-          studentId: this.currentUser.id,
+          studentId: 'sample-id',
           quizId: this.$route.params.quizId
         },
         callback: this.successFetchingStudentQuizQuestions,
@@ -41,15 +42,10 @@ export default {
     },
     successFetchingStudentQuizQuestions () {
       this.currentNumber = 0
+      this.isLoading = false
     },
     failedFetchingStudentQuizQuestions () {
       this.$toasted.error('Something went wrong')
-    },
-    selectOption (optionId) {
-      this.answers[this.currentNumber] = {
-        number: this.currentNumber + 1,
-        optionId
-      }
     },
     viewQuestion (number) {
       this.currentNumber = number - 1
@@ -61,12 +57,19 @@ export default {
       if (this.currentNumber !== 0) this.currentNumber--
     },
     submitQuiz () {
+      let payload = []
+      this.answers.forEach((item, idx) => {
+        payload.push({
+          number: idx,
+          optionId: item
+        })
+      })
       this.submitAnswers({
         data: {
           studentId: this.currentUser.id,
           quizId: this.$route.params.quizId
         },
-        payload: [ ...this.answers ],
+        payload,
         callback: this.successSubmitStudentQuiz,
         fail: this.failedSubmitStudentQuiz
       })
@@ -84,6 +87,9 @@ export default {
     },
     failedSubmitStudentQuiz () {
       this.$toasted.error('Something went wrong')
+    },
+    highlightedOption (option) {
+      return this.answers.includes(option) ? 'active' : ''
     }
   }
 }
