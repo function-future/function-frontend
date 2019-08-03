@@ -154,7 +154,7 @@ export default {
         name: this.userDetail.name,
         phone: this.userDetail.phone,
         address: this.userDetail.address,
-        avatar: [ this.userDetail.avatarId ]
+        avatar: this.userDetail.avatarId ? [ this.userDetail.avatarId ] : []
       }
       if (this.studentMode) {
         userData = {

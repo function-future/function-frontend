@@ -112,7 +112,7 @@ export default {
         content: {
           title: this.courseData.title,
           description: this.courseData.description,
-          material: [ this.courseData.materialId ]
+          material: this.courseData.materialId ? [ this.courseData.materialId ] : []
         }
       }
       if (this.editMode) {
