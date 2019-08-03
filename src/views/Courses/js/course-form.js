@@ -46,7 +46,8 @@ export default {
       courseData: {
         title: '',
         description: '',
-        material: []
+        material: '',
+        materialId: ''
       },
       uploadingFile: false,
       filePreviewName: '',
@@ -108,7 +109,11 @@ export default {
       const data = {
         id: this.$route.params.id,
         code: this.$route.params.code,
-        content: { ...this.courseData }
+        content: {
+          title: this.courseData.title,
+          description: this.courseData.description,
+          material: [ this.courseData.materialId ]
+        }
       }
       if (this.editMode) {
         this.updateCourse({
@@ -163,7 +168,7 @@ export default {
     },
     successUploadMaterial (response) {
       this.uploadingFile = false
-      this.courseData.material = [ response.id ]
+      this.courseData.materialId = response.id
       this.filePreviewName = this.file.name
     },
     failUploadMaterial () {

@@ -46,7 +46,8 @@ export default {
       masterCourseData: {
         title: '',
         description: '',
-        material: []
+        material: '',
+        materialId: ''
       },
       uploadingFile: false,
       filePreviewName: '',
@@ -108,7 +109,11 @@ export default {
       this.isSubmitting = true
       const data = {
         id: this.$route.params.id,
-        content: { ...this.masterCourseData }
+        content: {
+          title: this.masterCourseData.title,
+          description: this.masterCourseData.description,
+          material: [ this.masterCourseData.materialId ]
+        }
       }
       if (this.editMode) {
         this.updateMasterCourse({
@@ -159,7 +164,7 @@ export default {
     },
     successUploadMaterial (response) {
       this.uploadingFile = false
-      this.masterCourseData.material = [ response.id ]
+      this.masterCourseData.materialId = response.id
       this.filePreviewName = this.file.name
     },
     failUploadMaterial () {
@@ -176,6 +181,6 @@ export default {
       } else {
         this.$router.push({ name: 'masterCourses' })
       }
-    },
+    }
   }
 }

@@ -31,7 +31,8 @@ export default {
         name: '',
         phone: '',
         address: '',
-        avatar: [],
+        avatar: '',
+        avatarId: '',
         university: '',
         batch: {
           code: '',
@@ -125,7 +126,7 @@ export default {
       })
     },
     successUploadProfilePicture (response) {
-      this.userDetail.avatar = [ response.id ]
+      this.userDetail.avatarId = response.id
       this.avatarPreview = response.file.full
     },
     failUploadProfilePicture () {
@@ -153,7 +154,7 @@ export default {
         name: this.userDetail.name,
         phone: this.userDetail.phone,
         address: this.userDetail.address,
-        avatar: this.userDetail.avatar
+        avatar: [ this.userDetail.avatarId ]
       }
       let studentData = {
         ...userData,
