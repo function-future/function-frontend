@@ -25,6 +25,12 @@ export const actions = {
       callback(paging)
     }, data, fail)
   },
+  fetchUserActivityBlogs ({ commit }, { data, callback, fail }) {
+    activityBlogApi.getUserActivityBlogList(({ data: response, paging }) => {
+      commit('SET_ACTIVITY_BLOGS', response)
+      callback(paging)
+    }, data, fail)
+  },
   fetchActivityBlogById ({ commit }, { data, callback, fail }) {
     activityBlogApi.getActivityBlogDetail(({ data: response }) => {
       commit('SET_ACTIVITY_BLOG_BY_ID', response)

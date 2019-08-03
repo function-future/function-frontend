@@ -15,7 +15,8 @@ export default {
         newPassword: ''
       },
       repeatPassword: '',
-      showErrorMessage: false
+      showErrorMessage: false,
+      isSubmitting: false
     }
   },
   methods: {
@@ -33,6 +34,7 @@ export default {
       })
     },
     validationSuccess () {
+      this.isSubmitting = true
       this.changePassword({
         data: this.data,
         callback: this.successChangePassword,
@@ -40,10 +42,12 @@ export default {
       })
     },
     successChangePassword () {
+      this.isSubmitting = false
       this.$toasted.success('Successfully updated password')
       this.$router.push({ name: 'profile' })
     },
     failChangePassword (error) {
+      this.isSubmitting = false
       if (error.response.status === 401) {
         this.showErrorMessage = true
         this.data.oldPassword = ''

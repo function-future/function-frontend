@@ -101,7 +101,7 @@ export default {
     },
     onFileChange (e) {
       this.newImage = e.target.files[0]
-      let files = e.target.files || e.dataTransfer.files
+      let files = e.target.files
       if (files[0].size > 1000000) {
         this.maximumSizeAlert = true
       } else {
@@ -156,15 +156,15 @@ export default {
         address: this.userDetail.address,
         avatar: [ this.userDetail.avatarId ]
       }
-      let studentData = {
-        ...userData,
-        role: 'STUDENT',
-        batch: this.userDetail.batch.code,
-        university: this.userDetail.university
+      if (this.studentMode) {
+        userData = {
+          ...userData,
+          role: 'STUDENT',
+          batch: this.userDetail.batch.code,
+          university: this.userDetail.university
+        }
       }
-      let data = {}
-      this.studentMode ? data = { ...studentData } : data = { ...userData }
-      this.sendData(data)
+      this.sendData(userData)
     },
     sendData (data) {
       if (this.editMode) {

@@ -54,6 +54,16 @@ export default {
     },
     FileDetail () {
       return this.$route.params.id ? 'ModalFileDetail' : ''
+    },
+    breadcrumbs () {
+      if (this.paths.length > 4) {
+        return [
+          ...this.paths.slice(0, 2),
+          { name: '...' },
+          ...this.paths.slice(this.paths.length - 2, this.paths.length)
+        ]
+      }
+      return this.paths
     }
   },
   methods: {
@@ -109,6 +119,7 @@ export default {
       return text
     },
     goToFolder (id) {
+      if (!id) return
       this.$router.push({
         name: 'folder',
         params: { parentId: id }
@@ -170,12 +181,12 @@ export default {
       })
     },
     successUploadFile () {
-      this.fileUploadList[0].progress = 100
+      this.fileUploadList[0].progress = 101
       this.isUploading = false
       this.resetPage()
     },
     failUploadFile () {
-      this.fileUploadList[0].progress = 101
+      this.file.size > 200000000 ? this.fileUploadList[0].progress = 103 : this.fileUploadList[0].progress = 102
       this.file = {}
       this.isUploading = false
     },
@@ -218,6 +229,7 @@ export default {
       this.closeDeleteConfirmationModal()
     },
     successDeleteFile () {
+      this.resetPage()
       this.$toasted.success('successfully delete file')
     },
     failDeleteFile () {
@@ -267,7 +279,7 @@ export default {
     }
   },
   watch: {
-    $route () {
+    '$route.params.parentId' () {
       this.resetPage()
     }
   }

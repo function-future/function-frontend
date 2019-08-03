@@ -1,5 +1,5 @@
 <template>
-  <BaseCard cardClass="card-hover">
+  <BaseCard cardClass="card-hover no-pointer">
     <div class="row">
       <div class="col basic-info" style="flex-grow: 2">
         <h3>{{ user.name }}</h3>

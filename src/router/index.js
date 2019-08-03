@@ -165,6 +165,7 @@ const router = new Router({
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
           { name: 'Activity Blogs', link: 'activityBlogs' },
+          { name: 'Activity Blog Detail', link: 'activityBlogDetail' },
           { name: 'Edit Activity Blog', link: 'editActivityBlog' }
         ]
       },
@@ -206,6 +207,7 @@ const router = new Router({
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
           { name: 'Announcements', link: 'announcements' },
+          { name: 'Announcement Detail', link: 'announcementDetail' },
           { name: 'Edit Announcement', link: 'editAnnouncement' }
         ]
       },
@@ -330,6 +332,7 @@ const router = new Router({
           { name: 'Home', link: 'feeds' },
           { name: 'Batches', link: 'courseBatches' },
           { name: 'Courses', link: 'courses' },
+          { name: 'Course Detail', link: 'courseDetail' },
           { name: 'Edit Course', link: 'editCourse' }
         ]
       },
@@ -393,6 +396,7 @@ const router = new Router({
           { name: 'Home', link: 'feeds' },
           { name: 'Batches', link: 'courseBatches' },
           { name: 'Master Courses', link: 'masterCourses' },
+          { name: 'Master Course Detail', link: 'masterCourseDetail' },
           { name: 'Edit Master Course', link: 'editMasterCourse' }
         ]
       },
@@ -934,7 +938,11 @@ router.beforeEach((to, from, next) => {
 
   store.dispatch('getLoginStatus', {
     callback: () => { return to.fullPath === '/login' ? next({ name: 'feeds' }) : next() },
-    fail: () => { return !to.meta.auth ? next() : (to.path !== '/login' ? next('/login') : next()) }
+    fail: () => {
+      store.dispatch('setCurrentUser', { data: {} })
+      store.dispatch('setMenuList', { data: {} })
+      return !to.meta.auth ? next() : (to.path !== '/login' ? next('/login') : next())
+    }
   })
 })
 

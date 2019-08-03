@@ -187,4 +187,53 @@ describe('Feeds', () => {
     initComponent()
     expect(wrapper.vm.stickyNotesDescriptionPreview(text)).toEqual(textPreview)
   })
+
+  test('showLimitedPreviewText > max length', () => {
+    const text = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. \n'
+    const textPreview = text.substr(0, 175) + '...'
+    initComponent()
+    expect(wrapper.vm.showLimitedPreviewText(text)).toEqual(textPreview)
+  })
+
+  test('announcementPreview with summary', () => {
+    const announcement = {
+      'id': 'sample-id-1',
+      'title': 'Announcements 1',
+      'summary': 'Summary goes here. Maximum 70 characters?',
+      'description': 'Description goes here. Currently there is no limit to description length.',
+      'files': [
+        {
+          'id': 'sample-id',
+          'file': {
+            'full': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png',
+            'thumbnail': null
+          }
+        }
+      ],
+      'updatedAt': 1555980050616
+    }
+    initComponent()
+    expect(wrapper.vm.announcementPreview(announcement)).toEqual(announcement.summary)
+  })
+
+  test('announcementPreview without summary', () => {
+    const announcement = {
+      'id': 'sample-id-1',
+      'title': 'Announcements 1',
+      'summary': '',
+      'description': 'Description goes here. Currently there is no limit to description length.',
+      'files': [
+        {
+          'id': 'sample-id',
+          'file': {
+            'full': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png',
+            'thumbnail': null
+          }
+        }
+      ],
+      'updatedAt': 1555980050616
+    }
+    initComponent()
+    expect(wrapper.vm.announcementPreview(announcement)).toEqual(announcement.description)
+  })
 })

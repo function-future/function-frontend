@@ -10,7 +10,8 @@
       </li>
       <li v-for="page in paginations" :key="page">
         <button class="pagination-link" @click="goToPage(page)"
-                :class="{'active': activePage(page)}">{{ page }}</button>
+                :class="{'active': activePage(page)}"
+                :disabled="activePage(page)">{{ page }}</button>
       </li>
       <li class="pagination-item">
         <button class="next pagination-link" @click="nextPage"

@@ -240,6 +240,7 @@ describe('CourseDetail', () => {
     }
     wrapper.vm.successFetchCourseDiscussions(response, paging)
     expect(wrapper.vm.discussions).toEqual(response)
+    expect(wrapper.vm.state.loaded).toHaveBeenCalledTimes(1)
   })
 
   test('successFetchCourseDiscussions maximum page', () => {
@@ -274,6 +275,22 @@ describe('CourseDetail', () => {
     }
     wrapper.vm.successFetchCourseDiscussions(response, paging)
     expect(wrapper.vm.discussions).toEqual(response)
+    expect(wrapper.vm.state.loaded).toHaveBeenCalledTimes(1)
+  })
+
+  test('successFetchCourseDiscussions complete', () => {
+    const response = []
+    const paging = {
+      page: 3,
+      size: 10,
+      totalRecords: 20
+    }
+    wrapper.vm.state = {
+      loaded: jest.fn(),
+      complete: jest.fn()
+    }
+    wrapper.vm.successFetchCourseDiscussions(response, paging)
+    expect(wrapper.vm.state.complete).toHaveBeenCalledTimes(1)
   })
 
   test('failFetchCourseById', () => {

@@ -1,17 +1,16 @@
 import modalCopy from '@/components/modals/ModalCopy'
-import { shallowMount, createLocalVue, mount } from '@vue/test-utils'
+import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
-import VueRouter from 'vue-router'
 
 describe('ModalCopy', () => {
   let store
   let wrapper
   let localVue
+  let $route = {}
 
   function generateLocalVue () {
     const lv = createLocalVue()
     lv.use(Vuex)
-    lv.use(VueRouter)
     return lv
   }
 
@@ -20,7 +19,13 @@ describe('ModalCopy', () => {
       batchList: [
         {
           'id': 'sample-id',
-          'name': 'sample name'
+          'name': 'sample name',
+          'code': 'batch-code'
+        },
+        {
+          'id': 'sample-id',
+          'name': 'sample name',
+          'code': 'batch-code-1'
         }
       ]
     }
@@ -49,7 +54,6 @@ describe('ModalCopy', () => {
   }
 
   function createWrapper (store, options) {
-    const router = new VueRouter([])
     const $toasted = {
       error: jest.fn(),
       success: jest.fn()
@@ -58,7 +62,6 @@ describe('ModalCopy', () => {
       ...options,
       store,
       localVue,
-      router,
       stubs: [
         'BaseCard',
         'BaseButton',
@@ -67,6 +70,7 @@ describe('ModalCopy', () => {
         'font-awesome-icon'
       ],
       mocks: {
+        $route,
         $toasted
       },
       sync: false
@@ -104,9 +108,60 @@ describe('ModalCopy', () => {
     expect(wrapper.emitted().copy.length).toBe(1)
   })
 
-  test('successFetchBatches', () => {
+  test('successFetchBatches params batchCode', () => {
+    $route = {
+      params: {
+        batchCode: 'batch-code'
+      }
+    }
+    const expectedResult = [
+      {
+        'id': 'sample-id',
+        'name': 'sample name',
+        'code': 'batch-code-1'
+      }
+    ]
     initComponent()
-    wrapper.vm.$route.params.batchCode = 'sample-id'
+    wrapper.vm.successFetchBatches()
+    expect(wrapper.vm.batches).toEqual(expectedResult)
+  })
+
+  test('successFetchBatches params code', () => {
+    $route = {
+      params: {
+        code: 'batch-code'
+      }
+    }
+    const expectedResult = [
+      {
+        'id': 'sample-id',
+        'name': 'sample name',
+        'code': 'batch-code-1'
+      }
+    ]
+    initComponent()
+    wrapper.vm.successFetchBatches()
+    expect(wrapper.vm.batches).toEqual(expectedResult)
+  })
+
+  test('successFetchBatches no same batchCode', () => {
+    $route = {
+      params: {
+        batchCode: 'batch-code-2'
+      }
+    }
+    initComponent()
+    wrapper.vm.successFetchBatches()
+    expect(wrapper.vm.batches).toEqual(wrapper.vm.batchList)
+  })
+
+  test('successFetchBatches no same code', () => {
+    $route = {
+      params: {
+        code: 'batch-code-2'
+      }
+    }
+    initComponent()
     wrapper.vm.successFetchBatches()
     expect(wrapper.vm.batches).toEqual(wrapper.vm.batchList)
   })

@@ -6,6 +6,7 @@
           <h3 class="modal__header__title">Select Batch Destination</h3>
           <span class="modal__close"><font-awesome-icon icon="times" class="icon" @click="close" size="lg"></font-awesome-icon></span>
         </div>
+        <div v-if="!batches.length" class="no-data">No Batch Available</div>
         <div class="modal__body scrollable-container">
           <label class="batch__row" v-for="batch in batches" :key="batch.code">
             <div class="batch__col"><input type="radio" :value="batch.code" v-model="batchDestination"></div>
@@ -14,7 +15,7 @@
         </div>
         <div class="modal__footer">
           <BaseButton class="modal__footer__button" type="cancel" buttonClass="button-cancel" @click="close">Cancel</BaseButton>
-          <BaseButton class="modal__footer__button" type="submit" buttonClass="button-save" @click="copy">Copy</BaseButton>
+          <BaseButton class="modal__footer__button" type="submit" buttonClass="button-save" @click="copy" :disabled="!batches.length">Copy</BaseButton>
         </div>
       </div>
     </div>
@@ -106,6 +107,15 @@
       }
     }
   }
+
+  .no-data {
+    margin-top: 50px;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   .modal-enter {
     opacity: 0;
   }
