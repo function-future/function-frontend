@@ -191,6 +191,7 @@ module.exports = {
       },
       activityBlogs: {
         get (page, size) { return `/api/core/activity-blogs?page=${page}&size=${size}` },
+        user (page, size, userId) { return `/api/core/activity-blogs?page=${page}&size=${size}&userId=${userId}` },
         post: '/api/core/activity-blogs',
         detail: {
           get (id) {

@@ -12,10 +12,11 @@
           <div class="file__title">
             <font-awesome-icon icon="file" class="icon"></font-awesome-icon>
             <span>{{ file.name }}</span>
+            <div class="file__exceed red" v-if="file.progress === 103">File exceeded 200 MB</div>
           </div>
           <div class="file__finished" v-if="file.progress >= 100">
-            <font-awesome-icon icon="check-circle" class="icon" v-if="file.progress === 100"></font-awesome-icon>
-            <font-awesome-icon icon="times-circle" class="icon red" v-if="file.progress === 101"></font-awesome-icon>
+            <font-awesome-icon icon="check-circle" class="icon" v-if="file.progress === 101"></font-awesome-icon>
+            <font-awesome-icon icon="times-circle" class="icon red" v-if="file.progress >= 102"></font-awesome-icon>
           </div>
         </div>
         <div class="file__progress-wrapper" v-if="file.progress < 100">
@@ -137,6 +138,11 @@
         background-color: #02AAF3;
         transition: width 1s linear;
       }
+    }
+
+    &__exceed {
+      font-size: 0.8rem;
+      margin-left: 22px;
     }
   }
 

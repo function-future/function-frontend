@@ -470,6 +470,43 @@ describe('AnnouncementForm.vue on edit mode', () => {
     expect(spy).toHaveBeenCalledTimes(1)
   })
 
+  test('successUploadResource', () => {
+    const wrapper = shallowMount(AnnouncementForm, {
+      store,
+      localVue,
+      router,
+      stubs: [
+        'BaseInput',
+        'BaseTextArea',
+        'BaseButton',
+        'BaseSelect',
+        'font-awesome-icon',
+        'v-date-picker',
+        'v-calendar'
+      ],
+      mocks: {
+        $toasted: {
+          error: jest.fn()
+        }
+      },
+      propsData: { editMode: true },
+      sync: false
+    })
+    wrapper.vm.$refs = {
+      md: {
+        $img2Url: jest.fn()
+      }
+    }
+    const response = {
+      id: 'id-1',
+      file: {
+        full: 'google.com/images'
+      }
+    }
+    wrapper.vm.successUploadResource(response)
+    expect(wrapper.vm.imageIds).toEqual(['id-1'])
+  })
+
   test('failUploadResource', () => {
     const wrapper = shallowMount(AnnouncementForm, {
       store,
@@ -521,5 +558,33 @@ describe('AnnouncementForm.vue on edit mode', () => {
     const spy = jest.spyOn(wrapper.vm, 'uploadResource')
     wrapper.vm.$imgAdd()
     expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('$imgDel', () => {
+    const wrapper = shallowMount(AnnouncementForm, {
+      store,
+      localVue,
+      router,
+      stubs: [
+        'BaseInput',
+        'BaseTextArea',
+        'BaseButton',
+        'BaseSelect',
+        'font-awesome-icon',
+        'v-date-picker',
+        'v-calendar'
+      ],
+      mocks: {
+        $toasted: {
+          error: jest.fn()
+        }
+      },
+      propsData: { editMode: true },
+      sync: false
+    })
+    wrapper.vm.img_file = [
+      { id: 1 }
+    ]
+    wrapper.vm.$imgDel(0)
   })
 })

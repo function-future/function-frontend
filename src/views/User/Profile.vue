@@ -4,7 +4,7 @@
       <div class="row">
         <div class="column image-column">
           <div class="image" :style="{ backgroundImage: 'url(' + avatarPreview + ')' }">
-            <label class="image-edit">
+            <label class="image-edit" v-if="!showModalChangeProfilePicture">
               <input type="file"
                      name="image"
                      accept="image/*"

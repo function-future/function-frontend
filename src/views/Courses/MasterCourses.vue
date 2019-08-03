@@ -20,7 +20,7 @@
       </BaseButton>
       </span>
     </div>
-    <div v-for="course in masterCourses" :key="course.id" class="course__row">
+    <div v-for="(course, index) in masterCourses" :key="index" class="course__row">
       <div class="course__col">
         <label>
           <input type="checkbox" :value="course.id" v-model="selectedIds" @click="select">
@@ -36,7 +36,7 @@
         </CourseCard>
       </div>
     </div>
-    <infinite-loading @infinite="initPage" spinner="spiral">
+    <infinite-loading @infinite="initPage" spinner="spiral" :identifier="infiniteId">
       <div slot="no-more"></div>
       <div slot="no-results"></div>
     </infinite-loading>

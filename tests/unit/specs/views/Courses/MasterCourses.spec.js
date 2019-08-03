@@ -156,6 +156,7 @@ describe('MasterCourses', () => {
     wrapper.vm.successFetchMasterCourses(response, paging)
     expect(wrapper.vm.masterCourses).toEqual(response)
     expect(wrapper.vm.paging).toEqual(paging)
+    expect(wrapper.vm.state.loaded).toHaveBeenCalledTimes(1)
   })
 
   test('successFetchMasterCourses max page', () => {
@@ -197,6 +198,22 @@ describe('MasterCourses', () => {
     wrapper.vm.successFetchMasterCourses(response, paging)
     expect(wrapper.vm.masterCourses).toEqual(response)
     expect(wrapper.vm.paging).toEqual(paging)
+    expect(wrapper.vm.state.loaded).toHaveBeenCalledTimes(1)
+  })
+
+  test('successFetchMasterCourses complete', () => {
+    const response = []
+    const paging = {
+      page: 4,
+      size: 10,
+      totalRecords: 25
+    }
+    wrapper.vm.state = {
+      loaded: jest.fn(),
+      complete: jest.fn()
+    }
+    wrapper.vm.successFetchMasterCourses(response, paging)
+    expect(wrapper.vm.state.complete).toHaveBeenCalledTimes(1)
   })
 
   test('failFetchMasterCourses', () => {
@@ -243,9 +260,9 @@ describe('MasterCourses', () => {
   })
 
   test('successDeleteMasterById', () => {
-    wrapper.vm.$router.push = jest.fn()
+    const spy = jest.spyOn(wrapper.vm, 'resetPage')
     wrapper.vm.successDeleteMasterById()
-    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'masterCourses' })
+    expect(spy).toHaveBeenCalledTimes(1)
     expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
     expect(wrapper.vm.showDeleteConfirmationModal).toEqual(false)
   })

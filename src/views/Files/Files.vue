@@ -3,10 +3,14 @@
     <div class="button__wrapper">
       <div class="breadcrumb-wrapper" v-if="paths.length">
         <ul class="breadcrumb">
-          <li v-for="(path, index) in paths" :key="index" class="breadcrumb-list">
-            <span class="breadcrumb-name" @click="goToFolder(path.id)"
-                  :class="{ bold: path.id === $route.params.parentId }">{{ path.name }}</span>
-            <span class="divider" v-if="index+1 !== paths.length"> > </span>
+          <li v-for="(breadcrumb, index) in breadcrumbs" :key="index" class="breadcrumb-list">
+            <span class="breadcrumb-name" @click="goToFolder(breadcrumb.id)"
+                  :class="{ active: breadcrumb.id === $route.params.parentId, 'no-pointer': !breadcrumb.id }">
+              {{ breadcrumb.name }}
+            </span>
+            <span class="divider" v-if="index+1 !== breadcrumbs.length">
+              <font-awesome-icon icon="chevron-right"/>
+            </span>
           </li>
         </ul>
       </div>
@@ -132,6 +136,7 @@
   }
 
   .wrapper {
+    margin-left: 5px;
     margin-bottom: 10px;
   }
 
@@ -202,9 +207,10 @@
 
   .title {
     text-align: left;
-    padding-left: 15px;
+    padding-left: 10px;
     margin-bottom: 5px;
     margin-top: 7px;
+    font-size: 0.9rem;
   }
 
   .file {
@@ -286,17 +292,34 @@
   }
 
   .breadcrumb {
+    color: #828282;
+    font-size: 0.9rem;
     align-items: center;
     display: inline-flex;
-    margin: 0;
-    padding-left: 5px;
     list-style-type: none;
+    padding: 7px 25px;
+    border-radius: 30px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+    margin-top: 10px;
+    margin-left: 15px;
+    transition: all 1s ease-in-out;
+
+    &-list {
+      display: flex;
+      animation: fadein .5s;
+    }
   }
 
+  @keyframes fadein {
+     from {opacity: 0;}
+     to   {opacity: 1;}
+   }
+
   .breadcrumb-name {
-    color: #02AAF3;
-    text-decoration: underline;
-    padding-left: 5px;
+    max-width: 100px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     cursor: pointer;
   }
 
@@ -306,12 +329,18 @@
 
   .divider {
     text-decoration: none;
-    color: #505050;
-    padding: 0 5px;
+    color: #828282;
+    padding: 0 10px;
   }
 
-  .bold {
+  .active {
+    max-width: 150px;
     font-weight: bold;
+    color: #02AAF3;
+  }
+
+  .no-pointer {
+    cursor: default;
   }
 
   .is-empty {

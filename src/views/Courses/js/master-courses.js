@@ -30,7 +30,8 @@ export default {
       allSelected: false,
       showDeleteConfirmationModal: false,
       showCopyCourseModal: false,
-      state: ''
+      state: '',
+      infiniteId: +new Date()
     }
   },
   computed: {
@@ -103,11 +104,16 @@ export default {
       this.showDeleteConfirmationModal = false
     },
     successDeleteMasterById () {
-      this.$router.push({ name: 'masterCourses' })
+      this.resetPage()
       this.$toasted.success('Successfully delete master course')
     },
     failDeleteMasterById () {
       this.$toasted.error('Fail to delete master course')
+    },
+    resetPage () {
+      this.masterCourses = []
+      this.paging.page = 1
+      this.infiniteId += 1
     },
     openCopySelectedCourseModal () {
       if (this.selectedIds.length) {

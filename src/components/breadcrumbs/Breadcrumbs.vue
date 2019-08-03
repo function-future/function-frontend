@@ -1,9 +1,14 @@
 <template>
-  <div class="breadcrumb-wrapper" v-if="breadcrumbAvailable">
+  <div class="breadcrumb-wrapper disable-selection" v-if="breadcrumbAvailable">
     <ul class="breadcrumb">
-      <li v-for="(breadcrumb, index) in breadcrumbList" :key="index" class="breadcrumb-list">
-        <span class="breadcrumb-name" @click="routeTo(index)">{{ breadcrumb.name }}</span>
-        <span class="divider" v-if="index+1 !== breadcrumbList.length"> > </span>
+      <li v-for="(breadcrumb, index) in breadcrumbs" :key="index" class="breadcrumb-list" transition="list">
+        <span class="breadcrumb-name" @click="routeTo(breadcrumb.link)"
+              :class="{'active': breadcrumb.link === $route.name, 'no-pointer': !breadcrumb.link}">
+              {{ breadcrumb.name }}
+        </span>
+        <span class="divider" v-if="index+1 !== breadcrumbs.length">
+          <font-awesome-icon icon="chevron-right" class="icon"/>
+        </span>
       </li>
     </ul>
   </div>
@@ -11,27 +16,44 @@
 
 <script type="text/javascript" src="./js/breadcrumbs.js"></script>
 
-<style scoped>
+<style lang="scss" scoped>
   .breadcrumb-wrapper {
     align-items: center;
     display: flex;
     flex-wrap: wrap;
     flex: 0 1 auto;
-    margin-bottom: 5px;
+    margin-top: 15px;
   }
 
   .breadcrumb {
+    color: #828282;
+    font-size: 0.9rem;
     align-items: center;
     display: inline-flex;
-    margin: 0;
-    padding-left: 5px;
     list-style-type: none;
+    padding: 7px 25px;
+    border-radius: 30px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+    margin-top: 5px;
+    margin-left: 5px;
+    transition: all 1s ease-in-out;
+
+    &-list {
+      display: flex;
+      animation: fadein .5s;
+    }
+  }
+
+  @keyframes fadein {
+    from {opacity: 0;}
+    to   {opacity: 1;}
   }
 
   .breadcrumb-name {
-    color: #02AAF3;
-    text-decoration: underline;
-    padding-left: 5px;
+    max-width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     cursor: pointer;
   }
 
@@ -41,7 +63,25 @@
 
   .divider {
     text-decoration: none;
-    color: #505050;
-    padding: 0 5px;
+    color: #828282;
+    padding: 0 10px;
+  }
+
+  .active {
+    max-width: 150px;
+    font-weight: bold;
+    color: #02AAF3;
+  }
+
+  .no-pointer {
+    cursor: default;
+  }
+
+  .disable-selection {
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer */
+    -khtml-user-select: none; /* KHTML browsers (e.g. Konqueror) */
+    -webkit-user-select: none; /* Chrome, Safari, and Opera */
+    -webkit-touch-callout: none; /* Disable Android and iOS callouts*/
   }
 </style>

@@ -7,11 +7,15 @@ describe('Files', () => {
   let store
   let wrapper
   let localVue
+  let $route = {
+    params: {
+      id: 'sample-id'
+    }
+  }
 
   function generateLocalVue () {
     const lv = createLocalVue()
     lv.use(Vuex)
-    lv.use(VueRouter)
     return lv
   }
 
@@ -59,16 +63,17 @@ describe('Files', () => {
   }
 
   function createWrapper (store, options) {
-    const router = new VueRouter([])
     const $toasted = {
       error: jest.fn(),
       success: jest.fn()
+    }
+    const $router = {
+      push: jest.fn()
     }
     return shallowMount(Files, {
       ...options,
       store,
       localVue,
-      router,
       stubs: [
         'BaseCard',
         'BaseButton',
@@ -77,6 +82,8 @@ describe('Files', () => {
         'font-awesome-icon'
       ],
       mocks: {
+        $route,
+        $router,
         $toasted
       },
       sync: false
@@ -222,6 +229,12 @@ describe('Files', () => {
     })
   })
 
+  test('goToFolder no id', () => {
+    wrapper.vm.$router.push = jest.fn()
+    wrapper.vm.goToFolder('')
+    expect(wrapper.vm.$router.push).toHaveBeenCalledTimes(0)
+  })
+
   test('openFileDetail', () => {
     const id = 'sample-id'
     wrapper.vm.$router.push = jest.fn()
@@ -279,20 +292,38 @@ describe('Files', () => {
       }
     ]
     wrapper.vm.successUploadFile()
-    expect(wrapper.vm.fileUploadList[0].progress).toEqual(100)
+    expect(wrapper.vm.fileUploadList[0].progress).toEqual(101)
     expect(wrapper.vm.isUploading).toEqual(false)
     expect(spy).toHaveBeenCalledTimes(1)
   })
 
-  test('failUploadFile', () => {
+  test('failUploadFile file < 200 MB', () => {
     wrapper.vm.fileUploadList = [
       {
         name: '',
         progress: 0
       }
     ]
+    wrapper.vm.file = {
+      size: 20000000
+    }
     wrapper.vm.failUploadFile()
-    expect(wrapper.vm.fileUploadList[0].progress).toEqual(101)
+    expect(wrapper.vm.fileUploadList[0].progress).toEqual(102)
+    expect(wrapper.vm.isUploading).toEqual(false)
+  })
+
+  test('failUploadFile show alert if exceed 200 MB', () => {
+    wrapper.vm.fileUploadList = [
+      {
+        name: '',
+        progress: 0
+      }
+    ]
+    wrapper.vm.file = {
+      size: 200000001
+    }
+    wrapper.vm.failUploadFile()
+    expect(wrapper.vm.fileUploadList[0].progress).toEqual(103)
     expect(wrapper.vm.isUploading).toEqual(false)
   })
 
@@ -387,5 +418,86 @@ describe('Files', () => {
     wrapper.vm.failUpdateFile()
     expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
     expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('computed breadcrumbs length < 4', () => {
+    wrapper.vm.paths = [
+      {
+        'id': 'root',
+        'name': 'root'
+      },
+      {
+        'id': 'parent-id',
+        'name': 'Parent ID'
+      },
+      {
+        'id': 'parent-id-1',
+        'name': 'Parent ID 1'
+      }
+    ]
+    expect(wrapper.vm.breadcrumbs).toEqual(wrapper.vm.paths)
+  })
+
+  test('computed breadcrumbs length > 4', () => {
+    wrapper.vm.paths = [
+      {
+        'id': 'root',
+        'name': 'root'
+      },
+      {
+        'id': 'parent-id',
+        'name': 'Parent ID'
+      },
+      {
+        'id': 'parent-id-1',
+        'name': 'Parent ID 1'
+      },
+      {
+        'id': 'parent-id-2',
+        'name': 'Parent ID 2'
+      },
+      {
+        'id': 'parent-id-3',
+        'name': 'Parent ID 3'
+      },
+      {
+        'id': 'parent-id-4',
+        'name': 'Parent ID 4'
+      }
+    ]
+    const expectedResult = [
+      {
+        'id': 'root',
+        'name': 'root'
+      },
+      {
+        'id': 'parent-id',
+        'name': 'Parent ID'
+      },
+      {
+        'name': '...'
+      },
+      {
+        'id': 'parent-id-3',
+        'name': 'Parent ID 3'
+      },
+      {
+        'id': 'parent-id-4',
+        'name': 'Parent ID 4'
+      }
+    ]
+    expect(wrapper.vm.breadcrumbs).toEqual(expectedResult)
+  })
+
+  test('computed FileDetail have params id', () => {
+    expect(wrapper.vm.FileDetail).toEqual('ModalFileDetail')
+  })
+
+  test('computed FileDetail no params id', () => {
+    $route = {
+      params: {}
+    }
+    initComponent()
+    expect(wrapper.vm.FileDetail).toEqual('')
   })
 })

@@ -102,7 +102,7 @@
 
   .block-list {
     display: inline-block;
-    padding: 15px 25px 15px 25px;
+    padding: 12px 25px 12px 25px;
     min-width: 125px;
     font-size: 1em;
     font-weight: 200;
