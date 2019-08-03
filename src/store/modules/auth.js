@@ -43,7 +43,7 @@ export const actions = {
       commit('SET_MENU_LIST', response)
     })
   },
-  getAccessList ({ commit }, { data, callback, fail } = {}) {
+  getAccessList ({ commit }, { data, callback, fail }) {
     configApi.getAccessList((response) => {
       commit('SET_ACCESS_LIST', response)
       callback()

@@ -31,7 +31,8 @@ export default {
         name: '',
         phone: '',
         address: '',
-        avatar: [],
+        avatar: '',
+        avatarId: '',
         university: '',
         batch: {
           code: '',
@@ -61,7 +62,10 @@ export default {
   computed: {
     ...mapGetters([
       'user'
-    ])
+    ]),
+    userAvatarId () {
+      return this.userDetail.avatarId ? [ this.userDetail.avatarId ] : []
+    }
   },
   methods: {
     ...mapActions([
@@ -125,7 +129,7 @@ export default {
       })
     },
     successUploadProfilePicture (response) {
-      this.userDetail.avatar = [ response.id ]
+      this.userDetail.avatarId = response.id
       this.avatarPreview = response.file.full
     },
     failUploadProfilePicture () {
@@ -153,7 +157,7 @@ export default {
         name: this.userDetail.name,
         phone: this.userDetail.phone,
         address: this.userDetail.address,
-        avatar: this.userDetail.avatar
+        avatar: this.userAvatarId
       }
       if (this.studentMode) {
         userData = {

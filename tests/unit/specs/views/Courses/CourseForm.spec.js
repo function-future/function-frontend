@@ -192,6 +192,16 @@ describe('CourseForm', () => {
     expect(spy).toHaveBeenCalledTimes(1)
   })
 
+  test('computed courseMaterialId materialId null', () => {
+    wrapper.vm.courseData.materialId = null
+    expect(wrapper.vm.courseMaterialId).toEqual([])
+  })
+
+  test('computed courseMaterialId materialId not null', () => {
+    wrapper.vm.courseData.materialId = 'sample-id'
+    expect(wrapper.vm.courseMaterialId).toEqual(['sample-id'])
+  })
+
   test('successCreateOrEditCourse', () => {
     wrapper.vm.$route.params.code = 'code-1'
     wrapper.vm.editMode = false
@@ -272,7 +282,7 @@ describe('CourseForm', () => {
     wrapper.vm.file.name = 'sample-file-name'
     wrapper.vm.successUploadMaterial(response)
     expect(wrapper.vm.uploadingFile).toEqual(false)
-    expect(wrapper.vm.courseData.material).toEqual([ response.id ])
+    expect(wrapper.vm.courseData.materialId).toEqual(response.id)
     expect(wrapper.vm.filePreviewName).toEqual('sample-file-name')
   })
 

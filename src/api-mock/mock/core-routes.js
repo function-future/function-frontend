@@ -736,61 +736,71 @@ export const courses = [
           'id': 'sample-id-1',
           'title': 'Master Course Title 1',
           'description': 'Course Description Goes Here',
-          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'materialId': 'material-id-1'
         },
         {
           'id': 'sample-id-2',
           'title': 'Master Course Title 2',
           'description': 'Course Description Goes Here',
-          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'materialId': 'material-id-1'
         },
         {
           'id': 'sample-id-3',
           'title': 'Master Course Title 3',
           'description': 'Course Description Goes Here',
-          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'materialId': 'material-id-1'
         },
         {
           'id': 'sample-id-4',
           'title': 'Master Course Title 4',
           'description': 'Course Description Goes Here',
-          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'materialId': 'material-id-1'
         },
         {
           'id': 'sample-id-5',
           'title': 'Master Course Title 5',
           'description': 'Course Description Goes Here',
-          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'materialId': 'material-id-1'
         },
         {
           'id': 'sample-id-6',
           'title': 'Master Course Title 6',
           'description': 'Course Description Goes Here',
-          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'materialId': 'material-id-1'
         },
         {
           'id': 'sample-id-7',
           'title': 'Master Course Title 7',
           'description': 'Course Description Goes Here',
-          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'materialId': 'material-id-1'
         },
         {
           'id': 'sample-id-8',
           'title': 'Master Course Title 8',
           'description': 'Course Description Goes Here',
-          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'materialId': 'material-id-1'
         },
         {
           'id': 'sample-id-9',
           'title': 'Master Course Title 9',
           'description': 'Course Description Goes Here',
-          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'materialId': 'material-id-1'
         },
         {
           'id': 'sample-id-10',
           'title': 'Master Course Title 10',
           'description': 'Course Description Goes Here',
-          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'materialId': 'material-id-1'
         }
       ],
       'paging': {
@@ -811,25 +821,29 @@ export const courses = [
           'id': 'sample-id-11',
           'title': 'Master Course Title 11',
           'description': 'Course Description Goes Here',
-          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'materialId': 'material-id-1'
         },
         {
           'id': 'sample-id-12',
           'title': 'Master Course Title 12',
           'description': 'Course Description Goes Here',
-          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'materialId': 'material-id-1'
         },
         {
           'id': 'sample-id-13',
           'title': 'Master Course Title 13',
           'description': 'Course Description Goes Here',
-          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'materialId': 'material-id-1'
         },
         {
           'id': 'sample-id-14',
           'title': 'Master Course Title 14',
           'description': 'Course Description Goes Here',
-          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'materialId': 'material-id-1'
         }
       ],
       'paging': {
@@ -850,7 +864,8 @@ export const courses = [
         'id': 'sample-id-1',
         'title': 'Master Course Title',
         'description': '**Course** Description Goes Here',
-        'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+        'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+        'materialId': 'material-id-1'
       }
     }
   },
@@ -865,7 +880,8 @@ export const courses = [
         'id': 'sample-id-1',
         'title': 'Master Course Title',
         'description': '**Course** Description Goes Here',
-        'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+        'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+        'materialId': 'material-id-1'
       }
     }
   },
@@ -880,7 +896,8 @@ export const courses = [
         'id': 'sample-id-1',
         'title': 'Master Course Title',
         'description': '**Course** Description Goes Here',
-        'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+        'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+        'materialId': 'material-id-1'
       }
     }
   },
@@ -905,25 +922,29 @@ export const courses = [
           'id': 'sample-id-1',
           'title': 'Course Title 1',
           'description': 'Course Description Goes Here',
-          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'materialId': 'material-id-1'
         },
         {
           'id': 'sample-id-2',
           'title': 'Course Title 2',
           'description': 'Course Description Goes Here',
-          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'materialId': 'material-id-1'
         },
         {
           'id': 'sample-id-3',
           'title': 'Course Title 3',
           'description': 'Course Description Goes Here',
-          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'materialId': 'material-id-1'
         },
         {
           'id': 'sample-id-4',
           'title': 'Course Title 4',
           'description': 'Course Description Goes Here',
-          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'materialId': 'material-id-1'
         }
       ],
       'paging': {
@@ -944,13 +965,15 @@ export const courses = [
           'id': 'sample-id-5',
           'title': 'Course Title 5',
           'description': 'Course Description Goes Here',
-          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'materialId': 'material-id-1'
         },
         {
           'id': 'sample-id-6',
           'title': 'Course Title 2',
           'description': 'Course Description Goes Here',
-          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'materialId': 'material-id-1'
         }
       ],
       'paging': {
@@ -971,7 +994,8 @@ export const courses = [
         'id': 'sample-id',
         'title': 'Course Title',
         'description': '**Course** Description Goes Here',
-        'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+        'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+        'materialId': 'material-id-1'
       }
     }
   },
@@ -986,7 +1010,8 @@ export const courses = [
         'id': 'sample-id',
         'title': 'Course Title',
         'description': '**Course** Description Goes Here',
-        'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+        'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+        'materialId': 'material-id-1'
       }
     }
   },
@@ -1001,7 +1026,8 @@ export const courses = [
         'id': 'sample-id',
         'title': 'Course Title',
         'description': '**Course** Description Goes Here',
-        'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+        'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+        'materialId': 'material-id-1'
       }
     }
   },
@@ -1320,6 +1346,7 @@ export const users = [
           'phone': '088888888888',
           'address': 'Jl. Address 1 Address 2',
           'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'avatarId': 'sample-id-1',
           'batch': {
             'id': 'sample-id',
             'name': 'Batch Name',
@@ -1335,6 +1362,7 @@ export const users = [
           'phone': '088888888888',
           'address': 'Jl. Address 1 Address 2',
           'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'avatarId': 'sample-id-1',
           'batch': {
             'id': 'sample-id',
             'name': 'Batch Name',
@@ -1350,6 +1378,7 @@ export const users = [
           'phone': '088888888888',
           'address': 'Jl. Address 1 Address 2',
           'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'avatarId': 'sample-id-1',
           'batch': {
             'id': 'sample-id',
             'name': 'Batch Name',
@@ -1365,6 +1394,7 @@ export const users = [
           'phone': '088888888888',
           'address': 'Jl. Address 1 Address 2',
           'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'avatarId': 'sample-id-1',
           'batch': {
             'id': 'sample-id',
             'name': 'Batch Name',
@@ -1380,6 +1410,7 @@ export const users = [
           'phone': '088888888888',
           'address': 'Jl. Address 1 Address 2',
           'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'avatarId': 'sample-id-1',
           'batch': {
             'id': 'sample-id',
             'name': 'Batch Name',
@@ -1395,6 +1426,7 @@ export const users = [
           'phone': '088888888888',
           'address': 'Jl. Address 1 Address 2',
           'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'avatarId': 'sample-id-1',
           'batch': {
             'id': 'sample-id',
             'name': 'Batch Name',
@@ -1424,7 +1456,8 @@ export const users = [
           'name': 'User Mentor 1',
           'phone': '088888888888',
           'address': 'Jl. Address 1 Address 2',
-          'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+          'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'avatarId': 'sample-id-1'
         },
         {
           'id': 'sample-id-mentor-2',
@@ -1433,7 +1466,8 @@ export const users = [
           'name': 'User Mentor 2',
           'phone': '088888888888',
           'address': 'Jl. Address 1 Address 2',
-          'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+          'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'avatarId': 'sample-id-1'
         }
       ],
       'paging': {
@@ -1457,7 +1491,8 @@ export const users = [
           'name': 'User Judge 1',
           'phone': '088888888888',
           'address': 'Jl. Address 1 Address 2',
-          'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+          'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'avatarId': 'sample-id-1'
         }
       ],
       'paging': {
@@ -1481,7 +1516,8 @@ export const users = [
           'name': 'User Admin 1',
           'phone': '088888888888',
           'address': 'Jl. Address 1 Address 2',
-          'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+          'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'avatarId': 'sample-id-1'
         },
         {
           'id': 'sample-id-2',
@@ -1490,7 +1526,8 @@ export const users = [
           'name': 'User Admin 2',
           'phone': '088888888888',
           'address': 'Jl. Address 1 Address 2',
-          'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+          'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'avatarId': 'sample-id-1'
         },
         {
           'id': 'sample-id-3',
@@ -1499,7 +1536,8 @@ export const users = [
           'name': 'User Admin 3',
           'phone': '088888888888',
           'address': 'Jl. Address 1 Address 2',
-          'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+          'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'avatarId': 'sample-id-1'
         }
       ],
       'paging': {
@@ -1523,6 +1561,7 @@ export const users = [
         'phone': '088888888888',
         'address': 'Jl. Address 1 Address 2',
         'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+        'avatarId': 'sample-id-1',
         'batch': {
           'id': 'sample-id',
           'name': 'Batch Name',
@@ -1546,6 +1585,7 @@ export const users = [
         'phone': '088888888888',
         'address': 'Jl. Address 1 Address 2',
         'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+        'avatarId': 'sample-id-1',
         'batch': {
           'id': 'sample-id',
           'name': 'Batch Name',
@@ -1569,6 +1609,7 @@ export const users = [
         'phone': '088888888888',
         'address': 'Jl. Address 1 Address 2',
         'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+        'avatarId': 'sample-id-1',
         'batch': {
           'id': 'sample-id',
           'name': 'Batch Name',
@@ -1592,6 +1633,7 @@ export const users = [
         'phone': '088888888888',
         'address': 'Jl. Address 1 Address 2',
         'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+        'avatarId': 'sample-id-1',
         'batch': {
           'id': 'sample-id',
           'name': 'Batch Name',
@@ -1615,6 +1657,7 @@ export const users = [
         'phone': '088888888888',
         'address': 'Jl. Address 1 Address 2',
         'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+        'avatarId': 'sample-id-1'
       }
     }
   },

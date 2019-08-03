@@ -170,7 +170,7 @@ describe('UserForm', () => {
     }
     initComponent()
     wrapper.vm.successUploadProfilePicture(response)
-    expect(wrapper.vm.userDetail.avatar).toEqual([ response.id ])
+    expect(wrapper.vm.userDetail.avatarId).toEqual(response.id)
     expect(wrapper.vm.avatarPreview).toEqual(response.file.full)
   })
 
@@ -237,6 +237,18 @@ describe('UserForm', () => {
     const spy = jest.spyOn(wrapper.vm, 'sendData')
     wrapper.vm.validationSuccess()
     expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('userAvatarId avatarId null', () => {
+    initComponent()
+    wrapper.vm.userDetail.avatarId = null
+    expect(wrapper.vm.userAvatarId).toEqual([])
+  })
+
+  test('userAvatarId avatarId not null', () => {
+    initComponent()
+    wrapper.vm.userDetail.avatarId = 'sample-id'
+    expect(wrapper.vm.userAvatarId).toEqual(['sample-id'])
   })
 
   test('sendData not editMode', () => {

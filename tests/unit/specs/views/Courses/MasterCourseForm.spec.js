@@ -187,6 +187,15 @@ describe('MasterCourseForm', () => {
     expect(spy).toHaveBeenCalledTimes(1)
   })
 
+  test('computed masterCourseMaterialId materialId null', () => {
+    wrapper.vm.masterCourseData.materialId = null
+    expect(wrapper.vm.masterCourseMaterialId).toEqual([])
+  })
+
+  test('computed courseMaterialId materialId not null', () => {
+    wrapper.vm.masterCourseData.materialId = 'sample-id'
+    expect(wrapper.vm.masterCourseMaterialId).toEqual(['sample-id'])
+  })
   test('successCreateOrEditMasterCourse', () => {
     wrapper.vm.editMode = false
     wrapper.vm.$router.push = jest.fn()
@@ -255,7 +264,7 @@ describe('MasterCourseForm', () => {
     wrapper.vm.file.name = 'sample-file-name'
     wrapper.vm.successUploadMaterial(response)
     expect(wrapper.vm.uploadingFile).toEqual(false)
-    expect(wrapper.vm.masterCourseData.material).toEqual([ response.id ])
+    expect(wrapper.vm.masterCourseData.materialId).toEqual(response.id)
     expect(wrapper.vm.filePreviewName).toEqual('sample-file-name')
   })
 
