@@ -239,6 +239,18 @@ describe('UserForm', () => {
     expect(spy).toHaveBeenCalledTimes(1)
   })
 
+  test('userAvatarId avatarId null', () => {
+    initComponent()
+    wrapper.vm.userDetail.avatarId = null
+    expect(wrapper.vm.userAvatarId).toEqual([])
+  })
+
+  test('userAvatarId avatarId not null', () => {
+    initComponent()
+    wrapper.vm.userDetail.avatarId = 'sample-id'
+    expect(wrapper.vm.userAvatarId).toEqual(['sample-id'])
+  })
+
   test('sendData not editMode', () => {
     initComponent()
     wrapper.vm.editMode = false
