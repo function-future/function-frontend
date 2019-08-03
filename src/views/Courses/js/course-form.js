@@ -63,7 +63,10 @@ export default {
   computed: {
     ...mapGetters([
       'course'
-    ])
+    ]),
+    courseMaterialId () {
+      return this.courseData.materialId ? [ this.courseData.materialId ] : []
+    }
   },
   methods: {
     ...mapActions([
@@ -112,7 +115,7 @@ export default {
         content: {
           title: this.courseData.title,
           description: this.courseData.description,
-          material: this.courseData.materialId ? [ this.courseData.materialId ] : []
+          material: this.courseMaterialId
         }
       }
       if (this.editMode) {

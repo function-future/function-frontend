@@ -62,7 +62,10 @@ export default {
   computed: {
     ...mapGetters([
       'user'
-    ])
+    ]),
+    userAvatarId () {
+      return this.userDetail.avatarId ? [ this.userDetail.avatarId ] : []
+    }
   },
   methods: {
     ...mapActions([
@@ -154,7 +157,7 @@ export default {
         name: this.userDetail.name,
         phone: this.userDetail.phone,
         address: this.userDetail.address,
-        avatar: this.userDetail.avatarId ? [ this.userDetail.avatarId ] : []
+        avatar: this.userAvatarId
       }
       if (this.studentMode) {
         userData = {

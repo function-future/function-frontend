@@ -64,7 +64,10 @@ export default {
   computed: {
     ...mapGetters([
       'masterCourse'
-    ])
+    ]),
+    masterCourseMaterialId () {
+      return this.masterCourseData.materialId ? [ this.masterCourseData.materialId ] : []
+    }
   },
   methods: {
     ...mapActions([
@@ -112,7 +115,7 @@ export default {
         content: {
           title: this.masterCourseData.title,
           description: this.masterCourseData.description,
-          material: this.masterCourseData.materialId ? [ this.masterCourseData.materialId ] : []
+          material: this.masterCourseMaterialId
         }
       }
       if (this.editMode) {
