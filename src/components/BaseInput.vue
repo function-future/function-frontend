@@ -80,4 +80,9 @@
   .wrong-input {
     border: 2px solid #cb2431;
   }
+
+  .blue-input {
+    background-color: #02AAF3;
+    color: white;
+  }
 </style>
