@@ -61,6 +61,10 @@
 </script>
 
 <style lang="scss" scoped>
+  /deep/ p {
+    margin-block-start: 0.5rem;
+    margin-block-end: 0.5rem;
+  }
   .blog-card {
     min-height: 175px;
   }
