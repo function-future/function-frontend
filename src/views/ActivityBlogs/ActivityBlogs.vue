@@ -75,7 +75,7 @@
 
   .blog-author {
     font-size: 0.9rem;
-    padding-left: 5px;
+    padding-left: 7px;
     border-left: 1px solid #BDBDBD;
 
     span {
