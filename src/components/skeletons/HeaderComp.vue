@@ -118,34 +118,34 @@
   /*}*/
 
   .slide-fade-enter-active {
-    height: 123px;
+    max-height: 123px;
     animation: height-animation-in 400ms ease-out, opacity-animation-in 400ms ease-out;
   }
   .slide-fade-leave-active {
-    height: 123px;
+    max-height: 123px;
     animation: height-animation-out 350ms ease-out, opacity-animation-out 250ms ease-out;
   }
   .slide-fade-enter, .slide-fade-leave-to
     /* .slide-fade-leave-active below version 2.1.8 */ {
-    height: 0;
+    max-height: 0;
     opacity: 0;
   }
 
   @keyframes height-animation-in {
     0% {
-      height: 0;
+      max-height: 0;
     }
     100% {
-      height: 123px;
+      max-height: 123px;
     }
   }
 
   @keyframes height-animation-out {
     0% {
-      height: 123px;
+      max-height: 123px;
     }
     100% {
-      height: 0;
+      max-height: 0;
     }
   }
 

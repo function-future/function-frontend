@@ -12,7 +12,7 @@
             </span>
           </div>
         </div>
-        <a v-if="roomDetail.assignment.file !== ''" :href="roomDetail.assignment.file" target="_blank" class="download-button">
+        <a v-if="roomDetail.assignment.file && roomDetail.assignment.file !== ''" :href="roomDetail.assignment.file" target="_blank" class="download-button">
           <font-awesome-icon icon="download" class="icon"></font-awesome-icon>Download material
         </a>
         <div class="scrollable">

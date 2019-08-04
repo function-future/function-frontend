@@ -131,7 +131,7 @@ export default {
     },
     successUploadMaterial (response) {
       this.uploadingFile = false
-      this.assignment.file = response.id
+      this.assignmentDetail.file = response.id
       this.filePreviewName = this.file.name
     },
     failUploadMaterial () {

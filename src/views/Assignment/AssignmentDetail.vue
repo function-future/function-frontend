@@ -31,7 +31,7 @@
           <a v-if="!editMode && assignmentDetail.file && assignmentDetail.file !== ''" :href="assignmentDetail.file" target="_blank" class="download-button">
             <font-awesome-icon icon="download" class="icon"></font-awesome-icon>Download material
           </a>
-          <div v-if="editMode && assignmentDetail.file" class="material-upload">
+          <div v-if="editMode" class="material-upload">
             <label class="upload-button">
               <input type="file" :name="file" @change="onFileChange($event)">
               <span v-if="!uploadingFile">
