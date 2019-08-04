@@ -86,7 +86,6 @@ export default {
       })
     },
     editLoggingRoom (id) {
-      alert('test')
       this.$router.push({
         name: 'loggingRoomEdit',
         params: {
@@ -108,6 +107,9 @@ export default {
       loggingRoomApi.deleteLoggingRoom(response => {
         this.$toasted.success('success delete loggingRoom')
         this.resetDeleteModal()
+        this.page = 1
+        this.loggingRooms = []
+        this.$refs.infiniteLoading.stateChanger.reset()
       }, this.errorCallBack, {
         params: {
           loggingRoomId: this.modalDeleteConfirmation.id

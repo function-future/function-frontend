@@ -94,7 +94,6 @@
     align-items: flex-end;
     font-size: 0.8rem;
     margin-right: 10px;
-
   }
 
   .message-name {

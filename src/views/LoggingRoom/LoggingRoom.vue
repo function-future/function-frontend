@@ -77,7 +77,6 @@
     }
 
     .btn-add {
-      height: 4vh;
       margin: 15px 0px;
     }
   }

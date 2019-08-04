@@ -4,6 +4,7 @@ import loggingRoomApi from '@/api/controller/logging-room'
 import BaseTextArea from '@/components/BaseTextArea'
 import BaseInput from '@/components/BaseInput'
 import BaseButton from '@/components/BaseButton'
+import moment from 'moment'
 
 export default {
   name: 'log-message-room',
@@ -26,7 +27,8 @@ export default {
       logMessages: [],
       page: 1,
       size: 10,
-      messageText: ''
+      messageText: '',
+      currentDateMessage: null
     }
   },
   methods: {
@@ -60,6 +62,9 @@ export default {
         console.log(response)
         this.$toasted.success('success add log')
         this.messageText = ''
+        this.page = 1
+        this.logMessages = []
+        this.$refs.infiniteLoading.stateChanger.reset()
       }, this.errorCallBack, {
         params: {
           loggingRoomId: this.$route.params.loggingRoomId,
@@ -69,7 +74,39 @@ export default {
           text: this.messageText
         }
       })
+    },
+    computedLogMessagesDate (messages) {
+      let dateSeparator = null
+      messages.forEach(message => {
+        if (!dateSeparator) {
+          message.isNewDate = true
+        } else if (moment(this.toDateList(message.createdAt)).diff(this.toDateList(dateSeparator), 'days') >= 1) {
+          message.isNewDate = true
+        } else {
+          message.isNewDate = false
+        }
+        dateSeparator = message.createdAt
+      })
+      return messages
+    },
+    toDateList (time) {
+      return [moment(time).year(), moment(time).month(), moment(time).date()]
+    },
+    printDateSeparator (message) {
+      let diffDayWithNow = moment(this.toDateList(Date.now()))
+        .diff(this.toDateList(message.createdAt), 'days')
+      if (diffDayWithNow < 1) {
+        return 'Today'
+      } else if (diffDayWithNow < 2) {
+        return 'Yesterday'
+      } else {
+        return moment(message.time).format('DD MMM YY')
+      }
+    },
+    submitMessageButton(event) {
+      if (event.keyCode === 13 && this.messageText) {
+        this.submitMessage()
+      }
     }
-
   }
 }

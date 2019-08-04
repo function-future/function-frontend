@@ -45,7 +45,8 @@
         </ul>
       </transition>
       <li>
-        <router-link class="navbar-link" :to="{ name: 'loggingRoom'}" >LoggingRoom</router-link>
+        <router-link class="navbar-link" :to="{ name: 'loggingRoom'}" >Logging Rooms
+        </router-link>
       </li>
     </ul>
   </nav>

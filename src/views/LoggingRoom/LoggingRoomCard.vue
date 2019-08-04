@@ -42,7 +42,7 @@
       display: flex;
       flex-direction: column;
       padding-left: 10px;
-      flex-grow: 2;
+      flex-grow: 4;
       cursor: pointer;
     }
 
@@ -58,6 +58,10 @@
       font-size: 2vh;
       height: 5vh;
       color : #02AAF3;
+    }
+
+    &__edit-delete {
+      min-width: 10%;
     }
   }
 

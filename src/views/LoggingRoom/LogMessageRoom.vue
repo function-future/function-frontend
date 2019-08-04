@@ -5,11 +5,14 @@
           <h2>{{title}}</h2>
         </div>
         <div class="log-message__messages-room">
-          <infinite-loading direction="top" @infinite="infiniteHandler">
+          <infinite-loading direction="top" ref="infiniteLoading" @infinite="infiniteHandler">
             <div slot="no-more"></div>
             <div slot="no-results"></div>
           </infinite-loading>
-          <div v-for="logMessage in logMessages" class="log-message__messages-room__message">
+          <div v-for="logMessage in computedLogMessagesDate(logMessages)" class="log-message__messages-room__message">
+            <template class="log-message__messages-room__date-separator" v-if="logMessage.isNewDate">
+              <p>{{ printDateSeparator(logMessage) }}</p>
+            </template>
             <log-message :message="logMessage.text"
                          :clock="logMessage.createdAt"
                          :name="logMessage.senderName"
@@ -22,8 +25,9 @@
             <BaseInput class="text-area"
                           v-model="messageText"
                           placeholder="Type a message"
-                          inputType="message-box">
-            </BaseInput>
+                          inputType="message-box"
+                          @keyup="submitMessageButton"
+            ></BaseInput>
           </div>
           <div class="log-message__input-bar__btn-send">
             <BaseButton type="submit" buttonClass="button-save" @click="submitMessage">
@@ -76,6 +80,11 @@
        flex-direction: column;
        padding: 5px 0px;
      }
+
+     &__date-separator {
+       text-align: center;
+       font-size: 0.8rem;
+     }
    }
 
    &__input-bar {
@@ -89,10 +98,6 @@
        padding-right: 2%;
        width: 100%;
      }
-   }
-
-   .text-area {
-
    }
 
    .btn-send{

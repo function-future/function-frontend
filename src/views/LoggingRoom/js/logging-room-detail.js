@@ -88,10 +88,11 @@ export default {
       this.topicModal = false
     },
     createTopic (value) {
-      console.log(value)
-      alert('hold')
       loggingRoomApi.createTopic(response => {
         this.$toasted.success('success create question')
+        this.page = 1
+        this.topics = []
+        this.$refs.infiniteLoading.stateChanger.reset()
       }, this.errorCallBack, {
         body: {
           title: value.description
@@ -115,6 +116,9 @@ export default {
       loggingRoomApi.deleteTopic(response => {
         this.$toasted.success('success delete topic')
         this.resetDeleteModal()
+        this.page = 1
+        this.topics = []
+        this.$refs.infiniteLoading.stateChanger.reset()
       }, this.errorCallBack, {
         params: {
           loggingRoomId: this.modalDeleteConfirmation.id,
