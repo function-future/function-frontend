@@ -95,7 +95,6 @@
     box-shadow: none;
     margin: 0 0 15px 0;
     border: 1px solid #828282;
-    cursor: pointer;
   }
 
   .discussion-info {
