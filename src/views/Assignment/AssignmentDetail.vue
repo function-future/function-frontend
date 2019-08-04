@@ -36,7 +36,8 @@
               <input type="file" :name="file" @change="onFileChange($event)">
               <span v-if="!uploadingFile">
                 <font-awesome-icon icon="upload" class="icon"></font-awesome-icon>
-                <span>Upload File</span> <!-- TODO: Display file name here instead of hardcoded text !-->
+                <span v-if="filePreviewName === ''">Upload File</span>
+                <span v-else> {{ filePreviewName }} </span>
               </span>
               <span v-if="uploadingFile">
             <font-awesome-icon icon="spinner" spin class="icon"></font-awesome-icon> Uploading ...

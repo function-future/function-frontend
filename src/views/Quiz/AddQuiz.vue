@@ -10,7 +10,8 @@
           <span class="checkmark">
             <font-awesome-icon icon="check" class="check" size="xs" style="margin-left: 0.05vw; margin-top: 7px; color: white;" v-if="selectedBank.length === questionBankList.length"/>
           </span>
-        </label></BaseButton>
+        </label>
+      </BaseButton>
     </div>
     <div class="scrollable-container">
       <BaseCard class="add-quiz__container"

@@ -19,11 +19,10 @@ export default {
         end: null
       },
       assignmentDetail: {
-        id: '',
         title: '',
         description: '',
         deadline: null,
-        file: ''
+        file: []
       },
       editMode: false,
       uploadingFile: false,
@@ -78,7 +77,12 @@ export default {
       this.editMode = !this.editMode
     },
     saveAssignment () {
-      let payload = { ...this.assignmentDetail }
+      let payload = {
+        title: this.assignmentDetail.title,
+        description: this.assignmentDetail.description,
+        deadline: this.assignmentDetail.deadline,
+        files: this.assignmentDetail.file
+      }
       payload.deadline = new Date(payload.deadline).getTime()
       this.updateAssignmentDetail({
         payload,
@@ -131,7 +135,7 @@ export default {
     },
     successUploadMaterial (response) {
       this.uploadingFile = false
-      this.assignmentDetail.file = response.id
+      this.assignmentDetail.file = [ response.id ]
       this.filePreviewName = this.file.name
     },
     failUploadMaterial () {
