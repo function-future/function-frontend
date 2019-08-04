@@ -32,7 +32,7 @@
       <div class="course__col--courses">
         <CourseCard :course="course" @click.native="goToThisMasterCourseDetail(course.id)"
                     @edit="goToEditMasterCourse(course.id)" @delete="openDeleteConfirmationModal(course.id)"
-                    @copy="openCopyCourseModal(course.id)">
+                    @copy="openCopyCourseModal(course.id)" class="course__each">
         </CourseCard>
       </div>
     </div>
@@ -76,7 +76,17 @@
       margin-left: 9px;
 
       &--courses {
+        margin: 2px 0;
         flex-grow: 1;
+      }
+    }
+
+    &__each {
+      box-shadow: 1px 0 5px rgba(0, 0, 0, 0.25);
+      transition: all .2s ease;
+
+      &:hover {
+        box-shadow: 1px 0 5px rgba(0,0,0,0.1), 1px 0 5px rgba(0,0,0,0.3);;
       }
     }
   }

@@ -1,5 +1,5 @@
 <template>
-  <BaseCard cardClass="card-hover no-pointer">
+  <BaseCard cardClass="card-hover no-pointer" class="user-card">
     <div class="row">
       <div class="col basic-info" style="flex-grow: 2">
         <h3>{{ user.name }}</h3>
@@ -24,7 +24,7 @@
 <script type="text/javascript" src="./js/user-card.js">
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .row {
     display: flex;
     align-items: center;
@@ -38,6 +38,15 @@
 
   h1, h2, h3, h4, h5, h6 {
     margin: 5px;
+  }
+
+  .user-card {
+    box-shadow: 1px 0 7px rgba(0, 0, 0, 0.25);
+    transition: all .2s ease;
+
+    &:hover {
+      box-shadow: 1px 0 5px rgba(0,0,0,0.1), 1px 0 7px rgba(0,0,0,0.3);;
+    }
   }
 
   .basic-info {
