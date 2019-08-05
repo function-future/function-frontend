@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="button-div">
+    <div class="users-button-div">
       <tabs :tabs="tabs"
             :currentTab="currentTab"
             :wrapperClass="'default-tabs'"
@@ -9,7 +9,7 @@
             :lineClass="'default-tabs__active-line'"
             @onClick="changeTab">
       </tabs>
-      <span v-if="accessList.add">
+      <span v-if="accessList.add" class="add-button">
         <BaseButton type="submit" buttonClass="button-save" @click="goToAddUser">
           <span><font-awesome-icon icon="plus" class="icon"/> {{ addUserButtonLabel }}</span>
         </BaseButton>
@@ -59,9 +59,16 @@
 </script>
 
 <style>
-  .button-div {
+  .users-button-div {
+    display: flex;
     text-align: right;
     margin-right: 20px;
+    margin-top: 5px;
+  }
+
+  .add-button {
+    margin-left: auto;
+    font-size: 0.9rem;
   }
 
   .tab-container {
@@ -137,5 +144,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  .icon {
+    margin-right: 3px;
   }
 </style>

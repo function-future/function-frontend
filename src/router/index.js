@@ -78,7 +78,10 @@ const router = new Router({
     {
       path: config.app.pages.auth.login,
       name: 'login',
-      component: login
+      component: login,
+      meta: {
+        title: 'Login'
+      }
     },
     {
       path: config.app.pages.user.profile,

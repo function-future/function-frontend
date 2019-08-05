@@ -2,6 +2,7 @@
   <div class="scrollable-container">
     <BaseCard class="sticky-notes-card" @click.native="goToStickyNotesDetail" cardClass="card-hover">
       <div class="sticky-notes-header sticky-notes-title">
+        <span class="sticky-notes-name">Sticky Notes</span>
         <h3 v-if="stickyNote">{{ stickyNote.title }}</h3>
         <h3 v-else>Sticky Note</h3>
       </div>
@@ -16,7 +17,7 @@
       </div>
     </BaseCard>
     <BaseCard class="announcement-card" @click.native="goToAnnouncementPage" cardClass="card-hover no-pointer">
-      <h3 style="cursor: pointer;">Announcements</h3>
+      <h3 class="announcement-name">Announcements</h3>
       <div v-if="isLoadingAnnouncement" class="loading">
         <font-awesome-icon icon="spinner" spin class="icon-loading" size="lg"></font-awesome-icon>
       </div>
@@ -43,7 +44,7 @@
 
 <style scoped>
   .sticky-notes-card {
-    min-height: 125px;
+    min-height: 150px;
     cursor: pointer;
   }
 
@@ -54,6 +55,12 @@
   .sticky-notes-date {
     padding: 5px 0 5px 5px;
     float: right;
+  }
+
+  .sticky-notes-name {
+    border-left: 1px solid #BDBDBD;
+    padding-left: 10px;
+    font-size: 0.8rem;
   }
 
   h3, h4 {
@@ -99,6 +106,12 @@
 
   .announcement-date-col {
     font-size: 12px;
+  }
+
+  .announcement-name {
+    cursor: pointer;
+    padding: 3px 0 3px 10px;
+    border-left: 1px solid #BDBDBD;
   }
 
   .loading {

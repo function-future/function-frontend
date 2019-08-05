@@ -22,7 +22,7 @@
     background: #FFFFFF;
     border: 1px solid #FFFFFF;
     box-sizing: border-box;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.25);
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.20);
     border-radius: 20px;
     padding: 20px;
     margin: 10px 0 10px 0;
@@ -36,10 +36,10 @@
 
   .textarea-box:hover {
     transition: all .3s ease;
-    box-shadow: 2px 2px 10px rgba(0,0,0,0.1), 2px 2px 10px rgba(0,0,0,0.3);
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.1), 2px 2px 10px rgba(0,0,0,0.2);
   }
 
   .textarea-box:focus {
-    box-shadow: 2px 2px 10px rgba(0,0,0,0.1), 2px 2px 10px rgba(0,0,0,0.3);
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.1), 2px 2px 10px rgba(0,0,0,0.2);
   }
 </style>

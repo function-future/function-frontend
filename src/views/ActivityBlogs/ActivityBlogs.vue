@@ -61,6 +61,10 @@
 </script>
 
 <style lang="scss" scoped>
+  /deep/ p {
+    margin-block-start: 0.5rem;
+    margin-block-end: 0.5rem;
+  }
   .blog-card {
     min-height: 175px;
   }
@@ -75,7 +79,7 @@
 
   .blog-author {
     font-size: 0.9rem;
-    padding-left: 5px;
+    padding-left: 7px;
     border-left: 1px solid #BDBDBD;
 
     span {
