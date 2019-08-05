@@ -29,7 +29,7 @@
                   <span class="comparison-item__base-detail-card-item-title">{{score.title}}</span>
                 </div>
                 <div class="comparison-item__base-detail-card-item-content">
-                  <span class="">{{score.point}}</span>
+                  <span>{{score.point}}</span>
                 </div>
               </BaseCard>
             </div>
