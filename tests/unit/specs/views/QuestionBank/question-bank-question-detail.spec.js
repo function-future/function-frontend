@@ -49,14 +49,9 @@ describe('QuestionBankQuestionDetail', () => {
       question: state => state.question
     }
     const store = new Vuex.Store({
-      modules: {
-        questionBanks: {
-          state,
-          actions,
-          getters,
-          namespaced: true
-        }
-      }
+      state,
+      actions,
+      getters,
     })
 
     return {
@@ -147,7 +142,29 @@ describe('QuestionBankQuestionDetail', () => {
   test('successFetchingQuestionDetail', () => {
     initComponent()
     wrapper.vm.successFetchingQuestionDetail()
-    expect(wrapper.vm.questionDetail).toEqual({})
+    expect(wrapper.vm.questionDetail).toEqual({
+      "id": "QST0001",
+      "options": [
+        {
+          "id": "OPT0001",
+          "label": "Answer Example 1-1"
+        },
+        {
+          "id": "OPT0002",
+          "label": "Answer Example 1-2"
+        },
+        {
+          "correct": true,
+          "id": "OPT0003",
+          "label": "Answer Example 1-3"
+        },
+        {
+          "id": "OPT0004",
+          "label": "Answer Example 1-4"
+        }
+      ],
+      "text": "Question Example 1"
+    })
   })
 
   test('failFetchingQuestionDetail', () => {
