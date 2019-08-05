@@ -1,4 +1,5 @@
 import BaseCard from '@/components/BaseCard'
+import { mapGetters } from 'vuex'
 
 const MAX_CHAR_TITLE = 35
 const MAX_CHAR_DESCRIPTION = 150
@@ -6,7 +7,7 @@ const MAX_CHAR_DESCRIPTION = 150
 export default {
   name: 'logging-room-card',
   components: {
-    BaseCard,
+    BaseCard
   },
   props: {
     title: {
@@ -27,6 +28,9 @@ export default {
     }
   },
   computed: {
+    ...mapGetters([
+      'accessList'
+    ]),
     computedTitle () {
       if (this.title.length > MAX_CHAR_TITLE) {
         return this.title.substring(0, MAX_CHAR_TITLE).concat('...')

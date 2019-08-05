@@ -1,8 +1,8 @@
 <template>
     <div class="logging-room">
       <div class="logging-room__container">
-        <div class="logging-room__top-bar-container">
-          <BaseButton class="btn-add" type="submit" buttonClass="button-save" @click="goToCreate">
+        <div class="logging-room__top-bar-container" :class="{flexEnd: !accessList.edit }">
+          <BaseButton v-if="accessList.edit" class="btn-add" type="submit" buttonClass="button-save" @click="goToCreate">
             <font-awesome-icon icon="plus" class="icon"/> New
           </BaseButton>
           <SearchBar class="logging-room__search-bar" @input="searchHandler"/>
@@ -78,6 +78,10 @@
 
     .btn-add {
       margin: 15px 0px;
+    }
+
+    .flexEnd {
+      justify-content: flex-end;
     }
   }
 </style>

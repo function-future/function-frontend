@@ -20,7 +20,7 @@
             ></log-message>
           </div>
         </div>
-        <div class="log-message__input-bar">
+        <div class="log-message__input-bar" v-if="accessList.add">
           <div class="log-message__input-bar__text-area">
             <BaseInput class="text-area"
                           v-model="messageText"

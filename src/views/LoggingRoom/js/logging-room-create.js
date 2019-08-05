@@ -5,6 +5,7 @@ import BaseTextArea from '@/components/BaseTextArea'
 import UserSimpleCard from '@/components/UserSimpleCard'
 import ReminderMemberModal from '@/views/Reminders/ReminderMemberModal'
 import loggingRoomApi from '@/api/controller/logging-room'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'logging-room-create',
@@ -46,6 +47,11 @@ export default {
       membersTemp: [],
       participantModal: false
     }
+  },
+  computed: {
+    ...mapGetters([
+      'accessList'
+    ])
   },
   methods: {
     removeParticipant (index) {

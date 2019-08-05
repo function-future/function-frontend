@@ -4,6 +4,7 @@ import InfiniteLoading from 'vue-infinite-loading'
 import loggingRoomApi from '@/api/controller/logging-room'
 import BaseButton from '@/components/BaseButton'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'logging-room',
@@ -27,6 +28,11 @@ export default {
         id: ''
       }
     }
+  },
+  computed: {
+    ...mapGetters([
+      'accessList'
+    ])
   },
   methods: {
     infiniteHandler ($state) {

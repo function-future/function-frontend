@@ -1,10 +1,10 @@
 import logMessage from '@/views/LoggingRoom/LogMessage'
 import InfiniteLoading from 'vue-infinite-loading'
 import loggingRoomApi from '@/api/controller/logging-room'
-import BaseTextArea from '@/components/BaseTextArea'
 import BaseInput from '@/components/BaseInput'
 import BaseButton from '@/components/BaseButton'
 import moment from 'moment'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'log-message-room',
@@ -12,7 +12,6 @@ export default {
     logMessage,
     InfiniteLoading,
     loggingRoomApi,
-    BaseTextArea,
     BaseButton,
     BaseInput
   },
@@ -30,6 +29,11 @@ export default {
       messageText: '',
       currentDateMessage: null
     }
+  },
+  computed: {
+    ...mapGetters([
+      'accessList'
+    ])
   },
   methods: {
     infiniteHandler ($state) {
@@ -103,7 +107,7 @@ export default {
         return moment(message.time).format('DD MMM YY')
       }
     },
-    submitMessageButton(event) {
+    submitMessageButton (event) {
       if (event.keyCode === 13 && this.messageText) {
         this.submitMessage()
       }

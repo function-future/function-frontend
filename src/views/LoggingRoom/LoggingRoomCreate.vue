@@ -1,5 +1,5 @@
 <template>
-    <div class="logging-room-create">
+    <div class="logging-room-create" v-if="accessList.edit">
       <div class="logging-room-create__container">
         <BaseCard class="logging-room-create__content">
           <div class="logging-room-create__save-button">

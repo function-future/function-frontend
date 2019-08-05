@@ -13,7 +13,7 @@
             <span> {{computedMemberCount}} </span>
           </div>
         </div>
-        <div class="logging-room-card__edit-delete">
+        <div v-if="accessList.edit" class="logging-room-card__edit-delete">
           <font-awesome-icon class="icon icon-edit" icon="edit" @click="$emit('edit')"/>
           <font-awesome-icon class="icon icon-delete" icon="trash-alt" @click="$emit('delete')"/>
         </div>
