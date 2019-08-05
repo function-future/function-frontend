@@ -82,7 +82,6 @@
   }
 
   .blue-input {
-    background-color: #02AAF3;
-    color: white;
+    border: 2px solid #02AAF3;
   }
 </style>

@@ -102,6 +102,7 @@ describe('AssignmentDetail', () => {
       'description': 'Description Number 1',
       'deadline': 15000,
       'file': 'http://function-static.com/ASG0001/fileName.docx',
+      'fileId': 'fileId',
       'batch': 3
     }
     wrapper.vm.assignmentDetail = {
@@ -118,7 +119,8 @@ describe('AssignmentDetail', () => {
       'description': 'Description Number 1',
       'deadline': new Date(15000),
       'file': 'http://function-static.com/ASG0001/fileName.docx',
-      'batch': 3})
+      'fileId': 'fileId',
+      'batch': 3 })
     expect(wrapper.vm.displayedDates.start).toEqual(wrapper.vm.assignmentDetail.deadline)
     expect(wrapper.vm.displayedDates.end).toEqual(wrapper.vm.assignmentDetail.deadline)
   })
@@ -230,7 +232,7 @@ describe('AssignmentDetail', () => {
     wrapper.vm.file.name = 'sample-file-name'
     wrapper.vm.successUploadMaterial(response)
     expect(wrapper.vm.uploadingFile).toEqual(false)
-    expect(wrapper.vm.assignment.file).toEqual(response.id)
+    expect(wrapper.vm.assignmentDetail.fileId).toEqual(response.id)
     expect(wrapper.vm.filePreviewName).toEqual('sample-file-name')
   })
 
@@ -240,5 +242,12 @@ describe('AssignmentDetail', () => {
     expect(wrapper.vm.uploadingFile).toEqual(false)
     expect(wrapper.vm.filePreviewName).toEqual('Fail to upload material, please try again')
     expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+  })
+
+  test('deleteAssignmentFile', () => {
+    //TODO still failed
+    initComponent()
+    wrapper.vm.deleteAssignmentFile()
+    expect(wrapper.vm.assignmentDetail.fileId).toEqual('')
   })
 })

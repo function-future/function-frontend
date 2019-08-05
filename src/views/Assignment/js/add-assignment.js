@@ -19,7 +19,7 @@ export default {
         description: '',
         deadline: new Date(),
         batchCode: '',
-        files: ''
+        files: []
       },
       uploadingFile: false,
       filePreviewName: '',

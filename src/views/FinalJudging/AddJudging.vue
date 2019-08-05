@@ -20,8 +20,8 @@
           <BaseCard v-for="student in selectedStudents" :key="student.id" :style="{'padding': '15px 5px', 'margin': '10px 0'}" class="add-judging__container-body-student-list__content-item">
             <img :src="student.avatar" alt="" class="add-judging__container-body-student-list__content-item-image">
             <div class="add-judging__container-body-student-list__content-item-detail">
-              <span class="add-judging__container-body-student-list__content-item-detail-name">{{student.name}}</span>
-              <span class="add-judging__container-body-student-list__content-item-detail-university">{{student.university}}</span>
+              <span class="add-judging__container-body-student-list__content-item-detail-name" :class="{name_smaller: student.name.length > 13}">{{student.name}}</span>
+              <span class="add-judging__container-body-student-list__content-item-detail-university" :class="{university_smaller: student.name.length > 13}">{{student.university}}</span>
             </div>
           </BaseCard>
         </div>
@@ -127,6 +127,12 @@
           }
         }
       }
+    }
+    .name_smaller {
+      font-size: 12px;
+    }
+    .university_smaller {
+      font-size: 11px;
     }
     &-action {
       margin-top: 20px;

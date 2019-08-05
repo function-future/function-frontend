@@ -48,6 +48,9 @@ export default {
     ]),
     descriptionCompiledMarkdown: function () {
       return marked(this.roomDetail.assignment.description)
+    },
+    isDeadlineHasPassed: function () {
+      return this.roomDetail.assignment.deadline <= new Date()
     }
   },
   created () {

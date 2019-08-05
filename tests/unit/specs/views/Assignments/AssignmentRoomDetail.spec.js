@@ -217,4 +217,14 @@ describe('CourseDetail', () => {
     wrapper.vm.failedUpdatingScore()
     expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
   })
+
+  test('isDeadlineHasPassed true computed', () => {
+    wrapper.vm.roomDetail.assignment.deadline = new Date().setFullYear(2018, 1, 1)
+    expect(wrapper.vm.isDeadlineHasPassed).toEqual(true)
+  })
+
+  test('isDeadlineHasPassed false computed', () => {
+    wrapper.vm.roomDetail.assignment.deadline = new Date().setFullYear(2020, 1, 1)
+    expect(wrapper.vm.isDeadlineHasPassed).toEqual(false)
+  })
 })

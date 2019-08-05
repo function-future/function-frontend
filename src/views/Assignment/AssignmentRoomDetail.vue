@@ -55,7 +55,7 @@
                         v-model="discussion.comment"></BaseTextArea>
         </div>
         <div class="discussion-button">
-          <BaseButton type="submit" buttonClass="button-save" @click="submitComment" v-if="accessList.add && accessList.add.discussion">Post</BaseButton>
+          <BaseButton type="submit" buttonClass="button-save" @click="submitComment" v-if="accessList.add && accessList.add.discussion" :disabled="isDeadlineHasPassed">Post</BaseButton>
         </div>
       </div>
     </BaseCard>

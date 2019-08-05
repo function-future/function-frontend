@@ -43,6 +43,9 @@
             <font-awesome-icon icon="spinner" spin class="icon"></font-awesome-icon> Uploading ...
           </span>
             </label>
+            <span v-if="editMode" class="delete-file-button" @click="deleteAssignmentFile()">
+                <font-awesome-icon icon="times-circle" class="icon" size="lg" style="cursor: pointer;"></font-awesome-icon>
+              </span>
           </div>
           <div class="action">
             <div class="action-button" v-if="editMode">
@@ -146,6 +149,8 @@
 
   .material-upload {
     text-align: left;
+    width: 100%;
+    display: inline;
 
     p {
       font-size: 12px;
@@ -153,8 +158,13 @@
     }
   }
 
+  .delete-file-button {
+    margin-left: 5px;
+  }
+
   .upload-button {
-    display: block;
+    width: 70%;
+    display: inline-block;
     border: 1px solid #BDBDBD;
     border-radius: 10px;
     padding: 10px 20px;

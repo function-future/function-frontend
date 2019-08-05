@@ -188,8 +188,8 @@ describe('QuizQuestions', () => {
 
   test('submitQuiz', () => {
     initComponent()
-    wrapper.vm.answers = ['option1', 'option2']
-    const arraySpy = jest.spyOn(wrapper.vm.answers, 'forEach')
+    //TODO please check this
+    const arraySpy = jest.spyOn(wrapper.vm.studentQuizQuestions, 'forEach')
     const spy = jest.spyOn(wrapper.vm, 'submitQuiz')
     wrapper.vm.submitQuiz()
     expect(arraySpy).toHaveBeenCalledTimes(1)

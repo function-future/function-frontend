@@ -58,10 +58,10 @@ export default {
     },
     submitQuiz () {
       let payload = []
-      this.answers.forEach((item, idx) => {
+      this.studentQuizQuestions.forEach((item, idx) => {
         payload.push({
-          number: idx,
-          optionId: item
+          number: idx + 1,
+          optionId: this.answers[idx] ? this.answers[idx] : ''
         })
       })
       this.submitAnswers({
