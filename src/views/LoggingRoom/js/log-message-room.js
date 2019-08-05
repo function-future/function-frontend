@@ -107,7 +107,7 @@ export default {
       }
     },
     submitMessageButton (event) {
-      if (event.keyCode === 13 && this.messageText) {
+      if (event.keyCode === 13 && this.messageText.length) {
         this.submitMessage()
       }
     }

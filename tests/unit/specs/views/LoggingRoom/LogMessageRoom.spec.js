@@ -1,8 +1,10 @@
-import LogMessagesRoom from '@/views/LoggingRoom/LogMessageRoom'
+import LogMessageRoom from '@/views/LoggingRoom/LogMessageRoom'
 import { createLocalVue, shallowMount } from '@vue/test-utils'
 import loggingRoomApi from '@/api/controller/logging-room'
 import Vuex from 'vuex'
 import moment from 'moment'
+import VueRouter from 'vue-router'
+
 
 jest.mock('@/api/controller/logging-room')
 
@@ -14,6 +16,7 @@ describe('LogMessageRoom', () => {
   function generateLocalVue () {
     const lv = createLocalVue()
     lv.use(Vuex)
+    lv.use(VueRouter)
     return lv
   }
 
@@ -46,14 +49,12 @@ describe('LogMessageRoom', () => {
       error: jest.fn(),
       success: jest.fn()
     }
-    const $route = {
-      params: {}
-    }
-
-    return shallowMount(LogMessagesRoom, {
+    const router = new VueRouter([])
+    return shallowMount(LogMessageRoom, {
       ...options,
       store,
       localVue,
+      router,
       stubs: [
         'BaseButton',
         'InfiniteLoading',
@@ -64,8 +65,7 @@ describe('LogMessageRoom', () => {
         title: 'title'
       },
       mocks: {
-        $toasted,
-        $route
+        $toasted
       }
     })
   }
@@ -77,7 +77,7 @@ describe('LogMessageRoom', () => {
   }
 
   afterEach(() => {
-    jest.resetAllMocks()
+    jest.restoreAllMocks()
   })
 
   test('sanity test', () => {
@@ -116,6 +116,23 @@ describe('LogMessageRoom', () => {
     expect($state.complete).toHaveBeenCalled()
   })
 
+  test('infiniteHandler case 3', () => {
+    loggingRoomApi.getLogMessages = success => {
+      success({
+        data: [{}, {}, {}]
+      })
+    }
+    const $state = {
+      loaded: jest.fn(),
+      complete: jest.fn()
+    }
+    initComponent()
+    wrapper.vm.page = 1
+    wrapper.vm.topics = [{}, {}, {}]
+    wrapper.vm.infiniteHandler($state)
+    expect($state.loaded).toHaveBeenCalled()
+  })
+
   test('errorCallBack', () => {
     initComponent()
     global.console.log = jest.fn()
@@ -124,16 +141,26 @@ describe('LogMessageRoom', () => {
   })
 
   test('submitMessage', () => {
-    loggingRoomApi.createLogMessages = success => {
+    loggingRoomApi.createLogMessage = success => {
       success({
         data: []
       })
     }
     initComponent()
-    const spy = jest.spyOn(loggingRoomApi, 'createLogMessage')
+    wrapper.vm.$refs.infiniteLoading = {
+      stateChanger: {
+        reset: jest.fn()
+      }
+    }
+    wrapper.vm.messageText = 'something'
     wrapper.vm.submitMessage()
-    expect(spy).toHaveBeenCalledTimes(1)
+    expect(wrapper.vm.$toasted.success).toHaveBeenCalled()
+    expect(wrapper.vm.$refs.infiniteLoading.stateChanger.reset).toHaveBeenCalled()
+    expect(wrapper.vm.messageText).toEqual('')
+    expect(wrapper.vm.page).toEqual(1)
+    expect(wrapper.vm.logMessages.length).toEqual(0)
   })
+
 
   test('computeLogMessageDate', () => {
     const messages = [
@@ -147,7 +174,7 @@ describe('LogMessageRoom', () => {
         createdAt: Date.now()
       }
     ]
-    const spy = jest.spyOn(LogMessagesRoom.methods, 'toDateList')
+    const spy = jest.spyOn(LogMessageRoom.methods, 'toDateList')
 
     initComponent()
     const result = wrapper.vm.computedLogMessagesDate(messages)
@@ -168,7 +195,7 @@ describe('LogMessageRoom', () => {
     const message = {
       createdAt: Date.now()
     }
-    const spy = jest.spyOn(LogMessagesRoom.methods, 'toDateList')
+    const spy = jest.spyOn(LogMessageRoom.methods, 'toDateList')
 
     initComponent()
     const result = wrapper.vm.printDateSeparator(message)
@@ -181,7 +208,7 @@ describe('LogMessageRoom', () => {
     const message = {
       createdAt: Date.now() - 86400000
     }
-    const spy = jest.spyOn(LogMessagesRoom.methods, 'toDateList')
+    const spy = jest.spyOn(LogMessageRoom.methods, 'toDateList')
 
     initComponent()
     const result = wrapper.vm.printDateSeparator(message)
@@ -194,12 +221,71 @@ describe('LogMessageRoom', () => {
     const message = {
       createdAt: (Date.now() - 2 * 86400000)
     }
-    const spy = jest.spyOn(LogMessagesRoom.methods, 'toDateList')
+    const spy = jest.spyOn(LogMessageRoom.methods, 'toDateList')
 
     initComponent()
     const result = wrapper.vm.printDateSeparator(message)
     console.log(moment(message.createdAt).format('DD MMM YY'))
     expect(spy).toBeCalledTimes(2)
     expect(result).toEqual(moment(message.createdAt).format('DD MMM YY'))
+  })
+
+  test('submitMessageButton case 1', () => {
+    const spy = jest.spyOn(LogMessageRoom.methods, 'submitMessage')
+    const event = {
+      keyCode: 12
+    }
+
+    initComponent()
+    wrapper.vm.submitMessageButton(event)
+    expect(spy).not.toHaveBeenCalled()
+  })
+
+  test('submitMessageButton case 2', () => {
+    const spy = jest.spyOn(LogMessageRoom.methods, 'submitMessage')
+    const event = {
+      keyCode: 13
+    }
+
+    initComponent()
+    wrapper.vm.submitMessageButton(event)
+    expect(spy).not.toHaveBeenCalled()
+  })
+
+  test('submitMessageButton case 3', () => {
+    const spy = jest.spyOn(LogMessageRoom.methods, 'submitMessage')
+    const event = {
+      keyCode: 12
+    }
+
+    initComponent()
+    wrapper.vm.messageText = 'something'
+    wrapper.vm.submitMessageButton(event)
+    expect(spy).not.toHaveBeenCalled()
+  })
+
+  test('submitMessageButton case 4', () => {
+    loggingRoomApi.createLogMessage = success => {
+      success({
+        data: []
+      })
+    }
+    const spy = jest.spyOn(LogMessageRoom.methods, 'submitMessage')
+    initComponent()
+    wrapper.vm.messageText = 'something'
+    wrapper.vm.$refs.infiniteLoading = {
+      stateChanger: {
+        reset: jest.fn()
+      }
+    }
+    wrapper.vm.submitMessageButton({
+      keyCode: 13
+    })
+    expect(spy).toHaveBeenCalled()
+    expect(wrapper.vm.$toasted.success).toHaveBeenCalled()
+    expect(wrapper.vm.$refs.infiniteLoading.stateChanger.reset).toHaveBeenCalled()
+    expect(wrapper.vm.messageText).toEqual('')
+    expect(wrapper.vm.page).toEqual(1)
+    expect(wrapper.vm.logMessages.length).toEqual(0)
   })
 })

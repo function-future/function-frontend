@@ -55,10 +55,10 @@ export default {
   },
   methods: {
     removeParticipant (index) {
-      this.members.splice(index, 1)
+      this.membersTemp.splice(index, 1)
     },
     addParticipant (participant) {
-      this.members.push(participant)
+      this.membersTemp.push(participant)
     },
     saveLoggingRoom () {
       if (this.titleTemp && this.descriptionTemp && this.members.length) {
@@ -104,7 +104,7 @@ export default {
       let membersId = []
       this.membersTemp.forEach(member => membersId.push(member.id))
       return membersId
-    },
+    }
 
   },
   created () {

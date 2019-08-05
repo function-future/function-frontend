@@ -21,7 +21,7 @@ describe('ParticipantCard', () => {
     initWrapper({
       role: role
     })
-    expect(spy).toHaveBeenCalled
+    expect(spy).toHaveBeenCalled()
     expect(wrapper.vm.computedRole).toEqual('Mentor')
   })
 })

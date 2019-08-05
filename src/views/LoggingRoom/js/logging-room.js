@@ -54,8 +54,7 @@ export default {
             size: this.size,
             keyword: this.keyword
           }
-        }
-        )
+        })
       } else {
         $state.complete()
       }
@@ -65,7 +64,7 @@ export default {
       this.keyword = value
       loggingRoomApi.getLoggingRoomsByMember(response => {
         this.loggingRooms = response.data
-      }, this.errorCallback, {
+      }, this.getErrorCallback, {
         params: {
           page: this.page,
           size: this.size,
@@ -77,8 +76,7 @@ export default {
       console.log(err)
       this.$toasted.error('Fail to get logging room')
     },
-    goToLoggingRoomDetail(loggingRoomId) {
-      console.log('clicked')
+    goToLoggingRoomDetail (loggingRoomId) {
       this.$router.push({
         name: 'loggingRoomDetail',
         params: {

@@ -3,10 +3,22 @@ import moment from 'moment'
 export default {
   name: 'log-message',
   props: {
-    avatar: String,
-    name: String,
-    message: String,
-    clock: Number
+    avatar: {
+      type: String,
+      default: ''
+    },
+    name: {
+      type: String,
+      default: ''
+    },
+    message: {
+      type: String,
+      default: ''
+    },
+    clock: {
+      type: Number,
+      default: 0
+    }
   },
   methods: {
     convertClock () {
