@@ -63,7 +63,6 @@ export default {
     },
     submitMessage () {
       loggingRoomApi.createLogMessage(response => {
-        console.log(response)
         this.$toasted.success('success add log')
         this.messageText = ''
         this.page = 1
@@ -104,7 +103,7 @@ export default {
       } else if (diffDayWithNow < 2) {
         return 'Yesterday'
       } else {
-        return moment(message.time).format('DD MMM YY')
+        return moment(message.createdAt).format('DD MMM YY')
       }
     },
     submitMessageButton (event) {
