@@ -40,12 +40,12 @@
                 <span v-else> {{ filePreviewName }} </span>
               </span>
               <span v-if="uploadingFile">
-            <font-awesome-icon icon="spinner" spin class="icon"></font-awesome-icon> Uploading ...
-          </span>
-            </label>
-            <span v-if="editMode" class="delete-file-button" @click="deleteAssignmentFile()">
-                <font-awesome-icon icon="times-circle" class="icon" size="lg" style="cursor: pointer;"></font-awesome-icon>
+                <font-awesome-icon icon="spinner" spin class="icon"></font-awesome-icon> Uploading ...
               </span>
+            </label>
+            <span v-if="editMode && file" class="delete-file-button" @click="deleteAssignmentFile()">
+              <font-awesome-icon icon="times-circle" class="icon" size="lg" style="cursor: pointer;"></font-awesome-icon>
+            </span>
           </div>
           <div class="action">
             <div class="action-button" v-if="editMode">
