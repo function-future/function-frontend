@@ -131,20 +131,58 @@ describe('Quiz', () => {
     expect(spy).toHaveBeenCalledTimes(1)
   })
 
-  test('deselectAll', () => {
+  test('deselectAllHaveSelectedOnlyOne', () => {
+    let selectedBankElements = [{ value: 'QNK0001' }, { value: 'QNK0002' }]
+    Object.defineProperty(document, 'getElementsByName', {
+      value: jest.fn().mockImplementation(name => selectedBankElements),
+      configurable: true
+    })
     initComponent()
     wrapper.vm.selectedBank = []
     wrapper.vm.deselectAll()
     expect(wrapper.vm.selectedBank).toEqual([])
+    delete document.getElementsByName
+  })
+
+  test('deselectAll', () => {
+    let selectedBankElements = [{ value: 'QNK0001' }, { value: 'QNK0002' }]
+    Object.defineProperty(document, 'getElementsByName', {
+      value: jest.fn().mockImplementation(name => selectedBankElements),
+      configurable: true
+    })
+    initComponent()
+    wrapper.vm.selectedBank = ['QNK0001', 'QNK0002']
+    wrapper.vm.deselectAll()
+    expect(wrapper.vm.selectedBank).toEqual([])
+    delete document.getElementsByName
+  })
+
+  test('selectAllHaveSelectedTwoButSelectedBankOnlyOne', () => {
+    let selectedBankElements = [{ value: 'QNK0001' }, { value: 'QNK0002' }]
+    Object.defineProperty(document, 'getElementsByName', {
+      value: jest.fn().mockImplementation(name => selectedBankElements),
+      configurable: true
+    })
+    initComponent()
+    wrapper.vm.selectedBank = ['QNK0001']
+    wrapper.vm.selectAll()
+    expect(wrapper.vm.selectedBank).toEqual(['QNK0001', 'QNK0002'])
+    delete document.getElementsByName
   })
 
   test('selectAll', () => {
+    let selectedBankElements = [{ value: 'QNK0001' }, { value: 'QNK0002' }]
+    Object.defineProperty(document, 'getElementsByName', {
+      value: jest.fn().mockImplementation(name => selectedBankElements),
+      configurable: true
+    })
     initComponent()
-    wrapper.vm.selectedBank = ['QNK0001', 'QNK0002']
+    wrapper.vm.selectedBank = []
     wrapper.vm.selectAll()
-    expect(wrapper.vm.selectedBank).toEqual(['QNK0001', 'QNK0002', ''])
+    expect(wrapper.vm.selectedBank).toEqual(['QNK0001', 'QNK0002'])
+    delete document.getElementsByName
   })
-//  TODO: Fixed the above 2 unit tests, it is currently made to pass, however it's not the right way to test it
+
   test('goToAddQuizDetail', () => {
     initComponent()
     const spy = jest.spyOn(wrapper.vm, 'setSelectedBank')
