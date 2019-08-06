@@ -28,9 +28,11 @@ export default {
   methods: {
     toggleGradesMenu () {
       this.gradesSubmenuVisibility = !this.gradesSubmenuVisibility
+      if (this.questionnaireSubmenuVisibility) this.questionnaireSubmenuVisibility = !this.questionnaireSubmenuVisibility
     },
     toggleQuestionnaireMenu () {
       this.questionnaireSubmenuVisibility = !this.questionnaireSubmenuVisibility
+      if (this.gradesSubmenuVisibility) this.gradesSubmenuVisibility = !this.gradesSubmenuVisibility
     }
   }
 }
