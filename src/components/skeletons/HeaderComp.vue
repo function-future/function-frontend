@@ -69,7 +69,7 @@
     display: block;
     list-style-type: none;
     margin-right: 20px;
-    margin-top: 10px;
+    margin-top: 0;
     padding-left: 0;
   }
 
