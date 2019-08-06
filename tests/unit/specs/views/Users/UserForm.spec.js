@@ -146,8 +146,15 @@ describe('UserForm', () => {
     expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
   })
 
-  test('setUserDetail', () => {
+  test('setUserDetail with avatar', () => {
     initComponent()
+    wrapper.vm.setUserDetail()
+    expect(wrapper.vm.userDetail).toEqual(store.state.user)
+  })
+
+  test('setUserDetail no avatar', () => {
+    initComponent()
+    store.state.user.avatar = ''
     wrapper.vm.setUserDetail()
     expect(wrapper.vm.userDetail).toEqual(store.state.user)
   })
