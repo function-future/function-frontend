@@ -39,7 +39,8 @@ export default {
       question: {
         id: '',
         description: '',
-        isUpdate: false
+        isUpdate: false,
+        type: 'Question'
       },
       deleteConfirmationModalQuestion: {
         show: false,

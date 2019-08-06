@@ -16,7 +16,6 @@
         <span class="score-number"><strong>{{score.toFixed(1)}}/6.0</strong></span>
       </div>
     </BaseCard>
-
   </div>
 </template>
 

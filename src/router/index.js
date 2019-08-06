@@ -66,6 +66,12 @@ import reminderForm from '@/views/Reminders/ReminderForm'
 import profile from '@/views/User/Profile'
 import notifications from '@/views/Notifications/Notifications.vue'
 import changePassword from '@/views/User/ChangePassword'
+import loggingRoom from '@/views/LoggingRoom/LoggingRoom.vue'
+import loggingRoomDetail from '@/views/LoggingRoom/LoggingRoomDetail.vue'
+import logMessageRoom from '@/views/LoggingRoom/LogMessageRoom.vue'
+import loggingRoomCreate from '@/views/LoggingRoom/LoggingRoomCreate'
+import loggingRoomEdit from '@/views/LoggingRoom/LoggingRoomEdit'
+
 import files from '@/views/Files/Files'
 import store from '../store/index.js'
 
@@ -929,6 +935,46 @@ const router = new Router({
       component: questionnaireResultsQuestionDetail,
       meta: {
         title: 'Questionnaire Results - Question Detail'
+      }
+    },
+    {
+      path: config.app.pages.loggingRoom.default,
+      name: 'loggingRoom',
+      component: loggingRoom,
+      meta: {
+        title: 'Logging Rooms'
+      }
+    },
+    {
+      path: config.app.pages.loggingRoom.topics,
+      name: 'loggingRoomDetail',
+      component: loggingRoomDetail,
+      meta: {
+        title: 'Logging Room - Detail'
+      }
+    },
+    {
+      path: config.app.pages.loggingRoom.logMessages,
+      name: 'logMessage',
+      component: logMessageRoom,
+      meta: {
+        title: 'Logging Room'
+      }
+    },
+    {
+      path: config.app.pages.loggingRoom.create,
+      name: 'loggingRoomCreate',
+      component: loggingRoomCreate,
+      meta: {
+        title: 'Logging Room - Create'
+      }
+    },
+    {
+      path: config.app.pages.loggingRoom.edit,
+      name: 'loggingRoomEdit',
+      component: loggingRoomEdit,
+      meta: {
+        title: 'Logging Room - Edit'
       }
     }
   ]

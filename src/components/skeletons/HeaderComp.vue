@@ -44,6 +44,10 @@
           <li><router-link :to="{ name: 'questionnaireResults' }" class="navbar-link">Results</router-link></li>
         </ul>
       </transition>
+      <li v-if="menuList.loggingRoom">
+        <router-link class="navbar-link" :to="{ name: 'loggingRoom'}" >Logging Rooms
+        </router-link>
+      </li>
     </ul>
   </nav>
 </template>

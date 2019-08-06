@@ -8,6 +8,10 @@ export default {
     BaseTextArea
   },
   props: {
+    type: {
+      type: String,
+      default: ''
+    },
     description: {
       type: String,
       default: ''

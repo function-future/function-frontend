@@ -138,6 +138,13 @@ module.exports = {
         memberDetail: '/questionnaire-results/:batchCode/members/:userSummaryId',
         questionnaireDetail: '/questionnaire-results/:batchCode/members/:userSummaryId/questionnaire/:questionnaireId',
         questionDetail: '/questionnaire-results/:batchCode/members/:userSummaryId/questionnaire/:questionnaireId/question/:questionId'
+      },
+      loggingRoom: {
+        default: '/logging-rooms',
+        topics: '/logging-rooms/:loggingRoomId/topics',
+        logMessages: '/logging-rooms/:loggingRoomId/topics/:topicId',
+        create: '/logging-rooms/_create',
+        edit: '/logging-rooms/:loggingRoomId/_edit'
       }
     }
   },
@@ -539,6 +546,44 @@ module.exports = {
         },
         getQuestionnaireAnswerDetailSummary (questionResponseSummaryId) {
           return `/api/communication/question-response/${questionResponseSummaryId}/responses`
+        }
+      },
+      loggingRoom: {
+        getLoggingRoomsByMember (search, page, size) {
+          return `/api/communication/logging-rooms?search=${search}&page=${page}&size=${size}`
+        },
+        createLoggingRoom () {
+          return `/api/communication/logging-rooms`
+        },
+        getLoggingRoom (loggingRoomId) {
+          return `/api/communication/logging-rooms/${loggingRoomId}`
+        },
+        updateLoggingRoom (loggingRoomId) {
+          return `/api/communication/logging-rooms/${loggingRoomId}`
+        },
+        deleteLoggingRoom (loggingRoomId) {
+          return `/api/communication/logging-rooms/${loggingRoomId}`
+        },
+        getLoggingRoomTopic (loggingRoomId, page, size) {
+          return `/api/communication/logging-rooms/${loggingRoomId}/topics?page=${page}&size=${size}`
+        },
+        createTopic (loggingRoomId) {
+          return `/api/communication/logging-rooms/${loggingRoomId}/topics`
+        },
+        getTopic (loggingRoomId, topicId) {
+          return `/api/communication/logging-rooms/${loggingRoomId}/topics/${topicId}`
+        },
+        updateTopic (loggingRoomId, topicId) {
+          return `/api/communication/logging-rooms/${loggingRoomId}/topics/${topicId}`
+        },
+        deleteTopic (loggingRoomId, topicId) {
+          return `/api/communication/logging-rooms/${loggingRoomId}/topics/${topicId}`
+        },
+        getLogMessages (loggingRoomId, topicId, page, size) {
+          return `/api/communication/logging-rooms/${loggingRoomId}/topics/${topicId}/log-messages?page=${page}&size=${size}`
+        },
+        createLogMessage (loggingRoomId, topicId) {
+          return `/api/communication/logging-rooms/${loggingRoomId}/topics/${topicId}/log-messages`
         }
       }
     }

@@ -3,7 +3,7 @@
     <div class="modal__wrapper">
       <div class="modal__container">
         <div class="modal__header">
-          <div class="modal__header__title"> Add Question</div>
+          <div class="modal__header__title"> Add {{type}}</div>
           <span class="modal__close"><font-awesome-icon icon="times" class="icon" @click="close" size="lg"></font-awesome-icon></span>
         </div>
         <div class="modal__body">

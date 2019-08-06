@@ -46,7 +46,7 @@
           </template>
         </div>
       </div>
-      <modal-add-question :description="question.description" :isUpdate="question.isUpdate" v-if="questionModal"
+      <modal-add-question :type="question.type" :description="question.description" :isUpdate="question.isUpdate" v-if="questionModal"
              @close="closeQuestionModal"
              @submit="submitAddQuestion"
              @update="updateTheQuestionQuestionnaire"
