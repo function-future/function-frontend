@@ -20,8 +20,8 @@
           <BaseCard v-for="student in selectedStudents" :key="student.id" :style="{'padding': '15px 5px', 'margin': '10px 0'}" class="add-judging__container-body-student-list__content-item">
             <img :src="student.avatar" alt="" class="add-judging__container-body-student-list__content-item-image">
             <div class="add-judging__container-body-student-list__content-item-detail">
-              <span class="add-judging__container-body-student-list__content-item-detail-name">{{student.name}}</span>
-              <span class="add-judging__container-body-student-list__content-item-detail-university">{{student.university}}</span>
+              <span class="add-judging__container-body-student-list__content-item-detail-name" :class="{name_smaller: student.name.length > 13}">{{student.name}}</span>
+              <span class="add-judging__container-body-student-list__content-item-detail-university" :class="{university_smaller: student.name.length > 13}">{{student.university}}</span>
             </div>
           </BaseCard>
         </div>
@@ -70,22 +70,31 @@
           align-items: center;
           padding-bottom: 5px;
           border-bottom: 1px solid #BDBDBD;
+          &-title {
+            font-weight: bold;
+            font-size: 20px;
+            margin-left: 5px;
+          }
+          &-button {
+            margin-right: 5px;
+            cursor: pointer;
+          }
         }
         &__content {
-          padding-left: 5px;
+          padding-left: 10px;
           overflow: auto;
           max-height: 90%;
           &::-webkit-scrollbar-track
           {
             background-color: #F5F5F5;
-            border-radius: 10px;
+            border-radius: 7px;
           }
 
           &::-webkit-scrollbar
           {
-            width: 10px;
+            width: 2px;
             background-color: #02AAF3;
-            border-radius: 10px;
+            border-radius: 7px;
           }
 
           &::-webkit-scrollbar-thumb
@@ -94,26 +103,36 @@
             background-color: #02AAF3;
           }
           &-item {
-            width: 90%;
+            width: 95%;
             display: flex;
-            flex-direction: row;
-            justify-content: center;
+            height: 80px;
             &-image {
-              flex: 1;
-              width: 30%;
+              width: 70px;
+              height: 50px;
+              margin: 0 10px;
+              border-radius: 7px;
             }
             &-detail {
               display: flex;
               flex-direction: column;
-              justify-content: center;
+              font-size: 15px;
               align-items: center;
+              margin: 10px auto;
+              font-weight: bold;
               &-university {
-                font-size: smaller;
+                margin-top: 3px;
+                font-size: 13px;
               }
             }
           }
         }
       }
+    }
+    .name_smaller {
+      font-size: 12px;
+    }
+    .university_smaller {
+      font-size: 11px;
     }
     &-action {
       margin-top: 20px;

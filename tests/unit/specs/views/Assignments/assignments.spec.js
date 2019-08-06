@@ -34,7 +34,8 @@ describe('Assignment', () => {
           'batch': 3,
           'uploadedDate': 30000000000
         }
-      ]
+      ],
+      accessLIst: {}
     }
     const actions = {
       fetchAssignmentList: jest.fn(),
@@ -42,17 +43,13 @@ describe('Assignment', () => {
       copyAssignment: jest.fn()
     }
     const getters = {
-      assignmentList: state => state.assignmentList
+      assignmentList: state => state.assignmentList,
+      accessList: state => state.accessLIst
     }
     const store = new Vuex.Store({
-      modules: {
-        assignments: {
-          state,
-          actions,
-          getters,
-          namespaced: true
-        }
-      }
+      state,
+      actions,
+      getters
     })
 
     return {
@@ -159,7 +156,7 @@ describe('Assignment', () => {
     expect(wrapper.vm.$router.push).toBeCalledWith({
       name: 'assignmentDetail',
       params: {
-        id: 3,
+        assignmentId: 3,
         batchCode: '1'
       },
     })

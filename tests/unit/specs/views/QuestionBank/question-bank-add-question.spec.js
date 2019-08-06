@@ -88,6 +88,8 @@ describe('QuestionBankAddQuestion', () => {
   test('saveButtonClicked', () => {
     initComponent()
     wrapper.vm.createQuestion = jest.fn()
+    //TODO please check this
+    wrapper.vm.selectedAnswer = 0
     wrapper.vm.saveButtonClicked()
     expect(wrapper.vm.createQuestion).toHaveBeenCalledTimes(1)
   })

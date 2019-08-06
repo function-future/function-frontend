@@ -1,18 +1,20 @@
 <template>
   <div class="container">
-    Question Number {{ currentNumber + 1}}<!--IF POSSIBLE!-->
-    <div class="quiz">
-      <div class="quiz-content">
+    <div class="quiz-question__question-label" v-if="!isLoading">Question {{currentNumber + 1}}</div>
+    <div class="quiz" v-if="!isLoading">
+      <div class="quiz-content" v-for="(question, idx) in studentQuizQuestions" :key="question.number" v-if="currentNumber === idx">
         <div class="quiz-content-question">
           <BaseCard :style="{ margin: 0, height: '100%' }">
-            {{studentQuizQuestions[currentNumber].text}}
+            {{question.text}}
           </BaseCard>
         </div>
         <div class="quiz-content-option">
-          <BaseButton class="quiz-content-option__item" :style="{ 'margin': '0 0 5px 0'}" buttonClass="button-white" @click="selectOption(studentQuizQuestions[currentNumber].options[0].id)">{{studentQuizQuestions[currentNumber].options[0].label}}</BaseButton>
-          <BaseButton class="quiz-content-option__item" :style="{ 'margin': '0 0 5px 0'}" buttonClass="button-white" @click="selectOption(studentQuizQuestions[currentNumber].options[1].id)">{{studentQuizQuestions[currentNumber].options[1].label}}</BaseButton>
-          <BaseButton class="quiz-content-option__item" :style="{ 'margin': '10px 0 5px 0'}" buttonClass="button-white" @click="selectOption(studentQuizQuestions[currentNumber].options[2].id)">{{studentQuizQuestions[currentNumber].options[2].label}}</BaseButton>
-          <BaseButton class="quiz-content-option__item" :style="{ 'margin': '10px 0 5px 0'}" buttonClass="button-white" @click="selectOption(studentQuizQuestions[currentNumber].options[3].id)">{{studentQuizQuestions[currentNumber].options[3].label}}</BaseButton>
+          <label class="quiz-content-option__item" v-for="(option, idx) in question.options" :key="option.id">
+            <input type="radio" v-model="answers[currentNumber]" :value="option.id"/>
+            <BaseCard class="quiz-content-option__item-button" :class="highlightedOption(option.id)" :style="{ 'margin': '0 0 5px 0'}">
+              {{option.label}}
+            </BaseCard>
+          </label>
         </div>
       </div>
       <div class="quiz-action">
@@ -25,25 +27,25 @@
               Go To
             </div>
             <div class="quiz-action-legend__content-area">
-              <div v-for="question in studentQuizQuestions" class="quiz-action-legend__content-area-row">
-                <BaseCard :style="{ 'padding': '10px', 'margin': '15px 0 15px 0' }" @click.native="currentNumber = question.number-1">
-                  <label class="quiz-action-legend__content-area-row-item">
-                    <input type="radio" v-model="currentNumber" @click="viewQuestion(question.number)">
-                    <span class="radio">
-                      <font-awesome-icon icon="check" class="blue check" size="xs" v-if="question.number - 1 === currentNumber"/>
-                    </span>
-                    <span class="quiz-action-legend__content-area-row-item-text">
-                      Question {{question.number}}
-                    </span>
-                  </label>
-                </BaseCard>
+              <div class="quiz-action-legend__content-area-row">
+                <label style="width: 100%" v-for="question in studentQuizQuestions">
+                  <BaseCard class="quiz-action-legend__content-area-row-item" :style="{ 'padding': '10px', 'margin': '15px 0 15px 0', 'width': '100%' }">
+                      <input type="radio" @click="viewQuestion(question.number)">
+                      <span class="radio" :class="{active: question.number - 1 === currentNumber}">
+                        <font-awesome-icon icon="check" class="check" size="xs" v-if="question.number - 1 === currentNumber"/>
+                      </span>
+                      <span class="quiz-action-legend__content-area-row-item-text">
+                        Question {{question.number}}
+                      </span>
+                  </BaseCard>
+                </label>
               </div>
             </div>
           </BaseCard>
         </div>
       </div>
     </div>
-    <div class="navigation">
+    <div class="navigation" v-if="!isLoading">
       <BaseButton class="navigation__button" :style="{ height: '100%' }" buttonClass="button-save" @click="viewPreviousQuestion">Previous</BaseButton>
       <BaseButton class="navigation__button" :style="{ height: '100%' }" buttonClass="button-save" @click="viewNextQuestion">Next</BaseButton>
     </div>
@@ -62,6 +64,11 @@
     display: flex;
     flex-direction: row;
     height: 75vh;
+    &-question__question-label {
+      font-weight: bold;
+      font-size: 20px;
+      margin-top: 5px;
+    }
     &-content {
       margin: 10px 25px 0 0;
       width: 80%;
@@ -77,6 +84,16 @@
         &__item {
           height: 45%;
           width: 49%;
+          &-button {
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: x-large;
+            font-weight: bold;
+          }
         }
       }
     }
@@ -117,6 +134,11 @@
     }
   }
 
+  .active {
+    background-color: black;
+    color: white;
+  }
+
   .navigation {
     height: 8vh;
     width: 100%;
@@ -141,7 +163,21 @@
     width: 20px;
   }
 
+  .radio.active {
+    border: 0;
+  }
+
   .check {
     margin: auto;
+  }
+
+  .selected {
+    background-color: rgb(2, 170, 243);
+    color: white;
+  }
+
+  .active {
+    background-color: rgba(2, 170, 243, 0.8);
+    color: white;
   }
 </style>

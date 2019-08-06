@@ -40,7 +40,7 @@
             <div class="detail-card__caption">Trials</div>
             <input type="number"
                    class="detail-card__content"
-                   :value="studentQuizDetail.quiz.trials"
+                   :value="studentQuizDetail.trials"
                    :disabled="true"/>
           </BaseCard>
         </div>
@@ -58,7 +58,7 @@
         </div>
         <div class="detail-container__action">
           <BaseButton buttonClass="button-cancel" @click="returnButtonClicked()">Return</BaseButton>
-          <BaseButton buttonClass="button-save" @click="actionButtonClicked()">Start</BaseButton>
+          <BaseButton buttonClass="button-save" @click="actionButtonClicked()" :disabled="studentQuizDetail.trials === 0">Start</BaseButton>
         </div>
       </div>
     </div>

@@ -9,6 +9,10 @@ const getAssignmentById = function (callback, data, errorHandler) {
   request.getRequest(config.api.scoring.assignments.detail(data.batchCode, data.id), callback, errorHandler)
 }
 
+const getStudentAssignments = function (callback, data, errorHandler) {
+  request.getRequest(config.api.scoring.assignments.students(data.batchCode, data.assignmentId, data.studentId, data.page, data.size), callback, errorHandler)
+}
+
 const createAssignment = function (callback, data, payload, errorHandler) {
   request.postRequest(config.api.scoring.assignments.create(data.batchCode), callback, payload, errorHandler)
 }
@@ -28,6 +32,7 @@ const deleteAssignment = function (callback, data, errorHandler) {
 export default {
   getAssignmentsList,
   getAssignmentById,
+  getStudentAssignments,
   createAssignment,
   copyAssignment,
   updateAssignment,

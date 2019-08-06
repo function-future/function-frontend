@@ -2,6 +2,7 @@ import { mapActions, mapGetters } from 'vuex'
 import BaseCard from '@/components/BaseCard'
 import BaseButton from '@/components/BaseButton'
 import BaseTextArea from '@/components/BaseTextArea'
+import BaseInput from '@/components/BaseInput'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
 import InfiniteLoading from 'vue-infinite-loading'
 let marked = require('marked')
@@ -12,6 +13,7 @@ export default {
     BaseCard,
     BaseButton,
     BaseTextArea,
+    BaseInput,
     ModalDeleteConfirmation,
     InfiniteLoading
   },
@@ -34,16 +36,21 @@ export default {
         size: 4,
         totalRecords: 0
       },
-      state: ''
+      state: '',
+      isLoading: true
     }
   },
   computed: {
     ...mapGetters([
       'room',
-      'comments'
+      'comments',
+      'accessList'
     ]),
     descriptionCompiledMarkdown: function () {
       return marked(this.roomDetail.assignment.description)
+    },
+    isDeadlineHasPassed: function () {
+      return this.roomDetail.assignment.deadline <= new Date()
     }
   },
   created () {
@@ -53,7 +60,8 @@ export default {
     ...mapActions([
       'fetchRoomDetail',
       'fetchComments',
-      'postComment'
+      'postComment',
+      'postAssignmentScore'
     ]),
     initPage () {
       this.fetchRoomDetail({
@@ -68,6 +76,7 @@ export default {
     },
     successFetchRoomById () {
       this.roomDetail = this.room
+      this.isLoading = false
     },
     failFetchRoomById () {
       this.$toasted.error('Something went wrong')
@@ -124,6 +133,27 @@ export default {
       this.discussions.unshift(response)
     },
     failSubmitComment () {
+      this.$toasted.error('Something went wrong')
+    },
+    updateScore () {
+      let payload = {
+        point: this.roomDetail.point
+      }
+      this.postAssignmentScore({
+        data: {
+          batchCode: this.$route.params.batchCode,
+          assignmentId: this.$route.params.assignmentId,
+          roomId: this.$route.params.roomId
+        },
+        payload,
+        callback: this.successUpdatingScore,
+        fail: this.failedUpdatingScore
+      })
+    },
+    successUpdatingScore () {
+      this.$toasted.success('Successfully updated score')
+    },
+    failedUpdatingScore () {
       this.$toasted.error('Something went wrong')
     }
   }

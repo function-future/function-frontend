@@ -189,6 +189,52 @@ describe('actions', () => {
     expect(callback).toHaveBeenCalledTimes(1)
     expect(fail).not.toHaveBeenCalled()
   })
+
+  test('postAssignmentScore', () => {
+    api.updateAssignmentScore = (success) => {
+      success({
+        "code": 200,
+        "status": "OK",
+        "data": {
+          "id": "ROM0001",
+          "point": 300,
+          "student": {
+            "id": "sample-id",
+            "role": "STUDENT",
+            "email": "user@user.com",
+            "name": "User Name",
+            "phone": "088888888888",
+            "address": "Jl. Address 1 Address 2",
+            "avatar": "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
+            "batch": "3",
+            "university": "Bina Nusantara University"
+          },
+          "assignment": {
+            "id": "ASG0001",
+            "title": "Assignment 1",
+            "description": "Description Number 1",
+            "deadline": 15000000,
+            "file": "http://function-static.com/ASG0001/fileName.docx",
+            "batch": "3"
+          }
+        }
+      })
+    }
+    const data = {
+      batchCode: '1',
+      assignmentId: 'ASG0001',
+      roomId: 'ROM0001'
+    }
+    const payload = {
+      point: 80
+    }
+    const callback = jest.fn()
+    const commit = jest.fn()
+    const fail = jest.fn()
+    store.actions.postAssignmentScore({ commit }, { data, payload, callback, fail })
+    expect(callback).toHaveBeenCalledTimes(1)
+    expect(fail).not.toHaveBeenCalled()
+  })
 })
 
 describe('getters', () => {

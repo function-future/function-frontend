@@ -33,6 +33,7 @@ export default {
   computed: {
     ...mapGetters([
       'judging',
+      'accessList'
     ]),
     returnButtonText () {
       return this.editMode ? 'Cancel' : 'Return'

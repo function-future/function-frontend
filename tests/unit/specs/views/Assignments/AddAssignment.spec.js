@@ -188,4 +188,116 @@ describe('AddAssignment', () => {
     expect($toasted.success).toHaveBeenCalledTimes(1)
     expect($router.push).toHaveBeenCalledTimes(1)
   })
+
+  test('onFileChange', () => {
+    const wrapper = shallowMount(addAssignment, {
+      store,
+      localVue,
+      stubs: [
+        'BaseInput',
+        'BaseTextArea',
+        'BaseButton',
+        'BaseSelect',
+        'font-awesome-icon',
+        'v-date-picker',
+        'v-calendar'
+      ],
+      sync: false
+    })
+    const spy = jest.spyOn(wrapper.vm, 'materialUpload')
+    const e = {
+      target: {
+        files: [
+          {
+            name: 'test.png',
+            size: 2000000,
+            type: 'image/png'
+          }
+        ]
+      }
+    }
+    wrapper.vm.onFileChange(e)
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('materialUpload', () => {
+    const wrapper = shallowMount(addAssignment, {
+      store,
+      localVue,
+      stubs: [
+        'BaseInput',
+        'BaseTextArea',
+        'BaseButton',
+        'BaseSelect',
+        'font-awesome-icon',
+        'v-date-picker',
+        'v-calendar'
+      ],
+      sync: false
+    })
+    const spy = jest.spyOn(wrapper.vm, 'uploadMaterial')
+    const file = {
+      name: 'test.png',
+      size: 2000000,
+      type: 'image/png'
+    }
+    wrapper.vm.materialUpload(file)
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('successUploadMaterial', () => {
+    const wrapper = shallowMount(addAssignment, {
+      store,
+      localVue,
+      stubs: [
+        'BaseInput',
+        'BaseTextArea',
+        'BaseButton',
+        'BaseSelect',
+        'font-awesome-icon',
+        'v-date-picker',
+        'v-calendar'
+      ],
+      sync: false
+    })
+    const response = {
+      'id': 'sample-id',
+      'name': 'File Name',
+      'file': {
+        'full': 'https://i.pinimg.com/originals/8c/cf/ec/8ccfec7d5cb3c92265cbf153523eb9b5.jpg',
+        'thumbnail': null
+      }
+    }
+    wrapper.vm.file.name = 'sample-file-name'
+    wrapper.vm.successUploadMaterial(response)
+    expect(wrapper.vm.uploadingFile).toEqual(false)
+    expect(wrapper.vm.assignment.files).toEqual([response.id])
+    expect(wrapper.vm.filePreviewName).toEqual('sample-file-name')
+  })
+
+  test('failUploadMaterial', () => {
+    const wrapper = shallowMount(addAssignment, {
+      store,
+      localVue,
+      mocks: {
+        $toasted: {
+          error: jest.fn()
+        }
+      },
+      stubs: [
+        'BaseInput',
+        'BaseTextArea',
+        'BaseButton',
+        'BaseSelect',
+        'font-awesome-icon',
+        'v-date-picker',
+        'v-calendar'
+      ],
+      sync: false
+    })
+    wrapper.vm.failUploadMaterial()
+    expect(wrapper.vm.uploadingFile).toEqual(false)
+    expect(wrapper.vm.filePreviewName).toEqual('Fail to upload material, please try again')
+    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+  })
 })

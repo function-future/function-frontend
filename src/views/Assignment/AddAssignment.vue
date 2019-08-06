@@ -17,16 +17,18 @@
         <div class="assignment-detail">
           <v-date-picker class="assignment-detail-deadline" v-model="assignment.deadline" is-inline>
           </v-date-picker>
-          <div class="assignment-detail-file">
-            <span class="assignment-detail-file-name">File.txt</span>
-            <div class="assignment-detail-file-actions">
-              <BaseButton buttonClass="button-icon">
-                <font-awesome-icon icon="file-upload" class="icon"/>
-              </BaseButton>
-              <BaseButton buttonClass="button-icon">
-                <font-awesome-icon icon="file-download" class="icon"/>
-              </BaseButton>
-            </div>
+          <div class="material-upload">
+            <label class="upload-button">
+              <input type="file" :name="file" @change="onFileChange($event)">
+              <span v-if="!uploadingFile">
+                <font-awesome-icon icon="upload" class="icon"></font-awesome-icon>
+                <span v-if="filePreviewName === ''">Upload File</span>
+                <span v-else> {{ filePreviewName }} </span>
+              </span>
+              <span v-if="uploadingFile">
+            <font-awesome-icon icon="spinner" spin class="icon"></font-awesome-icon> Uploading ...
+          </span>
+            </label>
           </div>
           <div class="action">
             <div class="action-button">
@@ -98,5 +100,36 @@
   }
 
   .action-button {
+  }
+
+  .material-upload {
+    text-align: left;
+
+  p {
+    font-size: 12px;
+    padding-left: 10px;
+  }
+  }
+
+  .upload-button {
+    display: block;
+    border: 1px solid #BDBDBD;
+    border-radius: 10px;
+    padding: 10px 20px;
+    color: #505050;
+    cursor: pointer;
+    margin: 10px 0;
+  }
+
+  input[type=file] {
+    display: none;
+  }
+
+  .upload-button:hover {
+    background-color: #F2F2F2;
+  }
+
+  .icon {
+    margin-right: 5px;
   }
 </style>

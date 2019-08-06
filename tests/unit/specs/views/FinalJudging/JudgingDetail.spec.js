@@ -17,14 +17,16 @@ describe('JudgingDetail', () => {
 
   function initStore () {
     const state = {
-      judging: {}
+      judging: {},
+      accessList: {}
     }
     const actions = {
       updateJudging: jest.fn(),
       fetchJudgingDetail: jest.fn()
     }
     const getters = {
-      judging: state => state.judging
+      judging: state => state.judging,
+      accessList: state => state.accessList
     }
     const store = new Vuex.Store({
       state,
@@ -304,5 +306,29 @@ describe('JudgingDetail', () => {
     initComponent()
     wrapper.vm.failUpdatingJudging()
     expect(wrapper.vm.$toasted.error).toBeCalledTimes(1)
+  })
+
+  test('returnButtonText true', () => {
+    initComponent()
+    wrapper.vm.editMode = true
+    expect(wrapper.vm.returnButtonText).toEqual('Cancel')
+  })
+
+  test('returnButtonText false', () => {
+    initComponent()
+    wrapper.vm.editMode = false
+    expect(wrapper.vm.returnButtonText).toEqual('Return')
+  })
+
+  test('actionButtonText true', () => {
+    initComponent()
+    wrapper.vm.editMode = true
+    expect(wrapper.vm.actionButtonText).toEqual('Save')
+  })
+
+  test('actionButtonText false', () => {
+    initComponent()
+    wrapper.vm.editMode = false
+    expect(wrapper.vm.actionButtonText).toEqual('Edit')
   })
 })

@@ -17,22 +17,20 @@ describe('Users', () => {
 
   function initStore () {
     const state = {
-      points: {}
+      points: {},
+      currentUser: {}
     }
     const actions = {
       fetchPointList: jest.fn()
     }
     const getters = {
-      points: state => state.points
+      points: state => state.points,
+      currentUser: state => state.currentUser
     }
     const store = new Vuex.Store({
-      modules: {
-        users: {
-          state,
-          actions,
-          getters
-        }
-      }
+      state,
+      actions,
+      getters
     })
 
     return {

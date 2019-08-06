@@ -9,13 +9,20 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'menuList'
+      'menuList',
+      'currentUser'
     ]),
     showGrades () {
       return this.gradesSubmenuVisibility
     },
     showQuestionnaire () {
       return this.questionnaireSubmenuVisibility
+    },
+    quizRoute () {
+      return this.currentUser.role === 'STUDENT' ? 'studentQuizzes' : 'quizBatch'
+    },
+    assignmentRoute () {
+      return this.currentUser.role === 'STUDENT' ? 'studentAssignments' : 'assignmentBatch'
     }
   },
   methods: {

@@ -18,7 +18,8 @@ describe('Comparisons', () => {
   function initStore () {
     const state = {
       comparison: '',
-      score: ''
+      score: '',
+      accessList: {}
     }
     const actions = {
       fetchComparison : jest.fn(),
@@ -26,7 +27,8 @@ describe('Comparisons', () => {
     }
     const getters = {
       comparison: state => state.comparison,
-      score: state => state.score
+      score: state => state.score,
+      accessList: state => state.accessList
     }
     const store = new Vuex.Store({
       state,
