@@ -117,6 +117,22 @@ describe('StickyNotesDetail.js', () => {
     expect(initSpy).toHaveBeenCalled()
   })
 
+  test('successFetchStickyNote', () => {
+    const $toasted = {
+      error: jest.fn()
+    }
+    wrapper = shallowMount(StickyNotesDetail, {
+      store,
+      localVue,
+      mocks: {
+        $toasted
+      },
+      sync: false
+    })
+    wrapper.vm.successFetchStickyNote()
+    expect(wrapper.vm.stickyNote).toEqual(wrapper.vm.stickyNotes[0])
+  })
+
   test('fetchStickyNoteFailed', () => {
     const $toasted = {
       error: jest.fn()

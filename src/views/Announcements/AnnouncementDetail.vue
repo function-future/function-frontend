@@ -17,10 +17,10 @@
           </span>
         </div>
       </div>
-      <div class="summary">
+      <div class="summary wrap-word">
         <span>{{ announcement.summary }}</span>
       </div>
-      <div class="description">
+      <div class="description wrap-word">
         <span v-html="descriptionCompiledMarkdown"></span>
       </div>
     </BaseCard>

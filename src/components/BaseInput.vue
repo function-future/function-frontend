@@ -15,6 +15,7 @@
 <script type="text/javascript" src="./js/base-input.js">
 </script>
 
+
 <style scoped>
   .input-label {
     margin-right: 20px;
@@ -22,9 +23,9 @@
 
   .input-box {
     background: #FFFFFF;
-    border: 1px solid #FFFFFF;
+    border: 1px solid transparent;
     box-sizing: border-box;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.25);
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.20);
     border-radius: 40px;
     padding: 10px 20px 10px 20px;
     margin: 10px 0 10px 0;
@@ -41,11 +42,11 @@
 
   .input-box:hover {
     transition: all .3s ease;
-    box-shadow: 2px 2px 10px rgba(0,0,0,0.1), 2px 2px 10px rgba(0,0,0,0.3);
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.1), 2px 2px 10px rgba(0,0,0,0.20);
   }
 
   .input-box:focus {
-    box-shadow: 2px 2px 10px rgba(0,0,0,0.1), 2px 2px 10px rgba(0,0,0,0.3);
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.1), 2px 2px 10px rgba(0,0,0,0.20);
     width: 100%;
     outline: none;
   }
@@ -78,5 +79,9 @@
 
   .wrong-input {
     border: 2px solid #cb2431;
+  }
+
+  .blue-input {
+    border: 2px solid #02AAF3;
   }
 </style>

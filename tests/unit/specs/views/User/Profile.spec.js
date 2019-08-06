@@ -4,10 +4,27 @@ import Vuex from 'vuex'
 import VueRouter from 'vue-router'
 import VeeValidate from 'vee-validate'
 
-describe('UserForm', () => {
+describe('Profile', () => {
   let store
   let wrapper
   let localVue
+  let usersState = {
+    profile: {
+      'id': 'sample-id-student',
+      'role': 'STUDENT',
+      'email': 'user@user.com',
+      'name': 'User Student 1',
+      'phone': '088888888888',
+      'address': 'Jl. Address 1 Address 2',
+      'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+      'batch': {
+        'id': 'sample-id',
+        'name': 'Batch Name',
+        'code': '3'
+      },
+      'university': 'Bina Nusantara University'
+    }
+  }
 
   function generateLocalVue () {
     const lv = createLocalVue()
@@ -18,23 +35,7 @@ describe('UserForm', () => {
   }
 
   function initStore () {
-    const state = {
-      profile: {
-        'id': 'sample-id-student',
-        'role': 'STUDENT',
-        'email': 'user@user.com',
-        'name': 'User Student 1',
-        'phone': '088888888888',
-        'address': 'Jl. Address 1 Address 2',
-        'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
-        'batch': {
-          'id': 'sample-id',
-          'name': 'Batch Name',
-          'code': '3'
-        },
-        'university': 'Bina Nusantara University'
-      }
-    }
+    const state = usersState
     const actions = {
       fetchProfile: jest.fn()
     }
@@ -114,6 +115,29 @@ describe('UserForm', () => {
     initComponent()
     wrapper.vm.successFetchProfile()
     expect(wrapper.vm.avatarPreview).toEqual('https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png')
+  })
+
+  test('successFetchProfile no avatar', () => {
+    usersState = {
+      profile: {
+        'id': 'sample-id-student',
+        'role': 'STUDENT',
+        'email': 'user@user.com',
+        'name': 'User Student 1',
+        'phone': '088888888888',
+        'address': 'Jl. Address 1 Address 2',
+        'avatar': null,
+        'batch': {
+          'id': 'sample-id',
+          'name': 'Batch Name',
+          'code': '3'
+        },
+        'university': 'Bina Nusantara University'
+      }
+    }
+    initComponent()
+    wrapper.vm.successFetchProfile()
+    expect(wrapper.vm.avatarPreview).toEqual('')
   })
 
   test('failFetchProfile', () => {

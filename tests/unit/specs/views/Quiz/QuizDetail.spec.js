@@ -25,14 +25,16 @@ describe('QuizDetail', () => {
         trials: 0,
         batch: '',
         questionCount: 0
-      }
+      },
+      accessLIst: {}
     }
     const actions = {
       fetchQuizById: jest.fn(),
       updateQuizDetail: jest.fn()
     }
     const getters = {
-      quiz: state => state.quiz
+      quiz: state => state.quiz,
+      accessList: state => state.accessList
     }
     const store = new Vuex.Store({
       modules: {

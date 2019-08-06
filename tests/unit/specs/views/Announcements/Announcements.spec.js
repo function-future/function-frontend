@@ -310,6 +310,30 @@ describe('Announcements', () => {
     expect(spy).toBeCalledWith('Description goes here. Currently there is no limit to description length.')
   })
 
+  test('showLimitedPreviewText > 250 characters', () => {
+    const $route = {
+      path: '/announcements',
+      name: 'announcements',
+      meta: {
+        title: 'Announcements'
+      }
+    }
+    const $router = {
+      push: jest.fn()
+    }
+    wrapper = shallowMount(announcements, {
+      store,
+      localVue,
+      mocks: {
+        $route,
+        $router
+      },
+      sync: false
+    })
+    const text = 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.'
+    expect(wrapper.vm.showLimitedPreviewText(text)).toEqual(text.slice(0, 250) + '...')
+  })
+
   test('openDeleteConfirmationModal', () => {
     const $route = {
       path: '/announcements',
@@ -367,6 +391,7 @@ describe('Announcements', () => {
 
   test('deleteThisAnnouncement', () => {
     const spy = jest.spyOn(announcements.methods, 'deleteAnnouncementById')
+    const closeDeleteConfirmationModalSpy = jest.spyOn(announcements.methods, 'closeDeleteConfirmationModal')
     const $route = {
       path: '/announcements',
       name: 'announcements',
@@ -389,6 +414,7 @@ describe('Announcements', () => {
     wrapper.vm.selectedId = 'sample-id-1'
     wrapper.vm.deleteThisAnnouncement()
     expect(spy).toBeCalledTimes(1)
+    expect(closeDeleteConfirmationModalSpy).toBeCalledTimes(1)
   })
 
   test('failLoadingAnnouncementList', () => {
@@ -425,11 +451,9 @@ describe('Announcements', () => {
       sync: false
     })
     const loadAnnouncementListSpy = jest.spyOn(wrapper.vm, 'loadAnnouncementList')
-    const spy = jest.spyOn(wrapper.vm, 'closeDeleteConfirmationModal')
     wrapper.vm.successDeleteAnnouncementById()
     expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
     expect(loadAnnouncementListSpy).toHaveBeenCalledTimes(1)
-    expect(spy).toHaveBeenCalledTimes(1)
   })
 
   test('failDeleteAnnouncementById', () => {

@@ -1,16 +1,32 @@
 <template>
-  <div class="scrollable-container">
-    <BaseCard class="room-detail-card" cardClass="no-pointer">
-      <div class="header">
-        <h3>{{ roomDetail.assignment.title }}</h3>
-      </div>
-      <div class="scrollable">
-        <!--<div v-if="courseDetail.material !== ''" @click="downloadMaterial(courseDetail.material)" class="download-button">-->
-          <!--<font-awesome-icon icon="download" class="icon"></font-awesome-icon>Download material-->
-        <!--</div>-->
-        <span v-html="descriptionCompiledMarkdown"></span>
-      </div>
-    </BaseCard>
+  <div class="scrollable-container" v-if="!isLoading">
+    <div class="room-detail">
+      <BaseCard class="room-detail-card" cardClass="no-pointer">
+        <div class="header">
+          <h3>{{ roomDetail.assignment.title }}</h3>
+        </div>
+        <div class="header float-right">
+          <div class="action">
+            <span class="edit-btn">
+              {{roomDetail.assignment.deadline | moment('dddd, MMMM Do YYYY')}}
+            </span>
+          </div>
+        </div>
+        <a v-if="roomDetail.assignment.file && roomDetail.assignment.file !== ''" :href="roomDetail.assignment.file" target="_blank" class="download-button">
+          <font-awesome-icon icon="download" class="icon"></font-awesome-icon>Download material
+        </a>
+        <div class="scrollable">
+          <span v-html="descriptionCompiledMarkdown"></span>
+        </div>
+      </BaseCard>
+      <BaseCard class="room-detail-score" v-if="accessList.add && accessList.add.score">
+        <div class="room-detail-score-header">
+          <span>Score</span>
+          <font-awesome-icon icon="save" class="icon blue" @click="updateScore"></font-awesome-icon>
+        </div>
+        <input type="number" min="0" max="100" v-model="roomDetail.point" class="room-detail-score-input">
+      </BaseCard>
+    </div>
     <BaseCard class="discussion-wrapper" cardClass="no-pointer">
       <h3>Discussion</h3>
       <div class="scrollable discussion-scrollable">
@@ -39,7 +55,7 @@
                         v-model="discussion.comment"></BaseTextArea>
         </div>
         <div class="discussion-button">
-          <BaseButton type="submit" buttonClass="button-save" @click="submitComment">Post</BaseButton>
+          <BaseButton type="submit" buttonClass="button-save" @click="submitComment" v-if="accessList.add && accessList.add.discussion" :disabled="isDeadlineHasPassed">Post</BaseButton>
         </div>
       </div>
     </BaseCard>
@@ -49,7 +65,7 @@
 <script type="text/javascript" src="./js/assignment-room-detail.js">
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .scrollable {
     overflow: auto;
     margin-bottom: 5px;
@@ -65,8 +81,36 @@
     flex-direction: column-reverse;
   }
 
+  .room-detail {
+    height: 70vh;
+    display: flex;
+  }
+
   .room-detail-card {
-    height: 20vh;
+    max-height: 100%;
+    flex-grow: 10;
+  }
+
+  .room-detail-score {
+    display: flex;
+    flex-direction: column;
+    &-header {
+      display: flex;
+      justify-content: space-between;
+      height: 20%;
+      font-size: larger;
+      font-weight: bolder;
+    }
+    &-input {
+      height: 80%;
+      border: none;
+      font-weight: bolder;
+      font-size: 5rem;
+      text-align: right;
+      &:focus {
+        outline: none;
+      }
+    }
   }
 
   .discussion-wrapper {
@@ -95,7 +139,7 @@
     border-left: 1px solid #BDBDBD;
     padding-left: 5px;
     margin-left: 5px;
-    font-size: 0.8 rem;
+    font-size: 0.8rem;
   }
 
   .discussion-content {
@@ -173,5 +217,18 @@
 
   .icon {
     margin-right: 5px;
+  }
+
+  .download-button {
+    display: block;
+    border: 1px solid #828282;
+    border-radius: 10px;
+    padding: 10px 20px;
+    color: #505050;
+    cursor: pointer;
+  }
+
+  .download-button:hover {
+    background-color: #F2F2F2;
   }
 </style>

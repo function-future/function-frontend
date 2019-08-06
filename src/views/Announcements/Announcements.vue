@@ -37,7 +37,7 @@
               size="lg" @click.stop="openDeleteConfirmationModal(announcement.id)"></font-awesome-icon></span>
           </div>
         </div>
-        <div class="announcement-preview">
+        <div class="announcement-preview wrap-word">
           <span>{{ textPreview(announcement) }}</span>
         </div>
       </BaseCard>
@@ -99,7 +99,7 @@
   }
 
   h3 {
-    margin: 5px 0 15px 0;
+    margin: 5px 0 10px 0;
     text-align: left;
   }
 

@@ -3,7 +3,7 @@ import { createLocalVue, shallowMount } from '@vue/test-utils'
 import Vuex from 'vuex'
 import VueRouter from 'vue-router'
 
-describe('CourseBatch', () => {
+describe('QuizBatch', () => {
   let store
   let wrapper
   let localVue
@@ -38,14 +38,16 @@ describe('CourseBatch', () => {
           'code': '4',
           'name': 'Batch 3'
         }
-      ]
+      ],
+      accessList: {}
     }
     const actions = {
       fetchBatches: jest.fn(),
       deleteBatch: jest.fn()
     }
     const getters = {
-      batchList: state => state.batchList
+      batchList: state => state.batchList,
+      accessList: state => state.accessList
     }
     const store = new Vuex.Store({
       modules: {
@@ -112,7 +114,7 @@ describe('CourseBatch', () => {
     expect(wrapper.isVueInstance()).toBe(true)
   })
 
-  test('goToCourse', () => {
+  test('goToQuizzes', () => {
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.goToQuizList('3')
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({

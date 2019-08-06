@@ -14,7 +14,9 @@ export default {
     return {
       announcementDetail: {},
       img_file: {},
-      imageIds: []
+      imageIds: [],
+      isSubmitting: false,
+      pos: ''
     }
   },
   props: [
@@ -77,6 +79,7 @@ export default {
       this.validateBeforeSubmit(this.validationSuccess)
     },
     validationSuccess () {
+      this.isSubmitting = true
       let data = {
         ...this.announcementDetail,
         files: this.imageIds
@@ -96,6 +99,7 @@ export default {
       this.$toasted.success('Successfully created new announcement')
     },
     failSendCreateAnnouncementData () {
+      this.isSubmitting = false
       this.$toasted.error('Fail to create new announcement')
     },
     sendUpdateAnnouncementData (data) {
@@ -114,12 +118,14 @@ export default {
       this.initialState()
     },
     failSendUpdateAnnouncementData () {
+      this.isSubmitting = false
       this.$toasted.error('Fail to update announcement')
     },
     cancel () {
       this.$router.push({ name: 'announcements' })
     },
     $imgAdd (pos, $file) {
+      this.pos = pos
       let data = new FormData()
       data.append('file', $file)
       this.img_file[pos] = $file
@@ -128,12 +134,13 @@ export default {
       this.uploadResource({
         data,
         configuration,
-        callback: (response) => {
-          this.$refs.md.$img2Url(pos, response.file.full)
-          this.imageIds.push(response.id)
-        },
+        callback: this.successUploadResource,
         fail: this.failUploadResource
       })
+    },
+    successUploadResource (response) {
+      this.$refs.md.$img2Url(this.pos, response.file.full)
+      this.imageIds.push(response.id)
     },
     failUploadResource () {
       this.$toasted.error('Fail to upload image, please delete the image and re-upload')

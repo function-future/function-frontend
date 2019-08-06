@@ -33,6 +33,16 @@
               </BaseInput>
               <div v-if="errors.has('password')"><span class="input-invalid-message">{{ errors.first('password') }}</span></div>
             </div>
+            <div class="tooltip-wrapper">
+              <div class="tooltip">
+                <font-awesome-icon icon="info-circle" class="icon" size="lg"/> Password Hint
+                <span class="tooltiptext">
+                If you have not changed your password,<br>
+                Default: <b>[lowercase no space full name]functionapp</b><br>
+                Example: <b>oliversebastianfunctionapp</b>
+              </span>
+              </div>
+            </div>
             <BaseButton type="submit" buttonClass="button-save" @click="login" class="login-button">
               <span v-if="!loggingIn">Login</span>
               <span v-if="loggingIn"><font-awesome-icon icon="spinner" spin class="icon"></font-awesome-icon></span>
@@ -46,10 +56,6 @@
 </template>
 
 <script type="text/javascript" src="./js/login.js"></script>
-
-
-
-
 
 <style lang="scss" scoped>
   %flex-center {
@@ -182,5 +188,47 @@
     to {
       opacity: 1;
     }
+  }
+
+  .tooltip {
+    font-size: 0.8rem;
+    position: relative;
+    display: inline-block;
+
+    &-wrapper {
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+
+  .tooltip .tooltiptext {
+    right: -20%;
+    line-height: 17px;
+    margin-top: 5px;
+    padding: 10px 15px;
+    transition: all .2s ease;
+    visibility: hidden;
+    width: 350px;
+    background-color: #505050;
+    color: #fff;
+    text-align: left;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+  }
+
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+  }
+
+  .tooltip .tooltiptext::after {
+    content: " ";
+    position: absolute;
+    bottom: 100%; /* At the bottom of the tooltip */
+    left: 85%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent #505050 transparent;
   }
 </style>

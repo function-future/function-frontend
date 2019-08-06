@@ -21,10 +21,15 @@ const createAssignmentRoomComment = function (callback, data, payload, errorHand
   request.postRequest(config.api.scoring.assignments.rooms.comments.create(data.batchCode, data.assignmentId, data.roomId), callback, payload, errorHandler)
 }
 
+const updateAssignmentScore = function (callback, data, payload, errorHandler) {
+  request.putRequest(config.api.scoring.assignments.rooms.score(data.batchCode, data.assignmentId, data.roomId), callback, payload, errorHandler)
+}
+
 export default {
   getAssignmentRooms,
   getAssignmentRoomById,
   updateAssignmentRoomScore,
   getAssignmentRoomComments,
-  createAssignmentRoomComment
+  createAssignmentRoomComment,
+  updateAssignmentScore
 }

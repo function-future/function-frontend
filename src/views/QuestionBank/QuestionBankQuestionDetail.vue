@@ -4,42 +4,61 @@
       <span class="section-header">Question</span>
       <BaseTextArea :style="{height: '200px'}" v-model="questionDetail.label" :disabled="!editMode"></BaseTextArea>
     </BaseCard>
-    <BaseCard>
-      <span class="section-header">Answers</span>
-      <div class="answer-container">
-        <div class="answer-container__option">
-          <label class="answer-container__option-label">Option A
-            <input type="radio" name="correct-answer" value="0" :checked="questionDetail.options[0].correct || false" :disabled="!editMode">
-            <span class="checkmark"></span>
-          </label>
-          <BaseInput class="answer-container__option-input" v-model="questionDetail.options[0].label" :disabled="!editMode"></BaseInput>
+    <div class="options-container">
+      <BaseCard class="choices-card" :style="{'margin-bottom': '0'}">
+        <span class="section-header">Options</span>
+        <div class="answer-container">
+          <div class="answer-container__option">
+            <span class="answer-container__option-label">A: </span>
+            <BaseInput class="answer-container__option-input" :inputType="selectedAnswer === 0 ? 'blue-input' : '' " v-model="questionDetail.options[0].label" placeholder="Option A" :disabled="!editMode"></BaseInput>
+          </div>
+          <div class="answer-container__option">
+            <span class="answer-container__option-label">B: </span>
+            <BaseInput class="answer-container__option-input" :inputType="selectedAnswer === 1 ? 'blue-input' : '' " v-model="questionDetail.options[1].label" placeholder="Option B" :disabled="!editMode"></BaseInput>
+          </div>
+          <div class="answer-container__option">
+            <span class="answer-container__option-label">C: </span>
+            <BaseInput class="answer-container__option-input" :inputType="selectedAnswer === 2 ? 'blue-input' : '' " v-model="questionDetail.options[2].label" placeholder="Option C" :disabled="!editMode"></BaseInput>
+          </div>
+          <div class="answer-container__option">
+            <span class="answer-container__option-label">D: </span>
+            <BaseInput class="answer-container__option-input" :inputType="selectedAnswer === 3 ? 'blue-input' : '' " v-model="questionDetail.options[3].label" placeholder="Option D" :disabled="!editMode"></BaseInput>
+          </div>
         </div>
-        <div class="answer-container__option">
-          <label class="answer-container__option-label">Option B
-            <input type="radio" name="correct-answer" value="1" :checked="questionDetail.options[1].correct || false" :disabled="!editMode">
-            <span class="checkmark"></span>
+      </BaseCard>
+      <div>
+        <BaseCard class="answer-card">
+          <span class="section-header">Answer</span>
+          <label>
+            <BaseCard class="select-answer-card" :class="selectedAnswer === 0 ? 'blue-card' : '' " :style="selectAnswerCardStyle">
+              A
+            </BaseCard>
+            <input type="radio" name="selectedAnswer" :value="0" v-model="selectedAnswer" :disabled="!editMode">
           </label>
-          <BaseInput class="answer-container__option-input" v-model="questionDetail.options[1].label" :disabled="!editMode"></BaseInput>
-        </div>
-        <div class="answer-container__option">
-          <label class="answer-container__option-label">Option C
-            <input type="radio" name="correct-answer" value="2" :checked="questionDetail.options[2].correct || false" :disabled="!editMode">
-            <span class="checkmark"></span>
+          <label>
+            <BaseCard class="select-answer-card" :class="selectedAnswer === 1 ? 'blue-card' : '' " :style="selectAnswerCardStyle">
+              B
+            </BaseCard>
+            <input type="radio" name="selectedAnswer" :value="1" v-model="selectedAnswer" :disabled="!editMode">
           </label>
-          <BaseInput class="answer-container__option-input" v-model="questionDetail.options[2].label" :disabled="!editMode"></BaseInput>
-        </div>
-        <div class="answer-container__option">
-          <label class="answer-container__option-label">Option D
-            <input type="radio" name="correct-answer" value="3" :checked="questionDetail.options[3].correct || false" :disabled="!editMode">
-            <span class="checkmark"></span>
+          <label>
+            <BaseCard class="select-answer-card" :class="selectedAnswer === 2 ? 'blue-card' : '' " :style="selectAnswerCardStyle">
+              C
+            </BaseCard>
+            <input type="radio" name="selectedAnswer" :value="2" v-model="selectedAnswer" :disabled="!editMode">
           </label>
-          <BaseInput class="answer-container__option-input" v-model="questionDetail.options[3].label" :disabled="!editMode"></BaseInput>
+          <label>
+            <BaseCard class="select-answer-card" :class="selectedAnswer === 3 ? 'blue-card' : '' " :style="selectAnswerCardStyle">
+              D
+            </BaseCard>
+            <input type="radio" name="selectedAnswer" :value="3" v-model="selectedAnswer" :disabled="!editMode">
+          </label>
+        </BaseCard>
+        <div class="action-container">
+          <BaseButton buttonClass="button-cancel" @click="cancelButtonClicked">{{cancelButtonText}}</BaseButton>
+          <BaseButton buttonClass="button-save" @click="actionButtonClicked">{{actionButtonText}}</BaseButton>
         </div>
       </div>
-    </BaseCard>
-    <div class="action-container">
-      <BaseButton buttonClass="button-cancel" @click="cancelButtonClicked">{{cancelButtonText}}</BaseButton>
-      <BaseButton buttonClass="button-save" @click="actionButtonClicked">{{actionButtonText}}</BaseButton>
     </div>
   </div>
 </template>
@@ -64,13 +83,13 @@
     flex-direction: row;
     justify-content: space-around;
     &__option {
-      width: 45%;
+      width: 90%;
       display: flex;
-      flex-wrap: wrap;
+      flex-direction: row;
+      align-items: center;
       &-label {
         position: relative;
-        padding-left: 35px;
-        margin-bottom: 12px;
+        margin-right: 20px;
         cursor: pointer;
         font-size: 22px;
         -webkit-user-select: none;
@@ -136,6 +155,30 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+  }
+
+  .options-container {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .answer-card {
+    height: 80%;
+  }
+
+  input[type=radio] {
+    display: none;
+  }
+
+  .select-answer-card:hover {
+    cursor: pointer;
+    transition: all .3s ease;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.1), 2px 2px 10px rgba(0,0,0,0.3);
+  }
+
+  .blue-card {
+    background-color: #02AAF3;
+    color: white;
   }
 </style>
 

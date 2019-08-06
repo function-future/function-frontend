@@ -20,6 +20,7 @@ export default {
   ],
   data () {
     return {
+      isSubmitting: false,
       isLoading: false,
       showSelectBatchModal: false,
       maximumSizeAlert: false,
@@ -30,7 +31,8 @@ export default {
         name: '',
         phone: '',
         address: '',
-        avatar: [],
+        avatar: '',
+        avatarId: '',
         university: '',
         batch: {
           code: '',
@@ -60,7 +62,10 @@ export default {
   computed: {
     ...mapGetters([
       'user'
-    ])
+    ]),
+    userAvatarId () {
+      return this.userDetail.avatarId ? [ this.userDetail.avatarId ] : []
+    }
   },
   methods: {
     ...mapActions([
@@ -99,7 +104,7 @@ export default {
     },
     onFileChange (e) {
       this.newImage = e.target.files[0]
-      let files = e.target.files || e.dataTransfer.files
+      let files = e.target.files
       if (files[0].size > 1000000) {
         this.maximumSizeAlert = true
       } else {
@@ -124,7 +129,7 @@ export default {
       })
     },
     successUploadProfilePicture (response) {
-      this.userDetail.avatar = [ response.id ]
+      this.userDetail.avatarId = response.id
       this.avatarPreview = response.file.full
     },
     failUploadProfilePicture () {
@@ -144,6 +149,7 @@ export default {
       this.validateBeforeSubmit(this.validationSuccess)
     },
     validationSuccess () {
+      this.isSubmitting = true
       let userData = {
         id: this.userDetail.id || '',
         role: this.userDetail.role,
@@ -151,17 +157,17 @@ export default {
         name: this.userDetail.name,
         phone: this.userDetail.phone,
         address: this.userDetail.address,
-        avatar: this.userDetail.avatar
+        avatar: this.userAvatarId
       }
-      let studentData = {
-        ...userData,
-        role: 'STUDENT',
-        batch: this.userDetail.batch.code,
-        university: this.userDetail.university
+      if (this.studentMode) {
+        userData = {
+          ...userData,
+          role: 'STUDENT',
+          batch: this.userDetail.batch.code,
+          university: this.userDetail.university
+        }
       }
-      let data = {}
-      this.studentMode ? data = { ...studentData } : data = { ...userData }
-      this.sendData(data)
+      this.sendData(userData)
     },
     sendData (data) {
       if (this.editMode) {
@@ -186,6 +192,7 @@ export default {
       this.$toasted.success('Successfully ' + msg + ' user')
     },
     failCreateOrEditUser () {
+      this.isSubmitting = false
       let msg = ''
       this.editMode ? msg = 'save edited' : msg = 'create new'
       this.$toasted.error('Fail to ' + msg + ' user')

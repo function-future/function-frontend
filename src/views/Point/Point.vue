@@ -7,8 +7,8 @@
         </div>
         <div class="profile-section__card-detail">
           <h2>{{points.studentName}}</h2>
-          <span>{{points.university}}</span>
-          <span>Batch {{points.batchCode}}</span>
+          <div>{{points.university}}</div>
+          <div>Batch {{points.batchCode}}</div>
         </div>
       </BaseCard>
     </div>
@@ -19,11 +19,11 @@
           <BaseCard v-for="point in points.scores" class="points-section__card-item" :key="point.id">
             <div class="points-section__card-item-detail">
               <h3>{{point.type}}</h3>
-              <span>{{point.title}}</span>
+              <h4>{{point.title}}</h4>
             </div>
             <div class="points-section__card-item-score">
               <div class="points-section__card-item-score-border">
-                {{point.point}}
+                <div class="points-section__card-item-score-border-point">{{point.point}}</div>
               </div>
             </div>
           </BaseCard>
@@ -41,7 +41,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    height: 90%;
+    height: 85%;
 
     .profile-section {
       height: 20%;
@@ -49,8 +49,14 @@
         display: flex;
         flex-direction: row;
         &-detail {
-          display: flex;
-          flex-direction: column;
+          margin-top: -10px;
+        }
+        &-image {
+          width: 100px;
+          height: 100px;
+          border-radius: 10px;
+          border: 1px solid black;
+          margin-right: 15px;
         }
       }
     }
@@ -85,28 +91,38 @@
           display: flex;
           flex-direction: row;
           justify-content: space-between;
+          padding: 10px 20px;
           &-detail {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
+            h3 {
+              font-size: 18px;
+            }
+            h3, h4 {
+              margin: 10px 0;
+            }
+            h4 {
+              font-weight: normal;
+              font-size: 16px;
+              margin-left: 12px;
+            }
           }
           &-score {
             align-self: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 70px;
-            height: 70px;
+            width: 50px;
+            height: 50px;
+            text-align: center;
             &-border {
               border-radius: 100%;
-              border: 4px solid black;
+              border: 3px solid rgba(0, 0, 0, 0.3);
               width: 100%;
               height: 100%;
-              display: flex;
-              justify-content: center;
-              align-items: center;
               font-size: larger;
               font-weight: bolder;
+              &-point {
+                color: rgba(0, 0, 0, 0.8);
+                margin-top: 1.85vh;
+                margin-left: auto;
+                margin-right: auto;
+              }
             }
           }
         }

@@ -4,7 +4,7 @@ import BaseButton from '@/components/BaseButton'
 import BaseTextArea from '@/components/BaseTextArea'
 
 export default {
-  name: 'masterCourseForm',
+  name: 'batchForm',
   components: {
     BaseButton,
     BaseInput,
@@ -15,7 +15,8 @@ export default {
       batch: {
         code: '',
         name: ''
-      }
+      },
+      isSubmitting: false
     }
   },
   props: [
@@ -62,6 +63,7 @@ export default {
       this.validateBeforeSubmit(this.validationSuccess)
     },
     validationSuccess () {
+      this.isSubmitting = true
       const data = {
         id: this.$route.params.id,
         content: { ...this.batch }
@@ -87,6 +89,7 @@ export default {
       this.$toasted.success('Successfully ' + msg + ' batch')
     },
     failCreateOrEditBatch () {
+      this.isSubmitting = false
       let msg = ''
       this.editMode ? msg = 'edit' : msg = 'create new'
       this.$toasted.error('Fail to ' + msg + ' batch')

@@ -18,10 +18,28 @@ export default {
     selectedUsers: {
       default: [],
       type: Array
+    },
+    isQuestionnaireSearch: {
+      default: false,
+      type: Boolean
+    },
+    isLoggingRoomSearch: {
+      default: false,
+      type: Boolean
     }
   },
   computed: {
     usersWithoutSelectedOne () {
+      if (this.isQuestionnaireSearch) {
+        return this.users.filter(user => {
+          return (!this.selectedUsers.map(usr => usr.id).includes(user.id) &&
+            (user.role === 'STUDENT' || user.role === 'MENTOR'))
+        })
+      } else if (this.isLoggingRoomSearch) {
+        return this.users.filter(user => {
+          return (!this.selectedUsers.map(usr => usr.id).includes(user.id) && user.role === 'STUDENT')
+        })
+      }
       return this.users.filter(user => {
         return !this.selectedUsers.map(usr => usr.id).includes(user.id)
       })

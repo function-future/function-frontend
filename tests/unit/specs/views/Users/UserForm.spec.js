@@ -108,20 +108,22 @@ describe('UserForm', () => {
   })
 
   test('initPage editMode false', () => {
-    wrapper.vm.editMode = false
     const initialStateSpy = jest.spyOn(UserForm.methods, 'initialState')
     initComponent()
-    expect(initialStateSpy).toHaveBeenCalledTimes(1)
+    wrapper.vm.editMode = false
+    wrapper.vm.initPage()
+    expect(initialStateSpy).toHaveBeenCalledTimes(2)
   })
 
   test('initPage editMode true', () => {
-    wrapper.vm.editMode = true
     const spy = jest.spyOn(UserForm.methods, 'initialState')
     const getUserDetailSpy = jest.spyOn(UserForm.methods, 'getUserDetail')
     initComponent()
+    wrapper.vm.editMode = true
+    wrapper.vm.initPage()
     expect(wrapper.vm.isLoading).toEqual(true)
-    expect(spy).toHaveBeenCalledTimes(1)
-    expect(getUserDetailSpy).toHaveBeenCalledTimes(1)
+    expect(spy).toHaveBeenCalledTimes(2)
+    expect(getUserDetailSpy).toHaveBeenCalledTimes(2)
   })
 
   test('getUserDetail', () => {
@@ -168,7 +170,7 @@ describe('UserForm', () => {
     }
     initComponent()
     wrapper.vm.successUploadProfilePicture(response)
-    expect(wrapper.vm.userDetail.avatar).toEqual([ response.id ])
+    expect(wrapper.vm.userDetail.avatarId).toEqual(response.id)
     expect(wrapper.vm.avatarPreview).toEqual(response.file.full)
   })
 
@@ -196,6 +198,18 @@ describe('UserForm', () => {
     })
   })
 
+  test('validateBeforeSubmit is resolved false', (done) => {
+    initComponent()
+    const callback = jest.fn()
+    wrapper.vm.$validator.validateAll = jest.fn().mockResolvedValue(false)
+    wrapper.vm.validateBeforeSubmit(callback)
+    wrapper.vm.$nextTick(() => {
+      expect(wrapper.vm.$validator.validateAll).toHaveBeenCalledTimes(1)
+      expect(callback).toHaveBeenCalledTimes(0)
+      done()
+    })
+  })
+
   test('validateBeforeSubmit is rejected', () => {
     const callback = jest.fn()
     initComponent()
@@ -215,6 +229,26 @@ describe('UserForm', () => {
     const spy = jest.spyOn(wrapper.vm, 'sendData')
     wrapper.vm.validationSuccess()
     expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('validationSuccess studentMode', () => {
+    initComponent()
+    wrapper.vm.studentMode = true
+    const spy = jest.spyOn(wrapper.vm, 'sendData')
+    wrapper.vm.validationSuccess()
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('userAvatarId avatarId null', () => {
+    initComponent()
+    wrapper.vm.userDetail.avatarId = null
+    expect(wrapper.vm.userAvatarId).toEqual([])
+  })
+
+  test('userAvatarId avatarId not null', () => {
+    initComponent()
+    wrapper.vm.userDetail.avatarId = 'sample-id'
+    expect(wrapper.vm.userAvatarId).toEqual(['sample-id'])
   })
 
   test('sendData not editMode', () => {
@@ -261,16 +295,34 @@ describe('UserForm', () => {
     expect(wrapper.vm.maximumSizeAlert).toEqual(true)
   })
 
-  test('successCreateOrEditUser', () => {
+  test('successCreateOrEditUser editMode false', () => {
     initComponent()
+    wrapper.vm.editMode = false
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.successCreateOrEditUser()
     expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'users' })
   })
 
-  test('failCreateOrEditUser', () => {
+  test('successCreateOrEditUser editMode true', () => {
     initComponent()
+    wrapper.vm.editMode = true
+    wrapper.vm.$router.push = jest.fn()
+    wrapper.vm.successCreateOrEditUser()
+    expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'users' })
+  })
+
+  test('failCreateOrEditUser editMode false', () => {
+    initComponent()
+    wrapper.vm.editMode = false
+    wrapper.vm.failCreateOrEditUser()
+    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+  })
+
+  test('failCreateOrEditUser editMode true', () => {
+    initComponent()
+    wrapper.vm.editMode = true
     wrapper.vm.failCreateOrEditUser()
     expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
   })

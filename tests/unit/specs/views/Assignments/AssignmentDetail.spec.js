@@ -17,24 +17,23 @@ describe('AssignmentDetail', () => {
 
   function initStore () {
     const state = {
-      assignment: {}
+      assignment: {},
+      accessList: {}
     }
     const actions = {
       updateAssignmentDetail: jest.fn(),
-      fetchAssignmentDetail: jest.fn()
+      fetchAssignmentDetail: jest.fn(),
+      downloadCourseMaterial: jest.fn(),
+      uploadMaterial: jest.fn()
     }
     const getters = {
-      assignment: state => state.assignment
+      assignment: state => state.assignment,
+      accessList: state => state.accessList
     }
     const store = new Vuex.Store({
-      modules: {
-        assignments: {
-          state,
-          actions,
-          getters,
-          namespaced: true
-        }
-      }
+      state,
+      actions,
+      getters
     })
 
     return {
@@ -97,12 +96,13 @@ describe('AssignmentDetail', () => {
 
   test('successFetchingAssignmentDetail', () => {
     initComponent()
-    wrapper.vm.$store.getters.assignment = {
+    wrapper.vm.$store.state.assignment = {
       'id': 'ASG0001',
       'title': 'Assignment 1',
       'description': 'Description Number 1',
       'deadline': 15000,
       'file': 'http://function-static.com/ASG0001/fileName.docx',
+      'fileId': 'fileId',
       'batch': 3
     }
     wrapper.vm.assignmentDetail = {
@@ -119,7 +119,8 @@ describe('AssignmentDetail', () => {
       'description': 'Description Number 1',
       'deadline': new Date(15000),
       'file': 'http://function-static.com/ASG0001/fileName.docx',
-      'batch': 3})
+      'fileId': 'fileId',
+      'batch': 3 })
     expect(wrapper.vm.displayedDates.start).toEqual(wrapper.vm.assignmentDetail.deadline)
     expect(wrapper.vm.displayedDates.end).toEqual(wrapper.vm.assignmentDetail.deadline)
   })
@@ -179,5 +180,74 @@ describe('AssignmentDetail', () => {
     initComponent()
     wrapper.vm.failUpdatingAssignment()
     expect(wrapper.vm.$toasted.error).toBeCalledTimes(1)
+  })
+
+  test('goToRoomList', () => {
+    initComponent()
+    const spy = jest.spyOn(wrapper.vm.$router, 'push')
+    wrapper.vm.goToRoomList()
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('onFileChange', () => {
+    initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'materialUpload')
+    const e = {
+      target: {
+        files: [
+          {
+            name: 'test.png',
+            size: 2000000,
+            type: 'image/png'
+          }
+        ]
+      }
+    }
+    wrapper.vm.onFileChange(e)
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('materialUpload', () => {
+    initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'uploadMaterial')
+    const file = {
+      name: 'test.png',
+      size: 2000000,
+      type: 'image/png'
+    }
+    wrapper.vm.materialUpload(file)
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('successUploadMaterial', () => {
+    initComponent()
+    const response = {
+      'id': 'sample-id',
+      'name': 'File Name',
+      'file': {
+        'full': 'https://i.pinimg.com/originals/8c/cf/ec/8ccfec7d5cb3c92265cbf153523eb9b5.jpg',
+        'thumbnail': null
+      }
+    }
+    wrapper.vm.file.name = 'sample-file-name'
+    wrapper.vm.successUploadMaterial(response)
+    expect(wrapper.vm.uploadingFile).toEqual(false)
+    expect(wrapper.vm.assignmentDetail.fileId).toEqual(response.id)
+    expect(wrapper.vm.filePreviewName).toEqual('sample-file-name')
+  })
+
+  test('failUploadMaterial', () => {
+    initComponent()
+    wrapper.vm.failUploadMaterial()
+    expect(wrapper.vm.uploadingFile).toEqual(false)
+    expect(wrapper.vm.filePreviewName).toEqual('Fail to upload material, please try again')
+    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+  })
+
+  test('deleteAssignmentFile', () => {
+    //TODO still failed
+    initComponent()
+    wrapper.vm.deleteAssignmentFile()
+    expect(wrapper.vm.assignmentDetail.fileId).toEqual('')
   })
 })

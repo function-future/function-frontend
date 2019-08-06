@@ -15,12 +15,12 @@
         <span v-if="!showGrades"><font-awesome-icon icon="chevron-down" class="icon"/></span>
         <span v-if="showGrades"><font-awesome-icon icon="chevron-up" class="icon"/></span>
       </li>
-      <transition name="fade">
-        <ul v-if="showGrades" class="grades-submenu">
+      <transition name="slide-fade">
+        <ul v-if="showGrades" class="grades-submenu scoring-menu" :class="{active: showGrades}">
           <li v-if="menuList.questionBanks"><router-link :to="{ name: 'questionBanks' }" class="navbar-link">Question Banks</router-link></li>
-          <li v-if="menuList.quizzes"><router-link :to="{ name: 'quizBatch' }" class="navbar-link">Quizzes</router-link></li>
-          <li v-if="menuList.assignments"><router-link :to="{ name: 'assignmentBatch' }" class="navbar-link">Assignments</router-link></li>
-          <li v-if="menuList.comparisons"><router-link :to="{ name: 'finalComparisons' }" class="navbar-link">Comparisons</router-link></li>
+          <li v-if="menuList.quizzes"><router-link :to="{ name: quizRoute }" class="navbar-link">Quizzes</router-link></li>
+          <li v-if="menuList.assignments"><router-link :to="{ name: assignmentRoute }" class="navbar-link">Assignments</router-link></li>
+          <li v-if="menuList.comparisons"><router-link :to="{ name: 'judgingBatch' }" class="navbar-link">Comparisons</router-link></li>
           <li v-if="menuList.points"><router-link :to="{ name: 'points' }" class="navbar-link">Points</router-link></li>
         </ul>
       </transition>
@@ -29,6 +29,24 @@
       </li>
       <li v-if="menuList.reminders">
         <router-link class="navbar-link" :to="{ name: 'reminders' }">Reminders</router-link>
+      </li>
+      <li v-if="menuList.myQuestionnaire">
+        <router-link class="navbar-link" :to="{ name: 'myQuestionnaire'}" >My Questionnaire</router-link>
+      </li>
+      <li class="navbar-link questionnaire-menu" @click="toggleQuestionnaireMenu" v-if="menuList.questionnaireAdmin">
+        <span>Questionnaires Admin</span>
+        <font-awesome-icon icon="chevron-down" class="icon icon-questionnaire" v-if="!showQuestionnaire"/>
+        <font-awesome-icon icon="chevron-up" class="icon icon-questionnaire" v-else/>
+      </li>
+      <transition name="fade">
+        <ul v-if="showQuestionnaire" class="questionnaire-submenu">
+          <li><router-link :to="{ name: 'questionnaires' }" class="navbar-link">Questionnaires</router-link></li>
+          <li><router-link :to="{ name: 'questionnaireResults' }" class="navbar-link">Results</router-link></li>
+        </ul>
+      </transition>
+      <li v-if="menuList.loggingRoom">
+        <router-link class="navbar-link" :to="{ name: 'loggingRoom'}" >Logging Rooms
+        </router-link>
       </li>
     </ul>
   </nav>
@@ -51,6 +69,7 @@
     display: block;
     list-style-type: none;
     margin-right: 20px;
+    margin-top: 10px;
     padding-left: 0;
   }
 
@@ -84,14 +103,76 @@
     font-weight: bold;
   }
 
-  .grades-menu {
+  .grades-menu, .questionnaire-menu {
     display: flex;
     justify-content: space-between;
     cursor: pointer;
   }
 
-  .grades-submenu {
+  .grades-submenu, .questionnaire-submenu {
     list-style-type: none;
+  }
+
+  /*.scoring-menu {*/
+  /*  height: 0;*/
+  /*  transition: height 800ms ease-out;*/
+  /*}*/
+
+  /*.scoring-menu.active {*/
+  /*  height: 130px;*/
+  /*}*/
+
+  .slide-fade-enter-active {
+    max-height: 123px;
+    animation: height-animation-in 400ms ease-out, opacity-animation-in 400ms ease-out;
+  }
+  .slide-fade-leave-active {
+    max-height: 123px;
+    animation: height-animation-out 350ms ease-out, opacity-animation-out 250ms ease-out;
+  }
+  .slide-fade-enter, .slide-fade-leave-to
+    /* .slide-fade-leave-active below version 2.1.8 */ {
+    max-height: 0;
+    opacity: 0;
+  }
+
+  @keyframes height-animation-in {
+    0% {
+      max-height: 0;
+    }
+    100% {
+      max-height: 123px;
+    }
+  }
+
+  @keyframes height-animation-out {
+    0% {
+      max-height: 123px;
+    }
+    100% {
+      max-height: 0;
+    }
+  }
+
+  @keyframes opacity-animation-in {
+    0% {
+      opacity: 0;
+    }
+    30% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes opacity-animation-out {
+    0% {
+      opacity: 1;
+    }
+    30% {
+      opacity: 0;
+    }
   }
 
   .fade-enter-active {
@@ -117,7 +198,7 @@
       margin-left: 25px;
     }
 
-    .grades-submenu {
+    .grades-submenu, .questionnaire-submenu {
       font-size: 0.8em;
     }
   }
@@ -133,9 +214,15 @@
       padding-top: 10px;
     }
 
-    .grades-submenu {
+    .grades-submenu, .questionnaire-submenu {
       font-size: 0.6em;
     }
 
+  }
+
+  @media only screen and (max-width: 1700px) {
+    .icon-questionnaire {
+      padding-top: 15px;
+    }
   }
 </style>

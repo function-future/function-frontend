@@ -119,6 +119,20 @@ describe('auth store module', () => {
       expect(callback).toHaveBeenCalledTimes(1)
       expect(fail).not.toHaveBeenCalled()
     })
+
+    test('setCurrentUser', () => {
+      const data = {}
+      const commit = jest.fn()
+      store.actions.setCurrentUser({ commit }, { data })
+      expect(commit).toHaveBeenCalledTimes(1)
+    })
+
+    test('setMenuList', () => {
+      const data = {}
+      const commit = jest.fn()
+      store.actions.setMenuList({ commit }, { data })
+      expect(commit).toHaveBeenCalledTimes(1)
+    })
   })
 
   describe('courses setter getters', () => {

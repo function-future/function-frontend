@@ -1,6 +1,8 @@
 <template>
   <div class="scrollable-container">
-    <BaseCard class="quiz-card" v-for="studentQuiz in studentQuizList" @click.native="goToQuizDetail(studentQuiz.id)">
+    <BaseCard class="quiz-card"
+              v-for="studentQuiz in studentQuizList"
+              @click.native="goToQuizDetail(studentQuiz.id)">
       <div class="card-header-section">
         <div class="card-header">
           {{studentQuiz.quiz.title}}
@@ -13,7 +15,7 @@
       </div>
       <div class="card-body">
         <div class="quiz-description">
-          {{studentQuiz.quiz.description}}
+          <span v-html="descriptionCompiledMarkdown(studentQuiz.quiz.description)"></span>
         </div>
       </div>
       <div class="card-footer">
@@ -31,7 +33,7 @@
         </div>
         <div class="retry-count">
           <font-awesome-icon icon="redo"></font-awesome-icon>
-          <span>{{studentQuiz.quiz.trials}} tries</span>
+          <span>{{studentQuiz.trials}} tries</span>
         </div>
       </div>
     </BaseCard>

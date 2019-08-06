@@ -25,20 +25,27 @@ export default {
     }
   },
   created () {
-    this.loadActivityBlogList()
+    this.initPage()
   },
   computed: {
     ...mapGetters([
       'activityBlogs',
       'currentUser',
       'accessList'
-    ])
+    ]),
+    userId () {
+      return this.$route.query.userId || ''
+    }
   },
   methods: {
     ...mapActions([
       'fetchActivityBlogs',
+      'fetchUserActivityBlogs',
       'deleteActivityBlogById'
     ]),
+    initPage () {
+      this.userId ? this.loadUserActivityBlogList() : this.loadActivityBlogList()
+    },
     loadActivityBlogList () {
       this.isLoading = true
       this.paging = { ...this.paging }
@@ -49,8 +56,33 @@ export default {
         fail: this.failLoadActivityBlogList
       })
     },
+    loadUserActivityBlogList () {
+      this.isLoading = true
+      this.paging = { ...this.paging }
+      let data = {
+        ...this.paging,
+        userId: this.userId
+      }
+      this.fetchUserActivityBlogs({
+        data,
+        callback: this.successLoadActivityBlogList,
+        fail: this.failLoadActivityBlogList
+      })
+    },
+    successLoadActivityBlogList (paging) {
+      this.isLoading = false
+      this.paging = paging
+    },
+    failLoadActivityBlogList () {
+      this.isLoading = false
+      this.$toasted.error('Fail to load activity blogs list')
+    },
     compileToMarkdown: function (description) {
-      return marked(description.replace(/\!\[.*\]\(.*\)/,''))
+      return marked(this.showLimitedPreviewText(description.replace(/\!\[.*\]\(.*\)/,'')))
+    },
+    showLimitedPreviewText: function (text) {
+      let maximumCharacters = 350
+      return text.length > maximumCharacters ? text.slice(0, maximumCharacters) + '...' : text
     },
     goToActivityBlogDetail (id) {
       this.$router.push({
@@ -86,35 +118,40 @@ export default {
         callback: this.successDeleteActivityBlogById,
         fail: this.failDeleteActivityBlogById
       })
-    },
-    successLoadActivityBlogList (paging) {
-      this.isLoading = false
-      this.paging = paging
-    },
-    failLoadActivityBlogList () {
-      this.isLoading = false
-      this.$toasted.error('Fail to load activity blogs list')
+      this.closeDeleteConfirmationModal()
     },
     successDeleteActivityBlogById () {
-      this.loadActivityBlogList()
+      this.initPage()
       this.$toasted.success('Successfully delete activity blog')
-      this.closeDeleteConfirmationModal()
     },
     failDeleteActivityBlogById () {
       this.$toasted.error('Fail to delete activity blog')
-      this.closeDeleteConfirmationModal()
     },
     loadPage (page) {
       this.paging.page = page
-      this.loadActivityBlogList()
+      this.initPage()
     },
     loadPreviousPage () {
       this.paging.page = this.paging.page - 1
-      this.loadActivityBlogList()
+      this.initPage()
     },
     loadNextPage () {
       this.paging.page = this.paging.page + 1
-      this.loadActivityBlogList()
+      this.initPage()
+    },
+    goToUserBlog (id) {
+      this.$router.push({
+        query: { userId: id }
+      })
+    },
+    goToActivityBlogs () {
+      this.$router.push({ name: 'activityBlogs' })
+    }
+  },
+  watch: {
+    userId () {
+      this.paging.page = 1
+      this.initPage()
     }
   }
 }

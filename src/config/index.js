@@ -41,7 +41,11 @@ module.exports = {
         detail: '/batches/:code/courses/:id/detail',
         edit: '/batches/:code/courses/:id/edit'
       },
-      files: '/files',
+      files: {
+        root: '/files',
+        folder: '/files/:parentId',
+        detail: '/files/:parentId/:id'
+      },
       users: {
         list: '/users',
         add: {
@@ -81,15 +85,24 @@ module.exports = {
           list: '/batches/:batchCode/assignments/:assignmentId/rooms',
           detail: '/batches/:batchCode/assignments/:assignmentId/rooms/:roomId'
         },
-        detail: '/batches/:batchCode/assignments/:id/detail',
+        detail: '/batches/:batchCode/assignments/:assignmentId/detail',
         batches: {
           list: '/assignment/batches',
           add: '/assignment/batches/add',
           edit: '/assignment/batches/:batchCode/edit'
         }
       },
-      finalJudging: '/final-judging',
-      grades: '/grades',
+      finalJudging: {
+        list: '/batches/:batchCode/final-judging',
+        batches: {
+          list: '/final-judging/batches',
+          add: '/final-judging/batches/add',
+          edit: '/final-judging/batches/:batchCode/edit',
+        },
+        add: '/batches/:batchCode/final-judging/add',
+        detail: '/batches/:batchCode/final-judging/:judgingId/detail',
+        comparisons: '/batches/:batchCode/final-judging/:judgingId/comparison'
+      },
       stickyNotes: {
         detail: '/sticky-notes',
         edit: '/sticky-notes/edit'
@@ -100,9 +113,7 @@ module.exports = {
           detail: '/quizzes/:quizId/detail',
           questions: '/quizzes/:quizId/questions'
         },
-        assignments: {
-
-        }
+        assignments: '/assignments'
       },
       chatrooms: '/chatrooms',
       reminders: {
@@ -111,7 +122,31 @@ module.exports = {
         edit: '/reminders/:reminderId/edit',
         create: '/reminders/create'
       },
-      notifications: '/notifications'
+      notifications: '/notifications',
+      myQuestionnaire: {
+        default: '/my-questionnaire',
+        appraisee: '/my-questionnaire/:questionnaireId/appraisees',
+        form: '/my-questionnaire/:questionnaireId/appraisees/:appraiseeId'
+      },
+      questionnaires: {
+        default: '/questionnaires',
+        create: '/questionnaires/_create',
+        edit: '/questionnaires/:questionnaireId/_edit'
+      },
+      questionnaireResults: {
+        default: '/questionnaire-results',
+        members: '/questionnaire-results/:batchCode/members',
+        memberDetail: '/questionnaire-results/:batchCode/members/:userSummaryId',
+        questionnaireDetail: '/questionnaire-results/:batchCode/members/:userSummaryId/questionnaire/:questionnaireId',
+        questionDetail: '/questionnaire-results/:batchCode/members/:userSummaryId/questionnaire/:questionnaireId/question/:questionId'
+      },
+      loggingRoom: {
+        default: '/logging-rooms',
+        topics: '/logging-rooms/:loggingRoomId/topics',
+        logMessages: '/logging-rooms/:loggingRoomId/topics/:topicId',
+        create: '/logging-rooms/_create',
+        edit: '/logging-rooms/:loggingRoomId/_edit'
+      }
     }
   },
   api: {
@@ -130,6 +165,7 @@ module.exports = {
       },
       users: {
         get (page, size, role) { return `/api/core/users?page=${page}&size=${size}&role=${role}` },
+        getWithBatch (page, size, batchCode) { return `/api/core/users/batches/${batchCode}?page=${page}&size=${size}` },
         post: '/api/core/users',
         detail (id) { return `/api/core/users/${id}` },
         search (page, size, name) { return `/api/core/users/search?name=${name}&page=${page}&size=${size}` }
@@ -163,6 +199,7 @@ module.exports = {
       },
       activityBlogs: {
         get (page, size) { return `/api/core/activity-blogs?page=${page}&size=${size}` },
+        user (page, size, userId) { return `/api/core/activity-blogs?page=${page}&size=${size}&userId=${userId}` },
         post: '/api/core/activity-blogs',
         detail: {
           get (id) {
@@ -214,6 +251,13 @@ module.exports = {
           get (code, id, page) { return `/api/core/batches/${code}/courses/${id}/discussions?page=${page}` },
           post (code, id) { return `/api/core/batches/${code}/courses/${id}/discussions` }
         }
+      },
+      files: {
+        list (parentId, page, size) { return `/api/core/files/${parentId}?page=${page}&size=${size}` },
+        create (parentId) { return `/api/core/files/${parentId}` },
+        delete (parentId, id) { return `/api/core/files/${parentId}/${id}` },
+        detail (parentId, id) { return `/api/core/files/${parentId}/${id}` },
+        update (parentId, id) { return `/api/core/files/${parentId}/${id}` }
       }
     },
     scoring: {
@@ -246,6 +290,9 @@ module.exports = {
           update(batchCode, assignmentId, roomId) {
             return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/rooms/${roomId}`
           },
+          score(batchCode, assignmentId, roomId) {
+            return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/rooms/${roomId}`
+          },
           comments: {
             list(batchCode, assignmentId, roomId, page, pageSize) {
               return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/rooms/${roomId}/comments?page=${page}&size=${pageSize}`
@@ -254,6 +301,9 @@ module.exports = {
               return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/rooms/${roomId}/comments`
             },
           }
+        },
+        students (batchCode, assignmentId, studentId, page, size) {
+          return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/students/${studentId}/rooms?page=${page}&size=${size}`
         }
       },
       questionBanks: {
@@ -317,6 +367,29 @@ module.exports = {
           questions(studentId, quizId) {
             return `/api/scoring/students/${studentId}/quizzes/${quizId}/questions`
           }
+        }
+      },
+      finalJudging: {
+        list (batchCode, page, pageSize) {
+          return `/api/scoring/batches/${batchCode}/judgings?page=${page}&size=${pageSize}`
+        },
+        create (batchCode) {
+          return `/api/scoring/batches/${batchCode}/judgings`
+        },
+        detail (batchCode, judgingId) {
+          return `/api/scoring/batches/${batchCode}/judgings/${judgingId}`
+        },
+        update (batchCode, judgingId) {
+          return `/api/scoring/batches/${batchCode}/judgings/${judgingId}`
+        },
+        delete (batchCode, judgingId) {
+          return `/api/scoring/batches/${batchCode}/judgings/${judgingId}`
+        },
+        comparisons (batchCode, judgingId) {
+          return `/api/scoring/batches/${batchCode}/judgings/${judgingId}/comparisons`
+        },
+        score (batchCode, judgingId) {
+          return `/api/scoring/batches/${batchCode}/judgings/${judgingId}/comparisons`
         }
       },
       points: {
@@ -383,6 +456,139 @@ module.exports = {
         },
         delete (reminderId) {
           return `/api/communication/reminders/${reminderId}`
+        }
+      },
+      myQuestionnaire: {
+        getMyquestionnnaires (page, size) {
+          return `/api/communication/my-questionnaires?page=${page}&size=${size}`
+        },
+        getListAppraisees (questionnaireId) {
+          return `/api/communication/my-questionnaires/${questionnaireId}/appraisees`
+        },
+        getQuestionnaireData (questionnaireId, appraiseeId) {
+          return `/api/communication/my-questionnaires/${questionnaireId}/appraisees/${appraiseeId}`
+        },
+        getQuestion (questionnaireId, appraiseeId) {
+          return `/api/communication/my-questionnaires/${questionnaireId}/appraisees/${appraiseeId}/questions`
+        },
+        addQuestionnaireResponse (questionnaireId, appraiseeId) {
+          return `/api/communication/my-questionnaires/${questionnaireId}/appraisees/${appraiseeId}/questions`
+        }
+      },
+      questionnaire: {
+        getQuestionnaires (page, size, keyword) {
+          if ( keyword == null) {
+            return `/api/communication/questionnaires?page=${page}&size=${size}`
+          } else {
+            return `/api/communication/questionnaires?page=${page}&size=${size}&search=${keyword}`
+          }
+        },
+        createQuestionnaire () {
+          return `/api/communication/questionnaires`
+        },
+        getQuestionnaire (questionnaireId) {
+          return `/api/communication/questionnaires/${questionnaireId}`
+        },
+        updateQuestionnaire (questionnaireId) {
+          return `/api/communication/questionnaires/${questionnaireId}`
+        },
+        deleteQuestionnaire (questionnaireId) {
+          return `/api/communication/questionnaires/${questionnaireId}`
+        },
+        getAppraiseeQuestionnaire (questionnaireId, page, size) {
+          return `/api/communication/questionnaires/${questionnaireId}/appraisee?page=${page}&size=${size}`
+        },
+        addAppraisee (questionnaireId) {
+          return `/api/communication/questionnaires/${questionnaireId}/appraisee`
+        },
+        deleteAppraisee (questionnaireId, questionnaireParticipantId) {
+          return `/api/communication/questionnaires/${questionnaireId}/appraisee/${questionnaireParticipantId}`
+        },
+        getAppraiserQuestionnaire (questionnaireId, page, size) {
+          return `/api/communication/questionnaires/${questionnaireId}/appraiser?page=${page}&size=${size}`
+        },
+        addAppraiser (questionnaireId) {
+          return `/api/communication/questionnaires/${questionnaireId}/appraiser`
+        },
+        deleteAppraiser (questionnaireId, questionnaireParticipantId) {
+          return `/api/communication/questionnaires/${questionnaireId}/appraiser/${questionnaireParticipantId}`
+        },
+        getQuestionsQuestionnaire (questionnaireId) {
+          return `/api/communication/questionnaires/${questionnaireId}/questions`
+        },
+        createQuestionQuestionnaire (questionnaireId) {
+          return `/api/communication/questionnaires/${questionnaireId}/questions`
+        },
+        updateQuestionQuestionnaire (questionnaireId, questionId) {
+          return `/api/communication/questionnaires/${questionnaireId}/questions/${questionId}`
+        },
+        deleteQuestionQuestionnaire (questionnaireId, questionId) {
+          return `/api/communication/questionnaires/${questionnaireId}/questions/${questionId}`
+        }
+      },
+      questionnaireResponse: {
+        getQuestionnaireSimpleSummary (userSummaryId, page, size) {
+          return `/api/communication/questionnaire-response?userSummaryId=${userSummaryId}&page=${page}&size=${size}`
+        },
+        getQuestionnaireSummaryDetail (questionnaireResponseSummaryId) {
+          return `/api/communication/questionnaire-response/${questionnaireResponseSummaryId}`
+        },
+        getQuestionSummaryResponse (questionnaireResponseSummaryId, userSummaryId) {
+          return `/api/communication/questionnaire-response/${questionnaireResponseSummaryId}/questions/${userSummaryId}`
+        }
+      },
+      questionnaireResults: {
+        getUserSummary (batchCode, page, size) {
+          return `/api/communication/questionnaire-results?batchCode=${batchCode}&page=${page}&size=${size}`
+        },
+        getUserSummaryById (batchCode, userSummaryId) {
+          return `/api/communication/questionnaire-results/${batchCode}/user-summary-response/${userSummaryId}`
+        }
+      },
+      questionResponse: {
+        getQuestionQuestionnaireSummaryResponse (questionResponseSummaryId) {
+          return `/api/communication/question-response/${questionResponseSummaryId}`
+        },
+        getQuestionnaireAnswerDetailSummary (questionResponseSummaryId) {
+          return `/api/communication/question-response/${questionResponseSummaryId}/responses`
+        }
+      },
+      loggingRoom: {
+        getLoggingRoomsByMember (search, page, size) {
+          return `/api/communication/logging-rooms?search=${search}&page=${page}&size=${size}`
+        },
+        createLoggingRoom () {
+          return `/api/communication/logging-rooms`
+        },
+        getLoggingRoom (loggingRoomId) {
+          return `/api/communication/logging-rooms/${loggingRoomId}`
+        },
+        updateLoggingRoom (loggingRoomId) {
+          return `/api/communication/logging-rooms/${loggingRoomId}`
+        },
+        deleteLoggingRoom (loggingRoomId) {
+          return `/api/communication/logging-rooms/${loggingRoomId}`
+        },
+        getLoggingRoomTopic (loggingRoomId, page, size) {
+          return `/api/communication/logging-rooms/${loggingRoomId}/topics?page=${page}&size=${size}`
+        },
+        createTopic (loggingRoomId) {
+          return `/api/communication/logging-rooms/${loggingRoomId}/topics`
+        },
+        getTopic (loggingRoomId, topicId) {
+          return `/api/communication/logging-rooms/${loggingRoomId}/topics/${topicId}`
+        },
+        updateTopic (loggingRoomId, topicId) {
+          return `/api/communication/logging-rooms/${loggingRoomId}/topics/${topicId}`
+        },
+        deleteTopic (loggingRoomId, topicId) {
+          return `/api/communication/logging-rooms/${loggingRoomId}/topics/${topicId}`
+        },
+        getLogMessages (loggingRoomId, topicId, page, size) {
+          return `/api/communication/logging-rooms/${loggingRoomId}/topics/${topicId}/log-messages?page=${page}&size=${size}`
+        },
+        createLogMessage (loggingRoomId, topicId) {
+          return `/api/communication/logging-rooms/${loggingRoomId}/topics/${topicId}/log-messages`
         }
       }
     }

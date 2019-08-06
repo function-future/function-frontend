@@ -58,4 +58,14 @@ describe('Assignment Controller', () => {
     api.createAssignmentRoomComment(callback, data, payload, errorHandler)
     expect(spy).toBeCalledTimes(1)
   })
+
+  test('updateAssignmentScore', () => {
+    const spy = jest.spyOn(request, 'putRequest')
+    const data = {}
+    const payload = {}
+    const callback = jest.fn()
+    const errorHandler = jest.fn()
+    api.updateAssignmentScore(callback, data, payload, errorHandler)
+    expect(spy).toBeCalledTimes(1)
+  })
 })

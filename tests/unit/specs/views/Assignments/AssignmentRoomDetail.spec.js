@@ -21,24 +21,23 @@ describe('CourseDetail', () => {
     const state = {
       room: {},
       comments: [],
+      accessList: {}
     }
     const actions = {
       fetchRoomDetail: jest.fn(),
       fetchComments: jest.fn(),
-      postComment: jest.fn()
+      postComment: jest.fn(),
+      postAssignmentScore: jest.fn()
     }
     const getters = {
       room: state => state.room,
       comments: state => state.comments,
+      accessList: state => state.accessList
     }
     const store = new Vuex.Store({
-      modules: {
-        assignmentRooms: {
-          state,
-          actions,
-          getters
-        }
-      }
+      state,
+      actions,
+      getters
     })
 
     return {
@@ -202,5 +201,30 @@ describe('CourseDetail', () => {
   test('failSubmitComment', () => {
     wrapper.vm.failSubmitComment()
     expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+  })
+
+  test('updateScore', () => {
+    wrapper.vm.updateScore()
+    expect(store.actions.postAssignmentScore).toHaveBeenCalledTimes(1)
+  })
+
+  test('successUpdatingScore', () => {
+    wrapper.vm.successUpdatingScore()
+    expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
+  })
+
+  test('failedUpdatingScore', () => {
+    wrapper.vm.failedUpdatingScore()
+    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+  })
+
+  test('isDeadlineHasPassed true computed', () => {
+    wrapper.vm.roomDetail.assignment.deadline = new Date().setFullYear(2018, 1, 1)
+    expect(wrapper.vm.isDeadlineHasPassed).toEqual(true)
+  })
+
+  test('isDeadlineHasPassed false computed', () => {
+    wrapper.vm.roomDetail.assignment.deadline = new Date().setFullYear(2020, 1, 1)
+    expect(wrapper.vm.isDeadlineHasPassed).toEqual(false)
   })
 })

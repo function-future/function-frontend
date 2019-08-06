@@ -5,7 +5,7 @@
     </div>
     <div class="content">
       <div class="container">
-        <div class="title">
+        <div class="page-title">
           <BaseTitle>{{ title }}</BaseTitle>
           <Breadcrumbs></Breadcrumbs>
         </div>
@@ -22,15 +22,20 @@
 </script>
 
 <style>
+  @import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+
   html, body {
     height: 100%;
     margin: 0;
     color: #505050;
+    font-size: 100%;
+    line-height: 1.4rem;
+    font-family: 'Open Sans', Helvetica, Arial, sans-serif;
   }
 
   #app {
     height: 100%;
-    font-family: Helvetica, Arial, sans-serif;
+    font-family: 'Open Sans', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
@@ -57,8 +62,10 @@
   }
 
   .container {
-    margin: 0 20px 20px 20px;
-    height: 95vh;
+    display: flex;
+    flex-direction: column;
+    margin: 0 20px 20px 15px;
+    height: 98vh;
   }
 
   .user-section {
@@ -73,6 +80,10 @@
     max-height: 90%;
     overflow: auto;
     padding-right: 5px;
+  }
+
+  .page-title {
+    margin-left: 10px;
   }
 
   .blue {
@@ -102,6 +113,17 @@
 
   .v-note-panel {
     border-radius: 0 0 10px 10px;
+  }
+
+  .wrap-word{
+    white-space: -moz-pre-wrap !important;  /* Mozilla, since 1999 */
+    white-space: -webkit-pre-wrap; /*Chrome & Safari */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    white-space: pre-wrap;       /* css-3 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+    word-break: break-all;
+    white-space: normal;
   }
 
   @media only screen and (min-width: 875px) {
@@ -142,5 +164,26 @@
     .content {
       width: 83vw;
     }
+  }
+
+  ::-webkit-scrollbar-track {
+    background-color: #F5F5F5;
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #02AAF3;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+  }
+
+  ::-webkit-scrollbar-thumb:active {
   }
 </style>

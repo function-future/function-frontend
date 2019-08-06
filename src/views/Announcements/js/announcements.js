@@ -75,14 +75,14 @@ export default {
     },
     textPreview: function (announcement) {
       if (announcement.summary) {
-        return this.showLimitedPreviewText(announcement.summary)
+        return this.showLimitedPreviewText(announcement.summary.replace(/\!\[.*\]\(.*\)/,''))
       } else {
-        return this.showLimitedPreviewText(announcement.description)
+        return this.showLimitedPreviewText(announcement.description.replace(/\!\[.*\]\(.*\)/,''))
       }
     },
     showLimitedPreviewText: function (text) {
-      let maximumCharacters = 70
-      if (text.length > 70) {
+      let maximumCharacters = 250
+      if (text.length > maximumCharacters) {
         return text.slice(0, maximumCharacters) + '...'
       }
       return text
@@ -104,11 +104,11 @@ export default {
         callback: this.successDeleteAnnouncementById,
         fail: this.failDeleteAnnouncementById
       })
+      this.closeDeleteConfirmationModal()
     },
     successDeleteAnnouncementById () {
       this.loadAnnouncementList()
-      this.$toasted.success('successfully delete announcement')
-      this.closeDeleteConfirmationModal()
+      this.$toasted.success('Successfully delete announcement')
     },
     failDeleteAnnouncementById () {
       this.$toasted.error('Fail to delete announcement')

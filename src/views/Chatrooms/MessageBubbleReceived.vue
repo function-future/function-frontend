@@ -1,4 +1,4 @@
-<template>
+  <template>
   <div class="message-container">
     <div class="message-avatar"><img :src="avatar" onerror="this.src='@/assets/avatar.png'"></div>
     <div class="message-content">

@@ -6,6 +6,7 @@ import BaseSelect from '@/components/BaseSelect'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
 import ModalCopy from '@/components/modals/ModalCopy'
 import BasePagination from '@/components/BasePagination'
+let marked = require('marked')
 
 export default {
   name: 'Quiz',
@@ -138,7 +139,7 @@ export default {
         batchCode: batchDestination
       }
       let payload = {
-        batchId: batchDestination,
+        batchCode: batchDestination,
         quizId: this.selectedId
       }
       this.copyQuiz({
@@ -155,6 +156,9 @@ export default {
     },
     failSubmitCopyQuiz () {
       this.$toasted.error('Something went wrong')
+    },
+    descriptionCompiledMarkdown: function (description) {
+      return marked(description)
     }
   }
 }

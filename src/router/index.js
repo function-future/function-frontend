@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import assignmentBatch from '@/views/Assignment/AssignmentBatch'
 import assignmentBatchForm from '@/views/Assignment/AssignmentBatchForm'
+import studentAssignments from '@/views/Assignment/StudentAssignments'
 import assignments from '@/views/Assignment/Assignments'
 import addAssignment from '@/views/Assignment/AddAssignment'
 import assignmentRooms from '@/views/Assignment/AssignmentRooms'
@@ -22,6 +23,12 @@ import quizDetail from '@/views/Quiz/QuizDetail'
 import studentQuizList from '@/views/Quiz/StudentQuizList'
 import studentQuizDetail from '@/views/Quiz/StudentQuizDetail'
 import quizQuestions from '@/views/Quiz/QuizQuestions'
+import judgingList from '@/views/FinalJudging/JudgingList'
+import judgingBatch from '@/views/FinalJudging/JudgingBatch'
+import judgingBatchForm from '@/views/FinalJudging/JudgingBatchForm'
+import addJudging from '@/views/FinalJudging/AddJudging'
+import judgingDetail from '@/views/FinalJudging/JudgingDetail'
+import comparison from '@/views/FinalJudging/Comparison'
 import points from '@/views/Point/Point'
 import feeds from '@/views/Feeds/Feeds.vue'
 import announcements from '@/views/Announcements/Announcements.vue'
@@ -44,12 +51,29 @@ import masterCourseDetail from '@/views/Courses/MasterCourseDetail.vue'
 import masterCourseForm from '@/views/Courses/MasterCourseForm.vue'
 import config from '@/config/index'
 import chatrooms from '@/views/Chatrooms/Chatrooms'
+import myQuestionnaire from '@/views/Questionnaire/MyQuestionnaire'
+import myQuestionnaireAppraisee from '@/views/Questionnaire/MyQuestionnaireAppraisee'
+import questionnaires from '@/views/Questionnaire/Questionnaires'
+import questionnairesCreate from '@/views/Questionnaire/QuestionnairesCreate'
+import questionnairesEdit from '@/views/Questionnaire/QuestionnairesEdit'
+import questionnaireResults from '@/views/Questionnaire/QuestionnaireResults'
+import questionnaireResultsMembers from '@/views/Questionnaire/QuestionnaireResultsMembers'
+import questionnaireResultsMemberDetail from '@/views/Questionnaire/QuestionnaireResultsMemberDetail'
+import questionnaireResultsQuestionnaireDetail from '@/views/Questionnaire/QuestionnaireResultsQuestionnaireDetail'
+import questionnaireResultsQuestionDetail from '@/views/Questionnaire/QuestionnaireResultsQuestionDetail'
 import login from '@/views/Auth/Login'
 import reminders from '@/views/Reminders/Reminders'
 import reminderForm from '@/views/Reminders/ReminderForm'
 import profile from '@/views/User/Profile'
 import notifications from '@/views/Notifications/Notifications.vue'
 import changePassword from '@/views/User/ChangePassword'
+import loggingRoom from '@/views/LoggingRoom/LoggingRoom.vue'
+import loggingRoomDetail from '@/views/LoggingRoom/LoggingRoomDetail.vue'
+import logMessageRoom from '@/views/LoggingRoom/LogMessageRoom.vue'
+import loggingRoomCreate from '@/views/LoggingRoom/LoggingRoomCreate'
+import loggingRoomEdit from '@/views/LoggingRoom/LoggingRoomEdit'
+
+import files from '@/views/Files/Files'
 import store from '../store/index.js'
 
 Vue.use(Router)
@@ -61,7 +85,10 @@ const router = new Router({
     {
       path: config.app.pages.auth.login,
       name: 'login',
-      component: login
+      component: login,
+      meta: {
+        title: 'Login'
+      }
     },
     {
       path: config.app.pages.user.profile,
@@ -148,6 +175,7 @@ const router = new Router({
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
           { name: 'Activity Blogs', link: 'activityBlogs' },
+          { name: 'Activity Blog Detail', link: 'activityBlogDetail' },
           { name: 'Edit Activity Blog', link: 'editActivityBlog' }
         ]
       },
@@ -189,6 +217,7 @@ const router = new Router({
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
           { name: 'Announcements', link: 'announcements' },
+          { name: 'Announcement Detail', link: 'announcementDetail' },
           { name: 'Edit Announcement', link: 'editAnnouncement' }
         ]
       },
@@ -313,6 +342,7 @@ const router = new Router({
           { name: 'Home', link: 'feeds' },
           { name: 'Batches', link: 'courseBatches' },
           { name: 'Courses', link: 'courses' },
+          { name: 'Course Detail', link: 'courseDetail' },
           { name: 'Edit Course', link: 'editCourse' }
         ]
       },
@@ -376,15 +406,30 @@ const router = new Router({
           { name: 'Home', link: 'feeds' },
           { name: 'Batches', link: 'courseBatches' },
           { name: 'Master Courses', link: 'masterCourses' },
+          { name: 'Master Course Detail', link: 'masterCourseDetail' },
           { name: 'Edit Master Course', link: 'editMasterCourse' }
         ]
       },
       props: { editMode: true }
     },
     {
-      path: config.app.pages.files,
+      path: config.app.pages.files.root,
       name: 'files',
-      component: feeds,
+      redirect: config.app.pages.files.root + '/root'
+    },
+    {
+      path: config.app.pages.files.folder,
+      name: 'folder',
+      component: files,
+      meta: {
+        auth: true,
+        title: 'Files'
+      }
+    },
+    {
+      path: config.app.pages.files.detail,
+      name: 'fileDetail',
+      component: files,
       meta: {
         auth: true,
         title: 'Files'
@@ -456,14 +501,6 @@ const router = new Router({
       }
     },
     {
-      path: config.app.pages.grades,
-      name: 'grades',
-      component: feeds,
-      meta: {
-        title: 'Grades'
-      }
-    },
-    {
       path: config.app.pages.stickyNotes.detail,
       name: 'stickyNotes',
       component: stickyNotes,
@@ -495,7 +532,12 @@ const router = new Router({
       name: 'questionBanks',
       component: questionBanks,
       meta: {
-        title: 'Question Banks'
+        auth: true,
+        title: 'Question Banks',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Question Banks', link: 'questionBanks' }
+        ]
       }
     },
     {
@@ -503,7 +545,13 @@ const router = new Router({
       name: 'questionBankDetail',
       component: questionBankDetail,
       meta: {
-        title: 'Question Bank Detail'
+        auth: true,
+        title: 'Question Bank Detail',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Question Banks', link: 'questionBanks' },
+          { name: 'Question Bank Detail', link: 'questionBankDetail' }
+        ]
       }
     },
     {
@@ -511,7 +559,13 @@ const router = new Router({
       name: 'addQuestionBank',
       component: addQuestionBank,
       meta: {
-        title: 'Add Question Bank'
+        auth: true,
+        title: 'Add Question Bank',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Question Banks', link: 'questionBanks' },
+          { name: 'Add Question Bank', link: 'addQuestionBank' }
+        ]
       }
     },
     {
@@ -519,7 +573,14 @@ const router = new Router({
       name: 'questionBankQuestionList',
       component: questionBankQuestionList,
       meta: {
-        title: 'Question List'
+        auth: true,
+        title: 'Question List',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Question Banks', link: 'questionBanks' },
+          { name: 'Question Bank Detail', link: 'questionBankDetail' },
+          { name: 'Questions', link: 'questionBankQuestionList' }
+        ]
       }
     },
     {
@@ -527,7 +588,15 @@ const router = new Router({
       name: 'questionBankAddQuestion',
       component: questionBankAddQuestion,
       meta: {
-        title: 'Add Question'
+        auth: true,
+        title: 'Add Question',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Question Banks', link: 'questionBanks' },
+          { name: 'Question Bank Detail', link: 'questionBankDetail' },
+          { name: 'Questions', link: 'questionBankQuestionList' },
+          { name: 'Add Question', link: 'questionBankAddQuestion' }
+        ]
       }
     },
     {
@@ -535,7 +604,15 @@ const router = new Router({
       name: 'questionBankQuestionDetail',
       component: questionBankQuestionDetail,
       meta: {
-        title: 'Question Detail'
+        auth: true,
+        title: 'Question Detail',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Question Banks', link: 'questionBanks' },
+          { name: 'Question Bank Detail', link: 'questionBankDetail' },
+          { name: 'Questions', link: 'questionBankQuestionList' },
+          { name: 'Question Detail', link: 'questionBankQuestionDetail' }
+        ]
       }
     },
     {
@@ -543,7 +620,12 @@ const router = new Router({
       name: 'quizBatch',
       component: quizBatch,
       meta: {
-        title: 'Quiz Batch List'
+        auth: true,
+        title: 'Quiz Batch List',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Batches', link: 'quizBatch' }
+        ]
       }
     },
     {
@@ -551,7 +633,13 @@ const router = new Router({
       name: 'addQuizBatch',
       component: quizBatchForm,
       meta: {
-        title: 'Quiz Batch List'
+        auth: true,
+        title: 'Quiz Batch List',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Batches', link: 'quizBatch' },
+          { name: 'Add Batch', link: 'addQuizBatch' }
+        ]
       }
     },
     {
@@ -559,7 +647,13 @@ const router = new Router({
       name: 'editQuizBatch',
       component: quizBatchForm,
       meta: {
-        title: 'Quiz Batch List'
+        auth: true,
+        title: 'Quiz Batch List',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Batches', link: 'quizBatch' },
+          { name: 'Edit Batch', link: 'editQuizBatch' }
+        ]
       },
       props: { editMode: true }
     },
@@ -568,7 +662,13 @@ const router = new Router({
       name: 'quizzes',
       component: quizzes,
       meta: {
-        title: 'Quizzes'
+        auth: true,
+        title: 'Quizzes',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Batches', link: 'quizBatch' },
+          { name: 'Quizzes', link: 'quizzes' }
+        ]
       }
     },
     {
@@ -576,7 +676,14 @@ const router = new Router({
       name: 'addQuiz',
       component: addQuiz,
       meta: {
-        title: 'Add Quiz'
+        auth: true,
+        title: 'Add Quiz',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Batches', link: 'quizBatch' },
+          { name: 'Quizzes', link: 'quizzes' },
+          { name: 'Add Quiz', link: 'addQuiz' }
+        ]
       }
     },
     {
@@ -584,7 +691,15 @@ const router = new Router({
       name: 'addQuizDetail',
       component: addQuizDetail,
       meta: {
-        title: 'Add Detail'
+        auth: true,
+        title: 'Add Detail',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Batches', link: 'quizBatch' },
+          { name: 'Quizzes', link: 'quizzes' },
+          { name: 'Add Quiz', link: 'addQuiz' },
+          { name: 'Add Quiz Detail', link: 'addQuizDetail' }
+        ]
       }
     },
     {
@@ -592,7 +707,14 @@ const router = new Router({
       name: 'quizDetail',
       component: quizDetail,
       meta: {
-        title: 'Quiz Detail'
+        auth: true,
+        title: 'Quiz Detail',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Batches', link: 'quizBatch' },
+          { name: 'Quizzes', link: 'quizzes' },
+          { name: 'Quiz Detail', link: 'quizDetail' }
+        ]
       }
     },
     {
@@ -600,7 +722,12 @@ const router = new Router({
       name: 'studentQuizzes',
       component: studentQuizList,
       meta: {
-        title: 'Quizzes'
+        auth: true,
+        title: 'Quizzes',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Quizzes', link: 'studentQuizzes' }
+        ]
       }
     },
     {
@@ -608,7 +735,13 @@ const router = new Router({
       name: 'studentQuizDetail',
       component: studentQuizDetail,
       meta: {
-        title: 'Quiz Detail'
+        auth: true,
+        title: 'Quiz Detail',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Quizzes', link: 'studentQuizzes' },
+          { name: 'Quiz Detail', link: 'studentQuizDetail' }
+        ]
       }
     },
     {
@@ -616,7 +749,14 @@ const router = new Router({
       name: 'studentQuizQuestions',
       component: quizQuestions,
       meta: {
-        title: 'Questions'
+        auth: true,
+        title: 'Questions',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Quizzes', link: 'studentQuizzes' },
+          { name: 'Quiz Detail', link: 'studentQuizDetail' },
+          { name: 'Questions', link: 'studentQuizQuestions' }
+        ]
       }
     },
     {
@@ -624,7 +764,12 @@ const router = new Router({
       name: 'assignmentBatch',
       component: assignmentBatch,
       meta: {
-        title: 'Assignment Batch List'
+        auth: true,
+        title: 'Assignment Batch List',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Batches', link: 'assignmentBatch' }
+        ]
       }
     },
     {
@@ -632,7 +777,13 @@ const router = new Router({
       name: 'addAssignmentBatch',
       component: assignmentBatchForm,
       meta: {
-        title: 'Assignment Batch List'
+        auth: true,
+        title: 'Assignment Batch List',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Batches', link: 'assignmentBatch' },
+          { name: 'Add Batch', link: 'addAssignmentBatch' }
+        ]
       }
     },
     {
@@ -640,16 +791,37 @@ const router = new Router({
       name: 'editAssignmentBatch',
       component: assignmentBatchForm,
       meta: {
-        title: 'Assignment Batch List'
+        auth: true,
+        title: 'Assignment Batch List',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Batches', link: 'assignmentBatch' },
+          { name: 'Edit Batch', link: 'editAssignmentBatch' }
+        ]
       },
       props: { editMode: true }
+    },
+    {
+      path: config.app.pages.students.assignments,
+      name: 'studentAssignments',
+      component: studentAssignments,
+      meta: {
+        auth: true,
+        title: 'Assignments'
+      }
     },
     {
       path: config.app.pages.assignments.list,
       name: 'assignments',
       component: assignments,
       meta: {
-        title: 'Assignments'
+        auth: true,
+        title: 'Assignments',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Batches', link: 'assignmentBatch' },
+          { name: 'Assignments', link: 'assignments' }
+        ]
       }
     },
     {
@@ -657,7 +829,14 @@ const router = new Router({
       name: 'assignmentDetail',
       component: assignmentDetail,
       meta: {
-        title: 'Assignment Detail'
+        auth: true,
+        title: 'Assignment Detail',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Batches', link: 'assignmentBatch' },
+          { name: 'Assignments', link: 'assignments' },
+          { name: 'Assignment Detail', link: 'assignmentDetail' }
+        ]
       }
     },
     {
@@ -665,7 +844,162 @@ const router = new Router({
       name: 'addAssignment',
       component: addAssignment,
       meta: {
-        title: 'Add Assignments'
+        auth: true,
+        title: 'Add Assignments',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Batches', link: 'assignmentBatch' },
+          { name: 'Assignments', link: 'assignments' },
+          { name: 'Add Assignment', link: 'addAssignment' }
+        ]
+      }
+    },
+    {
+      path: config.app.pages.assignments.rooms.list,
+      name: 'assignmentRooms',
+      component: assignmentRooms,
+      meta: {
+        auth: true,
+        title: 'Rooms',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Batches', link: 'assignmentBatch' },
+          { name: 'Assignments', link: 'assignments' },
+          { name: 'Assignment Detail', link: 'assignmentDetail' },
+          { name: 'Rooms', link: 'assignmentRooms' }
+        ]
+      }
+    },
+    {
+      path: config.app.pages.assignments.rooms.detail,
+      name: 'assignmentRoomDetail',
+      component: assignmentRoomDetail,
+      meta: {
+        auth: true,
+        title: 'Room Detail',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Batches', link: 'assignmentBatch' },
+          { name: 'Assignments', link: 'assignments' },
+          { name: 'Rooms', link: 'assignmentRooms' },
+          { name: 'Room Detail', link: 'assignmentRoomDetail' }
+        ]
+      }
+    },
+    {
+      path: config.app.pages.points.list,
+      name: 'points',
+      component: points,
+      meta: {
+        auth: true,
+        title: 'Points',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Points', link: 'points' },
+        ]
+      }
+    },
+    {
+      path: config.app.pages.finalJudging.batches.list,
+      name: 'judgingBatch',
+      component: judgingBatch,
+      meta: {
+        auth: true,
+        title: 'Judging Batch List',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Batches', link: 'judgingBatch' }
+        ]
+      }
+    },
+    {
+      path: config.app.pages.finalJudging.batches.add,
+      name: 'addJudgingBatch',
+      component: judgingBatchForm,
+      meta: {
+        auth: true,
+        title: 'Judging Batch List',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Batches', link: 'judgingBatch' },
+          { name: 'Add Batch', link: 'addJudgingBatch' }
+        ]
+      }
+    },
+    {
+      path: config.app.pages.finalJudging.batches.edit,
+      name: 'editJudgingBatch',
+      component: judgingBatchForm,
+      meta: {
+        auth: true,
+        title: 'Judging Batch List',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Batches', link: 'judgingBatch' },
+          { name: 'Edit Batch', link: 'editJudgingBatch' }
+        ]
+      },
+      props: {
+        editMode: true
+      }
+    },
+    {
+      path: config.app.pages.finalJudging.list,
+      name: 'judgingList',
+      component: judgingList,
+      meta: {
+        auth: true,
+        title: 'Judging Sessions',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Batches', link: 'judgingBatch' },
+          { name: 'Judging Sessions', link: 'judgingList' }
+        ]
+      }
+    },
+    {
+      path: config.app.pages.finalJudging.add,
+      name: 'addJudging',
+      component: addJudging,
+      meta: {
+        auth: true,
+        title: 'Add Judging Session',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Batches', link: 'judgingBatch' },
+          { name: 'Add Judging Session', link: 'addJudging' }
+        ]
+      }
+    },
+    {
+      path: config.app.pages.finalJudging.detail,
+      name: 'judgingDetail',
+      component: judgingDetail,
+      meta: {
+        auth: true,
+        title: 'Judging Detail',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Batches', link: 'judgingBatch' },
+          { name: 'Judging Sessions', link: 'judgingList' },
+          { name: 'Judging Session Detail', link: 'judgingDetail' }
+        ]
+      }
+    },
+    {
+      path: config.app.pages.finalJudging.comparisons,
+      name: 'comparison',
+      component: comparison,
+      meta: {
+        auth: true,
+        title: 'Comparison',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Batches', link: 'judgingBatch' },
+          { name: 'Add Judging Session', link: 'addJudging' },
+          { name: 'Judging Session Detail', link: 'judgingDetail' },
+          { name: 'Comparison', link: 'comparison' }
+        ]
       }
     },
     {
@@ -676,40 +1010,6 @@ const router = new Router({
         auth: true,
         title: 'Chatrooms'
       }
-    },
-    {
-      path: config.app.pages.assignments.rooms.list,
-      name: 'assignmentRooms',
-      component: assignmentRooms,
-      meta: {
-        title: 'Rooms'
-      }
-    },
-    {
-      path: config.app.pages.assignments.rooms.detail,
-      name: 'assignmentRoomDetail',
-      component: assignmentRoomDetail,
-      meta: {
-        title: 'Room Detail',
-        breadcrumb: [
-          { name: 'Home', link: 'feeds' },
-          { name: 'Assignments', link: 'assignments' },
-          { name: 'Rooms', link: 'assignmentRooms' }
-        ]
-      }
-    },
-    {
-      path: config.app.pages.points.list,
-      name: 'points',
-      component: points,
-      meta: {
-        title: 'Points'
-      }
-    },
-    {
-      path: config.app.pages.finalJudging,
-      name: 'finalJudging',
-      component: feeds
     },
     {
       path: config.app.pages.reminders.list,
@@ -758,6 +1058,134 @@ const router = new Router({
         title: 'Notifications',
         auth: true
       }
+    },
+    {
+      path: config.app.pages.myQuestionnaire.default,
+      name: 'myQuestionnaire',
+      component: myQuestionnaire,
+      meta: {
+        title: 'My Questionnaire'
+      }
+    },
+    {
+      path: config.app.pages.myQuestionnaire.appraisee,
+      name: 'myQuestionnaireAppraisee',
+      component: myQuestionnaireAppraisee,
+      meta: {
+        title: 'My Questionnaire - Appraisee'
+      }
+    },
+    {
+      path: config.app.pages.myQuestionnaire.form,
+      name: 'myQuestionnaireForm',
+      component: myQuestionnaireAppraisee,
+      meta: {
+        title: 'My Questionnaire - Form'
+      }
+    },
+    {
+      path: config.app.pages.questionnaires.default,
+      name: 'questionnaires',
+      component: questionnaires,
+      meta: {
+        title: 'Questionnaires'
+      }
+    },
+    {
+      path: config.app.pages.questionnaires.create,
+      name: 'questionnairesCreate',
+      component: questionnairesCreate,
+      meta: {
+        title: 'Questionnaires - Create'
+      }
+    },
+    {
+      path: config.app.pages.questionnaires.edit,
+      name: 'questionnairesEdit',
+      component: questionnairesEdit,
+      meta: {
+        title: 'Questionnaires - Edit'
+      }
+    },
+    {
+      path: config.app.pages.questionnaireResults.default,
+      name: 'questionnaireResults',
+      component: questionnaireResults,
+      meta: {
+        title: 'Questionnaire Results'
+      }
+    },
+    {
+      path: config.app.pages.questionnaireResults.members,
+      name: 'questionnaireResultsMembers',
+      component: questionnaireResultsMembers,
+      meta: {
+        title: 'Questionnaire Results - Members'
+      }
+    },
+    {
+      path: config.app.pages.questionnaireResults.memberDetail,
+      name: 'questionnaireResultsMemberDetail',
+      component: questionnaireResultsMemberDetail,
+      meta: {
+        title: 'Questionnaire Results - Member Detail'
+      }
+    },
+    {
+      path: config.app.pages.questionnaireResults.questionnaireDetail,
+      name: 'questionnaireResultsQuestionnaireDetail',
+      component: questionnaireResultsQuestionnaireDetail,
+      meta: {
+        title: 'Questionnaire Results - Questionnaire Detail'
+      }
+    },
+    {
+      path: config.app.pages.questionnaireResults.questionDetail,
+      name: 'questionnaireResultsQuestionDetail',
+      component: questionnaireResultsQuestionDetail,
+      meta: {
+        title: 'Questionnaire Results - Question Detail'
+      }
+    },
+    {
+      path: config.app.pages.loggingRoom.default,
+      name: 'loggingRoom',
+      component: loggingRoom,
+      meta: {
+        title: 'Logging Rooms'
+      }
+    },
+    {
+      path: config.app.pages.loggingRoom.topics,
+      name: 'loggingRoomDetail',
+      component: loggingRoomDetail,
+      meta: {
+        title: 'Logging Room - Detail'
+      }
+    },
+    {
+      path: config.app.pages.loggingRoom.logMessages,
+      name: 'logMessage',
+      component: logMessageRoom,
+      meta: {
+        title: 'Logging Room'
+      }
+    },
+    {
+      path: config.app.pages.loggingRoom.create,
+      name: 'loggingRoomCreate',
+      component: loggingRoomCreate,
+      meta: {
+        title: 'Logging Room - Create'
+      }
+    },
+    {
+      path: config.app.pages.loggingRoom.edit,
+      name: 'loggingRoomEdit',
+      component: loggingRoomEdit,
+      meta: {
+        title: 'Logging Room - Edit'
+      }
     }
   ]
 })
@@ -769,7 +1197,11 @@ router.beforeEach((to, from, next) => {
 
   store.dispatch('getLoginStatus', {
     callback: () => { return to.fullPath === '/login' ? next({ name: 'feeds' }) : next() },
-    fail: () => { return !to.meta.auth ? next() : (to.path !== '/login' ? next('/login') : next()) }
+    fail: () => {
+      store.dispatch('setCurrentUser', { data: {} })
+      store.dispatch('setMenuList', { data: {} })
+      return !to.meta.auth ? next() : (to.path !== '/login' ? next('/login') : next())
+    }
   })
 })
 

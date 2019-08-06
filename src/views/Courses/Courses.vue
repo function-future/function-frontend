@@ -15,7 +15,7 @@
       </BaseButton>
       </span>
     </div>
-    <div v-for="course in courses" :key="course.id" class="course__row">
+    <div v-for="(course, index) in courses" :key="index" class="course__row">
       <div class="course__col">
         <label v-if="accessList.add">
           <input type="checkbox" :value="course.id" v-model="selectedIds" @click="select">
@@ -27,11 +27,11 @@
       <div class="course__col--courses">
         <CourseCard :course="course" @click.native="goToThisCourseDetail(course.id)"
                     @edit="goToEditCourse(course.id)" @delete="openDeleteConfirmationModal(course.id)"
-                    @copy="openCopyCourseModal(course.id)">
+                    @copy="openCopyCourseModal(course.id)" class="course__each">
         </CourseCard>
       </div>
     </div>
-    <infinite-loading @infinite="initPage" spinner="spiral">
+    <infinite-loading @infinite="initPage" spinner="spiral" :identifier="infiniteId">
       <div slot="no-more"></div>
       <div slot="no-results"></div>
     </infinite-loading>
@@ -72,7 +72,17 @@
       margin-left: 9px;
 
       &--courses {
+        margin: 2px 0;
         flex-grow: 1;
+      }
+    }
+
+    &__each {
+      box-shadow: 1px 0 5px rgba(0, 0, 0, 0.25);
+      transition: all .2s ease;
+
+      &:hover {
+        box-shadow: 1px 0 5px rgba(0,0,0,0.1), 1px 0 5px rgba(0,0,0,0.3);;
       }
     }
   }
