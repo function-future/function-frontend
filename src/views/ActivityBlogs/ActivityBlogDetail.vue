@@ -10,10 +10,10 @@
           {{ activityBlog.createdAt | moment("dddd, MMMM Do YYYY") }}
         </div>
         <div class="action">
-          <span @click="goToEditActivityBlog" v-if="accessList.edit && (currentUser.id === activityBlog.author.id)">
+          <span @click="goToEditActivityBlog" v-if="accessList.edit && (currentUser.id === activityBlog.author.id || currentUser.role === 'ADMIN')">
             <font-awesome-icon icon="edit" class="icon blue" size="lg"></font-awesome-icon>
           </span>
-          <span @click="openDeleteConfirmationModal" v-if="accessList.delete && (currentUser.id === activityBlog.author.id)">
+          <span @click="openDeleteConfirmationModal" v-if="accessList.delete && (currentUser.id === activityBlog.author.id || currentUser.role === 'ADMIN')">
             <font-awesome-icon icon="trash-alt" class="icon red" size="lg"></font-awesome-icon>
           </span>
         </div>
