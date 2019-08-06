@@ -17,8 +17,9 @@ export default {
       announcements: [],
       paging: {
         page: 1,
-        size: 10
-      }
+        size: 5
+      },
+      isLoadingAnnouncement: false
     }
   },
   created () {
@@ -61,6 +62,7 @@ export default {
       this.$toasted.error('Fail to load sticky note detail, please refresh the page')
     },
     loadAnnouncementList () {
+      this.isLoadingAnnouncement = true
       this.paging = { ...this.paging }
       let data = { ...this.paging }
       this.fetchAnnouncements({
@@ -71,15 +73,28 @@ export default {
     },
     successLoadAnnouncementList () {
       this.announcements = this.announcementList
+      this.isLoadingAnnouncement = false
     },
     failLoadAnnouncementList () {
       this.$toasted.error('Fail to load announcement list')
+      this.isLoadingAnnouncement = false
     },
     stickyNotesDescriptionPreview (description) {
       if (description.length > MAX_STICKY_NOTE_PREVIEW_LENGTH) {
         return description.substr(0, MAX_STICKY_NOTE_PREVIEW_LENGTH) + '...'
       } else {
         return description
+      }
+    },
+    showLimitedPreviewText: function (text) {
+      let maximumCharacters = 175
+      return text.length > maximumCharacters ? text.slice(0, maximumCharacters) + '...' : text
+    },
+    announcementPreview: function (announcement) {
+      if (announcement.summary) {
+        return this.showLimitedPreviewText(announcement.summary.replace(/\!\[.*\]\(.*\)/,''))
+      } else {
+        return this.showLimitedPreviewText(announcement.description.replace(/\!\[.*\]\(.*\)/,''))
       }
     }
   }

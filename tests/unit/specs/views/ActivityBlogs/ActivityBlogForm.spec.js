@@ -136,6 +136,29 @@ describe('ActivityBlogForm', () => {
     expect(spy).toHaveBeenCalledTimes(1)
   })
 
+  test('$imgDel', () => {
+    wrapper.vm.img_file = [
+      { id: 1 }
+    ]
+    wrapper.vm.$imgDel(0)
+  })
+
+  test('successUploadResource', () => {
+    wrapper.vm.$refs = {
+      md: {
+        $img2Url: jest.fn()
+      }
+    }
+    const response = {
+      id: 'id-1',
+      file: {
+        full: 'google.com/images'
+      }
+    }
+    wrapper.vm.successUploadResource(response)
+    expect(wrapper.vm.imageIds).toEqual(['id-1'])
+  })
+
   test('failUploadResource', () => {
     wrapper.vm.failUploadResource()
     expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)

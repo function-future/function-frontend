@@ -44,7 +44,7 @@ export default {
       })
     },
     successFetchProfile () {
-      this.avatarPreview = this.profile.avatar
+      this.avatarPreview = this.profile.avatar || require('@/assets/profile-picture-placeholder.png')
     },
     failFetchProfile () {
       this.$toasted.error('Fail to load profile')

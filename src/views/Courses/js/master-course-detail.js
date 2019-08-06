@@ -61,28 +61,6 @@ export default {
     failFetchMasterCourseById () {
       this.$toasted.error('Fail to load master course detail, please refresh the page')
     },
-    downloadMaterial (url) {
-      let configuration = { responseType: 'arraybuffer' }
-      this.downloadCourseMaterial({
-        data: url,
-        configuration,
-        callback: this.successDownloadMaterial,
-        fail: this.failDownloadMaterial
-      })
-    },
-    successDownloadMaterial (response) {
-      this.forceFileDownload(response)
-    },
-    failDownloadMaterial () {
-      this.$toasted.error('Fail to download material, please try again')
-    },
-    forceFileDownload (response) {
-      const url = window.URL.createObjectURL(new Blob([response.data]))
-      const link = document.createElement('a')
-      link.href = url
-      document.body.appendChild(link)
-      link.click()
-    },
     goToEditMasterCourse () {
       this.$router.push({
         name: 'editMasterCourse',
@@ -100,15 +78,14 @@ export default {
         callback: this.successDeleteMasterById,
         fail: this.failDeleteMasterById
       })
+      this.showDeleteConfirmationModal = false
     },
     successDeleteMasterById () {
       this.$router.push({ name: 'masterCourses' })
       this.$toasted.success('Successfully delete master course')
-      this.showDeleteConfirmationModal = false
     },
     failDeleteMasterById () {
       this.$toasted.error('Fail to delete master course')
-      this.showDeleteConfirmationModal = false
     }
   }
 }

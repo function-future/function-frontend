@@ -22,6 +22,12 @@ import quizDetail from '@/views/Quiz/QuizDetail'
 import studentQuizList from '@/views/Quiz/StudentQuizList'
 import studentQuizDetail from '@/views/Quiz/StudentQuizDetail'
 import quizQuestions from '@/views/Quiz/QuizQuestions'
+import judgingList from '@/views/FinalJudging/JudgingList'
+import judgingBatch from '@/views/FinalJudging/JudgingBatch'
+import judgingBatchForm from '@/views/FinalJudging/JudgingBatchForm'
+import addJudging from '@/views/FinalJudging/AddJudging'
+import judgingDetail from '@/views/FinalJudging/JudgingDetail'
+import comparison from '@/views/FinalJudging/Comparison'
 import points from '@/views/Point/Point'
 import feeds from '@/views/Feeds/Feeds.vue'
 import announcements from '@/views/Announcements/Announcements.vue'
@@ -66,6 +72,7 @@ import logMessageRoom from '@/views/LoggingRoom/LogMessageRoom.vue'
 import loggingRoomCreate from '@/views/LoggingRoom/LoggingRoomCreate'
 import loggingRoomEdit from '@/views/LoggingRoom/LoggingRoomEdit'
 
+import files from '@/views/Files/Files'
 import store from '../store/index.js'
 
 Vue.use(Router)
@@ -77,7 +84,10 @@ const router = new Router({
     {
       path: config.app.pages.auth.login,
       name: 'login',
-      component: login
+      component: login,
+      meta: {
+        title: 'Login'
+      }
     },
     {
       path: config.app.pages.user.profile,
@@ -164,6 +174,7 @@ const router = new Router({
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
           { name: 'Activity Blogs', link: 'activityBlogs' },
+          { name: 'Activity Blog Detail', link: 'activityBlogDetail' },
           { name: 'Edit Activity Blog', link: 'editActivityBlog' }
         ]
       },
@@ -205,6 +216,7 @@ const router = new Router({
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
           { name: 'Announcements', link: 'announcements' },
+          { name: 'Announcement Detail', link: 'announcementDetail' },
           { name: 'Edit Announcement', link: 'editAnnouncement' }
         ]
       },
@@ -329,6 +341,7 @@ const router = new Router({
           { name: 'Home', link: 'feeds' },
           { name: 'Batches', link: 'courseBatches' },
           { name: 'Courses', link: 'courses' },
+          { name: 'Course Detail', link: 'courseDetail' },
           { name: 'Edit Course', link: 'editCourse' }
         ]
       },
@@ -392,15 +405,30 @@ const router = new Router({
           { name: 'Home', link: 'feeds' },
           { name: 'Batches', link: 'courseBatches' },
           { name: 'Master Courses', link: 'masterCourses' },
+          { name: 'Master Course Detail', link: 'masterCourseDetail' },
           { name: 'Edit Master Course', link: 'editMasterCourse' }
         ]
       },
       props: { editMode: true }
     },
     {
-      path: config.app.pages.files,
+      path: config.app.pages.files.root,
       name: 'files',
-      component: feeds,
+      redirect: config.app.pages.files.root + '/root'
+    },
+    {
+      path: config.app.pages.files.folder,
+      name: 'folder',
+      component: files,
+      meta: {
+        auth: true,
+        title: 'Files'
+      }
+    },
+    {
+      path: config.app.pages.files.detail,
+      name: 'fileDetail',
+      component: files,
       meta: {
         auth: true,
         title: 'Files'
@@ -469,14 +497,6 @@ const router = new Router({
       props: {
         studentMode: false,
         editMode: true
-      }
-    },
-    {
-      path: config.app.pages.grades,
-      name: 'grades',
-      component: feeds,
-      meta: {
-        title: 'Grades'
       }
     },
     {
@@ -723,9 +743,63 @@ const router = new Router({
       }
     },
     {
-      path: config.app.pages.finalJudging,
-      name: 'finalJudging',
-      component: feeds
+      path: config.app.pages.finalJudging.batches.list,
+      name: 'judgingBatch',
+      component: judgingBatch,
+      meta: {
+        title: 'Judging Batch List'
+      }
+    },
+    {
+      path: config.app.pages.finalJudging.batches.add,
+      name: 'addJudgingBatch',
+      component: judgingBatchForm,
+      meta: {
+        title: 'Judging Batch List'
+      }
+    },
+    {
+      path: config.app.pages.finalJudging.batches.edit,
+      name: 'editJudgingBatch',
+      component: judgingBatchForm,
+      meta: {
+        title: 'Judging Batch List'
+      },
+      props: {
+        editMode: true
+      }
+    },
+    {
+      path: config.app.pages.finalJudging.list,
+      name: 'judgingList',
+      component: judgingList,
+      meta: {
+        title: 'Judging'
+      }
+    },
+    {
+      path: config.app.pages.finalJudging.add,
+      name: 'addJudging',
+      component: addJudging,
+      meta: {
+        title: 'Add Judging Session'
+      }
+    },
+    {
+      path: config.app.pages.finalJudging.detail,
+      name: 'judgingDetail',
+      component: judgingDetail,
+      meta: {
+        title: 'Judging Detail'
+      }
+    },
+    {
+      path: config.app.pages.finalJudging.comparisons,
+      name: 'comparison',
+      component: comparison,
+      meta: {
+        title: 'Comparison'
+      }
     },
     {
       path: config.app.pages.reminders.list,
@@ -913,7 +987,11 @@ router.beforeEach((to, from, next) => {
 
   store.dispatch('getLoginStatus', {
     callback: () => { return to.fullPath === '/login' ? next({ name: 'feeds' }) : next() },
-    fail: () => { return !to.meta.auth ? next() : (to.path !== '/login' ? next('/login') : next()) }
+    fail: () => {
+      store.dispatch('setCurrentUser', { data: {} })
+      store.dispatch('setMenuList', { data: {} })
+      return !to.meta.auth ? next() : (to.path !== '/login' ? next('/login') : next())
+    }
   })
 })
 
@@ -941,7 +1019,7 @@ router.afterEach((to, from) => {
         (to.meta.add && store.getters.accessList.add !== to.meta.add) ||
         (to.meta.edit && store.getters.accessList.edit !== to.meta.edit)) {
         Vue.toasted.error('You do not have permission to access the page')
-        // router.push({ name: 'feeds' })
+        router.push({ name: 'feeds' })
       }
     },
     fail: () => {}

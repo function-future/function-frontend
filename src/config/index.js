@@ -41,7 +41,11 @@ module.exports = {
         detail: '/batches/:code/courses/:id/detail',
         edit: '/batches/:code/courses/:id/edit'
       },
-      files: '/files',
+      files: {
+        root: '/files',
+        folder: '/files/:parentId',
+        detail: '/files/:parentId/:id'
+      },
       users: {
         list: '/users',
         add: {
@@ -88,8 +92,17 @@ module.exports = {
           edit: '/assignment/batches/:batchCode/edit'
         }
       },
-      finalJudging: '/final-judging',
-      grades: '/grades',
+      finalJudging: {
+        list: '/batches/:batchCode/final-judging',
+        batches: {
+          list: '/final-judging/batches',
+          add: '/final-judging/batches/add',
+          edit: '/final-judging/batches/:batchCode/edit',
+        },
+        add: '/batches/:batchCode/final-judging/add',
+        detail: '/batches/:batchCode/final-judging/:judgingId/detail',
+        comparisons: '/batches/:batchCode/final-judging/:judgingId/comparison'
+      },
       stickyNotes: {
         detail: '/sticky-notes',
         edit: '/sticky-notes/edit'
@@ -99,9 +112,6 @@ module.exports = {
           list: '/quizzes',
           detail: '/quizzes/:quizId/detail',
           questions: '/quizzes/:quizId/questions'
-        },
-        assignments: {
-
         }
       },
       chatrooms: '/chatrooms',
@@ -154,6 +164,7 @@ module.exports = {
       },
       users: {
         get (page, size, role) { return `/api/core/users?page=${page}&size=${size}&role=${role}` },
+        getWithBatch (page, size, batchCode) { return `/api/core/users/batches/${batchCode}?page=${page}&size=${size}` },
         post: '/api/core/users',
         detail (id) { return `/api/core/users/${id}` },
         search (page, size, name) { return `/api/core/users/search?name=${name}&page=${page}&size=${size}` }
@@ -187,6 +198,7 @@ module.exports = {
       },
       activityBlogs: {
         get (page, size) { return `/api/core/activity-blogs?page=${page}&size=${size}` },
+        user (page, size, userId) { return `/api/core/activity-blogs?page=${page}&size=${size}&userId=${userId}` },
         post: '/api/core/activity-blogs',
         detail: {
           get (id) {
@@ -238,6 +250,13 @@ module.exports = {
           get (code, id, page) { return `/api/core/batches/${code}/courses/${id}/discussions?page=${page}` },
           post (code, id) { return `/api/core/batches/${code}/courses/${id}/discussions` }
         }
+      },
+      files: {
+        list (parentId, page, size) { return `/api/core/files/${parentId}?page=${page}&size=${size}` },
+        create (parentId) { return `/api/core/files/${parentId}` },
+        delete (parentId, id) { return `/api/core/files/${parentId}/${id}` },
+        detail (parentId, id) { return `/api/core/files/${parentId}/${id}` },
+        update (parentId, id) { return `/api/core/files/${parentId}/${id}` }
       }
     },
     scoring: {
@@ -343,6 +362,29 @@ module.exports = {
           questions(studentId, quizId) {
             return `/api/scoring/students/${studentId}/quizzes/${quizId}/questions`
           }
+        }
+      },
+      finalJudging: {
+        list (batchCode, page, pageSize) {
+          return `/api/scoring/batches/${batchCode}/judgings?page=${page}&size=${pageSize}`
+        },
+        create (batchCode) {
+          return `/api/scoring/batches/${batchCode}/judgings`
+        },
+        detail (batchCode, judgingId) {
+          return `/api/scoring/batches/${batchCode}/judgings/${judgingId}`
+        },
+        update (batchCode, judgingId) {
+          return `/api/scoring/batches/${batchCode}/judgings/${judgingId}`
+        },
+        delete (batchCode, judgingId) {
+          return `/api/scoring/batches/${batchCode}/judgings/${judgingId}`
+        },
+        comparisons (batchCode, judgingId) {
+          return `/api/scoring/batches/${batchCode}/judgings/${judgingId}/comparisons`
+        },
+        score (batchCode, judgingId) {
+          return `/api/scoring/batches/${batchCode}/judgings/${judgingId}/comparisons`
         }
       },
       points: {

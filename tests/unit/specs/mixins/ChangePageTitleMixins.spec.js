@@ -41,6 +41,21 @@ describe('ChangePageTitleMixins', () => {
     expect(wrapper.vm.title).toBe('Testing mixins')
   })
 
+  test('fetchTitle meta login', () => {
+    const $route = {
+      meta: {
+        title: 'Login'
+      }
+    }
+    const wrapper = shallowMount(changePageTitleMixins, {
+      mocks: {
+        $route
+      },
+      sync: false
+    })
+    expect(wrapper.vm.title).toBe('')
+  })
+
   test('watch changes on $route', () => {
     const spy = jest.spyOn(changePageTitleMixins.methods, 'fetchTitle')
     const $route = {

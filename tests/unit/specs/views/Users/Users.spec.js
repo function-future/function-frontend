@@ -285,25 +285,23 @@ describe('Users', () => {
 
   test('deleteThisUser', () => {
     const spy = jest.spyOn(Users.methods, 'deleteUserById')
+    const closeDeleteConfirmationModalSpy = jest.spyOn(Users.methods, 'closeDeleteConfirmationModal')
     initComponent()
     wrapper.vm.deleteThisUser()
     expect(spy).toHaveBeenCalledTimes(1)
+    expect(closeDeleteConfirmationModalSpy).toHaveBeenCalledTimes(1)
   })
 
   test('successDeleteUserById', () => {
-    const spy = jest.spyOn(Users.methods, 'closeDeleteConfirmationModal')
     initComponent()
     wrapper.vm.successDeleteUserById()
     expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
-    expect(spy).toHaveBeenCalledTimes(1)
   })
 
   test('failDeleteUserById', () => {
-    const spy = jest.spyOn(Users.methods, 'closeDeleteConfirmationModal')
     initComponent()
     wrapper.vm.failDeleteUserById()
     expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
-    expect(spy).toHaveBeenCalledTimes(1)
   })
 
   test('loadPage', () => {

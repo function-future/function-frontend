@@ -3,7 +3,7 @@ import { createLocalVue, shallowMount } from '@vue/test-utils'
 import Vuex from 'vuex'
 import VueRouter from 'vue-router'
 
-describe('CourseBatch', () => {
+describe('QuizBatch', () => {
   let store
   let wrapper
   let localVue
@@ -112,7 +112,7 @@ describe('CourseBatch', () => {
     expect(wrapper.isVueInstance()).toBe(true)
   })
 
-  test('goToCourse', () => {
+  test('goToQuizzes', () => {
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.goToQuizList('3')
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({

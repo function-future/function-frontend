@@ -147,6 +147,66 @@ describe('actions activity-blogs', () => {
     expect(callback).toHaveBeenCalledTimes(1)
   })
 
+  test('fetchUserActivityBlogs', () => {
+    const response = {
+      'code': 200,
+      'status': 'OK',
+      'data': [
+        {
+          'id': 'sample-id-1',
+          'title': 'Activity Blog Title 5',
+          'description': '**Description** in markdown format goes here',
+          'files': [
+            {
+              'id': 'sample-id',
+              'file': {
+                'full': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png',
+                'thumbnail': null
+              }
+            }
+          ],
+          'author': {
+            'id': 'sample-id',
+            'name': 'Student 1'
+          }
+        },
+        {
+          'id': 'sample-id-2',
+          'title': 'Activity Blog Title 5',
+          'description': 'Description in markdown format goes here',
+          'files': [
+            {
+              'id': 'sample-id',
+              'file': {
+                'full': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png',
+                'thumbnail': null
+              }
+            }
+          ],
+          'author': {
+            'id': 'sample-id-3',
+            'name': 'Student 1'
+          }
+        }]
+    }
+    api.getUserActivityBlogList = (success) => {
+      success(response)
+    }
+    const data = {
+      'paging': {
+        'page': 1,
+        'size': 4
+      }
+    }
+    const commit = jest.fn()
+    const callback = jest.fn()
+    const fail = jest.fn()
+    store.actions.fetchUserActivityBlogs({ commit }, { callback, data, fail })
+    expect(fail).toHaveBeenCalledTimes(0)
+    expect(commit).toHaveBeenCalledWith('SET_ACTIVITY_BLOGS', response.data)
+    expect(callback).toHaveBeenCalledTimes(1)
+  })
+
   test('fetchActivityBlogById', () => {
     const response = {
       'code': 200,

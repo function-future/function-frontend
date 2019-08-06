@@ -79,10 +79,7 @@ describe('QuestionBanks', () => {
 
   afterEach(() => {
     jest.restoreAllMocks()
-  })
-
-  test('Sanity test', () => {
-    expect(true).toBe(true)
+    wrapper.destroy()
   })
 
   test('Rendered correctly', () => {
@@ -104,9 +101,10 @@ describe('QuestionBanks', () => {
       size: 10,
       totalRecords: 20
     }
-    const spy = jest.spyOn(wrapper.vm, 'loadPage')
     wrapper.vm.successFetchingQuestionBankList(paging)
-    expect(spy).toHaveBeenCalledTimes(1)
+    expect(wrapper.vm.paging.page).toEqual(paging.page)
+    expect(wrapper.vm.paging.pageSize).toEqual(paging.size)
+    expect(wrapper.vm.paging.totalRecords).toEqual(paging.totalRecords)
   })
 
   test('failFetchingQuestionBankQuestionList', () => {
@@ -181,10 +179,8 @@ describe('QuestionBanks', () => {
       totalRecords: 20
     }
     const spy = jest.spyOn(wrapper.vm, 'initPage')
-    wrapper.vm.loadPage(paging)
+    wrapper.vm.loadPage(paging.page)
     expect(wrapper.vm.paging.page).toEqual(1)
-    expect(wrapper.vm.paging.size).toEqual(10)
-    expect(wrapper.vm.paging.totalRecords).toEqual(20)
     expect(spy).toHaveBeenCalledTimes(1)
   })
 

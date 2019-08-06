@@ -5,6 +5,10 @@ const getActivityBlogList = function (callback, data, errorHandler) {
   request.getRequest(config.api.core.activityBlogs.get(data.page, data.size), callback, errorHandler)
 }
 
+const getUserActivityBlogList = function (callback, data, errorHandler) {
+  request.getRequest(config.api.core.activityBlogs.user(data.page, data.size, data.userId), callback, errorHandler)
+}
+
 const getActivityBlogDetail = function (callback, data, errorHandler) {
   request.getRequest(config.api.core.activityBlogs.detail.get(data.id), callback, errorHandler)
 }
@@ -27,6 +31,7 @@ const uploadResource = function (callback, data, errorHandler, configuration) {
 
 export default {
   getActivityBlogList,
+  getUserActivityBlogList,
   getActivityBlogDetail,
   createActivityBlog,
   updateActivityBlog,

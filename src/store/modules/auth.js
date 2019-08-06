@@ -33,7 +33,7 @@ export const actions = {
     }, fail)
   },
   attemptLogout ({ commit }, { callback, fail }) {
-    authApi.attemptLogout(({ data: response }) => {
+    authApi.attemptLogout(() => {
       commit('SET_CURRENT_USER', {})
       callback()
     }, fail)
@@ -43,11 +43,17 @@ export const actions = {
       commit('SET_MENU_LIST', response)
     })
   },
-  getAccessList ({ commit }, { data, callback, fail } = {}) {
+  getAccessList ({ commit }, { data, callback, fail }) {
     configApi.getAccessList((response) => {
       commit('SET_ACCESS_LIST', response)
       callback()
     }, data, fail)
+  },
+  setCurrentUser ({ commit }, { data }) {
+    commit('SET_CURRENT_USER', data)
+  },
+  setMenuList ({ commit }, { data }) {
+    commit('SET_MENU_LIST', data)
   }
 }
 

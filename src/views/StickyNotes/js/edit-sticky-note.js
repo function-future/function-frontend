@@ -44,7 +44,8 @@ export default {
       stickyNote: {
         title: '',
         description: ''
-      }
+      },
+      isSubmitting: false
     }
   },
   created () {
@@ -83,6 +84,7 @@ export default {
       this.validateBeforeSubmit(this.validationSuccess)
     },
     validationSuccess (result) {
+      this.isSubmitting = true
       if (result) {
         let data = { ...this.stickyNote }
         this.postStickyNotes({
@@ -96,9 +98,11 @@ export default {
       this.initialState()
       this.$router.push({ name: 'stickyNotes' })
       this.$toasted.success('Successfully created new sticky note')
+      this.isSubmitting = false
     },
     failPostStickyNotes () {
       this.$toasted.error('Fail to create new sticky note')
+      this.isSubmitting = false
     },
     cancel () {
       this.$router.go(-1)

@@ -1,9 +1,9 @@
-import Comparisons from '@/views/Comparison/Comparisons'
-import { createLocalVue, shallowMount } from '@vue/test-utils'
+import ModalFileUploadProgress from '@/components/modals/ModalFileUploadProgress'
+import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import VueRouter from 'vue-router'
 
-describe('Comparisons', () => {
+describe('ModalFileUploadProgress', () => {
   let store
   let wrapper
   let localVue
@@ -21,11 +21,10 @@ describe('Comparisons', () => {
     const getters = {}
     const store = new Vuex.Store({
       modules: {
-        quizzes: {
+        users: {
           state,
           actions,
-          getters,
-          namespaced: true
+          getters
         }
       }
     })
@@ -40,11 +39,19 @@ describe('Comparisons', () => {
 
   function createWrapper (store, options) {
     const router = new VueRouter([])
-    return shallowMount(Comparisons, {
+    const $toasted = {
+      error: jest.fn(),
+      success: jest.fn()
+    }
+    return shallowMount(ModalFileUploadProgress, {
       ...options,
       store,
       localVue,
       router,
+      propsData: {
+        isUploading: true,
+        list: []
+      },
       stubs: [
         'BaseCard',
         'BaseButton',
@@ -52,6 +59,9 @@ describe('Comparisons', () => {
         'BaseSelect',
         'font-awesome-icon'
       ],
+      mocks: {
+        $toasted
+      },
       sync: false
     })
   }
@@ -63,7 +73,7 @@ describe('Comparisons', () => {
   }
 
   afterEach(() => {
-    jest.restoreAllMocks()
+    jest.resetAllMocks()
   })
 
   test('Sanity test', () => {
@@ -73,5 +83,11 @@ describe('Comparisons', () => {
   test('Rendered correctly', () => {
     initComponent()
     expect(wrapper.isVueInstance()).toBe(true)
+  })
+
+  test('close', () => {
+    initComponent()
+    wrapper.vm.close()
+    expect(wrapper.emitted().close.length).toBe(1)
   })
 })

@@ -68,9 +68,33 @@ describe('Breadcrumbs', () => {
       sync: false
     })
     wrapper.vm.$router.push = jest.fn()
-    const index = 1
-    wrapper.vm.routeTo(index)
-    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'courses' })
+    const link = 'feeds'
+    wrapper.vm.routeTo(link)
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'feeds' })
+  })
+
+  test('routeTo no link', () => {
+    const $router = {
+      push: jest.fn()
+    }
+    const $route = {
+      meta: {
+        breadcrumb: [
+          { name: 'Batches', link: 'courseBatches' },
+          { name: 'Courses', link: 'courses' }
+        ]
+      }
+    }
+    const wrapper = shallowMount(Breadcrumbs, {
+      mocks: {
+        $route,
+        $router
+      },
+      sync: false
+    })
+    wrapper.vm.$router.push = jest.fn()
+    wrapper.vm.routeTo()
+    expect(wrapper.vm.$router.push).toHaveBeenCalledTimes(0)
   })
 
   test('watch changes on $route', () => {
@@ -123,5 +147,48 @@ describe('Breadcrumbs', () => {
       sync: false
     })
     expect(wrapper.vm.breadcrumbAvailable).toEqual(wrapper.vm.breadcrumbList)
+  })
+
+  test('computed breadcrumbs length < 4', () => {
+    const $route = {
+      meta: {
+        breadcrumb: [
+          { name: 'Batches', link: 'courseBatches' },
+          { name: 'Courses', link: 'courses' }
+        ]
+      }
+    }
+    const wrapper = shallowMount(Breadcrumbs, {
+      mocks: {
+        $route
+      },
+      sync: false
+    })
+    expect(wrapper.vm.breadcrumbs).toEqual(wrapper.vm.breadcrumbList)
+  })
+
+  test('computed breadcrumbs length > 4', () => {
+    const $route = { meta: { breadcrumb: [] } }
+    const wrapper = shallowMount(Breadcrumbs, {
+      mocks: {
+        $route
+      },
+      sync: false
+    })
+    wrapper.vm.breadcrumbList = [
+      { name: 'Home', link: 'feeds' },
+      { name: 'Activity Blogs', link: 'activityBlogs' },
+      { name: 'Activity Blog Detail', link: 'activityBlogDetail' },
+      { name: 'Edit Activity Blog', link: 'editActivityBlog' },
+      { name: 'Activity Blog List', link: 'activityBlogList' }
+    ]
+    const expectedData = [
+      { name: 'Home', link: 'feeds' },
+      { name: 'Activity Blogs', link: 'activityBlogs' },
+      { name: '...' },
+      { name: 'Edit Activity Blog', link: 'editActivityBlog' },
+      { name: 'Activity Blog List', link: 'activityBlogList' }
+    ]
+    expect(wrapper.vm.breadcrumbs).toEqual(expectedData)
   })
 })

@@ -10,6 +10,7 @@ import users from './modules/users.js'
 import batches from './modules/batches.js'
 import courses from './modules/courses.js'
 import discussions from './modules/discussions.js'
+import files from './modules/files.js'
 import assignments from './modules/assignments.js'
 import chatrooms from './modules/chatrooms'
 import assignmentRooms from './modules/assignment-rooms'
@@ -17,6 +18,7 @@ import quizzes from './modules/quizzes'
 import studentQuizzes from './modules/student-quiz'
 import questionBanks from './modules/question-banks'
 import points from './modules/points'
+import finalJudging from './modules/final-judging'
 import myQuestionnaires from './modules/my-questionnaire'
 import questionnaire from './modules/questionnaire'
 import questionnaireResults from './modules/questionnaire-results'
@@ -34,6 +36,7 @@ export default new Vuex.Store({
     batches,
     courses,
     discussions,
+    files,
     assignments,
     chatrooms,
     assignmentRooms,
@@ -41,6 +44,7 @@ export default new Vuex.Store({
     studentQuizzes,
     questionBanks,
     points,
+    finalJudging,
     myQuestionnaires,
     questionnaire,
     questionnaireResults

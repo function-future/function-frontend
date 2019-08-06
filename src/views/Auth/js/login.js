@@ -21,7 +21,7 @@ export default {
   },
   beforeRouteEnter (to, from, next) {
     next(vm => {
-      vm.$router.push({
+      vm.$router.replace({
         name: 'login',
         query: { redirect: from.fullPath }
       })

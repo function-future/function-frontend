@@ -46,11 +46,13 @@ export default {
       masterCourseData: {
         title: '',
         description: '',
-        material: []
+        material: '',
+        materialId: ''
       },
       uploadingFile: false,
       filePreviewName: '',
-      file: {}
+      file: {},
+      isSubmitting: false
     }
   },
   props: [
@@ -62,7 +64,10 @@ export default {
   computed: {
     ...mapGetters([
       'masterCourse'
-    ])
+    ]),
+    masterCourseMaterialId () {
+      return this.masterCourseData.materialId ? [ this.masterCourseData.materialId ] : []
+    }
   },
   methods: {
     ...mapActions([
@@ -104,9 +109,14 @@ export default {
       this.validateBeforeSubmit(this.validationSuccess)
     },
     validationSuccess () {
+      this.isSubmitting = true
       const data = {
         id: this.$route.params.id,
-        content: { ...this.masterCourseData }
+        content: {
+          title: this.masterCourseData.title,
+          description: this.masterCourseData.description,
+          material: this.masterCourseMaterialId
+        }
       }
       if (this.editMode) {
         this.updateMasterCourse({
@@ -129,6 +139,7 @@ export default {
       this.$toasted.success('Successfully ' + msg + ' master course')
     },
     failCreateOrEditMasterCourse () {
+      this.isSubmitting = false
       let msg = ''
       this.editMode ? msg = 'edit' : msg = 'create new'
       this.$toasted.error('Fail to ' + msg + ' master course')
@@ -156,7 +167,7 @@ export default {
     },
     successUploadMaterial (response) {
       this.uploadingFile = false
-      this.masterCourseData.material = [ response.id ]
+      this.masterCourseData.materialId = response.id
       this.filePreviewName = this.file.name
     },
     failUploadMaterial () {
@@ -173,6 +184,6 @@ export default {
       } else {
         this.$router.push({ name: 'masterCourses' })
       }
-    },
+    }
   }
 }

@@ -21,6 +21,15 @@ describe('Activity Blogs Controller', () => {
     expect(spy).toBeCalledTimes(1)
   })
 
+  test('getUserActivityBlogList', () => {
+    const spy = jest.spyOn(request, 'getRequest')
+    const data = {}
+    const callback = jest.fn()
+    const errorHandler = jest.fn()
+    api.getUserActivityBlogList(callback, data, errorHandler)
+    expect(spy).toBeCalledTimes(1)
+  })
+
   test('getActivityBlogDetail', () => {
     const spy = jest.spyOn(request, 'getRequest')
     const data = {}

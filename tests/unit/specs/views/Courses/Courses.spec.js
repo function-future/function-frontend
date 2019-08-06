@@ -157,6 +157,7 @@ describe('Courses', () => {
     wrapper.vm.successFetchCourses(response, paging)
     expect(wrapper.vm.courses).toEqual(response)
     expect(wrapper.vm.paging).toEqual(paging)
+    expect(wrapper.vm.state.loaded).toHaveBeenCalledTimes(1)
   })
 
   test('successFetchCourses max page', () => {
@@ -198,6 +199,22 @@ describe('Courses', () => {
     wrapper.vm.successFetchCourses(response, paging)
     expect(wrapper.vm.courses).toEqual(response)
     expect(wrapper.vm.paging).toEqual(paging)
+    expect(wrapper.vm.state.loaded).toHaveBeenCalledTimes(1)
+  })
+
+  test('successFetchCourses complete', () => {
+    const response = []
+    const paging = {
+      page: 3,
+      size: 10,
+      totalRecords: 25
+    }
+    wrapper.vm.state = {
+      loaded: jest.fn(),
+      complete: jest.fn()
+    }
+    wrapper.vm.successFetchCourses(response, paging)
+    expect(wrapper.vm.state.complete).toHaveBeenCalledTimes(1)
   })
 
   test('failFetchCourses', () => {
@@ -245,21 +262,20 @@ describe('Courses', () => {
     const spy = jest.spyOn(wrapper.vm, 'deleteCourseById')
     wrapper.vm.deleteThisCourse()
     expect(spy).toHaveBeenCalledTimes(1)
+    expect(wrapper.vm.showDeleteConfirmationModal).toEqual(false)
   })
 
   test('successDeleteCourseById', () => {
-    wrapper.vm.$router.push = jest.fn()
+    const spy = jest.spyOn(wrapper.vm, 'resetPage')
     wrapper.vm.successDeleteCourseById()
-    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'courses' })
+    expect(spy).toHaveBeenCalledTimes(1)
     expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
-    expect(wrapper.vm.showDeleteConfirmationModal).toEqual(false)
   })
 
   test('failDeleteCourseById', () => {
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.failDeleteCourseById()
     expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
-    expect(wrapper.vm.showDeleteConfirmationModal).toEqual(false)
   })
 
   test('openCopySelectedCourseModal', () => {
