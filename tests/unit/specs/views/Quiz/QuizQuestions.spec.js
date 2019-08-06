@@ -142,22 +142,13 @@ describe('QuizQuestions', () => {
     initComponent()
     wrapper.vm.successFetchingStudentQuizQuestions()
     expect(wrapper.vm.currentNumber).toEqual(0)
+    expect(wrapper.vm.isLoading).toEqual(false)
   })
 
   test('failedFetchingStudentQuizQuestions', () => {
     initComponent()
     wrapper.vm.failedFetchingStudentQuizQuestions ()
     expect(wrapper.vm.$toasted.error).toBeCalledTimes(1)
-  })
-
-  test('selectOption', () => {
-    initComponent()
-    wrapper.vm.currentNumber = 0
-    wrapper.vm.selectOption('option-id-1')
-    expect(wrapper.vm.answers[0]).toEqual({
-      number: 1,
-      optionId: 'option-id-1'
-    })
   })
 
   test('viewQuestion', () => {
@@ -197,8 +188,11 @@ describe('QuizQuestions', () => {
 
   test('submitQuiz', () => {
     initComponent()
+    //TODO please check this
+    const arraySpy = jest.spyOn(wrapper.vm.studentQuizQuestions, 'forEach')
     const spy = jest.spyOn(wrapper.vm, 'submitQuiz')
     wrapper.vm.submitQuiz()
+    expect(arraySpy).toHaveBeenCalledTimes(1)
     expect(spy).toHaveBeenCalledTimes(1)
   })
 
@@ -221,5 +215,23 @@ describe('QuizQuestions', () => {
     initComponent()
     wrapper.vm.failedSubmitStudentQuiz()
     expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+  })
+
+  test('highlightedOption is true', () => {
+    initComponent()
+    wrapper.vm.answers = [
+      'option1',
+      'option2'
+    ]
+    expect(wrapper.vm.highlightedOption('option1')).toEqual('active')
+  })
+
+  test('highlightedOption is false', () => {
+    initComponent()
+    wrapper.vm.answers = [
+      'option1',
+      'option2'
+    ]
+    expect(wrapper.vm.highlightedOption('option3')).toEqual('')
   })
 })

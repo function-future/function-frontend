@@ -32,7 +32,7 @@
       </div>
       <div class="card-body">
         <div class="quiz-description">
-          {{quiz.description}}
+          <span v-html="descriptionCompiledMarkdown(quiz.description)"></span>
         </div>
       </div>
       <div class="card-footer">

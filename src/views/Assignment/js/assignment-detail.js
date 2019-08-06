@@ -19,13 +19,16 @@ export default {
         end: null
       },
       assignmentDetail: {
-        id: '',
         title: '',
         description: '',
         deadline: null,
-        // file: ''
+        file: '',
+        fileId: ''
       },
-      editMode: false
+      editMode: false,
+      uploadingFile: false,
+      filePreviewName: '',
+      file: {}
     }
   },
   created () {
@@ -33,18 +36,21 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'assignment'
+      'assignment',
+      'accessList'
     ])
   },
   methods: {
     ...mapActions([
       'updateAssignmentDetail',
-      'fetchAssignmentDetail'
+      'fetchAssignmentDetail',
+      'downloadCourseMaterial',
+      'uploadMaterial'
     ]),
     initPage () {
       this.fetchAssignmentDetail({
         data: {
-          id: this.$route.params.id,
+          id: this.$route.params.assignmentId,
           batchCode: this.$route.params.batchCode
         },
         callback: this.successFetchingAssignmentDetail,
@@ -55,7 +61,8 @@ export default {
       this.assignmentDetail = { ...this.assignment }
       this.assignmentDetail.deadline = new Date(this.assignmentDetail.deadline)
       this.displayedDates.start = this.assignmentDetail.deadline
-      this.displayedDates.end= this.assignmentDetail.deadline
+      this.displayedDates.end = this.assignmentDetail.deadline
+      this.filePreviewName = this.assignmentDetail.file || ''
     },
     failFetchingAssignmentDetail () {
       this.$toasted.error('Something went wrong')
@@ -70,14 +77,27 @@ export default {
       this.successFetchingAssignmentDetail()
       this.editMode = !this.editMode
     },
+    deleteAssignmentFile () {
+      this.assignmentDetail.fileId = ''
+    },
     saveAssignment () {
-      let payload = { ...this.assignmentDetail }
+      let payload = {
+        title: this.assignmentDetail.title,
+        description: this.assignmentDetail.description,
+        deadline: this.assignmentDetail.deadline
+      }
+      //TODO please check this
+      if (this.assignmentDetail.fileId === '') {
+        payload.files = []
+      } else {
+        payload.files = [ this.assignmentDetail.fileId ]
+      }
       payload.deadline = new Date(payload.deadline).getTime()
       this.updateAssignmentDetail({
         payload,
         data: {
           batchCode: this.$route.params.batchCode,
-          id: this.$route.params.id
+          id: this.$route.params.assignmentId
         },
         callback: this.successUpdatingAssignment,
         fail: this.failUpdatingAssignment
@@ -91,6 +111,46 @@ export default {
     },
     failUpdatingAssignment () {
       this.$toasted.error('Something went wrong, please try again')
+    },
+    goToRoomList () {
+      this.$router.push({
+        name: 'assignmentRooms',
+        params: {
+          batchCode: this.$route.params.batchCode,
+          assignmentId: this.assignmentDetail.id
+        }
+      })
+    },
+    onFileChange (e) {
+      this.file = e.target.files[0]
+      this.materialUpload(this.file)
+    },
+    materialUpload (file) {
+      this.uploadingFile = true
+      let formData = new FormData()
+      formData.append('file', file)
+      let data = {
+        source: 'ASSIGNMENT',
+        resources: formData
+      }
+      data = { ...data }
+      let configuration = { headers: { 'Content-Type': 'multipart/form-data' } }
+      this.uploadMaterial({
+        data,
+        configuration,
+        callback: this.successUploadMaterial,
+        fail: this.failUploadMaterial
+      })
+    },
+    successUploadMaterial (response) {
+      this.uploadingFile = false
+      this.assignmentDetail.fileId = response.id
+      this.filePreviewName = this.file.name
+    },
+    failUploadMaterial () {
+      this.uploadingFile = false
+      this.filePreviewName = 'Fail to upload material, please try again'
+      this.$toasted.error('Fail to upload material, please try again')
     }
   }
 }

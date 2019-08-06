@@ -28,7 +28,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'judgingList'
+      'judgingList',
+      'accessList'
     ])
   },
   methods: {

@@ -3,20 +3,16 @@ import BaseCard from '@/components/BaseCard'
 import BaseButton from '@/components/BaseButton'
 import BaseInput from '@/components/BaseInput'
 import BaseSelect from '@/components/BaseSelect'
-import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
-import ModalCopy from '@/components/modals/ModalCopy'
 import BasePagination from '@/components/BasePagination'
 let marked = require('marked')
 
 export default {
-  name: 'StudentQuizList',
+  name: 'StudentAssignment',
   components: {
     BaseCard,
     BaseButton,
     BaseInput,
     BaseSelect,
-    ModalDeleteConfirmation,
-    ModalCopy,
     BasePagination
   },
   data () {
@@ -25,10 +21,7 @@ export default {
         page: 1,
         size: 10,
         totalRecords: 0
-      },
-      showDeleteConfirmationModal: false,
-      showCopyModal: false,
-      selectedId: ''
+      }
     }
   },
   created () {
@@ -36,41 +29,44 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'studentQuizList',
+      'studentAssignments',
       'currentUser'
     ])
   },
   methods: {
     ...mapActions([
-      'fetchStudentQuizList',
+      'fetchStudentAssignmentList'
     ]),
     initPage () {
-      this.fetchStudentQuizList({
+      this.fetchStudentAssignmentList({
         data: {
+          batchCode: 'future3',
+          assignmentId: 'asg',
           studentId: this.currentUser.id,
           page: this.paging.page,
-          pageSize: this.paging.size
+          size: this.paging.size
         },
-        callback: this.successFetchingStudentQuizList,
-        fail: this.failFetchingStudentQuizList
+        callback: this.successFetchingAssignmentList,
+        fail: this.failFetchingAssignmentList
       })
     },
-    successFetchingStudentQuizList (paging) {
+    successFetchingAssignmentList (paging) {
       this.paging = paging
     },
-    failFetchingStudentQuizList () {
+    failFetchingAssignmentList () {
       this.$toasted.error('Something went wrong')
     },
     isComplete(deadline) {
       return deadline < new Date() ? 'Done' : 'Ongoing'
     },
-    goToQuizDetail (id) {
+    goToRoomDetail (room) {
       this.$router.push({
-        name: 'studentQuizDetail',
+        name: 'assignmentRoomDetail',
         params: {
-          studentId: this.currentUser.id,
-          quizId: id
-        }
+          batchCode: room.assignment.batchCode,
+          assignmentId: room.assignment.id,
+          roomId: room.id
+        },
       })
     },
     loadPage (page) {

@@ -33,7 +33,11 @@ export default {
           }
         ]
       },
-      submittedQuestion: {}
+      submittedQuestion: {},
+      selectAnswerCardStyle: {
+        'padding': '10px 20px',
+        'margin': '10px 0'
+      }
     }
   },
   methods: {
@@ -41,9 +45,8 @@ export default {
       'createQuestion'
     ]),
     saveButtonClicked () {
-      const index = document.querySelector('input[name="correct-answer"]:checked').value
       this.submittedQuestion = JSON.parse(JSON.stringify(this.question))
-      this.submittedQuestion.options[index].correct = true
+      this.submittedQuestion.options[this.selectedAnswer].correct = true
       this.createQuestion({
         payload: {...this.submittedQuestion},
         data: {

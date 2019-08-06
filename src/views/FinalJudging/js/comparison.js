@@ -21,7 +21,8 @@ export default {
   computed: {
     ...mapGetters([
       'comparison',
-      'score'
+      'score',
+      'accessList'
     ])
   },
   methods: {

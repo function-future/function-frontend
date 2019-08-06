@@ -70,6 +70,131 @@ describe('actions', () => {
     ])
   })
 
+  test('fetchStudentAssignmentList', () => {
+    api.getStudentAssignments = (success) => {
+      success({
+        "code" : 200,
+        "status" : "OK",
+        "data" : [
+          {
+            "id" : "ROM0001",
+            "point" : 80,
+            "student" : {
+              "id": "SDT00001",
+              "name": "Oliver Sebastian",
+              "phone": "+6285774263075",
+              "role": "STUDENT",
+              "address": "Tangerang",
+              "email": "oliver@gmail.com",
+              "avatar": "http://function-src.com/asdasd",
+              "batch": "3",
+              "university": "BINUS"
+            },
+            "assignment": {
+              "id" : "ASG0001",
+              "title" : "Assignment 1",
+              "description" : "Description Number 1",
+              "deadline" : 15000000,
+              "file" : "http://function-static.com/ASG0001/fileName.docx",
+              "batchCode" : "3"
+            }
+          },
+          {
+            "id" : "ROM0002",
+            "point" : 90,
+            "student" : {
+              "id": "SDT00001",
+              "name": "Oliver Sebastian",
+              "phone": "+6285774263075",
+              "role": "STUDENT",
+              "address": "Tangerang",
+              "email": "oliver@gmail.com",
+              "avatar": "http://function-src.com/asdasd",
+              "batch": "3",
+              "university": "BINUS"
+            },
+            "assignment": {
+              "id" : "ASG0001",
+              "title" : "Assignment 1",
+              "description" : "Description Number 1",
+              "deadline" : 15000000,
+              "file" : "http://function-static.com/ASG0001/fileName.docx",
+              "batchCode" : "3"
+            }
+          }
+        ],
+        "paging" : {
+          "page" : 1,
+          "size" : 12,
+          "totalRecords" : 13
+        }
+      })
+    }
+    const data = {
+      batchCode: 'futur3',
+      assignmentId: '',
+      studentId: '',
+      page: 1,
+      pageSize: 10
+    }
+    const callback = jest.fn()
+    const commit = jest.fn()
+    const fail = jest.fn()
+    store.actions.fetchStudentAssignmentList({ commit }, { data, callback, fail })
+    expect(fail).not.toBeCalled()
+    expect(callback).toHaveBeenCalledTimes(1)
+    expect(commit).toBeCalledTimes(1)
+    expect(commit).toHaveBeenCalledWith('GET_STUDENT_ASSIGNMENT_LIST', [
+      {
+        "id" : "ROM0001",
+        "point" : 80,
+        "student" : {
+          "id": "SDT00001",
+          "name": "Oliver Sebastian",
+          "phone": "+6285774263075",
+          "role": "STUDENT",
+          "address": "Tangerang",
+          "email": "oliver@gmail.com",
+          "avatar": "http://function-src.com/asdasd",
+          "batch": "3",
+          "university": "BINUS"
+        },
+        "assignment": {
+          "id" : "ASG0001",
+          "title" : "Assignment 1",
+          "description" : "Description Number 1",
+          "deadline" : 15000000,
+          "file" : "http://function-static.com/ASG0001/fileName.docx",
+          "batchCode" : "3"
+        }
+      },
+      {
+        "id" : "ROM0002",
+        "point" : 90,
+        "student" : {
+          "id": "SDT00001",
+          "name": "Oliver Sebastian",
+          "phone": "+6285774263075",
+          "role": "STUDENT",
+          "address": "Tangerang",
+          "email": "oliver@gmail.com",
+          "avatar": "http://function-src.com/asdasd",
+          "batch": "3",
+          "university": "BINUS"
+        },
+        "assignment": {
+          "id" : "ASG0001",
+          "title" : "Assignment 1",
+          "description" : "Description Number 1",
+          "deadline" : 15000000,
+          "file" : "http://function-static.com/ASG0001/fileName.docx",
+          "batchCode" : "3"
+        }
+      }
+    ])
+  })
+
+
   test('createAssignment', () => {
     api.createAssignment = (success) => {
       success({
@@ -238,7 +363,8 @@ describe('actions', () => {
 describe('getters', () => {
   const state = {
     assignmentList: [],
-    assignment: {}
+    assignment: {},
+    studentAssignments: []
   }
 
   test('assignmentList', () => {
@@ -248,12 +374,17 @@ describe('getters', () => {
   test('assignment', () => {
     expect(store.getters.assignment(state)).toEqual(state.assignment)
   })
+
+  test('studentAssignments', () => {
+    expect(store.getters.studentAssignments(state)).toEqual(state.studentAssignments)
+  })
 })
 
 describe('mutations', () => {
   const state = {
     assignmentList: [],
-    assignment: {}
+    assignment: {},
+    studentAssignments: []
   }
 
   test('GET_ASSIGNMENT_LIST', () => {
@@ -312,5 +443,104 @@ describe('mutations', () => {
       'file': 'function-static.com/fileName.docx',
       'batch': 3
     })
+  })
+
+  test('GET_STUDENT_ASSIGNMENT_LIST', () => {
+    store.mutations.GET_STUDENT_ASSIGNMENT_LIST(state, [
+      {
+        "id" : "ROM0001",
+        "point" : 80,
+        "student" : {
+          "id": "SDT00001",
+          "name": "Oliver Sebastian",
+          "phone": "+6285774263075",
+          "role": "STUDENT",
+          "address": "Tangerang",
+          "email": "oliver@gmail.com",
+          "avatar": "http://function-src.com/asdasd",
+          "batch": "3",
+          "university": "BINUS"
+        },
+        "assignment": {
+          "id" : "ASG0001",
+          "title" : "Assignment 1",
+          "description" : "Description Number 1",
+          "deadline" : 15000000,
+          "file" : "http://function-static.com/ASG0001/fileName.docx",
+          "batchCode" : "3"
+        }
+      },
+      {
+        "id" : "ROM0002",
+        "point" : 90,
+        "student" : {
+          "id": "SDT00001",
+          "name": "Oliver Sebastian",
+          "phone": "+6285774263075",
+          "role": "STUDENT",
+          "address": "Tangerang",
+          "email": "oliver@gmail.com",
+          "avatar": "http://function-src.com/asdasd",
+          "batch": "3",
+          "university": "BINUS"
+        },
+        "assignment": {
+          "id" : "ASG0001",
+          "title" : "Assignment 1",
+          "description" : "Description Number 1",
+          "deadline" : 15000000,
+          "file" : "http://function-static.com/ASG0001/fileName.docx",
+          "batchCode" : "3"
+        }
+      }
+    ])
+    expect(state.studentAssignments).toEqual([
+      {
+        "id" : "ROM0001",
+        "point" : 80,
+        "student" : {
+          "id": "SDT00001",
+          "name": "Oliver Sebastian",
+          "phone": "+6285774263075",
+          "role": "STUDENT",
+          "address": "Tangerang",
+          "email": "oliver@gmail.com",
+          "avatar": "http://function-src.com/asdasd",
+          "batch": "3",
+          "university": "BINUS"
+        },
+        "assignment": {
+          "id" : "ASG0001",
+          "title" : "Assignment 1",
+          "description" : "Description Number 1",
+          "deadline" : 15000000,
+          "file" : "http://function-static.com/ASG0001/fileName.docx",
+          "batchCode" : "3"
+        }
+      },
+      {
+        "id" : "ROM0002",
+        "point" : 90,
+        "student" : {
+          "id": "SDT00001",
+          "name": "Oliver Sebastian",
+          "phone": "+6285774263075",
+          "role": "STUDENT",
+          "address": "Tangerang",
+          "email": "oliver@gmail.com",
+          "avatar": "http://function-src.com/asdasd",
+          "batch": "3",
+          "university": "BINUS"
+        },
+        "assignment": {
+          "id" : "ASG0001",
+          "title" : "Assignment 1",
+          "description" : "Description Number 1",
+          "deadline" : 15000000,
+          "file" : "http://function-static.com/ASG0001/fileName.docx",
+          "batchCode" : "3"
+        }
+      }
+    ])
   })
 })

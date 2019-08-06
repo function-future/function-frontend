@@ -30,6 +30,15 @@ describe('Assignment Controller', () => {
     expect(spy).toBeCalledTimes(1)
   })
 
+  test('getStudentAssignments', () => {
+    const spy = jest.spyOn(request, 'getRequest')
+    const data = {}
+    const callback = jest.fn()
+    const errorHandler = jest.fn()
+    api.getStudentAssignments(callback, data, errorHandler)
+    expect(spy).toBeCalledTimes(1)
+  })
+
   test('createAssignment', () => {
     const spy = jest.spyOn(request, 'postRequest')
     const data = {}

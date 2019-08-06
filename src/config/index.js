@@ -85,7 +85,7 @@ module.exports = {
           list: '/batches/:batchCode/assignments/:assignmentId/rooms',
           detail: '/batches/:batchCode/assignments/:assignmentId/rooms/:roomId'
         },
-        detail: '/batches/:batchCode/assignments/:id/detail',
+        detail: '/batches/:batchCode/assignments/:assignmentId/detail',
         batches: {
           list: '/assignment/batches',
           add: '/assignment/batches/add',
@@ -112,7 +112,8 @@ module.exports = {
           list: '/quizzes',
           detail: '/quizzes/:quizId/detail',
           questions: '/quizzes/:quizId/questions'
-        }
+        },
+        assignments: '/assignments'
       },
       chatrooms: '/chatrooms',
       reminders: {
@@ -289,6 +290,9 @@ module.exports = {
           update(batchCode, assignmentId, roomId) {
             return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/rooms/${roomId}`
           },
+          score(batchCode, assignmentId, roomId) {
+            return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/rooms/${roomId}`
+          },
           comments: {
             list(batchCode, assignmentId, roomId, page, pageSize) {
               return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/rooms/${roomId}/comments?page=${page}&size=${pageSize}`
@@ -297,15 +301,16 @@ module.exports = {
               return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/rooms/${roomId}/comments`
             },
           }
+        },
+        students (batchCode, assignmentId, studentId, page, size) {
+          return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/students/${studentId}/rooms?page=${page}&size=${size}`
         }
       },
       questionBanks: {
         list (page, pageSize) {
           return `/api/scoring/question-banks?page=${page}&size=${pageSize}`
         },
-        create (page, pageSize) {
-          return `/api/scoring/question-banks`
-        },
+        create: `/api/scoring/question-banks`,
         detail (id) {
           return `/api/scoring/question-banks/${id}`
         },

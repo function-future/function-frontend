@@ -1,39 +1,37 @@
 <template>
   <div class="scrollable-container">
-    <BaseCard class="quiz-card"
-              v-for="studentQuiz in studentQuizList"
-              @click.native="goToQuizDetail(studentQuiz.id)">
+    <BaseCard class="assignment-card"
+              v-for="room in studentAssignments"
+              :key="room.id"
+              @click.native="goToRoomDetail(room)"
+              cardClass="card-hover">
       <div class="card-header-section">
         <div class="card-header">
-          {{studentQuiz.quiz.title}}
+          {{room.assignment.title}}
         </div>
-        <div class="card-header float-right">
-          <div class="quiz-date">
-            {{ studentQuiz.quiz.startDate |  moment("dddd, MMMM Do YYYY") }}
+        <div class="float-right">
+          <div class="assignment-date">
+            {{ room.assignment.uploadedDate |  moment("dddd, MMMM Do YYYY") }}
           </div>
         </div>
       </div>
       <div class="card-body">
-        <div class="quiz-description">
-          <span v-html="descriptionCompiledMarkdown(studentQuiz.quiz.description)"></span>
+        <div class="assignment-description">
+          <span v-html="descriptionCompiledMarkdown(room.assignment.description)"></span>
         </div>
       </div>
       <div class="card-footer">
         <div class="completion-status">
-          <div class="completion-status__box"
-               :class="isComplete(studentQuiz.quiz.endDate)">
+          <div class="completion-status--box"
+               :class="isComplete(room.assignment.deadline)">
           </div>
-          <span class="completion-status__text">
-            {{isComplete(studentQuiz.quiz.endDate)}}
+          <span class="completion-status--text">
+            {{isComplete(room.assignment.deadline)}}
           </span>
         </div>
-        <div class="quiz-deadline">
+        <div class="assignment-deadline">
           <font-awesome-icon icon="calendar"></font-awesome-icon>
-          {{studentQuiz.quiz.endDate | moment("dddd, MMMM Do YYYY")}}
-        </div>
-        <div class="retry-count">
-          <font-awesome-icon icon="redo"></font-awesome-icon>
-          <span>{{studentQuiz.trials}} tries</span>
+          <span style="margin-left: 5px">{{room.assignment.deadline | moment("dddd, MMMM Do YYYY")}}</span>
         </div>
       </div>
     </BaseCard>
@@ -45,19 +43,19 @@
   </div>
 </template>
 
-<script type="text/javascript" src="./js/student-quiz-list.js"/>
+<script type="text/javascript" src="./js/student-assignments.js"/>
 
-<style lang="scss" scoped>
+<style scoped>
   .page-header {
     margin-right: 20px;
   }
-  .quiz-card {
+  .assignment-card {
     min-height: 175px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
   }
-  .quiz-card:hover {
+  .assignment-card:hover {
     cursor: pointer;
     transition: all .3s ease;
     box-shadow: 2px 2px 10px rgba(0,0,0,0.1), 2px 2px 10px rgba(0,0,0,0.3);
@@ -80,44 +78,43 @@
     font-size: 1.4em;
   }
   .float-right {
-    font-size: 1em;
-    font-weight: normal;
+    display: inline-block;
     float: right;
   }
-  .quiz-date {
+  .assignment-date {
     padding: 5px 15px 5px 5px;
     display: inline-block;
   }
-  .quiz-action {
+  .assignment-action {
     border-left: 1px solid #BDBDBD;
     padding-left: 15px;
     display: inline-block;
   }
-  .quiz-action-copy {
+  .assignment-action-copy {
     display: inline-block;
     font-size: unset;
     font-weight: normal;
   }
-  .quiz-action span {
+  .assignment-action span {
     padding: 5px;
     transition: all .2s ease;
   }
 
-  .quiz-action span:hover {
+  .assignment-action span:hover {
     opacity: 0.8;
   }
 
-  .quiz-action span:active {
+  .assignment-action span:active {
     opacity: 0.9;
   }
   .card-body {
     display: flex;
   }
-  .quiz-deadline {
+  .assignment-deadline {
     display: flex;
     flex-wrap: wrap;
   }
-  .quiz-deadline-date {
+  .assignment-deadline-date {
     font-weight: bolder;
   }
   .card-footer {
@@ -125,31 +122,23 @@
     display: flex;
     align-items: center;
   }
-
   .completion-status {
     display: flex;
     align-items: center;
     margin-right: 20px;
-    &__box {
-      height: 20px;
-      width: 20px;
-      margin-right: 5px;
-    }
   }
-
-  .quiz-deadline {
-    margin-right: 20px;
+  .completion-status--box {
+    height: 20px;
+    width: 20px;
+    margin-right: 5px;
   }
-
   .Ongoing {
     background-color: limegreen;
   }
   .Done {
     background-color: red;
   }
-
-  .retry-count {
-    display: flex;
-    align-items: center;
+  .room-count {
+    margin-right: 20px;
   }
 </style>

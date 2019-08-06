@@ -2,12 +2,16 @@ import assignmentApi from '@/api/controller/assignments'
 
 export const state = {
   assignmentList: [],
+  studentAssignments: [],
   assignment: {}
 }
 
 export const mutations = {
   GET_ASSIGNMENT_LIST (state, payload) {
     state.assignmentList = payload
+  },
+  GET_STUDENT_ASSIGNMENT_LIST (state, payload) {
+    state.studentAssignments = payload
   },
   SET_ASSIGNMENT (state, payload) {
     state.assignment = payload
@@ -18,6 +22,12 @@ export const actions = {
   fetchAssignmentList ({ commit }, { data, callback, fail }) {
     assignmentApi.getAssignmentsList(({data: response, paging}) => {
       commit('GET_ASSIGNMENT_LIST', response)
+      callback && callback(paging)
+    }, data, fail)
+  },
+  fetchStudentAssignmentList ({ commit }, { data, callback, fail }) {
+    assignmentApi.getStudentAssignments(({data: response, paging}) => {
+      commit('GET_STUDENT_ASSIGNMENT_LIST', response)
       callback && callback(paging)
     }, data, fail)
   },
@@ -56,6 +66,9 @@ export const actions = {
 export const getters = {
   assignmentList (state) {
     return state.assignmentList
+  },
+  studentAssignments (state) {
+    return state.studentAssignments
   },
   assignment (state) {
     return state.assignment

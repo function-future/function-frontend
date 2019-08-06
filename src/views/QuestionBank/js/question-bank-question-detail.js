@@ -14,6 +14,7 @@ export default {
   },
   data () {
     return {
+      selectedAnswer: '',
       questionDetail: {
         label: '',
         options: [
@@ -32,7 +33,11 @@ export default {
         ]
       },
       submittedQuestion: {},
-      editMode: false
+      editMode: false,
+      selectAnswerCardStyle: {
+        'padding': '10px 20px',
+        'margin': '10px 0'
+      }
     }
   },
   created () {
@@ -66,18 +71,20 @@ export default {
     },
     successFetchingQuestionDetail () {
       this.questionDetail = {...this.question}
+      this.questionDetail.options.forEach((item, idx) => {
+        if (item.correct) {
+          this.selectedAnswer = idx
+        }
+      })
     },
     failFetchingQuestionDetail () {
       this.$toasted.error('Something went wrong')
     },
     actionButtonClicked () {
       if (this.editMode) {
-        const selectedIndex = document.querySelector('input[name="correct-answer"]:checked').value
-        let defaultIndex
-        this.question.options.find((option, index) => {if (option.correct) defaultIndex = index })
-        delete this.questionDetail.options[defaultIndex].correct
+        this.question.options.find((option, index) => {if (option.correct) delete this.questionDetail.options[index].correct })
         this.submittedQuestion = JSON.parse(JSON.stringify(this.questionDetail))
-        this.submittedQuestion.options[selectedIndex].correct = true
+        this.submittedQuestion.options[this.selectedAnswer].correct = true
         this.updateQuestion({
           payload: {...this.submittedQuestion},
           data: {
@@ -105,8 +112,7 @@ export default {
     cancelButtonClicked () {
       if (this.editMode) {
         this.initPage()
-        document.location.reload()
-        // TODO: Fix this pls, find a way to reload radio button that doesnt reload the page
+        this.selectedAnswer = ''
         this.editMode = !this.editMode
         return
       }

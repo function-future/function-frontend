@@ -1,7 +1,8 @@
 <template>
   <div class="scrollable-container">
     <div class="page-header">
-      <BaseButton class="add-btn"
+      <BaseButton v-if="accessList.add"
+                  class="add-btn"
                   type="submit"
                   buttonClass="button-save"
                   @click="addJudging">
@@ -15,7 +16,7 @@
               cardClass="card-hover">
       <div class="judging__card-header-section">
         <div class="judging__card-header">
-          {{judging.title}}
+          {{judging.name}}
         </div>
         <div class="judging__card-header-info">
           <div class="judging__card-header-info-date">
@@ -30,6 +31,7 @@
             </font-awesome-icon>
             <span>
             <font-awesome-icon
+              v-if="accessList.delete"
               icon="trash-alt"
               class="icon red"
               size="lg"
