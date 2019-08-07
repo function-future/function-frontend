@@ -18,7 +18,8 @@ export default {
   computed: {
     ...mapGetters([
       'stickyNotes',
-      'accessList'
+      'accessList',
+      'currentUser'
     ]),
     stickyNotesDescription () {
       return this.stickyNote.description || 'Insert Sticky Notes Here...'

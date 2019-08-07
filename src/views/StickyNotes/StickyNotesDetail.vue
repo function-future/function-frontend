@@ -9,7 +9,7 @@
           {{ stickyNote.updatedAt | moment("dddd, MMMM Do YYYY") }}
         </div>
         <div class="action">
-          <span class="add-btn" @click="goToAddStickyNote" v-if="accessList.edit">
+          <span class="add-btn" @click="goToAddStickyNote" v-if="accessList.edit && currentUser.role === 'ADMIN'">
             <font-awesome-icon icon="edit" class="icon blue" size="lg"></font-awesome-icon>
           </span>
         </div>
