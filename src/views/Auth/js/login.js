@@ -16,7 +16,8 @@ export default {
       },
       errorAlert: '',
       loggingIn: false,
-      loginSuccess: false
+      loginSuccess: false,
+      showPassword: false
     }
   },
   beforeRouteEnter (to, from, next) {
@@ -26,6 +27,11 @@ export default {
         query: { redirect: from.fullPath }
       })
     })
+  },
+  computed: {
+    type () {
+      return this.showPassword ? 'text' : 'password'
+    }
   },
   methods: {
     ...mapActions([

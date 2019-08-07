@@ -98,10 +98,26 @@ describe('HeaderComp', () => {
     expect(wrapper.vm.gradesSubmenuVisibility).toBe(true)
   })
 
+  test('ToggleGradesMenu questionnaireSubmenuVisibility true', () => {
+    wrapper.vm.questionnaireSubmenuVisibility = true
+    expect(wrapper.vm.gradesSubmenuVisibility).toBe(false)
+    wrapper.vm.toggleGradesMenu()
+    expect(wrapper.vm.gradesSubmenuVisibility).toBe(true)
+    expect(wrapper.vm.questionnaireSubmenuVisibility).toBe(false)
+  })
+
   test('toggleQuestionnaireMenu', () => {
     expect(wrapper.vm.questionnaireSubmenuVisibility).toBe(false)
     wrapper.vm.toggleQuestionnaireMenu()
     expect(wrapper.vm.questionnaireSubmenuVisibility).toBe(true)
+  })
+
+  test('toggleQuestionnaireMenu gradesSubmenuVisibility true', () => {
+    wrapper.vm.gradesSubmenuVisibility = true
+    expect(wrapper.vm.questionnaireSubmenuVisibility).toBe(false)
+    wrapper.vm.toggleQuestionnaireMenu()
+    expect(wrapper.vm.questionnaireSubmenuVisibility).toBe(true)
+    expect(wrapper.vm.gradesSubmenuVisibility).toBe(false)
   })
 
   test('quizRoute for student', () => {

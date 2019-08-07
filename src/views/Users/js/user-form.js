@@ -99,7 +99,7 @@ export default {
       this.$toasted.error('Fail to load user detail')
     },
     setUserDetail () {
-      this.avatarPreview = this.user.avatar
+      this.avatarPreview = this.user.avatar || require('@/assets/profile-picture-placeholder.png')
       this.userDetail = this.user
     },
     onFileChange (e) {
