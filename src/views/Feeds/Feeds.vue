@@ -12,7 +12,7 @@
         </span>
       </div>
       <div class="sticky-notes-content wrap-word">
-        <span v-if="stickyNote">{{ stickyNotesDescriptionPreview(stickyNote.description) }}</span>
+        <span v-if="stickyNote" v-html="stickyNotesDescriptionPreview(stickyNote.description)"></span>
         <span v-else>Insert Sticky Notes Here...</span>
       </div>
     </BaseCard>
@@ -43,6 +43,11 @@
 </script>
 
 <style scoped>
+  /deep/ p {
+    margin-block-start: 0.2rem;
+    margin-block-end: 0.3rem;
+  }
+
   .sticky-notes-card {
     min-height: 150px;
     cursor: pointer;

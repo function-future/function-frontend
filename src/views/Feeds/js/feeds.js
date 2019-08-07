@@ -1,5 +1,6 @@
 import { mapActions, mapGetters } from 'vuex'
 import BaseCard from '@/components/BaseCard.vue'
+let marked = require('marked')
 const MAX_STICKY_NOTE_PREVIEW_LENGTH = 200
 
 export default {
@@ -81,9 +82,9 @@ export default {
     },
     stickyNotesDescriptionPreview (description) {
       if (description.length > MAX_STICKY_NOTE_PREVIEW_LENGTH) {
-        return description.substr(0, MAX_STICKY_NOTE_PREVIEW_LENGTH) + '...'
+        return marked(description.substr(0, MAX_STICKY_NOTE_PREVIEW_LENGTH) + '...')
       } else {
-        return description
+        return marked(description)
       }
     },
     showLimitedPreviewText: function (text) {
