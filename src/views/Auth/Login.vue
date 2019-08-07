@@ -28,8 +28,12 @@
             </div>
             <div>
               <BaseInput v-model="data.password" v-validate.disable="'required'"
-                         name="password" type="password" placeholder="password" id="password"
-                         @keyup.enter.native="login">
+                         name="password" :type="type" placeholder="password" id="password"
+                         @keyup.enter.native="login" class="password-wrapper">
+                <button class="show-password" @click="showPassword = !showPassword">
+                  <font-awesome-icon icon="eye" class="icon" size="lg" v-if="!showPassword"/>
+                  <font-awesome-icon icon="eye-slash" class="icon" size="lg" v-else/>
+                </button>
               </BaseInput>
               <div v-if="errors.has('password')"><span class="input-invalid-message">{{ errors.first('password') }}</span></div>
             </div>
@@ -230,5 +234,23 @@
     border-width: 5px;
     border-style: solid;
     border-color: transparent transparent #505050 transparent;
+  }
+
+  .password-wrapper {
+    position: relative;
+  }
+
+  .show-password {
+    width: 30px;
+    padding: 0;
+    text-align: center;
+    position: absolute;
+    top: 20px;
+    right: 10px;
+    color: #7f7f7f;
+    border: none;
+    background: none;
+    cursor: pointer;
+    outline: none;
   }
 </style>

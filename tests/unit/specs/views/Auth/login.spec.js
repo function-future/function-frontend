@@ -166,4 +166,14 @@ describe('Login', () => {
     expect(wrapper.vm.loggingIn).toEqual(false)
     expect(wrapper.vm.errorAlert).toEqual('You have entered an invalid email or password')
   })
+
+  test('computed type show password', () => {
+    wrapper.vm.showPassword = true
+    expect(wrapper.vm.type).toEqual('text')
+  })
+
+  test('computed type hide password', () => {
+    wrapper.vm.showPassword = false
+    expect(wrapper.vm.type).toEqual('password')
+  })
 })
