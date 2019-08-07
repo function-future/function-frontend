@@ -38,7 +38,10 @@ export default {
     ...mapGetters([
       'assignment',
       'accessList'
-    ])
+    ]),
+    isFileIdNull: function () {
+      return this.assignmentDetail.fileId ? this.assignmentDetail.fileId : ''
+    }
   },
   methods: {
     ...mapActions([
@@ -62,7 +65,8 @@ export default {
       this.assignmentDetail.deadline = new Date(this.assignmentDetail.deadline)
       this.displayedDates.start = this.assignmentDetail.deadline
       this.displayedDates.end = this.assignmentDetail.deadline
-      this.filePreviewName = this.assignmentDetail.fileId || ''
+      this.assignmentDetail.fileId = this.isFileIdNull
+      this.filePreviewName = this.isFileIdNull
     },
     failFetchingAssignmentDetail () {
       this.$toasted.error('Something went wrong')

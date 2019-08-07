@@ -72,7 +72,8 @@
 
 <style lang="scss" scoped>
   .edit-container {
-    margin: 10px;
+    max-height: 97%;
+    max-width: 95%;
   }
 
   .input-title {

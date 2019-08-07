@@ -114,7 +114,6 @@
   }
 
   .discussion-wrapper {
-    min-height: 55vh;
     max-height: 80vh;
     display: flex;
     flex-direction: column;

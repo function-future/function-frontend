@@ -29,7 +29,7 @@
                     class="detail-card">
             <div class="detail-card__caption">Due Date</div>
             <div class="detail-card__content"
-                 style="width: 250px; height: 60px;"
+                 style="width: 330px; height: 60px;"
                  v-if="studentQuizDetail.quiz.endDate">
               {{studentQuizDetail.quiz.endDate | moment('MMM, Do YYYY')}}</div>
           </BaseCard>
@@ -75,7 +75,6 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    margin: 20px 20px 200px 20px;
   }
 
   .description-container {
@@ -90,7 +89,7 @@
     justify-content: space-between;
     width: 100%;
     &__info {
-      width: 30%;
+      width: 33%;
       height: 100%;
       display: flex;
       flex-direction: column;
@@ -111,6 +110,7 @@
       }
     }
     &__action {
+      margin-top: 15px;
       align-self: flex-end;
       display: flex;
       flex-direction: row;
@@ -169,7 +169,7 @@
       width: 70%;
       border: none;
       font-weight: bolder;
-      font-size: 15rem;
+      font-size: 13rem;
       display: flex;
       justify-content: flex-end;
       text-align: right;
