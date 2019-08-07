@@ -93,7 +93,7 @@
     min-height: 85px;
     width: 100%;
     box-shadow: none;
-    margin: 0 0 15px 0;
+    margin: 5px 0 10px 0;
     border: 1px solid #828282;
   }
 
