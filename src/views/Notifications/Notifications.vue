@@ -14,10 +14,10 @@
         </div>
       </BaseCard>
     </template>
-    <VueInfiniteLoading @infinite="infiniteHandler">
+    <infinite-loading @infinite="infiniteHandler">
       <div slot="no-more"></div>
       <div slot="no-results"></div>
-    </VueInfiniteLoading>
+    </infinite-loading>
   </div>
 
 </template>
@@ -35,7 +35,7 @@
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    max-width: 60vw;
+    width: 60vw;
     max-height: 85vh;
     overflow: auto;
     padding: 0 20px;
@@ -50,24 +50,5 @@
 
   .notification__card__time {
     text-align: center;
-  }
-
-  ::-webkit-scrollbar {
-    width: 5px;
-  }
-  ::-webkit-scrollbar-track {
-    background: #FFF;
-    -webkit-box-shadow: inset 1px 1px 2px rgba(0,0,0,0.1);
-  }
-  ::-webkit-scrollbar-thumb {
-    background: #CCC;
-    -webkit-box-shadow: inset 1px 1px 2px rgba(0,0,0,0.2);
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: #AAA;
-  }
-  ::-webkit-scrollbar-thumb:active {
-    background: #888;
-    -webkit-box-shadow: inset 1px 1px 2px rgba(0,0,0,0.3);
   }
 </style>

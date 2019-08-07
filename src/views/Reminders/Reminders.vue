@@ -29,7 +29,7 @@
   }
 
   .reminder {
-    max-width: 50vw;
+    width: 50vw;
     margin: 0 auto;
   }
 
@@ -53,24 +53,5 @@
     width: auto;
     font-size: 0.9em;
     align-self: center;
-  }
-
-  ::-webkit-scrollbar {
-    width: 5px;
-  }
-  ::-webkit-scrollbar-track {
-    background: #FFF;
-    -webkit-box-shadow: inset 1px 1px 2px rgba(0,0,0,0.1);
-  }
-  ::-webkit-scrollbar-thumb {
-    background: #CCC;
-    -webkit-box-shadow: inset 1px 1px 2px rgba(0,0,0,0.2);
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: #AAA;
-  }
-  ::-webkit-scrollbar-thumb:active {
-    background: #888;
-    -webkit-box-shadow: inset 1px 1px 2px rgba(0,0,0,0.3);
   }
 </style>

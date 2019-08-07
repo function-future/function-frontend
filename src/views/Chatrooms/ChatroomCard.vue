@@ -34,7 +34,7 @@
     border-radius: 10px;
     padding: 5px 5px 5px 5px;
     text-align: left;
-    height: 50px;
+    height: 55px;
     margin: 5px 0;
     cursor: pointer;
   }
@@ -67,7 +67,6 @@
 
   .chatroom-card__content--message {
     font-size: 0.8em;
-    margin-top: 5px;
   }
 
   p {
