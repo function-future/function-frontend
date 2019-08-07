@@ -1,13 +1,13 @@
 import BaseCard from '@/components/BaseCard'
 import notificationApi from '@/api/controller/notifications'
-import VueInfiniteLoading from 'vue-infinite-loading'
+import InfiniteLoading from 'vue-infinite-loading'
 import moment from 'moment'
 
 export default {
   name: 'Notifications',
   components: {
     BaseCard,
-    VueInfiniteLoading
+    InfiniteLoading
   },
   data () {
     return {

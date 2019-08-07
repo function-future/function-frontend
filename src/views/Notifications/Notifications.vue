@@ -14,10 +14,10 @@
         </div>
       </BaseCard>
     </template>
-    <VueInfiniteLoading @infinite="infiniteHandler">
+    <infinite-loading @infinite="infiniteHandler">
       <div slot="no-more"></div>
       <div slot="no-results"></div>
-    </VueInfiniteLoading>
+    </infinite-loading>
   </div>
 
 </template>
@@ -35,7 +35,7 @@
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    max-width: 60vw;
+    width: 60vw;
     max-height: 85vh;
     overflow: auto;
     padding: 0 20px;

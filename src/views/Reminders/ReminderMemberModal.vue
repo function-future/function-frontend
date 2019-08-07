@@ -8,17 +8,19 @@
         </div>
         <div class="modal__body">
           <SearchBar @input="changeKeyword" @keyup="enterPressHandler" />
-            <template v-for="(user, index) in usersWithoutSelectedOne">
-              <UserListCard :name="user.name"
-                            :class="{'recommendation-user': index === 0 && name}"
-                            :university="user.university"
-                            :role="user.role"
-                            :batch="user.batch ? user.batch.name : null"
-                            :key="user.id"
-                            :avatar="user.avatar"
-                            @click="addMemberHandler(user)"
-                            class="modal__body__card"></UserListCard>
-            </template>
+          <div class="modal__user-list">
+          <template v-for="(user, index) in usersWithoutSelectedOne">
+            <UserListCard :name="user.name"
+                          :class="{'recommendation-user': index === 0 && name}"
+                          :university="user.university"
+                          :role="user.role"
+                          :batch="user.batch ? user.batch.name : null"
+                          :key="user.id"
+                          :avatar="user.avatar"
+                          @click="addMemberHandler(user)"
+                          class="modal__body__card"></UserListCard>
+          </template>
+          </div>
         </div>
         <div class="modal__footer"></div>
       </div>
@@ -51,6 +53,12 @@
 
     &__wrapper {
       display: table-cell;
+    }
+
+    &__user-list {
+      max-height: 70vh;
+      overflow: auto;
+      padding: 0 20px;
     }
 
     &__container {

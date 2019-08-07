@@ -29,7 +29,7 @@
   }
 
   .reminder {
-    max-width: 50vw;
+    width: 50vw;
     margin: 0 auto;
   }
 

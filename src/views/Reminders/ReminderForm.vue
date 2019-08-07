@@ -130,7 +130,7 @@
 
   .reminder-form__container {
     padding: 0 100px 0 100px;
-    max-width: 50vw;
+    width: 50vw;
     max-height: 85vh;
     overflow: auto;
     margin: 0 auto;

@@ -1017,7 +1017,11 @@ const router = new Router({
       component: reminders,
       meta: {
         title: 'Reminders',
-        auth: true
+        auth: true,
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Reminders', link: 'reminders' }
+        ]
       }
     },
     {
@@ -1026,7 +1030,12 @@ const router = new Router({
       component: reminderForm,
       meta: {
         title: 'Reminder Detail',
-        auth: true
+        auth: true,
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Reminders', link: 'reminders' },
+          { name: 'Reminder Detail', link: 'reminderDetail' }
+        ]
       },
       props: { editMode: false }
     },
@@ -1036,7 +1045,13 @@ const router = new Router({
       component: reminderForm,
       meta: {
         title: 'Edit Reminder',
-        auth: true
+        auth: true,
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Reminders', link: 'reminders' },
+          { name: 'Reminder Detail', link: 'reminderDetail' },
+          { name: 'Edit Reminder', link: 'reminderEdit' }
+        ]
       },
       props: { editMode: true }
     },
