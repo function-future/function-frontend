@@ -24,7 +24,7 @@
           <div class="logging-room-detail__topic-list-container__top-bar">
             <h3> Topics </h3>
             <div class="logging-room-detail__topic-list-container__top-bar__create-btn">
-              <BaseButton class="add-btn" type="submit" buttonClass="button-save" @click="topicModal = true">
+              <BaseButton v-if="accessList.edit" class="add-btn" type="submit" buttonClass="button-save" @click="topicModal = true">
                 <font-awesome-icon class="icon icon-plus" icon="plus"/> Add
               </BaseButton>
             </div>
