@@ -91,9 +91,6 @@ describe('StickyNotesDetail.js', () => {
         delete: true,
         read: true,
         edit: true
-      },
-      currentUser: {
-        role: 'ADMIN'
       }
     }
     actions = {
@@ -101,8 +98,6 @@ describe('StickyNotesDetail.js', () => {
     }
     getters = {
       stickyNotes: state => state.stickyNote,
-      accessList: state => state.accessList,
-      currentUser: state => state.currentUser
     }
     store = new Vuex.Store({
       modules: {
