@@ -43,10 +43,6 @@
     margin-left: 10px;
   }
 
-  /*.user-list-card__info > p {*/
-  /*  margin: 2px 0;*/
-  /*}*/
-
   .user-list-card__info__role, .user-list-card__info__university {
     font-size: 0.7rem;
   }
