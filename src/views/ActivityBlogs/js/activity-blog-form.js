@@ -82,6 +82,7 @@ export default {
       this.imageIds.push(response.id)
     },
     failUploadResource () {
+      this.uploadingFile = false
       this.$toasted.error('Fail to upload image, please delete the image and re-upload')
     },
     $imgDel (pos) {
