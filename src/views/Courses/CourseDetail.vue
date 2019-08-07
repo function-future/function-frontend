@@ -49,7 +49,7 @@
                         v-model="discussion.comment"></BaseTextArea>
         </div>
         <div class="discussion-button">
-          <BaseButton type="submit" buttonClass="button-save" @click="postDiscussion">Post</BaseButton>
+          <BaseButton type="submit" buttonClass="button-save" @click="postDiscussion" :disabled="submittingDiscussion">Post</BaseButton>
         </div>
       </div>
     </BaseCard>
