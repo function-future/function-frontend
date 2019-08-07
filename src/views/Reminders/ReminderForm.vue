@@ -129,8 +129,8 @@
   }
 
   .reminder-form__container {
-    padding: 0 100px 0 100px;
-    width: 50vw;
+    padding: 0 50px 0 50px;
+    width: 60vw;
     max-height: 85vh;
     overflow: auto;
     margin: 0 auto;
@@ -164,25 +164,6 @@
 
   .reminder-form__member__card {
     margin-right: 10px;
-  }
-
-  ::-webkit-scrollbar {
-    width: 5px;
-  }
-  ::-webkit-scrollbar-track {
-    background: #FFF;
-    -webkit-box-shadow: inset 1px 1px 2px rgba(0,0,0,0.1);
-  }
-  ::-webkit-scrollbar-thumb {
-    background: #CCC;
-    -webkit-box-shadow: inset 1px 1px 2px rgba(0,0,0,0.2);
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: #AAA;
-  }
-  ::-webkit-scrollbar-thumb:active {
-    background: #888;
-    -webkit-box-shadow: inset 1px 1px 2px rgba(0,0,0,0.3);
   }
 
 </style>

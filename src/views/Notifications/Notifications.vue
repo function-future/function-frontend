@@ -51,23 +51,4 @@
   .notification__card__time {
     text-align: center;
   }
-
-  ::-webkit-scrollbar {
-    width: 5px;
-  }
-  ::-webkit-scrollbar-track {
-    background: #FFF;
-    -webkit-box-shadow: inset 1px 1px 2px rgba(0,0,0,0.1);
-  }
-  ::-webkit-scrollbar-thumb {
-    background: #CCC;
-    -webkit-box-shadow: inset 1px 1px 2px rgba(0,0,0,0.2);
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: #AAA;
-  }
-  ::-webkit-scrollbar-thumb:active {
-    background: #888;
-    -webkit-box-shadow: inset 1px 1px 2px rgba(0,0,0,0.3);
-  }
 </style>
