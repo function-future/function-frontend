@@ -9,12 +9,12 @@
         v-bind="$attrs"
         :value="value"
         :class="inputType"/><!-- Binding attrs allows attribute inheritance such as type="text" , etc! -->
+      <slot></slot>
     </div>
 </template>
 
 <script type="text/javascript" src="./js/base-input.js">
 </script>
-
 
 <style scoped>
   .input-label {
