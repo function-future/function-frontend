@@ -106,7 +106,7 @@
       </modal-file-upload-progress>
     </transition>
     <transition name="slide-fade" mode="out-in">
-      <component :is="FileDetail" @close="closeFileDetail"></component>
+      <component :is="FileDetail" @close="closeFileDetail" @update="resetPage"></component>
     </transition>
   </div>
 </template>

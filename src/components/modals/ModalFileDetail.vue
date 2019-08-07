@@ -109,6 +109,7 @@
       margin-left: 15px;
 
       &__title {
+        text-align: left;
         font-size: 1.3rem;
         font-weight: bold;
         margin: 5px 5px 10px 5px;
