@@ -125,6 +125,36 @@ describe('AssignmentDetail', () => {
     expect(wrapper.vm.displayedDates.end).toEqual(wrapper.vm.assignmentDetail.deadline)
   })
 
+  test('successFetchingAssignmentDetailWithoutFile', () => {
+    initComponent()
+    wrapper.vm.$store.state.assignment = {
+      'id': 'ASG0001',
+      'title': 'Assignment 1',
+      'description': 'Description Number 1',
+      'deadline': 15000,
+      'fileId': '',
+      'batch': 3
+    }
+    wrapper.vm.assignmentDetail = {
+      id: '',
+      title: '',
+      description: '',
+      deadline: null,
+      batch: 'Batch 3'
+    }
+    wrapper.vm.successFetchingAssignmentDetail()
+    expect(wrapper.vm.assignmentDetail).toEqual({
+      'id': 'ASG0001',
+      'title': 'Assignment 1',
+      'description': 'Description Number 1',
+      'deadline': new Date(15000),
+      'fileId': '',
+      'batch': 3 })
+    expect(wrapper.vm.filePreviewName).toEqual('')
+    expect(wrapper.vm.displayedDates.start).toEqual(wrapper.vm.assignmentDetail.deadline)
+    expect(wrapper.vm.displayedDates.end).toEqual(wrapper.vm.assignmentDetail.deadline)
+  })
+
   test('failFetchingAssignmentDetail', () => {
     initComponent()
     wrapper.vm.$router.push = jest.fn()
@@ -157,8 +187,17 @@ describe('AssignmentDetail', () => {
     expect(wrapper.vm.successFetchingAssignmentDetail).toHaveBeenCalled()
   })
 
-  test('saveAssignment', () => {
+  test('saveAssignmentWithEmptyFile', () => {
     initComponent()
+    wrapper.vm.assignmentDetail.fileId = ''
+    const spy = jest.spyOn(wrapper.vm, 'updateAssignmentDetail')
+    wrapper.vm.saveAssignment()
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('saveAssignmentWithFile', () => {
+    initComponent()
+    wrapper.vm.assignmentDetail.fileId = 'abc'
     const spy = jest.spyOn(wrapper.vm, 'updateAssignmentDetail')
     wrapper.vm.saveAssignment()
     expect(spy).toHaveBeenCalledTimes(1)
@@ -245,7 +284,6 @@ describe('AssignmentDetail', () => {
   })
 
   test('deleteAssignmentFile', () => {
-    //TODO still failed
     initComponent()
     wrapper.vm.deleteAssignmentFile()
     expect(wrapper.vm.assignmentDetail.fileId).toEqual('')
