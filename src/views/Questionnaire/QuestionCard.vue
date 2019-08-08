@@ -44,6 +44,8 @@
   .question-number {
     font-size: 3rem;
     padding-right: 5px;
+    display: flex;
+    align-items: center;
   }
 
   .question-description {

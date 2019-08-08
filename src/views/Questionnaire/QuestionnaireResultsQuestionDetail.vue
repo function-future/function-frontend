@@ -90,7 +90,7 @@
     overflow: auto;
     display: flex;
     flex-direction: column;
-    height: 45vh;
+    height: 30vh;
   }
 
 </style>

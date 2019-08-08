@@ -50,7 +50,7 @@
     align-items: center;
     flex-direction: column;
     overflow: auto;
-    padding-top: 60px;
+    padding-top: 80px;
   }
 
   .questionnaire-results-participant-detail-card-container {
