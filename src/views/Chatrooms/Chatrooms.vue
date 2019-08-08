@@ -25,6 +25,7 @@
                 <infinite-loading ref="chatroomInfiniteLoading" :identifier="typeChoosen" @infinite="infiniteChatroomHandler">
                   <div slot="no-more"></div>
                   <div slot="no-results"></div>
+                  <div slot="spinner"></div>
                 </infinite-loading>
               </div>
               <div @click="changeTypeChoosen('PRIVATE')" class="chatroom-menu" :class="{'chatroom-menu-blue': typeChoosen === 'PRIVATE'}">
@@ -44,6 +45,7 @@
                 <infinite-loading ref="chatroomInfiniteLoading" :identifier="typeChoosen" @infinite="infiniteChatroomHandler">
                   <div slot="no-more"></div>
                   <div slot="no-results"></div>
+                  <div slot="spinner"></div>
                 </infinite-loading>
               </div>
             </template>
