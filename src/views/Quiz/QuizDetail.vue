@@ -17,7 +17,10 @@
         <div class="detail-container__info-time">
           <BaseCard :style="{height: '100%', margin: 0}"
                     class="detail-card">
-            <div class="detail-card__caption">Given Time</div>
+            <div class="detail-card__caption">
+              <div>Given Time</div>
+              <div style="font-size: smaller">(Minutes)</div>
+            </div>
             <input type="number"
                    class="detail-card__content"
                    v-model="quizDetail.timeLimit"
@@ -134,7 +137,7 @@
     align-items: center;
     justify-content: space-between;
     &__caption {
-      width: 30%;
+      width: 50%;
     }
     &__content {
       font-weight: bolder;
