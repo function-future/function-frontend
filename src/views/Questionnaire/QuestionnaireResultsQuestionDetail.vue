@@ -53,6 +53,7 @@
   .questionnaire-results-question-detail-outer {
     display: flex;
     justify-content: center;
+    overflow: auto;
   }
 
   .questionnaire-results-question-detail-container {

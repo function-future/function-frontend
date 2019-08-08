@@ -39,7 +39,7 @@
     display: flex;
     padding-right: 10px;
     justify-content: space-between;
-    margin:0px;
+    margin: 0px 10px;
   }
   .question-number {
     font-size: 3rem;
