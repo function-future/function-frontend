@@ -164,6 +164,7 @@
      align-self: flex-start;
    }
   &__content {
+    background-color: transparent !important;
      width: 70%;
      border: none;
      font-weight: bolder;
