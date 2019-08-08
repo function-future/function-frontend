@@ -46,7 +46,6 @@ export const actions = {
         i += 1
       }
       if (shouldChange) {
-        commit('RESET_CHATROOMS')
         cb()
       }
     }, fail, data)
