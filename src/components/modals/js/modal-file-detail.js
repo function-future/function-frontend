@@ -126,6 +126,7 @@ export default {
       this.closeRenameFileFolderModal()
       this.$toasted.success('Rename successful')
       this.initData()
+      this.$emit('update')
     },
     failRenameFile () {
       this.closeRenameFileFolderModal()

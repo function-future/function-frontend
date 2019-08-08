@@ -51,7 +51,8 @@ export default {
       },
       uploadingFile: false,
       filePreviewName: '',
-      file: {}
+      file: {},
+      isSubmitting: false
     }
   },
   props: [
@@ -109,6 +110,7 @@ export default {
       this.validateBeforeSubmit(this.validationSuccess)
     },
     validationSuccess () {
+      this.isSubmitting = true
       const data = {
         id: this.$route.params.id,
         code: this.$route.params.code,
@@ -144,6 +146,7 @@ export default {
       this.$toasted.success('Successfully ' + msg + ' course')
     },
     failCreateOrEditCourse () {
+      this.isSubmitting = false
       let msg = ''
       this.editMode ? msg = 'edit' : msg = 'create new'
       this.$toasted.error('Fail to ' + msg + ' course')

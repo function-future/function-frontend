@@ -3,6 +3,7 @@ import BaseCard from '@/components/BaseCard'
 import BaseButton from '@/components/BaseButton'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
 import BasePagination from '@/components/BasePagination'
+let marked = require('marked')
 
 export default {
   name: 'announcements',
@@ -77,7 +78,7 @@ export default {
       if (announcement.summary) {
         return this.showLimitedPreviewText(announcement.summary.replace(/\!\[.*\]\(.*\)/,''))
       } else {
-        return this.showLimitedPreviewText(announcement.description.replace(/\!\[.*\]\(.*\)/,''))
+        return marked(this.showLimitedPreviewText(announcement.description.replace(/\!\[.*\]\(.*\)/,'')))
       }
     },
     showLimitedPreviewText: function (text) {
