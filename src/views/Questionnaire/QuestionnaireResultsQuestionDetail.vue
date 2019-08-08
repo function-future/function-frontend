@@ -53,6 +53,7 @@
   .questionnaire-results-question-detail-outer {
     display: flex;
     justify-content: center;
+    overflow: auto;
   }
 
   .questionnaire-results-question-detail-container {
@@ -89,7 +90,7 @@
     overflow: auto;
     display: flex;
     flex-direction: column;
-    height: 45vh;
+    height: 30vh;
   }
 
 </style>

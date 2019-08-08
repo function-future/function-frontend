@@ -39,11 +39,13 @@
     display: flex;
     padding-right: 10px;
     justify-content: space-between;
-    margin:0px;
+    margin: 0px 10px;
   }
   .question-number {
     font-size: 3rem;
     padding-right: 5px;
+    display: flex;
+    align-items: center;
   }
 
   .question-description {

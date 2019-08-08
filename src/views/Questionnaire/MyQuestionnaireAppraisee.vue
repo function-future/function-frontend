@@ -80,6 +80,7 @@
     display: flex;
     justify-content: center;
     height: 80vh;
+    overflow: auto;
   }
   .my-questionnaire-appraisees-containter {
     display: flex;
@@ -136,6 +137,7 @@
     overflow: auto;
     padding: 10px;
     height: 100%;
+    width: 100%;
     align-self: start;
   }
 
@@ -165,5 +167,6 @@
   .submit-button {
     display: flex;
     align-self: flex-end;
+    padding-top: 5px;
   }
 </style>
