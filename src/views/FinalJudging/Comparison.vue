@@ -1,5 +1,5 @@
 <template>
-  <div class="comparison__container">
+  <div class="scrollable-container comparison">
     <BaseCard class="comparison__main-card">
       <div v-for="(student, index) in comparison" :key="student.studentId" class="comparison-item__base">
         <div class="comparison-item__base-profile">
@@ -41,7 +41,7 @@
         </div>
       </div>
     </BaseCard>
-    <div class="comparison__container-footer">
+    <div class="scrollable-container-footer">
       <BaseButton class="button-cancel" @click="returnButtonClicked">Return</BaseButton>
       <BaseButton class="button-save" @click="submitButtonClicked" v-if="accessList.add">Submit</BaseButton>
     </div>
@@ -52,13 +52,16 @@
 </script>
 
 <style lang="scss" scoped>
-  .comparison {
-    &__container {
+  .scrollable {
+    &-container {
+      max-height: 95%;
       &-footer {
         display: flex;
         justify-content: flex-end;
       }
     }
+  }
+  .comparison {
     &__main-card {
       display: flex;
       flex-direction: row;
