@@ -288,4 +288,16 @@ describe('AssignmentDetail', () => {
     wrapper.vm.deleteAssignmentFile()
     expect(wrapper.vm.assignmentDetail.fileId).toEqual('')
   })
+
+  test('isFileIdNull fileId not Null', () => {
+    initComponent()
+    wrapper.vm.assignmentDetail.fileId = 'id'
+    expect(wrapper.vm.isFileIdNull).toEqual('id')
+  })
+
+  test('isFileIdNull fileId Null', () => {
+    initComponent()
+    wrapper.vm.assignmentDetail.fileId = null
+    expect(wrapper.vm.isFileIdNull).toEqual('')
+  })
 })

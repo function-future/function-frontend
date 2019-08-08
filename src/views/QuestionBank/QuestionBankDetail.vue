@@ -1,8 +1,8 @@
 <template>
-  <div class="main-container">
+  <div class="scrollable-container">
     <BaseInput v-model="questionBankDetail.title" :placeholder="'Insert title'" :disabled="!editMode"></BaseInput>
     <BaseTextArea v-model="questionBankDetail.description" :style="{height: '530px'}" placeholder="Description goes here" :disabled="!editMode"></BaseTextArea>
-    <div class="main-container__footer">
+    <div class="scrollable-container__footer">
       <BaseButton type="cancel" buttonClass="button-cancel" @click="cancelButtonClicked">{{cancelButtonText}}</BaseButton>
       <BaseButton type="submit" buttonClass="button-save" @click="actionButtonClicked">{{actionButtonText}}</BaseButton>
     </div>
@@ -13,11 +13,9 @@
 </script>
 
 <style lang="scss" scoped>
-  .main-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  .scrollable-container {
     margin: 10px;
+    padding: 0 15px;
     &__footer {
       margin-top: 30px;
       display: flex;

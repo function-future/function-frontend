@@ -33,7 +33,7 @@
         </div>
         <div class="retry-count">
           <font-awesome-icon icon="redo"></font-awesome-icon>
-          <span>{{studentQuiz.trials}} tries</span>
+          <span style="margin-left: 3px; font-size: 15px">{{studentQuiz.trials}}</span>
         </div>
       </div>
     </BaseCard>
@@ -138,6 +138,7 @@
   }
 
   .quiz-deadline {
+    align-items: center;
     margin-right: 20px;
   }
 

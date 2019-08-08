@@ -119,6 +119,7 @@
               align-items: center;
               margin: 10px auto;
               font-weight: bold;
+              line-height: 15px;
               &-university {
                 margin-top: 3px;
                 font-size: 13px;
