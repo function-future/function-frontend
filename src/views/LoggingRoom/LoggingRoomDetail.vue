@@ -31,7 +31,7 @@
           </div>
           <div class="logging-room-detail__topic-list-container__content">
             <topic-card v-for="topic in topics"
-                          :key="topic.  id"
+                          :key="topic.id"
                           :title="topic.title"
                           @click="goToLoggingRoom(topic.id)"
                           @delete="openDeleteModal(topic)"

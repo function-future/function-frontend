@@ -38,7 +38,7 @@ export default {
       }
     }
   },
-  computed:{
+  computed: {
     ...mapGetters([
       'accessList'
     ])

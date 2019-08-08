@@ -34,16 +34,19 @@
     &__container {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       padding: 0px;
       margin: 0px;
       width: 100%;
+      min-height: 62px;
+      padding: 5px 20px;
+
     }
 
     &__content-left {
       display: flex;
       justify-content: center;
       align-items: center;
-      padding-left: 10px;
       flex-grow: 1;
     }
 
@@ -55,14 +58,12 @@
     }
 
     &__content-center {
-      padding-top: 10px;
       flex-grow: 10;
       text-align: left;
     }
 
     &__content-right {
       flex-grow: 2;
-      padding: 20px 10px 0px 0px;
     }
   }
 </style>
