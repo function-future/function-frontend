@@ -25,7 +25,13 @@ describe('Users', () => {
       }
     }
     const actions = {
-      fetchUsersByRole: jest.fn()
+      fetchUsersByRole: jest.fn(),
+      fetchUsersByRoleAndName: jest.fn(),
+      setStudentList: jest.fn(),
+      setAdminList: jest.fn(),
+      setMentorList: jest.fn(),
+      setJudgeList: jest.fn(),
+      deleteUserById: jest.fn()
     }
     const getters = {
       accessList: state => state.accessList
@@ -324,6 +330,22 @@ describe('Users', () => {
     wrapper.vm.paging.page = 2
     wrapper.vm.loadNextPage()
     expect(wrapper.vm.paging.page).toEqual(3)
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('searchHandler current page = 1', () => {
+    const spy = jest.spyOn(wrapper.vm, 'initPage')
+    wrapper.vm.paging.page = 1
+    wrapper.vm.searchHandler()
+    expect(wrapper.vm.paging.page).toEqual(1)
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('searchHandler current page > 1', () => {
+    const spy = jest.spyOn(wrapper.vm, 'initPage')
+    wrapper.vm.paging.page = 2
+    wrapper.vm.searchHandler()
+    expect(wrapper.vm.paging.page).toEqual(1)
     expect(spy).toHaveBeenCalledTimes(1)
   })
 })
