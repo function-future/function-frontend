@@ -2,10 +2,11 @@
   <div class="message-container">
     <div class="message-content"><p>{{ message }}</p></div>
     <div class="message-time"> {{ convertClock() }}</div>
+    <div></div>
   </div>
 </template>
 
-<script src="./js/message-buble-sent.js">
+<script src="./js/message-bubble-sent.js">
 
 </script>
 

@@ -72,6 +72,7 @@ export default {
           startDate: new Date().getTime()
         }
         payload.endDate = new Date(payload.endDate).getTime()
+        payload.timeLimit = Math.floor(this.quizDetail.timeLimit * 60)
         this.updateQuizDetail({
           payload,
           data: {

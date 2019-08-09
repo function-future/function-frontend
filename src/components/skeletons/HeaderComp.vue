@@ -116,8 +116,6 @@
   }
 
   .grades-submenu, .questionnaire-submenu {
-    margin-top: 7px;
-    margin-bottom: 7px;
     list-style-type: none;
   }
 

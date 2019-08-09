@@ -165,7 +165,7 @@ describe('StudentAssignment', () => {
 
   test('isComplete false', () => {
     initComponent()
-    expect(wrapper.vm.isComplete(new Date())).toBe('Ongoing')
+    expect(wrapper.vm.isComplete(new Date(new Date().getTime() + 150000))).toBe('Ongoing')
   })
 
   test('goToRoomDetail', () => {

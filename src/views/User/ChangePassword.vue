@@ -42,7 +42,7 @@
               <BaseInput v-model="repeatPassword"
                          type="password"
                          v-validate.continues="'required|min:5|confirmed:password'"
-                         name="repeatPassword" data-vv-as="password">
+                         name="repeatPassword" data-vv-as="password" @keyup.enter.native="save">
               </BaseInput>
               <div v-if="errors.has('repeatPassword')">
                 <span class="input-invalid-message">{{ errors.first('repeatPassword') }}</span>

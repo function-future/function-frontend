@@ -40,7 +40,9 @@ export default {
         fail: this.failFetchingStudentQuizDetail
       })
     },
-    successFetchingStudentQuizDetail () {},
+    successFetchingStudentQuizDetail () {
+      this.studentQuizDetail.quiz.timeLimit = Math.floor(this.studentQuizDetail.quiz.timeLimit / 60)
+    },
     failFetchingStudentQuizDetail () {
       this.$toasted.error('Something went wrong')
     },

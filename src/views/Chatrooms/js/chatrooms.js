@@ -97,7 +97,6 @@ export default {
       chatroomApi.updateChatroom(response => {
         this.selectChatroom(response.data)
         this.chatroomPage = 1
-        this.resetChatrooms()
         this.activeChatroomId = response.data.id
         this.activeChatroomType = response.data.type
         this.$refs.chatroomInfiniteLoading.stateChanger.reset()
@@ -152,6 +151,9 @@ export default {
     },
     infiniteChatroomHandler ($state) {
       chatroomApi.getChatrooms(response => {
+        if (this.chatroomPage === 1) {
+          this.resetChatrooms()
+        }
         let additionalChatrooms = []
         for (const chatroom of response.data) {
           let exists = false

@@ -15,6 +15,7 @@ export default {
       img_file: {},
       imageIds: [],
       isSubmitting: false,
+      uploadingFile: false,
       pos: ''
     }
   },
@@ -61,6 +62,7 @@ export default {
       this.imageIds = [ ...this.activityBlog.files.map(i => i.id) ]
     },
     $imgAdd (pos, $file) {
+      this.uploadingFile = true
       this.pos = pos
       let data = new FormData()
       data.append('file', $file)
@@ -75,10 +77,12 @@ export default {
       })
     },
     successUploadResource (response) {
+      this.uploadingFile = false
       this.$refs.md.$img2Url(this.pos, response.file.full)
       this.imageIds.push(response.id)
     },
     failUploadResource () {
+      this.uploadingFile = false
       this.$toasted.error('Fail to upload image, please delete the image and re-upload')
     },
     $imgDel (pos) {

@@ -52,7 +52,7 @@
         </div>
         <div class="retry-count">
           <font-awesome-icon icon="redo"></font-awesome-icon>
-          <span style="margin-left: 7px; font-size: 15px">{{quiz.trials}} tries</span>
+          <span style="margin-left: 3px; font-size: 15px">{{quiz.trials}}</span>
         </div>
       </div>
     </BaseCard>
@@ -167,6 +167,7 @@
 
 .quiz-deadline {
   margin-right: 20px;
+  align-items: center;
 }
 
 .Ongoing {

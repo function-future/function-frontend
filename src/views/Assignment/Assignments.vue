@@ -141,6 +141,7 @@
     display: flex;
   }
   .assignment-deadline {
+    align-items: center;
     display: flex;
     flex-wrap: wrap;
   }

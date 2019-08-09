@@ -33,6 +33,7 @@ export default {
         totalRecords: 0
       },
       showDeleteConfirmationModal: false,
+      submittingDiscussion: false,
       state: ''
     }
   },
@@ -104,6 +105,7 @@ export default {
       this.$toasted.error('Fail to load course discussion, please refresh the page')
     },
     postDiscussion () {
+      this.submittingDiscussion = true
       const data = {
         code: this.$route.params.code,
         id: this.$route.params.id,
@@ -116,11 +118,13 @@ export default {
       })
     },
     successSubmitCourseDiscussion (response) {
+      this.submittingDiscussion = false
       this.$toasted.success('Successfully added course discussion')
       this.discussion.comment = ''
       this.discussions.unshift(response)
     },
     failSubmitCourseDiscussion () {
+      this.submittingDiscussion = false
       this.$toasted.error('Fail to post course discussion, please try again')
     },
     goToEditCourse () {

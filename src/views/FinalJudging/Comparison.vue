@@ -1,5 +1,5 @@
 <template>
-  <div class="comparison__container">
+  <div class="scrollable-container comparison">
     <BaseCard class="comparison__main-card">
       <div v-for="(student, index) in comparison" :key="student.studentId" class="comparison-item__base">
         <div class="comparison-item__base-profile">
@@ -29,7 +29,7 @@
                   <span class="comparison-item__base-detail-card-item-title">{{score.title}}</span>
                 </div>
                 <div class="comparison-item__base-detail-card-item-content">
-                  <span>{{score.point}}</span>
+                  <span style="font-weight: bold">{{score.point}}</span>
                 </div>
               </BaseCard>
             </div>
@@ -41,7 +41,7 @@
         </div>
       </div>
     </BaseCard>
-    <div class="comparison__container-footer">
+    <div class="scrollable-container-footer">
       <BaseButton class="button-cancel" @click="returnButtonClicked">Return</BaseButton>
       <BaseButton class="button-save" @click="submitButtonClicked" v-if="accessList.add">Submit</BaseButton>
     </div>
@@ -52,13 +52,16 @@
 </script>
 
 <style lang="scss" scoped>
-  .comparison {
-    &__container {
+  .scrollable {
+    &-container {
+      max-height: 95%;
       &-footer {
         display: flex;
         justify-content: flex-end;
       }
     }
+  }
+  .comparison {
     &__main-card {
       display: flex;
       flex-direction: row;
@@ -78,7 +81,7 @@
               height: 100px;
               margin-right: 20px;
               border-radius: 20px;
-              border: 1px solid black;
+              border: 0.5px solid rgba(0, 0, 0, 0.3);
             }
             &-info {
               display: flex;
@@ -164,7 +167,7 @@
                 &-title {}
               }
               &-content {
-                border: 2px solid #000000;
+                border: 3px solid rgba(0, 0, 0, 0.2);
                 border-radius: 100%;
                 height: 5vh;
                 width: 5vh;
