@@ -168,7 +168,8 @@ module.exports = {
         getWithBatch (page, size, batchCode) { return `/api/core/users/batches/${batchCode}?page=${page}&size=${size}` },
         post: '/api/core/users',
         detail (id) { return `/api/core/users/${id}` },
-        search (page, size, name) { return `/api/core/users/search?name=${name}&page=${page}&size=${size}` }
+        search (page, size, name) { return `/api/core/users/search?name=${name}&page=${page}&size=${size}` },
+        getWithNameAndRole (name, page, size, role) { return `/api/core/users?name=${name}&page=${page}&size=${size}&role=${role}` }
       },
       resources: {
         post (origin) { return `/api/core/resources?origin=${origin}` }
