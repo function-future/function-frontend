@@ -38,8 +38,8 @@ export const actions = {
     }, data, fail)
   },
   submitAnswers ({ commit }, { payload, data, callback, fail }) {
-    studentQuizApi.postQuizAnswer(() => {
-      callback && callback()
+    studentQuizApi.postQuizAnswer((response) => {
+      callback && callback(response)
     }, data, payload, fail)
   },
 }

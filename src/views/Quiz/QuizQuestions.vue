@@ -49,6 +49,14 @@
       <BaseButton class="navigation__button" :style="{ height: '100%' }" buttonClass="button-save" @click="viewPreviousQuestion">Previous</BaseButton>
       <BaseButton class="navigation__button" :style="{ height: '100%' }" buttonClass="button-save" @click="viewNextQuestion">Next</BaseButton>
     </div>
+    <Modal v-if="showPointModal">
+      <div slot="title">Finished</div>
+      <p slot="body">You earned {{result}} for this quiz</p>
+      <div slot="footer">
+        <BaseButton @click="restart">Retry</BaseButton>
+        <BaseButton @click="finish">Done</BaseButton>
+      </div>
+    </Modal>
   </div>
 </template>
 

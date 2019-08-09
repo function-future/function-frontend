@@ -7,10 +7,10 @@
           <span class="modal__close"><font-awesome-icon icon="times" class="icon" @click="close" size="lg"></font-awesome-icon></span>
         </div>
         <div class="modal__body">
-          <slot></slot>
+          <slot name="body"></slot>
         </div>
         <div class="modal__footer">
-          <BaseButton class="modal__footer__button" type="cancel" buttonClass="button-cancel" @click="close">Cancel</BaseButton>
+          <slot name="footer"></slot>
         </div>
       </div>
     </div>
