@@ -165,7 +165,6 @@ module.exports = {
       },
       users: {
         get (page, size, role) { return `/api/core/users?page=${page}&size=${size}&role=${role}` },
-        getWithBatch (page, size, batchCode) { return `/api/core/users/batches/${batchCode}?page=${page}&size=${size}` },
         post: '/api/core/users',
         detail (id) { return `/api/core/users/${id}` },
         search (page, size, name) { return `/api/core/users/search?name=${name}&page=${page}&size=${size}` }
@@ -390,7 +389,10 @@ module.exports = {
         },
         score (batchCode, judgingId) {
           return `/api/scoring/batches/${batchCode}/judgings/${judgingId}/comparisons`
-        }
+        },
+        getStudentsWithBatch (page, size, batchCode) {
+          return `/api/scoring/batches/${batchCode}/judgings/students?page=${page}`
+        },
       },
       points: {
         list(studentId) {
