@@ -1,23 +1,37 @@
 import { mapActions, mapGetters } from 'vuex'
 import BaseCard from '@/components/BaseCard'
 import BaseButton from '@/components/BaseButton'
+import QuizModal from '@/components/modals/QuizModal'
 
 export default {
   name: 'QuizQuestions',
   components: {
     BaseCard,
-    BaseButton
+    BaseButton,
+    QuizModal
   },
   data () {
     return {
       currentNumber: '',
       selectedAnswer: '',
       answers: [],
-      isLoading: true
+      isLoading: true,
+      result: '',
+      showPointModal: false
     }
   },
   created () {
     this.initPage()
+  },
+  mounted () {
+    window.addEventListener('beforeunload', this.reloadHandler)
+  },
+  beforeDestroy () {
+    window.removeEventListener('beforeunload', this.reloadHandler)
+  },
+  beforeRouteLeave (to, from, next) {
+    if (confirm('Changes you made may not be saved.'))
+      next()
   },
   computed: {
     ...mapGetters([
@@ -74,8 +88,26 @@ export default {
         fail: this.failedSubmitStudentQuiz
       })
     },
-    successSubmitStudentQuiz () {
-      this.$toasted.success('Quiz submitted')
+    successSubmitStudentQuiz (response) {
+      this.result = response.data.point
+      this.showPointModal = true
+    },
+    failedSubmitStudentQuiz () {
+      this.$toasted.error('Something went wrong')
+    },
+    highlightedOption (option) {
+      return this.answers.includes(option) ? 'active' : ''
+    },
+    restart () {
+      this.currentNumber = ''
+      this.selectedAnswer = ''
+      this.answers = []
+      this.isLoading = true
+      this.result = ''
+      this.showPointModal = false
+      this.initPage()
+    },
+    finish () {
       this.$router.push({
         name: 'studentQuizzes',
         params: {
@@ -85,11 +117,9 @@ export default {
         }
       })
     },
-    failedSubmitStudentQuiz () {
-      this.$toasted.error('Something went wrong')
-    },
-    highlightedOption (option) {
-      return this.answers.includes(option) ? 'active' : ''
+    reloadHandler (event) {
+      event.returnValue = 'Page reload'
+      return null
     }
   }
 }
