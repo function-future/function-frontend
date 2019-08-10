@@ -1,23 +1,19 @@
 import { mapActions, mapGetters } from 'vuex'
 import BaseCard from '@/components/BaseCard'
 import BaseButton from '@/components/BaseButton'
-import Modal from '@/components/modals/Modal'
 
 export default {
   name: 'QuizQuestions',
   components: {
     BaseCard,
-    BaseButton,
-    Modal
+    BaseButton
   },
   data () {
     return {
       currentNumber: '',
       selectedAnswer: '',
       answers: [],
-      isLoading: true,
-      result: '',
-      showPointModal: false
+      isLoading: true
     }
   },
   created () {
@@ -78,26 +74,8 @@ export default {
         fail: this.failedSubmitStudentQuiz
       })
     },
-    successSubmitStudentQuiz (response) {
-      this.result = response.data.point
-      this.showPointModal = true
-    },
-    failedSubmitStudentQuiz () {
-      this.$toasted.error('Something went wrong')
-    },
-    highlightedOption (option) {
-      return this.answers.includes(option) ? 'active' : ''
-    },
-    restart () {
-      this.currentNumber = ''
-      this.selectedAnswer = ''
-      this.answers = []
-      this.isLoading = true
-      this.result = ''
-      this.showPointModal = false
-      this.initPage()
-    },
-    finish () {
+    successSubmitStudentQuiz () {
+      this.$toasted.success('Quiz submitted')
       this.$router.push({
         name: 'studentQuizzes',
         params: {
@@ -106,6 +84,12 @@ export default {
           pageSize: 10
         }
       })
+    },
+    failedSubmitStudentQuiz () {
+      this.$toasted.error('Something went wrong')
+    },
+    highlightedOption (option) {
+      return this.answers.includes(option) ? 'active' : ''
     }
   }
 }
