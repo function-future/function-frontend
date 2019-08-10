@@ -6,7 +6,7 @@ const getUserList = function (callback, data, errorHandler) {
 }
 
 const getUserListWithBatch = function (callback, data, errorHandler) {
-  request.getRequest(config.api.core.users.getWithBatch(data.page, data.size, data.batchCode), callback, errorHandler)
+  request.getRequest(config.api.scoring.finalJudging.getStudentsWithBatch(data.page, data.size, data.batchCode), callback, errorHandler)
 }
 
 const searchUser = function (callback, data, errorHandler) {
