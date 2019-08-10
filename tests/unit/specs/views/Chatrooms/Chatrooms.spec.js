@@ -190,7 +190,6 @@ describe('Chatrooms', () => {
         }
       })
     }
-    const spyResetChatroom = jest.spyOn(Chatrooms.methods, 'resetChatrooms').mockImplementation(() => Promise.resolve())
     const spySelectChatroom = jest.spyOn(Chatrooms.methods, 'selectChatroom').mockImplementation(() => Promise.resolve())
     const data = {}
 
@@ -200,7 +199,6 @@ describe('Chatrooms', () => {
     expect(wrapper.vm.chatroomPage).toEqual(1)
     expect(wrapper.vm.activeChatroomId).toEqual('chatroomId')
     expect(wrapper.vm.activeChatroomType).toEqual('PRIVATE')
-    expect(spyResetChatroom).toBeCalledTimes(1)
     expect(spySelectChatroom).toBeCalledTimes(1)
   })
 

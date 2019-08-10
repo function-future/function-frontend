@@ -232,6 +232,18 @@ describe('ModalAddQuestion', () => {
     expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
   })
 
+  test('errorCallbackCurrentQuestionnaire', () => {
+    initWrapper()
+    wrapper.vm.errorCallbackCurrentQuestionnaire()
+    expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
+  })
+
+  test('errorCallbackAppraisee', () => {
+    initWrapper()
+    wrapper.vm.errorCallbackAppraisee()
+    expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
+  })
+
   test('backToAppraiseePage', () => {
     initWrapper()
     wrapper.vm.$router.replace = jest.fn()

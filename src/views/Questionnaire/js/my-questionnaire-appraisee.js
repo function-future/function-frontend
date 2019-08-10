@@ -132,6 +132,10 @@ export default {
       console.log(err)
       this.$toasted.error('connection error')
     },
+    errorCallback (err) {
+      console.log(err)
+      this.$toasted.error('connection error')
+    },
     backToAppraiseePage () {
       this.$router.replace({
         name: 'myQuestionnaireAppraisee',
