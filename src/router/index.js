@@ -884,6 +884,25 @@ const router = new Router({
           { name: 'Rooms', link: 'assignmentRooms' },
           { name: 'Room Detail', link: 'assignmentRoomDetail' }
         ]
+      },
+      beforeEnter: (to, from, next) => {
+        if (store.getters.currentUser.role === 'STUDENT') {
+          to.meta.breadcrumb = [
+            { name: 'Home', link: 'feeds' },
+            { name: 'Assignments', link: 'studentAssignments' },
+            { name: 'Room Detail', link: 'assignmentRoomDetail' }
+          ]
+        }
+        else {
+          to.meta.breadcrumb = [
+            { name: 'Home', link: 'feeds' },
+            { name: 'Batches', link: 'assignmentBatch' },
+            { name: 'Assignments', link: 'assignments' },
+            { name: 'Rooms', link: 'assignmentRooms' },
+            { name: 'Room Detail', link: 'assignmentRoomDetail' }
+          ]
+        }
+        next()
       }
     },
     {
