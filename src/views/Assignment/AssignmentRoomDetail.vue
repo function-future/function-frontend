@@ -51,7 +51,9 @@
       </div>
       <div class="discussion-input-wrapper">
         <div class="discussion-input">
-          <BaseTextArea class="discussion-input-box" placeholder="Ask a question..."
+          <BaseTextArea class="discussion-input-box"
+                        :placeholder="commentBoxPlaceholder"
+                        :disabled="disableCommentBox"
                         v-model="discussion.comment"></BaseTextArea>
         </div>
         <div class="discussion-button">
