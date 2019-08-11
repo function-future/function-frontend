@@ -997,7 +997,7 @@ const router = new Router({
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
           { name: 'Batches', link: 'judgingBatch' },
-          { name: 'Add Judging Session', link: 'addJudging' },
+          { name: 'Judging Sessions', link: 'judgingList' },
           { name: 'Judging Session Detail', link: 'judgingDetail' },
           { name: 'Comparison', link: 'comparison' }
         ]
@@ -1013,6 +1013,7 @@ const router = new Router({
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
           { name: 'Batches', link: 'judgingBatch' },
+          { name: 'Judging Sessions', link: 'judgingList' },
           { name: 'Report Page', link: 'batchReportPage' }
         ]
       }
