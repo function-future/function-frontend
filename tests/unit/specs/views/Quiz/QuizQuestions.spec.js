@@ -188,7 +188,6 @@ describe('QuizQuestions', () => {
 
   test('submitQuiz', () => {
     initComponent()
-    //TODO please check this
     const arraySpy = jest.spyOn(wrapper.vm.studentQuizQuestions, 'forEach')
     const spy = jest.spyOn(wrapper.vm, 'submitQuiz')
     wrapper.vm.submitQuiz()
@@ -198,17 +197,13 @@ describe('QuizQuestions', () => {
 
   test('successSubmitStudentQuiz', () => {
     initComponent()
-    store.state.currentUser.id = 'sample-id'
-    const routeSpy = jest.spyOn(wrapper.vm.$router, 'push')
-    wrapper.vm.successSubmitStudentQuiz()
-    expect(routeSpy).toHaveBeenCalledWith({
-      name: 'studentQuizzes',
-      params: {
-        studentId: 'sample-id',
-        page: 1,
-        pageSize: 10
+    const response = {
+      data: {
+        point: 80
       }
-    })
+    }
+    store.state.currentUser.id = 'sample-id'
+    wrapper.vm.successSubmitStudentQuiz(response)
   })
 
   test('failedSubmitStudentQuiz', () => {
@@ -233,5 +228,40 @@ describe('QuizQuestions', () => {
       'option2'
     ]
     expect(wrapper.vm.highlightedOption('option3')).toEqual('')
+  })
+
+  test('restart', () => {
+    initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'initPage')
+    wrapper.vm.restart()
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('finish', () => {
+    initComponent()
+    const routeSpy = jest.spyOn(wrapper.vm.$router, 'push')
+    store.state.currentUser.id = 'sample-id'
+    wrapper.vm.finish()
+    expect(routeSpy).toHaveBeenCalledWith({
+      name: 'studentQuizzes',
+      params: {
+        studentId: 'sample-id',
+        page: 1,
+        pageSize: 10
+      }
+    })
+  })
+
+  test('mounted', () => {
+    const spy = jest.spyOn(window, 'addEventListener')
+    initComponent()
+    expect(spy).toHaveBeenCalled()
+  })
+
+  test('beforeDestroyed', () => {
+    initComponent()
+    const spy = jest.spyOn(window, 'removeEventListener')
+    wrapper.destroy()
+    expect(spy).toHaveBeenCalledTimes(1)
   })
 })
