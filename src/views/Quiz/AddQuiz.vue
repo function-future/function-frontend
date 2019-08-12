@@ -20,6 +20,7 @@
           <label class="add-quiz__select-section-label">
             <input type="checkbox" name="selected-banks"
                    @click="questionBankSelected(questionBank.id)"
+                   :checked="selectedBank.includes(questionBank.id)"
                    :value="questionBank.id">
             <span class="checkmark">
               <font-awesome-icon icon="check" class="check add-quiz__select-section-label-icon" size="xs" style="margin-left: 7px; margin-top: 7px; color: white;" v-if="selectedBank.includes(questionBank.id)"/>
