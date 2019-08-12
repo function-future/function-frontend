@@ -4,6 +4,7 @@ import UserCard from '@/components/users/UserCard'
 import Tabs from 'vue-tabs-with-active-line'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
 import BasePagination from '@/components/BasePagination'
+import SearchBar from '@/components/SearchBar'
 
 export default {
   name: 'users',
@@ -12,7 +13,8 @@ export default {
     BaseButton,
     Tabs,
     ModalDeleteConfirmation,
-    BasePagination
+    BasePagination,
+    SearchBar
   },
   data () {
     return {
@@ -29,6 +31,7 @@ export default {
         size: 10,
         totalRecords: 0
       },
+      keyword: '',
       showDeleteConfirmationModal: false
     }
   },
@@ -53,7 +56,7 @@ export default {
   },
   methods: {
     ...mapActions([
-      'fetchUsersByRole',
+      'fetchUsersByRoleAndName',
       'deleteUserById',
       'setStudentList',
       'setAdminList',
@@ -66,16 +69,18 @@ export default {
     },
     changeTab (destinationTab) {
       this.paging.page = 1
+      this.keyword = ''
       this.currentTab = destinationTab
       this.fetchTabList()
     },
     fetchTabList () {
       let data = {
+        name: this.keyword,
         page: this.paging.page,
         size: this.paging.size,
         role: this.currentTab.toUpperCase()
       }
-      this.fetchUsersByRole({
+      this.fetchUsersByRoleAndName({
         data,
         callback: this.successGetUserList,
         fail: this.failGetUserList
@@ -157,6 +162,10 @@ export default {
     },
     loadNextPage () {
       this.paging.page = this.paging.page + 1
+      this.initPage()
+    },
+    searchHandler () {
+      if (this.paging.page !== 1) this.paging.page = 1
       this.initPage()
     }
   }
