@@ -98,6 +98,7 @@ describe('StickyNotesDetail.js', () => {
     }
     getters = {
       stickyNotes: state => state.stickyNote,
+      accessList: state => state.accessList
     }
     store = new Vuex.Store({
       modules: {

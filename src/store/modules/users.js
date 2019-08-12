@@ -38,6 +38,11 @@ export const actions = {
       callback(response)
     }, data, fail)
   },
+  fetchUsersByRoleAndName ({ commit }, { data, callback, fail }) {
+    userApi.getUserListWithRoleAndName((response) => {
+      callback(response)
+    }, data, fail)
+  },
   fetchStudentsByBatch ({ commit }, { data, callback, fail }) {
     userApi.getUserListWithBatch((response) => {
       callback(response)
