@@ -9,10 +9,6 @@ const getUserListWithRoleAndName = function (callback, data, errorHandler) {
   request.getRequest(config.api.core.users.getWithNameAndRole(data.name, data.page, data.size, data.role), callback, errorHandler)
 }
 
-const getUserListWithBatch = function (callback, data, errorHandler) {
-  request.getRequest(config.api.scoring.finalJudging.getStudentsWithBatch(data.page, data.size, data.batchCode), callback, errorHandler)
-}
-
 const searchUser = function (callback, data, errorHandler) {
   request.getRequest(config.api.core.users.search(data.params.page, data.params.size, data.params.name), callback, data, errorHandler)
 }
@@ -36,7 +32,6 @@ const deleteUser = function (callback, data, errorHandler) {
 export default {
   getUserList,
   getUserListWithRoleAndName,
-  getUserListWithBatch,
   searchUser,
   getUserDetail,
   createUser,
