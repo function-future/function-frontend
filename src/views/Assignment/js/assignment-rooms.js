@@ -1,8 +1,12 @@
 import { mapActions, mapGetters } from 'vuex'
+import BasePagination from '@/components/BasePagination'
 import config from '@/config'
 
 export default {
   name: 'AssignmentRooms',
+  components: {
+    BasePagination
+  },
   data () {
     return {
       paging: {
@@ -51,6 +55,18 @@ export default {
           roomId: room.id
         }
       })
+    },
+    loadPage (page) {
+      this.paging.page = page
+      this.initPage()
+    },
+    loadPreviousPage () {
+      this.paging.page = this.paging.page - 1
+      this.initPage()
+    },
+    loadNextPage () {
+      this.paging.page = this.paging.page + 1
+      this.initPage()
     }
   }
 }
