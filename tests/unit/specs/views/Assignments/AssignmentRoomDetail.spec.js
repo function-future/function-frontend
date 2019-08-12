@@ -21,7 +21,8 @@ describe('CourseDetail', () => {
     const state = {
       room: {},
       comments: [],
-      accessList: {}
+      accessList: {},
+      currentUser: {}
     }
     const actions = {
       fetchRoomDetail: jest.fn(),
@@ -32,7 +33,8 @@ describe('CourseDetail', () => {
     const getters = {
       room: state => state.room,
       comments: state => state.comments,
-      accessList: state => state.accessList
+      accessList: state => state.accessList,
+      currentUser: state => state.currentUser
     }
     const store = new Vuex.Store({
       state,
@@ -226,5 +228,29 @@ describe('CourseDetail', () => {
   test('isDeadlineHasPassed false computed', () => {
     wrapper.vm.roomDetail.assignment.deadline = new Date().setFullYear(2020, 1, 1)
     expect(wrapper.vm.isDeadlineHasPassed).toEqual(false)
+  })
+
+  test('disableCommentBox is true', () => {
+    initComponent()
+    store.state.currentUser.role = 'ADMIN'
+    expect(wrapper.vm.disableCommentBox).toEqual(true)
+  })
+
+  test('disableCommentBox is false', () => {
+    initComponent()
+    store.state.currentUser.role = 'STUDENT'
+    expect(wrapper.vm.disableCommentBox).toEqual(false)
+  })
+
+  test('commentBoxPlaceholder with admin logged in', () => {
+    initComponent()
+    store.state.currentUser.role = 'ADMIN'
+    expect(wrapper.vm.commentBoxPlaceholder).toEqual('I\'m sorry, but you can\'t participate in this discussion')
+  })
+
+  test('commentBoxPlaceholder with user not an admin', () => {
+    initComponent()
+    store.state.currentUser.role = 'STUDENT'
+    expect(wrapper.vm.commentBoxPlaceholder).toEqual('Ask a question...')
   })
 })
