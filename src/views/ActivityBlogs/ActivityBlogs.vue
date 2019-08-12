@@ -85,6 +85,10 @@
     span {
       font-weight: bold;
     }
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 
   .blog-date {
