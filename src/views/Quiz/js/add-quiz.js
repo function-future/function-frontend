@@ -88,8 +88,9 @@ export default {
       this.selectAllClicked = true
     },
     goToAddQuizDetail () {
+      let payload = this.selectAllClicked ? ['ALL'] : this.selectedBank
       this.setSelectedBank({
-        payload: this.selectedBank
+        payload
       })
       this.$router.push({
         name: 'addQuizDetail'

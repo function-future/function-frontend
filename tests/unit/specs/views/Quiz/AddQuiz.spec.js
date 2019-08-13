@@ -90,6 +90,16 @@ describe('Quiz', () => {
 
   test('successFetchingQuestionBankList selectAllClicked true', () => {
     initComponent()
+    wrapper.vm.selectAllClicked = true
+    wrapper.vm.successFetchingQuestionBankList()
+    expect(wrapper.vm.questionBankList).toEqual([])
+    expect(wrapper.vm.selectedBank).toEqual([])
+    expect(wrapper.vm.page).toEqual(2)
+  })
+
+  test('successFetchingQuestionBankList selectAllClicked false', () => {
+    initComponent()
+    wrapper.vm.selectAllClicked = false
     wrapper.vm.successFetchingQuestionBankList()
     expect(wrapper.vm.questionBankList).toEqual([])
     expect(wrapper.vm.selectedBank).toEqual([])
