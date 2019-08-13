@@ -9,11 +9,14 @@
             :lineClass="'default-tabs__active-line'"
             @onClick="changeTab">
       </tabs>
-      <span v-if="accessList.add" class="add-button">
-        <BaseButton type="submit" buttonClass="button-save" @click="goToAddUser">
-          <span><font-awesome-icon icon="plus" class="icon"/> {{ addUserButtonLabel }}</span>
-        </BaseButton>
-      </span>
+      <div class="actions">
+        <span v-if="accessList.add">
+          <BaseButton type="submit" buttonClass="button-save" @click="goToAddUser">
+            <span><font-awesome-icon icon="plus" class="icon"/> {{ addUserButtonLabel }}</span>
+          </BaseButton>
+        </span>
+        <SearchBar class="search-user" @input="searchHandler" v-model="keyword"></SearchBar>
+      </div>
     </div>
     <div class="tab-container">
       <div v-if="isLoading" class="loading">
@@ -66,9 +69,12 @@
     margin-top: 5px;
   }
 
-  .add-button {
+  .actions {
+    display: flex;
+    align-items: center;
     margin-left: auto;
     font-size: 0.9rem;
+    min-width: 350px;
   }
 
   .tab-container {
@@ -86,6 +92,7 @@
   }
 
   .default-tabs {
+    display: flex;
     float: left;
     position: relative;
     margin: 0 10px 0 25px;
@@ -148,5 +155,13 @@
 
   .icon {
     margin-right: 3px;
+  }
+
+  .search-user {
+    margin-left: 10px;
+  }
+
+  .search-outer {
+    height: 50px !important;
   }
 </style>

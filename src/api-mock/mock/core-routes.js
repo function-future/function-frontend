@@ -1333,7 +1333,7 @@ export const discussions = [
 export const users = [
   {
     method: 'GET',
-    url: '/api/core/users?page=1&size=10&role=STUDENT',
+    url: '/api/core/users?name=&page=1&size=10&role=STUDENT',
     response: {
       "code": 200,
       "status": "OK",
@@ -1444,7 +1444,38 @@ export const users = [
   },
   {
     method: 'GET',
-    url: '/api/core/users?page=1&size=10&role=MENTOR',
+    url: '/api/core/users?name=kar&page=1&size=10&role=STUDENT',
+    response: {
+      "code": 200,
+      "status": "OK",
+      "data": [
+        {
+          'id': 'sample-id-student',
+          'role': 'STUDENT',
+          'email': 'user@user.com',
+          'name': 'Karnando Sepryan',
+          'phone': '088888888888',
+          'address': 'Jl. Address 1 Address 2',
+          'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'avatarId': 'sample-id-1',
+          'batch': {
+            'id': 'sample-id',
+            'name': 'Batch Name',
+            'code': '3'
+          },
+          'university': 'Bina Nusantara University'
+        },
+      ],
+      'paging': {
+        'page': 1,
+        'size': 10,
+        'totalRecords': 1
+      }
+    }
+  },
+  {
+    method: 'GET',
+    url: '/api/core/users?name=&page=1&size=10&role=MENTOR',
     response: {
       "code": 200,
       "status": "OK",
@@ -1479,7 +1510,7 @@ export const users = [
   },
   {
     method: 'GET',
-    url: '/api/core/users?page=1&size=10&role=JUDGE',
+    url: '/api/core/users?name=&page=1&size=10&role=JUDGE',
     response: {
       "code": 200,
       "status": "OK",
@@ -1504,7 +1535,7 @@ export const users = [
   },
   {
     method: 'GET',
-    url: '/api/core/users?page=1&size=10&role=ADMIN',
+    url: '/api/core/users?name=&page=1&size=10&role=ADMIN',
     response: {
       "code": 200,
       "status": "OK",

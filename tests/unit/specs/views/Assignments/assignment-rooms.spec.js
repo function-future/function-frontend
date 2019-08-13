@@ -28,14 +28,9 @@ describe('AssignmentRoom', () => {
       accessLIst: state => state.accessList
     }
     const store = new Vuex.Store({
-      modules: {
-        assignmentRooms: {
-          state,
-          actions,
-          getters,
-          namespaced: true
-        }
-      }
+      state,
+      actions,
+      getters
     })
 
     return {
@@ -143,5 +138,31 @@ describe('AssignmentRoom', () => {
         roomId: 'ROM0001'
       }
     })
+  })
+
+  test('loadPage', () => {
+    initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'initPage')
+    wrapper.vm.loadPage(1)
+    expect(wrapper.vm.paging.page).toEqual(1)
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('loadPreviousPage', () => {
+    initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'initPage')
+    wrapper.vm.paging.page = 2
+    wrapper.vm.loadPreviousPage()
+    expect(wrapper.vm.paging.page).toEqual(1)
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('loadNextPage', () => {
+    initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'initPage')
+    wrapper.vm.paging.page = 2
+    wrapper.vm.loadNextPage()
+    expect(wrapper.vm.paging.page).toEqual(3)
+    expect(spy).toHaveBeenCalledTimes(1)
   })
 })

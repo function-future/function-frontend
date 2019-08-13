@@ -10,6 +10,11 @@
         </div>
       </div>
     </div>
+    <BasePagination :paging="paging"
+                    @loadPage="loadPage"
+                    @previousPage="loadPreviousPage"
+                    @nextPage="loadNextPage">
+    </BasePagination>
   </div>
 </template>
 
