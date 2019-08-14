@@ -15,19 +15,14 @@ export default {
     BaseButton,
     BaseInput
   },
-  props: {
-    title: {
-      type: String,
-      default: 'Future Batch 3 Progress'
-    }
-  },
   data () {
     return {
       logMessages: [],
       page: 1,
       size: 10,
       messageText: '',
-      currentDateMessage: null
+      currentDateMessage: null,
+      title: ''
     }
   },
   computed: {
@@ -110,6 +105,19 @@ export default {
       if (event.keyCode === 13 && this.messageText.length) {
         this.submitMessage()
       }
+    },
+    getTitle () {
+      loggingRoomApi.getTopic(response => {
+        this.title = response.data.title
+      }, this.errorCallBack, {
+        params: {
+          loggingRoomId: this.$route.params.loggingRoomId,
+          topicId: this.$route.params.topicId
+        }
+      })
     }
+  },
+  mounted () {
+    this.getTitle()
   }
 }

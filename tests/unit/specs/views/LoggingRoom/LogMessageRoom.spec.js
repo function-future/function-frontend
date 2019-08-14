@@ -288,4 +288,15 @@ describe('LogMessageRoom', () => {
     expect(wrapper.vm.page).toEqual(1)
     expect(wrapper.vm.logMessages.length).toEqual(0)
   })
+
+  test('getTopic', () => {
+    loggingRoomApi.getTopic = success => {
+      success({
+        data: []
+      })
+    }
+    const spy = jest.spyOn(LogMessageRoom.methods, 'getTitle')
+    initComponent()
+    expect(spy).toHaveBeenCalled()
+  })
 })
