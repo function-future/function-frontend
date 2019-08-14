@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="scrollable-container">
     <ReportCard v-for="student in studentList" :user="student" :score="student.finalPoint">
     </ReportCard>
     <infinite-loading direction="top"

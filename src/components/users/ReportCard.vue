@@ -6,7 +6,7 @@
         <h4>{{ user.university }}</h4>
       </div>
       <div class="col future-info" style="flex-grow: 3">
-        <h4>{{ batch }}</h4>
+        <h4>{{ user.batch.name }}</h4>
         <h5>{{ user.division }}</h5>
       </div>
       <div class="score-section" style="flex-grow: 1">

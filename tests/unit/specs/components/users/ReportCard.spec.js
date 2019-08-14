@@ -59,23 +59,5 @@ describe('ReportCard', () => {
       }
     })
     expect(wrapper.isVueInstance()).toBe(true)
-    expect(wrapper.vm.batch).toEqual('Batch : asasd')
-  })
-
-  test('Rendered correctly with batch returns empty', () => {
-    const user = {
-      name: 'aaa',
-      university: 'aaa',
-      division: 'aaa'
-    }
-    const wrapper = shallowMount(reportCard, {
-      localVue,
-      store,
-      propsData: {
-        user
-      }
-    })
-    expect(wrapper.isVueInstance()).toBe(true)
-    expect(wrapper.vm.batch).toEqual('')
   })
 })

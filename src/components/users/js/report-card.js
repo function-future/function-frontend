@@ -9,12 +9,5 @@ export default {
     'score'
   ],
   methods: {},
-  computed: {
-    batch: function () {
-      if (this.user.role === 'STUDENT') {
-        return 'Batch : ' + this.user.batch.name
-      }
-      return ''
-    }
-  }
+  computed: {}
 }
