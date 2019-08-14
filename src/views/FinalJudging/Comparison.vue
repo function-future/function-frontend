@@ -10,12 +10,10 @@
               <span class="comparison-item__base-profile-card-info-university">{{student.university}}</span>
             </div>
           </BaseCard>
-        </div>
-        <div class="comparison-item__base-total">
-          <BaseCard class="comparison-item__base-total-card">
-            <span class="comparison-item__base-total-card-text">Total Points</span>
-            <div class="comparison-item__base-total-card-info">
-              <span class="comparison-item__base-total-card-info-point">{{student.point}}</span>
+          <BaseCard class="comparison-item__base-profile-total">
+            <span class="comparison-item__base-profile-total-text">Total Points</span>
+            <div class="comparison-item__base-profile-total-info">
+              <span class="comparison-item__base-profile-total-info-point">{{student.totalPoint}}</span>
             </div>
           </BaseCard>
         </div>
@@ -71,11 +69,16 @@
     &-item {
       &__base {
         flex: 1;
+        width: 26%;
         &-profile {
+          display: flex;
+          flex-wrap: nowrap;
           &-card {
+            width: 80%;
             display: flex;
             flex-direction: row;
             align-items: center;
+            margin-right: 0;
             &-image {
               width: 100px;
               height: 100px;
@@ -98,16 +101,17 @@
               }
             }
           }
-        }
-        &-total {
-          &-card {
+          &-total {
+            width: 20%;
             display: flex;
-            flex-direction: row;
-            justify-content: space-between;
+            flex-direction: column;
+            justify-content: center;
             align-items: center;
             &-text {
+              width: 100%;
               font-weight: bold;
               margin-left: -15px;
+              text-align: center;
             }
             &-info {
               display: flex;
@@ -134,7 +138,8 @@
           &-card {
             overflow: auto;
             margin-bottom: 5px;
-            max-height: 18vh;
+            min-height: 18vh;
+            max-height: 30vh;
             &::-webkit-scrollbar-track
             {
               background-color: #F5F5F5;
