@@ -1,4 +1,6 @@
 import BaseCard from '@/components/BaseCard'
+import { mapGetters } from 'vuex'
+
 
 export default {
   name: 'topic-card',
@@ -10,5 +12,10 @@ export default {
       type: String,
       default: 'Lorem Ipsum'
     }
+  },
+  computed: {
+    ...mapGetters([
+      'accessList'
+    ])
   }
 }
