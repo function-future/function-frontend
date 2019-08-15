@@ -36,7 +36,7 @@
             <BaseCard cardClass="card-hover" class="file__card">
               <font-awesome-icon icon="folder" class="icon" size="lg"></font-awesome-icon>
               <div class="file__title">{{ showLimitedPreviewText(folder.name) }}</div>
-              <div class="actions" v-if="true">
+              <div class="file__actions" v-if="true">
                 <span class="rename-btn"
                       @click.stop="openRenameFileFolderModal(folder.id, folder.name, folder.type)"
                       v-if="accessList.edit && currentUser.role === 'ADMIN'">
@@ -60,7 +60,7 @@
             <BaseCard cardClass="card-hover" class="file__card">
               <font-awesome-icon icon="file" class="icon" size="lg"></font-awesome-icon>
               <div class="file__title">{{ showLimitedPreviewText(file.name) }}</div>
-              <div class="actions" v-if="true">
+              <div class="file__actions" v-if="true">
                 <span class="rename-btn"
                       @click.stop="openRenameFileFolderModal(file.id, file.name, file.type)"
                       v-if="accessList.edit && ((currentUser.id === file.author.id) || currentUser.role === 'ADMIN')">
@@ -184,13 +184,13 @@
     &__title {
       font-size: 13px;
     }
-  }
 
-  .actions {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-left: auto;
+    &__actions {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin-left: auto;
+    }
   }
 
   .action-icon {
