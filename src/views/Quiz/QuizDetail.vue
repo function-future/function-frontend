@@ -1,16 +1,31 @@
 <template>
   <div class="quiz-detail-container">
-    <div class="description-container">
-      <BaseInput v-model="quizDetail.title"
-                 :placeholder="'Quiz Title'"
-                 :disabled="!editMode">
-      </BaseInput>
-      <BaseTextArea v-model="quizDetail.description"
-                    :disabled="!editMode"
-                    placeholder="Description here"
-                    :style="{height: '70%'}"
-                    :placeholder="'Quiz description'">
-      </BaseTextArea>
+    <div class="quiz-detail-section">
+      <div class="description-container">
+        <BaseInput v-model="quizDetail.title"
+                   :placeholder="'Quiz Title'"
+                   :disabled="!editMode">
+        </BaseInput>
+        <BaseTextArea v-model="quizDetail.description"
+                      :disabled="!editMode"
+                      placeholder="Description here"
+                      :style="{height: '70%'}"
+                      :placeholder="'Quiz description'">
+        </BaseTextArea>
+      </div>
+      <BaseCard class="banks-container" :style="{'margin': '0 15px', 'padding': '10px'}">
+        <div class="banks-container__header">
+          <span>Question Banks</span>
+          <font-awesome-icon v-if="editMode" icon="edit" class="icon blue"></font-awesome-icon>
+        </div>
+        <div class="scrollable-container">
+          <BaseCard v-for="bank in quizDetail.questionBanks" :style="{'margin': '15px 10px'}" class="banks-container__item">
+            <div class="banks-container__item-content">
+              {{bank.title}}
+            </div>
+          </BaseCard>
+        </div>
+      </BaseCard>
     </div>
     <div class="detail-container">
       <div class="detail-container__info">
@@ -79,6 +94,7 @@
 
 
 
+
 <style lang="scss" scoped>
   .quiz-detail-container {
     display: flex;
@@ -86,9 +102,34 @@
     height: 100%;
   }
 
-  .description-container {
-    width: 100%;
+  .quiz-detail-section {
+    display: flex;
+    flex-direction: row;
     height: 40%;
+    max-height: 40%;
+    width: 100%;
+  }
+
+  .description-container {
+    flex-grow: 3;
+  }
+
+  .banks-container {
+    flex-grow: 1;
+    max-height: 100%;
+    max-width: 25%;
+    &__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    &__item {
+      &-content {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+    }
   }
 
   .detail-container {

@@ -88,10 +88,21 @@ describe('Quiz', () => {
     expect(wrapper.isVueInstance()).toBe(true)
   })
 
-  test('successFetchingQuestionBankList', () => {
+  test('successFetchingQuestionBankList selectAllClicked true', () => {
     initComponent()
+    wrapper.vm.selectAllClicked = true
     wrapper.vm.successFetchingQuestionBankList()
     expect(wrapper.vm.questionBankList).toEqual([])
+    expect(wrapper.vm.selectedBank).toEqual([])
+    expect(wrapper.vm.page).toEqual(2)
+  })
+
+  test('successFetchingQuestionBankList selectAllClicked false', () => {
+    initComponent()
+    wrapper.vm.selectAllClicked = false
+    wrapper.vm.successFetchingQuestionBankList()
+    expect(wrapper.vm.questionBankList).toEqual([])
+    expect(wrapper.vm.selectedBank).toEqual([])
     expect(wrapper.vm.page).toEqual(2)
   })
 
@@ -120,6 +131,7 @@ describe('Quiz', () => {
     wrapper.vm.questionBankList = ['QNK0001', 'QNK0002']
     wrapper.vm.toggleAllBank()
     expect(spy).toHaveBeenCalledTimes(1)
+    expect(wrapper.vm.selectAllClicked).toEqual(true)
   })
 
   test('toggleAllBank calls method deselectAll', () => {
@@ -129,6 +141,7 @@ describe('Quiz', () => {
     wrapper.vm.selectedBank = ['QNK0001', 'QNK0002']
     wrapper.vm.toggleAllBank()
     expect(spy).toHaveBeenCalledTimes(1)
+    expect(wrapper.vm.selectAllClicked).toEqual(false)
   })
 
   test('deselectAllHaveSelectedOnlyOne', () => {
@@ -154,6 +167,7 @@ describe('Quiz', () => {
     wrapper.vm.selectedBank = ['QNK0001', 'QNK0002']
     wrapper.vm.deselectAll()
     expect(wrapper.vm.selectedBank).toEqual([])
+    expect(wrapper.vm.selectAllClicked).toEqual(false)
     delete document.getElementsByName
   })
 
@@ -167,6 +181,7 @@ describe('Quiz', () => {
     wrapper.vm.selectedBank = ['QNK0001']
     wrapper.vm.selectAll()
     expect(wrapper.vm.selectedBank).toEqual(['QNK0001', 'QNK0002'])
+    expect(wrapper.vm.selectAllClicked).toEqual(true)
     delete document.getElementsByName
   })
 
@@ -180,6 +195,7 @@ describe('Quiz', () => {
     wrapper.vm.selectedBank = []
     wrapper.vm.selectAll()
     expect(wrapper.vm.selectedBank).toEqual(['QNK0001', 'QNK0002'])
+    expect(wrapper.vm.selectAllClicked).toEqual(true)
     delete document.getElementsByName
   })
 
