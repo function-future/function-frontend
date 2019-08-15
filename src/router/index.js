@@ -29,6 +29,7 @@ import judgingBatchForm from '@/views/FinalJudging/JudgingBatchForm'
 import addJudging from '@/views/FinalJudging/AddJudging'
 import judgingDetail from '@/views/FinalJudging/JudgingDetail'
 import comparison from '@/views/FinalJudging/Comparison'
+import reportPage from '@/views/FinalJudging/ReportPage'
 import points from '@/views/Point/Point'
 import feeds from '@/views/Feeds/Feeds.vue'
 import announcements from '@/views/Announcements/Announcements.vue'
@@ -1015,9 +1016,24 @@ const router = new Router({
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
           { name: 'Batches', link: 'judgingBatch' },
-          { name: 'Add Judging Session', link: 'addJudging' },
+          { name: 'Judging Sessions', link: 'judgingList' },
           { name: 'Judging Session Detail', link: 'judgingDetail' },
           { name: 'Comparison', link: 'comparison' }
+        ]
+      }
+    },
+    {
+      path: config.app.pages.finalJudging.reportPage,
+      name: 'batchReportPage',
+      component: reportPage,
+      meta: {
+        auth: true,
+        title: 'Report',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Batches', link: 'judgingBatch' },
+          { name: 'Judging Sessions', link: 'judgingList' },
+          { name: 'Report Page', link: 'batchReportPage' }
         ]
       }
     },

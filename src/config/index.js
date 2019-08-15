@@ -101,7 +101,8 @@ module.exports = {
         },
         add: '/batches/:batchCode/final-judging/add',
         detail: '/batches/:batchCode/final-judging/:judgingId/detail',
-        comparisons: '/batches/:batchCode/final-judging/:judgingId/comparison'
+        comparisons: '/batches/:batchCode/final-judging/:judgingId/comparison',
+        reportPage: '/batches/:batchCode/final-judging/report-page'
       },
       stickyNotes: {
         detail: '/sticky-notes',
@@ -394,6 +395,9 @@ module.exports = {
         getStudentsWithBatch (page, size, batchCode) {
           return `/api/scoring/batches/${batchCode}/judgings/students?page=${page}`
         },
+        reportPage (page, size, batchCode) {
+          return `/api/scoring/batches/${batchCode}/judgings/students?page=${page}`
+        }
       },
       points: {
         list(studentId) {
