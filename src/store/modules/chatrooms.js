@@ -46,7 +46,7 @@ export const actions = {
         i += 1
       }
       if (shouldChange) {
-        cb()
+        cb(response.data)
       }
     }, fail, data)
   },
