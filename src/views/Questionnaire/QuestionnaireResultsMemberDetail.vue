@@ -15,7 +15,7 @@
       <div class="questionnaire-results-questionnaire-detail-card-container">
         <h3>Appraised on</h3>
         <div class="questionnaire-card-list">
-          <QuestionnaireCard v-for="myQuestionnaire in appraiseeResultsQuestionnaires"
+          <QuestionnaireCard  v-for="myQuestionnaire in appraiseeResultsQuestionnaires"
                              :key="myQuestionnaire.id"
                              :title="myQuestionnaire.title"
                              :description="myQuestionnaire.description"
@@ -49,6 +49,8 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    overflow: auto;
+    padding-top: 80px;
   }
 
   .questionnaire-results-participant-detail-card-container {
@@ -67,4 +69,5 @@
     height: 40vh;
     overflow: auto;
   }
+
 </style>

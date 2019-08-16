@@ -116,5 +116,13 @@ export default {
       this.paging.page = this.paging.page + 1
       this.initPage()
     },
+    goToReportPage () {
+      this.$router.push({
+        name: 'batchReportPage',
+        params: {
+          batchCode: this.$route.params.batchCode
+        }
+      })
+    }
   }
 }

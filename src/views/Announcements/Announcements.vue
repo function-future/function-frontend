@@ -38,7 +38,7 @@
           </div>
         </div>
         <div class="announcement-preview wrap-word">
-          <span>{{ textPreview(announcement) }}</span>
+          <span v-html="textPreview(announcement)"></span>
         </div>
       </BaseCard>
     </div>

@@ -45,6 +45,7 @@
   .questionnaire-results-questionnaire-detail-outer {
     display: flex;
     justify-content: center;
+    overflow: auto;
   }
 
   .questionnaire-results-questionnaire-detail-container {

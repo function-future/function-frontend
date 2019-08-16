@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="page-header">
-      <BaseButton :style="{'width': '15vh'}">
+      <BaseButton :style="{'width': '130px'}">
         <label class="add-quiz__select-section-label" :class="{label_active: selectedBank.length === questionBankList.length}">
           {{selectedBank.length}} / {{questionBankList.length}}
           <input type="checkbox"
@@ -20,9 +20,10 @@
           <label class="add-quiz__select-section-label">
             <input type="checkbox" name="selected-banks"
                    @click="questionBankSelected(questionBank.id)"
+                   :checked="selectedBank.includes(questionBank.id)"
                    :value="questionBank.id">
             <span class="checkmark">
-              <font-awesome-icon icon="check" class="check add-quiz__select-section-label-icon" size="xs" style="margin-left: 7px; margin-top: 7px; color: white;"/>
+              <font-awesome-icon icon="check" class="check add-quiz__select-section-label-icon" size="xs" style="margin-left: 7px; margin-top: 7px; color: white;" v-if="selectedBank.includes(questionBank.id)"/>
             </span>
           </label>
         </div>
@@ -52,8 +53,8 @@
     display: flex;
     justify-content: flex-start;
     margin-left: 20px;
-    width: 15vw;
-    height: 5vh;
+    width: 200px;
+    height: 50px;
   }
   .add-quiz {
     &__container {

@@ -1,23 +1,41 @@
 <template>
   <div class="quiz-detail-container">
-    <div class="description-container">
-      <BaseInput v-model="quizDetail.title"
-                 :placeholder="'Quiz Title'"
-                 :disabled="!editMode">
-      </BaseInput>
-      <BaseTextArea v-model="quizDetail.description"
-                    :disabled="!editMode"
-                    placeholder="Description here"
-                    :style="{height: '70%'}"
-                    :placeholder="'Quiz description'">
-      </BaseTextArea>
+    <div class="quiz-detail-section">
+      <div class="description-container">
+        <BaseInput v-model="quizDetail.title"
+                   :placeholder="'Quiz Title'"
+                   :disabled="!editMode">
+        </BaseInput>
+        <BaseTextArea v-model="quizDetail.description"
+                      :disabled="!editMode"
+                      placeholder="Description here"
+                      :style="{height: '70%'}"
+                      :placeholder="'Quiz description'">
+        </BaseTextArea>
+      </div>
+      <BaseCard class="banks-container" :style="{'margin': '0 15px', 'padding': '10px'}">
+        <div class="banks-container__header">
+          <span>Question Banks</span>
+          <font-awesome-icon v-if="editMode" icon="edit" class="icon blue"></font-awesome-icon>
+        </div>
+        <div class="scrollable-container">
+          <BaseCard v-for="bank in quizDetail.questionBanks" :style="{'margin': '15px 10px'}" class="banks-container__item">
+            <div class="banks-container__item-content">
+              {{bank.title}}
+            </div>
+          </BaseCard>
+        </div>
+      </BaseCard>
     </div>
     <div class="detail-container">
       <div class="detail-container__info">
         <div class="detail-container__info-time">
           <BaseCard :style="{height: '100%', margin: 0}"
                     class="detail-card">
-            <div class="detail-card__caption">Given Time</div>
+            <div class="detail-card__caption">
+              <div>Given Time</div>
+              <div style="font-size: smaller">(Minutes)</div>
+            </div>
             <input type="number"
                    class="detail-card__content"
                    v-model="quizDetail.timeLimit"
@@ -76,17 +94,42 @@
 
 
 
+
 <style lang="scss" scoped>
   .quiz-detail-container {
     display: flex;
     flex-direction: column;
     height: 100%;
-    margin: 20px 20px 200px 20px;
+  }
+
+  .quiz-detail-section {
+    display: flex;
+    flex-direction: row;
+    height: 40%;
+    max-height: 40%;
+    width: 100%;
   }
 
   .description-container {
-    width: 100%;
-    height: 40%;
+    flex-grow: 3;
+  }
+
+  .banks-container {
+    flex-grow: 1;
+    max-height: 100%;
+    max-width: 25%;
+    &__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    &__item {
+      &-content {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+    }
   }
 
   .detail-container {
@@ -96,7 +139,7 @@
     justify-content: space-between;
     width: 100%;
     &__info {
-      width: 30%;
+      width: 32%;
       height: 100%;
       display: flex;
       flex-direction: column;
@@ -117,6 +160,7 @@
       }
     }
     &__action {
+      margin-top: 15px;
       align-self: flex-end;
       display: flex;
       flex-direction: row;
@@ -134,7 +178,7 @@
     align-items: center;
     justify-content: space-between;
     &__caption {
-      width: 30%;
+      width: 50%;
     }
     &__content {
       font-weight: bolder;
@@ -172,10 +216,11 @@
       align-self: flex-start;
     }
     &__content {
+      background-color: transparent !important;
       width: 70%;
       border: none;
       font-weight: bolder;
-      font-size: 15rem;
+      font-size: 13rem;
       display: flex;
       justify-content: flex-end;
       text-align: right;

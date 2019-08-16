@@ -37,15 +37,16 @@ describe('actions', () => {
     expect(callback).toBeCalledTimes(1)
   })
 
-  test('fetchStudentsByBatch', () => {
-    api.getUserListWithBatch = (success) => {
+  test('fetchUsersByRoleAndName', () => {
       success({
+    api.getUserListWithRoleAndName = (success) => {
         'code': 200,
         'status': 'OK',
         'data': []
       })
     }
     const data = {
+      name: 'kar',
       role: 'student',
       page: 1,
       pageSize: 10
@@ -53,9 +54,9 @@ describe('actions', () => {
     const commit = jest.fn()
     const fail = jest.fn()
     const callback = jest.fn()
-    store.actions.fetchStudentsByBatch({ commit }, { data, callback, fail })
-    expect(fail).not.toBeCalled()
+    store.actions.fetchUsersByRoleAndName({ commit }, { data, callback, fail })
     expect(callback).toBeCalledTimes(1)
+    expect(fail).not.toBeCalled()
   })
 
   test('setStudentList', () => {

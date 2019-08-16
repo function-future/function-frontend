@@ -1,6 +1,11 @@
 <template>
   <div class="scrollable-container">
     <div class="page-header">
+      <BaseButton class="report-btn"
+                  buttonClass="button-save"
+                  @click="goToReportPage">
+        Batch report
+      </BaseButton>
       <BaseButton v-if="accessList.add"
                   class="add-btn"
                   type="submit"
@@ -108,5 +113,10 @@
   .add-btn {
     justify-self: flex-end;
     margin-left: auto;
+  }
+
+  .report-btn {
+    justify-self: flex-start;
+    margin-left: 15px;
   }
 </style>

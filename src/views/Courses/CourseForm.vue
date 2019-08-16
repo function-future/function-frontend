@@ -42,7 +42,7 @@
           <BaseButton type="cancel" buttonClass="button-cancel" @click="cancel">Cancel</BaseButton>
         </div>
         <div class="action-button">
-          <BaseButton type="submit" buttonClass="button-save" @click="sendCourse">Save</BaseButton>
+          <BaseButton type="submit" buttonClass="button-save" @click="sendCourse" :disabled="isSubmitting || uploadingFile">Save</BaseButton>
         </div>
       </div>
     </div>

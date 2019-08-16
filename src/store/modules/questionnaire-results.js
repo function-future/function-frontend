@@ -96,7 +96,6 @@ export const actions = {
     questionnaireResultsApi.getQuestionnaireAnswerDetailResponse(response => {
       commit('RESET_CURRENT_QUESTION_DETAIL_RESPONSES_LIST')
       commit('PUSH_CURRENT_QUESTION_DETAIL_RESPONSES_LIST', response.data)
-      console.log('masuk sini')
       cb && cb(response)
     }, fail, data)
   }

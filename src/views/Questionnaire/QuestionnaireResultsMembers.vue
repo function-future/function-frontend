@@ -33,7 +33,6 @@
 <style scoped>
 
   .questionnaire-results-member-outer {
-    margin-top: 50px;
     display: flex;
     justify-content: center;
     height: 80vh;
@@ -79,6 +78,10 @@
   .participant-list-container {
     height: 75vh;
     overflow: auto;
+  }
+
+  h2 {
+    margin: 0px;
   }
 
 </style>

@@ -203,4 +203,17 @@ describe('JudgingList', () => {
     expect(wrapper.vm.paging.page).toEqual(3)
     expect(spy).toHaveBeenCalledTimes(1)
   })
+
+  test('goToReportPage', () => {
+    initComponent()
+    const spy = jest.spyOn(wrapper.vm.$router, 'push')
+    wrapper.vm.$route.params.batchCode = 'future3'
+    wrapper.vm.goToReportPage()
+    expect(spy).toHaveBeenCalledWith({
+      name: 'batchReportPage',
+      params: {
+        batchCode: 'future3'
+      }
+    })
+  })
 })

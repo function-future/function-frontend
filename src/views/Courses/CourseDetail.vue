@@ -49,7 +49,10 @@
                         v-model="discussion.comment"></BaseTextArea>
         </div>
         <div class="discussion-button">
-          <BaseButton type="submit" buttonClass="button-save" @click="postDiscussion">Post</BaseButton>
+          <BaseButton type="submit" buttonClass="button-save" @click="postDiscussion"
+                      :disabled="submittingDiscussion || !discussion.comment.length">
+            Post
+          </BaseButton>
         </div>
       </div>
     </BaseCard>
@@ -93,7 +96,7 @@
     min-height: 85px;
     width: 100%;
     box-shadow: none;
-    margin: 0 0 15px 0;
+    margin: 5px 0 10px 0;
     border: 1px solid #828282;
   }
 

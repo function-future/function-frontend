@@ -29,6 +29,7 @@ import judgingBatchForm from '@/views/FinalJudging/JudgingBatchForm'
 import addJudging from '@/views/FinalJudging/AddJudging'
 import judgingDetail from '@/views/FinalJudging/JudgingDetail'
 import comparison from '@/views/FinalJudging/Comparison'
+import reportPage from '@/views/FinalJudging/ReportPage'
 import points from '@/views/Point/Point'
 import feeds from '@/views/Feeds/Feeds.vue'
 import announcements from '@/views/Announcements/Announcements.vue'
@@ -884,6 +885,25 @@ const router = new Router({
           { name: 'Rooms', link: 'assignmentRooms' },
           { name: 'Room Detail', link: 'assignmentRoomDetail' }
         ]
+      },
+      beforeEnter: (to, from, next) => {
+        if (store.getters.currentUser.role === 'STUDENT') {
+          to.meta.breadcrumb = [
+            { name: 'Home', link: 'feeds' },
+            { name: 'Assignments', link: 'studentAssignments' },
+            { name: 'Room Detail', link: 'assignmentRoomDetail' }
+          ]
+        }
+        else {
+          to.meta.breadcrumb = [
+            { name: 'Home', link: 'feeds' },
+            { name: 'Batches', link: 'assignmentBatch' },
+            { name: 'Assignments', link: 'assignments' },
+            { name: 'Rooms', link: 'assignmentRooms' },
+            { name: 'Room Detail', link: 'assignmentRoomDetail' }
+          ]
+        }
+        next()
       }
     },
     {
@@ -996,9 +1016,24 @@ const router = new Router({
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
           { name: 'Batches', link: 'judgingBatch' },
-          { name: 'Add Judging Session', link: 'addJudging' },
+          { name: 'Judging Sessions', link: 'judgingList' },
           { name: 'Judging Session Detail', link: 'judgingDetail' },
           { name: 'Comparison', link: 'comparison' }
+        ]
+      }
+    },
+    {
+      path: config.app.pages.finalJudging.reportPage,
+      name: 'batchReportPage',
+      component: reportPage,
+      meta: {
+        auth: true,
+        title: 'Report',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Batches', link: 'judgingBatch' },
+          { name: 'Judging Sessions', link: 'judgingList' },
+          { name: 'Report Page', link: 'batchReportPage' }
         ]
       }
     },
@@ -1017,7 +1052,11 @@ const router = new Router({
       component: reminders,
       meta: {
         title: 'Reminders',
-        auth: true
+        auth: true,
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Reminders', link: 'reminders' }
+        ]
       }
     },
     {
@@ -1026,7 +1065,12 @@ const router = new Router({
       component: reminderForm,
       meta: {
         title: 'Reminder Detail',
-        auth: true
+        auth: true,
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Reminders', link: 'reminders' },
+          { name: 'Reminder Detail', link: 'reminderDetail' }
+        ]
       },
       props: { editMode: false }
     },
@@ -1036,7 +1080,13 @@ const router = new Router({
       component: reminderForm,
       meta: {
         title: 'Edit Reminder',
-        auth: true
+        auth: true,
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Reminders', link: 'reminders' },
+          { name: 'Reminder Detail', link: 'reminderDetail' },
+          { name: 'Edit Reminder', link: 'reminderEdit' }
+        ]
       },
       props: { editMode: true }
     },
@@ -1046,7 +1096,12 @@ const router = new Router({
       component: reminderForm,
       meta: {
         title: 'Create Reminder',
-        auth: true
+        auth: true,
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Reminders', link: 'reminders' },
+          { name: 'Create Reminder', link: 'reminderCreate' }
+        ]
       },
       props: { editMode: true, createMode: true }
     },
@@ -1056,7 +1111,11 @@ const router = new Router({
       component: notifications,
       meta: {
         title: 'Notifications',
-        auth: true
+        auth: true,
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Notifications', link: 'notifications' }
+        ]
       }
     },
     {
@@ -1064,7 +1123,12 @@ const router = new Router({
       name: 'myQuestionnaire',
       component: myQuestionnaire,
       meta: {
-        title: 'My Questionnaire'
+        title: 'My Questionnaire',
+        auth: true,
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'My Questionnaire', link: 'myQuestionnaire' }
+        ]
       }
     },
     {
@@ -1072,7 +1136,13 @@ const router = new Router({
       name: 'myQuestionnaireAppraisee',
       component: myQuestionnaireAppraisee,
       meta: {
-        title: 'My Questionnaire - Appraisee'
+        title: 'My Questionnaire - Appraisee',
+        auth: true,
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'My Questionnaire', link: 'myQuestionnaire' },
+          { name: 'My Questionnaire Appraisee', link: 'myQuestionnaireAppraisee' }
+        ]
       }
     },
     {
@@ -1080,7 +1150,14 @@ const router = new Router({
       name: 'myQuestionnaireForm',
       component: myQuestionnaireAppraisee,
       meta: {
-        title: 'My Questionnaire - Form'
+        title: 'My Questionnaire - Form',
+        auth: true,
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'My Questionnaire', link: 'myQuestionnaire' },
+          { name: 'My Questionnaire Appraisee', link: 'myQuestionnaireAppraisee' },
+          { name: 'My Questionnaire Form', link: 'myQuestionnaireForm' }
+        ]
       }
     },
     {
@@ -1088,7 +1165,12 @@ const router = new Router({
       name: 'questionnaires',
       component: questionnaires,
       meta: {
-        title: 'Questionnaires'
+        title: 'Questionnaires',
+        auth: true,
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Questionnaires', link: 'questionnaires' }
+        ]
       }
     },
     {
@@ -1096,7 +1178,13 @@ const router = new Router({
       name: 'questionnairesCreate',
       component: questionnairesCreate,
       meta: {
-        title: 'Questionnaires - Create'
+        title: 'Questionnaires - Create',
+        auth: true,
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Questionnaires', link: 'questionnaires' },
+          { name: 'Create Questionnaires', link: 'questionnairesCreate' }
+        ]
       }
     },
     {
@@ -1104,7 +1192,13 @@ const router = new Router({
       name: 'questionnairesEdit',
       component: questionnairesEdit,
       meta: {
-        title: 'Questionnaires - Edit'
+        title: 'Questionnaires - Edit',
+        auth: true,
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Questionnaires', link: 'questionnaires' },
+          { name: 'Edit Questionnaires', link: 'questionnairesEdit' }
+        ]
       }
     },
     {
@@ -1112,7 +1206,12 @@ const router = new Router({
       name: 'questionnaireResults',
       component: questionnaireResults,
       meta: {
-        title: 'Questionnaire Results'
+        title: 'Questionnaire Results',
+        auth: true,
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Questionnaire Results', link: 'questionnaireResults' }
+        ]
       }
     },
     {
@@ -1120,7 +1219,13 @@ const router = new Router({
       name: 'questionnaireResultsMembers',
       component: questionnaireResultsMembers,
       meta: {
-        title: 'Questionnaire Results - Members'
+        title: 'Questionnaire Results - Members',
+        auth: true,
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Questionnaire Results', link: 'questionnaireResults' },
+          { name: 'Questionnaire Results Member', link: 'questionnaireResultsMembers' }
+        ]
       }
     },
     {
@@ -1128,7 +1233,14 @@ const router = new Router({
       name: 'questionnaireResultsMemberDetail',
       component: questionnaireResultsMemberDetail,
       meta: {
-        title: 'Questionnaire Results - Member Detail'
+        title: 'Questionnaire Results - Member Detail',
+        auth: true,
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Questionnaire Results', link: 'questionnaireResults' },
+          { name: 'Questionnaire Results Member', link: 'questionnaireResultsMembers' },
+          { name: 'Questionnaire Results Member Detail', link: 'questionnaireResultsMemberDetail' }
+        ]
       }
     },
     {
@@ -1136,7 +1248,15 @@ const router = new Router({
       name: 'questionnaireResultsQuestionnaireDetail',
       component: questionnaireResultsQuestionnaireDetail,
       meta: {
-        title: 'Questionnaire Results - Questionnaire Detail'
+        title: 'Questionnaire Results - Questionnaire Detail',
+        auth: true,
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Questionnaire Results', link: 'questionnaireResults' },
+          { name: 'Questionnaire Results Member', link: 'questionnaireResultsMembers' },
+          { name: 'Questionnaire Results Member Detail', link: 'questionnaireResultsMemberDetail' },
+          { name: 'Questionnaire Results Detail', link: 'questionnaireResultsQuestionnaireDetail' }
+        ]
       }
     },
     {
@@ -1144,7 +1264,16 @@ const router = new Router({
       name: 'questionnaireResultsQuestionDetail',
       component: questionnaireResultsQuestionDetail,
       meta: {
-        title: 'Questionnaire Results - Question Detail'
+        title: 'Questionnaire Results - Question Detail',
+        auth: true,
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Questionnaire Results', link: 'questionnaireResults' },
+          { name: 'Questionnaire Results Member', link: 'questionnaireResultsMembers' },
+          { name: 'Questionnaire Results Member Detail', link: 'questionnaireResultsMemberDetail' },
+          { name: 'Questionnaire Results Detail', link: 'questionnaireResultsQuestionnaireDetail' },
+          { name: 'Questionnaire Results Question Detail', link: 'questionnaireResultsQuestionDetail' }
+        ]
       }
     },
     {
@@ -1152,7 +1281,8 @@ const router = new Router({
       name: 'loggingRoom',
       component: loggingRoom,
       meta: {
-        title: 'Logging Rooms'
+        title: 'Logging Rooms',
+        auth: true
       }
     },
     {
@@ -1160,7 +1290,8 @@ const router = new Router({
       name: 'loggingRoomDetail',
       component: loggingRoomDetail,
       meta: {
-        title: 'Logging Room - Detail'
+        title: 'Logging Room - Detail',
+        auth: true
       }
     },
     {
@@ -1168,7 +1299,8 @@ const router = new Router({
       name: 'logMessage',
       component: logMessageRoom,
       meta: {
-        title: 'Logging Room'
+        title: 'Logging Room',
+        auth: true
       }
     },
     {
@@ -1176,7 +1308,8 @@ const router = new Router({
       name: 'loggingRoomCreate',
       component: loggingRoomCreate,
       meta: {
-        title: 'Logging Room - Create'
+        title: 'Logging Room - Create',
+        auth: true
       }
     },
     {
@@ -1184,7 +1317,8 @@ const router = new Router({
       name: 'loggingRoomEdit',
       component: loggingRoomEdit,
       meta: {
-        title: 'Logging Room - Edit'
+        title: 'Logging Room - Edit',
+        auth: true
       }
     }
   ]

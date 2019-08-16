@@ -44,13 +44,20 @@ export default {
     ...mapGetters([
       'room',
       'comments',
-      'accessList'
+      'accessList',
+      'currentUser'
     ]),
     descriptionCompiledMarkdown: function () {
       return marked(this.roomDetail.assignment.description)
     },
     isDeadlineHasPassed: function () {
       return this.roomDetail.assignment.deadline <= new Date()
+    },
+    disableCommentBox: function  () {
+      return this.currentUser.role === 'ADMIN'
+    },
+    commentBoxPlaceholder: function () {
+      return this.currentUser.role === 'ADMIN' ? 'I\'m sorry, but you can\'t participate in this discussion' : 'Ask a question...'
     }
   },
   created () {

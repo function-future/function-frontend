@@ -17,11 +17,11 @@
       </li>
       <transition name="slide-fade">
         <ul v-if="showGrades" class="grades-submenu scoring-menu" :class="{active: showGrades}">
-          <li v-if="menuList.questionBanks"><router-link :to="{ name: 'questionBanks' }" class="navbar-link">Question Banks</router-link></li>
-          <li v-if="menuList.quizzes"><router-link :to="{ name: quizRoute }" class="navbar-link">Quizzes</router-link></li>
-          <li v-if="menuList.assignments"><router-link :to="{ name: assignmentRoute }" class="navbar-link">Assignments</router-link></li>
-          <li v-if="menuList.comparisons"><router-link :to="{ name: 'judgingBatch' }" class="navbar-link">Comparisons</router-link></li>
-          <li v-if="menuList.points"><router-link :to="{ name: 'points' }" class="navbar-link">Points</router-link></li>
+          <li v-if="menuList.questionBanks"><router-link :to="{ name: 'questionBanks' }" class="navbar-link child">Question Banks</router-link></li>
+          <li v-if="menuList.quizzes"><router-link :to="{ name: quizRoute }" class="navbar-link child">Quizzes</router-link></li>
+          <li v-if="menuList.assignments"><router-link :to="{ name: assignmentRoute }" class="navbar-link child">Assignments</router-link></li>
+          <li v-if="menuList.comparisons"><router-link :to="{ name: 'judgingBatch' }" class="navbar-link child">Comparisons</router-link></li>
+          <li v-if="menuList.points"><router-link :to="{ name: 'points' }" class="navbar-link child">Points</router-link></li>
         </ul>
       </transition>
       <li v-if="menuList.chatrooms">
@@ -38,10 +38,10 @@
         <font-awesome-icon icon="chevron-down" class="icon icon-questionnaire" v-if="!showQuestionnaire"/>
         <font-awesome-icon icon="chevron-up" class="icon icon-questionnaire" v-else/>
       </li>
-      <transition name="fade">
+      <transition name="slide-fade">
         <ul v-if="showQuestionnaire" class="questionnaire-submenu">
-          <li><router-link :to="{ name: 'questionnaires' }" class="navbar-link">Questionnaires</router-link></li>
-          <li><router-link :to="{ name: 'questionnaireResults' }" class="navbar-link">Results</router-link></li>
+          <li><router-link :to="{ name: 'questionnaires' }" class="navbar-link child">Questionnaires</router-link></li>
+          <li><router-link :to="{ name: 'questionnaireResults' }" class="navbar-link child">Results</router-link></li>
         </ul>
       </transition>
       <li v-if="menuList.loggingRoom">
@@ -69,7 +69,7 @@
     display: block;
     list-style-type: none;
     margin-right: 20px;
-    margin-top: 10px;
+    margin-top: 0;
     padding-left: 0;
   }
 
@@ -99,6 +99,12 @@
     opacity: 0.7;
   }
 
+  .child {
+    padding-top: 3px !important;
+    padding-bottom: 3px !important;
+    margin-left: 10px !important;
+  }
+
   .router-link-exact-active, .router-link-active {
     font-weight: bold;
   }
@@ -113,21 +119,12 @@
     list-style-type: none;
   }
 
-  /*.scoring-menu {*/
-  /*  height: 0;*/
-  /*  transition: height 800ms ease-out;*/
-  /*}*/
-
-  /*.scoring-menu.active {*/
-  /*  height: 130px;*/
-  /*}*/
-
   .slide-fade-enter-active {
-    max-height: 123px;
+    max-height: 200px;
     animation: height-animation-in 400ms ease-out, opacity-animation-in 400ms ease-out;
   }
   .slide-fade-leave-active {
-    max-height: 123px;
+    max-height: 200px;
     animation: height-animation-out 350ms ease-out, opacity-animation-out 250ms ease-out;
   }
   .slide-fade-enter, .slide-fade-leave-to
@@ -141,13 +138,13 @@
       max-height: 0;
     }
     100% {
-      max-height: 123px;
+      max-height: 200px;
     }
   }
 
   @keyframes height-animation-out {
     0% {
-      max-height: 123px;
+      max-height: 200px;
     }
     100% {
       max-height: 0;

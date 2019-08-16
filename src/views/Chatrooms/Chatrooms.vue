@@ -25,6 +25,7 @@
                 <infinite-loading ref="chatroomInfiniteLoading" :identifier="typeChoosen" @infinite="infiniteChatroomHandler">
                   <div slot="no-more"></div>
                   <div slot="no-results"></div>
+                  <div slot="spinner"></div>
                 </infinite-loading>
               </div>
               <div @click="changeTypeChoosen('PRIVATE')" class="chatroom-menu" :class="{'chatroom-menu-blue': typeChoosen === 'PRIVATE'}">
@@ -44,6 +45,7 @@
                 <infinite-loading ref="chatroomInfiniteLoading" :identifier="typeChoosen" @infinite="infiniteChatroomHandler">
                   <div slot="no-more"></div>
                   <div slot="no-results"></div>
+                  <div slot="spinner"></div>
                 </infinite-loading>
               </div>
             </template>
@@ -257,22 +259,4 @@
     cursor: pointer;
   }
 
-  ::-webkit-scrollbar {
-    width: 5px;
-  }
-  ::-webkit-scrollbar-track {
-    background: #FFF;
-    -webkit-box-shadow: inset 1px 1px 2px rgba(0,0,0,0.1);
-  }
-  ::-webkit-scrollbar-thumb {
-    background: #CCC;
-    -webkit-box-shadow: inset 1px 1px 2px rgba(0,0,0,0.2);
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: #AAA;
-  }
-  ::-webkit-scrollbar-thumb:active {
-    background: #888;
-    -webkit-box-shadow: inset 1px 1px 2px rgba(0,0,0,0.3);
-  }
 </style>

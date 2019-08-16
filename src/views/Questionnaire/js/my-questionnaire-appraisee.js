@@ -104,6 +104,14 @@ export default {
           this.$toasted.success('success submit questionnaire response')
           this.backToAppraiseePage()
           this.resetQuestionnaireList()
+          this.fetchMyListApprisees({
+            data: {
+              params: {
+                questionnaireId: this.$route.params.questionnaireId
+              }
+            },
+            fail: this.errorCallbackCurrentQuestionnaire
+          })
         }, this.errorCallback,
         {
           params: {
@@ -115,6 +123,14 @@ export default {
           }
         })
       }
+    },
+    errorCallbackCurrentQuestionnaire (err) {
+      console.log(err)
+      this.$toasted.error('connection error')
+    },
+    errorCallbackAppraisee (err) {
+      console.log(err)
+      this.$toasted.error('connection error')
     },
     errorCallback (err) {
       console.log(err)
@@ -150,7 +166,7 @@ export default {
           questionnaireId: this.$route.params.questionnaireId
         }
       },
-      fail: this.errorCallback
+      fail: this.errorCallbackCurrentQuestionnaire
     })
     this.fetchMyListApprisees({
       data: {
@@ -158,7 +174,7 @@ export default {
           questionnaireId: this.$route.params.questionnaireId
         }
       },
-      fail: this.errorCallback
+      fail: this.errorCallbackCurrentQuestionnaire
     })
     this.fetchingQuestions()
     if (this.$route.params.appraiseeId) {

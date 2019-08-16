@@ -246,14 +246,19 @@ describe('Assignment', () => {
     expect(spy).not.toHaveBeenCalled()
   })
 
-  // test('submitCopyModal have selected batchDestination', () => {
-  //   initComponent()
-  //   console.log(wrapper.vm.AssignmentList)
-  //   const spy = jest.spyOn(wrapper.vm, 'copyAssignment')
-  //   wrapper.vm.submitCopyModal('sample-id')
-  //   expect(spy).toHaveBeenCalledTimes(1)
-  // })
-//  TODO: UNIT TEST THIS
+  test('submitCopyModal have selected batchDestination', () => {
+    initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'copyAssignment')
+    wrapper.vm.submitCopyModal('batch-code')
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('submitCopyModal have not selected batchDestination', () => {
+    initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'copyAssignment')
+    wrapper.vm.submitCopyModal('')
+    expect(spy).toHaveBeenCalledTimes(0)
+  })
 
   test('successSubmitCopyAssignment', () => {
     initComponent()

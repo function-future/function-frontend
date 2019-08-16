@@ -21,11 +21,11 @@ describe('Users Controller', () => {
     done()
   })
 
-  test('getUserListWithBatch', async (done) => {
+  test('getUserListWithRoleAndName', async (done) => {
     const spy = jest.spyOn(request, 'getRequest')
     const callback = jest.fn()
+    api.getUserListWithRoleAndName(callback, errorHandler)
     const errorHandler = jest.fn()
-    api.getUserListWithBatch(callback, errorHandler)
     expect(spy).toBeCalledTimes(1)
     done()
   })

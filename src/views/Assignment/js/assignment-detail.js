@@ -38,7 +38,10 @@ export default {
     ...mapGetters([
       'assignment',
       'accessList'
-    ])
+    ]),
+    isFileIdNull: function () {
+      return this.assignmentDetail.fileId ? this.assignmentDetail.fileId : ''
+    }
   },
   methods: {
     ...mapActions([
@@ -62,7 +65,8 @@ export default {
       this.assignmentDetail.deadline = new Date(this.assignmentDetail.deadline)
       this.displayedDates.start = this.assignmentDetail.deadline
       this.displayedDates.end = this.assignmentDetail.deadline
-      this.filePreviewName = this.assignmentDetail.file || ''
+      this.assignmentDetail.fileId = this.isFileIdNull
+      this.filePreviewName = this.isFileIdNull
     },
     failFetchingAssignmentDetail () {
       this.$toasted.error('Something went wrong')
@@ -76,9 +80,13 @@ export default {
     cancel () {
       this.successFetchingAssignmentDetail()
       this.editMode = !this.editMode
+      this.file = this.assignmentDetail.file
     },
     deleteAssignmentFile () {
+      this.assignmentDetail.file = ''
       this.assignmentDetail.fileId = ''
+      this.file = ''
+      this.filePreviewName = ''
     },
     saveAssignment () {
       let payload = {
@@ -86,7 +94,6 @@ export default {
         description: this.assignmentDetail.description,
         deadline: this.assignmentDetail.deadline
       }
-      //TODO please check this
       if (this.assignmentDetail.fileId === '') {
         payload.files = []
       } else {
@@ -108,6 +115,7 @@ export default {
       this.editMode = !this.editMode
       this.displayedDates.start = this.assignmentDetail.deadline
       this.displayedDates.end = this.assignmentDetail.deadline
+      this.initPage()
     },
     failUpdatingAssignment () {
       this.$toasted.error('Something went wrong, please try again')

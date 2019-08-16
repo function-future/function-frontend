@@ -1,5 +1,5 @@
 <template>
-  <div class="comparison__container">
+  <div class="scrollable-container comparison">
     <BaseCard class="comparison__main-card">
       <div v-for="(student, index) in comparison" :key="student.studentId" class="comparison-item__base">
         <div class="comparison-item__base-profile">
@@ -10,12 +10,10 @@
               <span class="comparison-item__base-profile-card-info-university">{{student.university}}</span>
             </div>
           </BaseCard>
-        </div>
-        <div class="comparison-item__base-total">
-          <BaseCard class="comparison-item__base-total-card">
-            <span class="comparison-item__base-total-card-text">Total Points</span>
-            <div class="comparison-item__base-total-card-info">
-              <span class="comparison-item__base-total-card-info-point">{{student.point}}</span>
+          <BaseCard class="comparison-item__base-profile-total">
+            <span class="comparison-item__base-profile-total-text">Total Points</span>
+            <div class="comparison-item__base-profile-total-info">
+              <span class="comparison-item__base-profile-total-info-point">{{student.totalPoint}}</span>
             </div>
           </BaseCard>
         </div>
@@ -29,7 +27,7 @@
                   <span class="comparison-item__base-detail-card-item-title">{{score.title}}</span>
                 </div>
                 <div class="comparison-item__base-detail-card-item-content">
-                  <span>{{score.point}}</span>
+                  <span style="font-weight: bold">{{score.point}}</span>
                 </div>
               </BaseCard>
             </div>
@@ -41,7 +39,7 @@
         </div>
       </div>
     </BaseCard>
-    <div class="comparison__container-footer">
+    <div class="scrollable-container-footer">
       <BaseButton class="button-cancel" @click="returnButtonClicked">Return</BaseButton>
       <BaseButton class="button-save" @click="submitButtonClicked" v-if="accessList.add">Submit</BaseButton>
     </div>
@@ -52,13 +50,16 @@
 </script>
 
 <style lang="scss" scoped>
-  .comparison {
-    &__container {
+  .scrollable {
+    &-container {
+      max-height: 95%;
       &-footer {
         display: flex;
         justify-content: flex-end;
       }
     }
+  }
+  .comparison {
     &__main-card {
       display: flex;
       flex-direction: row;
@@ -68,17 +69,22 @@
     &-item {
       &__base {
         flex: 1;
+        width: 26%;
         &-profile {
+          display: flex;
+          flex-wrap: nowrap;
           &-card {
+            width: 80%;
             display: flex;
             flex-direction: row;
             align-items: center;
+            margin-right: 0;
             &-image {
               width: 100px;
               height: 100px;
               margin-right: 20px;
               border-radius: 20px;
-              border: 1px solid black;
+              border: 0.5px solid rgba(0, 0, 0, 0.3);
             }
             &-info {
               display: flex;
@@ -95,16 +101,17 @@
               }
             }
           }
-        }
-        &-total {
-          &-card {
+          &-total {
+            width: 20%;
             display: flex;
-            flex-direction: row;
-            justify-content: space-between;
+            flex-direction: column;
+            justify-content: center;
             align-items: center;
             &-text {
+              width: 100%;
               font-weight: bold;
               margin-left: -15px;
+              text-align: center;
             }
             &-info {
               display: flex;
@@ -131,7 +138,8 @@
           &-card {
             overflow: auto;
             margin-bottom: 5px;
-            max-height: 18vh;
+            min-height: 18vh;
+            max-height: 30vh;
             &::-webkit-scrollbar-track
             {
               background-color: #F5F5F5;
@@ -164,7 +172,7 @@
                 &-title {}
               }
               &-content {
-                border: 2px solid #000000;
+                border: 3px solid rgba(0, 0, 0, 0.2);
                 border-radius: 100%;
                 height: 5vh;
                 width: 5vh;

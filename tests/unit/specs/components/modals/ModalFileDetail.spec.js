@@ -199,6 +199,7 @@ describe('ModalFileDetail', () => {
     expect(wrapper.vm.showRenameFileFolderModal).toEqual(false)
     expect(wrapper.vm.$toasted.success).toHaveBeenCalled()
     expect(spy).toHaveBeenCalledTimes(1)
+    expect(wrapper.emitted().update.length).toBe(1)
   })
 
   test('failRenameFile', () => {

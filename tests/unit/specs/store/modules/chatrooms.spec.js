@@ -40,7 +40,6 @@ describe('actions', () => {
     const cb = jest.fn()
     const fail = jest.fn()
     store.actions.fetchChatrooms({ state, commit }, { data, fail, cb })
-    expect(commit).toBeCalledTimes(1)
     expect(cb).toBeCalledTimes(1)
     expect(fail).not.toBeCalled()
   })

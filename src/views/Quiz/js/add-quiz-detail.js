@@ -39,11 +39,12 @@ export default {
         questionBanks: [...this.selectedBank],
         startDate: new Date().getTime()
       }
+      payload.timeLimit = Math.floor(this.quizDetail.timeLimit * 60)
       payload.endDate = new Date(payload.endDate).getTime()
       this.createQuiz({
         payload,
         data: {
-          batchCode: this.$route.params.batchCode,
+          batchCode: this.$route.params.batchCode
         },
         callback: this.successCreatingQuiz,
         fail: this.failCreatingQuiz

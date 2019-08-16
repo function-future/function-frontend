@@ -54,7 +54,7 @@
     padding: 5px 5px 5px 5px;
     text-align: left;
     height: 50px;
-    margin: 5px 0;
+    margin: 5px 10px;
     cursor: pointer;
     min-height: 120px;
     height: auto;

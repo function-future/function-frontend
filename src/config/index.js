@@ -101,7 +101,8 @@ module.exports = {
         },
         add: '/batches/:batchCode/final-judging/add',
         detail: '/batches/:batchCode/final-judging/:judgingId/detail',
-        comparisons: '/batches/:batchCode/final-judging/:judgingId/comparison'
+        comparisons: '/batches/:batchCode/final-judging/:judgingId/comparison',
+        reportPage: '/batches/:batchCode/final-judging/report-page'
       },
       stickyNotes: {
         detail: '/sticky-notes',
@@ -165,10 +166,10 @@ module.exports = {
       },
       users: {
         get (page, size, role) { return `/api/core/users?page=${page}&size=${size}&role=${role}` },
-        getWithBatch (page, size, batchCode) { return `/api/core/users/batches/${batchCode}?page=${page}&size=${size}` },
         post: '/api/core/users',
         detail (id) { return `/api/core/users/${id}` },
-        search (page, size, name) { return `/api/core/users/search?name=${name}&page=${page}&size=${size}` }
+        search (page, size, name) { return `/api/core/users/_search?name=${name}&page=${page}&size=${size}` },
+        getWithNameAndRole (name, page, size, role) { return `/api/core/users?name=${name}&page=${page}&size=${size}&role=${role}` }
       },
       resources: {
         post (origin) { return `/api/core/resources?origin=${origin}` }
@@ -390,6 +391,12 @@ module.exports = {
         },
         score (batchCode, judgingId) {
           return `/api/scoring/batches/${batchCode}/judgings/${judgingId}/comparisons`
+        },
+        getStudentsWithBatch (page, size, batchCode) {
+          return `/api/scoring/batches/${batchCode}/judgings/students?page=${page}`
+        },
+        reportPage (page, size, batchCode) {
+          return `/api/scoring/batches/${batchCode}/judgings/students?page=${page}`
         }
       },
       points: {

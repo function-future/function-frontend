@@ -15,7 +15,10 @@
         <div class="detail-container__info-time">
           <BaseCard :style="{height: '100%', margin: 0}"
                     class="detail-card">
-            <div class="detail-card__caption">Given Time</div>
+            <div class="detail-card__caption">
+              <div>Given Time</div>
+              <div style="font-size: smaller">(Minutes)</div>
+            </div>
             <input type="number"
                    class="detail-card__content"
                    v-model.number="quizDetail.timeLimit"/>
@@ -73,7 +76,6 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    margin: 20px 20px 200px 20px;
   }
 
   .description-container {
@@ -88,7 +90,7 @@
     justify-content: space-between;
     width: 100%;
     &__info {
-     width: 30%;
+     width: 32%;
      height: 100%;
      display: flex;
      flex-direction: column;
@@ -109,6 +111,7 @@
    }
   }
   &__action {
+      margin-top: 15px;
      align-self: flex-end;
      display: flex;
      flex-direction: row;
@@ -126,7 +129,7 @@
     align-items: center;
     justify-content: space-between;
   &__caption {
-     width: 30%;
+     width: 50%;
    }
   &__content {
      font-weight: bolder;
@@ -164,10 +167,11 @@
      align-self: flex-start;
    }
   &__content {
+    background-color: transparent !important;
      width: 70%;
      border: none;
      font-weight: bolder;
-     font-size: 15rem;
+     font-size: 13rem;
      display: flex;
      justify-content: flex-end;
      text-align: right;

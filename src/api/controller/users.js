@@ -5,8 +5,8 @@ const getUserList = function (callback, data, errorHandler) {
   request.getRequest(config.api.core.users.get(data.page, data.size, data.role), callback, errorHandler)
 }
 
-const getUserListWithBatch = function (callback, data, errorHandler) {
-  request.getRequest(config.api.core.users.getWithBatch(data.page, data.size, data.batchCode), callback, errorHandler)
+const getUserListWithRoleAndName = function (callback, data, errorHandler) {
+  request.getRequest(config.api.core.users.getWithNameAndRole(data.name, data.page, data.size, data.role), callback, errorHandler)
 }
 
 const searchUser = function (callback, data, errorHandler) {
@@ -31,7 +31,7 @@ const deleteUser = function (callback, data, errorHandler) {
 
 export default {
   getUserList,
-  getUserListWithBatch,
+  getUserListWithRoleAndName,
   searchUser,
   getUserDetail,
   createUser,

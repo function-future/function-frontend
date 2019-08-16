@@ -15,7 +15,8 @@ export default {
     return {
       questionBankList: [],
       page: 1,
-      selectedBank: []
+      selectedBank: [],
+      selectAllClicked: false
     }
   },
   mounted () {
@@ -48,6 +49,9 @@ export default {
       })
     },
     successFetchingQuestionBankList () {
+      if (this.selectAllClicked) {
+        this.selectedBank.push(...this.questionBanks.map(bank => bank.id))
+      }
       this.questionBankList = [
         ...this.questionBankList,
         ...this.questionBanks
@@ -72,19 +76,21 @@ export default {
           this.selectedBank.splice(i, 1)
         }
       }
+      this.selectAllClicked = false
     },
     selectAll () {
       let items = document.getElementsByName('selected-banks')
       for (let i = 0; i < items.length; i++) {
         if (!this.selectedBank.includes(items[i].value)) {
-          items[i].checked = true
           this.selectedBank.push(items[i].value)
         }
       }
+      this.selectAllClicked = true
     },
     goToAddQuizDetail () {
+      let payload = this.selectAllClicked ? ['ALL'] : this.selectedBank
       this.setSelectedBank({
-        payload: this.selectedBank
+        payload
       })
       this.$router.push({
         name: 'addQuizDetail'
