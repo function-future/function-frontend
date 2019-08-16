@@ -38,8 +38,8 @@ describe('actions', () => {
   })
 
   test('fetchUsersByRoleAndName', () => {
-      success({
     api.getUserListWithRoleAndName = (success) => {
+      success({
         'code': 200,
         'status': 'OK',
         'data': []
