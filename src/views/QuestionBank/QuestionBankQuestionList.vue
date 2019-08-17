@@ -16,6 +16,11 @@
           </div>
         </div>
       </BaseCard>
+      <BasePagination :paging="paging"
+                      @loadPage="loadPage"
+                      @previousPage="loadPreviousPage"
+                      @nextPage="loadNextPage">
+      </BasePagination>
     </div>
     <modal-delete-confirmation v-if="showDeleteConfirmationModal"
                                @close="closeDeleteConfirmationModal"
