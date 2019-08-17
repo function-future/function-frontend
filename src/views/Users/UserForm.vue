@@ -6,7 +6,7 @@
           <div class="image" :style="{ backgroundImage: 'url(' + avatarPreview + ')' }">
             <input type="file"
                    name="image"
-                   accept="image/*"
+                   accept=".jpg, .jpeg, .png"
                    id="upload-image"
                    @change="onFileChange($event)"
                    style="display: none"/>
