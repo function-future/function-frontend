@@ -3,7 +3,7 @@ import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import VueRouter from 'vue-router'
 
-describe('ModalSelectMultipleStundents', () => {
+describe('ModalSelectMultipleStudents', () => {
   let store
   let wrapper
   let localVue
@@ -20,7 +20,7 @@ describe('ModalSelectMultipleStundents', () => {
       students: []
     }
     const actions = {
-      fetchStudentsByBatch: jest.fn(),
+      getBatchReport: jest.fn(),
       setStudentList: jest.fn()
     }
     const getters = {
@@ -101,7 +101,7 @@ describe('ModalSelectMultipleStundents', () => {
 
   test('initStudents', () => {
     initComponent()
-    const spy = jest.spyOn(store.actions, 'fetchStudentsByBatch')
+    const spy = jest.spyOn(store.actions, 'getBatchReport')
     wrapper.vm.initStudents()
     expect(spy).toHaveBeenCalledTimes(1)
   })
@@ -215,7 +215,6 @@ describe('ModalSelectMultipleStundents', () => {
     }
     wrapper.vm.successFetchingStudentList(response)
     expect(wrapper.vm.paging).toEqual(response.paging)
-    expect(wrapper.vm.studentList).toEqual(response.data)
   })
 
   test('successFetchingStudentList maximum page', () => {

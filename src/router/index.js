@@ -1028,7 +1028,7 @@ const router = new Router({
       component: reportPage,
       meta: {
         auth: true,
-        title: 'Report',
+        title: 'Final Score Report',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
           { name: 'Batches', link: 'judgingBatch' },

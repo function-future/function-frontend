@@ -122,7 +122,7 @@
     white-space: -o-pre-wrap;    /* Opera 7 */
     white-space: pre-wrap;       /* css-3 */
     word-wrap: break-word;       /* Internet Explorer 5.5+ */
-    word-break: break-all;
+    word-break: break-word;
     white-space: normal;
   }
 

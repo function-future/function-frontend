@@ -100,6 +100,7 @@ export default {
       this.$router.push({ name: 'assignments' })
       this.$toasted.success('Successfully delete assignment')
       this.closeDeleteConfirmationModal()
+      this.initPage()
     },
     failDeletingAssignment () {
       this.$toasted.error('Something went wrong')

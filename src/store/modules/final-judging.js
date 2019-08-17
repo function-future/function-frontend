@@ -57,6 +57,11 @@ export const actions = {
     judgingApi.deleteJudging(() => {
       callback && callback()
     }, data, fail)
+  },
+  getBatchReport({commit}, { data, callback, fail }) {
+    judgingApi.getReportPage((response) => {
+      callback && callback(response)
+    }, data, fail)
   }
 }
 

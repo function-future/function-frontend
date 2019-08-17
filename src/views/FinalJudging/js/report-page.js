@@ -27,7 +27,7 @@ export default {
   },
   methods: {
     ...mapActions([
-      'fetchStudentsByBatch',
+      'getBatchReport',
       'setStudentList'
     ]),
     initStudents ($state) {
@@ -35,10 +35,9 @@ export default {
       let data = {
         page: this.paging.page,
         size: this.paging.size,
-        batchCode: this.$route.params.batchCode,
-        role: 'STUDENT'
+        batchCode: this.$route.params.batchCode
       }
-      this.fetchStudentsByBatch({
+      this.getBatchReport({
         data,
         callback: this.successFetchingStudentList,
         fail: this.failedFetchingStudentList
@@ -49,7 +48,7 @@ export default {
       this.studentList.push(...response.data)
       if (response.data.length) {
         this.setStudentList({ data: response.data })
-        this.studentList = [ ...this.students ]
+        this.studentList.push(this.students)
         this.paging.page++
         this.state.loaded()
       } else {

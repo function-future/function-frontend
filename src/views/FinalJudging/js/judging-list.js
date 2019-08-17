@@ -100,6 +100,7 @@ export default {
         }
       })
       this.closeDeleteConfirmationModal()
+      this.initPage()
     },
     failDeletingJudging () {
       this.$toasted.error('Something went wrong')

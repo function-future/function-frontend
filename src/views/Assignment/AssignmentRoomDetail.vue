@@ -84,7 +84,7 @@
   }
 
   .room-detail {
-    height: 70vh;
+    height: auto;
     display: flex;
   }
 

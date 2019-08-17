@@ -64,7 +64,7 @@
     <modal-delete-confirmation v-if="showDeleteConfirmationModal"
                                @close="closeDeleteConfirmationModal"
                                @clickDelete="deleteThisAssignment">
-      <div slot="description">{{selectedId}}</div>
+      <div slot="description">Are you sure you want to Assignment?</div>
     </modal-delete-confirmation>
     <modal-copy v-if="showCopyModal"
                      @close="closeCopyModal"

@@ -17,7 +17,8 @@ export default {
       answers: [],
       isLoading: true,
       result: '',
-      showPointModal: false
+      showPointModal: false,
+      trialsLeft: 0
     }
   },
   created () {
@@ -90,6 +91,7 @@ export default {
     },
     successSubmitStudentQuiz (response) {
       this.result = response.data.point
+      this.trialsLeft = response.data.trials
       this.showPointModal = true
     },
     failedSubmitStudentQuiz () {
