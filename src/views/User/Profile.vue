@@ -7,7 +7,7 @@
             <label class="image-edit" v-if="!showModalChangeProfilePicture">
               <input type="file"
                      name="image"
-                     accept="image/*"
+                     accept=".jpg, .jpeg, .png"
                      @change="onFileChange($event)"
                      style="display: none"/>
               <font-awesome-icon icon="pencil-alt" class="icon"/> edit
