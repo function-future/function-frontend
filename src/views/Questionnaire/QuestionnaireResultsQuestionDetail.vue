@@ -13,7 +13,7 @@
                          :isDetail="true"
                          v-on:click="goToQuestionnaireResult(currentResultQuestionnaireDetail.id)"
       ></QuestionnaireCard>
-      <h2 v-if="Object.keys(currentResultQuestionnaireDetail).length"><i>Appraisals for {{currentResultQuestionnaireDetail.appraisee.name}}</i></h2>
+      <p v-if="Object.keys(currentResultQuestionnaireDetail).length"><i>Appraisals for {{currentResultQuestionnaireDetail.appraisee.name}}</i></p>
       <br>
       <h2>Question</h2>
       <QuestionCard class="without-border-and-shadow"
@@ -30,6 +30,7 @@
                                             :name="appraiser.name"
                                             :avatar="appraiser.avatar"
                                             :score="appraiser.score"
+                                            :comment="appraiser.comment"
         ></QuestionnaireParticipantSimpleCard>
       </div>
     </div>
@@ -76,13 +77,12 @@
     margin: 0px;
   }
 
-  h2 {
+  h2,p {
     margin: 0px;
     text-align: left;
-    padding-left: 10px;
   }
 
-  h2 > i{
+  p > i{
     color: #02AAF3;
   }
 

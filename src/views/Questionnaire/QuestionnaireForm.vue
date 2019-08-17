@@ -33,7 +33,7 @@
 <style scoped>
   .card-container {
     display: flex;
-    padding: 10px;
+    padding: 20px;
     margin : 20px 0px 0px 0px;
     height: 60vh;
     flex-direction: column;

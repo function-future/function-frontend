@@ -8,6 +8,7 @@ export default {
   props: {
     name: String,
     avatar: String,
-    score: Number
+    score: Number,
+    comment: String
   }
 }

@@ -31,7 +31,7 @@
           <span><font-awesome-icon @click="$emit('clickDelete')" icon="times"></font-awesome-icon></span>
         </div>
         <div class="button-create">
-          <BaseButton type="submit" class="button-create" buttonClass="button-save" @click="goToEdit">Edit</BaseButton>
+          <span> <font-awesome-icon @click="goToEdit" icon="pencil-alt" class="icon-edit"></font-awesome-icon></span>
         </div>
       </div>
     </div>
@@ -41,6 +41,9 @@
 </script>
 
 <style scoped>
+  p, h2, h3 {
+    margin: 0;
+  }
   .questionnaire-card-outer {
     display: flex;
     grid-template-columns: auto 45px;
@@ -51,12 +54,11 @@
     -moz-box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.1);
     box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.1);
     border-radius: 10px;
-    padding: 5px 5px 5px 5px;
     text-align: left;
     height: 50px;
     margin: 5px 10px;
+    padding: 10px 0px;
     cursor: pointer;
-    min-height: 120px;
     height: auto;
   }
 
@@ -91,6 +93,7 @@
 
   .questionnaire-card-content-date {
     display: flex;
+    justify-content: space-between;
     width: 100%;
   }
 
@@ -109,7 +112,8 @@
   .questionnaire-edit {
     display: flex;
     height: auto;
-    justify-content: space-between;
+    align-self: center;
+    padding-right: 10px;
     flex-direction: column;
   }
   .button-create {
@@ -118,7 +122,6 @@
   .button-delete {
     display: flex;
     justify-content: flex-end;
-    padding : 5px 10px 0px 0px;
   }
 
   .icon-delete {
@@ -128,7 +131,7 @@
   .questionnaire-score {
     display: flex;
     flex-direction: column;
-    padding: 15px 15px 0px 0px;
+    /*padding: 15px 15px 0px 0px;*/
   }
 
   .star-icon {

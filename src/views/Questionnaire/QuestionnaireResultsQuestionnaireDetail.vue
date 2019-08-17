@@ -12,7 +12,7 @@
                            :isResult="true"
                            :isDetail="true"
         ></QuestionnaireCard>
-        <h2 v-if="Object.keys(currentResultQuestionnaireDetail).length"><i>Appraisals for {{currentResultQuestionnaireDetail.appraisee.name}}</i></h2>
+        <h3 v-if="Object.keys(currentResultQuestionnaireDetail).length"><i>Appraisals for {{currentResultQuestionnaireDetail.appraisee.name}}</i></h3>
         <br>
         <h2>Questions</h2>
         <div class="questionnaire-results-question-list">
@@ -68,13 +68,12 @@
     margin: 0px;
   }
 
-  h2 {
+  h2, h3 {
     margin: 0px;
     text-align: left;
-    padding: 10px 0px 0px 10px;
   }
 
-  h2 > i{
+  h3 > i{
     color: #02AAF3;
   }
 
