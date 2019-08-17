@@ -83,7 +83,7 @@ export const actions = {
     myQuestionnaireApi.getQuestionnaireData(response => {
       commit('RESET_CURRENT_QUESTIONNAIRE_DATA')
       commit('ASSIGN_CURRENT_QUESTIONNAIRE_DATA', response.data)
-      cb(response)
+      cb && cb(response)
     }, fail, data)
   },
   resetQuestionnaireList ({ state, commit }) {

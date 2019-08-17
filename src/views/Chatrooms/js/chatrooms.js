@@ -330,8 +330,10 @@ export default {
         cb: this.chatroomPollCallback
       })
     },
-    chatroomPollCallback () {
+    chatroomPollCallback (chatrooms) {
       this.chatroomPage = 1
+      this.resetChatrooms()
+      this.pushChatrooms(chatrooms)
       this.$nextTick(() => {
         this.$refs.chatroomInfiniteLoading.stateChanger.reset()
       })
