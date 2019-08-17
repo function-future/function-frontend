@@ -359,7 +359,7 @@ describe('CourseDetail', () => {
   test('successDeleteCourseById', () => {
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.successDeleteCourseById()
-    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'courseDetail' })
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'courses' })
     expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
   })
 

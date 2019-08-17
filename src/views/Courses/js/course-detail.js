@@ -152,7 +152,7 @@ export default {
       this.showDeleteConfirmationModal = false
     },
     successDeleteCourseById () {
-      this.$router.push({ name: 'courseDetail' })
+      this.$router.push({ name: 'courses' })
       this.$toasted.success('Successfully delete course')
     },
     failDeleteCourseById () {
