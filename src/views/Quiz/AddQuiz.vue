@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="page-header">
-      <BaseButton :style="{'width': '130px'}">
+      <BaseButton :style="{'width': '150px'}">
         <label class="add-quiz__select-section-label" :class="{label_active: selectedBank.length === questionBankList.length}">
           {{selectedBank.length}} / {{questionBankList.length}}
           <input type="checkbox"
@@ -40,7 +40,7 @@
       </BaseCard>
     </div>
     <div class="page-footer">
-      <BaseButton buttonClass="button-save" @click="goToAddQuizDetail">Save</BaseButton>
+      <BaseButton buttonClass="button-save" @click="goToAddQuizDetail" :disabled="selectedBank.length === 0">Save</BaseButton>
     </div>
   </div>
 </template>

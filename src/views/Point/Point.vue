@@ -53,7 +53,6 @@
         }
         &-image {
           width: 100px;
-          height: 100px;
           border-radius: 10px;
           border: 0.5px solid rgba(0, 0, 0, 0.2);
           margin-right: 15px;

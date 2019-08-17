@@ -1,5 +1,5 @@
 <template>
-  <div class="main-container">
+  <div class="main-container scrollable-container">
     <BaseCard class="question-container">
       <span class="section-header">Question</span>
       <BaseTextArea :style="{height: '200px'}" v-model="questionDetail.label" :disabled="!editMode"></BaseTextArea>

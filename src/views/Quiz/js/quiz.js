@@ -109,6 +109,7 @@ export default {
       })
       this.$toasted.success('Successfully delete quiz')
       this.closeDeleteConfirmationModal()
+      this.initPage()
     },
     failedDeletingQuiz () {
       this.$toasted.error('Something went wrong')

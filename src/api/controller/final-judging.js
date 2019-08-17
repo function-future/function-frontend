@@ -13,6 +13,10 @@ const getJudgingDetail = function (callback, data, errorHandler) {
   request.getRequest(config.api.scoring.finalJudging.detail(data.batchCode, data.judgingId), callback, errorHandler)
 }
 
+const getReportPage = function (callback, data, errorHandler) {
+  request.getRequest(config.api.scoring.finalJudging.getStudentsWithBatch(data.page, data.size, data.batchCode), callback, errorHandler)
+}
+
 const updateJudgingDetail = function (callback, data, payload, errorHandler) {
   request.putRequest(config.api.scoring.finalJudging.update(data.batchCode, data.judgingId), callback, payload, errorHandler)
 }
@@ -33,6 +37,7 @@ export default {
   getJudgingList,
   createJudging,
   getJudgingDetail,
+  getReportPage,
   updateJudgingDetail,
   deleteJudging,
   getComparison,

@@ -75,6 +75,7 @@ export default {
     successDeletingQuestion () {
       this.$toasted.success('Successfully deleted question')
       this.closeDeleteConfirmationModal()
+      this.initPage()
     },
     failDeletingQuestion () {
       this.$toasted.error('Something went wrong')

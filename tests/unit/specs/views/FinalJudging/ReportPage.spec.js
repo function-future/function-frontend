@@ -20,7 +20,7 @@ describe('ReportPage', () => {
       students: []
     }
     const actions = {
-      fetchStudentsByBatch: jest.fn(),
+      getBatchReport: jest.fn(),
       setStudentList: jest.fn()
     }
     const getters = {
@@ -84,7 +84,7 @@ describe('ReportPage', () => {
 
   test('initStudents', () => {
     initComponent()
-    const spy = jest.spyOn(store.actions, 'fetchStudentsByBatch')
+    const spy = jest.spyOn(store.actions, 'getBatchReport')
     wrapper.vm.initStudents()
     expect(spy).toHaveBeenCalledTimes(1)
   })
@@ -198,7 +198,6 @@ describe('ReportPage', () => {
     }
     wrapper.vm.successFetchingStudentList(response)
     expect(wrapper.vm.paging).toEqual(response.paging)
-    expect(wrapper.vm.studentList).toEqual(response.data)
   })
 
   test('successFetchingStudentList maximum page', () => {

@@ -167,6 +167,9 @@ describe('QuizDetail', () => {
 
   test('actionButtonClicked editMode is true', () => {
     initComponent()
+    wrapper.vm.quizDetail.questionBanks = [{
+      id: 'QZ1'
+    }]
     wrapper.vm.updateQuizDetail = jest.fn()
     wrapper.vm.editMode = true
     wrapper.vm.actionButtonClicked()

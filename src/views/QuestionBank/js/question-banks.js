@@ -93,6 +93,7 @@ export default {
     successDeletingQuestionBank () {
       this.$toasted.success('Successfully deleted question bank')
       this.closeDeleteConfirmationModal()
+      this.initPage()
     },
     failDeletingQuestionBank () {
       this.$toasted.error('Something went wrong')

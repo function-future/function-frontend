@@ -27,7 +27,7 @@
               Go To
             </div>
             <div class="quiz-action-legend__content-area">
-              <div class="quiz-action-legend__content-area-row">
+              <div class="quiz-action-legend__content-area-row scrollable-container">
                 <label style="width: 100%" v-for="question in studentQuizQuestions">
                   <BaseCard class="quiz-action-legend__content-area-row-item" :style="{ 'padding': '10px', 'margin': '15px 0 15px 0', 'width': '100%' }">
                       <input type="radio" @click="viewQuestion(question.number)">
@@ -46,17 +46,17 @@
       </div>
     </div>
     <div class="navigation" v-if="!isLoading">
-      <BaseButton class="navigation__button" :style="{ height: '100%' }" buttonClass="button-save" @click="viewPreviousQuestion">Previous</BaseButton>
-      <BaseButton class="navigation__button" :style="{ height: '100%' }" buttonClass="button-save" @click="viewNextQuestion" :disabled="this.currentNumber === this.studentQuizQuestions.length - 1">Next</BaseButton>
+      <BaseButton class="navigation__button" :style="{ height: '100%' }" buttonClass="button-save" @click="viewPreviousQuestion" :disabled="currentNumber === 0">Previous</BaseButton>
+      <BaseButton class="navigation__button" :style="{ height: '100%' }" buttonClass="button-save" @click="viewNextQuestion" :disabled="currentNumber === studentQuizQuestions.length - 1">Next</BaseButton>
     </div>
-    <Modal v-if="showPointModal">
+    <QuizModal v-if="showPointModal">
       <div slot="title">Finished</div>
       <p slot="body">You earned {{result}} for this quiz</p>
       <div slot="footer">
-        <BaseButton @click="restart">Retry</BaseButton>
-        <BaseButton @click="finish">Done</BaseButton>
+        <BaseButton @click="restart" class="button-save" v-if="trialsLeft > 0">Retry</BaseButton>
+        <BaseButton @click="finish" class="button-save">Done</BaseButton>
       </div>
-    </Modal>
+    </QuizModal>
   </div>
 </template>
 

@@ -71,6 +71,7 @@ export default {
           ...this.quizDetail,
           startDate: new Date().getTime()
         }
+        payload.questionBanks = payload.questionBanks.map(bank => bank.id)
         payload.endDate = new Date(payload.endDate).getTime()
         payload.timeLimit = Math.floor(this.quizDetail.timeLimit * 60)
         this.updateQuizDetail({

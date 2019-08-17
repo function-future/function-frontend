@@ -46,7 +46,7 @@
     <modal-delete-confirmation v-if="showDeleteConfirmationModal"
                                @close="closeDeleteConfirmationModal"
                                @clickDelete="deleteThisQuestionBank">
-      <div slot="description">{{selectedId}}</div>
+      <div slot="description">Are you sure you want to delete Question Bank?</div>
     </modal-delete-confirmation>
   </div>
 </template>
