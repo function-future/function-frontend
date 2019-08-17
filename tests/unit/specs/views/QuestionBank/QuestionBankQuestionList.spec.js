@@ -96,6 +96,17 @@ describe('QuestionBankQuestionList', () => {
     expect(wrapper.vm.fetchQuestionBankQuestionList).toHaveBeenCalledTimes(1)
   })
 
+  test('successFetchingQuestionBankQuestionList', () => {
+    initComponent()
+    const response = {
+      page: 1,
+      size: 10,
+      totalRecords: 20
+    }
+    wrapper.vm.successFetchingQuestionBankQuestionList(response)
+    expect(wrapper.vm.paging).toEqual(response)
+  })
+
   test('failFetchingQuestionBankQuestionList', () => {
     initComponent()
     wrapper.vm.failFetchingQuestionBankQuestionList()
@@ -151,5 +162,36 @@ describe('QuestionBankQuestionList', () => {
     initComponent()
     wrapper.vm.failDeletingQuestion()
     expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+  })
+
+  test('loadPage', () => {
+    initComponent()
+    const paging = {
+      page: 1,
+      size: 10,
+      totalRecords: 20
+    }
+    const spy = jest.spyOn(wrapper.vm, 'initPage')
+    wrapper.vm.loadPage(paging.page)
+    expect(wrapper.vm.paging.page).toEqual(1)
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('loadPreviousPage', () => {
+    initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'initPage')
+    wrapper.vm.paging.page = 2
+    wrapper.vm.loadPreviousPage()
+    expect(wrapper.vm.paging.page).toEqual(1)
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('loadNextPage', () => {
+    initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'initPage')
+    wrapper.vm.paging.page = 2
+    wrapper.vm.loadNextPage()
+    expect(wrapper.vm.paging.page).toEqual(3)
+    expect(spy).toHaveBeenCalledTimes(1)
   })
 })

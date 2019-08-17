@@ -322,8 +322,8 @@ module.exports = {
           return `/api/scoring/question-banks/${id}`
         },
         question: {
-          list (bankId) {
-            return `/api/scoring/question-banks/${bankId}/questions`
+          list (bankId, page, size) {
+            return `/api/scoring/question-banks/${bankId}/questions?page=${page}&size=${size}`
           },
           create (bankId) {
             return `/api/scoring/question-banks/${bankId}/questions`

@@ -10,7 +10,7 @@ const getQuestionBankById = function (callback, data, errorHandler) {
 }
 
 const getQuestionList = function (callback, data, errorHandler) {
-  request.getRequest(config.api.scoring.questionBanks.question.list(data.bankId), callback, errorHandler)
+  request.getRequest(config.api.scoring.questionBanks.question.list(data.bankId, data.page, data.size), callback, errorHandler)
 }
 
 const getQuestionById = function (callback, data, errorHandler) {

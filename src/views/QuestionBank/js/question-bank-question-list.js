@@ -2,18 +2,25 @@ import { mapActions, mapGetters } from 'vuex'
 import BaseCard from '@/components/BaseCard'
 import BaseButton from '@/components/BaseButton'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
+import BasePagination from '@/components/BasePagination'
 
 export default {
   name: 'QuestionBankAddQuestion',
   components: {
     BaseButton,
     BaseCard,
-    ModalDeleteConfirmation
+    ModalDeleteConfirmation,
+    BasePagination
   },
   data () {
     return {
       showDeleteConfirmationModal: false,
-      selectedId: ''
+      selectedId: '',
+      paging: {
+        page: 1,
+        size: 10,
+        totalRecords: 0
+      }
     }
   },
   created () {
@@ -32,10 +39,16 @@ export default {
     initPage () {
       this.fetchQuestionBankQuestionList({
         data: {
-          bankId: this.$route.params.bankId
+          bankId: this.$route.params.bankId,
+          page: this.paging.page,
+          size: this.paging.size
         },
+        callback: this.successFetchingQuestionBankQuestionList,
         fail: this.failFetchingQuestionBankQuestionList
       })
+    },
+    successFetchingQuestionBankQuestionList (paging) {
+      this.paging = paging
     },
     failFetchingQuestionBankQuestionList () {
       this.$toasted.error('Something went wrong')
@@ -80,5 +93,17 @@ export default {
     failDeletingQuestion () {
       this.$toasted.error('Something went wrong')
     },
+    loadPage (page) {
+      this.paging.page = page
+      this.initPage()
+    },
+    loadPreviousPage () {
+      this.paging.page = this.paging.page - 1
+      this.initPage()
+    },
+    loadNextPage () {
+      this.paging.page = this.paging.page + 1
+      this.initPage()
+    }
   }
 }
