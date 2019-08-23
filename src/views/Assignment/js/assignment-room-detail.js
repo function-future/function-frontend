@@ -135,7 +135,7 @@ export default {
       })
     },
     successSubmitComment (response) {
-      this.$toasted.success(`Successfully commented on discussion ${this.$route.params.assignmentId}`)
+      this.$toasted.success(`Successfully commented on discussion`)
       this.discussion.comment = ''
       this.discussions.unshift(response)
     },

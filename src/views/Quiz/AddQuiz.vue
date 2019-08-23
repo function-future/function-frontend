@@ -144,7 +144,7 @@
     }
   }
   .page-footer {
-    margin-top: 30px;
+    margin-top: 10px;
     margin-right: 20px;
     display: flex;
     justify-content: flex-end;
