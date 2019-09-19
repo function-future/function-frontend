@@ -1,6 +1,5 @@
 <template>
-  <div class="container">
-    <div class="quiz-question__question-label" v-if="!isLoading">Question {{currentNumber + 1}}</div>
+  <div class="scrollable-container">
     <div class="quiz" v-if="!isLoading">
       <div class="quiz-content" v-for="(question, idx) in studentQuizQuestions" :key="question.number" v-if="currentNumber === idx">
         <div class="quiz-content-question">
@@ -26,7 +25,7 @@
             <div class="quiz-action-legend__title-area">
               Go To
             </div>
-            <div class="quiz-action-legend__content-area">
+            <div class="quiz-action-legend__content-area scrollable-container" style="max-height: 85%;">
               <div class="quiz-action-legend__content-area-row scrollable-container">
                 <label style="width: 100%" v-for="question in studentQuizQuestions">
                   <BaseCard class="quiz-action-legend__content-area-row-item" :style="{ 'padding': '10px', 'margin': '15px 0 15px 0', 'width': '100%' }">

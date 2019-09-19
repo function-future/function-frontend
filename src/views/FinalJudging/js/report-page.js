@@ -14,7 +14,7 @@ export default {
       paging: {
         page: 1,
         size: 10,
-        totalRecords: 20
+        totalRecords: 0
       },
       state: ''
     }
