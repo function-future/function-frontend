@@ -131,7 +131,7 @@ export const assignmentRooms = [
     response: {
       "code": 200,
       "status": "OK",
-      "data": [ // TODO Update API spec
+      "data": [
         {
           "id": "ROM0001",
           "point": 80,
@@ -195,8 +195,8 @@ export const assignmentRooms = [
     }
   },
   {
-    method: 'GET',
-    url: 'api/scoring/batches/1/assignments/ASG0001/rooms/ROM0001',
+    method: 'POST',
+    url: 'api/scoring/batches/1/assignments/ASG0001/rooms/sample-id',
     response: {
       "code": 200,
       "status": "OK",
@@ -210,9 +210,8 @@ export const assignmentRooms = [
           "phone": "088888888888",
           "address": "Jl. Address 1 Address 2",
           "avatar": "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
+          "avatarId": "avatar-id",
           "batch": {
-            "id": "sample-id",
-            "name": "Batch Name",
             "code": "3"
           },
           "university": "Bina Nusantara University"
@@ -222,9 +221,11 @@ export const assignmentRooms = [
           "id": "ASG0001",
           "title": "Assignment 1",
           "description": "Description Number 1",
-          "deadline": 15000000,
+          "deadline": 1565442236338,
           "file": "http://function-static.com/ASG0001/fileName.docx",
-          "batch": 3
+          "fileId": "file-id",
+          "batchCode": "3",
+          "uploadedDate": 1565342236338
         }
       }
     }
@@ -608,23 +609,33 @@ export const studentQuiz = [
 export const studentQuizDetail = [
   {
     method: 'GET',
-    url: '/api/scoring/students/sample-id/quizzes/QZ0001',
+    url: '/api/scoring/batches/1/quizzes/QZ00001/student',
     response: {
       "code": 200,
       "status": "OK",
       "data": {
         "id": "sample-id",
+        "trials": 3,
         "quiz": {
           "id": "QZ0001",
           "title": "Quiz 2",
           "description": "Description for Quiz 2",
-          "startDate": 15000000,
-          "endDate": 15000000,
+          "startDate": 1565343059389,
+          "endDate": 1566343059389,
           "timeLimit": 3600,
           "trials": 3,
           "questionCount": 10,
           "questionBanks": [
-            "QNK00001"
+            {
+              "id": "QNK00001",
+              "title": "Question Bank #1",
+              "description": "Question Bank Description #1"
+            },
+            {
+              "id": "QNK00002",
+              "title": "Question Bank #2",
+              "description": "Question Bank Description #2"
+            }
           ],
           "batchCode": "3"
         }
