@@ -22,25 +22,24 @@
     display: flex;
     flex-wrap: wrap;
     flex: 0 1 auto;
-    margin-top: 15px;
+    margin: 0 1rem 0 2rem;
   }
 
   .breadcrumb {
-    color: #828282;
-    font-size: 0.9rem;
+    color: #FFFFFF;
+    font-size: 1.2rem;
     align-items: center;
     display: inline-flex;
     list-style-type: none;
-    padding: 7px 25px;
-    border-radius: 30px;
-    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
-    margin-top: 5px;
-    margin-left: 5px;
     transition: all 1s ease-in-out;
 
     &-list {
       display: flex;
       animation: fadein .5s;
+
+      &:before {
+        content: '';
+      }
     }
   }
 
@@ -63,14 +62,17 @@
 
   .divider {
     text-decoration: none;
-    color: #828282;
-    padding: 0 10px;
+    color: #F5F5F5;
+    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .active {
     max-width: 150px;
     font-weight: bold;
-    color: #02AAF3;
+    color: #F5F5F5;
   }
 
   .no-pointer {

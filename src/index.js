@@ -1,5 +1,6 @@
 import { mapActions, mapGetters } from 'vuex'
-import HeaderComp from '@/components/skeletons/HeaderComp'
+import MenuBar from '@/components/skeletons/MenuBar'
+import NavBar from '@/components/skeletons/NavBar'
 import BaseButton from '@/components/BaseButton'
 import BaseInput from '@/components/BaseInput'
 import BaseCard from '@/components/BaseCard'
@@ -12,7 +13,8 @@ export default {
   name: 'App',
   components: {
     BaseTitle,
-    HeaderComp,
+    MenuBar,
+    NavBar,
     BaseButton,
     BaseInput,
     BaseCard,

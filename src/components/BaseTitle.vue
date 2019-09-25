@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <h1 class="title-text"><slot></slot></h1>
+  <div class="title-text is-light">
+    <span class="is-title is-light"><slot></slot></span>
   </div>
 </template>
 
@@ -9,12 +9,11 @@
 
 <style scoped>
   .title-text {
-    color: #505050;
+    margin: 1rem 2rem;
+    color: #FFFFFF;
   }
 
-  h1 {
-    text-align: left;
-    padding: 5px 0 5px 5px;
-    margin: 20px 0 10px 0;
+  .is-title {
+    font-size: 1.2rem;
   }
 </style>
