@@ -34,42 +34,95 @@
                    :to="{ name: 'users' }"
                    v-if="menuList.users">
       </b-menu-item>
-      <!--<b-menu-item-->
-        <!--icon="settings"-->
-        <!--:active="isActive"-->
-        <!--:expanded="isActive"-->
-        <!--@click="isActive = !isActive">-->
-        <!--<template slot="label" slot-scope="props">-->
-          <!--Administrator-->
-          <!--<b-icon-->
-            <!--class="is-pulled-right"-->
-            <!--:icon="props.expanded ? 'menu-down' : 'menu-up'">-->
-          <!--</b-icon>-->
-        <!--</template>-->
-        <!--<b-menu-item icon="account" label="Users"></b-menu-item>-->
-        <!--<b-menu-item icon="cellphone-link">-->
-          <!--<template slot="label" slot-scope="props">-->
-            <!--Devices-->
-            <!--<b-dropdown aria-role="list" class="is-pulled-right" position="is-bottom-left">-->
-              <!--<b-icon icon="dots-vertical" slot="trigger"></b-icon>-->
-              <!--<b-dropdown-item aria-role="listitem">Action</b-dropdown-item>-->
-              <!--<b-dropdown-item aria-role="listitem">Another action</b-dropdown-item>-->
-              <!--<b-dropdown-item aria-role="listitem">Something else</b-dropdown-item>-->
-            <!--</b-dropdown>-->
-          <!--</template>-->
-        <!--</b-menu-item>-->
-        <!--<b-menu-item icon="cash-multiple" label="Payments" disabled></b-menu-item>-->
-      <!--</b-menu-item>-->
+      <b-menu-item :active="showGrades"
+                   :expanded="showGrades"
+                   @click="toggleGradesMenu"
+                   v-if="menuList.assignments">
+        <template slot="label" slot-scope="props">
+          Grades
+          <b-icon
+            class="is-pulled-right"
+            :icon="props.expanded ? 'menu-down' : 'menu-up'">
+          </b-icon>
+        </template>
+        <b-menu-item class="menu-item"
+                     label="Question Banks"
+                     tag="router-link"
+                     :to="{ name: 'questionBanks' }"
+                     v-if="menuList.questionBanks">
+        </b-menu-item>
+        <b-menu-item class="menu-item"
+                     label="Quizzes"
+                     tag="router-link"
+                     :to="{ name: 'quizRoute' }"
+                     v-if="menuList.quizzes">
+        </b-menu-item>
+        <b-menu-item class="menu-item"
+                     label="Assignments"
+                     tag="router-link"
+                     :to="{ name: 'assignmentRoute' }"
+                     v-if="menuList.assignments">
+        </b-menu-item>
+        <b-menu-item class="menu-item"
+                     label="Comparisons"
+                     tag="router-link"
+                     :to="{ name: 'judgingBatch' }"
+                     v-if="menuList.comparisons">
+        </b-menu-item>
+        <b-menu-item class="menu-item"
+                     label="Points"
+                     tag="router-link"
+                     :to="{ name: 'points' }"
+                     v-if="menuList.points">
+        </b-menu-item>
+      </b-menu-item>
+      <b-menu-item class="menu-item"
+                   label="Chatrooms"
+                   tag="router-link"
+                   :to="{ name: 'chatrooms' }"
+                   v-if="menuList.chatrooms">
+      </b-menu-item>
+      <b-menu-item class="menu-item"
+                   label="Reminders"
+                   tag="router-link"
+                   :to="{ name: 'reminders' }"
+                   v-if="menuList.reminders">
+      </b-menu-item>
+      <b-menu-item class="menu-item"
+                   label="My Questionnaire"
+                   tag="router-link"
+                   :to="{ name: 'myQuestionnaire' }"
+                   v-if="menuList.myQuestionnaire">
+      </b-menu-item>
+      <b-menu-item :active="showQuestionnaire"
+                   :expanded="showQuestionnaire"
+                   @click="toggleQuestionnaireMenu"
+                   v-if="menuList.questionnaireAdmin">
+        <template slot="label" slot-scope="props">
+          Questionnaires Admin
+          <b-icon
+            class="is-pulled-right"
+            :icon="props.expanded ? 'menu-down' : 'menu-up'">
+          </b-icon>
+        </template>
+        <b-menu-item class="menu-item"
+                     label="Questionnaires"
+                     tag="router-link"
+                     :to="{ name: 'questionnaires' }">
+        </b-menu-item>
+        <b-menu-item class="menu-item"
+                     label="Results"
+                     tag="router-link"
+                     :to="{ name: 'questionnaireResults' }">
+        </b-menu-item>
+      </b-menu-item>
+      <b-menu-item class="menu-item"
+                   label="Logging Rooms"
+                   tag="router-link"
+                   :to="{ name: 'loggingRoom' }"
+                   v-if="menuList.loggingRoom">
+      </b-menu-item>
     </b-menu-list>
-    <!--<b-menu-list>-->
-      <!--<b-menu-item-->
-        <!--label="Expo"-->
-        <!--icon="link"-->
-        <!--tag="router-link"-->
-        <!--target="_blank"-->
-        <!--to="/expo">-->
-      <!--</b-menu-item>-->
-    <!--</b-menu-list>-->
   </b-menu>
 </template>
 
