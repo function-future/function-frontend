@@ -11,22 +11,20 @@
       </b-navbar-item>
     </template>
     <template slot="end">
-      <b-navbar-item v-if="!loggedIn"
-                     tag="div">
+      <b-navbar-item v-if="!loggedIn" tag="div">
         <div class="buttons" @click="login">
-          <a class="button is-light">Login</a>
+          <b-button type="is-light" outlined class="button is-light">
+            Login
+          </b-button>
         </div>
       </b-navbar-item>
       <b-dropdown class="buttons" v-if="loggedIn"
                   position="is-bottom-left"
                   aria-role="menu">
-        <button class="button is-primary navbar-item"
-           slot="trigger"
-           role="button"
-           outlined>
+        <b-button type="is-light" outlined slot="trigger" role="button">
           <span>{{ firstName }}</span>
           <b-icon icon="menu-down"></b-icon>
-        </button>
+        </b-button>
         <b-dropdown-item custom aria-role="menuitem">
           Logged as <b>{{ role }}</b>
         </b-dropdown-item>
