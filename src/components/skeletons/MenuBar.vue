@@ -132,23 +132,12 @@
   @import "@/assets/css/main.scss";
 
   .navbar {
-    /*background-color: #02AAF3;*/
-    /*height: 100%;*/
-    /*border-radius: 0 18px 18px 0px;*/
-    /*box-shadow: 0px 5px 35px 0px rgba(130, 130, 130, 0.5);*/
-    /*overflow: hidden;*/
-    /*padding: 50px 25px;*/
-    /*text-align: left;*/
     display: flex;
     flex-direction: column;
     flex-shrink: 0;
     width: 16rem;
     padding: 2rem 1rem;
     background: #f5f5f5;
-  }
-
-  .menu-list {
-
   }
 
   .menu-item {
