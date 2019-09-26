@@ -33,8 +33,10 @@ Vue.use(mavonEditor)
 Vue.use(VeeValidate)
 Vue.use(VCalendar)
 Vue.use(VueCookies)
-Vue.use(Buefy)
-
+Vue.use(Buefy, {
+  defaultIconComponent: 'font-awesome-icon',
+  defaultIconPack: 'fas'
+})
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
 Vue.prototype.config = config

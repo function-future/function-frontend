@@ -21,10 +21,10 @@
       <b-dropdown class="buttons" v-if="loggedIn"
                   position="is-bottom-left"
                   aria-role="menu">
-        <b-button type="is-light" outlined slot="trigger" role="button">
+        <button class="button is-light is-outlined" slot="trigger">
           <span>{{ firstName }}</span>
-          <b-icon icon="menu-down"></b-icon>
-        </b-button>
+          <b-icon icon="caret-down"></b-icon>
+        </button>
         <b-dropdown-item custom aria-role="menuitem">
           Logged as <b>{{ role }}</b>
         </b-dropdown-item>

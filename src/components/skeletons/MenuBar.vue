@@ -42,7 +42,7 @@
           Grades
           <b-icon
             class="is-pulled-right"
-            :icon="props.expanded ? 'menu-down' : 'menu-up'">
+            :icon="props.expanded ? 'caret-down' : 'caret-up'">
           </b-icon>
         </template>
         <b-menu-item class="menu-item"
@@ -102,7 +102,7 @@
           Questionnaires Admin
           <b-icon
             class="is-pulled-right"
-            :icon="props.expanded ? 'menu-down' : 'menu-up'">
+            :icon="props.expanded ? 'caret-down' : 'caret-up'">
           </b-icon>
         </template>
         <b-menu-item class="menu-item"
