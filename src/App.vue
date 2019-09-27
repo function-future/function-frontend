@@ -7,6 +7,7 @@
         <router-view></router-view>
       </div>
     </div>
+    <Login v-if="showLoginModal"></Login>
   </div>
 </template>
 

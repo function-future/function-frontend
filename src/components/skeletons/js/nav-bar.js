@@ -58,7 +58,7 @@ export default {
     },
     login () {
       if (!this.loggedIn) {
-        this.$router.push({ name: 'login' })
+        this.$router.push({ query: { auth: 'login' } })
       }
     },
     goToNotifications () {
