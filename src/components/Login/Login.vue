@@ -74,6 +74,10 @@
     &__wrapper {
       display: table-cell;
       padding-top: 25vh;
+
+      @media (max-width: 769px) {
+        padding-top: 30vh;
+      }
     }
 
     &__container {
@@ -86,6 +90,12 @@
       box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
       transition: all .3s ease;
       font-family: Helvetica, Arial, sans-serif;
+
+      @media (max-width: 769px) {
+        width: 100%;
+        height: 100%;
+        border-radius: 8px 8px 0 0;
+      }
     }
 
     &__header {
