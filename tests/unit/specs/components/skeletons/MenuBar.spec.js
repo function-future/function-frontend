@@ -1,4 +1,4 @@
-import headerComp from '@/components/skeletons/MenuBar'
+import MenuBar from '@/components/skeletons/MenuBar'
 import { createLocalVue, shallowMount } from '@vue/test-utils'
 import Vuex from 'vuex'
 import VueRouter from 'vue-router'
@@ -46,7 +46,7 @@ describe('MenuBar', () => {
       error: jest.fn(),
       success: jest.fn()
     }
-    return shallowMount(headerComp, {
+    return shallowMount(MenuBar, {
       ...options,
       store,
       localVue,
