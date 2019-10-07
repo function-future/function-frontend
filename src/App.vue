@@ -7,6 +7,9 @@
         <router-view></router-view>
       </div>
     </div>
+    <transition name="fade">
+      <Login v-if="showLoginModal"></Login>
+    </transition>
   </div>
 </template>
 
