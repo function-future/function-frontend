@@ -168,38 +168,42 @@ describe('NavBar', () => {
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'notifications' })
   })
 
-  // test('goToNotifications case 2', () => {
-  //   window.location.reload = jest.fn()
-  //   const $route = {
-  //     name: 'notifications'
-  //   }
-  //   const $router = {
-  //     push: jest.fn()
-  //   }
-  //   const lv = createLocalVue()
-  //   lv.use(Vuex)
-  //   store = initStore()
-  //   wrapper = shallowMount(NavBar, {
-  //     mocks: {
-  //       $route,
-  //       $router
-  //     },
-  //     store,
-  //     localVue: lv,
-  //     stubs: [
-  //       'BaseCard',
-  //       'BaseButton',
-  //       'BaseInput',
-  //       'BaseSelect',
-  //       'v-date-picker',
-  //       'font-awesome-icon'
-  //     ],
-  //     sync: false
-  //   })
-  //   wrapper.vm.goToNotifications()
-  //   expect(wrapper.vm.$router.push).toHaveBeenCalledTimes(0)
-  //   expect(window.location.reload).toHaveBeenCalled()
-  // })
+  test('goToNotifications case 2', () => {
+    window.location.reload = jest.fn()
+    const $route = {
+      name: 'notifications',
+      meta: {
+        title: 'notification'
+      }
+    }
+    const $router = {
+      push: jest.fn()
+    }
+    const lv = createLocalVue()
+    lv.use(Vuex)
+    store = initStore()
+    wrapper = shallowMount(NavBar, {
+      mixins: [],
+      mocks: {
+        $route,
+        $router
+      },
+      store,
+      localVue: lv,
+      stubs: [
+        'BaseCard',
+        'BaseButton',
+        'BaseInput',
+        'BaseSelect',
+        'v-date-picker',
+        'font-awesome-icon'
+      ],
+      sync: false
+    })
+    wrapper.vm.goToNotifications()
+    expect(wrapper.vm.$router.push).toHaveBeenCalledTimes(0)
+    expect(window.location.reload).toHaveBeenCalled()
+  })
 
   test('errorHandler', () => {
     initComponent()
