@@ -1,6 +1,7 @@
 import { mapActions, mapGetters } from 'vuex'
 import MenuBar from '@/components/skeletons/MenuBar'
 import NavBar from '@/components/skeletons/NavBar'
+import Login from '@/components/Login/Login'
 import BaseButton from '@/components/BaseButton'
 import BaseInput from '@/components/BaseInput'
 import BaseCard from '@/components/BaseCard'
@@ -15,6 +16,7 @@ export default {
     BaseTitle,
     MenuBar,
     NavBar,
+    Login,
     BaseButton,
     BaseInput,
     BaseCard,
@@ -33,8 +35,8 @@ export default {
     ...mapGetters([
       'currentUser'
     ]),
-    isLoginPage () {
-      return this.$route.path === '/login'
+    showLoginModal () {
+      return this.$route.query.auth === 'login'
     }
   },
   watch: {
