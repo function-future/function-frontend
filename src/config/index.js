@@ -83,7 +83,7 @@ module.exports = {
         add: '/batches/:batchCode/assignments/add',
         rooms: {
           list: '/batches/:batchCode/assignments/:assignmentId/rooms',
-          detail: '/batches/:batchCode/assignments/:assignmentId/rooms/:roomId'
+          detail: '/batches/:batchCode/assignments/:assignmentId/rooms/:studentId'
         },
         detail: '/batches/:batchCode/assignments/:assignmentId/detail',
         batches: {
@@ -285,21 +285,21 @@ module.exports = {
           list(batchCode, assignmentId, page, pageSize) {
             return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/rooms?page=${page}&size=${pageSize}`
           },
-          detail(batchCode, assignmentId, roomId) {
-            return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/rooms/${roomId}`
+          detail(batchCode, assignmentId, studentId) {
+            return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/room/${studentId}`
           },
           update(batchCode, assignmentId, roomId) {
-            return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/rooms/${roomId}`
+            return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/room/${roomId}`
           },
           score(batchCode, assignmentId, roomId) {
-            return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/rooms/${roomId}`
+            return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/room/${roomId}`
           },
           comments: {
-            list(batchCode, assignmentId, roomId, page, pageSize) {
-              return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/rooms/${roomId}/comments?page=${page}&size=${pageSize}`
+            list(batchCode, assignmentId, studentId, page, pageSize) {
+              return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/room/${studentId}/comments?page=${page}&size=${pageSize}`
             },
-            create(batchCode, assignmentId, roomId) {
-              return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/rooms/${roomId}/comments`
+            create(batchCode, assignmentId, studentId) {
+              return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/room/${studentId}/comments`
             },
           }
         },

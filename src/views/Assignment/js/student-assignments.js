@@ -61,9 +61,9 @@ export default {
       this.$router.push({
         name: 'assignmentRoomDetail',
         params: {
-          batchCode: room.assignment.batchCode,
-          assignmentId: room.assignment.id,
-          roomId: room.id
+          batchCode: room.batchCode,
+          assignmentId: room.id,
+          studentId: this.currentUser.id
         },
       })
     },
