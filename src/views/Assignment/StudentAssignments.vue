@@ -7,31 +7,31 @@
               cardClass="card-hover">
       <div class="card-header-section">
         <div class="card-header">
-          {{room.assignment.title}}
+          {{room.title}}
         </div>
         <div class="float-right">
           <div class="assignment-date">
-            {{ room.assignment.uploadedDate |  moment("dddd, MMMM Do YYYY") }}
+            {{ room.uploadedDate |  moment("dddd, MMMM Do YYYY") }}
           </div>
         </div>
       </div>
       <div class="card-body">
         <div class="assignment-description">
-          <span v-html="descriptionCompiledMarkdown(room.assignment.description)"></span>
+          <span v-html="descriptionCompiledMarkdown(room.description)"></span>
         </div>
       </div>
       <div class="card-footer">
         <div class="completion-status">
           <div class="completion-status--box"
-               :class="isComplete(room.assignment.deadline)">
+               :class="isComplete(room.deadline)">
           </div>
           <span class="completion-status--text">
-            {{isComplete(room.assignment.deadline)}}
+            {{isComplete(room.deadline)}}
           </span>
         </div>
         <div class="assignment-deadline">
           <font-awesome-icon icon="calendar"></font-awesome-icon>
-          <span style="margin-left: 5px">{{room.assignment.deadline | moment("dddd, MMMM Do YYYY")}}</span>
+          <span style="margin-left: 5px">{{room.deadline | moment("dddd, MMMM Do YYYY")}}</span>
         </div>
       </div>
     </BaseCard>

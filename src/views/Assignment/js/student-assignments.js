@@ -40,9 +40,7 @@ export default {
     initPage () {
       this.fetchStudentAssignmentList({
         data: {
-          batchCode: 'future3',
-          assignmentId: 'asg',
-          studentId: this.currentUser.id,
+          batchCode: this.currentUser.batchCode,
           page: this.paging.page,
           size: this.paging.size
         },

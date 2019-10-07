@@ -303,8 +303,8 @@ module.exports = {
             },
           }
         },
-        students (batchCode, assignmentId, studentId, page, size) {
-          return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/students/${studentId}/rooms?page=${page}&size=${size}`
+        students (batchCode, page, size) {
+          return `/api/scoring/batches/${batchCode}/assignments?page=${page}&size=${size}`
         }
       },
       questionBanks: {
