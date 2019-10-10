@@ -14,6 +14,8 @@ import 'mavon-editor/dist/css/index.css'
 import VeeValidate from 'vee-validate'
 import VCalendar from 'v-calendar'
 import VueCookies from 'vue-cookies'
+import Buefy from 'buefy'
+import '@/assets/css/bulma.scss'
 
 library.add(fas)
 library.add(far)
@@ -31,7 +33,10 @@ Vue.use(mavonEditor)
 Vue.use(VeeValidate)
 Vue.use(VCalendar)
 Vue.use(VueCookies)
-
+Vue.use(Buefy, {
+  defaultIconComponent: 'font-awesome-icon',
+  defaultIconPack: 'fas'
+})
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
 Vue.prototype.config = config

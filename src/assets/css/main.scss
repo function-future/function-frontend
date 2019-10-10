@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+
+.scrollable-container {
+  max-height: 90%;
+  overflow: auto;
+  padding-right: 5px;
+}
+
+.page-title {
+  margin-left: 10px;
+}
+
+.blue {
+  color: #02AAF3;
+}
+
+.red {
+  color: #FF0000;
+}
+
+.toaster {
+  background-color: #02AAF3 !important;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+.error {
+  background-color: #cc0000 !important;
+}
+
+.v-note-wrapper {
+  min-height: 100%;
+}
+
+.v-note-op {
+  border-radius: 10px 10px 0 0;
+}
+
+.v-note-panel {
+  border-radius: 0 0 10px 10px;
+}
+
+.wrap-word{
+  white-space: -moz-pre-wrap !important;  /* Mozilla, since 1999 */
+  white-space: -webkit-pre-wrap; /*Chrome & Safari */
+  white-space: -pre-wrap;      /* Opera 4-6 */
+  white-space: -o-pre-wrap;    /* Opera 7 */
+  white-space: pre-wrap;       /* css-3 */
+  word-wrap: break-word;       /* Internet Explorer 5.5+ */
+  word-break: break-word;
+  white-space: normal;
+}
+
+@media only screen and (min-width: 875px) {
+  .left-nav {
+    width: 24vw;
+  }
+
+  .content {
+    width: 76vw;
+  }
+}
+
+@media only screen and (min-width: 1000px) {
+  .left-nav {
+    width: 23vw;
+  }
+
+  .content {
+    width: 77vw;
+  }
+}
+
+@media only screen and (min-width: 1150px) {
+  .left-nav {
+    width: 19vw;
+  }
+
+  .content {
+    width: 81vw;
+  }
+}
+
+@media only screen and (min-width: 1500px) {
+  .left-nav {
+    width: 17vw;
+  }
+
+  .content {
+    width: 83vw;
+  }
+}
+
+::-webkit-scrollbar-track {
+  background-color: #F5F5F5;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #02AAF3;
+}
+
+::-webkit-scrollbar-thumb:hover {
+}
+
+::-webkit-scrollbar-thumb:active {
+}
