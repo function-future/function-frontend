@@ -17,11 +17,6 @@
         <b-icon icon="star"></b-icon>
         <p class="is-size-7 menu-title">PA</p>
       </router-link>
-      <router-link :to="{ name: 'profile' }" class="navbar-item is-expanded is-block has-text-centered mobile-router-link">
-        <!--TODO set this to account page that has list option: login, profile, change password-->
-        <b-icon icon="user"></b-icon>
-        <p class="is-size-7 menu-title">Account</p>
-      </router-link>
     </div>
   </nav>
 </template>
