@@ -77,6 +77,9 @@ export default {
       this.$toasted.error('Fail to load announcement list')
       this.isLoadingAnnouncement = false
     },
+    goToAnnouncementPage () {
+      this.$router.push({ name: 'announcements' })
+    },
     goToAnnouncementDetail (id) {
       this.$router.push({
         name: 'announcementDetail',

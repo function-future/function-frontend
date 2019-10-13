@@ -80,7 +80,8 @@
         </font-awesome-icon>
       </div>
       <div v-else>
-        <div class="announcements__title is-size-5-desktop is-size-6-mobile">
+        <div class="announcements__title is-size-5-desktop is-size-6-mobile"
+             @click="goToAnnouncementPage">
           <span>Announcements</span>
         </div>
         <div class="columns is-multiline is-vcentered is-size-7-mobile">
@@ -101,7 +102,7 @@
   </div>
 </template>
 
-<script src="./js/feeds-v2.js"></script>
+<script src="./js/feeds-revamp.js"></script>
 
 <style lang="scss" scoped>
   @import "@/assets/css/main.scss";
@@ -192,7 +193,12 @@
 
     &__title {
       span {
+        cursor: pointer;
         font-weight: bold;
+
+        &:hover {
+          text-decoration: underline;
+        }
       }
 
       margin-bottom: 0.75rem;
