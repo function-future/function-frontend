@@ -32,11 +32,14 @@
   .app {
     display: flex;
     flex-direction: column;
-    height: 100vh;
     font-family: 'Open Sans', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     background-color: white;
+
+    @media only screen and (min-width: 1023px) {
+      height: 100vh;
+    }
   }
 
   .main-content {
@@ -46,6 +49,8 @@
 
     @media only screen and (max-width: 1023px) {
       width: 100vw;
+      padding-top: 0;
+      padding-right: 0;
     }
   }
 
