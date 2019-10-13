@@ -242,4 +242,22 @@ describe('FeedsRevamp', () => {
     initComponent()
     expect(wrapper.vm.announcementPreview(announcement)).toEqual(announcement.description)
   })
+
+  test('goToProfile loggedIn', () => {
+    initComponent()
+    store.state.currentUser = {}
+    wrapper.vm.$router.push = jest.fn()
+    wrapper.vm.goToProfile()
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ query: { auth: 'login' } })
+  })
+
+  test('goToProfile not loggedIn', () => {
+    initComponent()
+    store.state.currentUser = {
+      name: 'Karnando Sepryan'
+    }
+    wrapper.vm.$router.push = jest.fn()
+    wrapper.vm.goToProfile()
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'profile' })
+  })
 })
