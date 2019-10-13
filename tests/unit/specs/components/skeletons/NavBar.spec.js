@@ -128,7 +128,7 @@ describe('NavBar', () => {
     initComponent()
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.login()
-    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'login' })
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith(({ query: { auth: 'login' } }))
   })
 
   test('login already logged in', () => {
