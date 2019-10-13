@@ -1,21 +1,38 @@
 <template>
   <div class="auto-overflow-container">
     <section class="hero is-primary is-hidden-desktop">
-      <div class="hero-body-container">
-        <div class="container has-text-centered">
-          <img src="@/assets/logo.png"
-               class="logo is-center"
-               alt="function">
-        </div>
+      <div class="hero-body-container"
+           :class="{'no-sticky-note__hero': !stickyNotesAvailable}">
+        <img src="@/assets/logo.png"
+             class="logo is-center"
+             alt="function">
+        <b-icon icon="user-circle"
+                class="is-right"
+                @click.native="goToProfile">
+        </b-icon>
       </div>
-      <div class="overlap-header-background"></div>
+      <div class="has-text-centered user-greeting"
+           :class="{'no-sticky-note__greeting': !stickyNotesAvailable}"
+           v-if="loggedIn">
+        Hi, {{ currentUser.name }}!
+      </div>
+      <div class="overlap-header-background"
+           v-if="stickyNotesAvailable"></div>
     </section>
-    <div class="floating-sticky-note">
-      <div class="card is-rounded">
+    <div class="floating-sticky-note"
+         v-if="stickyNotesAvailable">
+      <div class="card is-rounded"
+           @click="goToStickyNotesDetail">
         <div class="card-content is-flex">
-          <b-icon icon="info-circle" size="is-small" class="icon"></b-icon>
+          <b-icon icon="info-circle"
+                  size="is-small"
+                  class="icon">
+          </b-icon>
           <div class="is-size-7-mobile">
-            Sticky Note
+            <span class="sticky-note-title">
+              {{ stickyNote.title }}
+            </span>
+            <span v-html="stickyNotesDescriptionPreview(stickyNote.description)"></span>
           </div>
         </div>
       </div>
@@ -56,64 +73,27 @@
       </div>
     </div>
     <div class="announcements">
-      <div class="announcements__title">
-        <span>Announcements</span>
+      <div v-if="isLoadingAnnouncement" class="loading">
+        <font-awesome-icon icon="spinner"
+                           spin class="icon-loading"
+                           size="lg">
+        </font-awesome-icon>
       </div>
-      <div class="columns is-multiline is-vcentered">
-        <div class="column is-12 is-bordered announcements__item">
-          <div class="announcements__item-title">
-            Title Title Title
-          </div>
-          <div class="announcements__item-description">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          </div>
+      <div v-else>
+        <div class="announcements__title is-size-5-desktop is-size-6-mobile">
+          <span>Announcements</span>
         </div>
-        <div class="column is-12 is-bordered announcements__item">
-          <div class="announcements__item-title">
-            Title Title Title
-          </div>
-          <div class="announcements__item-description">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          </div>
-        </div>
-        <div class="column is-12 is-bordered announcements__item">
-          <div class="announcements__item-title">
-            Title Title Title
-          </div>
-          <div class="announcements__item-description">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          </div>
-        </div>
-        <div class="column is-12 is-bordered announcements__item">
-          <div class="announcements__item-title">
-            Title Title Title
-          </div>
-          <div class="announcements__item-description">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          </div>
-        </div>
-        <div class="column is-12 is-bordered announcements__item">
-          <div class="announcements__item-title">
-            Title Title Title
-          </div>
-          <div class="announcements__item-description">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          </div>
-        </div>
-        <div class="column is-12 is-bordered announcements__item">
-          <div class="announcements__item-title">
-            Title Title Title
-          </div>
-          <div class="announcements__item-description">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          </div>
-        </div>
-        <div class="column is-12 is-bordered announcements__item">
-          <div class="announcements__item-title">
-            Title Title Title
-          </div>
-          <div class="announcements__item-description">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        <div class="columns is-multiline is-vcentered is-size-7-mobile">
+          <div class="column is-12 is-bordered announcements__item"
+               v-for="announcement in announcements"
+               v-bind:key="announcement.id"
+               @click="goToAnnouncementDetail(announcement.id)">
+            <div class="announcements__item-title">
+              {{ announcement.title }}
+            </div>
+            <div class="announcements__item-description">
+              {{ announcementPreview(announcement) }}
+            </div>
           </div>
         </div>
       </div>
@@ -127,14 +107,14 @@
   @import "@/assets/css/main.scss";
 
   .logo {
-    width: 8rem;
+    width: 6rem;
   }
 
   .overlap-header-background {
     background-color: #02AAF3;
     top: 0;
-    height: 50px;
-    margin-bottom: -45px;
+    height: 75px;
+    margin-bottom: -70px;
   }
 
   .is-rounded {
@@ -142,11 +122,34 @@
   }
 
   .hero-body-container {
-    padding: 1.5rem 3rem 0 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 1.5rem 0 1.5rem;
+  }
+
+  .user-greeting {
+    margin: 0.5rem 0 0.25rem 0;
+    font-weight: bold;
+  }
+
+  .no-sticky-note {
+    &__hero {
+      padding: 1.5rem 1.5rem 1rem 1.5rem;
+    }
+
+    &__greeting {
+      margin: 0.25rem 0 1.5rem 0;
+    }
   }
 
   .floating-sticky-note {
     padding: 1rem 1.5rem;
+
+    .card-content {
+      cursor: pointer;
+      padding: 1rem;
+    }
   }
 
   .icon {
@@ -169,6 +172,7 @@
         font-weight: bold;
       }
 
+      margin-top: 0.5rem;
       margin-bottom: 0.75rem;
     }
 
@@ -184,11 +188,10 @@
   }
 
   .announcements {
-    padding: 1rem;
+    padding: 1rem 1.25rem;
 
     &__title {
       span {
-        font-size: 1rem;
         font-weight: bold;
       }
 
@@ -196,7 +199,7 @@
     }
 
     &__item {
-      font-size: 0.75rem;
+      cursor: pointer;
 
       &-title {
         font-weight: bold;
@@ -210,5 +213,9 @@
     .is-bordered {
       border-bottom: #E7E7E7 1px solid;
     }
+  }
+
+  .sticky-note-title {
+    font-weight: bold;
   }
 </style>

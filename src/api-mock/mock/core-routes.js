@@ -195,7 +195,7 @@ export const announcements = [
           'id': 'sample-id-1',
           'title': 'Announcement 1',
           'summary': 'Summary goes here. Maximum 70 characters?',
-          'description': 'Description goes here. Currently there is no limit to description length.',
+          'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
           'files': [
             {
               'id': 'sample-id',
@@ -211,7 +211,7 @@ export const announcements = [
           'id': 'sample-id-2',
           'title': 'Announcement 2',
           'summary': 'Summary goes here. Maximum 70 characters?',
-          'description': 'Description goes here. Currently there is no limit to description length.',
+          'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
           'files': [
             {
               'id': 'sample-id',
@@ -227,7 +227,7 @@ export const announcements = [
           'id': 'sample-id-3',
           'title': 'Announcement 3',
           'summary': 'Summary goes here. Maximum 70 characters?',
-          'description': 'Description goes here. Currently there is no limit to description length.',
+          'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
           'files': [
             {
               'id': 'sample-id',
@@ -243,7 +243,7 @@ export const announcements = [
           'id': 'sample-id-4',
           'title': 'Announcement 4',
           'summary': 'Summary goes here. Maximum 70 characters?',
-          'description': 'Description goes here. Currently there is no limit to description length.',
+          'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
           'files': [
             {
               'id': 'sample-id',
@@ -291,7 +291,7 @@ export const announcements = [
           'id': 'sample-id-2',
           'title': 'Announcement 2',
           'summary': 'Summary goes here. Maximum 70 characters?',
-          'description': 'Description goes here. Currently there is no limit to description length.',
+          'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
           'files': [
             {
               'id': 'sample-id',
@@ -307,7 +307,7 @@ export const announcements = [
           'id': 'sample-id-3',
           'title': 'Announcement 3',
           'summary': 'Summary goes here. Maximum 70 characters?',
-          'description': 'Description goes here. Currently there is no limit to description length.',
+          'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
           'files': [
             {
               'id': 'sample-id',
@@ -323,7 +323,7 @@ export const announcements = [
           'id': 'sample-id-4',
           'title': 'Announcement 4',
           'summary': 'Summary goes here. Maximum 70 characters?',
-          'description': 'Description goes here. Currently there is no limit to description length.',
+          'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
           'files': [
             {
               'id': 'sample-id',
@@ -354,7 +354,7 @@ export const announcements = [
         'id': 'sample-id',
         'title': 'Announcement 1',
         'summary': 'Summary goes here. Maximum 70 characters?',
-        'description': 'Description goes here. Currently there is no limit to description length.',
+        'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
         'files': [
           {
             'id': 'sample-id',
@@ -382,7 +382,7 @@ export const announcementDetails = [
         'id': 'sample-id-1',
         'title': 'Announcement 1',
         'summary': 'Summary goes here. Maximum 70 characters?',
-        'description': 'Description goes here. Currently there is no limit to description length.',
+        'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
         'files': [
           {
             'id': 'sample-id',
@@ -407,7 +407,7 @@ export const announcementDetails = [
         'id': 'sample-id',
         'title': 'Announcement 1',
         'summary': 'Summary goes here. Maximum 70 characters?',
-        'description': 'Description goes here. Currently there is no limit to description length.',
+        'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
         'files': [
           {
             'id': 'sample-id',
@@ -432,7 +432,7 @@ export const announcementDetails = [
         'id': 'sample-id',
         'title': 'Announcement 1',
         'summary': 'Summary goes here. Maximum 70 characters?',
-        'description': 'Description goes here. Currently there is no limit to description length.',
+        'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
         'files': [
           {
             'id': 'sample-id',
@@ -457,7 +457,7 @@ export const announcementDetails = [
         'id': 'sample-id',
         'title': 'Announcement 1 Edited',
         'summary': 'Summary goes here. Maximum 70 characters?',
-        'description': 'Description goes here. Currently there is no limit to description length.',
+        'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
         'files': [
           {
             'id': 'sample-id',
