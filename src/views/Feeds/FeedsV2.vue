@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="auto-overflow-container">
     <section class="hero is-primary is-hidden-desktop">
       <div class="hero-body-container">
         <div class="container has-text-centered">
@@ -59,7 +59,55 @@
       <div class="announcements__title">
         <span>Announcements</span>
       </div>
-      <div class="columns is-vcentered">
+      <div class="columns is-multiline is-vcentered">
+        <div class="column is-12 is-bordered announcements__item">
+          <div class="announcements__item-title">
+            Title Title Title
+          </div>
+          <div class="announcements__item-description">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </div>
+        </div>
+        <div class="column is-12 is-bordered announcements__item">
+          <div class="announcements__item-title">
+            Title Title Title
+          </div>
+          <div class="announcements__item-description">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </div>
+        </div>
+        <div class="column is-12 is-bordered announcements__item">
+          <div class="announcements__item-title">
+            Title Title Title
+          </div>
+          <div class="announcements__item-description">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </div>
+        </div>
+        <div class="column is-12 is-bordered announcements__item">
+          <div class="announcements__item-title">
+            Title Title Title
+          </div>
+          <div class="announcements__item-description">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </div>
+        </div>
+        <div class="column is-12 is-bordered announcements__item">
+          <div class="announcements__item-title">
+            Title Title Title
+          </div>
+          <div class="announcements__item-description">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </div>
+        </div>
+        <div class="column is-12 is-bordered announcements__item">
+          <div class="announcements__item-title">
+            Title Title Title
+          </div>
+          <div class="announcements__item-description">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </div>
+        </div>
         <div class="column is-12 is-bordered announcements__item">
           <div class="announcements__item-title">
             Title Title Title
@@ -76,6 +124,8 @@
 <script src="./js/feeds-v2.js"></script>
 
 <style lang="scss" scoped>
+  @import "@/assets/css/main.scss";
+
   .logo {
     width: 8rem;
   }
