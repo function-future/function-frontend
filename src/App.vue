@@ -1,6 +1,7 @@
 <template>
   <div class="app">
     <NavBar class="is-hidden-mobile is-hidden-touch"></NavBar>
+    <MobileNavBar class="is-hidden-desktop"></MobileNavBar>
     <BottomNavBar class="is-hidden-desktop"></BottomNavBar>
     <div class="main-container is-fullhd">
       <MenuBar class="is-hidden-mobile is-hidden-touch"></MenuBar>

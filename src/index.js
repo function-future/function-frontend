@@ -1,6 +1,7 @@
 import { mapActions, mapGetters } from 'vuex'
 import MenuBar from '@/components/skeletons/MenuBar'
 import NavBar from '@/components/skeletons/NavBar'
+import MobileNavBar from '@/components/skeletons/MobileNavBar'
 import BottomNavBar from '@/components/skeletons/BottomNavBar'
 import Login from '@/components/login/Login'
 import BaseButton from '@/components/BaseButton'
@@ -17,6 +18,7 @@ export default {
     BaseTitle,
     MenuBar,
     NavBar,
+    MobileNavBar,
     BottomNavBar,
     Login,
     BaseButton,
