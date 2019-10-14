@@ -49,6 +49,11 @@
     align-items: center;
   }
 
+  .image {
+    display: flex;
+    align-items: center;
+  }
+
   .account {
     &__container {
       padding: 1rem 1.25rem;
