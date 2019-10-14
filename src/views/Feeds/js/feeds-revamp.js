@@ -98,7 +98,7 @@ export default {
         this.$router.push({ query: { auth: 'login' } })
         return
       }
-      this.$router.push({ name: 'profile' })
+      this.$router.push({ name: 'account' })
     }
   }
 }

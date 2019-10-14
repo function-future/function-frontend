@@ -5,6 +5,7 @@ module.exports = {
         login: '/login'
       },
       user: {
+        account: '/account',
         profile: '/profile',
         changePassword: '/profile/change-password'
       },

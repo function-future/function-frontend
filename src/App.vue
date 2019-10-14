@@ -5,7 +5,9 @@
     <div class="main-container is-fullhd">
       <MenuBar class="is-hidden-mobile is-hidden-touch"></MenuBar>
       <div class="main-content">
-        <router-view></router-view>
+        <transition name="fade" mode="out-in">
+          <router-view></router-view>
+        </transition>
       </div>
     </div>
     <transition name="fade">

@@ -1,4 +1,4 @@
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'users',
@@ -15,6 +15,14 @@ export default {
   created () {
     if (this.loggedIn) {
       this.$router.push({ query: {} })
+    }
+  },
+  computed: {
+    ...mapGetters([
+      'currentUser'
+    ]),
+    loggedIn () {
+      return Object.keys(this.currentUser).length
     }
   },
   methods: {
@@ -45,7 +53,10 @@ export default {
       })
     },
     successLogin () {
-      this.closeLoginModal()
+      this.$router.push({
+        path: this.$route.query.redirect || '',
+        query: {}
+      })
     },
     failLogin () {
       setTimeout(this.showFailMessage, 700)
