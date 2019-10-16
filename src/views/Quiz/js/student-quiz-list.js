@@ -47,7 +47,7 @@ export default {
     initPage () {
       this.fetchStudentQuizList({
         data: {
-          studentId: this.currentUser.id,
+          batchCode: this.currentUser.batchCode,
           page: this.paging.page,
           pageSize: this.paging.size
         },

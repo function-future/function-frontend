@@ -19,42 +19,65 @@ describe('StudentQuizList', () => {
     const state = {
       studentQuizList: [
         {
-          "id": "sample-id",
-          "quiz": {
-            "id": "QZ0001",
-            "title": "Quiz 2",
-            "description": "Description for Quiz 2",
-            "startDate": 15000000,
-            "endDate": 15000000,
-            "timeLimit": 3600,
-            "trials": 3,
-            "questionCount": 10,
-            "questionBanks": [
-              "QNK00001"
-            ],
-            "batchCode": "3"
-          }
+          "id": "QZ00001",
+          "title": "Quiz Number 1",
+          "description": "Description Number 1",
+          "startDate": 15000000,
+          "endDate": 15000000,
+          "timeLimit": 3600,
+          "trials": 3,
+          "questionCount": 10,
+          "questionBanks": [
+            "QNK00001"
+          ],
+          "batch": 3
         },
         {
-          "id": "sample-id",
-          "quiz": {
-            "id": "QZ0001",
-            "title": "Quiz 2",
-            "description": "Description for Quiz 2",
-            "startDate": 15000000,
-            "endDate": 15000000,
-            "timeLimit": 3600,
-            "trials": 3,
-            "questionCount": 10,
-            "questionBanks": [
-              "QNK00001"
-            ],
-            "batchCode": "3"
-          }
+          "id": "QZ00002",
+          "title": "Quiz Number 2",
+          "description": "Description Number 2",
+          "startDate": 15000000,
+          "endDate": 15000000,
+          "timeLimit": 3600,
+          "trials": 3,
+          "questionCount": 10,
+          "questionBanks": [
+            "QNK00001"
+          ],
+          "batch": 3
+        },
+        {
+          "id": "QZ00003",
+          "title": "Quiz Number 3",
+          "description": "Description Number 3",
+          "startDate": 15000000,
+          "endDate": 15000000,
+          "timeLimit": 3600,
+          "trials": 3,
+          "questionCount": 10,
+          "questionBanks": [
+            "QNK00001"
+          ],
+          "batch": 3
+        },
+        {
+          "id": "QZ00004",
+          "title": "Quiz Number 4",
+          "description": "Description Number 4",
+          "startDate": 15000000,
+          "endDate": 15000000,
+          "timeLimit": 3600,
+          "trials": 3,
+          "questionCount": 10,
+          "questionBanks": [
+            "QNK00001"
+          ],
+          "batch": 3
         }
       ],
       currentUser: {
-        id: 'sample-id-1'
+        id: 'sample-id-1',
+        batchCode: 'futur3'
       }
     }
     const actions = {

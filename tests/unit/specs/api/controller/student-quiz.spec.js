@@ -22,7 +22,7 @@ describe('QuestionBanks Controller', () => {
   })
 
   test('getQuizDetail', () => {
-    const spy = jest.spyOn(request, 'getRequest')
+    const spy = jest.spyOn(request, 'postRequest')
     const data = {}
     const callback = jest.fn()
     const errorHandler = jest.fn()

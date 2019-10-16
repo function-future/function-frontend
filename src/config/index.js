@@ -359,14 +359,14 @@ module.exports = {
           return `/api/scoring/batches/${batchCode}/quizzes/${id}`
         },
         students: {
-          list(studentId, page, pageSize) {
-            return `/api/scoring/students/${studentId}/quizzes?page=${page}&size=${pageSize}`
+          list(batchCode, page, pageSize) {
+            return `/api/scoring/batches/${batchCode}/quizzes?page=${page}&size=${pageSize}`
           },
-          detail(studentId, quizId) {
-            return `/api/scoring/students/${studentId}/quizzes/${quizId}`
+          detail(batchCode, id) {
+            return `/api/scoring/batches/${batchCode}/quizzes/${id}/student`
           },
-          questions(studentId, quizId) {
-            return `/api/scoring/students/${studentId}/quizzes/${quizId}/questions`
+          questions(batchCode, quizId) {
+            return `/api/scoring/batches/${batchCode}/quizzes/${quizId}/student/questions`
           }
         }
       },

@@ -5,31 +5,31 @@
               @click.native="goToQuizDetail(studentQuiz.id)">
       <div class="card-header-section">
         <div class="card-header">
-          {{studentQuiz.quiz.title}}
+          {{studentQuiz.title}}
         </div>
         <div class="card-header float-right">
           <div class="quiz-date">
-            {{ studentQuiz.quiz.startDate |  moment("dddd, MMMM Do YYYY") }}
+            {{ studentQuiz.startDate |  moment("dddd, MMMM Do YYYY") }}
           </div>
         </div>
       </div>
       <div class="card-body">
         <div class="quiz-description">
-          <span v-html="descriptionCompiledMarkdown(studentQuiz.quiz.description)"></span>
+          <span v-html="descriptionCompiledMarkdown(studentQuiz.description)"></span>
         </div>
       </div>
       <div class="card-footer">
         <div class="completion-status">
           <div class="completion-status__box"
-               :class="isComplete(studentQuiz.quiz.endDate)">
+               :class="isComplete(studentQuiz.endDate)">
           </div>
           <span class="completion-status__text">
-            {{isComplete(studentQuiz.quiz.endDate)}}
+            {{isComplete(studentQuiz.endDate)}}
           </span>
         </div>
         <div class="quiz-deadline">
           <font-awesome-icon icon="calendar"></font-awesome-icon>
-          {{studentQuiz.quiz.endDate | moment("dddd, MMMM Do YYYY")}}
+          {{studentQuiz.endDate | moment("dddd, MMMM Do YYYY")}}
         </div>
         <div class="retry-count">
           <font-awesome-icon icon="redo"></font-awesome-icon>
