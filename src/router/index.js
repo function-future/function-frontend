@@ -66,6 +66,7 @@ import login from '@/views/Auth/Login'
 import reminders from '@/views/Reminders/Reminders'
 import reminderForm from '@/views/Reminders/ReminderForm'
 import profile from '@/views/User/Profile'
+import account from '@/views/User/Account'
 import notifications from '@/views/Notifications/Notifications.vue'
 import changePassword from '@/views/User/ChangePassword'
 import loggingRoom from '@/views/LoggingRoom/LoggingRoom.vue'
@@ -101,6 +102,18 @@ const router = new Router({
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
           { name: 'Profile', link: 'profile' }
+        ]
+      }
+    },
+    {
+      path: config.app.pages.user.account,
+      name: 'account',
+      component: account,
+      meta: {
+        title: 'Account',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Account', link: 'account' }
         ]
       }
     },

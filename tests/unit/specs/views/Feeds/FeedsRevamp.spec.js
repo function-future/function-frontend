@@ -258,6 +258,6 @@ describe('FeedsRevamp', () => {
     }
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.goToProfile()
-    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'profile' })
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'account' })
   })
 })
