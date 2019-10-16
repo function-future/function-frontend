@@ -75,7 +75,7 @@
       display: table-cell;
       padding-top: 25vh;
 
-      @media (max-width: 769px) {
+      @media (max-width: 1023px) {
         padding-top: 30vh;
       }
     }
@@ -83,7 +83,7 @@
     &__container {
       display: flex;
       flex-direction: column;
-      width: 30vw;
+      width: 35vw;
       margin: 0 auto;
       background-color: #fff;
       border-radius: 8px;
@@ -91,7 +91,7 @@
       transition: all .3s ease;
       font-family: Helvetica, Arial, sans-serif;
 
-      @media (max-width: 769px) {
+      @media (max-width: 1023px) {
         width: 100%;
         height: 100%;
         border-radius: 8px 8px 0 0;
