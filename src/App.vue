@@ -1,8 +1,9 @@
 <template>
   <div class="app">
-    <NavBar></NavBar>
+    <NavBar class="is-hidden-mobile is-hidden-touch"></NavBar>
+    <BottomNavBar class="is-hidden-desktop"></BottomNavBar>
     <div class="main-container is-fullhd">
-      <MenuBar></MenuBar>
+      <MenuBar class="is-hidden-mobile is-hidden-touch"></MenuBar>
       <div class="main-content">
         <router-view></router-view>
       </div>
@@ -42,6 +43,10 @@
     padding-top: 8px;
     padding-right: 8px;
     width: 83vw;
+
+    @media only screen and (max-width: 1023px) {
+      width: 100vw;
+    }
   }
 
   .main-container {
