@@ -48,7 +48,7 @@ export default {
     initPage () {
       this.fetchStudentQuizQuestions({
         data: {
-          studentId: this.currentUser.id,
+          batchCode: this.currentUser.batchCode,
           quizId: this.$route.params.quizId
         },
         callback: this.successFetchingStudentQuizQuestions,
@@ -81,7 +81,7 @@ export default {
       })
       this.submitAnswers({
         data: {
-          studentId: this.currentUser.id,
+          batchCode: this.currentUser.batchCode,
           quizId: this.$route.params.quizId
         },
         payload,

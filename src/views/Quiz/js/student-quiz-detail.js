@@ -33,7 +33,7 @@ export default {
     initPage () {
       this.fetchStudentQuizDetail({
         data: {
-          studentId: this.currentUser.id,
+          batchCode: this.currentUser.batchCode,
           quizId: this.$route.params.quizId
         },
         callback: this.successFetchingStudentQuizDetail,
