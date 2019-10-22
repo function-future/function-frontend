@@ -31,10 +31,6 @@
           <font-awesome-icon icon="calendar"></font-awesome-icon>
           {{studentQuiz.endDate | moment("dddd, MMMM Do YYYY")}}
         </div>
-        <div class="retry-count">
-          <font-awesome-icon icon="redo"></font-awesome-icon>
-          <span style="margin-left: 3px; font-size: 15px">{{studentQuiz.trials}}</span>
-        </div>
       </div>
     </BaseCard>
     <BasePagination :paging="paging"
