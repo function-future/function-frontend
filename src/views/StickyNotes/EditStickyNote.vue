@@ -22,8 +22,8 @@
       </div>
       <div v-if="errors.has('description')"><span class="input-invalid-message">{{ errors.first('description') }}</span></div>
       <div class="buttons">
-        <b-button type="is-light" size="is-medium" @click="cancel">Cancel</b-button>
-        <b-button type="is-primary" size="is-medium" @click="postStickyNote" :disabled="isSubmitting">Save</b-button>
+        <b-button type="is-light" @click="cancel">Cancel</b-button>
+        <b-button type="is-primary" @click="postStickyNote" :disabled="isSubmitting">Save</b-button>
       </div>
     </div>
   </div>

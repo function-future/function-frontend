@@ -1,7 +1,9 @@
 <template>
   <div class="app">
     <NavBar class="is-hidden-mobile is-hidden-touch"></NavBar>
-    <MobileNavBar class="is-hidden-desktop"></MobileNavBar>
+    <transition name="fade">
+      <MobileNavBar class="top-navbar is-hidden-desktop"></MobileNavBar>
+    </transition>
     <BottomNavBar class="is-hidden-desktop"></BottomNavBar>
     <div class="main-container is-fullhd">
       <MenuBar class="is-hidden-mobile is-hidden-touch"></MenuBar>
@@ -74,5 +76,9 @@
 
   .page-title {
     margin-left: 10px;
+  }
+
+  .top-navbar {
+    transition: opacity .35s, visibility .35s, height .35s;
   }
 </style>
