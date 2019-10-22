@@ -2,11 +2,11 @@
   <div class="scrollable-container">
     <div class="card-container">
       <div class="detail-card" v-for="room in roomList" @click="goToRoomDetail(room)">
-        <div class="detail-card__photo" :style="{backgroundImage: 'url('+room.student.avatar+')', backgroundSize: 'cover'}">
+        <div class="detail-card__photo" :style="{backgroundImage: 'url('+room.avatar+')', backgroundSize: 'cover'}">
         </div>
         <div class="detail-card__title">
-          <span style="font-weight: bold; font-size: 15px">{{room.student.name}}</span>
-          <span style="font-weight: bold; font-size: 15px">{{room.student.university}}</span>
+          <span style="font-weight: bold; font-size: 15px">{{room.name}}</span>
+          <span style="font-weight: bold; font-size: 15px">{{room.university}}</span>
         </div>
       </div>
     </div>

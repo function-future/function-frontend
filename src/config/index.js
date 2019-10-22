@@ -283,7 +283,7 @@ module.exports = {
         },
         rooms: {
           list(batchCode, assignmentId, page, pageSize) {
-            return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/rooms?page=${page}&size=${pageSize}`
+            return `/api/scoring/batches/${batchCode}/judgings/students?page=${page}&size=${pageSize}`
           },
           detail(batchCode, assignmentId, studentId) {
             return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/room/${studentId}`
