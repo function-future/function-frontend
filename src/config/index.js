@@ -5,6 +5,7 @@ module.exports = {
         login: '/login'
       },
       user: {
+        account: '/account',
         profile: '/profile',
         changePassword: '/profile/change-password'
       },
@@ -83,7 +84,7 @@ module.exports = {
         add: '/batches/:batchCode/assignments/add',
         rooms: {
           list: '/batches/:batchCode/assignments/:assignmentId/rooms',
-          detail: '/batches/:batchCode/assignments/:assignmentId/rooms/:roomId'
+          detail: '/batches/:batchCode/assignments/:assignmentId/rooms/:studentId'
         },
         detail: '/batches/:batchCode/assignments/:assignmentId/detail',
         batches: {
@@ -283,28 +284,28 @@ module.exports = {
         },
         rooms: {
           list(batchCode, assignmentId, page, pageSize) {
-            return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/rooms?page=${page}&size=${pageSize}`
+            return `/api/scoring/batches/${batchCode}/judgings/students?page=${page}&size=${pageSize}`
           },
-          detail(batchCode, assignmentId, roomId) {
-            return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/rooms/${roomId}`
+          detail(batchCode, assignmentId, studentId) {
+            return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/room/${studentId}`
           },
           update(batchCode, assignmentId, roomId) {
-            return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/rooms/${roomId}`
+            return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/room/${roomId}`
           },
           score(batchCode, assignmentId, roomId) {
-            return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/rooms/${roomId}`
+            return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/room/${roomId}`
           },
           comments: {
-            list(batchCode, assignmentId, roomId, page, pageSize) {
-              return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/rooms/${roomId}/comments?page=${page}&size=${pageSize}`
+            list(batchCode, assignmentId, studentId, page, pageSize) {
+              return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/room/${studentId}/comments?page=${page}&size=${pageSize}`
             },
-            create(batchCode, assignmentId, roomId) {
-              return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/rooms/${roomId}/comments`
+            create(batchCode, assignmentId, studentId) {
+              return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/room/${studentId}/comments`
             },
           }
         },
-        students (batchCode, assignmentId, studentId, page, size) {
-          return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/students/${studentId}/rooms?page=${page}&size=${size}`
+        students (batchCode, page, size) {
+          return `/api/scoring/batches/${batchCode}/assignments?page=${page}&size=${size}`
         }
       },
       questionBanks: {
@@ -359,14 +360,14 @@ module.exports = {
           return `/api/scoring/batches/${batchCode}/quizzes/${id}`
         },
         students: {
-          list(studentId, page, pageSize) {
-            return `/api/scoring/students/${studentId}/quizzes?page=${page}&size=${pageSize}`
+          list(batchCode, page, pageSize) {
+            return `/api/scoring/batches/${batchCode}/quizzes?page=${page}&size=${pageSize}`
           },
-          detail(studentId, quizId) {
-            return `/api/scoring/students/${studentId}/quizzes/${quizId}`
+          detail(batchCode, id) {
+            return `/api/scoring/batches/${batchCode}/quizzes/${id}/student`
           },
-          questions(studentId, quizId) {
-            return `/api/scoring/students/${studentId}/quizzes/${quizId}/questions`
+          questions(batchCode, quizId) {
+            return `/api/scoring/batches/${batchCode}/quizzes/${quizId}/student/questions`
           }
         }
       },

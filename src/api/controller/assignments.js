@@ -10,7 +10,7 @@ const getAssignmentById = function (callback, data, errorHandler) {
 }
 
 const getStudentAssignments = function (callback, data, errorHandler) {
-  request.getRequest(config.api.scoring.assignments.students(data.batchCode, data.assignmentId, data.studentId, data.page, data.size), callback, errorHandler)
+  request.getRequest(config.api.scoring.assignments.students(data.batchCode, data.page, data.size), callback, errorHandler)
 }
 
 const createAssignment = function (callback, data, payload, errorHandler) {

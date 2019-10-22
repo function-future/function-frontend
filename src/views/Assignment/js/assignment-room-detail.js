@@ -75,7 +75,7 @@ export default {
         data: {
           batchCode: this.$route.params.batchCode,
           assignmentId: this.$route.params.assignmentId,
-          roomId: this.$route.params.roomId
+          studentId: this.$route.params.studentId
         },
         callback: this.successFetchRoomById,
         fail: this.failFetchRoomById
@@ -93,7 +93,7 @@ export default {
       let data = {
         batchCode: this.$route.params.batchCode,
         assignmentId: this.$route.params.assignmentId,
-        roomId: this.$route.params.roomId,
+        studentId: this.currentUser.id,
         page: this.discussionPaging.page,
         pageSize: this.discussionPaging.size
       }
@@ -124,7 +124,7 @@ export default {
       const data = {
         batchCode: this.$route.params.batchCode,
         assignmentId: this.$route.params.assignmentId,
-        roomId: this.$route.params.roomId
+        studentId: this.currentUser.id
       }
       const payload = this.discussion
       this.postComment({

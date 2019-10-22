@@ -1,10 +1,14 @@
 <template>
   <div class="app">
-    <NavBar></NavBar>
+    <NavBar class="is-hidden-mobile is-hidden-touch"></NavBar>
+    <MobileNavBar class="is-hidden-desktop"></MobileNavBar>
+    <BottomNavBar class="is-hidden-desktop"></BottomNavBar>
     <div class="main-container is-fullhd">
-      <MenuBar></MenuBar>
+      <MenuBar class="is-hidden-mobile is-hidden-touch"></MenuBar>
       <div class="main-content">
-        <router-view></router-view>
+        <transition name="fade" mode="out-in">
+          <router-view></router-view>
+        </transition>
       </div>
     </div>
     <transition name="fade">
@@ -31,17 +35,26 @@
   .app {
     display: flex;
     flex-direction: column;
-    height: 100vh;
     font-family: 'Open Sans', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     background-color: white;
+
+    @media only screen and (min-width: 1023px) {
+      height: 100vh;
+    }
   }
 
   .main-content {
     padding-top: 8px;
     padding-right: 8px;
     width: 83vw;
+
+    @media only screen and (max-width: 1023px) {
+      width: 100vw;
+      padding-top: 0;
+      padding-right: 0;
+    }
   }
 
   .main-container {

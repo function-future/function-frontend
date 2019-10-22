@@ -133,9 +133,9 @@ describe('Login', () => {
   })
 
   test('successLogin', () => {
-    const spy = jest.spyOn(wrapper.vm, 'closeLoginModal')
+    wrapper.vm.$router.push = jest.fn()
     wrapper.vm.successLogin()
-    expect(spy).toHaveBeenCalledTimes(1)
+    expect(wrapper.vm.$router.push).toHaveBeenCalledTimes(1)
   })
 
   test('failLogin', (done) => {

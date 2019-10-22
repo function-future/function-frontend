@@ -19,50 +19,44 @@ describe('StudentAssignment', () => {
     const state = {
       studentAssignments: [
         {
-          "id" : "ROM0001",
-          "point" : 80,
-          "student" : {
-            "id": "SDT00001",
-            "name": "Oliver Sebastian",
-            "phone": "+6285774263075",
-            "role": "STUDENT",
-            "address": "Tangerang",
-            "email": "oliver@gmail.com",
-            "avatar": "http://function-src.com/asdasd",
-            "batch": "3",
-            "university": "BINUS"
-          },
-          "assignment": {
-            "id" : "ASG0001",
-            "title" : "Assignment 1",
-            "description" : "Description Number 1",
-            "deadline" : 15000000,
-            "file" : "http://function-static.com/ASG0001/fileName.docx",
-            "batchCode" : "3"
-          }
+          "id": "ASG0001",
+          "title": "Assignment 1",
+          "description": "Description Number 1",
+          "deadline": 15000000,
+          "batchCode": "3",
+          "uploadedDate": 15000000000,
+          "file": null,
+          "fileId": ""
         },
         {
-          "id" : "ROM0002",
-          "point" : 90,
-          "student" : {
-            "id": "SDT00001",
-            "name": "Oliver Sebastian",
-            "phone": "+6285774263075",
-            "role": "STUDENT",
-            "address": "Tangerang",
-            "email": "oliver@gmail.com",
-            "avatar": "http://function-src.com/asdasd",
-            "batch": "3",
-            "university": "BINUS"
-          },
-          "assignment": {
-            "id" : "ASG0001",
-            "title" : "Assignment 1",
-            "description" : "Description Number 1",
-            "deadline" : 15000000,
-            "file" : "http://function-static.com/ASG0001/fileName.docx",
-            "batchCode" : "3"
-          }
+          "id": "ASG0002",
+          "title": "Assignment 2",
+          "description": "Description Number 2",
+          "deadline": 30000000,
+          "batchCode": "3",
+          "uploadedDate": 30000000000,
+          "file": null,
+          "fileId": ""
+        },
+        {
+          "id": "ASG0003",
+          "title": "Assignment 3",
+          "description": "Description Number 3",
+          "deadline": 60000000,
+          "batchCode": "3",
+          "uploadedDate": 60000000000,
+          "file": null,
+          "fileId": ""
+        },
+        {
+          "id": "ASG0004",
+          "title": "Assignment 4",
+          "description": "Description Number 4",
+          "deadline": 90000000,
+          "batchCode": "3",
+          "uploadedDate": 90000000000,
+          "file": null,
+          "fileId": ""
         }
       ],
       currentUser: {}
@@ -171,28 +165,17 @@ describe('StudentAssignment', () => {
   test('goToRoomDetail', () => {
     initComponent()
     const room = {
-      "id" : "ROM0001",
-      "point" : 80,
-      "student" : {
-        "id": "SDT00001",
-        "name": "Oliver Sebastian",
-        "phone": "+6285774263075",
-        "role": "STUDENT",
-        "address": "Tangerang",
-        "email": "oliver@gmail.com",
-        "avatar": "http://function-src.com/asdasd",
-        "batch": "3",
-        "university": "BINUS"
-      },
-      "assignment": {
-        "id" : "ASG0001",
-        "title" : "Assignment 1",
-        "description" : "Description Number 1",
-        "deadline" : 15000000,
-        "file" : "http://function-static.com/ASG0001/fileName.docx",
-        "batchCode" : "3"
-      }
+      "id": "ASG0001",
+      "title": "Assignment 1",
+      "description": "Description Number 1",
+      "deadline": 15000000,
+      "batchCode": "3",
+      "uploadedDate": 15000000000,
+      "file": null,
+      "fileId": ""
     }
+    store.state.currentUser.id = 'sample-id'
+    store.state.currentUser.batchCode = 3
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.goToRoomDetail(room)
     expect(wrapper.vm.$router.push).toBeCalledWith({
@@ -200,7 +183,7 @@ describe('StudentAssignment', () => {
       params: {
         batchCode: '3',
         assignmentId: 'ASG0001',
-        roomId: 'ROM0001'
+        studentId: 'sample-id'
       },
     })
   })
