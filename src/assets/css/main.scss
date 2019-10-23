@@ -1,10 +1,17 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
 
 .auto-overflow-container {
-  @media only screen and (min-width: 1023px) {
-    height: 85vh;
-    overflow-y: auto;
+  height: 85vh;
+  overflow-x: auto;
+
+  @media only screen and (max-width: 1023px) {
+    height: 89vh;
+    padding-bottom: 1.25rem;
   }
+}
+
+.is-rounded {
+  border-radius: 0.5rem;
 }
 
 .scrollable-container {

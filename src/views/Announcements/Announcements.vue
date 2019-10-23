@@ -1,111 +1,126 @@
 <template>
-  <div class="scrollable-container">
-    <div class="button-div" v-if="accessList.add">
-      <BaseButton type="submit" buttonClass="button-save" @click="goToAddAnnouncement">
-        <span><font-awesome-icon icon="plus" class="icon"/> Add</span>
-      </BaseButton>
-    </div>
-    <div v-if="isLoading" class="loading">
-      <font-awesome-icon icon="spinner" spin class="icon-loading" size="lg"></font-awesome-icon>
-    </div>
-    <div v-if="!isLoading">
-      <BaseCard v-for="announcement in announcementList"
-                v-bind:key="announcement.id"
-                class="announcement-card"
-                cardClass="card-hover"
-                @click.native="goToAnnouncementDetail(announcement.id)">
-        <div class="announcement-header announcement-title">
-          <h3>{{ announcement.title }}</h3>
-        </div>
-        <div class="announcement-header float-right">
-          <div class="announcement-date">
-            {{ announcement.updatedAt |  moment("dddd, MMMM Do YYYY") }}
+  <div class="auto-overflow-container">
+    <div class="announcements__container">
+      <div class="buttons" v-if="accessList.add">
+        <b-button rounded
+                  icon-left="plus"
+                  type="is-primary"
+                  @click="goToAddAnnouncement">
+          Add
+        </b-button>
+      </div>
+      <div v-if="isLoading" class="loading">
+        <font-awesome-icon icon="spinner" spin class="icon-loading" size="lg"></font-awesome-icon>
+      </div>
+      <div v-if="!isLoading">
+        <div class="card is-rounded announcements__card-container"
+             v-for="announcement in announcementList"
+             v-bind:key="announcement.id"
+             @click.stop="goToAnnouncementDetail(announcement.id)">
+          <div class="announcements__card__header">
+            <div class="announcements__card__header-title">
+              <span class="has-text-weight-bold">
+                {{ announcement.title }}
+              </span>
+            </div>
+            <div class="announcements__card__header-info">
+              <div class="announcements__card__header-info-date">
+                {{ announcement.updatedAt |  moment("MMMM Do, YYYY") }}
+              </div>
+              <div class="announcements__card__header-info-actions">
+                <span class="announcements__card__header-info-actions-desktop">
+                  <b-button icon-left="edit"
+                            type="is-text"
+                            @click.stop="goToEditAnnouncement(announcement.id)"
+                            v-if="accessList.edit">
+                  </b-button>
+                  <b-button icon-left="trash-alt"
+                            type="is-text"
+                            @click.stop="openDeleteConfirmationModal(announcement.id)"
+                            v-if="accessList.delete">
+                  </b-button>
+                </span>
+                <b-button icon-left="ellipsis-v"
+                          type="is-text"
+                          v-if="accessList.delete">
+                </b-button>
+              </div>
+            </div>
           </div>
-          <div class="announcement-action">
-          <span v-if="accessList.edit">
-            <font-awesome-icon
-              icon="edit"
-              class="icon blue"
-              size="lg"
-              @click.stop="goToEditAnnouncement(announcement.id)">
-            </font-awesome-icon>
-          </span>
-            <span v-if="accessList.delete">
-            <font-awesome-icon
-              icon="trash-alt"
-              class="icon red"
-              size="lg" @click.stop="openDeleteConfirmationModal(announcement.id)"></font-awesome-icon></span>
+          <div class="announcement__card-content wrap-word">
+            <span v-html="textPreview(announcement)"></span>
           </div>
         </div>
-        <div class="announcement-preview wrap-word">
-          <span v-html="textPreview(announcement)"></span>
-        </div>
-      </BaseCard>
+      </div>
+      <BasePagination :paging="paging"
+                      @loadPage="loadPage"
+                      @previousPage="loadPreviousPage"
+                      @nextPage="loadNextPage">
+      </BasePagination>
+      <modal-delete-confirmation v-if="showDeleteConfirmationModal"
+                                 @close="closeDeleteConfirmationModal"
+                                 @clickDelete="deleteThisAnnouncement">
+        <div slot="description">Delete this announcement ?</div>
+      </modal-delete-confirmation>
     </div>
-    <BasePagination :paging="paging"
-                    @loadPage="loadPage"
-                    @previousPage="loadPreviousPage"
-                    @nextPage="loadNextPage">
-    </BasePagination>
-    <modal-delete-confirmation v-if="showDeleteConfirmationModal"
-                               @close="closeDeleteConfirmationModal"
-                               @clickDelete="deleteThisAnnouncement">
-      <div slot="description">Delete this announcement ?</div>
-    </modal-delete-confirmation>
   </div>
 </template>
 
 <script type="text/javascript" src="./js/announcements.js"></script>
 
-<style scoped>
-  .announcement-card {
-    min-height: 175px;
-  }
+<style lang="scss" scoped>
+  @import "@/assets/css/main.scss";
 
-  .announcement-header {
-    display: inline-block;
-  }
+  .announcements {
+    &__container {
+      padding: 1rem 1.25rem;
+    }
 
-  .announcement-date {
-    padding: 5px 15px 5px 5px;
-    display: inline-block;
-  }
+    &__card {
+      &-container {
+        padding: 0.75rem 1rem;
+        margin: 0.75rem 0;
+        min-height: 100px;
+        cursor: pointer;
+      }
 
-  .float-right {
-    float: right;
-  }
+      &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
 
-  .announcement-preview {
-    text-align: justify;
-  }
+        &-title {
+          margin-bottom: 0.25rem;
+        }
 
-  .announcement-action {
-    border-left: 1px solid #BDBDBD;
-    padding-left: 15px;
-    display: inline-block;
-  }
+        &-info {
+          display: flex;
+          align-items: center;
 
-  .announcement-action span {
-    padding: 5px;
-    transition: all .2s ease;
-  }
+          &-date {
+            font-size: 0.75rem;
+          }
 
-  .announcement-action span:hover {
-    opacity: 0.8;
-  }
+          &-actions {
+            margin-left: 0.5rem;
 
-  .announcement-action span:active {
-    opacity: 0.9;
-  }
+            &-desktop {
+              @media only screen and (max-width: 1023px) {
+                display: none;
+              }
+            }
+          }
+        }
+      }
 
-  h3 {
-    margin: 5px 0 10px 0;
-    text-align: left;
-  }
+      &__info {
+        margin-bottom: 0.5rem;
 
-  .button-div {
-    text-align: right;
-    margin-right: 20px;
+        &-date {
+          font-size: 0.75rem;
+        }
+      }
+    }
   }
 
   .loading {
