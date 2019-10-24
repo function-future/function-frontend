@@ -1,7 +1,7 @@
 <template>
   <div class="auto-overflow-container">
     <div class="announcements__container">
-      <div class="buttons" v-if="accessList.add">
+      <div class="announcements__actions" v-if="accessList.add">
         <b-button rounded
                   icon-left="plus"
                   type="is-primary"
@@ -18,17 +18,18 @@
              v-bind:key="announcement.id"
              @click.stop="goToAnnouncementDetail(announcement.id)">
           <div class="announcements__card__header">
-            <div class="announcements__card__header-title">
-              <span class="has-text-weight-bold">
-                {{ announcement.title }}
-              </span>
-            </div>
             <div class="announcements__card__header-info">
+              <div class="announcements__card__header-info-title ellipsis">
+                <span class="has-text-weight-bold">
+                  {{ announcement.title }}
+                </span>
+              </div>
               <div class="announcements__card__header-info-date">
                 {{ announcement.updatedAt |  moment("MMMM Do, YYYY") }}
               </div>
-              <div class="announcements__card__header-info-actions">
-                <span class="announcements__card__header-info-actions-desktop">
+            </div>
+            <div class="announcements__card__header-actions">
+              <span class="announcements__card__header-actions-desktop">
                   <b-button icon-left="edit"
                             type="is-text"
                             @click.stop="goToEditAnnouncement(announcement.id)"
@@ -40,11 +41,11 @@
                             v-if="accessList.delete">
                   </b-button>
                 </span>
-                <b-button icon-left="ellipsis-v"
-                          type="is-text"
-                          v-if="accessList.delete">
-                </b-button>
-              </div>
+              <b-button icon-left="ellipsis-v"
+                        type="is-text"
+                        @click.stop="openActionModal(announcement.id)"
+                        v-if="accessList.delete">
+              </b-button>
             </div>
           </div>
           <div class="announcement__card-content wrap-word">
@@ -76,6 +77,19 @@
       padding: 1rem 1.25rem;
     }
 
+    &__actions {
+      z-index: 5;
+
+      @media only screen and (max-width: 1023px) {
+        position: fixed;
+        right: 5vw;
+        bottom: 75px;
+        transition: all 0.1s ease-in-out;
+        box-shadow: 2px 2px 16px 4px rgba(0, 0, 0, 0.2);
+        border-radius: 50%;
+      }
+    }
+
     &__card {
       &-container {
         padding: 0.75rem 1rem;
@@ -89,35 +103,32 @@
         justify-content: space-between;
         align-items: center;
 
-        &-title {
-          margin-bottom: 0.25rem;
-        }
-
         &-info {
-          display: flex;
-          align-items: center;
+          margin-bottom: 0.25rem;
 
-          &-date {
-            font-size: 0.75rem;
-          }
+          &-title {
+            max-width: 55vw;
 
-          &-actions {
-            margin-left: 0.5rem;
-
-            &-desktop {
-              @media only screen and (max-width: 1023px) {
-                display: none;
-              }
+            @media only screen and (max-width: 1023px) {
+              max-width: 65vw;
             }
           }
+
+          &-date {
+            border-left: 1px solid #BDBDBD;
+            padding-left: 0.5rem;
+            font-size: 0.75rem;
+          }
         }
-      }
 
-      &__info {
-        margin-bottom: 0.5rem;
+        &-actions {
+          margin-left: 0.5rem;
 
-        &-date {
-          font-size: 0.75rem;
+          &-desktop {
+            @media only screen and (max-width: 1023px) {
+              display: none;
+            }
+          }
         }
       }
     }
