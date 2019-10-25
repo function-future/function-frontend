@@ -13,43 +13,49 @@
         <font-awesome-icon icon="spinner" spin class="icon-loading" size="lg"></font-awesome-icon>
       </div>
       <div v-if="!isLoading">
-        <div class="card is-rounded announcements__card-container"
+        <div class="card is-rounded announcements__card-wrapper"
              v-for="announcement in announcementList"
-             v-bind:key="announcement.id"
-             @click.stop="goToAnnouncementDetail(announcement.id)">
-          <div class="announcements__card__header">
-            <div class="announcements__card__header-info">
-              <div class="announcements__card__header-info-title ellipsis">
+             v-bind:key="announcement.id">
+          <div class="announcements__card-container"
+               @click="goToAnnouncementDetail(announcement.id)">
+            <div class="announcements__card-container__header">
+              <div class="announcements__card-container__header-title ellipsis">
                 <span class="has-text-weight-bold">
                   {{ announcement.title }}
                 </span>
               </div>
-              <div class="announcements__card__header-info-date">
+              <div class="announcements__card-container__header-date">
                 {{ announcement.updatedAt |  moment("MMMM Do, YYYY") }}
               </div>
             </div>
-            <div class="announcements__card__header-actions">
-              <span class="announcements__card__header-actions-desktop">
-                  <b-button icon-left="edit"
-                            type="is-text"
-                            @click.stop="goToEditAnnouncement(announcement.id)"
-                            v-if="accessList.edit">
-                  </b-button>
-                  <b-button icon-left="trash-alt"
-                            type="is-text"
-                            @click.stop="openDeleteConfirmationModal(announcement.id)"
-                            v-if="accessList.delete">
-                  </b-button>
-                </span>
-              <b-button icon-left="ellipsis-v"
-                        type="is-text"
-                        @click.stop="openActionModal(announcement.id)"
-                        v-if="accessList.delete">
-              </b-button>
+            <div class="announcements__card-container__content wrap-word ellipsis">
+              <span v-html="textPreview(announcement)"></span>
             </div>
           </div>
-          <div class="announcement__card-content wrap-word">
-            <span v-html="textPreview(announcement)"></span>
+          <div class="announcements__card__actions">
+            <b-dropdown aria-role="list" position="is-bottom-left" @click.prevent.stop>
+              <button class="button is-text" slot="trigger">
+                <b-icon icon="ellipsis-v"></b-icon>
+              </button>
+              <b-dropdown-item
+                aria-role="listitem"
+                @click="goToEditAnnouncement(announcement.id)"
+                v-if="accessList.edit">
+                <span class="icon-wrapper">
+                  <b-icon icon="edit" class="icon"></b-icon>
+                  Edit
+                </span>
+              </b-dropdown-item>
+              <b-dropdown-item
+                aria-role="listitem"
+                @click="openDeleteConfirmationModal(announcement.id)"
+                v-if="accessList.delete">
+                <span class="icon-wrapper">
+                  <b-icon icon="trash-alt" class="icon"></b-icon>
+                  Delete
+                </span>
+              </b-dropdown-item>
+            </b-dropdown>
           </div>
         </div>
       </div>
@@ -91,19 +97,17 @@
     }
 
     &__card {
-      &-container {
+      &-wrapper {
+        display: flex;
+        justify-content: space-between;
         padding: 0.75rem 1rem;
         margin: 0.75rem 0;
         min-height: 100px;
         cursor: pointer;
       }
 
-      &__header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-
-        &-info {
+      &-container {
+        &__header {
           margin-bottom: 0.25rem;
 
           &-title {
@@ -121,15 +125,13 @@
           }
         }
 
-        &-actions {
-          margin-left: 0.5rem;
-
-          &-desktop {
-            @media only screen and (max-width: 1023px) {
-              display: none;
-            }
-          }
+        &__content {
+          max-height: 150px;
         }
+      }
+
+      &__actions {
+        margin-left: 0.5rem;
       }
     }
   }

@@ -4,13 +4,13 @@
     <transition name="fade">
       <MobileNavBar class="top-navbar is-hidden-desktop"></MobileNavBar>
     </transition>
-    <BottomNavBar class="is-hidden-desktop"></BottomNavBar>
     <div class="main-container is-fullhd">
       <MenuBar class="is-hidden-mobile is-hidden-touch"></MenuBar>
       <div class="main-content">
         <transition name="fade" mode="out-in">
           <router-view></router-view>
         </transition>
+        <BottomNavBar class="is-hidden-desktop"></BottomNavBar>
       </div>
     </div>
     <transition name="fade">

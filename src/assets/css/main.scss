@@ -30,6 +30,36 @@
   }
 }
 
+.icon {
+  margin-right: 1rem;
+  margin-top: 0.2rem;
+
+  @media only screen and (max-width: 768px) {
+    margin-top: 0;
+  }
+
+  &-wrapper {
+    display: flex;
+    align-items: center;
+  }
+}
+
+/deep/ {
+  .dropdown.is-mobile-modal>.dropdown-menu {
+    @media screen and (max-width: 1023px) {
+      width: 100vw;
+      max-width: 100%;
+      top: 100% !important;
+      max-height: calc(100vh - 120px);
+      transform: translate3d(-50%,-100%,0);
+    }
+  }
+
+  .dropdown-content {
+    border-radius: 0.5rem 0.5rem 0 0;
+  }
+}
+
 .blue {
   color: #02AAF3;
 }
