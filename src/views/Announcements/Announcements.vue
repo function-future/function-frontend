@@ -35,14 +35,14 @@
           <div class="announcements__card__actions">
             <b-dropdown aria-role="list" position="is-bottom-left" @click.prevent.stop>
               <button class="button is-text" slot="trigger">
-                <b-icon icon="ellipsis-v"></b-icon>
+                <b-icon icon="ellipsis-v" size="is-small" class="icon"></b-icon>
               </button>
               <b-dropdown-item
                 aria-role="listitem"
                 @click="goToEditAnnouncement(announcement.id)"
                 v-if="accessList.edit">
                 <span class="icon-wrapper">
-                  <b-icon icon="edit" class="icon"></b-icon>
+                  <b-icon icon="edit" class="icon" size="is-small"></b-icon>
                   Edit
                 </span>
               </b-dropdown-item>
@@ -51,7 +51,7 @@
                 @click="openDeleteConfirmationModal(announcement.id)"
                 v-if="accessList.delete">
                 <span class="icon-wrapper">
-                  <b-icon icon="trash-alt" class="icon"></b-icon>
+                  <b-icon icon="trash-alt" class="icon" size="is-small"></b-icon>
                   Delete
                 </span>
               </b-dropdown-item>
@@ -107,6 +107,8 @@
       }
 
       &-container {
+        width: 100%;
+
         &__header {
           margin-bottom: 0.25rem;
 
