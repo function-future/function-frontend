@@ -1,15 +1,14 @@
 <template>
-  <div class="scrollable-container">
-    <div class="edit-container">
+  <div class="auto-overflow-container">
+    <div class="edit-sticky-note__container">
       <div class="title">
-        <BaseInput autofocus
-                   class="input-title"
-                   inputType="title"
+        <b-field label="Title">
+          <b-input autofocus
+                   custom-class="is-large"
                    v-model="stickyNote.title"
-                   placeholder="Sticky Note Title"
-                   v-validate.disable="'required'"
-                   name="title">
-        </BaseInput>
+                   v-validate.disable="'required'">
+          </b-input>
+        </b-field>
       </div>
       <div v-if="errors.has('title')"><span class="input-invalid-message">{{ errors.first('title') }}</span></div>
       <div class="description">
@@ -22,13 +21,9 @@
                       name="description"></mavon-editor>
       </div>
       <div v-if="errors.has('description')"><span class="input-invalid-message">{{ errors.first('description') }}</span></div>
-      <div class="action">
-        <div class="action-button">
-          <BaseButton type="cancel" buttonClass="button-cancel" @click="cancel">Cancel</BaseButton>
-        </div>
-        <div class="action-button">
-          <BaseButton type="submit" buttonClass="button-save" @click="postStickyNote" :disabled="isSubmitting">Save</BaseButton>
-        </div>
+      <div class="buttons">
+        <b-button type="is-light" @click="cancel">Cancel</b-button>
+        <b-button type="is-primary" @click="postStickyNote" :disabled="isSubmitting">Save</b-button>
       </div>
     </div>
   </div>
@@ -37,7 +32,16 @@
 <script type="text/javascript" src="./js/edit-sticky-note.js">
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+  @import "@/assets/css/main.scss";
+
+  .edit-sticky-note {
+    &__container {
+      display: flex;
+      flex-direction: column;
+      padding: 1rem 1.25rem;
+    }
+  }
   .edit-container {
     margin: 10px;
   }
@@ -65,7 +69,7 @@
     margin-bottom: 10px;
   }
 
-  .action {
+  .buttons {
     display: flex;
     justify-content: flex-end;
   }
