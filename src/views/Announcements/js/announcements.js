@@ -125,6 +125,7 @@ export default {
     loadNextPage () {
       this.paging.page = this.paging.page + 1
       this.loadAnnouncementList()
-    }
+    },
+    openActionModal (id) {}
   }
 }
