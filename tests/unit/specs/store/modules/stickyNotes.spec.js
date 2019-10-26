@@ -81,12 +81,6 @@ describe('actions', () => {
     const callback = jest.fn()
     store.actions.postStickyNotes({ commit }, { data, callback, fail })
     expect(fail).toBeCalledTimes(0)
-    expect(commit).toHaveBeenCalledWith('SET_STICKY_NOTES_INFO', [{
-      'id': 'sample-id',
-      'title': 'Sticky Note Title',
-      'description': 'Note description goes here. Length is undetermined.',
-      'updatedAt': 1555333551046
-    }])
     expect(callback).toBeCalledTimes(1)
   })
 })

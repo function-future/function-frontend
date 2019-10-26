@@ -5,7 +5,7 @@
         <b-button rounded
                   icon-left="pen"
                   type="is-primary"
-                  @click="goToAddStickyNote"
+                  @click="goToEditStickyNote"
                   v-if="accessList.edit">
           Edit
         </b-button>
