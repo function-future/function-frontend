@@ -13,26 +13,21 @@
         <font-awesome-icon icon="spinner" spin class="icon-loading" size="lg"></font-awesome-icon>
       </div>
       <div v-if="!isLoading">
-        <div class="card is-rounded announcements__card-wrapper"
-             v-for="announcement in announcementList"
-             v-bind:key="announcement.id">
-          <div class="announcements__card-container"
-               @click="goToAnnouncementDetail(announcement.id)">
-            <div class="announcements__card-container__header">
-              <div class="announcements__card-container__header-title ellipsis">
-                <span class="has-text-weight-bold">
-                  {{ announcement.title }}
-                </span>
-              </div>
-              <div class="announcements__card-container__header-date">
-                {{ announcement.updatedAt |  moment("MMMM Do, YYYY") }}
-              </div>
-            </div>
-            <div class="announcements__card-container__content wrap-word ellipsis">
+        <ListItem @click="goToAnnouncementDetail(announcement.id)"
+                  v-for="announcement in announcementList"
+                  v-bind:key="announcement.id">
+          <template #title>
+            {{ announcement.title }}
+          </template>
+          <template #info>
+            {{ announcement.updatedAt |  moment("MMMM Do, YYYY") }}
+          </template>
+          <template #content>
+            <div class="wrap-word ellipsis">
               <span v-html="textPreview(announcement)"></span>
             </div>
-          </div>
-          <div class="announcements__card__actions">
+          </template>
+          <template #actions>
             <b-dropdown aria-role="list" position="is-bottom-left" @click.prevent.stop>
               <button class="button is-text" slot="trigger">
                 <b-icon icon="ellipsis-v" size="is-small" class="icon"></b-icon>
@@ -56,8 +51,8 @@
                 </span>
               </b-dropdown-item>
             </b-dropdown>
-          </div>
-        </div>
+          </template>
+        </ListItem>
       </div>
       <BasePagination :paging="paging"
                       @loadPage="loadPage"
@@ -96,14 +91,14 @@
       }
     }
 
-    &__card {
+    &__list {
       &-wrapper {
         display: flex;
         justify-content: space-between;
         padding: 0.75rem 1rem;
-        margin: 0.75rem 0;
         min-height: 100px;
         cursor: pointer;
+        border-bottom: #E7E7E7 1px solid;
       }
 
       &-container {
