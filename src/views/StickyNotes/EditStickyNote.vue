@@ -4,7 +4,6 @@
       <div class="title">
         <b-field label="Title">
           <b-input autofocus
-                   custom-class="is-large"
                    v-model="stickyNote.title"
                    v-validate.disable="'required'">
           </b-input>
