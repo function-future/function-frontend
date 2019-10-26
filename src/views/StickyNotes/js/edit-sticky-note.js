@@ -75,8 +75,8 @@ export default {
       this.validateBeforeSubmit(this.validationSuccess)
     },
     validationSuccess (result) {
-      this.isSubmitting = true
       if (result) {
+        this.isSubmitting = true
         let data = { ...this.stickyNote }
         this.postStickyNotes({
           data,

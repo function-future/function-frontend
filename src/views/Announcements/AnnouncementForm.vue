@@ -1,27 +1,17 @@
 <template>
-  <div class="scrollable-container">
-    <div class="edit-container">
-      <div class="title">
-        <BaseInput
-          autofocus
-          class="input-title"
-          inputType="title"
-          v-model="announcementDetail.title"
-          placeholder="Announcement title"
-          v-validate.disable="'required'"
-          name="title"></BaseInput>
+  <div class="auto-overflow-container">
+    <div class="announcement-form-container">
+      <div class="announcement-form-container-title">
+        <b-field label="Title">
+          <b-input autofocus
+                   v-model="announcementDetail.title"
+                   name="title"
+                   v-validate.disable="'required'">
+          </b-input>
+        </b-field>
+        <div v-if="errors.has('title')"><span class="input-invalid-message">{{ errors.first('title') }}</span></div>
       </div>
-      <div v-if="errors.has('title')"><span class="input-invalid-message">{{ errors.first('title') }}</span></div>
-      <div>
-        <BaseTextArea
-          v-model="announcementDetail.summary"
-          placeholder="Announcement summary"
-          v-validate.continues="'max:70'"
-          name="summary">
-        </BaseTextArea>
-      </div>
-      <div v-if="errors.has('summary')" class="flex"><span class="input-invalid-message">{{ errors.first('summary') }}</span></div>
-      <div class="description">
+      <div class="announcement-form-container-description">
         <mavon-editor class="editor"
                       placeholder="Announcement description"
                       language="en"
@@ -32,14 +22,12 @@
                       @imgDel="$imgDel"
                       name="description">
         </mavon-editor>
+        <div v-if="errors.has('description')"><span class="input-invalid-message">{{ errors.first('description') }}</span></div>
       </div>
-      <div v-if="errors.has('description')"><span class="input-invalid-message">{{ errors.first('description') }}</span></div>
-      <div class="action">
-        <div class="action-button">
-          <BaseButton type="cancel" buttonClass="button-cancel" @click="cancel">Cancel</BaseButton>
-        </div>
-        <div class="action-button">
-          <BaseButton type="submit" buttonClass="button-save" @click="sendAnnouncement" :disabled="isSubmitting || uploadingFile">Save</BaseButton>
+      <div class="announcement-form-container-actions">
+        <div class="buttons">
+          <b-button type="is-light" @click="cancel">Cancel</b-button>
+          <b-button type="is-primary" @click="sendAnnouncement" :loading="isSubmitting || uploadingFile">Save</b-button>
         </div>
       </div>
     </div>
@@ -48,45 +36,34 @@
 
 <script type="text/javascript" src="./js/announcement-form.js"></script>
 
-<style scoped>
-  .edit-container {
-    margin: 10px;
-  }
+<style lang="scss" scoped>
+  @import "@/assets/css/main.scss";
 
-  .action {
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-  }
+  .announcement-form {
+    &-container {
+      padding: 1rem 1.25rem;
 
-  .input-title {
-    margin-right: 10px;
-    width: 100%;
-    font-size: 1.2em;
-  }
+      &-title {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 1rem;
+      }
 
-  .input-invalid-message {
-    color: #FF0000;
-    font-size: 0.75em;
-    float: left;
-    margin-left: 2vw;
-  }
+      &-description {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 1rem;
+      }
 
-  .description {
-    margin: 10px 0 10px 0;
+      &-actions {
+        display: flex;
+        justify-content: flex-end;
+      }
+    }
   }
 
   .editor {
     height: 45vh;
-  }
-
-  .action-button {
-    display: inline-block;
-    padding-left: 5px;
-    padding-right: 5px;
-  }
-
-  .flex {
-    display: flex;
+    margin-bottom: 0.5rem;
   }
 </style>
