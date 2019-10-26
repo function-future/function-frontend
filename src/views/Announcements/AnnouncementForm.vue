@@ -4,6 +4,7 @@
       <div class="announcement-form-container-title">
         <b-field label="Title">
           <b-input autofocus
+                   placeholder="Insert title here"
                    v-model="announcementDetail.title"
                    name="title"
                    v-validate.disable="'required'">
@@ -12,22 +13,16 @@
         <div v-if="errors.has('title')"><span class="input-invalid-message">{{ errors.first('title') }}</span></div>
       </div>
       <div class="announcement-form-container-description">
-        <mavon-editor class="editor"
-                      placeholder="Announcement description"
-                      language="en"
-                      v-model="announcementDetail.description"
-                      v-validate.disable="'required'"
-                      ref=md
-                      @imgAdd="$imgAdd"
-                      @imgDel="$imgDel"
-                      name="description">
-        </mavon-editor>
+        <Editor label="Description"
+                v-model="announcementDetail.description"
+                placeholder="Insert description here">
+        </Editor>
         <div v-if="errors.has('description')"><span class="input-invalid-message">{{ errors.first('description') }}</span></div>
       </div>
       <div class="announcement-form-container-actions">
         <div class="buttons">
           <b-button type="is-light" @click="cancel">Cancel</b-button>
-          <b-button type="is-primary" @click="sendAnnouncement" :loading="isSubmitting || uploadingFile">Save</b-button>
+          <b-button type="is-primary" @click="sendAnnouncement" :loading="isSubmitting">Save</b-button>
         </div>
       </div>
     </div>
@@ -60,10 +55,5 @@
         justify-content: flex-end;
       }
     }
-  }
-
-  .editor {
-    height: 50vh;
-    margin-bottom: 0.5rem;
   }
 </style>

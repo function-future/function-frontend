@@ -1,14 +1,10 @@
 import { mapActions, mapGetters } from 'vuex'
-import BaseInput from '@/components/BaseInput'
-import BaseButton from '@/components/BaseButton'
-import BaseTextArea from '@/components/BaseTextArea'
+import Editor from '@/components/editor/Editor'
 
 export default {
   name: 'announcementForm',
   components: {
-    BaseInput,
-    BaseButton,
-    BaseTextArea
+    Editor
   },
   data () {
     return {

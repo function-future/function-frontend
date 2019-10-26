@@ -24,6 +24,8 @@
     "node-sass": "^4.12.0",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
+    "tiptap": "^1.26.4",
+    "tiptap-extensions": "^1.28.4",
     "v-calendar": "^1.0.0-beta.14",
     "vee-validate": "^2.2.7",
     "vue": "^2.5.21",
