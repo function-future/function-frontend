@@ -63,7 +63,7 @@
   }
 
   .editor {
-    height: 45vh;
+    height: 50vh;
     margin-bottom: 0.5rem;
   }
 </style>

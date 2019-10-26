@@ -60,58 +60,5 @@
         padding-left: 0.5rem;
       }
     }
-
-    &__content {
-
-    }
-  }
-
-  .card {
-    min-height: 80vh;
-  }
-
-  .header {
-    display: inline-block;
-  }
-
-  .title {
-    margin: 5px 0 5px 0;
-  }
-
-  .date {
-    padding: 5px 15px 5px 5px;
-    display: inline-block;
-  }
-
-  .float-right {
-    float: right;
-  }
-
-  .preview {
-    text-align: justify;
-  }
-
-  .action {
-    border-left: 1px solid #BDBDBD;
-    padding-left: 15px;
-    display: inline-block;
-  }
-
-  .action span {
-    padding: 5px;
-    transition: all .2s ease;
-  }
-
-  .action span:hover {
-    opacity: 0.8;
-  }
-
-  .action span:active {
-    opacity: 0.9;
-  }
-
-  h3 {
-    margin: 5px 0 15px 0;
-    text-align: left;
   }
 </style>
