@@ -72,6 +72,11 @@
           </button>
           <button
             class="menubar__button"
+            @click="showImagePrompt(commands.image)">
+            <icon name="image" />
+          </button>
+          <button
+            class="menubar__button"
             :class="{ 'is-active': isActive.blockquote() }"
             @click="commands.blockquote">
             <icon name="quote-right" />
@@ -99,29 +104,44 @@
           </button>
         </div>
       </editor-menu-bar>
-      <editor-menu-bubble :editor="editor" v-slot="{ commands, isActive, menu }">
+      <editor-menu-bubble :editor="editor" v-slot="{ commands, isActive, getMarkAttrs, menu }">
         <div
           class="menububble"
           :class="{ 'is-active': menu.isActive }"
           :style="`left: ${menu.left}px; bottom: ${menu.bottom}px;`">
-          <button
-            class="menububble__button"
-            :class="{ 'is-active': isActive.bold() }"
-            @click="commands.bold">
-            <icon name="bold" />
-          </button>
-          <button
-            class="menububble__button"
-            :class="{ 'is-active': isActive.italic() }"
-            @click="commands.italic">
-            <icon name="italic" />
-          </button>
-          <button
-            class="menububble__button"
-            :class="{ 'is-active': isActive.code() }"
-            @click="commands.code">
-            <icon name="code" />
-          </button>
+          <form class="menububble__form" v-if="linkMenuIsActive" @submit.prevent="setLinkUrl(commands.link, linkUrl)">
+            <input class="menububble__input" type="text" v-model="linkUrl" placeholder="https://" ref="linkInput" @keydown.esc="hideLinkMenu"/>
+            <button class="menububble__button" @click="setLinkUrl(commands.link, null)" type="button">
+              <icon name="times-circle" />
+            </button>
+          </form>
+          <template v-if="!linkMenuIsActive">
+            <button
+              class="menububble__button"
+              :class="{ 'is-active': isActive.bold() }"
+              @click="commands.bold">
+              <icon name="bold" />
+            </button>
+            <button
+              class="menububble__button"
+              :class="{ 'is-active': isActive.italic() }"
+              @click="commands.italic">
+              <icon name="italic" />
+            </button>
+            <button
+              class="menububble__button"
+              :class="{ 'is-active': isActive.code() }"
+              @click="commands.code">
+              <icon name="code" />
+            </button>
+            <button
+              class="menububble__button"
+              @click="showLinkMenu(getMarkAttrs('link'))"
+              :class="{ 'is-active': isActive.link() }">
+              <span>{{ isActive.link() ? 'Update Link' : 'Add Link'}}</span>
+              <icon name="link" />
+            </button>
+          </template>
         </div>
       </editor-menu-bubble>
       <editor-content class="editor__content content" autoFocus :editor="editor"/>
@@ -237,6 +257,7 @@
 
         a {
           color: inherit;
+          text-decoration: underline !important;
         }
 
         blockquote {
@@ -314,7 +335,7 @@
   .menububble {
     position: absolute;
     display: flex;
-    z-index: 20;
+    z-index: 50;
     background: #000000;
     border-radius: 5px;
     padding: 0.3rem;
@@ -362,6 +383,10 @@
       border: none;
       background: transparent;
       color: #FFFFFF;
+
+       &:focus {
+         outline: none;
+       }
     }
   }
 </style>
