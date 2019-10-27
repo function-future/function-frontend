@@ -125,7 +125,7 @@
       </editor-menu-bar>
       <editor-menu-bubble :editor="editor" v-slot="{ commands, isActive, getMarkAttrs, menu }">
         <div
-          class="menububble"
+          class="menububble is-hidden-touch"
           :class="{ 'is-active': menu.isActive }"
           :style="`left: ${menu.left}px; bottom: ${menu.bottom}px;`">
           <form class="menububble__form" v-if="linkMenuIsActive" @submit.prevent="setLinkUrl(commands.link, linkUrl)">
@@ -431,7 +431,6 @@
     visibility: hidden;
     opacity: 0;
     transition: opacity 0.2s, visibility 0.2s;
-    font-size: 0.5rem;
 
     &.is-active {
       background-color: #000000;
@@ -448,6 +447,7 @@
       text-align: left;
       cursor: pointer;
       padding: 0.5rem;
+      font-weight: normal;
 
       span {
         margin-left: 0.3rem;
