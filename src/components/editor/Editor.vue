@@ -75,8 +75,7 @@
             @click="imagebubble = true">
             <icon name="image" />
             <div class="imagebubble"
-                 v-if="imagebubble"
-                 @mouseover="imagebubble = true"
+                 :class="{ 'is-active': imagebubble }"
                  @mouseleave="imagebubble = false">
               <input type="file"
                      name="image"
@@ -424,9 +423,17 @@
     border-radius: 5px;
     padding: 0.2rem;
     color: #FFFFFF;
-    background: #000000;
+    background-color: #000000;
+    visibility: hidden;
+    opacity: 0;
     transition: opacity 0.2s, visibility 0.2s;
     font-size: 0.5rem;
+
+    &.is-active {
+      background-color: #000000;
+      opacity: 1;
+      visibility: visible;
+    }
 
     &-button {
       position: relative;
