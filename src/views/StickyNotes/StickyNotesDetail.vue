@@ -42,12 +42,18 @@
 
     &__actions {
       @media only screen and (max-width: 1023px) {
+        display: flex;
+        flex-direction: column;
         position: fixed;
         right: 5vw;
         bottom: 75px;
         transition: all 0.1s ease-in-out;
-        box-shadow: 2px 2px 16px 4px rgba(0, 0, 0, 0.2);
         border-radius: 50%;
+
+        button {
+          margin: 0.25rem 0;
+          box-shadow: 2px 2px 16px 4px rgba(0, 0, 0, 0.1);
+        }
       }
     }
 
@@ -59,6 +65,10 @@
         border-left: 1px solid #BDBDBD;
         padding-left: 0.5rem;
       }
+    }
+
+    &__content {
+      margin-bottom: 15vh;
     }
   }
 </style>

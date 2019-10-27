@@ -13,6 +13,10 @@
         <div v-if="errors.has('title')"><span class="input-invalid-message">{{ errors.first('title') }}</span></div>
       </div>
       <div class="announcement-form-container-description">
+        <input type="hidden"
+               v-model="announcementDetail.description"
+               name="description"
+               v-validate.disable="'required'" />
         <Editor label="Description"
                 v-model="announcementDetail.description"
                 placeholder="Insert description here">
