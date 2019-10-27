@@ -9,10 +9,8 @@ export default {
   data () {
     return {
       announcementDetail: {},
-      img_file: {},
       imageIds: [],
-      isSubmitting: false,
-      pos: ''
+      isSubmitting: false
     }
   },
   props: [
@@ -120,12 +118,10 @@ export default {
     cancel () {
       this.$router.push({ name: 'announcements' })
     },
-    $imgAdd (pos, $file) {
+    $imgAdd ($file) {
       this.uploadingFile = true
-      this.pos = pos
       let data = new FormData()
       data.append('file', $file)
-      this.img_file[pos] = $file
       let configuration = { headers: { 'Content-Type': 'multipart/form-data' } }
 
       this.uploadResource({
@@ -137,15 +133,12 @@ export default {
     },
     successUploadResource (response) {
       this.uploadingFile = false
-      this.$refs.md.$img2Url(this.pos, response.file.full)
+      this.$refs.editor.addImage(response.file.full)
       this.imageIds.push(response.id)
     },
     failUploadResource () {
       this.uploadingFile = false
       this.$toasted.error('Fail to upload image, please delete the image and re-upload')
-    },
-    $imgDel (pos) {
-      delete this.img_file[pos]
     }
   }
 }

@@ -27,7 +27,7 @@
     align-items: center;
     width: 0.8rem;
     height: 0.8rem;
-    margin: 0 .3rem;
+    margin: 0;
     fill: currentColor;
 
     &__svg {

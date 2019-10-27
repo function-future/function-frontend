@@ -19,6 +19,8 @@
                v-validate.disable="'required'" />
         <Editor label="Description"
                 v-model="announcementDetail.description"
+                ref="editor"
+                @imgUpload="$imgAdd"
                 placeholder="Insert description here">
         </Editor>
         <div v-if="errors.has('description')"><span class="input-invalid-message">{{ errors.first('description') }}</span></div>

@@ -75,7 +75,10 @@ export default {
       editor: null,
       editorChange: false,
       linkUrl: null,
-      linkMenuIsActive: false
+      linkMenuIsActive: false,
+      file: null,
+      imageCommand: null,
+      imagebubble: false
     }
   },
   methods: {
@@ -98,7 +101,17 @@ export default {
       const src = prompt('Enter the url of your image here')
       if (src !== null) {
         command({ src })
-        this.$emit('imgUpload', { src: this.src })
+      }
+    },
+    onFileChange (command) {
+      this.imageCommand = command
+      this.file = this.$refs.file.files[0]
+      this.$emit('imgUpload', { file: this.file })
+    },
+    addImage (src) {
+      if (this.src !== null) {
+        const command = this.imageCommand
+        command({ src })
       }
     }
   },

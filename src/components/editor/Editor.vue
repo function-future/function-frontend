@@ -71,9 +71,25 @@
             <icon name="list-ol" />
           </button>
           <button
-            class="menubar__button"
-            @click="showImagePrompt(commands.image)">
+            class="menubar__button imagebubble-button"
+            @click="imagebubble = true">
             <icon name="image" />
+            <div class="imagebubble"
+                 v-if="imagebubble"
+                 @mouseover="imagebubble = true"
+                 @mouseleave="imagebubble = false">
+              <input type="file"
+                     name="image"
+                     id="image-upload"
+                     accept=".jpg, .jpeg, .png"
+                     ref="file"
+                     @change="onFileChange(commands.image)"
+                     style="display: none"/>
+              <label class="imagebubble-menu" for="image-upload">Upload Image</label>
+              <div class="imagebubble-menu" @click="showImagePrompt(commands.image)">
+                <span>Paste Link</span>
+              </div>
+            </div>
           </button>
           <button
             class="menubar__button"
@@ -138,7 +154,7 @@
               class="menububble__button"
               @click="showLinkMenu(getMarkAttrs('link'))"
               :class="{ 'is-active': isActive.link() }">
-              <span>{{ isActive.link() ? 'Update Link' : 'Add Link'}}</span>
+              <span class="menububble-text">{{ isActive.link() ? 'Update Link' : 'Add Link'}}</span>
               <icon name="link" />
             </button>
           </template>
@@ -150,6 +166,9 @@
 </template>
 
 <script src="./js/editor.js"></script>
+
+
+
 
 <style lang="scss" scoped>
   .menubar {
@@ -350,6 +369,10 @@
       visibility: visible;
     }
 
+    &-text {
+      margin-right: 0.3rem;
+    }
+
     &__button {
       display: inline-flex;
       background: transparent;
@@ -384,9 +407,39 @@
       background: transparent;
       color: #FFFFFF;
 
-       &:focus {
-         outline: none;
-       }
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+
+  .imagebubble {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    width: 100px;
+    z-index: 50;
+    top: 25px;
+    left: 0;
+    border-radius: 5px;
+    padding: 0.2rem;
+    color: #FFFFFF;
+    background: #000000;
+    transition: opacity 0.2s, visibility 0.2s;
+    font-size: 0.5rem;
+
+    &-button {
+      position: relative;
+    }
+
+    &-menu {
+      text-align: left;
+      cursor: pointer;
+      padding: 0.5rem;
+
+      &:hover {
+        background-color: rgba(#FFFFFF, 0.1);
+      }
     }
   }
 </style>
