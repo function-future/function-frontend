@@ -45,6 +45,7 @@
       display: flex;
       flex-direction: column;
       padding: 1rem 1.25rem;
+      margin-bottom: 2rem;
 
       &-title {
         margin-bottom: 0.5rem;
