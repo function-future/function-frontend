@@ -84,8 +84,12 @@
                      ref="file"
                      @change="onFileChange(commands.image)"
                      style="display: none"/>
-              <label class="imagebubble-menu" for="image-upload">Upload Image</label>
+              <label class="imagebubble-menu" for="image-upload">
+                <icon name="upload" />
+                <span>Upload Image</span>
+              </label>
               <div class="imagebubble-menu" @click="showImagePrompt(commands.image)">
+                <icon name="copy" />
                 <span>Paste Link</span>
               </div>
             </div>
@@ -416,7 +420,7 @@
     position: absolute;
     display: flex;
     flex-direction: column;
-    width: 100px;
+    width: 110px;
     z-index: 50;
     top: 25px;
     left: 0;
@@ -440,9 +444,14 @@
     }
 
     &-menu {
+      display: flex;
       text-align: left;
       cursor: pointer;
       padding: 0.5rem;
+
+      span {
+        margin-left: 0.3rem;
+      }
 
       &:hover {
         background-color: rgba(#FFFFFF, 0.1);
