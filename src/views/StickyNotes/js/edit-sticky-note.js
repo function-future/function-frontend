@@ -1,37 +1,12 @@
 import { mapActions, mapGetters } from 'vuex'
+import Editor from '@/components/editor/Editor'
 
 export default {
+  components: {
+    Editor
+  },
   data () {
     return {
-      toolbars: {
-        bold: true,
-        italic: true,
-        header: true,
-        underline: true,
-        strikethrough: true,
-        mark: true,
-        superscript: true,
-        subscript: true,
-        quote: true,
-        ol: true,
-        ul: true,
-        link: true,
-        imagelink: false,
-        code: true,
-        table: true,
-        fullscreen: true,
-        readmodel: true,
-        htmlcode: false,
-        help: true,
-        undo: false,
-        redo: false,
-        trash: false,
-        save: false,
-        navigation: true,
-        alignleft: true,
-        subfield: true,
-        preview: true
-      },
       stickyNote: {
         title: '',
         description: ''

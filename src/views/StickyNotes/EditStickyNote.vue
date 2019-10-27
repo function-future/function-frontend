@@ -6,19 +6,22 @@
           <b-input autofocus
                    v-model="stickyNote.title"
                    name="title"
+                   placeholder="Insert title here"
                    v-validate.disable="'required'">
           </b-input>
         </b-field>
       </div>
       <div v-if="errors.has('title')"><span class="input-invalid-message">{{ errors.first('title') }}</span></div>
       <div class="edit-sticky-note__container-description">
-        <mavon-editor class="editor"
-                      placeholder="Sticky Note Description"
-                      language="en"
-                      v-model="stickyNote.description"
-                      :toolbars="toolbars"
-                      v-validate.disable="'required'"
-                      name="description"></mavon-editor>
+        <input type="hidden"
+               v-model="stickyNote.description"
+               name="description"
+               v-validate.disable="'required'" />
+        <Editor label="Description"
+                v-model="stickyNote.description"
+                ref="editor"
+                placeholder="Insert description here">
+        </Editor>
       </div>
       <div v-if="errors.has('description')"><span class="input-invalid-message">{{ errors.first('description') }}</span></div>
       <div class="edit-sticky-note__container-actions">
@@ -44,7 +47,7 @@
       padding: 1rem 1.25rem;
 
       &-title {
-        margin-bottom: 1rem;
+        margin-bottom: 0.5rem;
       }
 
       &-description {
