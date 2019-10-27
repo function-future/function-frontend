@@ -45,6 +45,7 @@
 
 <script type="text/javascript" src="./js/announcement-detail.js"></script>
 
+
 <style lang="scss" scoped>
   @import "@/assets/css/main.scss";
 
@@ -53,6 +54,10 @@
       display: flex;
       flex-direction: column;
       padding: 1rem 1.25rem;
+
+      button {
+        margin: 0 0.25rem;
+      }
 
       &__actions {
         @media only screen and (max-width: 1023px) {
@@ -82,7 +87,9 @@
       }
 
       &__content {
-        margin-bottom: 15vh;
+        @media only screen and (max-width: 1023px) {
+          margin-bottom: 15vh;
+        }
       }
     }
   }

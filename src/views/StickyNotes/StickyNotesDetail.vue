@@ -68,7 +68,9 @@
     }
 
     &__content {
-      margin-bottom: 15vh;
+      @media only screen and (max-width: 1023px) {
+        margin-bottom: 15vh;
+      }
     }
   }
 </style>
