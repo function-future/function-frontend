@@ -50,6 +50,11 @@
                   Delete
                 </span>
               </b-dropdown-item>
+              <b-dropdown-item
+                aria-role="listitem"
+                class="is-hidden-desktop">
+                <b-button type="is-light" expanded>Cancel</b-button>
+              </b-dropdown-item>
             </b-dropdown>
           </template>
         </ListItem>
