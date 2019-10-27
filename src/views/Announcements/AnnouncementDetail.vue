@@ -10,7 +10,7 @@
           Edit
         </b-button>
         <b-button rounded
-                  icon-left="pen"
+                  icon-left="trash"
                   type="is-danger"
                   @click="openDeleteConfirmationModal"
                   v-if="accessList.delete">
