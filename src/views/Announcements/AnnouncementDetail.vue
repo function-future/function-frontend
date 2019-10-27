@@ -45,7 +45,6 @@
 
 <script type="text/javascript" src="./js/announcement-detail.js"></script>
 
-
 <style lang="scss" scoped>
   @import "@/assets/css/main.scss";
 

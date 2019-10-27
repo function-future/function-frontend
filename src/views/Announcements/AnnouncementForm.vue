@@ -41,6 +41,7 @@
   .announcement-form {
     &-container {
       padding: 1rem 1.25rem;
+      margin-bottom: 2rem;
 
       &-title {
         display: flex;
