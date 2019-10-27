@@ -36,7 +36,9 @@ export default {
     this.editor = new Editor({
       onUpdate: ({ getHTML }) => {
         this.editorChange = true
-        this.$emit('input', getHTML())
+        let html = getHTML()
+        if (html === '<p></p>') html = ''
+        this.$emit('input', html)
       },
       extensions: [
         new Blockquote(),
