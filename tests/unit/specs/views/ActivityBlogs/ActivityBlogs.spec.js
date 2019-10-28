@@ -218,7 +218,7 @@ describe('ActivityBlogs', () => {
     expect(wrapper.vm.paging).toEqual(paging)
   })
 
-  test('loadPage', () => {fea
+  test('loadPage', () => {
     const spy = jest.spyOn(wrapper.vm, 'initPage')
     wrapper.vm.loadPage(1)
     expect(wrapper.vm.paging.page).toEqual(1)
