@@ -54,7 +54,10 @@ describe('LandingPageAdmin', () => {
       stubs: [
         'BaseCard',
         'BaseButton',
-        'font-awesome-icon'
+        'font-awesome-icon',
+        'b-tabs',
+        'b-tab-item',
+        'b-icon'
       ],
       mocks: {
         $toasted: {
@@ -62,7 +65,6 @@ describe('LandingPageAdmin', () => {
           success: jest.fn()
         }
       },
-      attachToDocument: true,
       sync: false
     })
   }
@@ -222,5 +224,201 @@ describe('LandingPageAdmin', () => {
     expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
     expect(wrapper.vm.$toasted.error).toHaveBeenCalledWith('Please select batch')
     expect(wrapper.vm.state.complete).toHaveBeenCalledTimes(1)
+  })
+
+  test('textPreview', () => {
+    initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'showLimitedPreviewText')
+    const markdown = 'Lorem Ipsum Dolor Sit Amet'
+    wrapper.vm.textPreview(markdown)
+    expect(spy).toBeCalledWith('Lorem Ipsum Dolor Sit Amet')
+  })
+
+  test('showLimitedPreviewText > 250 characters', () => {
+    initComponent()
+    const text = 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.'
+    expect(wrapper.vm.showLimitedPreviewText(text)).toEqual(text.slice(0, 250) + '...')
+  })
+
+  test('goToEditItem with questionBankDetail as the target', () => {
+    initComponent()
+    wrapper.vm.$router.push = jest.fn()
+    wrapper.vm.selectedTab = 0
+    wrapper.vm.goToEditItem(1)
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
+      name: 'questionBankDetail',
+      params: {
+        bankId: 1
+      }
+    })
+  })
+
+  test('goToEditItem with quizDetail as the target', () => {
+    initComponent()
+    wrapper.vm.$router.push = jest.fn()
+    wrapper.vm.selectedTab = 1
+    wrapper.vm.batchCode = 'futurre3'
+    wrapper.vm.goToEditItem(1)
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
+      name: 'quizDetail',
+      params: {
+        quizId: 1,
+        batchCode: 'futurre3'
+      }
+    })
+  })
+
+  test('goToEditItem with assignmentDetail as the target', () => {
+    initComponent()
+    wrapper.vm.$router.push = jest.fn()
+    wrapper.vm.selectedTab = 2
+    wrapper.vm.batchCode = 'futurre3'
+    wrapper.vm.goToEditItem(1)
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
+      name: 'assignmentDetail',
+      params: {
+        assignmentId: 1,
+        batchCode: 'futurre3'
+      }
+    })
+  })
+
+  test('openDeleteConfirmationModal', () => {
+    initComponent()
+    wrapper.vm.isVisibleDeleteModal = false
+    wrapper.vm.selectedId = ''
+    wrapper.vm.openDeleteConfirmationModal(1)
+    expect(wrapper.vm.isVisibleDeleteModal).toEqual(true)
+    expect(wrapper.vm.selectedId).toEqual(1)
+  })
+
+  test('closeDeleteConfirmationModal', () => {
+    initComponent()
+    wrapper.vm.isVisibleDeleteModal = true
+    wrapper.vm.selectedId = 1
+    wrapper.vm.closeDeleteConfirmationModal()
+    expect(wrapper.vm.isVisibleDeleteModal).toEqual(false)
+    expect(wrapper.vm.selectedId).toEqual('')
+  })
+
+  test('deleteItem with questionBank as active tab', () => {
+    initComponent()
+    wrapper.vm.selectedTab = 0
+    const spy = jest.spyOn(wrapper.vm, 'deleteQuestionBank')
+    wrapper.vm.deleteItem()
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('deleteItem with quiz as active tab', () => {
+    initComponent()
+    wrapper.vm.selectedTab = 1
+    const spy = jest.spyOn(wrapper.vm, 'deleteQuiz')
+    wrapper.vm.deleteItem()
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('deleteItem with assignment as active tab', () => {
+    initComponent()
+    wrapper.vm.selectedTab = 2
+    const spy = jest.spyOn(wrapper.vm, 'deleteAssignment')
+    wrapper.vm.deleteItem()
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('deleteQuestionBank', () => {
+    initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'deleteQuestionBankById')
+    wrapper.vm.deleteQuestionBank()
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('deleteQuiz', () => {
+    initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'deleteQuizById')
+    wrapper.vm.deleteQuiz()
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('deleteAssignment', () => {
+    initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'deleteAssignmentById')
+    wrapper.vm.deleteAssignment()
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('successDeletingItem', () => {
+    initComponent()
+    const modalSpy = jest.spyOn(wrapper.vm, 'closeDeleteConfirmationModal')
+    const resetSpy = jest.spyOn(wrapper.vm, 'resetData')
+    wrapper.vm.selectedTab = 0
+    wrapper.vm.successDeletingItem()
+    expect(wrapper.vm.$toasted.success).toHaveBeenCalledWith('Successfully deleted Question Bank')
+    expect(modalSpy).toHaveBeenCalledTimes(1)
+    expect(resetSpy).toHaveBeenCalledTimes(1)
+  })
+
+  test('failDeletingItem', () => {
+    initComponent()
+    wrapper.vm.failDeletingItem()
+    expect(wrapper.vm.$toasted.error).toHaveBeenCalledWith('Something went wrong')
+  })
+
+  test('goToItemDetail with Question Bank as the active tab', () => {
+    initComponent()
+    wrapper.vm.$router.push = jest.fn()
+    wrapper.vm.selectedTab = 0
+    wrapper.vm.goToItemDetail(1)
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
+      name: 'questionBankQuestionList',
+      params: {
+        bankId: 1
+      }
+    })
+  })
+
+  test('goToItemDetail with Quiz as the active tab', () => {
+    initComponent()
+    wrapper.vm.$router.push = jest.fn()
+    wrapper.vm.selectedTab = 1
+    wrapper.vm.batchCode = 'futurre3'
+    wrapper.vm.goToItemDetail(1)
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
+      name: 'quizDetail',
+      params: {
+        quizId: 1,
+        batchCode: 'futurre3'
+      }
+    })
+  })
+
+  test('goToItemDetail with Assignemnt as the active tab', () => {
+    initComponent()
+    wrapper.vm.$router.push = jest.fn()
+    wrapper.vm.selectedTab = 2
+    wrapper.vm.batchCode = 'futurre3'
+    wrapper.vm.goToItemDetail(1)
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
+      name: 'assignmentDetail',
+      params: {
+        assignmentId: 1,
+        batchCode: 'futurre3'
+      }
+    })
+  })
+
+  test('selectBatch', () => {
+    initComponent()
+    wrapper.vm.batchCode = ''
+    wrapper.vm.isVisibleBatchModal = true
+    wrapper.vm.selectBatch('futurre3')
+    expect(wrapper.vm.batchCode).toEqual('futurre3')
+    expect(wrapper.vm.isVisibleBatchModal).toEqual(false)
+  })
+
+  test('closeModal', () => {
+    initComponent()
+    wrapper.vm.isVisibleBatchModal = true
+    wrapper.vm.closeModal()
+    expect(wrapper.vm.isVisibleBatchModal).toEqual(false)
   })
 })
