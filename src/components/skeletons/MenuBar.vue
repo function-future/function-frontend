@@ -4,7 +4,7 @@
       <b-menu-item class="menu-item"
                    label="Feeds"
                    tag="router-link" exact
-                   :active="false"
+                   :active="isActive('feeds')"
                    :to="{ name: 'feeds' }">
       </b-menu-item>
       <b-menu-item class="menu-item"
