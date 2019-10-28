@@ -228,35 +228,7 @@ describe('Announcements', () => {
     })
   })
 
-  test('textPreview with summary', () => {
-    const spy = jest.spyOn(announcements.methods, 'showLimitedPreviewText')
-    const $route = {
-      path: '/announcements',
-      name: 'announcements',
-      meta: {
-        title: 'Announcements'
-      }
-    }
-    const $router = {
-      push: jest.fn()
-    }
-    wrapper = shallowMount(announcements, {
-      store,
-      localVue,
-      mocks: {
-        $route,
-        $router
-      },
-      sync: false
-    })
-    const announcement = {
-      summary: 'Summary goes here. Maximum 70 characters?'
-    }
-    wrapper.vm.textPreview(announcement)
-    expect(spy).toBeCalledWith('Summary goes here. Maximum 70 characters?')
-  })
-
-  test('textPreview without summary', () => {
+  test('textPreview', () => {
     const spy = jest.spyOn(announcements.methods, 'showLimitedPreviewText')
     const $route = {
       path: '/announcements',

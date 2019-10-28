@@ -71,11 +71,7 @@ export default {
       this.$toasted.error('Fail to load announcement list')
     },
     textPreview: function (announcement) {
-      if (announcement.summary) {
-        return this.showLimitedPreviewText(announcement.summary.replace(/\!\[.*\]\(.*\)/,''))
-      } else {
-        return marked(this.showLimitedPreviewText(announcement.description.replace(/\!\[.*\]\(.*\)/,'')))
-      }
+      return marked(this.showLimitedPreviewText(announcement.description.replace(/\!\[.*\]\(.*\)/,'')))
     },
     showLimitedPreviewText: function (text) {
       let maximumCharacters = 250
