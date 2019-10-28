@@ -464,20 +464,4 @@ describe('Announcements', () => {
     expect(wrapper.vm.paging.page).toEqual(1)
     expect(spy).toHaveBeenCalledTimes(1)
   })
-
-  test('loadPreviousPage', () => {
-    const spy = jest.spyOn(wrapper.vm, 'loadAnnouncementList')
-    wrapper.vm.paging.page = 2
-    wrapper.vm.loadPreviousPage()
-    expect(wrapper.vm.paging.page).toEqual(1)
-    expect(spy).toHaveBeenCalledTimes(1)
-  })
-
-  test('loadNextPage', () => {
-    const spy = jest.spyOn(wrapper.vm, 'loadAnnouncementList')
-    wrapper.vm.paging.page = 2
-    wrapper.vm.loadNextPage()
-    expect(wrapper.vm.paging.page).toEqual(3)
-    expect(spy).toHaveBeenCalledTimes(1)
-  })
 })

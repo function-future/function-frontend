@@ -9,8 +9,8 @@
           Add
         </b-button>
       </div>
-      <div v-if="isLoading" class="loading">
-        <font-awesome-icon icon="spinner" spin class="icon-loading" size="lg"></font-awesome-icon>
+      <div v-if="isLoading">
+        <ListItem v-for="n in 4" v-bind:key="n" :loading="isLoading"></ListItem>
       </div>
       <div v-if="!isLoading">
         <ListItem @click="goToAnnouncementDetail(announcement.id)"
@@ -59,11 +59,17 @@
           </template>
         </ListItem>
       </div>
-      <BasePagination :paging="paging"
-                      @loadPage="loadPage"
-                      @previousPage="loadPreviousPage"
-                      @nextPage="loadNextPage">
-      </BasePagination>
+      <div class="pagination-wrapper" v-if="!isLoading">
+        <b-pagination
+          :total="paging.totalRecords"
+          :current.sync="paging.currentPage"
+          :per-page="paging.size"
+          @change="loadPage"
+          range-before="1"
+          range-after="2"
+          order="is-centered">
+        </b-pagination>
+      </div>
       <modal-delete-confirmation v-if="showDeleteConfirmationModal"
                                  @close="closeDeleteConfirmationModal"
                                  @clickDelete="deleteThisAnnouncement">
@@ -81,6 +87,7 @@
   .announcements {
     &__container {
       padding: 1rem 1.25rem;
+      margin-bottom: 10vh;
     }
 
     &__actions {
@@ -138,11 +145,9 @@
     }
   }
 
-  .loading {
-    margin-top: 50px;
-    margin-bottom: 25px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .pagination {
+    &-wrapper {
+      margin: 1rem 0.5rem;
+    }
   }
 </style>

@@ -4,18 +4,23 @@
       <div class="list-container__content" v-on="$listeners" v-bind="$attrs">
         <div class="list-container__content-header">
           <div class="list-container__content-header-title has-text-weight-bold">
-            <slot name="title"></slot>
+            <SkeletonBox v-if="loading" height="1.25rem" :min-width="40" :max-width="70"></SkeletonBox>
+            <slot v-else name="title"></slot>
           </div>
           <div class="list-container__content-header-info">
-            <slot name="info"></slot>
+            <SkeletonBox v-if="loading" :min-width="10" :max-width="15"></SkeletonBox>
+            <slot v-else name="info"></slot>
           </div>
         </div>
         <div class="list-container__content-content">
-          <slot name="content"></slot>
+          <SkeletonBox v-if="loading" :min-width="70" :max-width="80"></SkeletonBox>
+          <SkeletonBox v-if="loading" :min-width="50" :max-width="80"></SkeletonBox>
+          <SkeletonBox v-if="loading" :min-width="60" :max-width="80"></SkeletonBox>
+          <slot v-else name="content"></slot>
         </div>
       </div>
       <div class="list-container__actions">
-        <slot name="actions"></slot>
+        <slot v-if="!loading" name="actions"></slot>
       </div>
     </div>
   </div>
@@ -46,6 +51,7 @@
 
           &-title {
             max-width: 55vw;
+            margin-bottom: 0.25rem;
 
             @media only screen and (max-width: 1023px) {
               max-width: 65vw;

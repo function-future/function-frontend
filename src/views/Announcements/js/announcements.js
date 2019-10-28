@@ -1,15 +1,13 @@
 import { mapActions, mapGetters } from 'vuex'
 import ListItem from '@/components/list/ListItem'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
-import BasePagination from '@/components/BasePagination'
 let marked = require('marked')
 
 export default {
   name: 'announcements',
   components: {
     ListItem,
-    ModalDeleteConfirmation,
-    BasePagination
+    ModalDeleteConfirmation
   },
   data () {
     return {
@@ -38,7 +36,7 @@ export default {
       'deleteAnnouncementById'
     ]),
     goToAnnouncementDetail (id) {
-      this.$router.push({
+      id && this.$router.push({
         name: 'announcementDetail',
         params: { id: id }
       })
@@ -114,14 +112,6 @@ export default {
     },
     loadPage (page) {
       this.paging.page = page
-      this.loadAnnouncementList()
-    },
-    loadPreviousPage () {
-      this.paging.page = this.paging.page - 1
-      this.loadAnnouncementList()
-    },
-    loadNextPage () {
-      this.paging.page = this.paging.page + 1
       this.loadAnnouncementList()
     }
   }
