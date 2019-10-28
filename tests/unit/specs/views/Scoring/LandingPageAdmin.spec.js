@@ -218,7 +218,7 @@ describe('LandingPageAdmin', () => {
       loaded: jest.fn(),
       complete: jest.fn()
     }
-    wrapper.vm.failFetchingQuestionBankList()
+    wrapper.vm.failFetchingListData()
     expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
     expect(wrapper.vm.$toasted.error).toHaveBeenCalledWith('Please select batch')
     expect(wrapper.vm.state.complete).toHaveBeenCalledTimes(1)
