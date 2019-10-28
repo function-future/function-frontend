@@ -1,10 +1,23 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
 
 .auto-overflow-container {
-  @media only screen and (min-width: 1023px) {
-    height: 85vh;
-    overflow-y: auto;
+  height: 85vh;
+  overflow-x: auto;
+
+  @media only screen and (max-width: 1023px) {
+    height: 89vh;
+    padding-bottom: 1.25rem;
   }
+}
+
+.is-rounded {
+  border-radius: 0.5rem;
+}
+
+.ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .buttons {
@@ -15,6 +28,44 @@
   .button {
     margin-bottom: .5rem;
   }
+}
+
+.icon {
+  margin-right: 1rem;
+
+  @media only screen and (max-width: 768px) {
+    margin-top: 0;
+  }
+
+  &-wrapper {
+    display: flex;
+    align-items: center;
+  }
+}
+
+/deep/ {
+  .dropdown.is-mobile-modal>.dropdown-menu {
+    @media screen and (max-width: 1023px) {
+      width: 100vw;
+      max-width: 100%;
+      top: 100% !important;
+      max-height: calc(100vh - 120px);
+      transform: translate3d(-50%,-100%,0);
+    }
+  }
+
+  .dropdown-content {
+    @media screen and (max-width: 1023px) {
+      border-radius: 0.75rem 0.75rem 0 0;
+    }
+  }
+}
+
+.input-invalid-message {
+  color: #FF0000;
+  font-size: 0.75em;
+  float: left;
+  margin-left: 0.5rem;
 }
 
 .blue {

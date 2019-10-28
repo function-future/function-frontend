@@ -90,34 +90,7 @@ describe('AnnouncementDetail.vue', () => {
     expect(wrapper.isVueInstance()).toBe(true)
   })
 
-  test('route url is correct with params', () => {
-    const wrapper = shallowMount(AnnouncementDetail, {
-      store,
-      localVue,
-      router
-    })
-    expect(wrapper.vm.$route.path).toBe('/announcements/sample-id/detail')
-  })
-
-  test('Render template correctly', () => {
-    const wrapper = shallowMount(AnnouncementDetail, {
-      store,
-      localVue,
-      router
-    })
-    expect(wrapper.find('.header').text()).toBe('Announcement 1')
-  })
-
-  test('Render components correctly', () => {
-    const wrapper = shallowMount(AnnouncementDetail, {
-      store,
-      localVue,
-      router
-    })
-    expect(wrapper.html()).toContain('basecard')
-  })
-
-  test('goToEditAnnouncement', async () => {
+  test('goToEditAnnouncement', () => {
     const push = jest.fn()
     const $route = {
       params: {
@@ -139,8 +112,7 @@ describe('AnnouncementDetail.vue', () => {
       sync: false
     })
     wrapper.vm.$router.push = push
-    wrapper.find('.edit-btn').trigger('click')
-    await wrapper.vm.$nextTick()
+    wrapper.vm.goToEditAnnouncement()
     expect(push).toBeCalledWith({
       name: 'editAnnouncement',
       params: { id: 'sample-id' }

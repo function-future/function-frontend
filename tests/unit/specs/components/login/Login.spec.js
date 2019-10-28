@@ -12,7 +12,6 @@ describe('Login', () => {
   function generateLocalVue () {
     const lv = createLocalVue()
     lv.use(Vuex)
-    lv.use(VueRouter)
     lv.use(VeeValidate)
     return lv
   }
@@ -51,7 +50,6 @@ describe('Login', () => {
   }
 
   function createWrapper (store, options) {
-    const router = new VueRouter([])
     const $toasted = {
       error: jest.fn(),
       success: jest.fn()
@@ -60,7 +58,6 @@ describe('Login', () => {
       ...options,
       store,
       localVue,
-      router,
       stubs: [
         'BaseCard',
         'BaseButton',
@@ -69,7 +66,16 @@ describe('Login', () => {
         'font-awesome-icon'
       ],
       mocks: {
-        $toasted
+        $toasted,
+        $router: {
+          push: jest.fn()
+        },
+        $route: {
+          path: '/',
+          query: {
+            redirect: 'redirect'
+          }
+        }
       },
       sync: false
     })

@@ -171,31 +171,6 @@ describe('Announcements', () => {
     })
   })
 
-  test('goToAddAnnouncement is called @click', () => {
-    const spy = jest.spyOn(announcements.methods, 'goToAddAnnouncement')
-    const $route = {
-      path: '/announcements',
-      name: 'announcements',
-      meta: {
-        title: 'Announcements'
-      }
-    }
-    const $router = {
-      push: jest.fn()
-    }
-    wrapper = mount(announcements, {
-      store,
-      localVue,
-      mocks: {
-        $route,
-        $router
-      },
-      sync: false
-    })
-    wrapper.find('.button-save').trigger('click')
-    expect(spy).toBeCalledTimes(1)
-  })
-
   test('goToAddAnnouncement $route.push to addAnnouncement', () => {
     const push = jest.fn()
     const $route = {
@@ -253,35 +228,7 @@ describe('Announcements', () => {
     })
   })
 
-  test('textPreview with summary', () => {
-    const spy = jest.spyOn(announcements.methods, 'showLimitedPreviewText')
-    const $route = {
-      path: '/announcements',
-      name: 'announcements',
-      meta: {
-        title: 'Announcements'
-      }
-    }
-    const $router = {
-      push: jest.fn()
-    }
-    wrapper = shallowMount(announcements, {
-      store,
-      localVue,
-      mocks: {
-        $route,
-        $router
-      },
-      sync: false
-    })
-    const announcement = {
-      summary: 'Summary goes here. Maximum 70 characters?'
-    }
-    wrapper.vm.textPreview(announcement)
-    expect(spy).toBeCalledWith('Summary goes here. Maximum 70 characters?')
-  })
-
-  test('textPreview without summary', () => {
+  test('textPreview', () => {
     const spy = jest.spyOn(announcements.methods, 'showLimitedPreviewText')
     const $route = {
       path: '/announcements',
@@ -487,22 +434,6 @@ describe('Announcements', () => {
     const spy = jest.spyOn(wrapper.vm, 'loadAnnouncementList')
     wrapper.vm.loadPage(1)
     expect(wrapper.vm.paging.page).toEqual(1)
-    expect(spy).toHaveBeenCalledTimes(1)
-  })
-
-  test('loadPreviousPage', () => {
-    const spy = jest.spyOn(wrapper.vm, 'loadAnnouncementList')
-    wrapper.vm.paging.page = 2
-    wrapper.vm.loadPreviousPage()
-    expect(wrapper.vm.paging.page).toEqual(1)
-    expect(spy).toHaveBeenCalledTimes(1)
-  })
-
-  test('loadNextPage', () => {
-    const spy = jest.spyOn(wrapper.vm, 'loadAnnouncementList')
-    wrapper.vm.paging.page = 2
-    wrapper.vm.loadNextPage()
-    expect(wrapper.vm.paging.page).toEqual(3)
     expect(spy).toHaveBeenCalledTimes(1)
   })
 })

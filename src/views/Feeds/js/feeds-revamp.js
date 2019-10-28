@@ -1,9 +1,13 @@
 import { mapActions, mapGetters } from 'vuex'
+import ListItem from '@/components/list/ListItem'
 let marked = require('marked')
 const MAX_STICKY_NOTE_PREVIEW_LENGTH = 200
 
 export default {
   name: 'feeds',
+  components: {
+    ListItem
+  },
   data () {
     return {
       stickyNote: {},
