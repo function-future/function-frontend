@@ -55,7 +55,12 @@
       padding: 1rem 1.25rem;
 
       button {
-        margin: 0 0.25rem;
+        margin-left: 0.25rem;
+        margin-right: 0.25rem;
+
+        &:first-child {
+          margin-left: 0;
+        }
       }
 
       &__actions {
