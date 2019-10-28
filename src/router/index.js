@@ -62,7 +62,6 @@ import questionnaireResultsMembers from '@/views/Questionnaire/QuestionnaireResu
 import questionnaireResultsMemberDetail from '@/views/Questionnaire/QuestionnaireResultsMemberDetail'
 import questionnaireResultsQuestionnaireDetail from '@/views/Questionnaire/QuestionnaireResultsQuestionnaireDetail'
 import questionnaireResultsQuestionDetail from '@/views/Questionnaire/QuestionnaireResultsQuestionDetail'
-import login from '@/views/Auth/Login'
 import reminders from '@/views/Reminders/Reminders'
 import reminderForm from '@/views/Reminders/ReminderForm'
 import profile from '@/views/User/Profile'
@@ -85,14 +84,6 @@ const router = new Router({
   base: process.env.BASE_URL,
   linkActiveClass: 'is-active',
   routes: [
-    {
-      path: config.app.pages.auth.login,
-      name: 'login',
-      component: login,
-      meta: {
-        title: 'Login'
-      }
-    },
     {
       path: config.app.pages.user.profile,
       name: 'profile',
