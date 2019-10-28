@@ -49,6 +49,8 @@
 <script type="text/javascript" src="./js/activity-blog-detail.js"></script>
 
 <style lang="scss" scoped>
+  @import "@/assets/css/main.scss";
+
   .activity-blog-detail {
     &__container {
       display: flex;
