@@ -73,30 +73,29 @@
       </div>
     </div>
     <div class="announcements">
-      <div v-if="isLoadingAnnouncement" class="loading">
-        <font-awesome-icon icon="spinner"
-                           spin class="icon-loading"
-                           size="lg">
-        </font-awesome-icon>
+      <div v-if="isLoadingAnnouncement">
+        <ListItem v-for="n in 3" v-bind:key="n" :loading="isLoadingAnnouncement"></ListItem>
       </div>
       <div v-else>
         <div class="announcements__title is-size-5"
              @click="goToAnnouncementPage">
           <span>Announcements</span>
         </div>
-        <div class="columns is-multiline is-vcentered is-size-7-mobile">
-          <div class="column is-12 is-bordered announcements__item"
-               v-for="announcement in announcements"
-               v-bind:key="announcement.id"
-               @click="goToAnnouncementDetail(announcement.id)">
-            <div class="announcements__item-title is-size-6">
-              {{ announcement.title }}
-            </div>
-            <div class="announcements__item-description is-size-6">
+        <ListItem v-for="announcement in announcements"
+                  v-bind:key="announcement.id"
+                  @click="goToAnnouncementDetail(announcement.id)">
+          <template #title>
+            {{ announcement.title }}
+          </template>
+          <template #info>
+            {{ announcement.updatedAt |  moment("MMMM Do, YYYY") }}
+          </template>
+          <template #content>
+            <div class="wrap-word ellipsis">
               {{ announcementPreview(announcement) }}
             </div>
-          </div>
-        </div>
+          </template>
+        </ListItem>
       </div>
     </div>
   </div>
@@ -192,6 +191,8 @@
     padding: 1rem 1.25rem;
 
     &__title {
+      margin-left: 0.5rem;
+
       span {
         cursor: pointer;
         font-weight: bold;
@@ -200,24 +201,6 @@
           text-decoration: underline;
         }
       }
-
-      margin-bottom: 0.75rem;
-    }
-
-    &__item {
-      cursor: pointer;
-
-      &-title {
-        font-weight: bold;
-      }
-
-      &-description {
-        margin-top: 0.25rem;
-      }
-    }
-
-    .is-bordered {
-      border-bottom: #E7E7E7 1px solid;
     }
   }
 </style>

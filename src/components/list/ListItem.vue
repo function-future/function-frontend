@@ -37,6 +37,10 @@
       min-height: 100px;
       cursor: pointer;
       border-bottom: #E7E7E7 1px solid;
+
+      &:last-child {
+        border-bottom: none;
+      }
     }
 
     &-container {
