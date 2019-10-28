@@ -54,17 +54,20 @@
       flex-direction: column;
       padding: 1rem 1.25rem;
 
-      button {
-        margin-left: 0.25rem;
-        margin-right: 0.25rem;
-
-        &:first-child {
-          margin-left: 0;
-        }
-      }
-
       &__actions {
+        margin-bottom: 0.75rem;
+
+        button {
+          margin-left: 0.25rem;
+          margin-right: 0.25rem;
+
+          &:first-child {
+            margin-left: 0;
+          }
+        }
+
         @media only screen and (max-width: 1023px) {
+          margin-bottom: 0;
           display: flex;
           flex-direction: column;
           position: fixed;
@@ -81,7 +84,6 @@
       }
 
       &__header {
-        margin-top: 0.5rem;
         margin-bottom: 0.75rem;
 
         &__info {

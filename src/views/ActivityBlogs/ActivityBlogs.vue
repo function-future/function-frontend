@@ -36,8 +36,12 @@
               {{ activityBlog.title }}
             </template>
             <template #info>
-              <div @click.stop="goToUserBlog(activityBlog.author.id)">
-                by <span class="activity-blog__container-content-link">{{ activityBlog.author.name }}</span>
+              <div>
+                by
+                <span class="activity-blog__container-content-link"
+                      @click.stop="goToUserBlog(activityBlog.author.id)">
+                  {{ activityBlog.author.name }}
+                </span>
               </div>
               <div>{{ activityBlog.updatedAt | moment("dddd, MMMM Do YYYY") }}</div>
             </template>
