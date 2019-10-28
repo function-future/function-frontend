@@ -36,6 +36,9 @@ export default {
     ]),
     batchButtonText() {
       return this.batchCode || 'Select Batch'
+    },
+    tabTitle() {
+      return (this.selectedTab === 0) ? 'Question Bank' : (this.selectedTab === 1) ? 'Quiz' : 'Assignment'
     }
   },
   methods: {
@@ -183,17 +186,9 @@ export default {
         data: {
           id: this.selectedId
         },
-        callback: this.successDeletingQuestionBank,
-        fail: this.failDeletingQuestionBank
+        callback: this.successDeletingItem,
+        fail: this.failDeletingItem
       })
-    },
-    successDeletingQuestionBank () {
-      this.$toasted.success('Successfully deleted question bank')
-      this.closeDeleteConfirmationModal()
-      this.resetData()
-    },
-    failDeletingQuestionBank () {
-      this.$toasted.error('Something went wrong')
     },
     deleteQuiz() {
       this.deleteQuizById({
@@ -201,18 +196,9 @@ export default {
           batchCode: this.batchCode,
           id: this.selectedId
         },
-        callback: this.successDeletingQuiz,
-        fail: this.failedDeletingQuiz
+        callback: this.successDeletingItem,
+        fail: this.failDeletingItem
       })
-    },
-    successDeletingQuiz () {
-      this.$toasted.success('Successfully delete quiz')
-      this.closeDeleteConfirmationModal()
-      this.resetData()
-    },
-    failedDeletingQuiz () {
-      this.$toasted.error('Something went wrong')
-      this.closeDeleteConfirmationModal()
     },
     deleteAssignment() {
       this.deleteAssignmentById({
@@ -220,16 +206,16 @@ export default {
           batchCode: this.batchCode,
           id: this.selectedId
         },
-        callback: this.successDeletingAssignment,
-        fail: this.failDeletingAssignment
+        callback: this.successDeletingItem,
+        fail: this.failDeletingItem
       })
     },
-    successDeletingAssignment () {
-      this.$toasted.success('Successfully delete assignment')
+    successDeletingItem () {
+      this.$toasted.success('Successfully deleted ' + this.tabTitle)
       this.closeDeleteConfirmationModal()
       this.resetData()
     },
-    failDeletingAssignment () {
+    failDeletingItem () {
       this.$toasted.error('Something went wrong')
     },
     goToItemDetail(id) {
