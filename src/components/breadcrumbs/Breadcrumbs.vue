@@ -27,7 +27,8 @@
 
   .breadcrumb {
     color: #FFFFFF;
-    font-size: 1.2rem;
+    margin-top: 0.25rem;
+    font-size: 1rem;
     align-items: center;
     display: inline-flex;
     list-style-type: none;
