@@ -141,7 +141,21 @@ describe('LandingPageAdmin', () => {
     expect(spy).toHaveBeenCalledTimes(1)
   })
 
-  test('successFetchingQuestionBankList response is not yet empty', () => {
+  test('getQuizzes', () => {
+    initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'fetchQuizList')
+    wrapper.vm.getQuizzes()
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('getAssignments', () => {
+    initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'fetchAssignmentList')
+    wrapper.vm.getAssignments()
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('successFetchingListData response is not yet empty', () => {
     initComponent()
     wrapper.vm.state = {
       loaded: jest.fn(),
@@ -162,13 +176,13 @@ describe('LandingPageAdmin', () => {
       size: 2,
       totalRecords: 2
     }
-    wrapper.vm.successFetchingQuestionBankList(response, paging)
+    wrapper.vm.successFetchingListData(response, paging)
     expect(wrapper.vm.items).toEqual(response)
     expect(wrapper.vm.paging.page).toEqual(2)
     expect(wrapper.vm.state.loaded).toHaveBeenCalledTimes(1)
   })
 
-  test('successFetchingQuestionBankList response is empty', () => {
+  test('successFetchingListData response is empty', () => {
     initComponent()
     wrapper.vm.state = {
       loaded: jest.fn(),
@@ -180,7 +194,7 @@ describe('LandingPageAdmin', () => {
       size: 2,
       totalRecords: 2
     }
-    wrapper.vm.successFetchingQuestionBankList(response, paging)
+    wrapper.vm.successFetchingListData(response, paging)
     expect(wrapper.vm.items).toEqual([])
     expect(wrapper.vm.paging.page).toEqual(2)
     expect(wrapper.vm.state.complete).toHaveBeenCalledTimes(1)
@@ -194,69 +208,19 @@ describe('LandingPageAdmin', () => {
     }
     wrapper.vm.failFetchingQuestionBankList()
     expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(wrapper.vm.$toasted.error).toHaveBeenCalledWith('Something went wrong')
     expect(wrapper.vm.state.complete).toHaveBeenCalledTimes(1)
   })
 
-  test('getQuizzes', () => {
-    initComponent()
-    const spy = jest.spyOn(wrapper.vm, 'fetchQuizList')
-    wrapper.vm.getQuizzes()
-    expect(spy).toHaveBeenCalledTimes(1)
-  })
-
-  test('successFetchingQuizList response is not yet empty', () => {
+  test('failFetchingListData', () => {
     initComponent()
     wrapper.vm.state = {
       loaded: jest.fn(),
       complete: jest.fn()
     }
-    const response = [
-      {
-        "id":"5d57da87cea33323287dd313",
-        "title":"VueJS Question Bank",
-        "description":"This bank contains questions that relates to VueJS"
-      },
-      {"id":"5d57f531cea33323287dd39d",
-        "title":"Spring Boot #1",
-        "description":"Question bank of all Spring Boot related questions"
-      }]
-    const paging = {
-      page: 1,
-      size: 2,
-      totalRecords: 2
-    }
-    wrapper.vm.successFetchingQuizList(response, paging)
-    expect(wrapper.vm.items).toEqual(response)
-    expect(wrapper.vm.paging.page).toEqual(2)
-    expect(wrapper.vm.state.loaded).toHaveBeenCalledTimes(1)
-  })
-
-  test('successFetchingQuizList response is empty', () => {
-    initComponent()
-    wrapper.vm.state = {
-      loaded: jest.fn(),
-      complete: jest.fn()
-    }
-    const response = []
-    const paging = {
-      page: 2,
-      size: 2,
-      totalRecords: 2
-    }
-    wrapper.vm.successFetchingQuizList(response, paging)
-    expect(wrapper.vm.items).toEqual([])
-    expect(wrapper.vm.paging.page).toEqual(2)
-    expect(wrapper.vm.state.complete).toHaveBeenCalledTimes(1)
-  })
-
-  test('failFetchingQuizList', () => {
-    initComponent()
-    wrapper.vm.state = {
-      loaded: jest.fn(),
-      complete: jest.fn()
-    }
-    wrapper.vm.failFetchingQuizList()
+    wrapper.vm.failFetchingQuestionBankList()
     expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(wrapper.vm.$toasted.error).toHaveBeenCalledWith('Please select batch')
     expect(wrapper.vm.state.complete).toHaveBeenCalledTimes(1)
   })
 })

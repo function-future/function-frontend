@@ -75,11 +75,35 @@ export default {
           page: this.paging.page,
           pageSize: this.paging.size
         },
-        callback: this.successFetchingQuestionBankList,
+        callback: this.successFetchingListData,
         fail: this.failFetchingQuestionBankList
       })
     },
-    successFetchingQuestionBankList(response, paging) {
+    getQuizzes($state) {
+      this.state = $state
+      this.fetchQuizList({
+        data: {
+          batchCode: this.batchCode,
+          page: this.paging.page,
+          pageSize: this.paging.size
+        },
+        callback: this.successFetchingListData,
+        fail: this.failFetchingListData
+      })
+    },
+    getAssignments($state) {
+      this.state = $state
+      this.fetchAssignmentList({
+        data: {
+          batchCode: this.batchCode,
+          page: this.paging.page,
+          pageSize: this.paging.size
+        },
+        callback: this.successFetchingListData,
+        fail: this.failFetchingListData
+      })
+    },
+    successFetchingListData (response, paging) {
       this.paging = paging
       if (response.length) {
         this.items.push(...response)
@@ -93,55 +117,7 @@ export default {
       this.$toasted.error('Something went wrong')
       this.state.complete()
     },
-    getQuizzes($state) {
-      this.state = $state
-      this.fetchQuizList({
-        data: {
-          batchCode: this.batchCode,
-          page: this.paging.page,
-          pageSize: this.paging.size
-        },
-        callback: this.successFetchingQuizList,
-        fail: this.failFetchingQuizList
-      })
-    },
-    successFetchingQuizList (response, paging) {
-      this.paging = paging
-      if (response.length) {
-        this.items.push(...response)
-        this.paging.page++
-        this.state.loaded()
-      } else {
-        this.state.complete()
-      }
-    },
-    failFetchingQuizList () {
-      this.$toasted.error('Please select batch')
-      this.state.complete()
-    },
-    getAssignments($state) {
-      this.state = $state
-      this.fetchAssignmentList({
-        data: {
-          batchCode: this.batchCode,
-          page: this.paging.page,
-          pageSize: this.paging.size
-        },
-        callback: this.successFetchingAssignmentList,
-        fail: this.failFetchingAssignmentList
-      })
-    },
-    successFetchingAssignmentList (response, paging) {
-      this.paging = paging
-      if (response.length) {
-        this.items.push(...response)
-        this.paging.page++
-        this.state.loaded()
-      } else {
-        this.state.complete()
-      }
-    },
-    failFetchingAssignmentList () {
+    failFetchingListData () {
       this.$toasted.error('Please select batch')
       this.state.complete()
     },
