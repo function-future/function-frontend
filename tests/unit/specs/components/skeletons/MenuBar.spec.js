@@ -147,4 +147,8 @@ describe('MenuBar', () => {
     }
     expect(wrapper.vm.assignmentRoute).toEqual('assignmentBatch')
   })
+
+  test('isActive', () => {
+    expect(wrapper.vm.isActive('feeds')).toEqual(false)
+  })
 })

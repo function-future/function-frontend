@@ -34,6 +34,9 @@ export default {
     toggleQuestionnaireMenu () {
       this.questionnaireSubmenuVisibility = !this.questionnaireSubmenuVisibility
       if (this.gradesSubmenuVisibility) this.gradesSubmenuVisibility = !this.gradesSubmenuVisibility
+    },
+    isActive (name) {
+      return this.$route.name === name
     }
   }
 }
