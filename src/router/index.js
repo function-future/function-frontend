@@ -447,7 +447,11 @@ const router = new Router({
       component: users,
       meta: {
         auth: true,
-        title: 'Users'
+        title: 'Users',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Users', link: 'users' }
+        ]
       }
     },
     {

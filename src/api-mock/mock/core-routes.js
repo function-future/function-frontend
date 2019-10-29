@@ -1333,7 +1333,7 @@ export const discussions = [
 export const users = [
   {
     method: 'GET',
-    url: '/api/core/users?name=&page=1&size=10&role=STUDENT',
+    url: '/api/core/users?name=&page=1&size=20&role=STUDENT',
     response: {
       "code": 200,
       "status": "OK",
@@ -1437,14 +1437,14 @@ export const users = [
       ],
       'paging': {
         'page': 1,
-        'size': 10,
+        'size': 20,
         'totalRecords': 20
       }
     }
   },
   {
     method: 'GET',
-    url: '/api/core/users?name=kar&page=1&size=10&role=STUDENT',
+    url: '/api/core/users?name=kar&page=1&size=20&role=STUDENT',
     response: {
       "code": 200,
       "status": "OK",
@@ -1468,14 +1468,14 @@ export const users = [
       ],
       'paging': {
         'page': 1,
-        'size': 10,
+        'size': 20,
         'totalRecords': 1
       }
     }
   },
   {
     method: 'GET',
-    url: '/api/core/users?name=&page=1&size=10&role=MENTOR',
+    url: '/api/core/users?name=&page=1&size=20&role=MENTOR',
     response: {
       "code": 200,
       "status": "OK",
@@ -1503,14 +1503,14 @@ export const users = [
       ],
       'paging': {
         'page': 1,
-        'size': 10,
+        'size': 20,
         'totalRecords': 20
       }
     }
   },
   {
     method: 'GET',
-    url: '/api/core/users?name=&page=1&size=10&role=JUDGE',
+    url: '/api/core/users?name=&page=1&size=20&role=JUDGE',
     response: {
       "code": 200,
       "status": "OK",
@@ -1528,14 +1528,14 @@ export const users = [
       ],
       'paging': {
         'page': 1,
-        'size': 10,
+        'size': 20,
         'totalRecords': 20
       }
     }
   },
   {
     method: 'GET',
-    url: '/api/core/users?name=&page=1&size=10&role=ADMIN',
+    url: '/api/core/users?name=&page=1&size=20&role=ADMIN',
     response: {
       "code": 200,
       "status": "OK",
@@ -1573,7 +1573,7 @@ export const users = [
       ],
       'paging': {
         'page': 1,
-        'size': 10,
+        'size': 20,
         'totalRecords': 20
       }
     }
