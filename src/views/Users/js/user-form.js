@@ -24,9 +24,9 @@ export default {
       isLoading: false,
       showSelectBatchModal: false,
       maximumSizeAlert: false,
-      avatarPreview: '',
+      avatarPreview: require('@/assets/profile-picture-placeholder.png'),
       userDetail: {
-        role: '',
+        role: null,
         email: '',
         name: '',
         phone: '',
@@ -35,7 +35,7 @@ export default {
         avatarId: '',
         university: '',
         batch: {
-          code: '',
+          code: null,
           id: '',
           name: ''
         }
@@ -53,7 +53,9 @@ export default {
           value: 'MENTOR',
           name: 'Mentor'
         }
-      ]
+      ],
+      batches: [],
+      isFetchinBatches: true
     }
   },
   created () {
@@ -73,10 +75,12 @@ export default {
       'fetchUserById',
       'createUser',
       'updateUser',
-      'uploadProfilePicture'
+      'uploadProfilePicture',
+      'fetchBatches'
     ]),
     initPage () {
       this.initialState()
+      this.initBatches()
       if (this.editMode) {
         this.isLoading = true
         this.getUserDetail()
@@ -96,10 +100,11 @@ export default {
       this.setUserDetail()
     },
     failFetchUserById () {
+      this.isLoading = false
       this.$toasted.error('Fail to load user detail')
     },
     setUserDetail () {
-      this.avatarPreview = this.user.avatar || require('@/assets/profile-picture-placeholder.png')
+      this.avatarPreview = require('@/assets/profile-picture-placeholder.png')
       this.userDetail = this.user
     },
     onFileChange (e) {
@@ -197,12 +202,18 @@ export default {
       this.editMode ? msg = 'save edited' : msg = 'create new'
       this.$toasted.error('Fail to ' + msg + ' user')
     },
-    selectBatch (code) {
-      this.userDetail.batch.code = code
-      this.showSelectBatchModal = false
+    initBatches () {
+      this.fetchBatches({
+        callback: this.successFetchBatches,
+        fail: this.failFetchBatches
+      })
     },
-    closeModal () {
-      this.showSelectBatchModal = false
+    successFetchBatches (response) {
+      this.isFetchinBatches = false
+      this.batches = response
+    },
+    failFetchBatches () {
+      this.$toasted.error('Fail to fetch batches, please try again')
     }
   }
 }
