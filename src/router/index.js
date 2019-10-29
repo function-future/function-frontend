@@ -461,7 +461,12 @@ const router = new Router({
       meta: {
         auth: true,
         add: true,
-        title: 'Add Student'
+        title: 'Add Student',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Users', link: 'users' },
+          { name: 'Add Student', link: 'addStudent' }
+        ]
       },
       props: {
         studentMode: true,
@@ -475,7 +480,12 @@ const router = new Router({
       meta: {
         auth: true,
         add: true,
-        title: 'Add User'
+        title: 'Add User',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Users', link: 'users' },
+          { name: 'Add User', link: 'addUser' }
+        ]
       },
       props: {
         studentMode: false,
@@ -489,7 +499,12 @@ const router = new Router({
       meta: {
         auth: true,
         edit: true,
-        title: 'Edit Student'
+        title: 'Edit Student',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Users', link: 'users' },
+          { name: 'Edit Student', link: 'editStudent' }
+        ]
       },
       props: {
         studentMode: true,
@@ -503,7 +518,12 @@ const router = new Router({
       meta: {
         auth: true,
         edit: true,
-        title: 'Edit User'
+        title: 'Edit User',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Users', link: 'users' },
+          { name: 'Edit User', link: 'editUser' }
+        ]
       },
       props: {
         studentMode: false,
