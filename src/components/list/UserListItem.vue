@@ -39,7 +39,6 @@
     &-wrapper {
       padding: 0.75rem 1rem;
       min-height: 100px;
-      cursor: pointer;
 
       @media only screen and (max-width: 1023px) {
         border-bottom: #E7E7E7 1px solid;
