@@ -3,7 +3,7 @@
     <div class="list-container">
       <div class="list-container__content" v-on="$listeners" v-bind="$attrs">
         <div class="list-container__content-picture">
-          <figure class="image is-64x64 is-horizontal-center">
+          <figure class="image is-64x64 is-image-horizontal-center">
             <img class="is-rounded" v-if="!imageUrl"
                  :src="require('@/assets/profile-picture-placeholder.png')">
             <img class="is-rounded" v-else :src="imageUrl">
@@ -93,11 +93,5 @@
 
   .skeleton {
     margin: 0.25rem 0;
-  }
-
-  .is-horizontal-center {
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
 </style>
