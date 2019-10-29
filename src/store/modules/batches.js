@@ -14,7 +14,7 @@ export const actions = {
   fetchBatches ({ commit }, { callback, fail }) {
     batchApi.getBatchList(({ data: response }) => {
       commit('SET_BATCHES', response)
-      callback()
+      callback(response)
     }, fail)
   },
   fetchBatchById ({ commit }, { data, callback, fail }) {
