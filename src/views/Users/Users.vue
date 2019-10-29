@@ -129,6 +129,7 @@
           display: flex;
           justify-content: space-between;
           align-items: center;
+          margin-right: 1.5rem;
         }
       }
 
@@ -137,6 +138,10 @@
           &-wrapper {
             margin-left: 0.25rem;
             margin-right: 0.75rem;
+
+            @media only screen and (max-width: 1023px) {
+              margin-right: 0;
+            }
           }
         }
       }
