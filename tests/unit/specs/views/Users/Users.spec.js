@@ -66,10 +66,10 @@ describe('Users', () => {
       localVue,
       router,
       stubs: [
-        'BaseCard',
-        'BaseButton',
-        'BaseInput',
-        'BaseSelect',
+        'b-button',
+        'b-input',
+        'b-field',
+        'b-pagination',
         'font-awesome-icon'
       ],
       mocks: {
@@ -101,137 +101,44 @@ describe('Users', () => {
   test('changeTab', () => {
     const spy = jest.spyOn(Users.methods, 'fetchTabList')
     initComponent()
-    wrapper.vm.changeTab('student')
-    expect(wrapper.vm.currentTab).toEqual('student')
+    wrapper.vm.changeTab('Student')
+    expect(wrapper.vm.currentTab).toEqual('Student')
     expect(spy).toHaveBeenCalledTimes(2)
   })
 
-  test('successGetUserList student', () => {
-    const spy = jest.spyOn(Users.methods, 'setStudentList')
+  test('successGetUserList', () => {
     initComponent()
-    const response = [
-      {
-        'id': 'sample-id-student',
-        'role': 'STUDENT',
-        'email': 'user@user.com',
-        'name': 'User Student 1',
-        'phone': '088888888888',
-        'address': 'Jl. Address 1 Address 2',
-        'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
-        'batch': {
-          'id': 'sample-id',
-          'name': 'Batch Name',
-          'code': '3'
+    const response = {
+      data: [
+        {
+          'id': 'sample-id-admin',
+          'role': 'ADMIN',
+          'email': 'user@user.com',
+          'name': 'User ADMIN 1',
+          'phone': '088888888888',
+          'address': 'Jl. Address 1 Address 2',
+          'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
         },
-        'university': 'Bina Nusantara University'
-      },
-      {
-        'id': 'sample-id-2',
-        'role': 'STUDENT',
-        'email': 'user@user.com',
-        'name': 'User Student 2',
-        'phone': '088888888888',
-        'address': 'Jl. Address 1 Address 2',
-        'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
-        'batch': {
-          'id': 'sample-id',
-          'name': 'Batch Name',
-          'code': '3'
-        },
-        'university': 'Bina Nusantara University'
+        {
+          'id': 'sample-id-2',
+          'role': 'STUDENT',
+          'email': 'user@user.com',
+          'name': 'User Student 2',
+          'phone': '088888888888',
+          'address': 'Jl. Address 1 Address 2',
+          'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+        }
+      ],
+      paging: {
+        page: 1,
+        totalRecords: 100,
+        size: 10
       }
-    ]
-    wrapper.vm.currentTab = 'student'
+    }
+    wrapper.vm.currentTab = 'Student'
     wrapper.vm.successGetUserList(response)
     expect(wrapper.vm.isLoading).toEqual(false)
-    expect(spy).toHaveBeenCalledTimes(1)
-  })
-
-  test('successGetUserList admin', () => {
-    const spy = jest.spyOn(Users.methods, 'setAdminList')
-    initComponent()
-    const response = [
-      {
-        'id': 'sample-id-admin',
-        'role': 'ADMIN',
-        'email': 'user@user.com',
-        'name': 'User ADMIN 1',
-        'phone': '088888888888',
-        'address': 'Jl. Address 1 Address 2',
-        'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
-      },
-      {
-        'id': 'sample-id-2',
-        'role': 'STUDENT',
-        'email': 'user@user.com',
-        'name': 'User Student 2',
-        'phone': '088888888888',
-        'address': 'Jl. Address 1 Address 2',
-        'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
-      }
-    ]
-    wrapper.vm.currentTab = 'admin'
-    wrapper.vm.successGetUserList(response)
-    expect(wrapper.vm.isLoading).toEqual(false)
-    expect(spy).toHaveBeenCalledTimes(1)
-  })
-
-  test('successGetUserList mentor', () => {
-    const spy = jest.spyOn(Users.methods, 'setMentorList')
-    initComponent()
-    const response = [
-      {
-        'id': 'sample-id-mentor',
-        'role': 'MENTOR',
-        'email': 'user@user.com',
-        'name': 'User ADMIN 1',
-        'phone': '088888888888',
-        'address': 'Jl. Address 1 Address 2',
-        'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
-      },
-      {
-        'id': 'sample-id-2',
-        'role': 'MENTOR',
-        'email': 'user@user.com',
-        'name': 'User Student 2',
-        'phone': '088888888888',
-        'address': 'Jl. Address 1 Address 2',
-        'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
-      }
-    ]
-    wrapper.vm.currentTab = 'mentor'
-    wrapper.vm.successGetUserList(response)
-    expect(wrapper.vm.isLoading).toEqual(false)
-    expect(spy).toHaveBeenCalledTimes(1)
-  })
-
-  test('successGetUserList judge', () => {
-    const spy = jest.spyOn(Users.methods, 'setJudgeList')
-    initComponent()
-    const response = [
-      {
-        'id': 'sample-id-judge',
-        'role': 'JUDGE',
-        'email': 'user@user.com',
-        'name': 'User ADMIN 1',
-        'phone': '088888888888',
-        'address': 'Jl. Address 1 Address 2',
-        'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
-      },
-      {
-        'id': 'sample-id-2',
-        'role': 'MENTOR',
-        'email': 'user@user.com',
-        'name': 'User Student 2',
-        'phone': '088888888888',
-        'address': 'Jl. Address 1 Address 2',
-        'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
-      }
-    ]
-    wrapper.vm.currentTab = 'judge'
-    wrapper.vm.successGetUserList(response)
-    expect(wrapper.vm.isLoading).toEqual(false)
-    expect(spy).toHaveBeenCalledTimes(1)
+    expect(wrapper.vm.userList).toEqual(response.data)
   })
 
   test('failGetUserList', () => {
@@ -244,7 +151,7 @@ describe('Users', () => {
   test('goToAddUser student', () => {
     initComponent()
     wrapper.vm.$router.push = jest.fn()
-    wrapper.vm.currentTab = 'student'
+    wrapper.vm.currentTab = 'Student'
     wrapper.vm.goToAddUser()
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'addStudent' })
   })
@@ -252,7 +159,7 @@ describe('Users', () => {
   test('goToAddUser != student', () => {
     initComponent()
     wrapper.vm.$router.push = jest.fn()
-    wrapper.vm.currentTab = 'judge'
+    wrapper.vm.currentTab = 'Judge'
     wrapper.vm.goToAddUser()
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'addUser' })
   })
@@ -317,22 +224,6 @@ describe('Users', () => {
     expect(spy).toHaveBeenCalledTimes(1)
   })
 
-  test('loadPreviousPage', () => {
-    const spy = jest.spyOn(wrapper.vm, 'initPage')
-    wrapper.vm.paging.page = 2
-    wrapper.vm.loadPreviousPage()
-    expect(wrapper.vm.paging.page).toEqual(1)
-    expect(spy).toHaveBeenCalledTimes(1)
-  })
-
-  test('loadNextPage', () => {
-    const spy = jest.spyOn(wrapper.vm, 'initPage')
-    wrapper.vm.paging.page = 2
-    wrapper.vm.loadNextPage()
-    expect(wrapper.vm.paging.page).toEqual(3)
-    expect(spy).toHaveBeenCalledTimes(1)
-  })
-
   test('searchHandler current page = 1', () => {
     const spy = jest.spyOn(wrapper.vm, 'initPage')
     wrapper.vm.paging.page = 1
@@ -347,5 +238,24 @@ describe('Users', () => {
     wrapper.vm.searchHandler()
     expect(wrapper.vm.paging.page).toEqual(1)
     expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('batch user is student', () => {
+    initComponent()
+    const user = {
+      role: 'STUDENT',
+      batch: {
+        name: 'Batch Name'
+      }
+    }
+    expect(wrapper.vm.batch(user)).toEqual(user.batch.name)
+  })
+
+  test('batch user is not student', () => {
+    initComponent()
+    const user = {
+      role: 'MENTOR'
+    }
+    expect(wrapper.vm.batch(user)).toEqual('')
   })
 })
