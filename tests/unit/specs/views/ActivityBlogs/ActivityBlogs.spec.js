@@ -225,22 +225,6 @@ describe('ActivityBlogs', () => {
     expect(spy).toHaveBeenCalledTimes(1)
   })
 
-  test('loadPreviousPage', () => {
-    const spy = jest.spyOn(wrapper.vm, 'initPage')
-    wrapper.vm.paging.page = 2
-    wrapper.vm.loadPreviousPage()
-    expect(wrapper.vm.paging.page).toEqual(1)
-    expect(spy).toHaveBeenCalledTimes(1)
-  })
-
-  test('loadNextPage', () => {
-    const spy = jest.spyOn(wrapper.vm, 'initPage')
-    wrapper.vm.paging.page = 2
-    wrapper.vm.loadNextPage()
-    expect(wrapper.vm.paging.page).toEqual(3)
-    expect(spy).toHaveBeenCalledTimes(1)
-  })
-
   test('goToUserBlog', () => {
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.goToUserBlog(1)

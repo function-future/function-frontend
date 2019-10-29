@@ -1,17 +1,13 @@
 import { mapActions, mapGetters } from 'vuex'
-import BaseCard from '@/components/BaseCard'
-import BaseButton from '@/components/BaseButton'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
-import BasePagination from '@/components/BasePagination'
+import ListItem from '@/components/list/ListItem'
 let marked = require('marked')
 
 export default {
   name: 'activityBlogs',
   components: {
-    BaseButton,
-    BaseCard,
-    ModalDeleteConfirmation,
-    BasePagination
+    ListItem,
+    ModalDeleteConfirmation
   },
   data () {
     return {
@@ -129,14 +125,6 @@ export default {
     },
     loadPage (page) {
       this.paging.page = page
-      this.initPage()
-    },
-    loadPreviousPage () {
-      this.paging.page = this.paging.page - 1
-      this.initPage()
-    },
-    loadNextPage () {
-      this.paging.page = this.paging.page + 1
       this.initPage()
     },
     goToUserBlog (id) {

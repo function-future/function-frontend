@@ -1,7 +1,7 @@
 <template>
   <b-navbar class="is-primary is-spaced is-navbar">
     <template slot="brand">
-      <b-navbar-item tag="router-link" :to="{ name: 'feeds' }" exact>
+      <b-navbar-item tag="router-link" :to="{ name: 'feeds' }" :active="false">
         <img src="@/assets/logo.png" alt="Function">
       </b-navbar-item>
     </template>

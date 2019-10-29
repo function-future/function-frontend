@@ -41,7 +41,10 @@
     }
 
     &__actions {
+      margin-bottom: 0.75rem;
+
       @media only screen and (max-width: 1023px) {
+        margin-bottom: 0;
         display: flex;
         flex-direction: column;
         position: fixed;
@@ -58,7 +61,6 @@
     }
 
     &__header {
-      margin-top: 0.5rem;
       margin-bottom: 0.75rem;
 
       &-date {

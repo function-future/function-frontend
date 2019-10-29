@@ -9,57 +9,59 @@
           Add
         </b-button>
       </div>
-      <div v-if="isLoading">
-        <ListItem v-for="n in 4" v-bind:key="n" :loading="isLoading"></ListItem>
-      </div>
-      <div v-if="!isLoading">
-        <ListItem @click="goToAnnouncementDetail(announcement.id)"
-                  v-for="announcement in announcementList"
-                  v-bind:key="announcement.id">
-          <template #title>
-            {{ announcement.title }}
-          </template>
-          <template #info>
-            {{ announcement.updatedAt |  moment("MMMM Do, YYYY") }}
-          </template>
-          <template #content>
-            <div class="wrap-word ellipsis">
-              <span v-html="textPreview(announcement)"></span>
-            </div>
-          </template>
-          <template #actions>
-            <b-dropdown aria-role="list" position="is-bottom-left" @click.prevent.stop>
-              <button class="button is-text" slot="trigger">
-                <b-icon icon="ellipsis-v" size="is-small" class="icon"></b-icon>
-              </button>
-              <b-dropdown-item
-                aria-role="listitem"
-                @click="goToEditAnnouncement(announcement.id)"
-                v-if="accessList.edit">
+      <div class="announcements__content">
+        <div v-if="isLoading">
+          <ListItem v-for="n in 4" v-bind:key="n" :loading="isLoading"></ListItem>
+        </div>
+        <div v-if="!isLoading">
+          <ListItem @click="goToAnnouncementDetail(announcement.id)"
+                    v-for="announcement in announcementList"
+                    v-bind:key="announcement.id">
+            <template #title>
+              {{ announcement.title }}
+            </template>
+            <template #info>
+              {{ announcement.updatedAt |  moment("MMMM Do, YYYY") }}
+            </template>
+            <template #content>
+              <div class="wrap-word ellipsis">
+                <span v-html="textPreview(announcement)"></span>
+              </div>
+            </template>
+            <template #actions>
+              <b-dropdown aria-role="list" position="is-bottom-left" @click.prevent.stop>
+                <button class="button is-text" slot="trigger">
+                  <b-icon icon="ellipsis-v" size="is-small" class="icon"></b-icon>
+                </button>
+                <b-dropdown-item
+                  aria-role="listitem"
+                  @click="goToEditAnnouncement(announcement.id)"
+                  v-if="accessList.edit">
                 <span class="icon-wrapper">
                   <b-icon icon="edit" class="icon" size="is-small"></b-icon>
                   Edit
                 </span>
-              </b-dropdown-item>
-              <b-dropdown-item
-                aria-role="listitem"
-                @click="openDeleteConfirmationModal(announcement.id)"
-                v-if="accessList.delete">
+                </b-dropdown-item>
+                <b-dropdown-item
+                  aria-role="listitem"
+                  @click="openDeleteConfirmationModal(announcement.id)"
+                  v-if="accessList.delete">
                 <span class="icon-wrapper">
                   <b-icon icon="trash-alt" class="icon" size="is-small"></b-icon>
                   Delete
                 </span>
-              </b-dropdown-item>
-              <b-dropdown-item
-                aria-role="listitem"
-                class="is-hidden-desktop">
-                <b-button type="is-light" expanded>Cancel</b-button>
-              </b-dropdown-item>
-            </b-dropdown>
-          </template>
-        </ListItem>
+                </b-dropdown-item>
+                <b-dropdown-item
+                  aria-role="listitem"
+                  class="is-hidden-desktop">
+                  <b-button type="is-light" expanded>Cancel</b-button>
+                </b-dropdown-item>
+              </b-dropdown>
+            </template>
+          </ListItem>
+        </div>
       </div>
-      <div class="pagination-wrapper" v-if="!isLoading">
+      <div class="announcements__pagination-wrapper" v-if="!isLoading">
         <b-pagination
           :total="paging.totalRecords"
           :current.sync="paging.currentPage"
@@ -103,51 +105,14 @@
       }
     }
 
-    &__list {
-      &-wrapper {
-        display: flex;
-        justify-content: space-between;
-        padding: 0.75rem 1rem;
-        min-height: 100px;
-        cursor: pointer;
-        border-bottom: #E7E7E7 1px solid;
-      }
-
-      &-container {
-        width: 100%;
-
-        &__header {
-          margin-bottom: 0.25rem;
-
-          &-title {
-            max-width: 55vw;
-
-            @media only screen and (max-width: 1023px) {
-              max-width: 65vw;
-            }
-          }
-
-          &-date {
-            border-left: 1px solid #BDBDBD;
-            padding-left: 0.5rem;
-            font-size: 0.75rem;
-          }
-        }
-
-        &__content {
-          max-height: 150px;
-        }
-      }
-
-      &__actions {
-        margin-left: 0.5rem;
-      }
+    &__content {
+      margin-top: 0.5rem;
     }
-  }
 
-  .pagination {
-    &-wrapper {
-      margin: 1rem 0.5rem;
+    &__pagination {
+      &-wrapper {
+        margin: 1rem 0.5rem;
+      }
     }
   }
 </style>
