@@ -63,11 +63,9 @@ export default {
     getListData($state) {
       if (this.selectedTab === 0) {
         this.getQuestionBanks($state)
-      }
-      else if (this.selectedTab === 1) {
+      } else if (this.selectedTab === 1) {
         this.getQuizzes($state)
-      }
-      else {
+      } else {
         this.getAssignments($state)
       }
     },
@@ -142,8 +140,7 @@ export default {
             bankId: id
           }
         })
-      }
-      else if (this.selectedTab === 1) {
+      } else if (this.selectedTab === 1) {
         this.$router.push({
           name: 'quizDetail',
           params: {
@@ -151,8 +148,7 @@ export default {
             batchCode: this.batchCode
           }
         })
-      }
-      else if (this.selectedTab === 2) {
+      } else if (this.selectedTab === 2) {
         this.$router.push({
           name: 'assignmentDetail',
           params: {
@@ -173,11 +169,9 @@ export default {
     deleteItem() {
       if (this.selectedTab === 0) {
         this.deleteQuestionBank()
-      }
-      else if (this.selectedTab === 1) {
+      } else if (this.selectedTab === 1) {
         this.deleteQuiz()
-      }
-      else if (this.selectedTab === 2) {
+      } else if (this.selectedTab === 2) {
         this.deleteAssignment()
       }
     },
@@ -226,8 +220,7 @@ export default {
             bankId: id
           }
         })
-      }
-      else if (this.selectedTab === 1) {
+      } else if (this.selectedTab === 1) {
         this.$router.push({
           name: 'quizDetail',
           params: {
@@ -235,8 +228,7 @@ export default {
             batchCode: this.batchCode
           }
         })
-      }
-      else {
+      } else {
         this.$router.push({
           name: 'assignmentDetail',
           params: {
@@ -252,6 +244,33 @@ export default {
     },
     closeModal () {
       this.isVisibleBatchModal = false
+    },
+    addItem() {
+      if (this.selectedTab === 0) {
+        this.goToAddQuestionBank()
+      } else if (this.selectedTab === 1) {
+        this.goToAddQuiz()
+      } else {
+        this.goToAddAssignment()
+      }
+    },
+    goToAddQuestionBank() {
+      this.$router.push({
+        name: 'addQuestionBank'
+      })
+    },
+    goToAddQuiz() {
+      this.$router.push({
+        name: 'addQuiz',
+        params: {
+          batchCode: this.batchCode
+        }
+      })
+    },
+    goToAddAssignment() {
+      this.$router.push({
+        name: 'addAssignment'
+      })
     }
   },
   watch: {

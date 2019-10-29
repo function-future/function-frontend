@@ -100,6 +100,24 @@ describe('LandingPageAdmin', () => {
     expect(wrapper.vm.batchButtonText).toEqual('futurre3')
   })
 
+  test('Computed tabTitle with QuestionBank as selectedTab', () => {
+    initComponent()
+    wrapper.vm.selectedTab = 0
+    expect(wrapper.vm.tabTitle).toEqual('Question Bank')
+  })
+
+  test('Computed tabTitle with Quiz as selectedTab', () => {
+    initComponent()
+    wrapper.vm.selectedTab = 1
+    expect(wrapper.vm.tabTitle).toEqual('Quiz')
+  })
+
+  test('Computed tabTitle with Assignment as selectedTab', () => {
+    initComponent()
+    wrapper.vm.selectedTab = 2
+    expect(wrapper.vm.tabTitle).toEqual('Assignment')
+  })
+
   test('resetData', () => {
     initComponent()
     wrapper.vm.resetData()
@@ -232,6 +250,12 @@ describe('LandingPageAdmin', () => {
     const markdown = 'Lorem Ipsum Dolor Sit Amet'
     wrapper.vm.textPreview(markdown)
     expect(spy).toBeCalledWith('Lorem Ipsum Dolor Sit Amet')
+  })
+
+  test('showLimitedPreviewText < 250 characters', () => {
+    initComponent()
+    const text = 'Lorem Ipsum'
+    expect(wrapper.vm.showLimitedPreviewText(text)).toEqual(text)
   })
 
   test('showLimitedPreviewText > 250 characters', () => {
@@ -420,5 +444,29 @@ describe('LandingPageAdmin', () => {
     wrapper.vm.isVisibleBatchModal = true
     wrapper.vm.closeModal()
     expect(wrapper.vm.isVisibleBatchModal).toEqual(false)
+  })
+
+  test('addItem with selectedTab is questionBank', () => {
+    initComponent()
+    wrapper.vm.selectedTab = 0
+    const spy = jest.spyOn(wrapper.vm, 'goToAddQuestionBank')
+    wrapper.vm.addItem()
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('addItem with selectedTab is quiz', () => {
+    initComponent()
+    wrapper.vm.selectedTab = 1
+    const spy = jest.spyOn(wrapper.vm, 'goToAddQuiz')
+    wrapper.vm.addItem()
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('addItem with selectedTab is assignment', () => {
+    initComponent()
+    wrapper.vm.selectedTab = 2
+    const spy = jest.spyOn(wrapper.vm, 'goToAddAssignment')
+    wrapper.vm.addItem()
+    expect(spy).toHaveBeenCalledTimes(1)
   })
 })
