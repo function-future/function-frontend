@@ -42,7 +42,7 @@ export default {
         }
       ],
       batches: [],
-      isFetchinBatches: true
+      isFetchingBatches: true
     }
   },
   created () {

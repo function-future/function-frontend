@@ -91,7 +91,7 @@
                       placeholder="Select batch"
                       name="batch"
                       expanded
-                      :loading="isFetchinBatches"
+                      :loading="isFetchingBatches"
                       v-validate.continues="'required'">
               <option v-for="batch in batches"
                       :value="batch.code"
