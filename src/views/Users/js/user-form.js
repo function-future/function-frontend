@@ -1,19 +1,7 @@
 import { mapActions, mapGetters } from 'vuex'
-import BaseInput from '@/components/BaseInput'
-import BaseButton from '@/components/BaseButton'
-import BaseTextArea from '@/components/BaseTextArea'
-import BaseSelect from '@/components/BaseSelect'
-import ModalSelectBatch from '@/components/modals/ModalSelectBatch'
 
 export default {
   name: 'userForm',
-  components: {
-    BaseButton,
-    BaseInput,
-    BaseTextArea,
-    BaseSelect,
-    ModalSelectBatch
-  },
   props: [
     'studentMode',
     'editMode'
@@ -22,7 +10,6 @@ export default {
     return {
       isSubmitting: false,
       isLoading: false,
-      showSelectBatchModal: false,
       maximumSizeAlert: false,
       avatarPreview: require('@/assets/profile-picture-placeholder.png'),
       userDetail: {
