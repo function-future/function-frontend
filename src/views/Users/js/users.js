@@ -5,6 +5,7 @@ import Tabs from 'vue-tabs-with-active-line'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
 import BasePagination from '@/components/BasePagination'
 import SearchBar from '@/components/SearchBar'
+import UserListItem from '@/components/list/UserListItem'
 
 export default {
   name: 'users',
@@ -14,42 +15,33 @@ export default {
     Tabs,
     ModalDeleteConfirmation,
     BasePagination,
-    SearchBar
+    SearchBar,
+    UserListItem
   },
   data () {
     return {
       isLoading: false,
       tabs: [
-        { title: 'Students', value: 'student' },
-        { title: 'Admins', value: 'admin' },
-        { title: 'Mentors', value: 'mentor' },
-        { title: 'Judges', value: 'judge' }
+        { title: 'Students', value: 'Student' },
+        { title: 'Admins', value: 'Admin' },
+        { title: 'Mentors', value: 'Mentor' },
+        { title: 'Judges', value: 'Judge' }
       ],
-      currentTab: 'student',
+      currentTab: 'Student',
       paging: {
         page: 1,
-        size: 10,
+        size: 20,
         totalRecords: 0
       },
+      userList: [],
       keyword: '',
       showDeleteConfirmationModal: false
     }
   },
   computed: {
     ...mapGetters([
-      'students',
-      'admins',
-      'mentors',
-      'judges',
       'accessList'
-    ]),
-    addUserButtonLabel () {
-      if (this.currentTab === 'student') {
-        return 'Student'
-      } else {
-        return 'User'
-      }
-    }
+    ])
   },
   created () {
     this.initPage()
@@ -57,11 +49,7 @@ export default {
   methods: {
     ...mapActions([
       'fetchUsersByRoleAndName',
-      'deleteUserById',
-      'setStudentList',
-      'setAdminList',
-      'setMentorList',
-      'setJudgeList'
+      'deleteUserById'
     ]),
     initPage () {
       this.isLoading = true
@@ -89,31 +77,14 @@ export default {
     successGetUserList (response) {
       this.isLoading = false
       this.paging = response.paging
-      switch (this.currentTab) {
-        case 'student': {
-          this.setStudentList({ data: response.data })
-          break
-        }
-        case 'admin': {
-          this.setAdminList({ data: response.data })
-          break
-        }
-        case 'mentor': {
-          this.setMentorList({ data: response.data })
-          break
-        }
-        case 'judge': {
-          this.setJudgeList({ data: response.data })
-          break
-        }
-      }
+      this.userList = response.data
     },
     failGetUserList () {
       this.isLoading = false
       this.$toasted.error('Fail to fetch list')
     },
     goToAddUser () {
-      if (this.currentTab === 'student') {
+      if (this.currentTab === 'Student') {
         this.$router.push({ name: 'addStudent' })
       } else {
         this.$router.push({ name: 'addUser' })
@@ -156,17 +127,12 @@ export default {
       this.paging.page = page
       this.initPage()
     },
-    loadPreviousPage () {
-      this.paging.page = this.paging.page - 1
-      this.initPage()
-    },
-    loadNextPage () {
-      this.paging.page = this.paging.page + 1
-      this.initPage()
-    },
     searchHandler () {
       if (this.paging.page !== 1) this.paging.page = 1
       this.initPage()
+    },
+    batch (user) {
+      return user.role === 'STUDENT' ? user.batch.name : ''
     }
   }
 }
