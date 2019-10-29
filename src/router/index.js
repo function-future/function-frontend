@@ -82,7 +82,6 @@ Vue.use(Router)
 const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
-  linkActiveClass: 'is-active',
   routes: [
     {
       path: config.app.pages.user.profile,

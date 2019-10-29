@@ -136,17 +136,10 @@ describe('ActivityBlogForm', () => {
     expect(spy).toHaveBeenCalledTimes(1)
   })
 
-  test('$imgDel', () => {
-    wrapper.vm.img_file = [
-      { id: 1 }
-    ]
-    wrapper.vm.$imgDel(0)
-  })
-
   test('successUploadResource', () => {
     wrapper.vm.$refs = {
-      md: {
-        $img2Url: jest.fn()
+      editor: {
+        addImage: jest.fn()
       }
     }
     const response = {

@@ -1,7 +1,7 @@
 <template>
   <div class="auto-overflow-container">
-    <div class="announcement-form-container">
-      <div class="announcement-form-container-title">
+    <div class="announcement-form__container">
+      <div class="announcement-form__container-title">
         <b-field label="Title">
           <b-input autofocus
                    placeholder="Insert title here"
@@ -12,7 +12,7 @@
         </b-field>
         <div v-if="errors.has('title')"><span class="input-invalid-message">{{ errors.first('title') }}</span></div>
       </div>
-      <div class="announcement-form-container-description">
+      <div class="announcement-form__container-description">
         <input type="hidden"
                v-model="announcementDetail.description"
                name="description"
@@ -25,7 +25,7 @@
         </Editor>
         <div v-if="errors.has('description')"><span class="input-invalid-message">{{ errors.first('description') }}</span></div>
       </div>
-      <div class="announcement-form-container-actions">
+      <div class="announcement-form__container-actions">
         <div class="buttons">
           <b-button type="is-light" @click="cancel">Cancel</b-button>
           <b-button type="is-primary" @click="sendAnnouncement" :loading="isSubmitting">Save</b-button>
@@ -41,7 +41,7 @@
   @import "@/assets/css/main.scss";
 
   .announcement-form {
-    &-container {
+    &__container {
       padding: 1rem 1.25rem;
       margin-bottom: 2rem;
 
