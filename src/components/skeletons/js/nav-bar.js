@@ -1,14 +1,12 @@
 import { mapActions, mapGetters } from 'vuex'
 import Breadcrumbs from '@/components/breadcrumbs/Breadcrumbs'
-import BaseTitle from '@/components/BaseTitle'
 import ChangePageTitleMixins from '@/mixins/ChangePageTitleMixins'
 import notificationApi from '@/api/controller/notifications'
 
 export default {
   name: 'NavBar',
   components: {
-    Breadcrumbs,
-    BaseTitle
+    Breadcrumbs
   },
   mixins: [
     ChangePageTitleMixins
