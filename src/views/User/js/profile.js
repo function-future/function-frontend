@@ -34,7 +34,6 @@ export default {
       })
     },
     successFetchProfile () {
-      console.log(this.profile.avatar)
       this.avatarPreview = this.profile.avatar || require('@/assets/profile-picture-placeholder.png')
     },
     failFetchProfile () {
@@ -74,7 +73,6 @@ export default {
       this.uploadingProfilePicture = false
       this.changeProfilePictureConfirmation = true
       this.newAvatar = response
-      console.log(response)
       this.avatarPreview = response.file.full
     },
     failUploadProfilePicture () {

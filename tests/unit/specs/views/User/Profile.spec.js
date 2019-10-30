@@ -199,11 +199,14 @@ describe('Profile', () => {
     initComponent()
     wrapper.vm.successUploadProfilePicture(response)
     expect(wrapper.vm.newAvatar).toEqual(response)
+    expect(wrapper.vm.uploadingProfilePicture).toEqual(false)
+    expect(wrapper.vm.changeProfilePictureConfirmation).toEqual(true)
   })
 
   test('failUploadProfilePicture', () => {
     initComponent()
     wrapper.vm.failUploadProfilePicture()
+    expect(wrapper.vm.uploadingProfilePicture).toEqual(false)
     expect(wrapper.vm.$toasted.error).toBeCalledTimes(1)
   })
 
@@ -211,6 +214,7 @@ describe('Profile', () => {
     initComponent()
     const spy = jest.spyOn(wrapper.vm, 'uploadProfilePicture')
     wrapper.vm.imageUpload()
+    expect(wrapper.vm.uploadingProfilePicture).toEqual(true)
     expect(spy).toHaveBeenCalledTimes(1)
   })
 
@@ -219,19 +223,30 @@ describe('Profile', () => {
     const spy = jest.spyOn(wrapper.vm, 'sendProfilePictureId')
     wrapper.vm.sendUpdatedProfilePictureId()
     expect(spy).toHaveBeenCalledTimes(1)
+    expect(wrapper.vm.updatingProfilePicture).toEqual(true)
   })
 
   test('successSendProfilePictureId', () => {
     initComponent()
     const spy = jest.spyOn(wrapper.vm, 'initPage')
     wrapper.vm.successSendProfilePictureId()
-    expect(wrapper.vm.showModalChangeProfilePicture).toEqual(false)
     expect(spy).toHaveBeenCalledTimes(1)
+    expect(wrapper.vm.updatingProfilePicture).toEqual(false)
+    expect(wrapper.vm.changeProfilePictureConfirmation).toEqual(false)
   })
 
   test('failSendProfilePictureId', () => {
     initComponent()
     wrapper.vm.failSendProfilePictureId()
     expect(wrapper.vm.$toasted.error).toBeCalledTimes(1)
+    expect(wrapper.vm.updatingProfilePicture).toEqual(false)
+  })
+
+  test('cancelChangeProfilePicture', () => {
+    initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'initPage')
+    wrapper.vm.cancelChangeProfilePicture()
+    expect(spy).toHaveBeenCalledTimes(1)
+    expect(wrapper.vm.changeProfilePictureConfirmation).toEqual(false)
   })
 })
