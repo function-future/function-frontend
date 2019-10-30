@@ -70,6 +70,7 @@ describe('Users', () => {
         'b-input',
         'b-field',
         'b-pagination',
+        'b-tab-item',
         'font-awesome-icon'
       ],
       mocks: {
@@ -96,14 +97,6 @@ describe('Users', () => {
   test('Rendered correctly', () => {
     initComponent()
     expect(wrapper.isVueInstance()).toBe(true)
-  })
-
-  test('changeTab', () => {
-    const spy = jest.spyOn(Users.methods, 'fetchTabList')
-    initComponent()
-    wrapper.vm.changeTab('Student')
-    expect(wrapper.vm.currentTab).toEqual('Student')
-    expect(spy).toHaveBeenCalledTimes(2)
   })
 
   test('successGetUserList', () => {
@@ -135,7 +128,6 @@ describe('Users', () => {
         size: 10
       }
     }
-    wrapper.vm.currentTab = 'Student'
     wrapper.vm.successGetUserList(response)
     expect(wrapper.vm.isLoading).toEqual(false)
     expect(wrapper.vm.userList).toEqual(response.data)
@@ -151,7 +143,7 @@ describe('Users', () => {
   test('goToAddUser student', () => {
     initComponent()
     wrapper.vm.$router.push = jest.fn()
-    wrapper.vm.currentTab = 'Student'
+    wrapper.vm.activeTab = 0
     wrapper.vm.goToAddUser()
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'addStudent' })
   })
@@ -159,7 +151,7 @@ describe('Users', () => {
   test('goToAddUser != student', () => {
     initComponent()
     wrapper.vm.$router.push = jest.fn()
-    wrapper.vm.currentTab = 'Judge'
+    wrapper.vm.activeTab = 3
     wrapper.vm.goToAddUser()
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'addUser' })
   })
@@ -257,5 +249,12 @@ describe('Users', () => {
       role: 'MENTOR'
     }
     expect(wrapper.vm.batch(user)).toEqual('')
+  })
+
+  test('currentTab', () => {
+    initComponent()
+    const tab = 1
+    wrapper.vm.activeTab = tab
+    expect(wrapper.vm.currentTab).toEqual(wrapper.vm.tabs[tab].value)
   })
 })

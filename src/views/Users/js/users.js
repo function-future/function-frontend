@@ -1,21 +1,11 @@
 import { mapActions, mapGetters } from 'vuex'
-import BaseButton from '@/components/BaseButton'
-import UserCard from '@/components/users/UserCard'
-import Tabs from 'vue-tabs-with-active-line'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
-import BasePagination from '@/components/BasePagination'
-import SearchBar from '@/components/SearchBar'
 import UserListItem from '@/components/list/UserListItem'
 
 export default {
   name: 'users',
   components: {
-    UserCard,
-    BaseButton,
-    Tabs,
     ModalDeleteConfirmation,
-    BasePagination,
-    SearchBar,
     UserListItem
   },
   data () {
@@ -27,7 +17,7 @@ export default {
         { title: 'Mentors', value: 'Mentor' },
         { title: 'Judges', value: 'Judge' }
       ],
-      currentTab: 'Student',
+      activeTab: 0,
       paging: {
         page: 1,
         size: 20,
@@ -41,7 +31,10 @@ export default {
   computed: {
     ...mapGetters([
       'accessList'
-    ])
+    ]),
+    currentTab () {
+      return this.tabs[this.activeTab].value
+    }
   },
   created () {
     this.initPage()
@@ -53,12 +46,6 @@ export default {
     ]),
     initPage () {
       this.isLoading = true
-      this.fetchTabList()
-    },
-    changeTab (destinationTab) {
-      this.paging.page = 1
-      this.keyword = ''
-      this.currentTab = destinationTab
       this.fetchTabList()
     },
     fetchTabList () {
@@ -133,6 +120,13 @@ export default {
     },
     batch (user) {
       return user.role === 'STUDENT' ? user.batch.name : ''
+    }
+  },
+  watch: {
+    activeTab () {
+      this.paging.page = 1
+      this.keyword = ''
+      this.initPage()
     }
   }
 }

@@ -1,89 +1,87 @@
 <template>
   <div class="auto-overflow-container">
     <div class="users__container">
-      <div class="users__container-menu">
-        <div class="users__container-menu-tabs">
-          <tabs :tabs="tabs"
-                :currentTab="currentTab"
-                :wrapperClass="'default-tabs'"
-                :tabClass="'default-tabs__item'"
-                :tabActiveClass="'default-tabs__item_active'"
-                :lineClass="'default-tabs__active-line'"
-                @onClick="changeTab">
-          </tabs>
-        </div>
-        <div class="users__container-menu-actions">
-          <b-button rounded
-                    icon-left="plus"
-                    type="is-primary"
-                    @click="goToAddUser">
-            {{ this.currentTab }}
-          </b-button>
-          <b-field>
-            <b-input placeholder="Search"
-                     rounded
-                     @input="searchHandler"
-                     v-model="keyword">
-            </b-input>
-          </b-field>
-        </div>
-      </div>
-      <div class="users__container-content">
-        <div v-if="isLoading">
-          <div class="columns is-multiline">
-            <div class="column is-6"
-                 v-for="n in 6"
-                 v-bind:key="n">
-              <UserListItem :loading="isLoading"></UserListItem>
-            </div>
-          </div>
-        </div>
-        <div class="users__container-content__list-wrapper" v-else>
-          <div class="columns is-multiline">
-            <div class="column is-6"
-                 v-for="user in userList"
-                 :key="user.id">
-              <UserListItem :imageUrl="user.avatar">
-                <template #name>
-                  {{ user.name }}
-                </template>
-                <template #info>
-                  <div>{{ batch(user) }}</div>
-                  <div>{{ user.university }}</div>
-                </template>
-                <template #actions>
-                  <b-dropdown aria-role="list"
-                              position="is-bottom-left"
-                              @click.prevent.stop>
-                    <button class="button is-text" slot="trigger">
-                      <b-icon icon="ellipsis-v" size="is-small" class="icon"></b-icon>
-                    </button>
-                    <b-dropdown-item
-                      aria-role="listitem"
-                      @click="goToEditUser(user.id, user.role)">
-                <span class="icon-wrapper">
-                  <b-icon icon="edit" class="icon" size="is-small"></b-icon>
-                  Edit
-                </span>
-                    </b-dropdown-item>
-                    <b-dropdown-item
-                      aria-role="listitem"
-                      @click="openDeleteConfirmationModal(user.id)">
-                <span class="icon-wrapper">
-                  <b-icon icon="trash-alt" class="icon" size="is-small"></b-icon>
-                  Delete
-                </span>
-                    </b-dropdown-item>
-                    <b-dropdown-item
-                      aria-role="listitem"
-                      class="is-hidden-desktop">
-                      <b-button type="is-light" expanded>Cancel</b-button>
-                    </b-dropdown-item>
-                  </b-dropdown>
-                </template>
-              </UserListItem>
-            </div>
-          </div>
+      <div class="users__container">
+        <div class="users__container-tabs">
+          <b-tabs v-model="activeTab">
+            <b-tab-item v-for="tab in tabs"
+                        :key="tab.value"
+                        :label="tab.title">
+              <div class="users__container-tabs-actions">
+                <b-button rounded
+                          icon-left="plus"
+                          type="is-primary"
+                          @click="goToAddUser">
+                  {{ currentTab }}
+                </b-button>
+                <b-field>
+                  <b-input placeholder="Search"
+                           rounded
+                           @input="searchHandler"
+                           v-model="keyword">
+                  </b-input>
+                </b-field>
+              </div>
+              <div class="users__container-tabs-content">
+                <div v-if="isLoading">
+                  <div class="columns is-multiline">
+                    <div class="column is-6"
+                         v-for="n in 6"
+                         v-bind:key="n">
+                      <UserListItem :loading="isLoading"></UserListItem>
+                    </div>
+                  </div>
+                </div>
+                <div class="users__container-tabs-content__list-wrapper" v-else>
+                  <div class="columns is-multiline">
+                    <div class="column is-6"
+                         v-for="user in userList"
+                         :key="user.id">
+                      <UserListItem :imageUrl="user.avatar">
+                        <template #name>
+                          {{ user.name }}
+                        </template>
+                        <template #info>
+                          <div>{{ batch(user) }}</div>
+                          <div>{{ user.university }}</div>
+                        </template>
+                        <template #actions>
+                          <b-dropdown aria-role="list"
+                                      position="is-bottom-left"
+                                      @click.prevent.stop>
+                            <button class="button is-text" slot="trigger">
+                              <b-icon icon="ellipsis-v" size="is-small" class="icon"></b-icon>
+                            </button>
+                            <b-dropdown-item
+                              aria-role="listitem"
+                              @click="goToEditUser(user.id, user.role)">
+                              <span class="icon-wrapper">
+                                <b-icon icon="edit" class="icon" size="is-small"></b-icon>
+                                Edit
+                              </span>
+                            </b-dropdown-item>
+                            <b-dropdown-item
+                              aria-role="listitem"
+                              @click="openDeleteConfirmationModal(user.id)">
+                              <span class="icon-wrapper">
+                                <b-icon icon="trash-alt" class="icon" size="is-small"></b-icon>
+                                Delete
+                              </span>
+                            </b-dropdown-item>
+                            <b-dropdown-item
+                              aria-role="listitem"
+                              class="is-hidden-desktop">
+                              <b-button type="is-light" expanded>Cancel</b-button>
+                            </b-dropdown-item>
+                          </b-dropdown>
+                        </template>
+                      </UserListItem>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </b-tab-item>
+          </b-tabs>
         </div>
       </div>
       <div class="users__container__pagination-wrapper">
@@ -114,16 +112,12 @@
 
   .users {
     &__container {
-      padding: 0.5rem 1.25rem;
+      padding: 0 0.25rem;
       margin-bottom: 10vh;
 
-      &-menu {
+      &-tabs {
+        width: 100%;
         margin-bottom: 1rem;
-
-        &-tabs {
-          display: flex;
-          margin-bottom: 1rem;
-        }
 
         &-actions {
           display: flex;
@@ -131,16 +125,16 @@
           align-items: center;
           margin-right: 1.5rem;
         }
-      }
 
-      &-content {
-        &__list {
-          &-wrapper {
-            margin-left: 0.25rem;
-            margin-right: 0.75rem;
+        &-content {
+          &__list {
+            &-wrapper {
+              margin-left: 0.25rem;
+              margin-right: 0.75rem;
 
-            @media only screen and (max-width: 1023px) {
-              margin-right: 0;
+              @media only screen and (max-width: 1023px) {
+                margin-right: 0;
+              }
             }
           }
         }
