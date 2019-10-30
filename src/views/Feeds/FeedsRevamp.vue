@@ -28,8 +28,8 @@
                   size="is-small"
                   class="icon">
           </b-icon>
-          <div class="is-size-7-mobile">
-            <span class="sticky-note-title">
+          <div class="is-size-6-mobile">
+            <span class="has-text-weight-bold">
               {{ stickyNote.title }}
             </span>
             <span v-html="stickyNotesDescriptionPreview(stickyNote.description)"></span>
@@ -80,7 +80,7 @@
         </font-awesome-icon>
       </div>
       <div v-else>
-        <div class="announcements__title is-size-5-desktop is-size-6-mobile"
+        <div class="announcements__title is-size-5"
              @click="goToAnnouncementPage">
           <span>Announcements</span>
         </div>
@@ -89,10 +89,10 @@
                v-for="announcement in announcements"
                v-bind:key="announcement.id"
                @click="goToAnnouncementDetail(announcement.id)">
-            <div class="announcements__item-title">
+            <div class="announcements__item-title is-size-6">
               {{ announcement.title }}
             </div>
-            <div class="announcements__item-description">
+            <div class="announcements__item-description is-size-6">
               {{ announcementPreview(announcement) }}
             </div>
           </div>
@@ -130,7 +130,7 @@
   }
 
   .user-greeting {
-    margin: 0.5rem 0 0.25rem 0;
+    margin: 0.75rem 0 0.25rem 0;
     font-weight: bold;
   }
 
@@ -219,9 +219,5 @@
     .is-bordered {
       border-bottom: #E7E7E7 1px solid;
     }
-  }
-
-  .sticky-note-title {
-    font-weight: bold;
   }
 </style>

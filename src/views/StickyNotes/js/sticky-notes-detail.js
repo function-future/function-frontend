@@ -43,7 +43,7 @@ export default {
     fetchStickyNoteFailed () {
       this.$toasted.error('Fail to load sticky note detail, please refresh the page')
     },
-    goToAddStickyNote () {
+    goToEditStickyNote () {
       this.$router.push({ name: 'editStickyNote' })
     }
   }
