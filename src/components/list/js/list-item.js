@@ -9,6 +9,10 @@ export default {
     loading: {
       default: false,
       type: Boolean
+    },
+    simple: {
+      default: false,
+      type: Boolean
     }
   },
   inheritAttrs: false

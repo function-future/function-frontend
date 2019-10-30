@@ -3,13 +3,12 @@ import BaseCard from '@/components/BaseCard.vue'
 import BaseButton from '@/components/BaseButton.vue'
 import BatchCard from '@/components/batches/BatchCard.vue'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
+import ListItem from '@/components/list/ListItem'
 
 export default {
   name: 'courseBatch',
   components: {
-    BaseCard,
-    BaseButton,
-    BatchCard,
+    ListItem,
     ModalDeleteConfirmation
   },
   data () {

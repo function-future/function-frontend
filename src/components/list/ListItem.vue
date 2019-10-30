@@ -8,13 +8,13 @@
             <slot v-else name="title"></slot>
           </div>
           <div class="list-container__content-header-info">
-            <SkeletonBox v-if="loading" :min-width="10" :max-width="15"></SkeletonBox>
+            <SkeletonBox v-if="loading && !simple" :min-width="10" :max-width="15"></SkeletonBox>
             <slot v-else name="info"></slot>
           </div>
         </div>
         <div class="list-container__content-content">
-          <SkeletonBox v-if="loading" :min-width="70" :max-width="80"></SkeletonBox>
-          <SkeletonBox v-if="loading" :min-width="50" :max-width="80"></SkeletonBox>
+          <SkeletonBox v-if="loading && !simple" :min-width="70" :max-width="80"></SkeletonBox>
+          <SkeletonBox v-if="loading && !simple" :min-width="50" :max-width="80"></SkeletonBox>
           <SkeletonBox v-if="loading" :min-width="60" :max-width="80"></SkeletonBox>
           <slot v-else name="content"></slot>
         </div>
@@ -39,7 +39,7 @@
       border-bottom: #E7E7E7 1px solid;
 
       &:last-child {
-        border-bottom: none;
+        /*border-bottom: none;*/
       }
     }
 
