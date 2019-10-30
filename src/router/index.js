@@ -43,8 +43,8 @@ import users from '@/views/Users/Users.vue'
 import stickyNotes from '@/views/StickyNotes/StickyNotesDetail.vue'
 import editStickyNote from '@/views/StickyNotes/EditStickyNote.vue'
 import UserForm from '@/views/Users/UserForm.vue'
-import courseBatch from '@/views/Courses/CourseBatch.vue'
-import batchForm from '@/views/Courses/BatchForm.vue'
+import batches from '@/views/Batches/Batches.vue'
+import batchForm from '@/views/Batches/BatchForm.vue'
 import courses from '@/views/Courses/Courses.vue'
 import masterCourses from '@/views/Courses/MasterCourses.vue'
 import courseDetail from '@/views/Courses/CourseDetail.vue'
@@ -247,17 +247,30 @@ const router = new Router({
     },
     {
       path: config.app.pages.courses.batches.list,
-      name: 'courseBatches',
-      component: courseBatch,
+      name: 'batches',
+      component: batches,
       meta: {
         auth: true,
-        title: 'Select Course Batch',
+        title: 'Batches',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'courseBatches' }
+          { name: 'Batches', link: 'batches' }
         ]
       }
     },
+    // {
+    //   path: config.app.pages.courses.batches.list,
+    //   name: 'courseBatches',
+    //   component: courseBatch,
+    //   meta: {
+    //     auth: true,
+    //     title: 'Select Course Batch',
+    //     breadcrumb: [
+    //       { name: 'Home', link: 'feeds' },
+    //       { name: 'Batches', link: 'courseBatches' }
+    //     ]
+    //   }
+    // },
     {
       path: config.app.pages.courses.batches.add,
       name: 'addBatch',
