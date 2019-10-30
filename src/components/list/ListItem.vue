@@ -39,7 +39,7 @@
       border-bottom: #E7E7E7 1px solid;
 
       &:last-child {
-        /*border-bottom: none;*/
+        border-bottom: none;
       }
     }
 

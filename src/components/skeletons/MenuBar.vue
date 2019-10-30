@@ -154,7 +154,7 @@
     flex-shrink: 0;
     width: 16rem;
     padding: 2rem 1rem;
-    background: #f5f5f5;
+    background: #f9f9f9;
   }
 
   .menu-item {
