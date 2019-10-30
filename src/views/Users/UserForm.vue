@@ -151,6 +151,7 @@
         &-actions {
           display: flex;
           justify-content: flex-end;
+          margin-bottom: 2.5rem;
         }
       }
     }
