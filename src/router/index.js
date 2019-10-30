@@ -268,7 +268,7 @@ const router = new Router({
         title: 'Add Batch',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'courseBatches' },
+          { name: 'Batches', link: 'batches' },
           { name: 'Add Batch', link: 'addBatch' }
         ]
       },
@@ -284,7 +284,7 @@ const router = new Router({
         title: 'Edit Batch',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'courseBatches' },
+          { name: 'Batches', link: 'batches' },
           { name: 'Edit Batch', link: 'editBatch' }
         ]
       },
