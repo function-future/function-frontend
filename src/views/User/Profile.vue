@@ -106,7 +106,7 @@
   .profile {
     &__container {
       padding: 1rem 1.25rem;
-      margin: 0.25rem 0;
+      margin: 0 0.25rem 0.25rem 0.25rem;
 
       &__image {
         margin-bottom: 0.75rem;
@@ -135,6 +135,10 @@
       &__form {
         &-input {
           margin-bottom: 1.5rem;
+
+          &:last-child {
+            margin-bottom: 2.5rem;
+          }
         }
 
         &-actions {
