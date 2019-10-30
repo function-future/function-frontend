@@ -346,7 +346,7 @@ describe('UserForm', () => {
     const response = 'response'
     initComponent()
     wrapper.vm.successFetchBatches(response)
-    expect(wrapper.vm.isFetchinBatches).toEqual(false)
+    expect(wrapper.vm.isFetchingBatches).toEqual(false)
     expect(wrapper.vm.batches).toEqual(response)
   })
 

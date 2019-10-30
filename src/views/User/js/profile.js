@@ -1,23 +1,13 @@
 import { mapActions, mapGetters } from 'vuex'
-import BaseInput from '@/components/BaseInput'
-import BaseButton from '@/components/BaseButton'
-import BaseTextArea from '@/components/BaseTextArea'
-import BaseSelect from '@/components/BaseSelect'
-import ModalChangeProfilePicturePreview from '@/components/modals/ModalChangeProfilePicturePreview'
 
 export default {
   name: 'profile',
-  components: {
-    BaseButton,
-    BaseInput,
-    BaseTextArea,
-    BaseSelect,
-    ModalChangeProfilePicturePreview
-  },
   data () {
     return {
       maximumSizeAlert: false,
-      showModalChangeProfilePicture: false,
+      changeProfilePictureConfirmation: false,
+      uploadingProfilePicture: false,
+      updatingProfilePicture: false,
       avatarPreview: '',
       newAvatar: '',
       userDetail: {}
@@ -63,7 +53,7 @@ export default {
       }
     },
     imageUpload () {
-      this.showModalChangeProfilePicture = true
+      this.uploadingProfilePicture = true
       let formData = new FormData()
       formData.append('file', this.newImage)
       let data = {
@@ -80,12 +70,17 @@ export default {
       })
     },
     successUploadProfilePicture (response) {
+      this.uploadingProfilePicture = false
+      this.changeProfilePictureConfirmation = true
       this.newAvatar = response
+      this.avatarPreview = response.file.full
     },
     failUploadProfilePicture () {
+      this.uploadingProfilePicture = false
       this.$toasted.error('Fail to upload image, please try again')
     },
     sendUpdatedProfilePictureId () {
+      this.updatingProfilePicture = true
       const data = {
         avatar: [ this.newAvatar.id ]
       }
@@ -96,12 +91,18 @@ export default {
       })
     },
     successSendProfilePictureId () {
+      this.updatingProfilePicture = false
+      this.changeProfilePictureConfirmation = false
       this.$toasted.success('successfully updated profile picture')
-      this.showModalChangeProfilePicture = false
       this.initPage()
     },
     failSendProfilePictureId () {
+      this.updatingProfilePicture = false
       this.$toasted.error('Fail to save new profile picture, please try again')
+    },
+    cancelChangeProfilePicture () {
+      this.changeProfilePictureConfirmation = false
+      this.initPage()
     }
   }
 }
