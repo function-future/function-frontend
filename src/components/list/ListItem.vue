@@ -34,7 +34,7 @@
   .list {
     &-wrapper {
       padding: 0.75rem 1rem;
-      min-height: 100px;
+      min-height: 4rem;
       cursor: pointer;
       border-bottom: #E7E7E7 1px solid;
 

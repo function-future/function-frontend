@@ -20,6 +20,13 @@
                    :to="{ name: 'activityBlogs' }">
       </b-menu-item>
       <b-menu-item class="menu-item"
+                   label="Batches"
+                   tag="router-link"
+                   :active="isActive('batches')"
+                   :to="{ name: 'batches' }"
+                   v-if="menuList.courses">
+      </b-menu-item>
+      <b-menu-item class="menu-item"
                    label="Courses"
                    tag="router-link"
                    :active="isActive('courseBatches')"
