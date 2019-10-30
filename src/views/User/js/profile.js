@@ -17,7 +17,9 @@ export default {
   data () {
     return {
       maximumSizeAlert: false,
-      showModalChangeProfilePicture: false,
+      changeProfilePictureConfirmation: false,
+      uploadingProfilePicture: false,
+      updatingProfilePicture: false,
       avatarPreview: '',
       newAvatar: '',
       userDetail: {}
@@ -44,6 +46,7 @@ export default {
       })
     },
     successFetchProfile () {
+      console.log(this.profile.avatar)
       this.avatarPreview = this.profile.avatar || require('@/assets/profile-picture-placeholder.png')
     },
     failFetchProfile () {
@@ -63,7 +66,7 @@ export default {
       }
     },
     imageUpload () {
-      this.showModalChangeProfilePicture = true
+      this.uploadingProfilePicture = true
       let formData = new FormData()
       formData.append('file', this.newImage)
       let data = {
@@ -80,12 +83,18 @@ export default {
       })
     },
     successUploadProfilePicture (response) {
+      this.uploadingProfilePicture = false
+      this.changeProfilePictureConfirmation = true
       this.newAvatar = response
+      console.log(response)
+      this.avatarPreview = response.file.full
     },
     failUploadProfilePicture () {
+      this.uploadingProfilePicture = false
       this.$toasted.error('Fail to upload image, please try again')
     },
     sendUpdatedProfilePictureId () {
+      this.updatingProfilePicture = true
       const data = {
         avatar: [ this.newAvatar.id ]
       }
@@ -96,12 +105,18 @@ export default {
       })
     },
     successSendProfilePictureId () {
+      this.updatingProfilePicture = false
+      this.changeProfilePictureConfirmation = false
       this.$toasted.success('successfully updated profile picture')
-      this.showModalChangeProfilePicture = false
       this.initPage()
     },
     failSendProfilePictureId () {
+      this.updatingProfilePicture = false
       this.$toasted.error('Fail to save new profile picture, please try again')
+    },
+    cancelChangeProfilePicture () {
+      this.changeProfilePictureConfirmation = false
+      this.initPage()
     }
   }
 }

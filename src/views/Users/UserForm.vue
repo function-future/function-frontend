@@ -17,7 +17,9 @@
                @change="onFileChange($event)"
                style="display: none"/>
         <div class="is-size-7 has-text-grey has-text-centered user-form__container__image-message">
-          <span>Only picture (PNG or JPG) smaller than 1 MB is allowed.</span>
+          <span :class="{'has-text-danger': maximumSizeAlert}">
+            Only picture (PNG or JPG) smaller than 1 MB is allowed.
+          </span>
         </div>
       </div>
       <div class="user-form__container__form column is-8">
