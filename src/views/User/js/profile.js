@@ -1,19 +1,7 @@
 import { mapActions, mapGetters } from 'vuex'
-import BaseInput from '@/components/BaseInput'
-import BaseButton from '@/components/BaseButton'
-import BaseTextArea from '@/components/BaseTextArea'
-import BaseSelect from '@/components/BaseSelect'
-import ModalChangeProfilePicturePreview from '@/components/modals/ModalChangeProfilePicturePreview'
 
 export default {
   name: 'profile',
-  components: {
-    BaseButton,
-    BaseInput,
-    BaseTextArea,
-    BaseSelect,
-    ModalChangeProfilePicturePreview
-  },
   data () {
     return {
       maximumSizeAlert: false,
