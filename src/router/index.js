@@ -258,19 +258,6 @@ const router = new Router({
         ]
       }
     },
-    // {
-    //   path: config.app.pages.courses.batches.list,
-    //   name: 'courseBatches',
-    //   component: courseBatch,
-    //   meta: {
-    //     auth: true,
-    //     title: 'Select Course Batch',
-    //     breadcrumb: [
-    //       { name: 'Home', link: 'feeds' },
-    //       { name: 'Batches', link: 'courseBatches' }
-    //     ]
-    //   }
-    // },
     {
       path: config.app.pages.courses.batches.add,
       name: 'addBatch',
