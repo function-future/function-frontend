@@ -1,4 +1,4 @@
-import BatchForm from '@/views/Courses/BatchForm'
+import BatchForm from '@/views/Batches/BatchForm'
 import { createLocalVue, shallowMount } from '@vue/test-utils'
 import Vuex from 'vuex'
 import VueRouter from 'vue-router'
@@ -166,9 +166,9 @@ describe('BatchForm', () => {
     expect(callback).toHaveBeenCalledTimes(0)
   })
 
-  test('sendBatch', () => {
+  test('sabe', () => {
     const validateSpy = jest.spyOn(wrapper.vm, 'validateBeforeSubmit')
-    wrapper.vm.sendBatch()
+    wrapper.vm.save()
     expect(validateSpy).toHaveBeenCalledTimes(1)
   })
 
@@ -191,7 +191,7 @@ describe('BatchForm', () => {
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.successCreateOrEditBatch()
     expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
-    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'courseBatches' })
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'batches' })
   })
 
   test('successCreateOrEditBatch editMode', () => {
@@ -199,7 +199,7 @@ describe('BatchForm', () => {
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.successCreateOrEditBatch()
     expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
-    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'courseBatches' })
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'batches' })
   })
 
   test('failCreateOrEditBatch', () => {
@@ -217,6 +217,6 @@ describe('BatchForm', () => {
   test('cancel', () => {
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.cancel()
-    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'courseBatches' })
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'batches' })
   })
 })

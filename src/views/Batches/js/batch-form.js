@@ -59,7 +59,7 @@ export default {
         }
       })
     },
-    sendBatch () {
+    save () {
       this.validateBeforeSubmit(this.validationSuccess)
     },
     validationSuccess () {
@@ -83,7 +83,7 @@ export default {
       }
     },
     successCreateOrEditBatch () {
-      this.$router.push({ name: 'courseBatches' })
+      this.$router.push({ name: 'batches' })
       let msg = ''
       this.editMode ? msg = 'edit' : msg = 'created new'
       this.$toasted.success('Successfully ' + msg + ' batch')
@@ -95,7 +95,7 @@ export default {
       this.$toasted.error('Fail to ' + msg + ' batch')
     },
     cancel () {
-      this.$router.push({ name: 'courseBatches' })
+      this.$router.push({ name: 'batches' })
     }
   }
 }
