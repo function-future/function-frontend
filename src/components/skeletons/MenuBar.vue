@@ -24,13 +24,13 @@
                    tag="router-link"
                    :active="isActive('batches')"
                    :to="{ name: 'batches' }"
-                   v-if="menuList.courses">
+                   v-if="menuList.batches">
       </b-menu-item>
       <b-menu-item class="menu-item"
                    label="Courses"
                    tag="router-link"
-                   :active="isActive('courseBatches')"
-                   :to="{ name: 'courseBatches' }"
+                   :active="isActive('courses')"
+                   :to="{ name: 'courses' }"
                    v-if="menuList.courses">
       </b-menu-item>
       <b-menu-item class="menu-item"

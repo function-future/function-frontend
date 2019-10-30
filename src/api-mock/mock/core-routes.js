@@ -130,6 +130,7 @@ export const menuList = [
     url: '/api/core/user/menu-list',
     response: {
       'courses': true,
+      'batches': true,
       'files': true,
       'users': true,
       'chatroom': true,
