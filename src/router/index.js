@@ -8,6 +8,7 @@ import addAssignment from '@/views/Assignment/AddAssignment'
 import assignmentRooms from '@/views/Assignment/AssignmentRooms'
 import assignmentRoomDetail from '@/views/Assignment/AssignmentRoomDetail'
 import assignmentDetail from '@/views/Assignment/AssignmentDetail'
+import scoringAdmin from '@/views/Scoring/LandingPageAdmin'
 import questionBanks from '@/views/QuestionBank/QuestionBanks'
 import questionBankDetail from '@/views/QuestionBank/QuestionBankDetail'
 import addQuestionBank from '@/views/QuestionBank/AddQuestionBank'
@@ -533,9 +534,14 @@ const router = new Router({
       }
     },
     {
+      path: config.app.pages.scoring.admin,
+      name: 'scoringAdmin',
+      component: scoringAdmin
+    },
+    {
       path: config.app.pages.questionBanks.list,
       name: 'questionBanks',
-      component: questionBanks,
+      component: scoringAdmin,
       meta: {
         auth: true,
         title: 'Question Banks',

@@ -58,6 +58,9 @@ module.exports = {
           user: '/users/:id/edit'
         }
       },
+      scoring: {
+        admin: '/scoring'
+      },
       questionBanks: {
         list: '/question-banks',
         add: '/question-banks/add',
