@@ -26,7 +26,7 @@ export const actions = {
   fetchQuestionBankList ({ commit }, { callback, data, fail }) {
     questionBankApi.getQuestionBankList(({data: response, paging}) => {
       commit('GET_QUESTION_BANK_LIST', response)
-      callback && callback(response, paging)
+      callback && callback(paging)
     }, data, fail)
   },
   createQuestionBank ({ commit }, { payload, callback, fail }) {

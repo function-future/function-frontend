@@ -33,11 +33,13 @@ export const actions = {
   },
   createAnnouncement ({ commit }, { data, callback, fail }) {
     announcementApi.createAnnouncement(({ data: response }) => {
+      commit('SET_ANNOUNCEMENT_BY_ID', response)
       callback()
     }, data, fail)
   },
   updateAnnouncement ({ commit }, { data, callback, fail }) {
     announcementApi.updateAnnouncement(({ data: response }) => {
+      commit('SET_ANNOUNCEMENT_BY_ID', response)
       callback()
     }, data, fail)
   },

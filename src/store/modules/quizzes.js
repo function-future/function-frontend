@@ -22,7 +22,7 @@ export const actions = {
   fetchQuizList ({ commit }, { data, callback, fail }) {
     quizApi.getQuizList(({data: response, paging}) => {
       commit('GET_QUIZ_LIST', response)
-      callback && callback(response, paging)
+      callback && callback(paging)
     }, data, fail)
   },
   createQuiz ({ commit }, { payload, data, callback, fail }) {

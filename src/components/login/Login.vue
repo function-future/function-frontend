@@ -1,6 +1,6 @@
 <template>
   <div class="modal__mask">
-    <div class="modal__wrapper" @click.self="closeLoginModal">
+    <div class="modal__wrapper">
       <div class="modal__container">
         <div class="modal__header">
           <img src="@/assets/logo.png">
@@ -19,7 +19,6 @@
                 type="email"
                 v-model="data.email"
                 placeholder="Your email"
-                @keyup.enter.native="login"
                 v-validate.disable="'required|email'"
                 required>
               </b-input>

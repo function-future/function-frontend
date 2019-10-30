@@ -22,6 +22,7 @@ export const actions = {
   },
   postStickyNotes ({ commit }, { data, callback, fail }) {
     stickyNotesApi.createStickyNote(({ data: response }) => {
+      commit('SET_STICKY_NOTES_INFO', response)
       callback()
     }, data, fail)
   }
