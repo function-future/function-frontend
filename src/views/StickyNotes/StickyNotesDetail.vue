@@ -1,64 +1,76 @@
 <template>
-  <div class="auto-overflow-container">
-    <div class="sticky-notes__container">
-      <div class="sticky-notes__actions">
-        <b-button rounded
-                  icon-left="pen"
-                  type="is-primary"
-                  @click="goToEditStickyNote"
-                  v-if="accessList.edit">
-          Edit
-        </b-button>
+  <div class="scrollable-container">
+    <BaseCard class="card" cardClass="card-hover">
+      <div class="header">
+        <h3 class="title">{{ stickyNote.title || 'Sticky Note' }}</h3>
       </div>
-      <div class="sticky-notes__header">
-        <div class="sticky-notes__header-title">
-          <span class="is-size-5 has-text-weight-bold">{{ stickyNote.title }}</span>
+      <div class="header float-right">
+        <div class="date">
+          {{ stickyNote.updatedAt | moment("dddd, MMMM Do YYYY") }}
         </div>
-        <div class="sticky-notes__header-date">
-          <span class="is-size-7">
-            {{ stickyNote.updatedAt | moment("dddd, MMMM Do YYYY") }}
+        <div class="action">
+          <span class="add-btn" @click="goToAddStickyNote" v-if="accessList.edit">
+            <font-awesome-icon icon="edit" class="icon blue" size="lg"></font-awesome-icon>
           </span>
         </div>
       </div>
-      <div class="sticky-notes__content">
+      <div class="preview wrap-word">
         <span v-html="stickyNoteCompiledMarkdown"></span>
       </div>
-    </div>
+    </BaseCard>
   </div>
 </template>
 
 <script type="text/javascript" src="./js/sticky-notes-detail.js">
 </script>
 
-<style lang="scss" scoped>
-  @import "@/assets/css/main.scss";
+<style scoped>
+  .card {
+    min-height: 80vh;
+  }
 
-  .sticky-notes {
-    &__container {
-      display: flex;
-      flex-direction: column;
-      padding: 1rem 1.25rem;
-    }
+  .header {
+    display: inline-block;
+  }
 
-    &__actions {
-      @media only screen and (max-width: 1023px) {
-        position: fixed;
-        right: 5vw;
-        bottom: 75px;
-        transition: all 0.1s ease-in-out;
-        box-shadow: 2px 2px 16px 4px rgba(0, 0, 0, 0.2);
-        border-radius: 50%;
-      }
-    }
+  .title {
+    margin: 5px 0 5px 0;
+  }
 
-    &__header {
-      margin-top: 0.5rem;
-      margin-bottom: 0.75rem;
+  .date {
+    padding: 5px 15px 5px 5px;
+    display: inline-block;
+  }
 
-      &-date {
-        border-left: 1px solid #BDBDBD;
-        padding-left: 0.5rem;
-      }
-    }
+  .float-right {
+    float: right;
+  }
+
+  .preview {
+    text-align: justify;
+  }
+
+  .action {
+    border-left: 1px solid #BDBDBD;
+    padding-left: 15px;
+    display: inline-block;
+  }
+
+  .action span {
+    padding: 5px;
+    transition: all .2s ease;
+  }
+
+  .action span:hover {
+    opacity: 0.8;
+  }
+
+  .action span:active {
+    opacity: 0.9;
+  }
+
+  h3 {
+    margin: 5px 0 15px 0;
+    text-align: left;
   }
 </style>

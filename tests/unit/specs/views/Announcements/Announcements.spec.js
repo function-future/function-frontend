@@ -171,6 +171,31 @@ describe('Announcements', () => {
     })
   })
 
+  test('goToAddAnnouncement is called @click', () => {
+    const spy = jest.spyOn(announcements.methods, 'goToAddAnnouncement')
+    const $route = {
+      path: '/announcements',
+      name: 'announcements',
+      meta: {
+        title: 'Announcements'
+      }
+    }
+    const $router = {
+      push: jest.fn()
+    }
+    wrapper = mount(announcements, {
+      store,
+      localVue,
+      mocks: {
+        $route,
+        $router
+      },
+      sync: false
+    })
+    wrapper.find('.button-save').trigger('click')
+    expect(spy).toBeCalledTimes(1)
+  })
+
   test('goToAddAnnouncement $route.push to addAnnouncement', () => {
     const push = jest.fn()
     const $route = {

@@ -256,6 +256,22 @@ describe('actions', () => {
     const fail = jest.fn()
     store.actions.createAnnouncement({ commit }, { data, callback, fail})
     expect(fail).toHaveBeenCalledTimes(0)
+    expect(commit).toHaveBeenCalledWith('SET_ANNOUNCEMENT_BY_ID', {
+      "id": "sample-id",
+      "title": "Announcements 1",
+      "summary": "Summary goes here. Maximum 70 characters?",
+      "description": "Description goes here. Currently there is no limit to description length.",
+      "files": [
+        {
+          "id": "sample-id",
+          "file": {
+            "full": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png",
+            "thumbnail": null
+          }
+        }
+      ],
+      "updatedAt": 1555980050616
+    })
     expect(callback).toHaveBeenCalledTimes(1)
   })
 
@@ -293,6 +309,22 @@ describe('actions', () => {
     const fail = jest.fn()
     store.actions.updateAnnouncement({ commit }, { data, callback, fail })
     expect(fail).toBeCalledTimes(0)
+    expect(commit).toHaveBeenCalledWith('SET_ANNOUNCEMENT_BY_ID', {
+      "id": "sample-id",
+      "title": "Announcements 1",
+      "summary": "Summary goes here. Maximum 70 characters?",
+      "description": "Description goes here. Currently there is no limit to description length.",
+      "files": [
+        {
+          "id": "sample-id",
+          "file": {
+            "full": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png",
+            "thumbnail": null
+          }
+        }
+      ],
+      "updatedAt": 1555980050616
+    })
     expect(callback).toHaveBeenCalledTimes(1)
   })
 

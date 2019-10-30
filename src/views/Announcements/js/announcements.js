@@ -1,5 +1,6 @@
 import { mapActions, mapGetters } from 'vuex'
-import ListItem from '@/components/list/ListItem'
+import BaseCard from '@/components/BaseCard'
+import BaseButton from '@/components/BaseButton'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
 import BasePagination from '@/components/BasePagination'
 let marked = require('marked')
@@ -7,7 +8,8 @@ let marked = require('marked')
 export default {
   name: 'announcements',
   components: {
-    ListItem,
+    BaseButton,
+    BaseCard,
     ModalDeleteConfirmation,
     BasePagination
   },

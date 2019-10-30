@@ -67,6 +67,10 @@ describe('StickyNotesDetail.vue', () => {
   test('Is an instance', () => {
     expect(wrapper.isVueInstance()).toBe(true)
   })
+
+  test('Render components correctly', () => {
+    expect(wrapper.html()).toContain('basecard')
+  })
 })
 
 describe('StickyNotesDetail.js', () => {
@@ -149,7 +153,7 @@ describe('StickyNotesDetail.js', () => {
     expect($toasted.error).toBeCalledTimes(1)
   })
 
-  test('goToEditStickyNote', () => {
+  test('goToAddStickyNotes', async () => {
     const $route = {
       name: 'editStickyNote'
     }
@@ -165,7 +169,8 @@ describe('StickyNotesDetail.js', () => {
       },
       sync: false
     })
-    wrapper.vm.goToEditStickyNote()
+    wrapper.find('.add-btn').trigger('click')
+    await wrapper.vm.$nextTick()
     expect(wrapper.vm.$route.name).toBe($route.name)
   })
 

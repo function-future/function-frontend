@@ -1,6 +1,15 @@
 import { mapActions, mapGetters } from 'vuex'
+import BaseInput from '@/components/BaseInput'
+import BaseButton from '@/components/BaseButton'
+import BaseTextArea from '@/components/BaseTextArea'
+import config from '@/config/index'
 
 export default {
+  components: {
+    BaseButton,
+    BaseInput,
+    BaseTextArea
+  },
   data () {
     return {
       toolbars: {
@@ -75,8 +84,8 @@ export default {
       this.validateBeforeSubmit(this.validationSuccess)
     },
     validationSuccess (result) {
+      this.isSubmitting = true
       if (result) {
-        this.isSubmitting = true
         let data = { ...this.stickyNote }
         this.postStickyNotes({
           data,
