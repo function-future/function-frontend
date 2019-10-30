@@ -196,7 +196,7 @@ export default {
       })
     },
     successFetchBatches (response) {
-      this.isFetchinBatches = false
+      this.isFetchingBatches = false
       this.batches = response
     },
     failFetchBatches () {
