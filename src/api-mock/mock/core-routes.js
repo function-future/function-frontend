@@ -1103,7 +1103,15 @@ export const batches = [
         'name': 'Batch Name'
       }
     }
-  }
+  },
+  {
+    method: 'DELETE',
+    url: '/api/core/batches/sample-id-1',
+    response: {
+      'code': 200,
+      'status': 'OK'
+    }
+  },
 ]
 
 export const discussions = [
