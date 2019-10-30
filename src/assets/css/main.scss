@@ -61,10 +61,15 @@
   }
 }
 
+.is-image-horizontal-center {
+  display: flex;
+  justify-content: center;
+}
+
 .input-invalid-message {
+  display: block;
   color: #FF0000;
   font-size: 0.75em;
-  float: left;
   margin-left: 0.5rem;
 }
 

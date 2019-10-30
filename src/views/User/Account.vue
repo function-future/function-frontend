@@ -5,7 +5,7 @@
         <article class="media">
           <figure class="media-left">
             <p class="image is-64x64">
-              <img :src="currentUser.avatar">
+              <img class="is-rounded" :src="currentUser.avatar">
             </p>
           </figure>
           <div class="media-content">
