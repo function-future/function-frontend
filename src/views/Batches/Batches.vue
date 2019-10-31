@@ -11,14 +11,14 @@
       </div>
       <div class="batches__container__content-wrapper">
         <div class="columns is-multiline" v-if="isLoading">
-          <div class="column is-6"
-               v-for="n in 4"
+          <div class="column is-4"
+               v-for="n in 3"
                v-bind:key="n">
             <ListItem :loading="isLoading" :simple="true"></ListItem>
           </div>
         </div>
         <div class="columns is-multiline" v-else>
-          <div class="column is-6"
+          <div class="column is-4"
                v-for="batch in batches"
                v-bind:key="batch.code">
             <ListItem>
