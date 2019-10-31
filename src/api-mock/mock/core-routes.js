@@ -921,28 +921,28 @@ export const courses = [
       'data': [
         {
           'id': 'sample-id-1',
-          'title': 'Course Title 1',
+          'title': 'Course Title 1 Batch 1',
           'description': 'Course Description Goes Here',
           'material': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
           'materialId': 'material-id-1'
         },
         {
           'id': 'sample-id-2',
-          'title': 'Course Title 2',
+          'title': 'Course Title 2 Batch 1',
           'description': 'Course Description Goes Here',
           'material': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
           'materialId': 'material-id-1'
         },
         {
           'id': 'sample-id-3',
-          'title': 'Course Title 3',
+          'title': 'Course Title 3 Batch 1',
           'description': 'Course Description Goes Here',
           'material': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
           'materialId': 'material-id-1'
         },
         {
           'id': 'sample-id-4',
-          'title': 'Course Title 4',
+          'title': 'Course Title 4 Batch 1',
           'description': 'Course Description Goes Here',
           'material': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
           'materialId': 'material-id-1'
@@ -977,6 +977,63 @@ export const courses = [
           'materialId': 'material-id-1'
         }
       ],
+      'paging': {
+        'page': 2,
+        'size': 10,
+        'totalRecords': 40
+      }
+    }
+  },
+  {
+    method: 'GET',
+    url: '/api/core/batches/1/courses?page=3&size=10',
+    response: {
+      'code': 200,
+      'status': 'OK',
+      'data': [],
+      'paging': {
+        'page': 3,
+        'size': 10,
+        'totalRecords': 40
+      }
+    }
+  },
+  {
+    method: 'GET',
+    url: '/api/core/batches/2/courses?page=1&size=10',
+    response: {
+      'code': 200,
+      'status': 'OK',
+      'data': [
+        {
+          'id': 'sample-id-5',
+          'title': 'Course Title Batch 2',
+          'description': 'Course Description Goes Here',
+          'material': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
+          'materialId': 'material-id-1'
+        },
+        {
+          'id': 'sample-id-6',
+          'title': 'Course Title 2 Batch 2',
+          'description': 'Course Description Goes Here',
+          'material': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
+          'materialId': 'material-id-1'
+        }
+      ],
+      'paging': {
+        'page': 1,
+        'size': 10,
+        'totalRecords': 40
+      }
+    }
+  },
+  {
+    method: 'GET',
+    url: '/api/core/batches/2/courses?page=2&size=10',
+    response: {
+      'code': 200,
+      'status': 'OK',
+      'data': [],
       'paging': {
         'page': 2,
         'size': 10,

@@ -45,7 +45,7 @@ import editStickyNote from '@/views/StickyNotes/EditStickyNote.vue'
 import UserForm from '@/views/Users/UserForm.vue'
 import batches from '@/views/Batches/Batches.vue'
 import batchForm from '@/views/Batches/BatchForm.vue'
-import courses from '@/views/Courses/Courses.vue'
+import courses from '@/views/Courses/CoursesRevamp.vue'
 import masterCourses from '@/views/Courses/MasterCourses.vue'
 import courseDetail from '@/views/Courses/CourseDetail.vue'
 import courseForm from '@/views/Courses/CourseForm.vue'
@@ -246,7 +246,7 @@ const router = new Router({
       props: { editMode: false }
     },
     {
-      path: config.app.pages.courses.batches.list,
+      path: config.app.pages.batches.list,
       name: 'batches',
       component: batches,
       meta: {
@@ -259,7 +259,7 @@ const router = new Router({
       }
     },
     {
-      path: config.app.pages.courses.batches.add,
+      path: config.app.pages.batches.add,
       name: 'addBatch',
       component: batchForm,
       meta: {
@@ -275,7 +275,7 @@ const router = new Router({
       props: { editMode: false }
     },
     {
-      path: config.app.pages.courses.batches.edit,
+      path: config.app.pages.batches.edit,
       name: 'editBatch',
       component: batchForm,
       meta: {
@@ -299,7 +299,6 @@ const router = new Router({
         title: 'Courses',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'courseBatches' },
           { name: 'Courses', link: 'courses' }
         ]
       }
@@ -313,7 +312,6 @@ const router = new Router({
         title: 'Course Detail',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'courseBatches' },
           { name: 'Courses', link: 'courses' },
           { name: 'Course Detail', link: 'courseDetail' }
         ]
@@ -329,7 +327,6 @@ const router = new Router({
         title: 'Add Course',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'courseBatches' },
           { name: 'Courses', link: 'courses' },
           { name: 'Add Course', link: 'addCourse' }
         ]
@@ -346,7 +343,6 @@ const router = new Router({
         title: 'Edit Course',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'courseBatches' },
           { name: 'Courses', link: 'courses' },
           { name: 'Course Detail', link: 'courseDetail' },
           { name: 'Edit Course', link: 'editCourse' }
@@ -363,7 +359,6 @@ const router = new Router({
         title: 'Master Courses',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'courseBatches' },
           { name: 'Master Courses', link: 'masterCourses' }
         ]
       }
@@ -377,7 +372,6 @@ const router = new Router({
         title: 'Master Course Detail',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'courseBatches' },
           { name: 'Master Courses', link: 'masterCourses' },
           { name: 'Master Course Detail', link: 'masterCourseDetail' }
         ]
@@ -393,7 +387,6 @@ const router = new Router({
         title: 'Add Master Course',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'courseBatches' },
           { name: 'Master Courses', link: 'masterCourses' },
           { name: 'Add Master Course', link: 'addMasterCourse' }
         ]
@@ -410,7 +403,6 @@ const router = new Router({
         title: 'Edit Master Course',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'courseBatches' },
           { name: 'Master Courses', link: 'masterCourses' },
           { name: 'Master Course Detail', link: 'masterCourseDetail' },
           { name: 'Edit Master Course', link: 'editMasterCourse' }
