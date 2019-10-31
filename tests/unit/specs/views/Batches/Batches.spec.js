@@ -1,9 +1,9 @@
-import CourseBatch from '@/views/Courses/CourseBatch'
+import Batches from '@/views/Batches/Batches'
 import { createLocalVue, shallowMount } from '@vue/test-utils'
 import Vuex from 'vuex'
 import VueRouter from 'vue-router'
 
-describe('CourseBatch', () => {
+describe('Batches', () => {
   let store
   let wrapper
   let localVue
@@ -17,28 +17,6 @@ describe('CourseBatch', () => {
 
   function initStore () {
     const state = {
-      batchList: [
-        {
-          'id': 'sample-id-1',
-          'code': '1',
-          'name': 'Batch 1'
-        },
-        {
-          'id': 'sample-id-2',
-          'code': '2',
-          'name': 'Batch 2'
-        },
-        {
-          'id': 'sample-id-3',
-          'code': '3',
-          'name': 'Batch 3'
-        },
-        {
-          'id': 'sample-id-4',
-          'code': '4',
-          'name': 'Batch 3'
-        }
-      ],
       accessList: {
         add: true,
         delete: true,
@@ -54,7 +32,6 @@ describe('CourseBatch', () => {
       deleteBatch: jest.fn()
     }
     const getters = {
-      batchList: state => state.batchList,
       accessList: state => state.accessList,
       currentUser: state => state.currentUser
     }
@@ -82,17 +59,14 @@ describe('CourseBatch', () => {
       error: jest.fn(),
       success: jest.fn()
     }
-    return shallowMount(CourseBatch, {
+    return shallowMount(Batches, {
       ...options,
       store,
       localVue,
       router,
       stubs: [
-        'BaseCard',
-        'BaseButton',
-        'BaseInput',
-        'BaseSelect',
-        'font-awesome-icon'
+        'b-button',
+        'b-input'
       ],
       mocks: {
         $toasted
@@ -121,21 +95,6 @@ describe('CourseBatch', () => {
 
   test('Rendered correctly', () => {
     expect(wrapper.isVueInstance()).toBe(true)
-  })
-
-  test('goToCourse', () => {
-    wrapper.vm.$router.push = jest.fn()
-    wrapper.vm.goToCourse('3')
-    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
-      name: 'courses',
-      params: { code: '3' }
-    })
-  })
-
-  test('goToMasterCourse', () => {
-    wrapper.vm.$router.push = jest.fn()
-    wrapper.vm.goToMasterCourse()
-    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'masterCourses' })
   })
 
   test('createNewBatch', () => {

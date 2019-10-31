@@ -1,25 +1,16 @@
 import { mapActions, mapGetters } from 'vuex'
-import BaseCard from '@/components/BaseCard.vue'
-import BaseButton from '@/components/BaseButton.vue'
-import BatchCard from '@/components/batches/BatchCard.vue'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
+import ListItem from '@/components/list/ListItem'
 
 export default {
-  name: 'courseBatch',
+  name: 'batches',
   components: {
-    BaseCard,
-    BaseButton,
-    BatchCard,
+    ListItem,
     ModalDeleteConfirmation
   },
   data () {
     return {
       isLoading: false,
-      masterCourse: {
-        id: 'master',
-        code: 'master',
-        name: 'Master Course'
-      },
       batches: [],
       selectedId: '',
       showDeleteConfirmationModal: false
@@ -27,7 +18,6 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'batchList',
       'currentUser',
       'accessList'
     ])
@@ -40,24 +30,6 @@ export default {
       'fetchBatches',
       'deleteBatch'
     ]),
-    goToCourse (code) {
-      this.$router.push({
-        name: 'courses',
-        params: {
-          code: code
-        }
-      })
-    },
-    goToMasterCourse () {
-      this.$router.push({
-        name: 'masterCourses'
-      })
-    },
-    createNewBatch () {
-      this.$router.push({
-        name: 'addBatch'
-      })
-    },
     initPage () {
       this.isLoading = true
       this.fetchBatches({
@@ -65,13 +37,16 @@ export default {
         fail: this.failFetchBatches
       })
     },
-    successFetchBatches () {
-      this.batches = this.batchList
+    successFetchBatches (response) {
+      this.batches = response
       this.isLoading = false
     },
     failFetchBatches () {
       this.isLoading = false
       this.$toasted.error('Fail to fetch batches, please try again')
+    },
+    createNewBatch () {
+      this.$router.push({ name: 'addBatch' })
     },
     editBatch (id) {
       this.$router.push({
