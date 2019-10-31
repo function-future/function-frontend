@@ -7,7 +7,7 @@
                       :label="tab.label" :visible="tab.visible">
             <div class="courses__container__tabs-actions">
               <div class="columns is-mobile">
-                <div class="column is-narrow is-flex">
+                <div class="column is-narrow is-flex" v-if="!isStudent">
                   <b-checkbox v-model="allSelected" :indeterminate="partialSelected"></b-checkbox>
                 </div>
                 <div class="column">
@@ -24,7 +24,7 @@
                               @click="openShareSelectedCourseModal"
                               :disabled="!selectedIds.length"
                               :loading="switchingTabLoading"
-                              v-if="accessList.add"
+                              v-if="accessList.add && !isStudent"
                               icon-left="copy"
                               type="is-primary">
                       Share<span class="is-hidden-touch"> to batch</span>
@@ -48,7 +48,7 @@
             </div>
             <div class="courses__container__tabs-content">
               <div class="columns is-mobile" v-for="(course, index) in courses" :key="index">
-                <div class="column is-narrow is-flex">
+                <div class="column is-narrow is-flex" v-if="!isStudent">
                   <b-checkbox v-model="selectedIds" :native-value="course.id"></b-checkbox>
                 </div>
                 <div class="column">
@@ -73,7 +73,7 @@
                         <b-dropdown-item
                           aria-role="listitem"
                           @click="openShareCourseModal(course.id)"
-                          v-if="accessList.add">
+                          v-if="accessList.add && !isStudent">
                         <span class="icon-wrapper">
                           <b-icon icon="copy" class="icon" size="is-small"></b-icon>
                           Share to Batch

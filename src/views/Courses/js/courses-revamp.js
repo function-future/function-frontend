@@ -78,6 +78,9 @@ export default {
       if (!this.isStudent) {
         this.tabs[0].visible = true
         this.activeTab = 0
+      } else {
+        this.tabs[0].visible = false
+        this.activeTab = 1
       }
     },
     initPage ($state) {
@@ -235,6 +238,9 @@ export default {
     },
     allSelected () {
       this.selectAll()
+    },
+    currentUser () {
+      this.checkCurrentUser()
     }
   }
 }
