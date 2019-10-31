@@ -221,7 +221,29 @@ export default {
     openShareSelectedCourseModal () {
       this.showShareCourseModal = true
     },
-    submitShareCourse (destinationBatchId) {},
+    submitShareCourse (destinationBatchCode) {
+      this.showShareCourseModal = false
+      if (destinationBatchCode === '') return
+      let data = {
+        code: destinationBatchCode,
+        content: {
+          originBatch: this.selectedBatchCode,
+          courses: [ ...this.selectedIds ]
+        }
+      }
+      this.copyCourse({
+        data,
+        callback: this.successSubmitShareCourse,
+        fail: this.failSubmitShareCourse
+      })
+    },
+    successSubmitShareCourse () {
+      this.selectedIds = []
+      this.$toasted.success('Successfully share course')
+    },
+    failSubmitShareCourse () {
+      this.$toasted.error('Fail to share course, please try again')
+    },
     courseTitleEllipsis (title) {
       let max = 50
       return title.length > max ? title.substr(0, max) + '...' : title

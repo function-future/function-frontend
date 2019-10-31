@@ -1,12 +1,10 @@
 import { mapActions, mapGetters } from 'vuex'
-import BaseButton from '@/components/BaseButton'
-import BatchCard from '@/components/batches/BatchCard'
+import ListItem from '@/components/list/ListItem'
 
 export default {
   name: 'modal-copy',
   components: {
-    BaseButton,
-    BatchCard
+    ListItem
   },
   data () {
     return {
@@ -43,6 +41,9 @@ export default {
     },
     failFetchBatches () {
       this.$toasted.error('Fail to fetch batches, please try again')
+    },
+    select (code) {
+      this.batchDestination = code
     }
   }
 }
