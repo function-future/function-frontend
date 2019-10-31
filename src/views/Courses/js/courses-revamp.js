@@ -1,12 +1,14 @@
 import { mapActions, mapGetters } from 'vuex'
 import InfiniteLoading from 'vue-infinite-loading'
 import ListItem from '@/components/list/ListItem'
+import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
 
 export default {
   name: 'coursesRevamp',
   components: {
     InfiniteLoading,
-    ListItem
+    ListItem,
+    ModalDeleteConfirmation
   },
   data () {
     return {
@@ -17,12 +19,12 @@ export default {
       tabs: [
         {
           label: 'Master Courses',
-          type: 'MASTER',
+          type: 'master',
           visible: false
         },
         {
           label: 'Courses',
-          type: 'BATCH',
+          type: 'batch',
           visible: true
         }
       ],
@@ -48,10 +50,14 @@ export default {
     ]),
     isStudent () {
       return this.currentUser.role === 'STUDENT'
+    },
+    currentTabType () {
+      return this.tabs[this.activeTab].type
     }
   },
   created () {
     this.checkCurrentUser()
+    this.setQuery()
   },
   methods: {
     ...mapActions([
@@ -70,12 +76,17 @@ export default {
     },
     initPage ($state) {
       this.state = $state
-      this.tabs[this.activeTab].type === 'MASTER' ? this.fetchMasterCourse() : this.initBatchCourse()
+      this.currentTabType === 'master' ? this.fetchMasterCourse() : this.initBatchCourse()
+    },
+    setQuery () {
+      this.$router.push({
+        query: { tab: this.currentTabType }
+      })
     },
     initBatchCourse () {
-      this.batches.length ? this.fetchCourse() : this.fetchAllBatch()
+      this.batches.length ? this.fetchCourse() : this.fetchBatchList()
     },
-    fetchAllBatch () {
+    fetchBatchList () {
       this.fetchBatches({
         callback: this.successFetchBatches,
         fail: this.failFetchBatches
@@ -108,7 +119,6 @@ export default {
       })
     },
     successFetchCourse (response, paging) {
-      console.log(response)
       this.switchingTabLoading = false
       this.isLoading = false
       this.paging = paging
@@ -131,15 +141,64 @@ export default {
       this.paging.page = 1
       this.infiniteId += 1
     },
-    goToEditCourse (id) {
-      // this.$router.push({
-      //   name: 'editMasterCourse',
-      //   params: { id: id }
-      // })
+    goToAddPage () {
+      this.$router.push({
+        name: 'addMasterCourse'
+      })
+    },
+    goToEditPage (id) {
+      this.currentTabType === 'master' ? this.editMasterCourse(id) : this.editCourse(id)
+    },
+    editCourse (id) {
+      this.$router.push({
+        name: 'editCourse',
+        params: {
+          id: id,
+          code: this.$route.params.code
+        }
+      })
+    },
+    editMasterCourse (id) {
+      this.$router.push({
+        name: 'editMasterCourse',
+        params: { id: id }
+      })
     },
     openDeleteConfirmationModal (id) {
       this.selectedId = id
       this.showDeleteConfirmationModal = true
+    },
+    deleteThis () {
+      this.currentTabType === 'master' ? this.deleteThisMasterCourse() : this.deleteThisCourse()
+    },
+    deleteThisCourse () {
+      let data = {
+        id: this.selectedId,
+        code: this.selectedBatchCode
+      }
+      this.deleteCourseById({
+        data,
+        callback: this.successDeleteCourse,
+        fail: this.failDeleteCourse
+      })
+    },
+    deleteThisMasterCourse () {
+      let data = { id: this.selectedId }
+
+      this.deleteMasterCourseById({
+        data,
+        callback: this.successDeleteCourse,
+        fail: this.failDeleteCourse
+      })
+    },
+    successDeleteCourse () {
+      this.resetPage()
+      this.showDeleteConfirmationModal = false
+      this.$toasted.success('Successfully delete master course')
+    },
+    failDeleteCourse () {
+      this.showDeleteConfirmationModal = false
+      this.$toasted.error('Fail to delete master course')
     },
     openShareCourseModal (id) {
       this.selectedIds = [ id ]
@@ -147,9 +206,10 @@ export default {
     }
   },
   watch: {
-    activeTab () {
+    currentTabType () {
       this.switchingTabLoading = true
       this.resetPage()
+      this.setQuery()
     },
     selectedBatchCode () {
       this.resetPage()
