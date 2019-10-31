@@ -127,6 +127,10 @@
       &__button {
         margin: 0.25rem;
       }
+
+      @media (max-width: 1023px) {
+        margin-bottom: 1rem;
+      }
     }
 
     &__close {

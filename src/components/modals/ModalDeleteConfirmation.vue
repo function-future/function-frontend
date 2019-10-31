@@ -5,7 +5,7 @@
         <div class="modal__container">
           <div class="modal__header">
             <h3 class="modal__header__title">Are You Sure?</h3>
-            <span class="modal__close"><font-awesome-icon icon="times" class="icon" @click="close" size="lg"></font-awesome-icon></span>
+            <span class="modal__close" @click="close"><b-icon icon="times" size="lg"></b-icon></span>
           </div>
           <div class="modal__body">
             <slot name="description"></slot>
@@ -97,6 +97,7 @@
       }
 
       @media (max-width: 1023px) {
+        margin-bottom: 1rem;
         display: flex;
         flex-direction: column-reverse;
       }

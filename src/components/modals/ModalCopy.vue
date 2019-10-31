@@ -120,7 +120,7 @@
     }
 
     &__footer {
-      margin-bottom: 1rem;
+      margin-bottom: 0.5rem;
       text-align: left;
       display: flex;
       align-items: center;
@@ -131,6 +131,7 @@
       }
 
       @media (max-width: 1023px) {
+        margin-bottom: 1rem;
         display: flex;
         flex-direction: column-reverse;
       }
