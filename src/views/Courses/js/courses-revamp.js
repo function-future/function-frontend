@@ -2,13 +2,15 @@ import { mapActions, mapGetters } from 'vuex'
 import InfiniteLoading from 'vue-infinite-loading'
 import ListItem from '@/components/list/ListItem'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
+import ModalCopy from '@/components/modals/ModalCopy'
 
 export default {
   name: 'coursesRevamp',
   components: {
     InfiniteLoading,
     ListItem,
-    ModalDeleteConfirmation
+    ModalDeleteConfirmation,
+    ModalCopy
   },
   data () {
     return {
@@ -16,6 +18,7 @@ export default {
       isLoading: false,
       showDeleteConfirmationModal: false,
       showShareCourseModal: false,
+      showSelection: false,
       tabs: [
         {
           label: 'Master Courses',
@@ -53,6 +56,9 @@ export default {
     },
     currentTabType () {
       return this.tabs[this.activeTab].type
+    },
+    partialSelected () {
+      return (this.selectedIds.length !== this.courses.length) && this.selectedIds.length > 0
     }
   },
   created () {
@@ -137,6 +143,8 @@ export default {
     },
     resetPage () {
       this.isLoading = true
+      this.allSelected = false
+      this.selectedIds = []
       this.courses = []
       this.paging.page = 1
       this.infiniteId += 1
@@ -200,9 +208,20 @@ export default {
       this.showDeleteConfirmationModal = false
       this.$toasted.error('Fail to delete master course')
     },
+    selectAll () {
+      this.allSelected ? this.selectedIds = this.courses.map(i => i.id) : this.selectedIds = []
+    },
     openShareCourseModal (id) {
       this.selectedIds = [ id ]
       this.showShareCourseModal = true
+    },
+    openShareSelectedCourseModal () {
+      this.showShareCourseModal = true
+    },
+    submitShareCourse (destinationBatchId) {},
+    courseTitleEllipsis (title) {
+      let max = 50
+      return title.length > max ? title.substr(0, max) + '...' : title
     }
   },
   watch: {
@@ -213,6 +232,9 @@ export default {
     },
     selectedBatchCode () {
       this.resetPage()
+    },
+    allSelected () {
+      this.selectAll()
     }
   }
 }
