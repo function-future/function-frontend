@@ -39,13 +39,13 @@ export const actions = {
   fetchCourseById ({ commit }, { data, callback, fail }) {
     courseApi.getCourseDetail(({ data: response }) => {
       commit('SET_COURSE_BY_ID', response)
-      callback()
+      callback && callback(response)
     }, data, fail)
   },
   fetchMasterCourseById ({ commit }, { data, callback, fail }) {
     courseApi.getMasterCourseDetail(({ data: response }) => {
       commit('SET_MASTER_COURSE_BY_ID', response)
-      callback()
+      callback && callback(response)
     }, data, fail)
   },
   createCourse ({ commit }, { data, callback, fail }) {

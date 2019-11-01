@@ -167,7 +167,7 @@ export default {
         name: 'editCourse',
         params: {
           id: id,
-          code: this.$route.params.code
+          code: this.selectedBatchCode
         }
       })
     },
