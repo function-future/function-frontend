@@ -52,7 +52,7 @@
                   <b-checkbox v-model="selectedIds" :native-value="course.id"></b-checkbox>
                 </div>
                 <div class="column">
-                  <ListItem :minHeight="'75px'">
+                  <ListItem :minHeight="'75px'" @click="goToDetail(course.id)">
                     <template #title>
                       {{ courseTitleEllipsis(course.title) }}
                     </template>

@@ -155,12 +155,16 @@ export default {
       this.infiniteId += 1
     },
     goToAddPage () {
-      this.$router.push({
-        name: 'addMasterCourse'
-      })
+      this.$router.push({ name: 'addMasterCourse' })
+    },
+    goToDetail (id) {
+      this.currentTabType === 'master' ? this.goToMasterCourseDetail(id) : this.goToCourseDetail(id)
     },
     goToEditPage (id) {
       this.currentTabType === 'master' ? this.editMasterCourse(id) : this.editCourse(id)
+    },
+    deleteThis () {
+      this.currentTabType === 'master' ? this.deleteThisMasterCourse() : this.deleteThisCourse()
     },
     editCourse (id) {
       this.$router.push({
@@ -181,9 +185,6 @@ export default {
       this.selectedId = id
       this.showDeleteConfirmationModal = true
     },
-    deleteThis () {
-      this.currentTabType === 'master' ? this.deleteThisMasterCourse() : this.deleteThisCourse()
-    },
     deleteThisCourse () {
       let data = {
         id: this.selectedId,
@@ -202,6 +203,18 @@ export default {
         data,
         callback: this.successDeleteCourse,
         fail: this.failDeleteCourse
+      })
+    },
+    goToMasterCourseDetail (id) {
+      this.$router.push({
+        name: 'masterCourseDetail',
+        params: { id: id }
+      })
+    },
+    goToCourseDetail (id) {
+      this.$router.push({
+        name: 'courseDetail',
+        params: { id: id, code: this.selectedBatchCode }
       })
     },
     successDeleteCourse () {
@@ -258,7 +271,6 @@ export default {
     currentTabType () {
       this.switchingTabLoading = true
       this.resetPage()
-      // this.setQuery()
     },
     selectedBatchCode () {
       this.resetPage()
