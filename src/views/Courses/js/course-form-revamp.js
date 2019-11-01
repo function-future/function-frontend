@@ -124,8 +124,8 @@ export default {
     submitCreateMasterCourse (data) {
       this.createMasterCourse({
         data,
-        callback: this.successCreateOrEditMasterCourse,
-        fail: this.failCreateOrEditMasterCourse
+        callback: this.successCreateOrEditCourse,
+        fail: this.failCreateOrEditCourse
       })
     },
     submitUpdateCourse (data) {
@@ -143,8 +143,8 @@ export default {
       })
     },
     successCreateOrEditCourse () {
-      this.backToCourseList()
       this.isSubmitting = false
+      this.backToCourseList()
       this.$toasted.success('Successfully ' + this.message + this.courseType)
     },
     failCreateOrEditCourse () {
