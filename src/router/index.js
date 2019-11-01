@@ -46,11 +46,9 @@ import UserForm from '@/views/Users/UserForm.vue'
 import batches from '@/views/Batches/Batches.vue'
 import batchForm from '@/views/Batches/BatchForm.vue'
 import courses from '@/views/Courses/CoursesRevamp.vue'
-import masterCourses from '@/views/Courses/MasterCourses.vue'
 import courseDetail from '@/views/Courses/CourseDetail.vue'
-import courseForm from '@/views/Courses/CourseForm.vue'
+import courseForm from '@/views/Courses/CourseFormRevamp.vue'
 import masterCourseDetail from '@/views/Courses/MasterCourseDetail.vue'
-import masterCourseForm from '@/views/Courses/MasterCourseForm.vue'
 import config from '@/config/index'
 import chatrooms from '@/views/Chatrooms/Chatrooms'
 import myQuestionnaire from '@/views/Questionnaire/MyQuestionnaire'
@@ -331,7 +329,10 @@ const router = new Router({
           { name: 'Add Course', link: 'addCourse' }
         ]
       },
-      props: { editMode: false }
+      props: {
+        editMode: false,
+        master: false
+      }
     },
     {
       path: config.app.pages.courses.edit,
@@ -348,19 +349,9 @@ const router = new Router({
           { name: 'Edit Course', link: 'editCourse' }
         ]
       },
-      props: { editMode: true }
-    },
-    {
-      path: config.app.pages.courses.master.list,
-      name: 'masterCourses',
-      component: masterCourses,
-      meta: {
-        auth: true,
-        title: 'Master Courses',
-        breadcrumb: [
-          { name: 'Home', link: 'feeds' },
-          { name: 'Master Courses', link: 'masterCourses' }
-        ]
+      props: {
+        editMode: true,
+        master: false
       }
     },
     {
@@ -372,7 +363,7 @@ const router = new Router({
         title: 'Master Course Detail',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Master Courses', link: 'masterCourses' },
+          { name: 'Courses', link: 'courses' },
           { name: 'Master Course Detail', link: 'masterCourseDetail' }
         ]
       }
@@ -380,35 +371,41 @@ const router = new Router({
     {
       path: config.app.pages.courses.master.add,
       name: 'addMasterCourse',
-      component: masterCourseForm,
+      component: courseForm,
       meta: {
         auth: true,
         add: true,
         title: 'Add Master Course',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Master Courses', link: 'masterCourses' },
+          { name: 'Courses', link: 'courses' },
           { name: 'Add Master Course', link: 'addMasterCourse' }
         ]
       },
-      props: { editMode: false }
+      props: {
+        editMode: false,
+        master: true
+      }
     },
     {
       path: config.app.pages.courses.master.edit,
       name: 'editMasterCourse',
-      component: masterCourseForm,
+      component: courseForm,
       meta: {
         auth: true,
         edit: true,
         title: 'Edit Master Course',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Master Courses', link: 'masterCourses' },
+          { name: 'Courses', link: 'courses' },
           { name: 'Master Course Detail', link: 'masterCourseDetail' },
           { name: 'Edit Master Course', link: 'editMasterCourse' }
         ]
       },
-      props: { editMode: true }
+      props: {
+        editMode: true,
+        master: true
+      }
     },
     {
       path: config.app.pages.files.root,
