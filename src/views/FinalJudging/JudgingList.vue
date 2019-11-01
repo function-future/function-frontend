@@ -1,25 +1,26 @@
 <template>
   <div class="auto-overflow-container">
     <div class="judging-container">
-      <div class="judging-action level">
-        <div class="level-left">
-
+      <div class="judging__action level">
+        <div>
           <b-button style="margin-right: 8px" rounded
                     icon-left="plus"
                     type="is-primary"
-                    @click="addJudging">
+                    @click="addJudging"
+                    class="judging__action-add">
             Add
           </b-button>
           <b-button style="margin-right: 8px" rounded
                     icon-left="eye"
                     type="is-primary"
-                    @click="goToReportPage">
+                    @click="goToReportPage"
+                    class="judging__action-view">
             View
           </b-button>
         </div>
-        <div class="level-right">
+        <div>
           <b-field label="Batch"
-                   :label-position="'on-border'">
+                   :label-position="'on-border'" class="judging__action-batch">
             <b-select v-model="selectedBatch">
               <option v-for="batch in batches" :key="batch.id" :value="batch.code">{{batch.name}}</option>
             </b-select>
@@ -90,19 +91,33 @@
       padding: 1rem 1.25rem;
       margin-bottom: 10vh;
     }
+    &__action {
+      @media only screen and (max-width: 1023px) {
+        display: flex;
+        justify-content: space-around;
+      }
+      &-view {
+        @media only screen and (max-width: 1023px) {
+          width: 60vw;
+          border-radius: 4px!important;
+        }
+      }
+      &-add{
+        @media only screen and (max-width: 1023px) {
+          position: fixed;
+          right: 5vw;
+          bottom: 75px;
+          transition: all 0.1s ease-in-out;
+          box-shadow: 2px 2px 16px 4px rgba(0, 0, 0, 0.2);
+          border-radius: 50%;
+          z-index: 5;
+        }
+      }
+    }
     &__pagination {
       &-wrapper {
         margin: 1rem 0.5rem;
       }
     }
-  }
-  .add-btn {
-    justify-self: flex-end;
-    margin-left: auto;
-  }
-
-  .report-btn {
-    justify-self: flex-start;
-    margin-left: 15px;
   }
 </style>
