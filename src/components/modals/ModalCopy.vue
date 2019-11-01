@@ -8,7 +8,12 @@
             <span class="modal__close" @click="close"><b-icon icon="times" size="lg"></b-icon></span>
           </div>
           <div class="modal__body">
-            <div class="columns is-mobile" v-for="batch in batches" :key="batch.code">
+            <div class="columns is-multiline" v-if="isLoading">
+              <div class="column is-12" v-for="n in 3" :key="n">
+                <ListItem :minHeight="'50px'" :simple="true" :loading="isLoading"></ListItem>
+              </div>
+            </div>
+            <div class="columns is-mobile" v-else v-for="batch in batches" :key="batch.code">
               <div class="column is-narrow is-flex">
                 <b-radio :native-value="batch.code" v-model="batchDestination"></b-radio>
               </div>
@@ -16,6 +21,12 @@
                 <ListItem :minHeight="'50px'">
                   <template #title>{{ batch.name }}</template>
                 </ListItem>
+              </div>
+            </div>
+            <div class="columns is-mobile is-vcentered" v-if="!batches && !isLoading">
+              <div class="column has-text-centered modal__body__empty-list">
+                No batches available, create batch here
+                <b-button type="is-primary" @click="goToCreateBatch">Create batch</b-button>
               </div>
             </div>
           </div>
@@ -27,32 +38,13 @@
       </div>
     </div>
   </transition>
-<!--  <div class="modal__mask">-->
-<!--    <div class="modal__wrapper">-->
-<!--      <div class="modal__container">-->
-<!--        <div class="modal__header">-->
-<!--          <h3 class="modal__header__title">Select Batch Destination</h3>-->
-<!--          <span class="modal__close"><font-awesome-icon icon="times" class="icon" @click="close" size="lg"></font-awesome-icon></span>-->
-<!--        </div>-->
-<!--        <div v-if="!batches.length" class="no-data">No Batch Available</div>-->
-<!--        <div class="modal__body scrollable-container">-->
-<!--          <label class="batch__row" v-for="batch in batches" :key="batch.code">-->
-<!--            <div class="batch__col"><input type="radio" :value="batch.code" v-model="batchDestination"></div>-->
-<!--            <div class="batch__col&#45;&#45;batches"><BatchCard :batch="batch" :showAction="false"></BatchCard></div>-->
-<!--          </label>-->
-<!--        </div>-->
-<!--        <div class="modal__footer">-->
-<!--          <BaseButton class="modal__footer__button" type="cancel" buttonClass="button-cancel" @click="close">Cancel</BaseButton>-->
-<!--          <BaseButton class="modal__footer__button" type="submit" buttonClass="button-save" @click="copy" :disabled="!batches.length">Copy</BaseButton>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
 </template>
 
 <script type="text/javascript" src="./js/modal-copy.js"></script>
 
 <style lang="scss" scoped>
+  @import "@/assets/css/main.scss";
+
   .modal {
     &__mask {
       position: fixed;
@@ -111,12 +103,21 @@
     }
 
     &__body {
+      min-height: 15vh;
       max-height: 35vh;
       overflow-y: auto;
       overflow-x: hidden;
       padding-right: 0.5rem;
       margin: 1rem 0.25rem;
       text-align: left;
+
+      &__empty-list {
+        margin-top: 0.75rem;
+
+        button {
+          margin-top: 0.5rem;
+        }
+      }
     }
 
     &__footer {

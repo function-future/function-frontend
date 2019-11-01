@@ -55,7 +55,7 @@ export default {
       return this.currentUser.role === 'STUDENT'
     },
     currentTabType () {
-      return this.tabs[this.activeTab].type
+      return this.$route.query.tab
     },
     partialSelected () {
       return (this.selectedIds.length !== this.courses.length) && this.selectedIds.length > 0
@@ -77,7 +77,7 @@ export default {
     checkCurrentUser () {
       if (!this.isStudent) {
         this.tabs[0].visible = true
-        this.activeTab = 0
+        this.activeTab = this.tabs.findIndex(i => i.type === this.currentTabType)
       } else {
         this.tabs[0].visible = false
         this.activeTab = 1
@@ -88,8 +88,10 @@ export default {
       this.currentTabType === 'master' ? this.fetchMasterCourse() : this.initBatchCourse()
     },
     setQuery () {
-      this.$router.push({
-        query: { tab: this.currentTabType }
+      if (this.activeTab < 0 || this.activeTab > this.tabs.length) this.activeTab = 0
+      if (this.tabs[this.activeTab].type === this.currentTabType) return
+      this.$router.replace({
+        query: { tab: this.tabs[this.activeTab].type }
       })
     },
     initBatchCourse () {
@@ -250,10 +252,13 @@ export default {
     }
   },
   watch: {
+    activeTab () {
+      this.setQuery()
+    },
     currentTabType () {
       this.switchingTabLoading = true
       this.resetPage()
-      this.setQuery()
+      // this.setQuery()
     },
     selectedBatchCode () {
       this.resetPage()
