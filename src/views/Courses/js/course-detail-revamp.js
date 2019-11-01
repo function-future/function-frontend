@@ -142,18 +142,31 @@ export default {
     deleteMasterCourse () {
       this.deleteMasterCourseById({
         data: this.paramsData,
-        callback: this.successDeleteMasterById,
-        fail: this.failDeleteMasterById
+        callback: this.successDeleteById,
+        fail: this.failDeleteById
       })
       this.showDeleteConfirmationModal = false
     },
     deleteCourse () {
       this.deleteCourseById({
         data: this.paramsData,
-        callback: this.successDeleteCourseById,
-        fail: this.failDeleteCourseById
+        callback: this.successDeleteById,
+        fail: this.failDeleteById
       })
       this.showDeleteConfirmationModal = false
+    },
+    successDeleteById () {
+      this.backToCourseList()
+      this.$toasted.success('Successfully delete course')
+    },
+    failDeleteById () {
+      this.$toasted.error('Fail to delete course')
+    },
+    backToCourseList () {
+      this.$router.push({
+        name: 'courses',
+        query: { tab: this.master ? 'master' : 'batch' }
+      })
     }
   }
 }

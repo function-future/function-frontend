@@ -96,6 +96,11 @@
         </div>
       </div>
     </div>
+    <modal-delete-confirmation v-if="showDeleteConfirmationModal"
+                               @close="showDeleteConfirmationModal = false"
+                               @clickDelete="deleteThis">
+      <div slot="description">Are you sure you want to delete this course?</div>
+    </modal-delete-confirmation>
   </div>
 </template>
 
