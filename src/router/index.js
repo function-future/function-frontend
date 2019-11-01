@@ -46,9 +46,8 @@ import UserForm from '@/views/Users/UserForm.vue'
 import batches from '@/views/Batches/Batches.vue'
 import batchForm from '@/views/Batches/BatchForm.vue'
 import courses from '@/views/Courses/CoursesRevamp.vue'
-import courseDetail from '@/views/Courses/CourseDetail.vue'
+import courseDetail from '@/views/Courses/CourseDetailRevamp.vue'
 import courseForm from '@/views/Courses/CourseFormRevamp.vue'
-import masterCourseDetail from '@/views/Courses/MasterCourseDetail.vue'
 import config from '@/config/index'
 import chatrooms from '@/views/Chatrooms/Chatrooms'
 import myQuestionnaire from '@/views/Questionnaire/MyQuestionnaire'
@@ -313,7 +312,8 @@ const router = new Router({
           { name: 'Courses', link: 'courses' },
           { name: 'Course Detail', link: 'courseDetail' }
         ]
-      }
+      },
+      props: { master: false }
     },
     {
       path: config.app.pages.courses.add,
@@ -357,7 +357,7 @@ const router = new Router({
     {
       path: config.app.pages.courses.master.detail,
       name: 'masterCourseDetail',
-      component: masterCourseDetail,
+      component: courseDetail,
       meta: {
         auth: true,
         title: 'Master Course Detail',
@@ -366,7 +366,8 @@ const router = new Router({
           { name: 'Courses', link: 'courses' },
           { name: 'Master Course Detail', link: 'masterCourseDetail' }
         ]
-      }
+      },
+      props: { master: true }
     },
     {
       path: config.app.pages.courses.master.add,
