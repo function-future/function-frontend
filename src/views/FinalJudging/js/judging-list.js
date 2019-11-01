@@ -1,14 +1,12 @@
 import { mapActions, mapGetters } from 'vuex'
-import BaseCard from '@/components/BaseCard'
-import BaseButton from '@/components/BaseButton'
+import ListItem from '@/components/list/ListItem'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
 import BasePagination from '@/components/BasePagination'
 
 export default {
   name: 'FinalJudgingList',
   components: {
-    BaseCard,
-    BaseButton,
+    ListItem,
     ModalDeleteConfirmation,
     BasePagination
   },
@@ -19,28 +17,35 @@ export default {
         size: 10,
         totalRecords: 0
       },
+      batches: [],
       showDeleteConfirmationModal: false,
-      selectedId: ''
+      selectedId: '',
+      selectedBatch: ''
     }
   },
   created () {
-    this.initPage()
+    this.fetchBatches({
+      callback: this.successFetchBatches,
+      fail: this.failFetchBatches
+    })
   },
   computed: {
     ...mapGetters([
       'judgingList',
-      'accessList'
+      'accessList',
+      'batchList'
     ])
   },
   methods: {
     ...mapActions([
       'fetchJudgingList',
+      'fetchBatches',
       'deleteJudging'
     ]),
     initPage () {
       this.fetchJudgingList({
         data: {
-          batchCode: this.$route.params.batchCode,
+          batchCode: this.selectedBatch,
           page: this.paging.page,
           pageSize: this.paging.size
         },
@@ -75,6 +80,7 @@ export default {
     },
     openDeleteConfirmationModal (id) {
       this.selectedId = id
+      console.log(this.selectedId)
       this.showDeleteConfirmationModal = true
     },
     closeDeleteConfirmationModal () {
@@ -84,7 +90,7 @@ export default {
     deleteThisJudging () {
       this.deleteJudging({
         data: {
-          batchCode: this.$route.params.batchCode,
+          batchCode: this.selectedBatch,
           judgingId: this.selectedId
         },
         callback: this.successDeletingJudging,
@@ -92,11 +98,11 @@ export default {
       })
     },
     successDeletingJudging () {
-      this.$toasted.success('Successfully deleted question bank')
+      this.$toasted.success('Successfully deleted judging session')
       this.$router.push({
         name: 'judgingList',
         params: {
-          batchCode: this.$route.params.batchCode
+          batchCode: this.selectedBatch
         }
       })
       this.closeDeleteConfirmationModal()
@@ -121,9 +127,21 @@ export default {
       this.$router.push({
         name: 'batchReportPage',
         params: {
-          batchCode: this.$route.params.batchCode
+          batchCode: this.selectedBatch
         }
       })
+    },
+    successFetchBatches () {
+      this.batches = this.batchList
+      this.selectedBatch = this.batches[0].code
+    },
+    failFetchBatches () {
+      this.$toasted.error('Something went wrong')
+    }
+  },
+  watch: {
+    selectedBatch () {
+      this.initPage()
     }
   }
 }

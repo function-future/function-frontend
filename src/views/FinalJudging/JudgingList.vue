@@ -1,65 +1,83 @@
 <template>
-  <div class="scrollable-container">
-    <div class="page-header">
-      <BaseButton class="report-btn"
-                  buttonClass="button-save"
-                  @click="goToReportPage">
-        Batch report
-      </BaseButton>
-      <BaseButton v-if="accessList.add"
-                  class="add-btn"
-                  type="submit"
-                  buttonClass="button-save"
-                  @click="addJudging">
-        <font-awesome-icon icon="plus" class="icon"/> Add
-      </BaseButton>
-    </div>
-    <BaseCard class="judging__card"
-              v-for="judging in judgingList"
-              :key="judging.id"
-              @click.native="goToJudgingDetail(judging.id)"
-              cardClass="card-hover">
-      <div class="judging__card-header-section">
-        <div class="judging__card-header">
+  <div class="auto-overflow-container">
+    <div class="judging-container">
+      <div class="judging-action level">
+        <div class="level-left">
+
+          <b-button style="margin-right: 8px" rounded
+                    icon-left="plus"
+                    type="is-primary"
+                    @click="addJudging">
+            Add
+          </b-button>
+          <b-button style="margin-right: 8px" rounded
+                    icon-left="eye"
+                    type="is-primary"
+                    @click="goToReportPage">
+            View
+          </b-button>
+        </div>
+        <div class="level-right">
+          <b-field label="Batch"
+                   :label-position="'on-border'">
+            <b-select v-model="selectedBatch">
+              <option v-for="batch in batches" :key="batch.id" :value="batch.code">{{batch.name}}</option>
+            </b-select>
+          </b-field>
+        </div>
+      </div>
+      <ListItem v-for="judging in judgingList" v-bind:key="judging.id" @click="goToJudgingDetail(judging.id)">
+        <template #title>
           {{judging.name}}
-        </div>
-        <div class="judging__card-header-info">
-          <div class="judging__card-header-info-date">
-            {{ judging.uploadedDate |  moment("dddd, MMMM Do YYYY") }}
+        </template>
+        <template #content>
+          <div class="wrap-word ellipsis">
+            <span>{{judging.description}}</span>
           </div>
-          <div class="judging__card-header-info-action">
-            <font-awesome-icon
-              icon="poll"
-              class="icon blue"
-              size="lg"
-              @click.stop="goToComparison(judging.id)">
-            </font-awesome-icon>
-            <span>
-            <font-awesome-icon
-              v-if="accessList.delete"
-              icon="trash-alt"
-              class="icon red"
-              size="lg"
-              @click.stop="openDeleteConfirmationModal(judging.id)"></font-awesome-icon></span>
-          </div>
-        </div>
+        </template>
+        <template #actions>
+          <b-dropdown aria-role="list" position="is-bottom-left" @click.prevent.stop>
+            <button class="button is-text" slot="trigger">
+              <b-icon icon="ellipsis-v" size="is-small" class="icon"></b-icon>
+            </button>
+            <b-dropdown-item
+              aria-role="listitem"
+              @click="goToJudgingDetail(judging.id)"
+              v-if="accessList.edit">
+              <span class="icon-wrapper">
+                <b-icon icon="edit" class="icon" size="is-small"></b-icon>
+                Edit
+              </span>
+            </b-dropdown-item>
+            <b-dropdown-item
+              aria-role="listitem"
+              @click="openDeleteConfirmationModal(judging.id)"
+              v-if="accessList.delete">
+              <span class="icon-wrapper">
+                <b-icon icon="trash-alt" class="icon" size="is-small"></b-icon>
+                Delete
+              </span>
+            </b-dropdown-item>
+          </b-dropdown>
+        </template>
+      </ListItem>
+      <div class="judging__pagination-wrapper">
+        <b-pagination
+          :total="paging.totalRecords"
+          :current.sync="paging.page"
+          :per-page="paging.size"
+          @change="loadPage"
+          range-before="1"
+          range-after="2"
+          order="is-centered">
+        </b-pagination>
       </div>
-      <div class="judging__card-body">
-        <div class="judging__card-body-description">
-          {{judging.description}}
-        </div>
-      </div>
-    </BaseCard>
-    <BasePagination :paging="paging"
-                    @loadPage="loadPage"
-                    @previousPage="loadPreviousPage"
-                    @nextPage="loadNextPage">
-    </BasePagination>
-    <modal-delete-confirmation v-if="showDeleteConfirmationModal"
-                               @close="closeDeleteConfirmationModal"
-                               @clickDelete="deleteThisJudging">
-      <div slot="description">Are you sure you want to delete this Judging Session?</div>
-    </modal-delete-confirmation>
+      <modal-delete-confirmation v-if="showDeleteConfirmationModal"
+                                 @close="closeDeleteConfirmationModal"
+                                 @clickDelete="deleteThisJudging">
+        <div slot="description">Are you sure you want to delete this judging session?</div>
+      </modal-delete-confirmation>
+    </div>
   </div>
 </template>
 
@@ -67,46 +85,14 @@
 </script>
 
 <style lang="scss" scoped>
-  .page-header {
-    margin-right: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-  }
   .judging {
-    &__card {
-      min-height: 175px;
-      display: flex;
-      flex-direction: column;
-      &:hover {
-        cursor: pointer;
-        transition: all .3s ease;
-        box-shadow: 2px 2px 10px rgba(0,0,0,0.1), 2px 2px 10px rgba(0,0,0,0.3);
-      }
-      &-header {
-        font-weight: bolder;
-        font-size: 1.4em;
-        display: inline-block;
-        &-info {
-          float: right;
-          padding-left: 15px;
-          display: inline-block;
-          &-date {
-            display: inline-block;
-            padding-right: 15px;
-          }
-          &-action {
-            border-left: 1px solid #BDBDBD;
-            padding-left: 15px;
-            display: inline-block;
-          }
-          & span {
-            padding-left: 15px;
-          }
-        }
-      }
-      &-body {
-        margin-top: 20px;
+    &-container {
+      padding: 1rem 1.25rem;
+      margin-bottom: 10vh;
+    }
+    &__pagination {
+      &-wrapper {
+        margin: 1rem 0.5rem;
       }
     }
   }
