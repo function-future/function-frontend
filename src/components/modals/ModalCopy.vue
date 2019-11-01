@@ -104,7 +104,7 @@
 
     &__body {
       min-height: 15vh;
-      max-height: 35vh;
+      max-height: 40vh;
       overflow-y: auto;
       overflow-x: hidden;
       padding-right: 0.5rem;
