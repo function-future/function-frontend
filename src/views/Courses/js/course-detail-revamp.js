@@ -28,6 +28,7 @@ export default {
       },
       showDeleteConfirmationModal: false,
       submittingDiscussion: false,
+      disableDiscussion: false,
       state: ''
     }
   },
@@ -78,6 +79,7 @@ export default {
       this.courseDetail = response
     },
     failFetchById () {
+      this.disableDiscussion = true
       this.$toasted.error('Fail to load detail, please refresh the page')
     },
     initDiscussion ($state) {

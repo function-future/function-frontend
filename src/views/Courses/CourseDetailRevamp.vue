@@ -35,7 +35,7 @@
       </div>
       <div class="course-detail__container__discussion-wrapper" v-if="!master">
         <div class="course-detail__container__discussion-title">
-          <span class="has-text-grey" v-if="discussionPaging.totalRecords">
+          <span class="has-text-grey has-text-weight-bold" v-if="discussionPaging.totalRecords">
             {{ discussionPaging.totalRecords }} discussions
           </span>
           <span class="has-text-grey" v-else>
@@ -87,7 +87,8 @@
               <div class="field has-text-right">
                   <b-button type="is-primary"
                             @click="postDiscussion"
-                            :loading="submittingDiscussion">
+                            :loading="submittingDiscussion"
+                            :disabled="disableDiscussion">
                     Post discussion
                   </b-button>
               </div>
