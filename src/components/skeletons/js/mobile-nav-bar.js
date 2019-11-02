@@ -25,9 +25,10 @@ export default {
     fetchBreadcrumb () {
       this.breadcrumbList = this.$route.meta.breadcrumb
     },
-    routeTo (link) {
+    routeTo (breadcrumb) {
       this.$router.push({
-        name: link
+        name: breadcrumb.link,
+        ...breadcrumb.params
       })
     }
   },

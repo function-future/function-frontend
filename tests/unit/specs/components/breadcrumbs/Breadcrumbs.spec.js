@@ -68,8 +68,8 @@ describe('Breadcrumbs', () => {
       sync: false
     })
     wrapper.vm.$router.push = jest.fn()
-    const link = 'feeds'
-    wrapper.vm.routeTo(link)
+    const breadcrumb = { link: 'feeds' }
+    wrapper.vm.routeTo(breadcrumb)
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'feeds' })
   })
 
@@ -93,7 +93,8 @@ describe('Breadcrumbs', () => {
       sync: false
     })
     wrapper.vm.$router.push = jest.fn()
-    wrapper.vm.routeTo()
+    const breadcrumb = { name: 'feeds' }
+    wrapper.vm.routeTo(breadcrumb)
     expect(wrapper.vm.$router.push).toHaveBeenCalledTimes(0)
   })
 

@@ -2,8 +2,8 @@
   <div class="mobile-navbar__wrapper" v-if="breadcrumbAvailable">
     <div class="mobile-navbar__container">
       <div class="mobile-navbar__back"
-           @click="routeTo(breadcrumb.link)">
-        <b-icon icon="arrow-left"></b-icon>
+           @click="routeTo(breadcrumb)">
+        <b-icon icon="chevron-left"></b-icon>
       </div>
       <div class="mobile-navbar__title">
         <span>{{ title }}</span>

@@ -27,10 +27,11 @@ export default {
     updateList () {
       this.breadcrumbList = this.$route.meta.breadcrumb
     },
-    routeTo (link) {
-      if (!link) return
+    routeTo (breadcrumb) {
+      if (!breadcrumb.link) return
       this.$router.push({
-        name: link
+        name: breadcrumb.link,
+        ...breadcrumb.params
       })
     }
   },
