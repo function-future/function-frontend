@@ -309,7 +309,7 @@ const router = new Router({
         title: 'Course Detail',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Courses', link: 'courses' },
+          { name: 'Courses', link: 'courses', params: { query: { tab: 'batch' } } },
           { name: 'Course Detail', link: 'courseDetail' }
         ]
       },
@@ -325,7 +325,7 @@ const router = new Router({
         title: 'Add Course',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Courses', link: 'courses' },
+          { name: 'Courses', link: 'courses', params: { query: { tab: 'batch' } } },
           { name: 'Add Course', link: 'addCourse' }
         ]
       },
@@ -344,7 +344,7 @@ const router = new Router({
         title: 'Edit Course',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Courses', link: 'courses' },
+          { name: 'Courses', link: 'courses', params: { query: { tab: 'batch' } } },
           { name: 'Course Detail', link: 'courseDetail' },
           { name: 'Edit Course', link: 'editCourse' }
         ]
@@ -363,7 +363,7 @@ const router = new Router({
         title: 'Master Course Detail',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Courses', link: 'courses' },
+          { name: 'Courses', link: 'courses', params: { query: { tab: 'master' } } },
           { name: 'Master Course Detail', link: 'masterCourseDetail' }
         ]
       },
@@ -379,7 +379,7 @@ const router = new Router({
         title: 'Add Master Course',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Courses', link: 'courses' },
+          { name: 'Courses', link: 'courses', params: { query: { tab: 'master' } } },
           { name: 'Add Master Course', link: 'addMasterCourse' }
         ]
       },
@@ -398,7 +398,7 @@ const router = new Router({
         title: 'Edit Master Course',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Courses', link: 'courses' },
+          { name: 'Courses', link: 'courses', params: { query: { tab: 'master' } } },
           { name: 'Master Course Detail', link: 'masterCourseDetail' },
           { name: 'Edit Master Course', link: 'editMasterCourse' }
         ]
