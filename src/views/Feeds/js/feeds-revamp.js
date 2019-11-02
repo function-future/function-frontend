@@ -26,6 +26,7 @@ export default {
   computed: {
     ...mapGetters([
       'currentUser',
+      'menuList',
       'stickyNotes',
       'announcementList'
     ]),
@@ -103,6 +104,9 @@ export default {
         return
       }
       this.$router.push({ name: 'account' })
+    },
+    goToPage (name) {
+      this.$router.push({ name: name })
     }
   }
 }
