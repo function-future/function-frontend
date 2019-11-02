@@ -3,7 +3,7 @@ import { createLocalVue, shallowMount } from '@vue/test-utils'
 import Vuex from 'vuex'
 import InfiniteLoading from 'vue-infinite-loading'
 
-describe('CourseDetail', () => {
+describe('CourseDetail Revamp', () => {
   let store
   let wrapper
   let localVue
