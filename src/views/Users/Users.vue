@@ -85,7 +85,7 @@
       <div class="users__container__pagination-wrapper">
         <b-pagination
           :total="paging.totalRecords"
-          :current.sync="paging.currentPage"
+          :current.sync="paging.page"
           :per-page="paging.size"
           @change="loadPage"
           range-before="1"
