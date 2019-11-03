@@ -1,78 +1,169 @@
 <template>
-  <div class="file-page-wrapper">
-    <div class="button__wrapper">
-      <div class="breadcrumb-wrapper" v-if="paths.length">
-        <ul class="breadcrumb">
-          <li v-for="(breadcrumb, index) in breadcrumbs" :key="index" class="breadcrumb-list">
-            <span class="breadcrumb-name" @click="goToFolder(breadcrumb.id)"
-                  :class="{ active: breadcrumb.id === $route.params.parentId, 'no-pointer': !breadcrumb.id }">
-              {{ breadcrumb.name }}
-            </span>
-            <span class="divider" v-if="index+1 !== breadcrumbs.length">
-              <font-awesome-icon icon="chevron-right"/>
-            </span>
-          </li>
-        </ul>
-      </div>
-      <div class="button-div" v-if="accessList.add">
-        <label class="add-button">
-          <input type="file" @change="onFileChange($event)" v-if="!isUploading">
-          <span v-if="!isUploading"><font-awesome-icon icon="plus" class="icon"/> File</span>
-          <span v-if="isUploading"><font-awesome-icon icon="spinner" spin class="icon"/> File</span>
-        </label>
-      </div>
-      <div class="button-div end" v-if="accessList.add && currentUser.role === 'ADMIN'">
-        <BaseButton type="submit" buttonClass="button-save" @click="showCreateModal = true">
-          <span><font-awesome-icon icon="plus" class="icon"/> Folder</span>
-        </BaseButton>
+  <div class="auto-overflow-container">
+    <div class="breadcrumb-mobile__wrapper is-hidden-desktop">
+      <div class="breadcrumb-mobile__container">
+        <div class="breadcrumb-mobile__back"
+             @click="goToFolder(breadcrumbsMobile.id)">
+          <b-icon icon="chevron-left"></b-icon>
+        </div>
+        <div class="breadcrumb-mobile__title">
+          <span>{{ currentFolderName }}</span>
+        </div>
       </div>
     </div>
-    <div class="scrollable-container">
-      <div class="wrapper" v-if="folderList.length">
-        <h3 class="title">Folders</h3>
-        <div class="file__wrapper">
-          <div class="file" @click="goToFolder(folder.id)"
-               v-for="folder in folderList" :key="folder.id">
-            <BaseCard cardClass="card-hover" class="file__card">
-              <font-awesome-icon icon="folder" class="icon" size="lg"></font-awesome-icon>
-              <div class="file__title">{{ showLimitedPreviewText(folder.name) }}</div>
-              <div class="file__actions" v-if="true">
-                <span class="rename-btn"
-                      @click.stop="openRenameFileFolderModal(folder.id, folder.name, folder.type)"
+    <div class="breadcrumb__wrapper is-hidden-touch">
+      <nav class="breadcrumb" aria-label="breadcrumbs">
+        <ul v-if="!breadcrumbs.length">
+          <li><a>root</a></li>
+        </ul>
+        <ul v-if="breadcrumbs.length">
+          <li v-for="(breadcrumb, index) in breadcrumbs"
+              :key="index"
+              :class="{ 'is-active': breadcrumb.id === $route.params.parentId }">
+            <a @click="goToFolder(breadcrumb.id)">
+              {{ breadcrumb.name }}
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="files__container">
+      <div class="files__container__actions">
+        <label class="button is-primary is-rounded" v-if="accessList.add"
+               :class="{'is-loading': isUploading}">
+          <b-icon icon="file" size="is-small"></b-icon> File
+          <input type="file" @change="onFileChange($event)" v-if="!isUploading" style="display: none">
+        </label>
+        <b-button rounded
+                  @click="showCreateModal = true"
+                  v-if="accessList.add && currentUser.role === 'ADMIN'"
+                  icon-left="folder"
+                  type="is-primary">
+          Folder
+        </b-button>
+      </div>
+      <div class="files__container__content__folders" v-if="folderList.length">
+        <div class="files__container__content__folders-title">
+          <span class="has-text-weight-bold">Folders</span>
+        </div>
+        <div class="files__container__content__folders__list">
+          <div class="columns is-multiline is-mobile is-2 is-variable">
+            <div class="column is-3-fullhd is-3-widescreen is-4-desktop is-4-tablet is-6-mobile"
+                 v-for="folder in folderList" :key="folder.id">
+              <div class="files__container__content__folders__list-item card">
+                <div class="files__container__content__folders__list-item-title" @click="goToFolder(folder.id)">
+                  <b-icon icon="folder"></b-icon>
+                  <span class="has-text-weight-bold is-size-7-touch" :title="folder.name">
+                    {{ showLimitedPreviewText(folder.name) }}
+                  </span>
+                </div>
+                <div class="files__container__content__folders__list-item-actions" v-if="currentUser.role === 'ADMIN'">
+                  <b-dropdown aria-role="list"
+                              position="is-bottom-left"
+                              @click.prevent.stop>
+                    <button class="button is-text" slot="trigger">
+                      <b-icon icon="ellipsis-v" size="is-small" class="icon"></b-icon>
+                    </button>
+                    <b-dropdown-item
+                      aria-role="listitem"
+                      @click="openRenameFileFolderModal(folder.id, folder.name, folder.type)"
                       v-if="accessList.edit && currentUser.role === 'ADMIN'">
-                  <font-awesome-icon icon="edit" class="action-icon blue"></font-awesome-icon>
-                </span>
-                <span class="delete-btn"
-                      @click.stop="openDeleteConfirmationModal(folder.id, folder.type)"
+                      <span class="icon-wrapper">
+                        <b-icon icon="edit" class="icon" size="is-small"></b-icon>
+                        Rename
+                      </span>
+                    </b-dropdown-item>
+                    <b-dropdown-item
+                      aria-role="listitem"
+                      @click="openDeleteConfirmationModal(folder.id, folder.type)"
                       v-if="accessList.delete && currentUser.role === 'ADMIN'">
-                  <font-awesome-icon icon="trash-alt" class="action-icon red"></font-awesome-icon>
-                </span>
+                      <span class="icon-wrapper">
+                        <b-icon icon="trash-alt" class="icon" size="is-small"></b-icon>
+                        Delete
+                      </span>
+                    </b-dropdown-item>
+                    <b-dropdown-item
+                      aria-role="listitem"
+                      class="is-hidden-desktop">
+                      <b-button type="is-light" expanded>Cancel</b-button>
+                    </b-dropdown-item>
+                  </b-dropdown>
+                </div>
               </div>
-            </BaseCard>
+            </div>
           </div>
         </div>
       </div>
-      <div class="wrapper" v-if="fileList.length">
-        <h3 class="title">Files</h3>
-        <div class="file__wrapper">
-          <div class="file" @click="openFileDetail(file.id)"
-               v-for="file in fileList" :key="file.id">
-            <BaseCard cardClass="card-hover" class="file__card">
-              <font-awesome-icon icon="file" class="icon" size="lg"></font-awesome-icon>
-              <div class="file__title">{{ showLimitedPreviewText(file.name) }}</div>
-              <div class="file__actions" v-if="true">
-                <span class="rename-btn"
-                      @click.stop="openRenameFileFolderModal(file.id, file.name, file.type)"
+      <div class="files__container__content__files" v-if="fileList.length">
+        <div class="files__container__content__files-title">
+          <span class="has-text-weight-bold">Files</span>
+        </div>
+        <div class="files__container__content__files__list">
+          <div class="columns is-multiline is-mobile is-2 is-variable">
+            <div class="column is-3-fullhd is-3-widescreen is-4-desktop is-4-tablet is-6-mobile"
+                 v-for="file in fileList" :key="file.id">
+              <div class="files__container__content__files__list-item card">
+                <div class="files__container__content__files__list-item-title" @click="openFileDetail(file.id)">
+                  <b-icon icon="file"></b-icon>
+                  <span class="has-text-weight-bold is-size-7-touch" :title="file.name">
+                    {{ showLimitedPreviewText(file.name) }}
+                  </span>
+                </div>
+                <div class="files__container__content__files__list-item-actions">
+                  <b-dropdown aria-role="list"
+                              position="is-bottom-left"
+                              @click.prevent.stop>
+                    <button class="button is-text" slot="trigger">
+                      <b-icon icon="ellipsis-v" size="is-small" class="icon"></b-icon>
+                    </button>
+                    <b-dropdown-item custom aria-role="menuitem" class="is-hidden-desktop">
+                      <div class="is-size-6">{{ file.name }}</div>
+                      <div>Uploaded by <b>{{ file.author.name }}</b></div>
+                    </b-dropdown-item>
+                    <b-dropdown-item
+                      @click="openFileVersion(file.id)"
+                      aria-role="listitem">
+                      <span class="icon-wrapper">
+                        <b-icon icon="info-circle" class="icon" size="is-small"></b-icon>
+                        File version
+                      </span>
+                    </b-dropdown-item>
+                    <b-dropdown-item
+                      aria-role="listitem">
+                      <a :href="file.file" target="_blank" style="color: #4a4a4a">
+                        <span class="icon-wrapper">
+                        <b-icon icon="download" class="icon" size="is-small"></b-icon>
+                        Download
+                      </span>
+                      </a>
+                    </b-dropdown-item>
+                    <b-dropdown-item
+                      aria-role="listitem"
+                      @click="openRenameFileFolderModal(file.id, file.name, file.type)"
                       v-if="accessList.edit && ((currentUser.id === file.author.id) || currentUser.role === 'ADMIN')">
-                  <font-awesome-icon icon="edit" class="action-icon blue"></font-awesome-icon>
-                </span>
-              <span class="delete-btn"
-                    @click.stop="openDeleteConfirmationModal(file.id, file.type)"
-                    v-if="accessList.delete && ((currentUser.id === file.author.id) || currentUser.role === 'ADMIN')">
-                <font-awesome-icon icon="trash-alt" class="action-icon red"></font-awesome-icon>
-              </span>
+                      <span class="icon-wrapper">
+                        <b-icon icon="edit" class="icon" size="is-small"></b-icon>
+                        Rename
+                      </span>
+                    </b-dropdown-item>
+                    <b-dropdown-item
+                      aria-role="listitem"
+                      @click="openDeleteConfirmationModal(file.id, file.type)"
+                      v-if="accessList.delete && ((currentUser.id === file.author.id) || currentUser.role === 'ADMIN')">
+                      <span class="icon-wrapper">
+                        <b-icon icon="trash-alt" class="icon" size="is-small"></b-icon>
+                        Delete
+                      </span>
+                    </b-dropdown-item>
+                    <b-dropdown-item
+                      aria-role="listitem"
+                      class="is-hidden-desktop">
+                      <b-button type="is-light" expanded>Cancel</b-button>
+                    </b-dropdown-item>
+                  </b-dropdown>
+                </div>
               </div>
-            </BaseCard>
+            </div>
           </div>
         </div>
       </div>
@@ -83,278 +174,194 @@
         <div slot="no-more"></div>
         <div slot="no-results" class="is-empty">This folder is empty</div>
       </infinite-loading>
+      <modal-delete-confirmation v-if="showDeleteConfirmationModal"
+                                 @close="closeDeleteConfirmationModal"
+                                 @clickDelete="deleteThisFile">
+        <div slot="description">Are you sure you want to delete this {{ selectedFileType }}?</div>
+      </modal-delete-confirmation>
+      <modal-create-folder v-if="showCreateModal"
+                           @close="showCreateModal = false"
+                           @create="createFolderFromModal">
+      </modal-create-folder>
+      <modal-rename-file-folder v-if="showRenameFileFolderModal"
+                                :currentTitle="currentTitle"
+                                @close="closeRenameFileFolderModal"
+                                @submit="renameFileFolderFromModal">
+      </modal-rename-file-folder>
+      <transition name="slide-fade" mode="out-in">
+        <modal-file-upload-progress v-if="showFileUploadModal"
+                                    @close="closeFileUploadModal"
+                                    :list="fileUploadList"
+                                    :isUploading="isUploading">
+        </modal-file-upload-progress>
+      </transition>
+      <transition name="slide-fade" mode="out-in">
+        <component :is="FileDetail" @close="closeFileDetail" @update="resetPage"></component>
+      </transition>
     </div>
-    <modal-delete-confirmation v-if="showDeleteConfirmationModal"
-                               @close="closeDeleteConfirmationModal"
-                               @clickDelete="deleteThisFile">
-      <div slot="description">Are you sure you want to delete this {{ selectedFileType }}?</div>
-    </modal-delete-confirmation>
-    <modal-create-folder v-if="showCreateModal"
-                         @close="showCreateModal = false"
-                         @create="createFolderFromModal">
-    </modal-create-folder>
-    <modal-rename-file-folder v-if="showRenameFileFolderModal"
-                              :currentTitle="currentTitle"
-                              @close="closeRenameFileFolderModal"
-                              @submit="renameFileFolderFromModal">
-    </modal-rename-file-folder>
-    <transition name="slide-fade" mode="out-in">
-      <modal-file-upload-progress v-if="showFileUploadModal"
-                                  @close="closeFileUploadModal"
-                                  :list="fileUploadList"
-                                  :isUploading="isUploading">
-      </modal-file-upload-progress>
-    </transition>
-    <transition name="slide-fade" mode="out-in">
-      <component :is="FileDetail" @close="closeFileDetail" @update="resetPage"></component>
-    </transition>
   </div>
 </template>
 
 <script type="text/javascript" src="./js/files.js"></script>
 
 <style lang="scss" scoped>
-  .file-page-wrapper {
-    height: 95%;
-  }
+  @import "@/assets/css/main.scss";
 
-  .button-div {
-    margin-bottom: 0;
-    margin-right: 0;
-    margin-left: auto;
-    font-size: 14px;
-    height: 50px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .end {
-    margin-left: 10px;
-    margin-bottom: 0;
-  }
-
-  .wrapper {
-    margin-left: 5px;
-    margin-bottom: 10px;
-  }
-
-  .file {
-    flex: 0 0 20%;
-
-    @media only screen and (max-width: 1500px) {
-      flex: 0 0 25%;
-    }
-
-    @media only screen and (max-width: 1225px) {
-      flex: 0 0 33%;
-    }
-
-    @media only screen and (max-width: 1000px) {
-      flex: 0 0 50%;
-    }
-
-    &__wrapper {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      justify-content: flex-start;
-      margin-right: 15px;
-      margin-bottom: 10px;
-    }
-
-    &__card {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: flex-start;
-      box-shadow: none;
-      border: 1px solid #828282;
-      border-radius: 12px;
-      padding: 15px 20px 15px 20px;
-      margin: 10px;
-
-      &:hover {
-        box-shadow: none;
-        opacity: 0.9;
-      }
-    }
-
-    &__title {
-      font-size: 13px;
-    }
-
-    &__actions {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      margin-left: auto;
-    }
-  }
-
-  .action-icon {
-    margin-right: 5px;
-
-    &:hover {
-      opacity: 0.8;
-    }
-  }
-
-  .icon {
-    margin-right: 15px;
-  }
-
-  .title {
-    text-align: left;
-    padding-left: 10px;
-    margin-bottom: 5px;
-    margin-top: 7px;
-    font-size: 0.9rem;
-  }
-
-  .file {
-  }
-
-  .loading {
-    margin-top: 50px;
-    margin-bottom: 25px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .button {
-    &-back {
-      cursor: pointer;
-      font-size: 12px;
-
-      &:hover {
-        opacity: 0.9;
-      }
-    }
-
-    &__wrapper {
-      display: flex;
-      align-items: center;
-      margin-right: 30px;
-    }
-  }
-
-  .folder-title {
-    font-size: 16px;
-    font-weight: bold;
-    margin-left: 10px;
-    padding-left: 10px;
-    border-left: 1px solid #BDBDBD;
-  }
-
-  .disable-selection {
-    -moz-user-select: none; /* Firefox */
-    -ms-user-select: none; /* Internet Explorer */
-    -khtml-user-select: none; /* KHTML browsers (e.g. Konqueror) */
-    -webkit-user-select: none; /* Chrome, Safari, and Opera */
-    -webkit-touch-callout: none; /* Disable Android and iOS callouts*/
-  }
-
-  .add-button {
-    background: #02AAF3;
-    border: none;
-    padding: 5px 20px 5px 20px;
-    width: 75px;
-    border-radius: 30px;
-    color: white;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 1.2em;
-    line-height: normal;
-    text-align: center;
-    -webkit-transition: all .2s ease;
-    transition: all .2s ease;
-    margin: 2px 0 2px 0;
-    cursor: pointer;
-
-    &:hover {
-      box-shadow: 2px 2px 8px rgba(0,0,0,0.08), 2px 2px 10px rgba(0,0,0,0.15);
-    }
-
-    input {
-      display: none;
-    }
-  }
-
-  .breadcrumb-wrapper {
-    align-items: center;
-    display: flex;
-    flex-wrap: wrap;
-    flex: 0 1 auto;
-    margin-bottom: 5px;
+  .auto-overflow-container {
+    overflow-y: hidden;
   }
 
   .breadcrumb {
-    color: #828282;
-    font-size: 0.9rem;
-    align-items: center;
-    display: inline-flex;
-    list-style-type: none;
-    padding: 7px 25px;
-    border-radius: 30px;
-    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
-    margin-top: 10px;
-    margin-left: 15px;
-    transition: all 1s ease-in-out;
+    &__wrapper {
+      padding: 0.25rem 1.25rem 0.75rem 1.25rem;
+      background-color: #ffffff;
+      box-shadow: 0 0 16px rgba(0, 0, 0, 0.1);
+    }
 
-    &-list {
-      display: flex;
-      animation: fadein .5s;
+    &-mobile {
+      &__wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 60px;
+        padding: 1rem;
+        box-shadow: 0 0 16px rgba(0, 0, 0, 0.15);
+        margin-bottom: 0.5rem;
+      }
+
+      &__back {
+        position: absolute;
+        float: left;
+        left: 25px;
+        margin-top: 2px;
+        transition: all .2s ease;
+
+        &:hover {
+          opacity: 0.9;
+        }
+
+        &:active {
+          opacity: 0.8;
+        }
+      }
+
+      &__title {
+        span {
+          font-size: 1.1rem;
+          font-weight: bold;
+        }
+      }
     }
   }
 
-  @keyframes fadein {
-     from {opacity: 0;}
-     to   {opacity: 1;}
-   }
+  .files {
+    &__container {
+      overflow-y: scroll;
+      height: 92%;
+      display: flex;
+      flex-direction: column;
+      padding: 1rem 1.25rem 5rem 1.25rem;
+      margin-bottom: 8vh;
 
-  .breadcrumb-name {
-    max-width: 100px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    cursor: pointer;
-  }
+      &__actions {
+        z-index: 5;
+        margin-bottom: 0.75rem;
 
-  .breadcrumb-name:hover {
-    opacity: 0.8;
-  }
+        * {
+          margin-left: 0.25rem;
+          margin-right: 0.25rem;
 
-  .divider {
-    text-decoration: none;
-    color: #828282;
-    padding: 0 10px;
-  }
+          &:first-child {
+            margin-left: 0;
+            margin-right: 0;
+          }
+        }
 
-  .active {
-    max-width: 150px;
-    font-weight: bold;
-    color: #02AAF3;
-  }
+        @media only screen and (max-width: 1023px) {
+          margin-bottom: 0;
+          display: flex;
+          flex-direction: column;
+          position: fixed;
+          right: 5vw;
+          bottom: 75px;
+          transition: all 0.1s ease-in-out;
+          border-radius: 50%;
 
-  .no-pointer {
-    cursor: default;
-  }
+          button {
+            margin: 0.25rem 0;
+            box-shadow: 2px 2px 16px 4px rgba(0, 0, 0, 0.1);
+          }
+        }
+      }
 
-  .is-empty {
-    margin-top: 50px;
-  }
+      &__header {
+        margin-bottom: 0.75rem;
 
-  .slide-fade-enter-active {
-    transition: all .3s ease;
-  }
-  .slide-fade-leave-active {
-    transition: all .2s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-  }
-  .slide-fade-enter, .slide-fade-leave-to {
-    transform: translateY(10px);
-    opacity: 0;
+        &__info {
+          border-left: 1px solid #BDBDBD;
+          padding-left: 0.5rem;
+        }
+      }
+
+      &__content {
+        @media only screen and (max-width: 1023px) {
+          margin-bottom: 15vh;
+        }
+
+        &__folders {
+          &__list {
+            padding: 0.75rem 0;
+            margin-bottom: 0.5rem;
+
+            &-item {
+              min-height: 60px;
+              cursor: pointer;
+              border-radius: 0.25rem;
+              padding: 0.75rem 1rem;
+              display: flex;
+              justify-content: space-between;
+
+              @media only screen and (max-width: 1023px) {
+                padding: 0.75rem 0.75rem;
+              }
+
+              &-title {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                font-size: 0.875rem;
+              }
+            }
+          }
+        }
+
+        &__files {
+          &__list {
+            padding: 0.75rem 0;
+            margin-bottom: 0.5rem;
+
+            &-item {
+              min-height: 60px;
+              cursor: pointer;
+              border-radius: 0.25rem;
+              padding: 0.75rem 1rem;
+              display: flex;
+              justify-content: space-between;
+
+              @media only screen and (max-width: 1023px) {
+                padding: 0.75rem 0.75rem;
+              }
+
+              &-title {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                font-size: 0.875rem;
+              }
+            }
+          }
+        }
+      }
+    }
   }
 </style>

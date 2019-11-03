@@ -1,6 +1,4 @@
 import { mapActions, mapGetters } from 'vuex'
-import BaseCard from '@/components/BaseCard.vue'
-import BaseButton from '@/components/BaseButton.vue'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
 import ModalCreateFolder from '@/components/modals/ModalCreateFolder'
 import ModalRenameFileFolder from '@/components/modals/ModalRenameFileFolder'
@@ -64,6 +62,13 @@ export default {
         ]
       }
       return this.paths
+    },
+    breadcrumbsMobile () {
+      return this.paths[this.paths.length - 2] || ''
+    },
+    currentFolderName () {
+      let name = (this.paths && this.paths[this.paths.length - 1] && this.paths[this.paths.length - 1].name) || 'Files'
+      return name.length > 15 ? name.substr(0, 15) + '...' : name
     }
   },
   methods: {
@@ -119,13 +124,19 @@ export default {
       return text
     },
     goToFolder (id) {
-      if (!id) return
+      if (!id) {
+        this.$router.push({ name: 'feeds' })
+        return
+      }
       this.$router.push({
         name: 'folder',
         params: { parentId: id }
       })
     },
     openFileDetail (id) {
+      this.$router.push(this.baseUrl + id)
+    },
+    openFileVersion (id) {
       this.$router.push(this.baseUrl + id)
     },
     closeFileDetail () {
