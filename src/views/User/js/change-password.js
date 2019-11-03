@@ -53,7 +53,7 @@ export default {
       this.$toasted.error('Fail to update password')
     },
     cancel () {
-      this.$router.push({ name: 'profile' })
+      this.$router.push({ name: this.mobile ? 'account' : 'profile' })
     }
   }
 }

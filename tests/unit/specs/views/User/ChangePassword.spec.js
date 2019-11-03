@@ -174,8 +174,17 @@ describe('ChangePassword', () => {
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'profile' })
   })
 
-  test('cancel', () => {
+  test('cancel mobile', () => {
     initComponent()
+    wrapper.setProps({ mobile: true })
+    wrapper.vm.$router.push = jest.fn()
+    wrapper.vm.cancel()
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'account' })
+  })
+
+  test('cancel not mobile', () => {
+    initComponent()
+    wrapper.setProps({ mobile: false })
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.cancel()
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'profile' })
