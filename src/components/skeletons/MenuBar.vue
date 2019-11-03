@@ -34,18 +34,18 @@
                    v-if="menuList.courses">
       </b-menu-item>
       <b-menu-item class="menu-item"
-                   label="Files"
-                   tag="router-link"
-                   :active="isActive('files')"
-                   :to="{ name: 'files' }"
-                   v-if="menuList.files">
-      </b-menu-item>
-      <b-menu-item class="menu-item"
                    label="Users"
                    tag="router-link"
                    :active="isActive('users')"
                    :to="{ name: 'users' }"
                    v-if="menuList.users">
+      </b-menu-item>
+      <b-menu-item class="menu-item"
+                   label="Files"
+                   tag="router-link"
+                   :active="isActive('files')"
+                   :to="{ name: 'files' }"
+                   v-if="menuList.files">
       </b-menu-item>
       <b-menu-item :active="showGrades"
                    :expanded="showGrades"

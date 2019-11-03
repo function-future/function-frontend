@@ -58,7 +58,8 @@ describe('FeedsRevamp', () => {
         title: 'Mock Note',
         description: 'Note for testing purpose',
         updatedAt: '123456789'
-      }]
+      }],
+      menuList: {}
     }
     const actions = {
       fetchAnnouncements: jest.fn(),
@@ -66,6 +67,7 @@ describe('FeedsRevamp', () => {
     }
     const getters = {
       currentUser: state => state.currentUser,
+      menuList: state => state.menuList,
       announcementList: state => state.announcementList,
       stickyNotes: state => state.stickyNotes
     }
@@ -259,5 +261,12 @@ describe('FeedsRevamp', () => {
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.goToProfile()
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'account' })
+  })
+
+  test('goToPage', () => {
+    initComponent()
+    wrapper.vm.$router.push = jest.fn()
+    wrapper.vm.goToPage('announcements')
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'announcements' })
   })
 })
