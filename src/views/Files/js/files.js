@@ -10,8 +10,6 @@ import config from '@/config/index'
 export default {
   name: 'files',
   components: {
-    BaseCard,
-    BaseButton,
     ModalDeleteConfirmation,
     ModalCreateFolder,
     ModalRenameFileFolder,
