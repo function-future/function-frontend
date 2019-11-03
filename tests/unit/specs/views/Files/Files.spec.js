@@ -232,7 +232,7 @@ describe('Files', () => {
   test('goToFolder no id', () => {
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.goToFolder('')
-    expect(wrapper.vm.$router.push).toHaveBeenCalledTimes(0)
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'feeds' })
   })
 
   test('openFileDetail', () => {
