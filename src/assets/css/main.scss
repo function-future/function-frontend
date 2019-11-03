@@ -2,7 +2,8 @@
 
 .auto-overflow-container {
   height: 85vh;
-  overflow-x: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
 
   @media only screen and (max-width: 1023px) {
     height: 92vh;

@@ -9,7 +9,7 @@ module.exports = {
         profile: '/profile',
         profileMobile: '/m/profile',
         changePassword: '/profile/change-password',
-        changePasswordMobile: 'm/profile/change-password'
+        changePasswordMobile: '/m/profile/change-password'
       },
       feeds: '/',
       activityBlogs: {
