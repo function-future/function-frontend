@@ -1,12 +1,10 @@
 import { mapGetters, mapActions } from 'vuex'
-import BaseCard from '@/components/BaseCard'
-import ModalRenameFileFolder from '@/components/modals/ModalRenameFileFolder'
+import ListItem from '@/components/list/ListItem'
 
 export default {
   name: 'modal-file-detail',
   components: {
-    BaseCard,
-    ModalRenameFileFolder
+    ListItem
   },
   data () {
     return {
@@ -21,7 +19,10 @@ export default {
     ...mapGetters([
       'accessList',
       'currentUser'
-    ])
+    ]),
+    ownerOfTheFile () {
+      return (this.currentUser.id === (this.fileDetail && this.fileDetail.author && this.fileDetail.author.id))
+    }
   },
   created () {
     this.initData()
