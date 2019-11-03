@@ -13,6 +13,10 @@ export default {
     simple: {
       default: false,
       type: Boolean
+    },
+    minHeight: {
+      default: '60px',
+      type: String
     }
   },
   inheritAttrs: false

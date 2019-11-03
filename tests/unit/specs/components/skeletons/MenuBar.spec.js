@@ -92,6 +92,11 @@ describe('MenuBar', () => {
     expect(wrapper.vm.showGrades).toBe(true)
   })
 
+  test('showQuestionnaire computed works correctly', () => {
+    wrapper.vm.questionnaireSubmenuVisibility = true
+    expect(wrapper.vm.showQuestionnaire).toBe(true)
+  })
+
   test('ToggleGradesMenu', () => {
     expect(wrapper.vm.gradesSubmenuVisibility).toBe(false)
     wrapper.vm.toggleGradesMenu()

@@ -1,5 +1,5 @@
 <template>
-  <div class="list-wrapper">
+  <div class="list-wrapper" :style="{ minHeight }">
     <div class="list-container">
       <div class="list-container__content" v-on="$listeners" v-bind="$attrs">
         <div class="list-container__content-header">
@@ -33,13 +33,14 @@
 
   .list {
     &-wrapper {
+      text-align: left;
       padding: 0.75rem 1rem;
       min-height: 4rem;
       cursor: pointer;
       border-bottom: #E7E7E7 1px solid;
 
       &:last-child {
-        border-bottom: none;
+        /*border-bottom: none;*/
       }
     }
 

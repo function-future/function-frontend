@@ -39,10 +39,10 @@
     &-wrapper {
       padding: 0.75rem 1rem;
       min-height: 100px;
+      border-bottom: #E7E7E7 1px solid;
 
-      @media only screen and (max-width: 1023px) {
-        border-bottom: #E7E7E7 1px solid;
-        border-left: none;
+      &:last-child {
+        /*border-bottom: none;*/
       }
     }
 

@@ -921,28 +921,28 @@ export const courses = [
       'data': [
         {
           'id': 'sample-id-1',
-          'title': 'Course Title 1',
+          'title': 'Course Title 1 Batch 1',
           'description': 'Course Description Goes Here',
           'material': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
           'materialId': 'material-id-1'
         },
         {
           'id': 'sample-id-2',
-          'title': 'Course Title 2',
+          'title': 'Course Title 2 Batch 1',
           'description': 'Course Description Goes Here',
           'material': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
           'materialId': 'material-id-1'
         },
         {
           'id': 'sample-id-3',
-          'title': 'Course Title 3',
+          'title': 'Course Title 3 Batch 1',
           'description': 'Course Description Goes Here',
           'material': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
           'materialId': 'material-id-1'
         },
         {
           'id': 'sample-id-4',
-          'title': 'Course Title 4',
+          'title': 'Course Title 4 Batch 1',
           'description': 'Course Description Goes Here',
           'material': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
           'materialId': 'material-id-1'
@@ -977,6 +977,63 @@ export const courses = [
           'materialId': 'material-id-1'
         }
       ],
+      'paging': {
+        'page': 2,
+        'size': 10,
+        'totalRecords': 40
+      }
+    }
+  },
+  {
+    method: 'GET',
+    url: '/api/core/batches/1/courses?page=3&size=10',
+    response: {
+      'code': 200,
+      'status': 'OK',
+      'data': [],
+      'paging': {
+        'page': 3,
+        'size': 10,
+        'totalRecords': 40
+      }
+    }
+  },
+  {
+    method: 'GET',
+    url: '/api/core/batches/2/courses?page=1&size=10',
+    response: {
+      'code': 200,
+      'status': 'OK',
+      'data': [
+        {
+          'id': 'sample-id-5',
+          'title': 'Course Title Batch 2',
+          'description': 'Course Description Goes Here',
+          'material': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
+          'materialId': 'material-id-1'
+        },
+        {
+          'id': 'sample-id-6',
+          'title': 'Course Title 2 Batch 2',
+          'description': 'Course Description Goes Here',
+          'material': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
+          'materialId': 'material-id-1'
+        }
+      ],
+      'paging': {
+        'page': 1,
+        'size': 10,
+        'totalRecords': 40
+      }
+    }
+  },
+  {
+    method: 'GET',
+    url: '/api/core/batches/2/courses?page=2&size=10',
+    response: {
+      'code': 200,
+      'status': 'OK',
+      'data': [],
       'paging': {
         'page': 2,
         'size': 10,
@@ -1130,7 +1187,7 @@ export const discussions = [
             'name': 'Oliver Sebastian'
           },
           'comment': 'Comment Example 12',
-          'createdAt': 1580000000
+          'createdAt': 1410000000
         },
         {
           'id': 'sample-id-2',
@@ -1139,7 +1196,7 @@ export const discussions = [
             'name': 'David William Kurnia'
           },
           'comment': 'Comment Example 11',
-          'createdAt': 1570000000
+          'createdAt': 1440000000
         },
         {
           'id': 'sample-id-3',
@@ -1148,7 +1205,7 @@ export const discussions = [
             'name': 'Jonathan'
           },
           'comment': 'Comment Example 10',
-          'createdAt': 1560000000
+          'createdAt': 1450000000
         },
         {
           'id': 'sample-id-4',
@@ -1157,7 +1214,7 @@ export const discussions = [
             'name': 'Stelli'
           },
           'comment': 'Comment Example 9',
-          'createdAt': 1550000000
+          'createdAt': 1460000000
         }
       ],
       'paging': {
@@ -1181,7 +1238,7 @@ export const discussions = [
             'name': 'Oliver Sebastian'
           },
           'comment': 'Comment Example 8',
-          'createdAt': 1540000000
+          'createdAt': 1470000000
         },
         {
           'id': 'sample-id-6',
@@ -1190,7 +1247,7 @@ export const discussions = [
             'name': 'David William Kurnia'
           },
           'comment': 'Comment Example 7',
-          'createdAt': 1530000000
+          'createdAt': 1480000000
         },
         {
           'id': 'sample-id-7',
@@ -1199,7 +1256,7 @@ export const discussions = [
             'name': 'Jonathan'
           },
           'comment': 'Comment Example 6',
-          'createdAt': 1520000000
+          'createdAt': 1490000000
         },
         {
           'id': 'sample-id-8',
@@ -1208,7 +1265,7 @@ export const discussions = [
             'name': 'Stelli'
           },
           'comment': 'Comment Example 5',
-          'createdAt': 1510000000
+          'createdAt': 1500000000
         }
       ],
       'paging': {
@@ -1232,7 +1289,7 @@ export const discussions = [
             'name': 'Oliver Sebastian'
           },
           'comment': 'Comment Example 4',
-          'createdAt': 1500000000
+          'createdAt': 1510000000
         },
         {
           'id': 'sample-id-10',
@@ -1241,7 +1298,7 @@ export const discussions = [
             'name': 'David William Kurnia'
           },
           'comment': 'Comment Example 3',
-          'createdAt': 1490000000
+          'createdAt': 1520000000
         },
         {
           'id': 'sample-id-11',
@@ -1250,7 +1307,7 @@ export const discussions = [
             'name': 'Jonathan'
           },
           'comment': 'Comment Example 2',
-          'createdAt': 1480000000
+          'createdAt': 1530000000
         },
         {
           'id': 'sample-id-12',
@@ -1259,7 +1316,7 @@ export const discussions = [
             'name': 'Stelli'
           },
           'comment': 'Comment Example 1',
-          'createdAt': 1470000000
+          'createdAt': 1540000000
         }
       ],
       'paging': {
@@ -1283,7 +1340,7 @@ export const discussions = [
             'name': 'Oliver Sebastian'
           },
           'comment': 'Comment Example 0',
-          'createdAt': 1460000000
+          'createdAt': 1550000000
         },
         {
           'id': 'sample-id-14',
@@ -1292,7 +1349,7 @@ export const discussions = [
             'name': 'David William Kurnia'
           },
           'comment': 'Comment Example -1',
-          'createdAt': 1450000000
+          'createdAt': 1560000000
         },
         {
           'id': 'sample-id-15',
@@ -1301,7 +1358,7 @@ export const discussions = [
             'name': 'Jonathan'
           },
           'comment': 'Comment Example -2',
-          'createdAt': 1440000000
+          'createdAt': 1570000000
         },
         {
           'id': 'sample-id-16',
@@ -1310,9 +1367,23 @@ export const discussions = [
             'name': 'Stelli'
           },
           'comment': 'Comment Example -3',
-          'createdAt': 1430000000
+          'createdAt': 1580000000
         }
       ],
+      'paging': {
+        'page': 4,
+        'size': 4,
+        'totalRecords': 16
+      }
+    }
+  },
+  {
+    method: 'GET',
+    url: '/api/core/batches/1/courses/sample-id-1/discussions?page=5',
+    response: {
+      'code': 200,
+      'status': 'OK',
+      'data': [],
       'paging': {
         'page': 4,
         'size': 4,

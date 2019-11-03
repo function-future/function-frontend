@@ -64,7 +64,7 @@
       <div class="announcements__pagination-wrapper" v-if="!isLoading">
         <b-pagination
           :total="paging.totalRecords"
-          :current.sync="paging.currentPage"
+          :current.sync="paging.page"
           :per-page="paging.size"
           @change="loadPage"
           range-before="1"

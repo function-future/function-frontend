@@ -67,7 +67,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, .5);
+      background-color: rgba(10, 10, 10, 0.86);
       display: table;
       transition: opacity .3s ease;
     }
@@ -88,7 +88,6 @@
       margin: 0 auto;
       background-color: #fff;
       border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
       transition: all .3s ease;
       font-family: Helvetica, Arial, sans-serif;
 
@@ -127,6 +126,10 @@
 
       &__button {
         margin: 0.25rem;
+      }
+
+      @media (max-width: 1023px) {
+        margin-bottom: 1rem;
       }
     }
 

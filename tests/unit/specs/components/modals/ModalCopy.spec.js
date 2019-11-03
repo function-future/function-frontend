@@ -54,6 +54,9 @@ describe('ModalCopy', () => {
   }
 
   function createWrapper (store, options) {
+    const $router = {
+      push: jest.fn()
+    }
     const $toasted = {
       error: jest.fn(),
       success: jest.fn()
@@ -63,15 +66,14 @@ describe('ModalCopy', () => {
       store,
       localVue,
       stubs: [
-        'BaseCard',
-        'BaseButton',
-        'BaseInput',
-        'BaseSelect',
-        'font-awesome-icon'
+        'b-icon',
+        'b-button',
+        'b-radio'
       ],
       mocks: {
         $route,
-        $toasted
+        $toasted,
+        $router
       },
       sync: false
     })
@@ -170,5 +172,18 @@ describe('ModalCopy', () => {
     initComponent()
     wrapper.vm.failFetchBatches()
     expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+  })
+
+  test('select', () => {
+    initComponent()
+    wrapper.vm.select('code')
+    expect(wrapper.vm.batchDestination).toEqual('code')
+  })
+
+  test('goToCreateBatch', () => {
+    initComponent()
+    wrapper.vm.$router.push = jest.fn()
+    wrapper.vm.goToCreateBatch()
+    expect(wrapper.vm.$router.push).toHaveBeenCalledTimes(1)
   })
 })

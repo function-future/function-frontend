@@ -45,12 +45,9 @@ import editStickyNote from '@/views/StickyNotes/EditStickyNote.vue'
 import UserForm from '@/views/Users/UserForm.vue'
 import batches from '@/views/Batches/Batches.vue'
 import batchForm from '@/views/Batches/BatchForm.vue'
-import courses from '@/views/Courses/Courses.vue'
-import masterCourses from '@/views/Courses/MasterCourses.vue'
-import courseDetail from '@/views/Courses/CourseDetail.vue'
-import courseForm from '@/views/Courses/CourseForm.vue'
-import masterCourseDetail from '@/views/Courses/MasterCourseDetail.vue'
-import masterCourseForm from '@/views/Courses/MasterCourseForm.vue'
+import courses from '@/views/Courses/CoursesRevamp.vue'
+import courseDetail from '@/views/Courses/CourseDetailRevamp.vue'
+import courseForm from '@/views/Courses/CourseFormRevamp.vue'
 import config from '@/config/index'
 import chatrooms from '@/views/Chatrooms/Chatrooms'
 import myQuestionnaire from '@/views/Questionnaire/MyQuestionnaire'
@@ -246,7 +243,7 @@ const router = new Router({
       props: { editMode: false }
     },
     {
-      path: config.app.pages.courses.batches.list,
+      path: config.app.pages.batches.list,
       name: 'batches',
       component: batches,
       meta: {
@@ -259,7 +256,7 @@ const router = new Router({
       }
     },
     {
-      path: config.app.pages.courses.batches.add,
+      path: config.app.pages.batches.add,
       name: 'addBatch',
       component: batchForm,
       meta: {
@@ -275,7 +272,7 @@ const router = new Router({
       props: { editMode: false }
     },
     {
-      path: config.app.pages.courses.batches.edit,
+      path: config.app.pages.batches.edit,
       name: 'editBatch',
       component: batchForm,
       meta: {
@@ -299,7 +296,6 @@ const router = new Router({
         title: 'Courses',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'courseBatches' },
           { name: 'Courses', link: 'courses' }
         ]
       }
@@ -313,11 +309,11 @@ const router = new Router({
         title: 'Course Detail',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'courseBatches' },
-          { name: 'Courses', link: 'courses' },
+          { name: 'Courses', link: 'courses', params: { query: { tab: 'batch' } } },
           { name: 'Course Detail', link: 'courseDetail' }
         ]
-      }
+      },
+      props: { master: false }
     },
     {
       path: config.app.pages.courses.add,
@@ -329,12 +325,14 @@ const router = new Router({
         title: 'Add Course',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'courseBatches' },
-          { name: 'Courses', link: 'courses' },
+          { name: 'Courses', link: 'courses', params: { query: { tab: 'batch' } } },
           { name: 'Add Course', link: 'addCourse' }
         ]
       },
-      props: { editMode: false }
+      props: {
+        editMode: false,
+        master: false
+      }
     },
     {
       path: config.app.pages.courses.edit,
@@ -346,77 +344,69 @@ const router = new Router({
         title: 'Edit Course',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'courseBatches' },
-          { name: 'Courses', link: 'courses' },
+          { name: 'Courses', link: 'courses', params: { query: { tab: 'batch' } } },
           { name: 'Course Detail', link: 'courseDetail' },
           { name: 'Edit Course', link: 'editCourse' }
         ]
       },
-      props: { editMode: true }
-    },
-    {
-      path: config.app.pages.courses.master.list,
-      name: 'masterCourses',
-      component: masterCourses,
-      meta: {
-        auth: true,
-        title: 'Master Courses',
-        breadcrumb: [
-          { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'courseBatches' },
-          { name: 'Master Courses', link: 'masterCourses' }
-        ]
+      props: {
+        editMode: true,
+        master: false
       }
     },
     {
       path: config.app.pages.courses.master.detail,
       name: 'masterCourseDetail',
-      component: masterCourseDetail,
+      component: courseDetail,
       meta: {
         auth: true,
         title: 'Master Course Detail',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'courseBatches' },
-          { name: 'Master Courses', link: 'masterCourses' },
+          { name: 'Courses', link: 'courses', params: { query: { tab: 'master' } } },
           { name: 'Master Course Detail', link: 'masterCourseDetail' }
         ]
-      }
+      },
+      props: { master: true }
     },
     {
       path: config.app.pages.courses.master.add,
       name: 'addMasterCourse',
-      component: masterCourseForm,
+      component: courseForm,
       meta: {
         auth: true,
         add: true,
         title: 'Add Master Course',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'courseBatches' },
-          { name: 'Master Courses', link: 'masterCourses' },
+          { name: 'Courses', link: 'courses', params: { query: { tab: 'master' } } },
           { name: 'Add Master Course', link: 'addMasterCourse' }
         ]
       },
-      props: { editMode: false }
+      props: {
+        editMode: false,
+        master: true
+      }
     },
     {
       path: config.app.pages.courses.master.edit,
       name: 'editMasterCourse',
-      component: masterCourseForm,
+      component: courseForm,
       meta: {
         auth: true,
         edit: true,
         title: 'Edit Master Course',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'courseBatches' },
-          { name: 'Master Courses', link: 'masterCourses' },
+          { name: 'Courses', link: 'courses', params: { query: { tab: 'master' } } },
           { name: 'Master Course Detail', link: 'masterCourseDetail' },
           { name: 'Edit Master Course', link: 'editMasterCourse' }
         ]
       },
-      props: { editMode: true }
+      props: {
+        editMode: true,
+        master: true
+      }
     },
     {
       path: config.app.pages.files.root,

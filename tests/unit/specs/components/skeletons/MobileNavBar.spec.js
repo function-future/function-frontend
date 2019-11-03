@@ -86,8 +86,8 @@ describe('MobileNavBar', () => {
       sync: false
     })
     wrapper.vm.$router.push = jest.fn()
-    const link = 'feeds'
-    wrapper.vm.routeTo(link)
+    const breadcrumb = { link: 'feeds' }
+    wrapper.vm.routeTo(breadcrumb)
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'feeds' })
   })
 
