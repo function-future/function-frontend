@@ -69,6 +69,7 @@
     &__header {
       display: flex;
       align-items: center;
+      justify-content: space-between;
       margin: 0.5rem 0.25rem 0 0.25rem;
 
       &__title {
@@ -104,10 +105,10 @@
     }
 
     &__close {
-      margin: 0 0 0 auto;
-      padding: 0.5rem;
-      top: 0;
-      float: right;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 0.5rem 0 0.5rem 0.5rem;
       cursor: pointer;
       transition: all .2s ease;
 

@@ -1,72 +1,67 @@
 <template>
-  <div class="modal__mask">
-    <div class="modal__wrapper">
-      <div class="modal__container">
-        <div class="modal__header">
-          <h3 class="modal__header__title">{{ fileDetail.name }}</h3>
-          <span class="modal__close" @click="close">
-            <font-awesome-icon icon="times" class="icon" size="lg"></font-awesome-icon>
-          </span>
-        </div>
-        <div class="modal__body loading" v-if="isLoading">
-          <font-awesome-icon icon="spinner" spin class="icon-loading" size="lg"></font-awesome-icon>
-        </div>
-        <div class="modal__body" v-if="!isLoading">
-          <BaseCard  class="file__wrapper">
-            <div class="details">
-              <div class="details__title">Uploaded by</div>
-              <div class="details__name">{{ fileDetail.author.name }}</div>
-            </div>
-            <div class="file__header">
-              <a class="disable-selection action-button" :href="fileDetail.file" target="_blank">
-                <font-awesome-icon icon="download" class="icon"></font-awesome-icon>Download
-              </a>
-              <div v-if="accessList.edit && ((currentUser.id === fileDetail.author.id) || currentUser.role === 'ADMIN')">
-                <label class="disable-selection action-button" v-if="!isUploading">
-                  <input type="file" @change="onFileChange($event)" v-if="!isUploading">
-                  <font-awesome-icon icon="edit" class="icon blue"></font-awesome-icon>Update File
-                </label>
-                <div class="file__progress-wrapper" v-if="isUploading">
-                  <div class="file__progress-text">Uploading...</div>
-                  <div class="file__progress-background">
-                    <div class="file__progress-inner" :style="{ width: uploadProgress + '%' }"></div>
-                  </div>
-                </div>
-                <div class="disable-selection action-button" @click="openRenameFileFolderModal(fileDetail.name)">
-                  <font-awesome-icon icon="edit" class="icon blue"></font-awesome-icon>Rename
-                </div>
+  <transition name="modal" appear appear-active-class="fade-enter-active">
+    <div class="modal__mask">
+      <div class="modal__wrapper" @click.self="close">
+        <div class="modal__container">
+          <div class="modal__header">
+            <h3 class="modal__header__title">File Version</h3>
+            <span class="modal__close" @click="close"><b-icon icon="times"></b-icon></span>
+          </div>
+          <div class="modal__body">
+            <div class="columns is-multiline" v-if="isLoading">
+              <div class="column is-12" v-for="n in 3" :key="n">
+                <ListItem :minHeight="'50px'" :simple="true" :loading="isLoading"></ListItem>
               </div>
             </div>
-          </BaseCard>
-          <BaseCard  class="version__wrapper">
-            <div class="title">File Version</div>
-            <div class="version__scrollable">
-              <div class="version__card disable-selection" v-for="(value, name) in fileDetail.versions" :key="name">
-                <div class="version__card-number">{{ name }}</div>
-                <div class="version__card-detail">
-                  <div class="version__card-date">{{ value.timestamp | moment("MMMM Do, YYYY") }}</div>
-                  <a class="version__card-download" :href="value.url" target="_blank">
-                    <font-awesome-icon icon="download" class="icon-download"></font-awesome-icon>
-                    Download
-                  </a>
-                </div>
+            <div class="columns is-mobile" v-for="(value, name) in fileDetail.versions" :key="name" v-else>
+              <div class="column">
+                <ListItem :minHeight="'50px'">
+                  <template #content>
+                    <div class="modal__body__file-version__content">
+                      <div class="modal__body__file-version__content-info">
+                        <span class="has-text-weight-bold is-size-4 modal__body__file-version__content-info-number">
+                          {{ name }}
+                        </span>
+                        <span>
+                          {{ value.timestamp | moment("MMMM Do, YYYY") }}
+                        </span>
+                      </div>
+                      <a class="modal__body__file-version__content-link"
+                         :href="value.url" target="_blank" style="color: #4a4a4a">
+                        <b-icon icon="download" size="is-small"></b-icon>
+                      </a>
+                    </div>
+                  </template>
+                </ListItem>
               </div>
             </div>
-          </BaseCard>
+            <div class="columns is-mobile is-vcentered" v-if="!fileDetail.versions && !isLoading">
+              <div class="column has-text-centered modal__body__empty-list">
+                No versions available
+              </div>
+            </div>
+          </div>
+          <div class="modal__footer">
+            <b-button class="modal__footer__button" type="is-light" @click="close" expanded>Cancel</b-button>
+            <label class="modal__footer__button button is-primary is-fullwidth"
+                   :class="{'is-loading': isUploading}"
+                   v-if="!isLoading && accessList.edit && (ownerOfTheFile || currentUser.role === 'ADMIN')"
+                   expanded>
+              <input type="file" @change="onFileChange($event)" v-if="!isUploading" style="display: none">
+              Upload New Version
+            </label>
+          </div>
         </div>
       </div>
     </div>
-    <modal-rename-file-folder v-if="showRenameFileFolderModal"
-                              :currentTitle="fileDetail.name"
-                              @close="closeRenameFileFolderModal"
-                              @submit="renameFileFolderFromModal">
-    </modal-rename-file-folder>
-  </div>
+  </transition>
 </template>
 
 <script src="./js/modal-file-detail.js"></script>
 
 <style lang="scss" scoped>
+  @import "@/assets/css/main.scss";
+
   .modal {
     &__mask {
       position: fixed;
@@ -75,44 +70,110 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, .5);
+      background-color: rgba(10, 10, 10, 0.86);
       display: table;
       transition: opacity .3s ease;
     }
 
     &__wrapper {
-      display: table-cell;
-      padding-top: 15vh;
+      padding-top: 30vh;
+
+      @media (max-width: 1023px) {
+        height: 100%;
+        display: flex;
+        flex-direction: column-reverse;
+        transition: opacity 0.3s ease-out, bottom 0.3s ease-out;
+      }
     }
 
     &__container {
       display: flex;
       flex-direction: column;
-      width: 50vw;
+      width: 35vw;
       margin: 0 auto;
-      padding: 10px 20px;
       background-color: #fff;
-      border-radius: 20px;
+      border-radius: 8px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
       transition: all .3s ease;
       font-family: Helvetica, Arial, sans-serif;
+      padding: 0.5rem 1rem;
 
-      @media only screen and (max-width: 1200px) {
-        width: 65vw;
+      @media (max-width: 1023px) {
+        width: 100%;
+        height: auto;
+        border-radius: 0.75rem 0.75rem 0 0;
       }
     }
 
     &__header {
       display: flex;
-      align-items: flex-start;
-      margin-top: 0.5rem;
-      margin-left: 15px;
+      align-items: center;
+      margin: 0.5rem 0.25rem 0 0.25rem;
 
       &__title {
+        padding: 0.3rem 0;
+        margin: 0;
         text-align: left;
-        font-size: 1.3rem;
         font-weight: bold;
-        margin: 5px 5px 10px 5px;
+        font-size: 1em;
+      }
+    }
+
+    &__body {
+      min-height: 25vh;
+      max-height: 40vh;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding-right: 0.5rem;
+      margin: 1rem 0.25rem;
+      text-align: left;
+
+      &__empty-list {
+        margin-top: 0.75rem;
+
+        button {
+          margin-top: 0.5rem;
+        }
+      }
+
+      &__file-version {
+        &__content {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+
+          &-info {
+            display: flex;
+            align-items: center;
+
+            &-number {
+              margin-right: 0.75rem;
+            }
+          }
+
+          &-link {
+            display: flex;
+            align-items: center;
+          }
+        }
+      }
+    }
+
+    &__footer {
+      margin-bottom: 0.5rem;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+
+      &__button {
+        margin: 0.25rem;
+      }
+
+      @media (max-width: 1023px) {
+        margin-bottom: 1rem;
+        display: flex;
+        flex-direction: column-reverse;
       }
     }
 
@@ -131,174 +192,25 @@
         opacity: 0.8;
       }
     }
-
-    &__body {
-      display: flex;
-      width: 100%;
-      flex-direction: row;
-      padding-bottom: 15px;
-      min-height: 20vh;
-    }
   }
 
-  .row {
-    display: flex;
-    align-items: center;
+  .modal-leave-active {
+    transition: all .3s ease;
+  }
+  .modal-leave-to {
+    opacity: 0;
   }
 
-  .col {
-    vertical-align: middle;
-    display: flex;
-    flex-direction: column;
+  .fade-enter-active {
+    animation: go .3s;
   }
 
-  .title {
-    font-size: 1.3rem;
-    font-weight: bold;
-    margin: 5px 5px 10px 5px;
-  }
-
-  .file {
-    &__wrapper {
-      display: flex;
-      flex-direction: column;
-      height: 45vh;
-      width: 40%;
+  @keyframes go {
+    from {
+      opacity: 0.5;
     }
-  }
-
-  .version {
-    &__wrapper {
-      display: flex;
-      flex-direction: column;
-      height: 45vh;
-      width: 65%;
+    to {
+      opacity: 1;
     }
-
-    &__scrollable {
-      overflow: auto;
-      display: flex;
-      flex-direction: column;
-      padding-right: 10px;
-    }
-
-    &__card {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: flex-start;
-      box-shadow: none;
-      border: 1px solid #828282;
-      border-radius: 12px;
-      padding: 10px;
-      margin: 5px;
-      min-height: 50px;
-
-      &-number {
-        font-size: 1.7rem;
-        margin-right: 10px;
-        margin-left: 10px;
-        font-weight: bold;
-      }
-
-      &-detail {
-        margin-left: 15px;
-      }
-
-      &-date {
-        font-weight: bold;
-        margin-bottom: 5px;
-      }
-
-      &-download {
-        text-decoration: none;
-        color: #505050;
-        cursor: pointer;
-        font-size: 0.9rem;
-      }
-    }
-  }
-
-  .action-button {
-    border: 1px solid #828282;
-    border-radius: 10px;
-    padding: 10px 20px;
-    color: #505050;
-    cursor: pointer;
-    margin-bottom: 10px;
-    transition: all .2s ease;
-    display: block;
-    text-decoration: none;
-
-    &:hover {
-      background-color: #F2F2F2;
-    }
-
-    input {
-      display: none;
-    }
-  }
-
-  .icon {
-    margin-right: 10px;
-
-    &-download {
-      margin-right: 5px;
-    }
-  }
-
-  .loading {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .details {
-    padding: 5px;
-    margin-bottom: 5px;
-
-    &__title {
-      font-size: 0.8rem;
-    }
-
-    &__name {
-      font-weight: bold;
-    }
-  }
-
-  .file {
-    &__progress {
-      &-wrapper {
-        padding: 5px;
-      }
-
-      &-text {
-        font-size: 0.9rem;
-        margin-bottom: 5px;
-      }
-
-      &-background {
-        height: 5px;
-        border-radius: 25px;
-        background-color: #e5e5e5;
-      }
-
-      &-inner {
-        display: flex;
-        height: 100%;
-        width: 20%;
-        border-radius: 25px;
-        background-color: #02AAF3;
-        transition: width 1s linear;
-      }
-    }
-  }
-
-  .disable-selection {
-    -moz-user-select: none; /* Firefox */
-    -ms-user-select: none; /* Internet Explorer */
-    -khtml-user-select: none; /* KHTML browsers (e.g. Konqueror) */
-    -webkit-user-select: none; /* Chrome, Safari, and Opera */
-    -webkit-touch-callout: none; /* Disable Android and iOS callouts*/
   }
 </style>
