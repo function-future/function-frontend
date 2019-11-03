@@ -1,7 +1,6 @@
 import Login from '@/components/login/Login'
 import { createLocalVue, shallowMount } from '@vue/test-utils'
 import Vuex from 'vuex'
-import VueRouter from 'vue-router'
 import VeeValidate from 'vee-validate'
 
 describe('Login', () => {
@@ -59,11 +58,8 @@ describe('Login', () => {
       store,
       localVue,
       stubs: [
-        'BaseCard',
-        'BaseButton',
-        'BaseInput',
-        'BaseSelect',
-        'font-awesome-icon'
+        'b-field',
+        'b-input'
       ],
       mocks: {
         $toasted,
@@ -159,5 +155,24 @@ describe('Login', () => {
     wrapper.vm.showFailMessage()
     expect(wrapper.vm.loggingIn).toEqual(false)
     expect(wrapper.vm.errorAlert).toEqual('You have entered an invalid email or password')
+  })
+
+  test('checkLoggedIn not logged in', () => {
+    wrapper.vm.$router.push = jest.fn()
+    store.state.currentUser = {}
+    wrapper.vm.checkLoggedIn()
+    expect(wrapper.vm.$router.push).toHaveBeenCalledTimes(0)
+  })
+
+  test('checkLoggedIn logged in', () => {
+    wrapper.vm.$router.push = jest.fn()
+    store.state.currentUser = {
+      'role': 'STUDENT',
+      'email': 'user@user.com',
+      'name': 'User Name',
+      'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+    }
+    wrapper.vm.checkLoggedIn()
+    expect(wrapper.vm.$router.push).toHaveBeenCalledTimes(1)
   })
 })

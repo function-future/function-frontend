@@ -26,7 +26,7 @@
           <b-icon icon="caret-down"></b-icon>
         </button>
         <b-dropdown-item custom aria-role="menuitem">
-          Logged as <b>{{ role }}</b>
+          Logged in as <b>{{ role }}</b>
         </b-dropdown-item>
         <hr class="dropdown-divider">
         <b-dropdown-item aria-role="menuitem" @click="goToNotifications">

@@ -94,6 +94,19 @@ const router = new Router({
       }
     },
     {
+      path: config.app.pages.user.profileMobile,
+      name: 'profileMobile',
+      component: profile,
+      meta: {
+        title: 'Profile',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Account', link: 'account' },
+          { name: 'Profile', link: 'profile' }
+        ]
+      }
+    },
+    {
       path: config.app.pages.user.account,
       name: 'account',
       component: account,
@@ -116,7 +129,22 @@ const router = new Router({
           { name: 'Profile', link: 'profile' },
           { name: 'Change Password', link: 'changePassword' }
         ]
-      }
+      },
+      props: { mobile: false }
+    },
+    {
+      path: config.app.pages.user.changePasswordMobile,
+      name: 'changePasswordMobile',
+      component: changePassword,
+      meta: {
+        title: 'Change Password',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Account', link: 'account' },
+          { name: 'Change Password', link: 'changePassword' }
+        ]
+      },
+      props: { mobile: true }
     },
     {
       path: config.app.pages.feeds,

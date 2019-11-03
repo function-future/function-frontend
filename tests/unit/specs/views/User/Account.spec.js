@@ -3,7 +3,7 @@ import { createLocalVue, shallowMount } from '@vue/test-utils'
 import Vuex from 'vuex'
 import VueRouter from 'vue-router'
 
-describe('FeedsRevamp', () => {
+describe('Account', () => {
   let store
   let wrapper
   let localVue
@@ -103,13 +103,13 @@ describe('FeedsRevamp', () => {
   test('goToProfile', () => {
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.goToProfile()
-    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'profile' })
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'profileMobile' })
   })
 
   test('goToChangePassword', () => {
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.goToChangePassword()
-    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'changePassword' })
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'changePasswordMobile' })
   })
 
   test('logout', () => {
@@ -122,5 +122,15 @@ describe('FeedsRevamp', () => {
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.successAttemptLogout()
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'feeds' })
+  })
+
+  test('computed role no currentUser', () => {
+    store.state.currentUser = {}
+    expect(wrapper.vm.role).toEqual('')
+  })
+
+  test('computed role with currentUser', () => {
+    store.state.currentUser = { role: 'STUDENT' }
+    expect(wrapper.vm.role).toEqual('Student')
   })
 })

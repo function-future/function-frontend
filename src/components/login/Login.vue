@@ -5,13 +5,13 @@
         <div class="modal__header">
           <img src="@/assets/logo.png">
           <span class="close-button" @click="closeLoginModal">
-            <font-awesome-icon icon="times" class="icon" size="lg"/>
+            <b-icon icon="times" class="icon"/>
           </span>
         </div>
         <div class="modal__body">
           <div class="fail-login-alert" v-if="errorAlert">
             {{ errorAlert }}
-            <font-awesome-icon icon="times" class="icon close-alert" size="lg" @click="errorAlert = ''"/>
+            <b-icon icon="times" class="icon close-alert" @click="errorAlert = ''"/>
           </div>
           <section>
             <b-field label="Email">

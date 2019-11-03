@@ -69,12 +69,13 @@ describe('NavBar', () => {
       localVue,
       router,
       stubs: [
-        'BaseCard',
-        'BaseButton',
-        'BaseInput',
-        'BaseSelect',
-        'v-date-picker',
-        'font-awesome-icon'
+        'b-navbar',
+        'b-navbar-item',
+        'b-button',
+        'b-dropdown',
+        'b-dropdown-item',
+        'b-icon',
+        'v-date-picker'
       ],
       sync: false
     })
@@ -245,5 +246,17 @@ describe('NavBar', () => {
     initComponent()
     wrapper.vm.stopPolling()
     expect(clearInterval).toHaveBeenCalled()
+  })
+
+  test('computed role no currentUser', () => {
+    initComponent()
+    store.state.currentUser = {}
+    expect(wrapper.vm.role).toEqual('')
+  })
+
+  test('computed role with currentUser', () => {
+    initComponent()
+    store.state.currentUser = { role: 'STUDENT' }
+    expect(wrapper.vm.role).toEqual('Student')
   })
 })
