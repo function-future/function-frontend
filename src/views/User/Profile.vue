@@ -93,6 +93,11 @@
             </b-input>
           </b-field>
         </div>
+        <div class="profile__container__form-input is-hidden-touch">
+          <b-button type="is-primary" @click="goToChangePassword">
+            Change Password
+          </b-button>
+        </div>
       </div>
     </div>
   </div>
@@ -133,14 +138,10 @@
       }
 
       &__form {
+        margin-bottom: 3rem;
+
         &-input {
           margin-bottom: 1.5rem;
-
-          &:last-child {
-            @media only screen and (max-width: 768px) {
-              margin-bottom: 3rem;
-            }
-          }
         }
 
         &-actions {
