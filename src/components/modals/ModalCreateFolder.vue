@@ -31,6 +31,8 @@
 <script type="text/javascript" src="./js/modal-create-folder.js"></script>
 
 <style lang="scss" scoped>
+  @import "@/assets/css/main.scss";
+
   .modal {
     &__mask {
       position: fixed;
