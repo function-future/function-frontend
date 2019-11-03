@@ -13,7 +13,8 @@ export default {
       return Object.keys(this.currentUser).length
     },
     role () {
-      return this.currentUser && this.currentUser.role.charAt(0) + this.currentUser.role.slice(1).toLowerCase()
+      return (this.currentUser && this.currentUser.role &&
+        this.currentUser.role.substring(0, 1) + this.currentUser.role.slice(1).toLowerCase()) || ''
     }
   },
   methods: {

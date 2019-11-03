@@ -246,4 +246,16 @@ describe('NavBar', () => {
     wrapper.vm.stopPolling()
     expect(clearInterval).toHaveBeenCalled()
   })
+
+  test('computed role no currentUser', () => {
+    initComponent()
+    store.state.currentUser = {}
+    expect(wrapper.vm.role).toEqual('')
+  })
+
+  test('computed role with currentUser', () => {
+    initComponent()
+    store.state.currentUser = { role: 'STUDENT' }
+    expect(wrapper.vm.role).toEqual('Student')
+  })
 })
