@@ -11,6 +11,9 @@ export default {
     ]),
     loggedIn () {
       return Object.keys(this.currentUser).length
+    },
+    role () {
+      return this.currentUser && this.currentUser.role.charAt(0) + this.currentUser.role.slice(1).toLowerCase()
     }
   },
   methods: {
@@ -29,10 +32,10 @@ export default {
       }
     },
     goToProfile () {
-      this.$router.push({ name: 'profile' })
+      this.$router.push({ name: 'profileMobile' })
     },
     goToChangePassword () {
-      this.$router.push({ name: 'changePassword' })
+      this.$router.push({ name: 'changePasswordMobile' })
     },
     logout () {
       this.attemptLogout({

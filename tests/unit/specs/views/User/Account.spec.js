@@ -103,13 +103,13 @@ describe('FeedsRevamp', () => {
   test('goToProfile', () => {
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.goToProfile()
-    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'profile' })
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'profileMobile' })
   })
 
   test('goToChangePassword', () => {
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.goToChangePassword()
-    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'changePassword' })
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'changePasswordMobile' })
   })
 
   test('logout', () => {
