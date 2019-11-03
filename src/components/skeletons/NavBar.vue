@@ -35,6 +35,9 @@
         <b-dropdown-item aria-role="menuitem" @click="goToProfile">
           Profile
         </b-dropdown-item>
+        <b-dropdown-item aria-role="menuitem" @click="goToChangePassword">
+          Change Password
+        </b-dropdown-item>
         <hr class="dropdown-divider" aria-role="menuitem">
         <b-dropdown-item aria-role="menuitem" @click="logout">
           Logout

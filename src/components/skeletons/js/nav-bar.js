@@ -80,6 +80,9 @@ export default {
     goToProfile () {
       this.$router.push({ name: 'profile' })
     },
+    goToChangePassword () {
+      this.$router.push({ name: 'changePassword' })
+    },
     errorHandler (err) {
       console.log(err)
     },

@@ -69,12 +69,13 @@ describe('NavBar', () => {
       localVue,
       router,
       stubs: [
-        'BaseCard',
-        'BaseButton',
-        'BaseInput',
-        'BaseSelect',
-        'v-date-picker',
-        'font-awesome-icon'
+        'b-navbar',
+        'b-navbar-item',
+        'b-button',
+        'b-dropdown',
+        'b-dropdown-item',
+        'b-icon',
+        'v-date-picker'
       ],
       sync: false
     })
@@ -257,5 +258,12 @@ describe('NavBar', () => {
     initComponent()
     store.state.currentUser = { role: 'STUDENT' }
     expect(wrapper.vm.role).toEqual('Student')
+  })
+
+  test('goToChangePassword', () => {
+    initComponent()
+    wrapper.vm.$router.push = jest.fn()
+    wrapper.vm.goToChangePassword()
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'changePassword' })
   })
 })
