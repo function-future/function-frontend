@@ -259,11 +259,4 @@ describe('NavBar', () => {
     store.state.currentUser = { role: 'STUDENT' }
     expect(wrapper.vm.role).toEqual('Student')
   })
-
-  test('goToChangePassword', () => {
-    initComponent()
-    wrapper.vm.$router.push = jest.fn()
-    wrapper.vm.goToChangePassword()
-    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'changePassword' })
-  })
 })
