@@ -45,7 +45,7 @@
             <b-button class="modal__footer__button" type="is-light" @click="close" expanded>Cancel</b-button>
             <label class="modal__footer__button button is-primary is-fullwidth"
                    :class="{'is-loading': isUploading}"
-                   v-if="!isLoading && accessList.edit && (ownerOfTheFile || currentUser.role === 'ADMIN')"
+                   v-if="!isLoading && accessList.edit && ((currentUser.id === (fileDetail && fileDetail.author && fileDetail.author.id)) || currentUser.role === 'ADMIN')"
                    expanded>
               <input type="file" @change="onFileChange($event)" v-if="!isUploading" style="display: none">
               Upload New Version
