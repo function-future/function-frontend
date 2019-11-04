@@ -217,6 +217,7 @@
       padding: 0.25rem 1.25rem 0.75rem 1.25rem;
       background-color: #ffffff;
       box-shadow: 0 0 16px rgba(0, 0, 0, 0.1);
+      margin-bottom: 0.25rem;
     }
 
     &-mobile {
@@ -227,7 +228,7 @@
         height: 60px;
         padding: 1rem;
         box-shadow: 0 0 16px rgba(0, 0, 0, 0.15);
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.25rem;
       }
 
       &__back {
@@ -261,7 +262,7 @@
       height: 92%;
       display: flex;
       flex-direction: column;
-      padding: 1rem 1.25rem 5rem 1.25rem;
+      padding: 1.25rem 1.25rem 5rem 1.25rem;
       margin-bottom: 8vh;
 
       &__actions {

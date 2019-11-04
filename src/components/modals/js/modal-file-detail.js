@@ -19,10 +19,7 @@ export default {
     ...mapGetters([
       'accessList',
       'currentUser'
-    ]),
-    ownerOfTheFile () {
-      return (this.currentUser.id === (this.fileDetail && this.fileDetail.author && this.fileDetail.author.id))
-    }
+    ])
   },
   created () {
     this.initData()
