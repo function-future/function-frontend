@@ -103,7 +103,7 @@
             <div class="column is-3-fullhd is-3-widescreen is-4-desktop is-4-tablet is-6-mobile"
                  v-for="file in fileList" :key="file.id">
               <div class="files__container__content__files__list-item card">
-                <div class="files__container__content__files__list-item-title" @click="openFileDetail(file.id)">
+                <div class="files__container__content__files__list-item-title" @click="openFilePreview(file.id)">
                   <b-icon icon="file"></b-icon>
                   <span class="has-text-weight-bold is-size-7-touch" :title="file.name">
                     {{ showLimitedPreviewText(file.name) }}
@@ -195,9 +195,10 @@
                                     :isUploading="isUploading">
         </modal-file-upload-progress>
       </transition>
-      <transition name="slide-fade" mode="out-in">
-        <component :is="FileDetail" @close="closeFileDetail" @update="resetPage"></component>
-      </transition>
+      <modal-file-version v-if="showFileVersionModal"
+                          @close="closeFileVersion"
+                          :id="selectedId">
+      </modal-file-version>
     </div>
   </div>
 </template>
