@@ -13,26 +13,33 @@
                 <ListItem :minHeight="'50px'" :simple="true" :loading="isLoading"></ListItem>
               </div>
             </div>
-            <div class="columns is-mobile" v-for="(value, name) in fileDetail.versions" :key="name" v-else>
-              <div class="column">
-                <ListItem :minHeight="'50px'">
-                  <template #content>
-                    <div class="modal__body__file-version__content">
-                      <div class="modal__body__file-version__content-info">
+            <div v-if="!isLoading">
+              <div class="modal__body-author">
+                Uploaded by <b>{{ author }}</b>
+              </div>
+              <div class="columns is-mobile"
+                   v-for="(value, name) in fileDetail.versions"
+                   :key="name">
+                <div class="column">
+                  <ListItem :minHeight="'50px'">
+                    <template #content>
+                      <div class="modal__body__file-version__content">
+                        <div class="modal__body__file-version__content-info">
                         <span class="has-text-weight-bold is-size-4 modal__body__file-version__content-info-number">
                           {{ name }}
                         </span>
-                        <span>
+                          <span>
                           {{ value.timestamp | moment("MMMM Do, YYYY") }}
                         </span>
+                        </div>
+                        <a class="modal__body__file-version__content-link"
+                           :href="value.url" target="_blank" style="color: #4a4a4a">
+                          <b-icon icon="download" size="is-small"></b-icon>
+                        </a>
                       </div>
-                      <a class="modal__body__file-version__content-link"
-                         :href="value.url" target="_blank" style="color: #4a4a4a">
-                        <b-icon icon="download" size="is-small"></b-icon>
-                      </a>
-                    </div>
-                  </template>
-                </ListItem>
+                    </template>
+                  </ListItem>
+                </div>
               </div>
             </div>
             <div class="columns is-mobile is-vcentered" v-if="!fileDetail.versions && !isLoading">
@@ -44,10 +51,11 @@
           <div class="modal__footer">
             <b-button class="modal__footer__button" type="is-light" @click="close" expanded>Cancel</b-button>
             <label class="modal__footer__button button is-primary is-fullwidth"
-                   :class="{'is-loading': isUploading}"
-                   v-if="!isLoading && accessList.edit && ((currentUser.id === (fileDetail && fileDetail.author && fileDetail.author.id)) || currentUser.role === 'ADMIN')"
+                   :class="{'is-loading': isUploading }"
+                   :disabled="disableUpload"
+                   v-if="!isLoading && accessList.edit && (ownerOfTheFile || currentUser.role === 'ADMIN') && !disableUpload"
                    expanded>
-              <input type="file" @change="onFileChange($event)" v-if="!isUploading" style="display: none">
+              <input type="file" @change="onFileChange($event)" v-if="!isUploading && !disableUpload" style="display: none">
               Upload New Version
             </label>
           </div>
@@ -57,7 +65,7 @@
   </transition>
 </template>
 
-<script src="./js/modal-file-detail.js"></script>
+<script src="./js/modal-file-version.js"></script>
 
 <style lang="scss" scoped>
   @import "@/assets/css/main.scss";
@@ -108,7 +116,8 @@
     &__header {
       display: flex;
       align-items: center;
-      margin: 0.5rem 0.25rem 0 0.25rem;
+      justify-content: space-between;
+      margin: 0.5rem 0.25rem 0 1rem;
 
       &__title {
         padding: 0.3rem 0;
@@ -125,8 +134,14 @@
       overflow-y: auto;
       overflow-x: hidden;
       padding-right: 0.5rem;
-      margin: 1rem 0.25rem;
+      margin: 0.25rem 0.25rem 1rem 0.25rem;
+
       text-align: left;
+
+      &-author {
+        margin-left: 0.75rem;
+        margin-bottom: 0.75rem;
+      }
 
       &__empty-list {
         margin-top: 0.75rem;
@@ -178,10 +193,10 @@
     }
 
     &__close {
-      margin: 0 0 0 auto;
-      padding: 0.5rem;
-      top: 0;
-      float: right;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 0.5rem 0 0.5rem 0.5rem;
       cursor: pointer;
       transition: all .2s ease;
 

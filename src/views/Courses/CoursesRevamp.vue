@@ -150,7 +150,7 @@
             margin-left: 0.5rem;
 
             @media (max-width: 1023px) {
-              min-width: 8rem;
+              min-width: 5rem;
               margin-left: auto;
             }
           }

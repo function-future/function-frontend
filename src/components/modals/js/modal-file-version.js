@@ -2,7 +2,7 @@ import { mapGetters, mapActions } from 'vuex'
 import ListItem from '@/components/list/ListItem'
 
 export default {
-  name: 'modal-file-detail',
+  name: 'modal-file-version',
   components: {
     ListItem
   },
@@ -11,15 +11,21 @@ export default {
       fileDetail: {},
       isLoading: false,
       isUploading: false,
-      showRenameFileFolderModal: false,
-      uploadProgress: 0
+      disableUpload: false
     }
   },
+  props: [ 'id' ],
   computed: {
     ...mapGetters([
       'accessList',
       'currentUser'
-    ])
+    ]),
+    author () {
+      return (this.fileDetail && this.fileDetail.author && this.fileDetail.author.name)
+    },
+    ownerOfTheFile () {
+      return (this.currentUser.id === (this.fileDetail && this.fileDetail.author && this.fileDetail.author.id))
+    }
   },
   created () {
     this.initData()
@@ -34,7 +40,7 @@ export default {
       this.isLoading = true
       const data = {
         parentId: this.$route.params.parentId,
-        id: this.$route.params.id
+        id: this.id
       }
       this.getFileDetail({
         data,
@@ -47,6 +53,7 @@ export default {
       this.fileDetail = res.content
     },
     failGetFileDetail () {
+      this.disableUpload = true
       this.isLoading = false
       this.fileDetail = {}
       this.$toasted.error('Fail to get file detail, please try again')
@@ -59,27 +66,24 @@ export default {
       this.file = e.target.files[0]
       this.upload(this.file)
     },
-    constructFormData (file, type, isRenameMode) {
+    constructFormData (file, type) {
       let data = JSON.stringify({
-        name: isRenameMode ? file.name : this.fileDetail.name,
+        name: this.fileDetail.name,
         type: type
       })
       let formData = new FormData()
       formData.append('data', data)
-      isRenameMode ? formData.append('file', '') : formData.append('file', file)
+      formData.append('file', file)
       return formData
     },
     upload (file) {
       let data = {
         parentId: this.$route.params.parentId,
         id: this.fileDetail.id,
-        content: this.constructFormData(file, 'FILE', false)
+        content: this.constructFormData(file, 'FILE')
       }
       let config = {
-        headers: { 'Content-Type': 'multipart/form-data' },
-        onUploadProgress (progressEvent) {
-          this.uploadProgress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-        }
+        headers: { 'Content-Type': 'multipart/form-data' }
       }
       this.updateFile({
         data: data,
@@ -96,39 +100,6 @@ export default {
     failUpdateFile () {
       this.isUploading = false
       this.$toasted.error('Fail to update file, please try again')
-    },
-    openRenameFileFolderModal (title) {
-      this.showRenameFileFolderModal = true
-    },
-    closeRenameFileFolderModal () {
-      this.showRenameFileFolderModal = false
-    },
-    renameFileFolderFromModal (title) {
-      let newTitle = { name: title }
-      let data = {
-        parentId: this.$route.params.parentId,
-        id: this.fileDetail.id,
-        content: this.constructFormData(newTitle, this.fileDetail.type, true)
-      }
-      let config = {
-        headers: { 'Content-Type': 'multipart/form-data' }
-      }
-      this.updateFile({
-        data: data,
-        configuration: config,
-        callback: this.successRenameFile,
-        fail: this.failRenameFile
-      })
-    },
-    successRenameFile () {
-      this.closeRenameFileFolderModal()
-      this.$toasted.success('Rename successful')
-      this.initData()
-      this.$emit('update')
-    },
-    failRenameFile () {
-      this.closeRenameFileFolderModal()
-      this.$toasted.error('Rename failed, please try again')
     }
   }
 }

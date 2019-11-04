@@ -77,12 +77,19 @@
       min-height: 10vh;
       max-height: 50vh;
       box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.25);
-      border-radius: 10px;
+      border-radius: 8px;
       background-color: #FFFFFF;
       z-index: 9997;
       position: fixed;
       right: 3%;
       bottom: 5%;
+
+      @media only screen and (max-width: 1023px) {
+        width: 80vw;
+        bottom: auto;
+        top: 12%;
+        right: 12%;
+      }
     }
   }
 
