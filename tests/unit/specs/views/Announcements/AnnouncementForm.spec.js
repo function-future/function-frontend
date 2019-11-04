@@ -104,6 +104,16 @@ describe('AnnouncementForm.vue on edit mode', () => {
     expect(wrapper.isVueInstance()).toBe(true)
   })
 
+  test('Render components correctly', () => {
+    const wrapper = shallowMount(AnnouncementForm, {
+      store,
+      localVue,
+      router,
+      sync: false
+    })
+    expect(wrapper.html()).toContain('scrollable-container')
+  })
+
   test('initPage', () => {
     const spy = jest.spyOn(AnnouncementForm.methods, 'getAnnouncementDetail')
     const editMode = true
