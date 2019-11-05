@@ -1,44 +1,46 @@
 <template>
-  <div class="judging-detail__container">
-    <div class="judging-detail__container-header">
-      <!--Header-->
-      <BaseInput placeholder="Input title here" v-model="judgingDetail.name" :disabled="!editMode"></BaseInput>
-    </div>
-    <div class="judging-detail__container-body">
-      <!--Body-->
-      <BaseTextArea class="judging-detail__container-body-description" placeholder="Input description here" :style="{'height': '100%'}" v-model="judgingDetail.description" :disabled="!editMode"></BaseTextArea>
-      <BaseCard v-if="!isLoading" class="judging-detail__container-body-student-list" :style="{'padding': '15px 10px' ,'margin': '10px 0 10px 15px'}">
-        <div class="judging-detail__container-body-student-list__header">
-          <div class="judging-detail__container-body-student-list__header-title">
-            Students
-          </div>
-          <div class="judging-detail__container-body-student-list__header-button">
-            <font-awesome-icon v-if="editMode" icon="edit" class="icon blue" size="lg" @click="toggleSelectStudentModal"></font-awesome-icon>
-            <font-awesome-icon v-else icon="poll" class="icon blue" size="lg" @click="goToComparison"></font-awesome-icon>
-          </div>
+  <div class="auto-overflow-container">
+    <div class="judging-session__container">
+      <div class="judging-session__action">
+        <b-button rounded
+                  icon-left="pen"
+                  type="is-primary"
+                  @click=""
+                  v-if="accessList.edit">
+          Edit
+        </b-button>
+        <b-button rounded
+                  icon-left="trash"
+                  type="is-danger"
+                  @click=""
+                  v-if="accessList.delete">
+          Delete
+        </b-button>
+      </div>
+      <div class="judging-session__detail">
+        <div class="judging-session__detail-header">
+          <span class="is-size-5 has-text-weight-bold">
+            {{judging.name}}
+          </span>
         </div>
-        <div class="judging-detail__container-body-student-list__content">
-          <BaseCard v-for="student in selectedStudents" :key="student.id" :style="{'padding': '15px 5px', 'margin': '10px 0'}" class="judging-detail__container-body-student-list__content-item">
-            <img :src="student.avatar" alt="" class="judging-detail__container-body-student-list__content-item-image">
-            <div class="judging-detail__container-body-student-list__content-item-detail">
-              <span class="judging-detail__container-body-student-list__content-item-detail-name" :class="{name_smaller: student.name.length > 13}">{{student.name}}</span>
-              <span class="judging-detail__container-body-student-list__content-item-detail-university" :class="{university_smaller: student.name.length > 13}">{{student.university}}</span>
-            </div>
-          </BaseCard>
+        <div class="judging-session__detail-batch">
+          <span class="is-size-7">
+            Batch {{judging.batchCode}}
+          </span>
         </div>
-      </BaseCard>
-    </div>
-    <div class="judging-detail__container-footer">
-      <!--Footer-->
-      <BaseButton class="button-cancel" @click="returnButtonClicked">{{returnButtonText}}</BaseButton>
-      <BaseButton class="button-save" @click="actionButtonClicked" v-if="accessList.edit">{{actionButtonText}}</BaseButton>
-    </div>
-    <ModalSelectMultipleStudents  v-if="showSelectStudentModal"
-                                  :currentlySelected="selectedStudents"
-                                  @close="closeSelectStudentModal"
-                                  @selected="setSelectedStudents">
+        <div class="judging-session__detail-description">
+          <span v-html="descriptionCompiledMarkdown">
+          </span>
+        </div>
+      </div>
+      <div class="judging-session__content level">
+        <comparison-item class="level-item judging-session__content-item"
+             v-for="student in judging.students"
+             :key="student.id" :studentData="student">
 
-    </ModalSelectMultipleStudents>
+        </comparison-item>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -46,106 +48,70 @@
 </script>
 
 <style lang="scss" scoped>
-  .judging-detail__container {
-    display: flex;
-    flex-direction: column;
-    height: 85vh;
-    &-header {
+  @import "@/assets/css/main.scss";
 
+  .judging-session {
+    &__container {
+      padding: 1rem 1.25rem;
+
+      @media only screen and (max-width: 1023px) {
+        margin-bottom: 10vh;
+      }
     }
-    &-body {
-      min-height: 55vh;
-      padding: 10px 0 20px 0;
-      display: flex;
-      justify-content: space-between;
+
+    &__action {
+      margin-bottom: 0.75rem;
+      z-index: 5;
+
+      button {
+        margin-left: 0.25rem;
+        margin-right: 0.25rem;
+
+        &:first-child {
+          margin-left: 0;
+        }
+      }
+
+      @media only screen and (max-width: 1023px) {
+        margin-bottom: 0;
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        right: 5vw;
+        bottom: 75px;
+        transition: all 0.1s ease-in-out;
+        border-radius: 50%;
+
+        button {
+          margin: 0.25rem 0;
+          box-shadow: 2px 2px 16px 4px rgba(0, 0, 0, 0.1);
+        }
+      }
+    }
+
+    &__detail {
+      &-header {
+        margin-bottom: 0;
+      }
+      &-batch {
+        margin-bottom: 0.75rem;
+      }
+
       &-description {
-        flex: 1;
+        border-bottom: 1px solid #BDBDBD;
+        padding-bottom: 1rem;
+        margin-bottom: 1rem;
       }
-      &-student-list {
-        width: 20%;
-        height: 100%;
-        &__header {
-          width: 100%;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          padding-bottom: 5px;
-          border-bottom: 1px solid #BDBDBD;
-          &-title {
-            font-weight: bold;
-            font-size: 20px;
-            margin-left: 5px;
-          }
-          &-button {
-            margin-right: 5px;
-            cursor: pointer;
-          }
-        }
-        &__content {
-          padding-left: 5px;
-          overflow: auto;
-          max-height: 90%;
-          &::-webkit-scrollbar-track
-          {
-            background-color: #F5F5F5;
-            border-radius: 10px;
-          }
+    }
 
-          &::-webkit-scrollbar
-          {
-            width: 10px;
-            background-color: #02AAF3;
-            border-radius: 10px;
-          }
+    &__content {
+      max-width: 100%;
 
-          &::-webkit-scrollbar-thumb
-          {
-            border-radius: 10px;
-            background-color: #02AAF3;
-          }
-          &-item {
-            width: 95%;
-            display: flex;
-            height: 80px;
-            &-image {
-              width: 70px;
-              height: 50px;
-              margin: 0 10px;
-              border-radius: 7px;
-            }
-            &-detail {
-              display: flex;
-              flex-direction: column;
-              font-size: 15px;
-              align-items: center;
-              margin: 10px auto;
-              font-weight: bold;
-              line-height: 15px;
-              &-university {
-                margin-top: 3px;
-                font-size: 13px;
-              }
-            }
-          }
+      &-item {
+        @media only screen and (min-width: 1023px) {
+          max-width: 48%;
         }
       }
     }
-    &-action {
-      margin-top: 20px;
-      display: flex;
-      justify-content: flex-end;
-    }
-    &-footer {
-      margin-top: 20px;
-      display: flex;
-      justify-content: flex-end;
-    }
-  }
-
-  .name_smaller {
-    font-size: 12px;
-  }
-  .university_smaller {
-    font-size: 11px;
   }
 </style>

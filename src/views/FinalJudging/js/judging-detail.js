@@ -3,7 +3,9 @@ import BaseInput from '@/components/BaseInput'
 import BaseCard from '@/components/BaseCard'
 import BaseButton from '@/components/BaseButton'
 import BaseTextArea from '@/components/BaseTextArea'
+import ComparisonItem from '@/views/FinalJudging/ComparisonItem'
 import ModalSelectMultipleStudents from '@/components/modals/ModalSelectMultipleStudents'
+let marked = require('marked')
 
 export default {
   name: 'JudgingDetail',
@@ -12,7 +14,8 @@ export default {
     BaseCard,
     BaseButton,
     BaseTextArea,
-    ModalSelectMultipleStudents
+    ModalSelectMultipleStudents,
+    ComparisonItem
   },
   data () {
     return {
@@ -40,6 +43,9 @@ export default {
     },
     actionButtonText () {
       return this.editMode ? 'Save' : 'Edit'
+    },
+    descriptionCompiledMarkdown() {
+      return marked(this.judgingDetail.description)
     }
   },
   methods: {
@@ -63,6 +69,9 @@ export default {
       this.judgingDetail.students = this.judging.students
       this.selectedStudents = this.judging.students
       this.isLoading = false
+      this.$route.meta.title = this.judging.name
+      this.$router.replace({query: {temp: Date.now()}})
+      this.$router.replace({query: {temp: undefined}})
     },
 
     failedFetchingJudgingDetail () {

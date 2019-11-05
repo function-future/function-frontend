@@ -393,8 +393,8 @@ module.exports = {
         comparisons (batchCode, judgingId) {
           return `/api/scoring/batches/${batchCode}/judgings/${judgingId}/comparisons`
         },
-        score (batchCode, judgingId) {
-          return `/api/scoring/batches/${batchCode}/judgings/${judgingId}/comparisons`
+        score () {
+          return `/api/scoring/summary`
         },
         getStudentsWithBatch (page, size, batchCode) {
           return `/api/scoring/batches/${batchCode}/judgings/students?page=${page}`
@@ -404,8 +404,8 @@ module.exports = {
         }
       },
       points: {
-        list(studentId) {
-          return `/api/scoring/summary/${studentId}`
+        list(studentId, type, page, size) {
+          return `/api/scoring/summary/${studentId}?type=${type}&page=${page}&size=${size}`
         }
       }
     },
