@@ -7,15 +7,12 @@ import Login from '@/components/login/Login'
 import BaseButton from '@/components/BaseButton'
 import BaseInput from '@/components/BaseInput'
 import BaseCard from '@/components/BaseCard'
-import BaseTitle from '@/components/BaseTitle'
-import UserBar from '@/components/UserBar'
 import Breadcrumbs from '@/components/breadcrumbs/Breadcrumbs'
 import ChangePageTitleMixins from '@/mixins/ChangePageTitleMixins'
 
 export default {
   name: 'App',
   components: {
-    BaseTitle,
     MenuBar,
     NavBar,
     MobileNavBar,
@@ -24,7 +21,6 @@ export default {
     BaseButton,
     BaseInput,
     BaseCard,
-    UserBar,
     Breadcrumbs
   },
   mixins: [

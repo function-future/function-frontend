@@ -1,17 +1,13 @@
 import { mapActions, mapGetters } from 'vuex'
-import BaseCard from '@/components/BaseCard'
-import BaseButton from '@/components/BaseButton'
+import ListItem from '@/components/list/ListItem'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
-import BasePagination from '@/components/BasePagination'
 let marked = require('marked')
 
 export default {
   name: 'announcements',
   components: {
-    BaseButton,
-    BaseCard,
-    ModalDeleteConfirmation,
-    BasePagination
+    ListItem,
+    ModalDeleteConfirmation
   },
   data () {
     return {
@@ -40,7 +36,7 @@ export default {
       'deleteAnnouncementById'
     ]),
     goToAnnouncementDetail (id) {
-      this.$router.push({
+      id && this.$router.push({
         name: 'announcementDetail',
         params: { id: id }
       })
@@ -75,11 +71,7 @@ export default {
       this.$toasted.error('Fail to load announcement list')
     },
     textPreview: function (announcement) {
-      if (announcement.summary) {
-        return this.showLimitedPreviewText(announcement.summary.replace(/\!\[.*\]\(.*\)/,''))
-      } else {
-        return marked(this.showLimitedPreviewText(announcement.description.replace(/\!\[.*\]\(.*\)/,'')))
-      }
+      return marked(this.showLimitedPreviewText(announcement.description.replace(/\!\[.*\]\(.*\)/,'')))
     },
     showLimitedPreviewText: function (text) {
       let maximumCharacters = 250
@@ -116,14 +108,6 @@ export default {
     },
     loadPage (page) {
       this.paging.page = page
-      this.loadAnnouncementList()
-    },
-    loadPreviousPage () {
-      this.paging.page = this.paging.page - 1
-      this.loadAnnouncementList()
-    },
-    loadNextPage () {
-      this.paging.page = this.paging.page + 1
       this.loadAnnouncementList()
     }
   }

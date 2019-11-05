@@ -1,29 +1,40 @@
 <template>
-  <div class="scrollable-container">
-    <BaseCard class="card" cardClass="card-hover">
-      <div class="header">
-        <h3>{{ announcement.title }}</h3>
+  <div class="auto-overflow-container">
+    <div class="announcement__container">
+      <div class="announcement__container__actions">
+        <b-button rounded
+                  icon-left="pen"
+                  type="is-primary"
+                  @click="goToEditAnnouncement"
+                  v-if="accessList.edit">
+          Edit
+        </b-button>
+        <b-button rounded
+                  icon-left="trash"
+                  type="is-danger"
+                  @click="openDeleteConfirmationModal"
+                  v-if="accessList.delete">
+          Delete
+        </b-button>
       </div>
-      <div class="header float-right">
-        <div class="date">
-          {{ announcement.updatedAt | moment("dddd, MMMM Do YYYY") }}
-        </div>
-        <div class="action">
-          <span class="edit-btn" @click="goToEditAnnouncement" v-if="accessList.edit">
-            <font-awesome-icon icon="edit" class="icon blue" size="lg"></font-awesome-icon>
+      <div class="announcement__container__header">
+        <div class="announcement__container__header-title">
+          <span class="is-size-5 has-text-weight-bold">
+            {{ announcement.title }}
           </span>
-          <span class="delete-btn" @click="openDeleteConfirmationModal" v-if="accessList.delete">
-            <font-awesome-icon icon="trash-alt" class="icon red" size="lg"></font-awesome-icon>
-          </span>
+        </div>
+        <div class="announcement__container__header__info">
+          <div class="announcement__container-header__info-date">
+            <span class="is-size-7">
+              {{ announcement.updatedAt | moment("dddd, MMMM Do YYYY") }}
+            </span>
+          </div>
         </div>
       </div>
-      <div class="summary wrap-word">
-        <span>{{ announcement.summary }}</span>
-      </div>
-      <div class="description wrap-word">
+      <div class="announcement__container__content wrap-word">
         <span v-html="descriptionCompiledMarkdown"></span>
       </div>
-    </BaseCard>
+    </div>
     <modal-delete-confirmation v-if="showDeleteConfirmationModal"
                                @close="showDeleteConfirmationModal = false"
                                @clickDelete="deleteThisAnnouncement">
@@ -34,57 +45,59 @@
 
 <script type="text/javascript" src="./js/announcement-detail.js"></script>
 
-<style scoped>
-  .card {
-    min-height: 80vh;
-  }
+<style lang="scss" scoped>
+  @import "@/assets/css/main.scss";
 
-  .header {
-    display: inline-block;
-  }
+  .announcement {
+    &__container {
+      display: flex;
+      flex-direction: column;
+      padding: 1rem 1.25rem;
 
-  .date {
-    padding: 5px 15px 5px 5px;
-    display: inline-block;
-  }
+      &__actions {
+        margin-bottom: 0.75rem;
 
-  .float-right {
-    float: right;
-  }
+        button {
+          margin-left: 0.25rem;
+          margin-right: 0.25rem;
 
-  .summary {
-    text-align: justify;
-    margin-bottom: 20px;
-    padding-bottom: 15px;
-    border-bottom: 1px #828282 solid;
-  }
+          &:first-child {
+            margin-left: 0;
+          }
+        }
 
-  .description {
-    text-align: justify;
-  }
+        @media only screen and (max-width: 1023px) {
+          margin-bottom: 0;
+          display: flex;
+          flex-direction: column;
+          position: fixed;
+          right: 5vw;
+          bottom: 75px;
+          transition: all 0.1s ease-in-out;
+          border-radius: 50%;
 
-  .action {
-    border-left: 1px solid #BDBDBD;
-    padding-left: 15px;
-    display: inline-block;
-  }
+          button {
+            margin: 0.25rem 0;
+            box-shadow: 2px 2px 16px 4px rgba(0, 0, 0, 0.1);
+          }
+        }
+      }
 
-  .action span {
-    padding: 5px;
-    transition: all .2s ease;
-  }
+      &__header {
+        margin-bottom: 0.75rem;
 
-  .action span:hover {
-    opacity: 0.8;
-  }
+        &__info {
+          border-left: 1px solid #BDBDBD;
+          padding-left: 0.5rem;
+        }
+      }
 
-  .action span:active {
-    opacity: 0.9;
-  }
-
-  h3 {
-    margin: 5px 0 15px 0;
-    text-align: left;
+      &__content {
+        @media only screen and (max-width: 1023px) {
+          margin-bottom: 15vh;
+        }
+      }
+    }
   }
 
   /deep/ img {

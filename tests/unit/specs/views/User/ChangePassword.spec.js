@@ -36,7 +36,8 @@ describe('ChangePassword', () => {
       }
     }
     const actions = {
-      fetchProfile: jest.fn()
+      fetchProfile: jest.fn(),
+      changePassword: jest.fn()
     }
     const getters = {
       profile: state => state.profile
@@ -71,11 +72,10 @@ describe('ChangePassword', () => {
       localVue,
       router,
       stubs: [
-        'BaseCard',
-        'BaseButton',
-        'BaseInput',
-        'BaseSelect',
-        'font-awesome-icon'
+        'b-field',
+        'b-notification',
+        'b-input',
+        'b-button'
       ],
       mocks: {
         $toasted
@@ -156,16 +156,35 @@ describe('ChangePassword', () => {
     expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
   })
 
-  test('successChangePassword', () => {
+  test('successChangePassword mobile', () => {
     initComponent()
+    wrapper.setProps({ mobile: true })
+    wrapper.vm.$router.push = jest.fn()
+    wrapper.vm.successChangePassword()
+    expect(wrapper.vm.$toasted.success).toHaveBeenCalled()
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'account' })
+  })
+
+  test('successChangePassword not mobile', () => {
+    initComponent()
+    wrapper.setProps({ mobile: false })
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.successChangePassword()
     expect(wrapper.vm.$toasted.success).toHaveBeenCalled()
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'profile' })
   })
 
-  test('cancel', () => {
+  test('cancel mobile', () => {
     initComponent()
+    wrapper.setProps({ mobile: true })
+    wrapper.vm.$router.push = jest.fn()
+    wrapper.vm.cancel()
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'account' })
+  })
+
+  test('cancel not mobile', () => {
+    initComponent()
+    wrapper.setProps({ mobile: false })
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.cancel()
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'profile' })

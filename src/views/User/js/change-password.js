@@ -1,13 +1,8 @@
 import { mapActions } from 'vuex'
-import BaseInput from '@/components/BaseInput'
-import BaseButton from '@/components/BaseButton'
 
 export default {
   name: 'changePassword',
-  components: {
-    BaseButton,
-    BaseInput
-  },
+  props: [ 'mobile' ],
   data () {
     return {
       data: {
@@ -44,7 +39,7 @@ export default {
     successChangePassword () {
       this.isSubmitting = false
       this.$toasted.success('Successfully updated password')
-      this.$router.push({ name: 'profile' })
+      this.$router.push({ name: this.mobile ? 'account' : 'profile' })
     },
     failChangePassword (error) {
       this.isSubmitting = false
@@ -58,7 +53,7 @@ export default {
       this.$toasted.error('Fail to update password')
     },
     cancel () {
-      this.$router.push({ name: 'profile' })
+      this.$router.push({ name: this.mobile ? 'account' : 'profile' })
     }
   }
 }

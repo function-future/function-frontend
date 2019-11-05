@@ -1,22 +1,16 @@
 import { mapActions, mapGetters } from 'vuex'
-import BaseInput from '@/components/BaseInput'
-import BaseButton from '@/components/BaseButton'
-import BaseTextArea from '@/components/BaseTextArea'
+import Editor from '@/components/editor/Editor'
 
 export default {
   components: {
-    BaseButton,
-    BaseInput,
-    BaseTextArea
+    Editor
   },
   data () {
     return {
       activityBlogDetail: {},
-      img_file: {},
       imageIds: [],
       isSubmitting: false,
-      uploadingFile: false,
-      pos: ''
+      uploadingFile: false
     }
   },
   props: [
@@ -61,12 +55,10 @@ export default {
       }
       this.imageIds = [ ...this.activityBlog.files.map(i => i.id) ]
     },
-    $imgAdd (pos, $file) {
+    $imgAdd ($file) {
       this.uploadingFile = true
-      this.pos = pos
       let data = new FormData()
       data.append('file', $file)
-      this.img_file[pos] = $file
       let configuration = { headers: { 'Content-Type': 'multipart/form-data' } }
 
       this.uploadResource({
@@ -78,15 +70,12 @@ export default {
     },
     successUploadResource (response) {
       this.uploadingFile = false
-      this.$refs.md.$img2Url(this.pos, response.file.full)
+      this.$refs.editor.addImage(response.file.full)
       this.imageIds.push(response.id)
     },
     failUploadResource () {
       this.uploadingFile = false
       this.$toasted.error('Fail to upload image, please delete the image and re-upload')
-    },
-    $imgDel (pos) {
-      delete this.img_file[pos]
     },
     validateBeforeSubmit (callback) {
       this.$validator.validateAll().then((result) => {

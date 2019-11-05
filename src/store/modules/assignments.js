@@ -22,7 +22,7 @@ export const actions = {
   fetchAssignmentList ({ commit }, { data, callback, fail }) {
     assignmentApi.getAssignmentsList(({data: response, paging}) => {
       commit('GET_ASSIGNMENT_LIST', response)
-      callback && callback(paging)
+      callback && callback(response, paging)
     }, data, fail)
   },
   fetchStudentAssignmentList ({ commit }, { data, callback, fail }) {

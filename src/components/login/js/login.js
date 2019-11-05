@@ -13,9 +13,7 @@ export default {
     }
   },
   created () {
-    if (this.loggedIn) {
-      this.$router.push({ query: {} })
-    }
+    this.checkLoggedIn()
   },
   computed: {
     ...mapGetters([
@@ -29,6 +27,11 @@ export default {
     ...mapActions([
       'attemptLogin'
     ]),
+    checkLoggedIn () {
+      if (this.loggedIn) {
+        this.$router.push({ query: {} })
+      }
+    },
     closeLoginModal () {
       this.$router.push({ query: {} })
     },

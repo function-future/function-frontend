@@ -1,7 +1,6 @@
 import Files from '@/views/Files/Files'
 import { createLocalVue, shallowMount } from '@vue/test-utils'
 import Vuex from 'vuex'
-import VueRouter from 'vue-router'
 
 describe('Files', () => {
   let store
@@ -75,11 +74,8 @@ describe('Files', () => {
       store,
       localVue,
       stubs: [
-        'BaseCard',
-        'BaseButton',
-        'BaseInput',
-        'BaseSelect',
-        'font-awesome-icon'
+        'b-icon',
+        'b-button'
       ],
       mocks: {
         $route,
@@ -232,14 +228,25 @@ describe('Files', () => {
   test('goToFolder no id', () => {
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.goToFolder('')
-    expect(wrapper.vm.$router.push).toHaveBeenCalledTimes(0)
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'feeds' })
   })
 
-  test('openFileDetail', () => {
+  test('openFilePreview', () => {
     const id = 'sample-id'
-    wrapper.vm.$router.push = jest.fn()
-    wrapper.vm.openFileDetail(id)
-    expect(wrapper.vm.$router.push).toHaveBeenCalledTimes(1)
+    wrapper.vm.openFilePreview(id)
+  })
+
+  test('openFileVersion', () => {
+    const id = 'sample-id'
+    wrapper.vm.openFileVersion(id)
+    expect(wrapper.vm.selectedId).toEqual(id)
+    expect(wrapper.vm.showFileVersionModal).toEqual(true)
+  })
+
+  test('closeFileVersion', () => {
+    wrapper.vm.closeFileVersion()
+    expect(wrapper.vm.selectedId).toEqual('')
+    expect(wrapper.vm.showFileVersionModal).toEqual(false)
   })
 
   test('closeFileDetail', () => {
@@ -420,6 +427,29 @@ describe('Files', () => {
     expect(spy).toHaveBeenCalledTimes(1)
   })
 
+  test('computed breadcrumbsMobile with available breadcrumb', () => {
+    wrapper.vm.paths = [
+      {
+        'id': 'root',
+        'name': 'root'
+      },
+      {
+        'id': 'parent-id',
+        'name': 'Parent ID'
+      },
+      {
+        'id': 'parent-id-1',
+        'name': 'Parent ID 1'
+      }
+    ]
+    expect(wrapper.vm.breadcrumbsMobile).toEqual(wrapper.vm.paths[1])
+  })
+
+  test('computed breadcrumbsMobile with no breadcrumb', () => {
+    wrapper.vm.paths = []
+    expect(wrapper.vm.breadcrumbsMobile).toEqual('')
+  })
+
   test('computed breadcrumbs length < 4', () => {
     wrapper.vm.paths = [
       {
@@ -489,6 +519,47 @@ describe('Files', () => {
     expect(wrapper.vm.breadcrumbs).toEqual(expectedResult)
   })
 
+  test('computed currentFolderName with breadcrumbs', () => {
+    wrapper.vm.paths = [
+      {
+        'id': 'root',
+        'name': 'root'
+      },
+      {
+        'id': 'parent-id',
+        'name': 'Parent ID'
+      },
+      {
+        'id': 'parent-id-1',
+        'name': 'Parent ID 1'
+      }
+    ]
+    expect(wrapper.vm.currentFolderName).toEqual('Parent ID 1')
+  })
+
+  test('computed currentFolderName with breadcrumbs and name length ellipsis', () => {
+    wrapper.vm.paths = [
+      {
+        'id': 'root',
+        'name': 'root'
+      },
+      {
+        'id': 'parent-id',
+        'name': 'Parent ID'
+      },
+      {
+        'id': 'parent-id-1',
+        'name': 'Parent ID 1 With Long Name'
+      }
+    ]
+    expect(wrapper.vm.currentFolderName).toEqual('Parent ID 1 With Long Name'.substr(0, 15) + '...')
+  })
+
+  test('computed currentFolderName no breadcrumbs', () => {
+    wrapper.vm.paths = []
+    expect(wrapper.vm.currentFolderName).toEqual('Files')
+  })
+
   test('computed FileDetail have params id', () => {
     expect(wrapper.vm.FileDetail).toEqual('ModalFileDetail')
   })
@@ -499,5 +570,15 @@ describe('Files', () => {
     }
     initComponent()
     expect(wrapper.vm.FileDetail).toEqual('')
+  })
+
+  test('computed baseUrl', () => {
+    $route = {
+      params: {
+        parentId: 'parentId'
+      }
+    }
+    initComponent()
+    expect(wrapper.vm.baseUrl).toEqual('/files/parentId/')
   })
 })

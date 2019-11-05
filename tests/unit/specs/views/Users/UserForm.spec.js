@@ -37,7 +37,8 @@ describe('UserForm', () => {
     }
     const actions = {
       initialState: jest.fn(),
-      fetchUserById: jest.fn()
+      fetchUserById: jest.fn(),
+      fetchBatches: jest.fn()
     }
     const getters = {
       user: state => state.user
@@ -334,16 +335,25 @@ describe('UserForm', () => {
     expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
   })
 
-  test('selectBatch', () => {
+  test('initBatches', () => {
+    const spy = jest.spyOn(UserForm.methods, 'fetchBatches')
     initComponent()
-    wrapper.vm.selectBatch('futur3')
-    expect(wrapper.vm.userDetail.batch.code).toEqual('futur3')
-    expect(wrapper.vm.showSelectBatchModal).toEqual(false)
+    wrapper.vm.initBatches()
+    expect(spy).toHaveBeenCalledTimes(2)
   })
 
-  test('closeModal', () => {
+  test('successFetchBatches', () => {
+    const response = 'response'
     initComponent()
-    wrapper.vm.closeModal()
-    expect(wrapper.vm.showSelectBatchModal).toEqual(false)
+    wrapper.vm.successFetchBatches(response)
+    expect(wrapper.vm.isFetchingBatches).toEqual(false)
+    expect(wrapper.vm.batches).toEqual(response)
   })
+
+  test('failFetchBatches', () => {
+    initComponent()
+    wrapper.vm.failFetchBatches()
+    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+  })
+
 })

@@ -25,6 +25,13 @@ $link: $primary;
 $link-invert: $primary-invert;
 $link-focus-border: $primary;
 
+// Menu
+$menu-item-hover-background-color: rgba(29, 161, 242, 0.1);
+$menu-item-hover-color: $primary;
+$menu-item-radius: $radius;
+
+.image img { height: 100%; object-fit: cover; }
+
 // Import Bulma and Buefy styles
 @import "~bulma";
 @import "~buefy/src/scss/buefy";

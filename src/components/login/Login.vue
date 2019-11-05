@@ -1,17 +1,17 @@
 <template>
   <div class="modal__mask">
-    <div class="modal__wrapper">
+    <div class="modal__wrapper" @click.self="closeLoginModal">
       <div class="modal__container">
         <div class="modal__header">
           <img src="@/assets/logo.png">
           <span class="close-button" @click="closeLoginModal">
-            <font-awesome-icon icon="times" class="icon" size="lg"/>
+            <b-icon icon="times" class="icon"/>
           </span>
         </div>
         <div class="modal__body">
           <div class="fail-login-alert" v-if="errorAlert">
             {{ errorAlert }}
-            <font-awesome-icon icon="times" class="icon close-alert" size="lg" @click="errorAlert = ''"/>
+            <b-icon icon="times" class="icon close-alert" @click="errorAlert = ''"/>
           </div>
           <section>
             <b-field label="Email">
@@ -19,6 +19,7 @@
                 type="email"
                 v-model="data.email"
                 placeholder="Your email"
+                @keyup.enter.native="login"
                 v-validate.disable="'required|email'"
                 required>
               </b-input>
@@ -66,7 +67,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, .5);
+      background-color: rgba(10, 10, 10, 0.86);
       display: table;
       transition: opacity .3s ease;
     }
@@ -87,7 +88,6 @@
       margin: 0 auto;
       background-color: #fff;
       border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
       transition: all .3s ease;
       font-family: Helvetica, Arial, sans-serif;
 
@@ -126,6 +126,10 @@
 
       &__button {
         margin: 0.25rem;
+      }
+
+      @media (max-width: 1023px) {
+        margin-bottom: 1rem;
       }
     }
 

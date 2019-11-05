@@ -7,7 +7,9 @@ module.exports = {
       user: {
         account: '/account',
         profile: '/profile',
-        changePassword: '/profile/change-password'
+        profileMobile: '/m/profile',
+        changePassword: '/profile/change-password',
+        changePasswordMobile: '/m/profile/change-password'
       },
       feeds: '/',
       activityBlogs: {
@@ -25,6 +27,11 @@ module.exports = {
       points: {
         list: '/points'
       },
+      batches: {
+        list: '/batches',
+        add: '/batches/add',
+        edit: '/batches/:id/edit'
+      },
       courses: {
         master: {
           list: '/courses',
@@ -32,12 +39,7 @@ module.exports = {
           add: '/courses/add',
           edit: '/courses/:id/edit'
         },
-        batches: {
-          list: '/batches',
-          add: '/batches/add',
-          edit: '/batches/:id/edit'
-        },
-        list: '/batches/:code/courses',
+        list: '/courses',
         add: '/batches/:code/courses/add',
         detail: '/batches/:code/courses/:id/detail',
         edit: '/batches/:code/courses/:id/edit'
@@ -57,6 +59,9 @@ module.exports = {
           student: '/users/:id/edit/student',
           user: '/users/:id/edit'
         }
+      },
+      scoring: {
+        admin: '/scoring'
       },
       questionBanks: {
         list: '/question-banks',

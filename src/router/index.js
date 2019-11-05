@@ -8,6 +8,7 @@ import addAssignment from '@/views/Assignment/AddAssignment'
 import assignmentRooms from '@/views/Assignment/AssignmentRooms'
 import assignmentRoomDetail from '@/views/Assignment/AssignmentRoomDetail'
 import assignmentDetail from '@/views/Assignment/AssignmentDetail'
+import scoringAdmin from '@/views/Scoring/LandingPageAdmin'
 import questionBanks from '@/views/QuestionBank/QuestionBanks'
 import questionBankDetail from '@/views/QuestionBank/QuestionBankDetail'
 import addQuestionBank from '@/views/QuestionBank/AddQuestionBank'
@@ -42,14 +43,11 @@ import users from '@/views/Users/Users.vue'
 import stickyNotes from '@/views/StickyNotes/StickyNotesDetail.vue'
 import editStickyNote from '@/views/StickyNotes/EditStickyNote.vue'
 import UserForm from '@/views/Users/UserForm.vue'
-import courseBatch from '@/views/Courses/CourseBatch.vue'
-import batchForm from '@/views/Courses/BatchForm.vue'
-import courses from '@/views/Courses/Courses.vue'
-import masterCourses from '@/views/Courses/MasterCourses.vue'
-import courseDetail from '@/views/Courses/CourseDetail.vue'
-import courseForm from '@/views/Courses/CourseForm.vue'
-import masterCourseDetail from '@/views/Courses/MasterCourseDetail.vue'
-import masterCourseForm from '@/views/Courses/MasterCourseForm.vue'
+import batches from '@/views/Batches/Batches.vue'
+import batchForm from '@/views/Batches/BatchForm.vue'
+import courses from '@/views/Courses/CoursesRevamp.vue'
+import courseDetail from '@/views/Courses/CourseDetailRevamp.vue'
+import courseForm from '@/views/Courses/CourseFormRevamp.vue'
 import config from '@/config/index'
 import chatrooms from '@/views/Chatrooms/Chatrooms'
 import myQuestionnaire from '@/views/Questionnaire/MyQuestionnaire'
@@ -62,7 +60,6 @@ import questionnaireResultsMembers from '@/views/Questionnaire/QuestionnaireResu
 import questionnaireResultsMemberDetail from '@/views/Questionnaire/QuestionnaireResultsMemberDetail'
 import questionnaireResultsQuestionnaireDetail from '@/views/Questionnaire/QuestionnaireResultsQuestionnaireDetail'
 import questionnaireResultsQuestionDetail from '@/views/Questionnaire/QuestionnaireResultsQuestionDetail'
-import login from '@/views/Auth/Login'
 import reminders from '@/views/Reminders/Reminders'
 import reminderForm from '@/views/Reminders/ReminderForm'
 import profile from '@/views/User/Profile'
@@ -83,16 +80,7 @@ Vue.use(Router)
 const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
-  linkActiveClass: 'is-active',
   routes: [
-    {
-      path: config.app.pages.auth.login,
-      name: 'login',
-      component: login,
-      meta: {
-        title: 'Login'
-      }
-    },
     {
       path: config.app.pages.user.profile,
       name: 'profile',
@@ -101,6 +89,19 @@ const router = new Router({
         title: 'Profile',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
+          { name: 'Profile', link: 'profile' }
+        ]
+      }
+    },
+    {
+      path: config.app.pages.user.profileMobile,
+      name: 'profileMobile',
+      component: profile,
+      meta: {
+        title: 'Profile',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Account', link: 'account' },
           { name: 'Profile', link: 'profile' }
         ]
       }
@@ -128,7 +129,22 @@ const router = new Router({
           { name: 'Profile', link: 'profile' },
           { name: 'Change Password', link: 'changePassword' }
         ]
-      }
+      },
+      props: { mobile: false }
+    },
+    {
+      path: config.app.pages.user.changePasswordMobile,
+      name: 'changePasswordMobile',
+      component: changePassword,
+      meta: {
+        title: 'Change Password',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Account', link: 'account' },
+          { name: 'Change Password', link: 'changePassword' }
+        ]
+      },
+      props: { mobile: true }
     },
     {
       path: config.app.pages.feeds,
@@ -255,20 +271,20 @@ const router = new Router({
       props: { editMode: false }
     },
     {
-      path: config.app.pages.courses.batches.list,
-      name: 'courseBatches',
-      component: courseBatch,
+      path: config.app.pages.batches.list,
+      name: 'batches',
+      component: batches,
       meta: {
         auth: true,
-        title: 'Select Course Batch',
+        title: 'Batches',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'courseBatches' }
+          { name: 'Batches', link: 'batches' }
         ]
       }
     },
     {
-      path: config.app.pages.courses.batches.add,
+      path: config.app.pages.batches.add,
       name: 'addBatch',
       component: batchForm,
       meta: {
@@ -277,14 +293,14 @@ const router = new Router({
         title: 'Add Batch',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'courseBatches' },
+          { name: 'Batches', link: 'batches' },
           { name: 'Add Batch', link: 'addBatch' }
         ]
       },
       props: { editMode: false }
     },
     {
-      path: config.app.pages.courses.batches.edit,
+      path: config.app.pages.batches.edit,
       name: 'editBatch',
       component: batchForm,
       meta: {
@@ -293,7 +309,7 @@ const router = new Router({
         title: 'Edit Batch',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'courseBatches' },
+          { name: 'Batches', link: 'batches' },
           { name: 'Edit Batch', link: 'editBatch' }
         ]
       },
@@ -308,7 +324,6 @@ const router = new Router({
         title: 'Courses',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'courseBatches' },
           { name: 'Courses', link: 'courses' }
         ]
       }
@@ -322,11 +337,11 @@ const router = new Router({
         title: 'Course Detail',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'courseBatches' },
-          { name: 'Courses', link: 'courses' },
+          { name: 'Courses', link: 'courses', params: { query: { tab: 'batch' } } },
           { name: 'Course Detail', link: 'courseDetail' }
         ]
-      }
+      },
+      props: { master: false }
     },
     {
       path: config.app.pages.courses.add,
@@ -338,12 +353,14 @@ const router = new Router({
         title: 'Add Course',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'courseBatches' },
-          { name: 'Courses', link: 'courses' },
+          { name: 'Courses', link: 'courses', params: { query: { tab: 'batch' } } },
           { name: 'Add Course', link: 'addCourse' }
         ]
       },
-      props: { editMode: false }
+      props: {
+        editMode: false,
+        master: false
+      }
     },
     {
       path: config.app.pages.courses.edit,
@@ -355,77 +372,69 @@ const router = new Router({
         title: 'Edit Course',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'courseBatches' },
-          { name: 'Courses', link: 'courses' },
+          { name: 'Courses', link: 'courses', params: { query: { tab: 'batch' } } },
           { name: 'Course Detail', link: 'courseDetail' },
           { name: 'Edit Course', link: 'editCourse' }
         ]
       },
-      props: { editMode: true }
-    },
-    {
-      path: config.app.pages.courses.master.list,
-      name: 'masterCourses',
-      component: masterCourses,
-      meta: {
-        auth: true,
-        title: 'Master Courses',
-        breadcrumb: [
-          { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'courseBatches' },
-          { name: 'Master Courses', link: 'masterCourses' }
-        ]
+      props: {
+        editMode: true,
+        master: false
       }
     },
     {
       path: config.app.pages.courses.master.detail,
       name: 'masterCourseDetail',
-      component: masterCourseDetail,
+      component: courseDetail,
       meta: {
         auth: true,
         title: 'Master Course Detail',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'courseBatches' },
-          { name: 'Master Courses', link: 'masterCourses' },
+          { name: 'Courses', link: 'courses', params: { query: { tab: 'master' } } },
           { name: 'Master Course Detail', link: 'masterCourseDetail' }
         ]
-      }
+      },
+      props: { master: true }
     },
     {
       path: config.app.pages.courses.master.add,
       name: 'addMasterCourse',
-      component: masterCourseForm,
+      component: courseForm,
       meta: {
         auth: true,
         add: true,
         title: 'Add Master Course',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'courseBatches' },
-          { name: 'Master Courses', link: 'masterCourses' },
+          { name: 'Courses', link: 'courses', params: { query: { tab: 'master' } } },
           { name: 'Add Master Course', link: 'addMasterCourse' }
         ]
       },
-      props: { editMode: false }
+      props: {
+        editMode: false,
+        master: true
+      }
     },
     {
       path: config.app.pages.courses.master.edit,
       name: 'editMasterCourse',
-      component: masterCourseForm,
+      component: courseForm,
       meta: {
         auth: true,
         edit: true,
         title: 'Edit Master Course',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'courseBatches' },
-          { name: 'Master Courses', link: 'masterCourses' },
+          { name: 'Courses', link: 'courses', params: { query: { tab: 'master' } } },
           { name: 'Master Course Detail', link: 'masterCourseDetail' },
           { name: 'Edit Master Course', link: 'editMasterCourse' }
         ]
       },
-      props: { editMode: true }
+      props: {
+        editMode: true,
+        master: true
+      }
     },
     {
       path: config.app.pages.files.root,
@@ -456,7 +465,11 @@ const router = new Router({
       component: users,
       meta: {
         auth: true,
-        title: 'Users'
+        title: 'Users',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Users', link: 'users' }
+        ]
       }
     },
     {
@@ -466,7 +479,12 @@ const router = new Router({
       meta: {
         auth: true,
         add: true,
-        title: 'Add Student'
+        title: 'Add Student',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Users', link: 'users' },
+          { name: 'Add Student', link: 'addStudent' }
+        ]
       },
       props: {
         studentMode: true,
@@ -480,7 +498,12 @@ const router = new Router({
       meta: {
         auth: true,
         add: true,
-        title: 'Add User'
+        title: 'Add User',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Users', link: 'users' },
+          { name: 'Add User', link: 'addUser' }
+        ]
       },
       props: {
         studentMode: false,
@@ -494,7 +517,12 @@ const router = new Router({
       meta: {
         auth: true,
         edit: true,
-        title: 'Edit Student'
+        title: 'Edit Student',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Users', link: 'users' },
+          { name: 'Edit Student', link: 'editStudent' }
+        ]
       },
       props: {
         studentMode: true,
@@ -508,7 +536,12 @@ const router = new Router({
       meta: {
         auth: true,
         edit: true,
-        title: 'Edit User'
+        title: 'Edit User',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Users', link: 'users' },
+          { name: 'Edit User', link: 'editUser' }
+        ]
       },
       props: {
         studentMode: false,
@@ -543,9 +576,14 @@ const router = new Router({
       }
     },
     {
+      path: config.app.pages.scoring.admin,
+      name: 'scoringAdmin',
+      component: scoringAdmin
+    },
+    {
       path: config.app.pages.questionBanks.list,
       name: 'questionBanks',
-      component: questionBanks,
+      component: scoringAdmin,
       meta: {
         auth: true,
         title: 'Question Banks',

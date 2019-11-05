@@ -18,7 +18,12 @@ describe('JudgingList', () => {
   function initStore() {
     const state = {
       judgingList: [],
-      accessList: {}
+      accessList: {},
+      batchList: [{
+        id: '1',
+        code: 'futurre3',
+        name: 'Future 3.0'
+      }]
     }
     const actions = {
       fetchJudgingList: jest.fn(),
@@ -26,7 +31,8 @@ describe('JudgingList', () => {
     }
     const getters = {
       judgingList: state => state.judgingList,
-      accessList: state => state.accessList
+      accessList: state => state.accessList,
+      batchList: state => state.batchList
     }
     const store = new Vuex.Store({
       state,
@@ -157,7 +163,7 @@ describe('JudgingList', () => {
 
   test('successDeletingJudging', () => {
     initComponent()
-    wrapper.vm.$route.params.batchCode = '1'
+    wrapper.vm.selectedBatch = '1'
     wrapper.vm.selectedId = 'FNC0001'
     const routerSpy = jest.spyOn(wrapper.vm.$router, 'push')
     const closeDeleteConfirmationModal = jest.spyOn(wrapper.vm, 'closeDeleteConfirmationModal')
@@ -207,7 +213,7 @@ describe('JudgingList', () => {
   test('goToReportPage', () => {
     initComponent()
     const spy = jest.spyOn(wrapper.vm.$router, 'push')
-    wrapper.vm.$route.params.batchCode = 'future3'
+    wrapper.vm.selectedBatch = 'future3'
     wrapper.vm.goToReportPage()
     expect(spy).toHaveBeenCalledWith({
       name: 'batchReportPage',
@@ -215,5 +221,18 @@ describe('JudgingList', () => {
         batchCode: 'future3'
       }
     })
+  })
+
+  test('successFetchBatches', () => {
+    initComponent()
+    wrapper.vm.successFetchBatches()
+    expect(wrapper.vm.batches).toEqual(wrapper.vm.batchList)
+    expect(wrapper.vm.selectedBatch).toEqual('futurre3')
+  })
+
+  test('failFetchBatches', () => {
+    initComponent()
+    wrapper.vm.failFetchBatches()
+    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
   })
 })

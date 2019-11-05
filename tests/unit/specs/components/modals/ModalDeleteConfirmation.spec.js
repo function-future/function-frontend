@@ -12,18 +12,14 @@ describe('ModalDeleteConfirmation', () => {
   })
 
   test('close', () => {
-    const spy = jest.spyOn(modalDeleteConfirmation.methods, 'close')
     const wrapper = mount(modalDeleteConfirmation)
-    wrapper.find('.button-cancel').trigger('click')
-    expect(spy).toBeCalledTimes(1)
+    wrapper.vm.close()
     expect(wrapper.emitted().close.length).toBe(1)
   })
 
   test('clickDelete', () => {
-    const spy = jest.spyOn(modalDeleteConfirmation.methods, 'clickDelete')
     const wrapper = mount(modalDeleteConfirmation)
-    wrapper.find('.button-delete').trigger('click')
-    expect(spy).toBeCalledTimes(1)
+    wrapper.vm.clickDelete()
     expect(wrapper.emitted().clickDelete.length).toBe(1)
   })
 })

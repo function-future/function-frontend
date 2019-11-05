@@ -1,7 +1,7 @@
 <template>
   <b-navbar class="is-primary is-spaced is-navbar">
     <template slot="brand">
-      <b-navbar-item tag="router-link" :to="{ name: 'feeds' }">
+      <b-navbar-item tag="router-link" :to="{ name: 'feeds' }" :active="false">
         <img src="@/assets/logo.png" alt="Function">
       </b-navbar-item>
     </template>
@@ -26,7 +26,7 @@
           <b-icon icon="caret-down"></b-icon>
         </button>
         <b-dropdown-item custom aria-role="menuitem">
-          Logged as <b>{{ role }}</b>
+          Logged in as <b>{{ role }}</b>
         </b-dropdown-item>
         <hr class="dropdown-divider">
         <b-dropdown-item aria-role="menuitem" @click="goToNotifications">

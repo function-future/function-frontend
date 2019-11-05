@@ -12,7 +12,7 @@ export const auth = [
         'role': 'ADMIN',
         'email': 'user@user.com',
         'name': 'User Name',
-        'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+        'avatar': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s'
       }
     }
   },
@@ -28,7 +28,7 @@ export const auth = [
         'role': 'ADMIN',
         'email': 'user@user.com',
         'name': 'User Name',
-        'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+        'avatar': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s'
       }
     }
   },
@@ -58,7 +58,7 @@ export const profile = [
         'phone': '088888888888',
         'address': 'Jl. Address 1 Address 2',
         'deleted': false,
-        'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+        'avatar': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
         'batch': {
           'id': 'sample-id',
           'name': 'Batch Name',
@@ -130,6 +130,7 @@ export const menuList = [
     url: '/api/core/user/menu-list',
     response: {
       'courses': true,
+      'batches': true,
       'files': true,
       'users': true,
       'chatroom': true,
@@ -736,70 +737,70 @@ export const courses = [
           'id': 'sample-id-1',
           'title': 'Master Course Title 1',
           'description': 'Course Description Goes Here',
-          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'material': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
           'materialId': 'material-id-1'
         },
         {
           'id': 'sample-id-2',
           'title': 'Master Course Title 2',
           'description': 'Course Description Goes Here',
-          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'material': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
           'materialId': 'material-id-1'
         },
         {
           'id': 'sample-id-3',
           'title': 'Master Course Title 3',
           'description': 'Course Description Goes Here',
-          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'material': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
           'materialId': 'material-id-1'
         },
         {
           'id': 'sample-id-4',
           'title': 'Master Course Title 4',
           'description': 'Course Description Goes Here',
-          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'material': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
           'materialId': 'material-id-1'
         },
         {
           'id': 'sample-id-5',
           'title': 'Master Course Title 5',
           'description': 'Course Description Goes Here',
-          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'material': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
           'materialId': 'material-id-1'
         },
         {
           'id': 'sample-id-6',
           'title': 'Master Course Title 6',
           'description': 'Course Description Goes Here',
-          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'material': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
           'materialId': 'material-id-1'
         },
         {
           'id': 'sample-id-7',
           'title': 'Master Course Title 7',
           'description': 'Course Description Goes Here',
-          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'material': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
           'materialId': 'material-id-1'
         },
         {
           'id': 'sample-id-8',
           'title': 'Master Course Title 8',
           'description': 'Course Description Goes Here',
-          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'material': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
           'materialId': 'material-id-1'
         },
         {
           'id': 'sample-id-9',
           'title': 'Master Course Title 9',
           'description': 'Course Description Goes Here',
-          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'material': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
           'materialId': 'material-id-1'
         },
         {
           'id': 'sample-id-10',
           'title': 'Master Course Title 10',
           'description': 'Course Description Goes Here',
-          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'material': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
           'materialId': 'material-id-1'
         }
       ],
@@ -821,28 +822,28 @@ export const courses = [
           'id': 'sample-id-11',
           'title': 'Master Course Title 11',
           'description': 'Course Description Goes Here',
-          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'material': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
           'materialId': 'material-id-1'
         },
         {
           'id': 'sample-id-12',
           'title': 'Master Course Title 12',
           'description': 'Course Description Goes Here',
-          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'material': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
           'materialId': 'material-id-1'
         },
         {
           'id': 'sample-id-13',
           'title': 'Master Course Title 13',
           'description': 'Course Description Goes Here',
-          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'material': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
           'materialId': 'material-id-1'
         },
         {
           'id': 'sample-id-14',
           'title': 'Master Course Title 14',
           'description': 'Course Description Goes Here',
-          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'material': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
           'materialId': 'material-id-1'
         }
       ],
@@ -864,7 +865,7 @@ export const courses = [
         'id': 'sample-id-1',
         'title': 'Master Course Title',
         'description': '**Course** Description Goes Here',
-        'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+        'material': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
         'materialId': 'material-id-1'
       }
     }
@@ -880,7 +881,7 @@ export const courses = [
         'id': 'sample-id-1',
         'title': 'Master Course Title',
         'description': '**Course** Description Goes Here',
-        'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+        'material': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
         'materialId': 'material-id-1'
       }
     }
@@ -896,7 +897,7 @@ export const courses = [
         'id': 'sample-id-1',
         'title': 'Master Course Title',
         'description': '**Course** Description Goes Here',
-        'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+        'material': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
         'materialId': 'material-id-1'
       }
     }
@@ -920,30 +921,30 @@ export const courses = [
       'data': [
         {
           'id': 'sample-id-1',
-          'title': 'Course Title 1',
+          'title': 'Course Title 1 Batch 1',
           'description': 'Course Description Goes Here',
-          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'material': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
           'materialId': 'material-id-1'
         },
         {
           'id': 'sample-id-2',
-          'title': 'Course Title 2',
+          'title': 'Course Title 2 Batch 1',
           'description': 'Course Description Goes Here',
-          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'material': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
           'materialId': 'material-id-1'
         },
         {
           'id': 'sample-id-3',
-          'title': 'Course Title 3',
+          'title': 'Course Title 3 Batch 1',
           'description': 'Course Description Goes Here',
-          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'material': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
           'materialId': 'material-id-1'
         },
         {
           'id': 'sample-id-4',
-          'title': 'Course Title 4',
+          'title': 'Course Title 4 Batch 1',
           'description': 'Course Description Goes Here',
-          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'material': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
           'materialId': 'material-id-1'
         }
       ],
@@ -965,17 +966,74 @@ export const courses = [
           'id': 'sample-id-5',
           'title': 'Course Title 5',
           'description': 'Course Description Goes Here',
-          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'material': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
           'materialId': 'material-id-1'
         },
         {
           'id': 'sample-id-6',
           'title': 'Course Title 2',
           'description': 'Course Description Goes Here',
-          'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'material': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
           'materialId': 'material-id-1'
         }
       ],
+      'paging': {
+        'page': 2,
+        'size': 10,
+        'totalRecords': 40
+      }
+    }
+  },
+  {
+    method: 'GET',
+    url: '/api/core/batches/1/courses?page=3&size=10',
+    response: {
+      'code': 200,
+      'status': 'OK',
+      'data': [],
+      'paging': {
+        'page': 3,
+        'size': 10,
+        'totalRecords': 40
+      }
+    }
+  },
+  {
+    method: 'GET',
+    url: '/api/core/batches/2/courses?page=1&size=10',
+    response: {
+      'code': 200,
+      'status': 'OK',
+      'data': [
+        {
+          'id': 'sample-id-5',
+          'title': 'Course Title Batch 2',
+          'description': 'Course Description Goes Here',
+          'material': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
+          'materialId': 'material-id-1'
+        },
+        {
+          'id': 'sample-id-6',
+          'title': 'Course Title 2 Batch 2',
+          'description': 'Course Description Goes Here',
+          'material': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
+          'materialId': 'material-id-1'
+        }
+      ],
+      'paging': {
+        'page': 1,
+        'size': 10,
+        'totalRecords': 40
+      }
+    }
+  },
+  {
+    method: 'GET',
+    url: '/api/core/batches/2/courses?page=2&size=10',
+    response: {
+      'code': 200,
+      'status': 'OK',
+      'data': [],
       'paging': {
         'page': 2,
         'size': 10,
@@ -994,7 +1052,7 @@ export const courses = [
         'id': 'sample-id',
         'title': 'Course Title',
         'description': '**Course** Description Goes Here',
-        'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+        'material': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
         'materialId': 'material-id-1'
       }
     }
@@ -1010,7 +1068,7 @@ export const courses = [
         'id': 'sample-id',
         'title': 'Course Title',
         'description': '**Course** Description Goes Here',
-        'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+        'material': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
         'materialId': 'material-id-1'
       }
     }
@@ -1026,7 +1084,7 @@ export const courses = [
         'id': 'sample-id',
         'title': 'Course Title',
         'description': '**Course** Description Goes Here',
-        'material': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+        'material': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
         'materialId': 'material-id-1'
       }
     }
@@ -1103,7 +1161,15 @@ export const batches = [
         'name': 'Batch Name'
       }
     }
-  }
+  },
+  {
+    method: 'DELETE',
+    url: '/api/core/batches/sample-id-1',
+    response: {
+      'code': 200,
+      'status': 'OK'
+    }
+  },
 ]
 
 export const discussions = [
@@ -1121,7 +1187,7 @@ export const discussions = [
             'name': 'Oliver Sebastian'
           },
           'comment': 'Comment Example 12',
-          'createdAt': 1580000000
+          'createdAt': 1410000000
         },
         {
           'id': 'sample-id-2',
@@ -1130,7 +1196,7 @@ export const discussions = [
             'name': 'David William Kurnia'
           },
           'comment': 'Comment Example 11',
-          'createdAt': 1570000000
+          'createdAt': 1440000000
         },
         {
           'id': 'sample-id-3',
@@ -1139,7 +1205,7 @@ export const discussions = [
             'name': 'Jonathan'
           },
           'comment': 'Comment Example 10',
-          'createdAt': 1560000000
+          'createdAt': 1450000000
         },
         {
           'id': 'sample-id-4',
@@ -1148,7 +1214,7 @@ export const discussions = [
             'name': 'Stelli'
           },
           'comment': 'Comment Example 9',
-          'createdAt': 1550000000
+          'createdAt': 1460000000
         }
       ],
       'paging': {
@@ -1172,7 +1238,7 @@ export const discussions = [
             'name': 'Oliver Sebastian'
           },
           'comment': 'Comment Example 8',
-          'createdAt': 1540000000
+          'createdAt': 1470000000
         },
         {
           'id': 'sample-id-6',
@@ -1181,7 +1247,7 @@ export const discussions = [
             'name': 'David William Kurnia'
           },
           'comment': 'Comment Example 7',
-          'createdAt': 1530000000
+          'createdAt': 1480000000
         },
         {
           'id': 'sample-id-7',
@@ -1190,7 +1256,7 @@ export const discussions = [
             'name': 'Jonathan'
           },
           'comment': 'Comment Example 6',
-          'createdAt': 1520000000
+          'createdAt': 1490000000
         },
         {
           'id': 'sample-id-8',
@@ -1199,7 +1265,7 @@ export const discussions = [
             'name': 'Stelli'
           },
           'comment': 'Comment Example 5',
-          'createdAt': 1510000000
+          'createdAt': 1500000000
         }
       ],
       'paging': {
@@ -1223,7 +1289,7 @@ export const discussions = [
             'name': 'Oliver Sebastian'
           },
           'comment': 'Comment Example 4',
-          'createdAt': 1500000000
+          'createdAt': 1510000000
         },
         {
           'id': 'sample-id-10',
@@ -1232,7 +1298,7 @@ export const discussions = [
             'name': 'David William Kurnia'
           },
           'comment': 'Comment Example 3',
-          'createdAt': 1490000000
+          'createdAt': 1520000000
         },
         {
           'id': 'sample-id-11',
@@ -1241,7 +1307,7 @@ export const discussions = [
             'name': 'Jonathan'
           },
           'comment': 'Comment Example 2',
-          'createdAt': 1480000000
+          'createdAt': 1530000000
         },
         {
           'id': 'sample-id-12',
@@ -1250,7 +1316,7 @@ export const discussions = [
             'name': 'Stelli'
           },
           'comment': 'Comment Example 1',
-          'createdAt': 1470000000
+          'createdAt': 1540000000
         }
       ],
       'paging': {
@@ -1274,7 +1340,7 @@ export const discussions = [
             'name': 'Oliver Sebastian'
           },
           'comment': 'Comment Example 0',
-          'createdAt': 1460000000
+          'createdAt': 1550000000
         },
         {
           'id': 'sample-id-14',
@@ -1283,7 +1349,7 @@ export const discussions = [
             'name': 'David William Kurnia'
           },
           'comment': 'Comment Example -1',
-          'createdAt': 1450000000
+          'createdAt': 1560000000
         },
         {
           'id': 'sample-id-15',
@@ -1292,7 +1358,7 @@ export const discussions = [
             'name': 'Jonathan'
           },
           'comment': 'Comment Example -2',
-          'createdAt': 1440000000
+          'createdAt': 1570000000
         },
         {
           'id': 'sample-id-16',
@@ -1301,9 +1367,23 @@ export const discussions = [
             'name': 'Stelli'
           },
           'comment': 'Comment Example -3',
-          'createdAt': 1430000000
+          'createdAt': 1580000000
         }
       ],
+      'paging': {
+        'page': 4,
+        'size': 4,
+        'totalRecords': 16
+      }
+    }
+  },
+  {
+    method: 'GET',
+    url: '/api/core/batches/1/courses/sample-id-1/discussions?page=5',
+    response: {
+      'code': 200,
+      'status': 'OK',
+      'data': [],
       'paging': {
         'page': 4,
         'size': 4,
@@ -1333,7 +1413,7 @@ export const discussions = [
 export const users = [
   {
     method: 'GET',
-    url: '/api/core/users?name=&page=1&size=10&role=STUDENT',
+    url: '/api/core/users?name=&page=1&size=20&role=STUDENT',
     response: {
       "code": 200,
       "status": "OK",
@@ -1345,7 +1425,7 @@ export const users = [
           'name': 'User Student 1',
           'phone': '088888888888',
           'address': 'Jl. Address 1 Address 2',
-          'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'avatar': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
           'avatarId': 'sample-id-1',
           'batch': {
             'id': 'sample-id',
@@ -1361,7 +1441,7 @@ export const users = [
           'name': 'User Student 2',
           'phone': '088888888888',
           'address': 'Jl. Address 1 Address 2',
-          'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'avatar': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
           'avatarId': 'sample-id-1',
           'batch': {
             'id': 'sample-id',
@@ -1377,7 +1457,7 @@ export const users = [
           'name': 'User Student 3',
           'phone': '088888888888',
           'address': 'Jl. Address 1 Address 2',
-          'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'avatar': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
           'avatarId': 'sample-id-1',
           'batch': {
             'id': 'sample-id',
@@ -1393,7 +1473,7 @@ export const users = [
           'name': 'User Student 4',
           'phone': '088888888888',
           'address': 'Jl. Address 1 Address 2',
-          'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'avatar': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
           'avatarId': 'sample-id-1',
           'batch': {
             'id': 'sample-id',
@@ -1409,7 +1489,7 @@ export const users = [
           'name': 'User Student 5',
           'phone': '088888888888',
           'address': 'Jl. Address 1 Address 2',
-          'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'avatar': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
           'avatarId': 'sample-id-1',
           'batch': {
             'id': 'sample-id',
@@ -1425,7 +1505,7 @@ export const users = [
           'name': 'User Student 6',
           'phone': '088888888888',
           'address': 'Jl. Address 1 Address 2',
-          'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'avatar': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
           'avatarId': 'sample-id-1',
           'batch': {
             'id': 'sample-id',
@@ -1437,14 +1517,14 @@ export const users = [
       ],
       'paging': {
         'page': 1,
-        'size': 10,
+        'size': 20,
         'totalRecords': 20
       }
     }
   },
   {
     method: 'GET',
-    url: '/api/core/users?name=kar&page=1&size=10&role=STUDENT',
+    url: '/api/core/users?name=kar&page=1&size=20&role=STUDENT',
     response: {
       "code": 200,
       "status": "OK",
@@ -1456,7 +1536,7 @@ export const users = [
           'name': 'Karnando Sepryan',
           'phone': '088888888888',
           'address': 'Jl. Address 1 Address 2',
-          'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'avatar': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
           'avatarId': 'sample-id-1',
           'batch': {
             'id': 'sample-id',
@@ -1468,14 +1548,14 @@ export const users = [
       ],
       'paging': {
         'page': 1,
-        'size': 10,
+        'size': 20,
         'totalRecords': 1
       }
     }
   },
   {
     method: 'GET',
-    url: '/api/core/users?name=&page=1&size=10&role=MENTOR',
+    url: '/api/core/users?name=&page=1&size=20&role=MENTOR',
     response: {
       "code": 200,
       "status": "OK",
@@ -1487,7 +1567,7 @@ export const users = [
           'name': 'User Mentor 1',
           'phone': '088888888888',
           'address': 'Jl. Address 1 Address 2',
-          'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'avatar': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
           'avatarId': 'sample-id-1'
         },
         {
@@ -1497,20 +1577,20 @@ export const users = [
           'name': 'User Mentor 2',
           'phone': '088888888888',
           'address': 'Jl. Address 1 Address 2',
-          'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'avatar': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
           'avatarId': 'sample-id-1'
         }
       ],
       'paging': {
         'page': 1,
-        'size': 10,
+        'size': 20,
         'totalRecords': 20
       }
     }
   },
   {
     method: 'GET',
-    url: '/api/core/users?name=&page=1&size=10&role=JUDGE',
+    url: '/api/core/users?name=&page=1&size=20&role=JUDGE',
     response: {
       "code": 200,
       "status": "OK",
@@ -1522,20 +1602,20 @@ export const users = [
           'name': 'User Judge 1',
           'phone': '088888888888',
           'address': 'Jl. Address 1 Address 2',
-          'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'avatar': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
           'avatarId': 'sample-id-1'
         }
       ],
       'paging': {
         'page': 1,
-        'size': 10,
+        'size': 20,
         'totalRecords': 20
       }
     }
   },
   {
     method: 'GET',
-    url: '/api/core/users?name=&page=1&size=10&role=ADMIN',
+    url: '/api/core/users?name=&page=1&size=20&role=ADMIN',
     response: {
       "code": 200,
       "status": "OK",
@@ -1547,7 +1627,7 @@ export const users = [
           'name': 'User Admin 1',
           'phone': '088888888888',
           'address': 'Jl. Address 1 Address 2',
-          'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'avatar': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
           'avatarId': 'sample-id-1'
         },
         {
@@ -1557,7 +1637,7 @@ export const users = [
           'name': 'User Admin 2',
           'phone': '088888888888',
           'address': 'Jl. Address 1 Address 2',
-          'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'avatar': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
           'avatarId': 'sample-id-1'
         },
         {
@@ -1567,13 +1647,13 @@ export const users = [
           'name': 'User Admin 3',
           'phone': '088888888888',
           'address': 'Jl. Address 1 Address 2',
-          'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+          'avatar': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
           'avatarId': 'sample-id-1'
         }
       ],
       'paging': {
         'page': 1,
-        'size': 10,
+        'size': 20,
         'totalRecords': 20
       }
     }
@@ -1591,7 +1671,7 @@ export const users = [
         'name': 'User Student 1',
         'phone': '088888888888',
         'address': 'Jl. Address 1 Address 2',
-        'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+        'avatar': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
         'avatarId': 'sample-id-1',
         'batch': {
           'id': 'sample-id',
@@ -1615,7 +1695,7 @@ export const users = [
         'name': 'User Admin 1',
         'phone': '088888888888',
         'address': 'Jl. Address 1 Address 2',
-        'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+        'avatar': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
         'avatarId': 'sample-id-1',
         'batch': {
           'id': 'sample-id',
@@ -1639,7 +1719,7 @@ export const users = [
         'name': 'User Student 1',
         'phone': '088888888888',
         'address': 'Jl. Address 1 Address 2',
-        'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+        'avatar': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
         'avatarId': 'sample-id-1',
         'batch': {
           'id': 'sample-id',
@@ -1663,7 +1743,7 @@ export const users = [
         'name': 'User Student 2',
         'phone': '088888888888',
         'address': 'Jl. Address 1 Address 2',
-        'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+        'avatar': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
         'avatarId': 'sample-id-1',
         'batch': {
           'id': 'sample-id',
@@ -1687,7 +1767,7 @@ export const users = [
         'name': 'User Admin 1',
         'phone': '088888888888',
         'address': 'Jl. Address 1 Address 2',
-        'avatar': 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+        'avatar': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBaZZuJvz7agqocS3LLj5GbPCNybc6_s00Q-qIAKnBeJK8R1yH4XciuAVgqw&s',
         'avatarId': 'sample-id-1'
       }
     }

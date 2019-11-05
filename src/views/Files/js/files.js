@@ -1,24 +1,20 @@
 import { mapActions, mapGetters } from 'vuex'
-import BaseCard from '@/components/BaseCard.vue'
-import BaseButton from '@/components/BaseButton.vue'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
 import ModalCreateFolder from '@/components/modals/ModalCreateFolder'
 import ModalRenameFileFolder from '@/components/modals/ModalRenameFileFolder'
 import ModalFileUploadProgress from '@/components/modals/ModalFileUploadProgress'
-import ModalFileDetail from '@/components/modals/ModalFileDetail'
+import ModalFileVersion from '@/components/modals/ModalFileVersion'
 import InfiniteLoading from 'vue-infinite-loading'
 import config from '@/config/index'
 
 export default {
   name: 'files',
   components: {
-    BaseCard,
-    BaseButton,
     ModalDeleteConfirmation,
     ModalCreateFolder,
     ModalRenameFileFolder,
     ModalFileUploadProgress,
-    ModalFileDetail,
+    ModalFileVersion,
     InfiniteLoading
   },
   data () {
@@ -31,6 +27,7 @@ export default {
       showCreateModal: false,
       showRenameFileFolderModal: false,
       showFileUploadModal: false,
+      showFileVersionModal: false,
       isUploading: false,
       file: {},
       fileList: [],
@@ -64,6 +61,13 @@ export default {
         ]
       }
       return this.paths
+    },
+    breadcrumbsMobile () {
+      return this.paths[this.paths.length - 2] || ''
+    },
+    currentFolderName () {
+      let name = (this.paths && this.paths[this.paths.length - 1] && this.paths[this.paths.length - 1].name) || 'Files'
+      return name.length > 15 ? name.substr(0, 15) + '...' : name
     }
   },
   methods: {
@@ -119,20 +123,33 @@ export default {
       return text
     },
     goToFolder (id) {
-      if (!id) return
+      if (!id) {
+        this.$router.push({ name: 'feeds' })
+        return
+      }
       this.$router.push({
         name: 'folder',
         params: { parentId: id }
       })
     },
-    openFileDetail (id) {
-      this.$router.push(this.baseUrl + id)
+    openFilePreview (id) {
+      // TODO:: file preview on new branch
+      // this.$router.push(this.baseUrl + id)
+      console.log('ADD FILE PREVIEW WITH PLUGINS. id: ' + id)
     },
     closeFileDetail () {
       this.$router.push({
         name: 'folder',
         params: { parentId: this.$route.params.parentId }
       })
+    },
+    openFileVersion (id) {
+      this.selectedId = id
+      this.showFileVersionModal = true
+    },
+    closeFileVersion () {
+      this.selectedId = ''
+      this.showFileVersionModal = false
     },
     openDeleteConfirmationModal (id, type) {
       this.selectedId = id

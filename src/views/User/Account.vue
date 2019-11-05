@@ -3,20 +3,19 @@
     <div class="account__summary columns is-multiline is-mobile">
       <div class="column">
         <article class="media">
-          <figure class="media-left">
-            <p class="image is-64x64">
-              <img :src="currentUser.avatar">
-            </p>
+          <figure class="media-left image is-64x64 is-image-horizontal-center">
+            <img class="is-rounded" :src="currentUser.avatar">
           </figure>
           <div class="media-content">
             <div class="content">
               <div class="account__summary-name is-size-6">
-                {{ currentUser.name }}
+                <div class="has-text-weight-bold">{{ currentUser.name }}</div>
+                <div>{{ role }}</div>
               </div>
               <b-button type="is-primary"
                         outlined class="button"
                         @click="goToProfile">
-                Edit Profile
+                View Profile
               </b-button>
             </div>
           </div>
@@ -24,11 +23,11 @@
       </div>
     </div>
     <div class="columns is-multiline is-vcentered is-size-7-mobile">
-      <div class="column is-12 is-bordered-bottom is-flex is-flex-content-centered"
+      <div class="column is-12 is-bordered-bottom is-flex is-flex-content-centered account__menu"
            @click="goToChangePassword">
         <b-icon icon="key"></b-icon> Change Password
       </div>
-      <div class="column is-12 is-bordered-bottom is-flex is-flex-content-centered"
+      <div class="column is-12 is-bordered-bottom is-flex is-flex-content-centered account__menu"
            @click="logout">
         <b-icon icon="sign-out-alt"></b-icon> Logout
       </div>
@@ -49,11 +48,6 @@
     align-items: center;
   }
 
-  .image {
-    display: flex;
-    align-items: center;
-  }
-
   .account {
     &__container {
       padding: 1rem 1.25rem;
@@ -63,9 +57,12 @@
       padding: 1rem;
 
       &-name {
-        font-weight: bold;
         margin-bottom: 0.5rem;
       }
+    }
+
+    &__menu {
+      cursor: pointer;
     }
   }
 </style>

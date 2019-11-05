@@ -1,14 +1,16 @@
 <template>
   <div class="app">
     <NavBar class="is-hidden-mobile is-hidden-touch"></NavBar>
-    <MobileNavBar class="is-hidden-desktop"></MobileNavBar>
-    <BottomNavBar class="is-hidden-desktop"></BottomNavBar>
+    <transition name="fade">
+      <MobileNavBar class="top-navbar is-hidden-desktop"></MobileNavBar>
+    </transition>
     <div class="main-container is-fullhd">
       <MenuBar class="is-hidden-mobile is-hidden-touch"></MenuBar>
       <div class="main-content">
         <transition name="fade" mode="out-in">
           <router-view></router-view>
         </transition>
+        <BottomNavBar class="is-hidden-desktop"></BottomNavBar>
       </div>
     </div>
     <transition name="fade">
@@ -74,5 +76,9 @@
 
   .page-title {
     margin-left: 10px;
+  }
+
+  .top-navbar {
+    transition: opacity .35s, visibility .35s, height .35s;
   }
 </style>

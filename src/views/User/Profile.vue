@@ -1,187 +1,154 @@
 <template>
-  <div class="scrollable-container">
-    <div class="form-container">
-      <div class="row">
-        <div class="column image-column">
-          <div class="image" :style="{ backgroundImage: 'url(' + avatarPreview + ')' }">
-            <label class="image-edit" v-if="!showModalChangeProfilePicture">
-              <input type="file"
-                     name="image"
-                     accept=".jpg, .jpeg, .png"
-                     @change="onFileChange($event)"
-                     style="display: none"/>
-              <font-awesome-icon icon="pencil-alt" class="icon"/> edit
-            </label>
-          </div>
-          <div class="alert" v-if="maximumSizeAlert">
-            <span>Please upload a picture smaller than 1 MB.</span>
+  <div class="auto-overflow-container">
+    <div class="profile__container columns">
+      <div class="profile__container__image-wrapper column is-4">
+        <figure class="profile__container__image image is-128x128 is-image-horizontal-center">
+          <img class="is-rounded" :src="avatarPreview">
+        </figure>
+        <div class="profile__container__image-change-confirmation" v-if="changeProfilePictureConfirmation">
+          <div class="buttons">
+            <b-button type="is-light" @click="cancelChangeProfilePicture">Cancel</b-button>
+            <b-button type="is-primary"
+                      @click="sendUpdatedProfilePictureId"
+                      :loading="updatingProfilePicture">
+              Save
+            </b-button>
           </div>
         </div>
-        <div class="column input-column">
-          <div class="input-wrapper">
-            <div class="input-label inline">Name</div>
-            <div class="input inline">
-              <BaseInput v-model="profile.name" disabled>
-              </BaseInput>
-            </div>
-          </div>
-          <div class="input-wrapper">
-            <div class="input-label inline">Phone</div>
-            <div class="input inline">
-              <BaseInput v-model="profile.phone" disabled></BaseInput>
-            </div>
-          </div>
-          <div class="input-wrapper">
-            <div class="input-label inline">Email</div>
-            <div class="input inline">
-              <BaseInput v-model="profile.email" disabled></BaseInput>
-            </div>
-          </div>
-          <div class="input-wrapper" v-if="profile.role === 'STUDENT'">
-            <div class="input-label inline">University</div>
-            <div class="input inline">
-              <BaseInput v-model="profile.university" disabled></BaseInput>
-            </div>
-          </div>
-          <div class="input-wrapper" v-if="profile.role !== 'STUDENT'">
-            <div class="input-label inline">Role</div>
-            <div class="input inline">
-              <BaseInput v-model="profile.role" disabled></BaseInput>
-            </div>
-          </div>
-          <div class="input-wrapper">
-            <div class="input-label inline">Address</div>
-            <div class="input inline">
-              <BaseInput v-model="profile.address" disabled></BaseInput>
-            </div>
-          </div>
-          <div class="input-wrapper" v-if="profile.role === 'STUDENT'">
-            <div class="input-label inline">Batch</div>
-            <div class="input inline">
-              <BaseInput v-model="profile.batch.code" disabled></BaseInput>
-            </div>
-          </div>
-          <div class="input-wrapper change-password-wrapper">
-            <div class="input-label inline"></div>
-            <BaseButton type="submit" buttonClass="button-save" @click="goToChangePassword"
-                        class="change-password-button">
-              Change Password
-            </BaseButton>
-          </div>
+        <div v-else>
+          <label for="upload-image"
+                 class="button is-primary is-outlined"
+                 :class="{'is-loading': uploadingProfilePicture}">
+            Edit Picture
+          </label>
+          <input type="file"
+                 name="image"
+                 accept=".jpg, .jpeg, .png"
+                 id="upload-image"
+                 @change="onFileChange($event)"
+                 style="display: none"/>
+        </div>
+        <div class="is-size-7 has-text-grey has-text-centered profile__container__image-message">
+          <span :class="{'has-text-danger': maximumSizeAlert}">
+            Only picture (PNG or JPG) smaller than 1 MB is allowed.
+          </span>
+        </div>
+      </div>
+      <div class="profile__container__form column is-8">
+        <div class="profile__container__form-input">
+          <b-field label="Name" label-position="on-border">
+            <b-input disabled
+                     v-model="profile.name"
+                     name="name">
+            </b-input>
+          </b-field>
+        </div>
+        <div class="profile__container__form-input">
+          <b-field label="Phone" label-position="on-border">
+            <b-input disabled
+                     v-model="profile.phone"
+                     name="phone"
+                     type="tel">
+            </b-input>
+          </b-field>
+        </div>
+        <div class="profile__container__form-input">
+          <b-field label="Email" label-position="on-border">
+            <b-input disabled
+                     v-model="profile.email"
+                     name="email"
+                     type="email">
+            </b-input>
+          </b-field>
+        </div>
+        <div class="profile__container__form-input" v-if="profile.role === 'STUDENT'">
+          <b-field label="University" label-position="on-border">
+            <b-input disabled
+                     v-model="profile.university"
+                     name="university">
+            </b-input>
+          </b-field>
+        </div>
+        <div class="profile__container__form-input" v-if="profile.role !== 'STUDENT'">
+          <b-field label="University" label-position="on-border">
+            <b-input disabled
+                     v-model="profile.role"
+                     name="role">
+            </b-input>
+          </b-field>
+        </div>
+        <div class="profile__container__form-input">
+          <b-field label="Address" label-position="on-border">
+            <b-input disabled
+                     v-model="profile.address"
+                     name="address">
+            </b-input>
+          </b-field>
+        </div>
+        <div class="profile__container__form-input" v-if="profile.role === 'STUDENT'">
+          <b-field label="Batch" label-position="on-border">
+            <b-input disabled
+                     v-model="profile.batch.code"
+                     name="batch">
+            </b-input>
+          </b-field>
+        </div>
+        <div class="profile__container__form-input is-hidden-touch">
+          <b-button type="is-primary" @click="goToChangePassword">
+            Change Password
+          </b-button>
         </div>
       </div>
     </div>
-    <modal-change-profile-picture-preview @save="sendUpdatedProfilePictureId"
-                                  @close="showModalChangeProfilePicture = false"
-                                  v-if="showModalChangeProfilePicture"
-                                  :newAvatar="newAvatar">
-    </modal-change-profile-picture-preview>
   </div>
 </template>
 
 <script type="text/javascript" src="./js/profile.js"></script>
 
 <style lang="scss" scoped>
-  .form-container {
-    margin: 10px;
-  }
+  @import "@/assets/css/main.scss";
 
-  .row {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    width: 100%;
-  }
+  .profile {
+    &__container {
+      padding: 1rem 1.25rem;
+      margin: 0 0.25rem 0.25rem 0.25rem;
 
-  .column {
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
-  }
+      &__image {
+        margin-bottom: 0.75rem;
 
-  .image-column {
-    padding: 20px 10px;
-    width: 15vw;
-  }
+        &-wrapper {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 3rem;
 
-  .image-title {
-    text-align: left;
-  }
+          @media only screen and (max-width: 768px) {
+            margin-bottom: 0.5rem;
+          }
+        }
 
-  .image {
-    width: 100%;
-    border-radius: 10px;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
-    padding-top: 100%;
-    position: relative;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-  }
+        &-change-confirmation {
+          display: flex;
+        }
 
-  .image-edit {
-    cursor: pointer;
-    background-color: #828282;
-    color: #FFFFFF;
-    padding: 5px 10px;
-    border-radius: 5px;
-    opacity: 0.9;
-    position: absolute;
-    right: 10px;
-    bottom: 10px;
-  }
+        &-message {
+          margin-top: 0.75rem;
+        }
+      }
 
-  .input-column {
-    flex: 2
-  }
+      &__form {
+        margin-bottom: 3rem;
 
-  .input-label {
-    width: 15%;
-    text-align: left;
-  }
+        &-input {
+          margin-bottom: 1.5rem;
+        }
 
-  .input-wrapper {
-    margin-left: 25px;
-    text-align: left;
-    width: 100%;
-  }
-
-  .input {
-    width: 50%;
-
-    @media only screen and (max-width: 1200px) {
-      width: 65%;
-    }
-  }
-
-  .inline {
-    display: inline-block;
-  }
-
-  .alert {
-    margin-top: 10px;
-    text-align: left;
-    color: #cb2431 !important;
-  }
-
-  .change-password-wrapper {
-    margin-top: 15px;
-  }
-
-  .change-password-button {
-    font-size: 14px;
-    padding: 10px 20px;
-    width: auto;
-  }
-
-  /deep/ {
-    .input-box:disabled {
-      background: #f2f2f2;
-      border: #f2f2f2;
-    }
-
-    .input-box:hover {
-      box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.25);
+        &-actions {
+          display: flex;
+          justify-content: flex-end;
+        }
+      }
     }
   }
 </style>

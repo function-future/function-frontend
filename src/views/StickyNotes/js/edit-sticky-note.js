@@ -1,46 +1,12 @@
 import { mapActions, mapGetters } from 'vuex'
-import BaseInput from '@/components/BaseInput'
-import BaseButton from '@/components/BaseButton'
-import BaseTextArea from '@/components/BaseTextArea'
-import config from '@/config/index'
+import Editor from '@/components/editor/Editor'
 
 export default {
   components: {
-    BaseButton,
-    BaseInput,
-    BaseTextArea
+    Editor
   },
   data () {
     return {
-      toolbars: {
-        bold: true,
-        italic: true,
-        header: true,
-        underline: true,
-        strikethrough: true,
-        mark: true,
-        superscript: true,
-        subscript: true,
-        quote: true,
-        ol: true,
-        ul: true,
-        link: true,
-        imagelink: false,
-        code: true,
-        table: true,
-        fullscreen: true,
-        readmodel: true,
-        htmlcode: false,
-        help: true,
-        undo: false,
-        redo: false,
-        trash: false,
-        save: false,
-        navigation: true,
-        alignleft: true,
-        subfield: true,
-        preview: true
-      },
       stickyNote: {
         title: '',
         description: ''
@@ -84,8 +50,8 @@ export default {
       this.validateBeforeSubmit(this.validationSuccess)
     },
     validationSuccess (result) {
-      this.isSubmitting = true
       if (result) {
+        this.isSubmitting = true
         let data = { ...this.stickyNote }
         this.postStickyNotes({
           data,

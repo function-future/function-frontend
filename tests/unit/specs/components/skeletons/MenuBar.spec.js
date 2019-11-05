@@ -92,6 +92,11 @@ describe('MenuBar', () => {
     expect(wrapper.vm.showGrades).toBe(true)
   })
 
+  test('showQuestionnaire computed works correctly', () => {
+    wrapper.vm.questionnaireSubmenuVisibility = true
+    expect(wrapper.vm.showQuestionnaire).toBe(true)
+  })
+
   test('ToggleGradesMenu', () => {
     expect(wrapper.vm.gradesSubmenuVisibility).toBe(false)
     wrapper.vm.toggleGradesMenu()
@@ -146,5 +151,9 @@ describe('MenuBar', () => {
       role: 'ADMIN'
     }
     expect(wrapper.vm.assignmentRoute).toEqual('assignmentBatch')
+  })
+
+  test('isActive', () => {
+    expect(wrapper.vm.isActive('feeds')).toEqual(false)
   })
 })

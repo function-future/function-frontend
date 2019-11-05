@@ -1,14 +1,12 @@
 import { mapActions, mapGetters } from 'vuex'
 import Breadcrumbs from '@/components/breadcrumbs/Breadcrumbs'
-import BaseTitle from '@/components/BaseTitle'
 import ChangePageTitleMixins from '@/mixins/ChangePageTitleMixins'
 import notificationApi from '@/api/controller/notifications'
 
 export default {
   name: 'NavBar',
   components: {
-    Breadcrumbs,
-    BaseTitle
+    Breadcrumbs
   },
   mixins: [
     ChangePageTitleMixins
@@ -40,7 +38,8 @@ export default {
       return /\s/.test(this.name) ? this.name.substr(0, this.name.indexOf(' ')) : this.name
     },
     role () {
-      return 'role'
+      return (this.currentUser && this.currentUser.role &&
+        this.currentUser.role.substring(0, 1) + this.currentUser.role.slice(1).toLowerCase()) || ''
     }
   },
   methods: {

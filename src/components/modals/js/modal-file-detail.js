@@ -1,12 +1,10 @@
 import { mapGetters, mapActions } from 'vuex'
-import BaseCard from '@/components/BaseCard'
-import ModalRenameFileFolder from '@/components/modals/ModalRenameFileFolder'
+import ListItem from '@/components/list/ListItem'
 
 export default {
   name: 'modal-file-detail',
   components: {
-    BaseCard,
-    ModalRenameFileFolder
+    ListItem
   },
   data () {
     return {

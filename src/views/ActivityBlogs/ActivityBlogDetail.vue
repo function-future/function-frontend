@@ -1,27 +1,43 @@
 <template>
-  <div class="scrollable-container">
-    <BaseCard class="card" cardClass="card-hover no-pointer">
-      <div class="header">
-        <h3 class="blog-title">{{ activityBlog.title }}</h3>
-        <div class="blog-author">by <span>{{ activityBlog.author.name }}</span></div>
+  <div class="auto-overflow-container">
+    <div class="activity-blog-detail__container">
+      <div class="activity-blog-detail__container__actions">
+        <b-button rounded
+                  icon-left="pen"
+                  type="is-primary"
+                  @click="goToEditActivityBlog"
+                  v-if="accessList.edit && (currentUser.id === activityBlog.author.id || currentUser.role === 'ADMIN')">
+          Edit
+        </b-button>
+        <b-button rounded
+                  icon-left="trash"
+                  type="is-danger"
+                  @click="openDeleteConfirmationModal"
+                  v-if="accessList.delete && (currentUser.id === activityBlog.author.id || currentUser.role === 'ADMIN')">
+          Delete
+        </b-button>
       </div>
-      <div class="header float-right">
-        <div class="date">
-          {{ activityBlog.createdAt | moment("dddd, MMMM Do YYYY") }}
+      <div class="activity-blog-detail__container__header">
+        <div class="activity-blog-detail__container__header-title">
+          <span class="is-size-5 has-text-weight-bold">
+            {{ activityBlog.title }}
+          </span>
         </div>
-        <div class="action">
-          <span @click="goToEditActivityBlog" v-if="accessList.edit && (currentUser.id === activityBlog.author.id || currentUser.role === 'ADMIN')">
-            <font-awesome-icon icon="edit" class="icon blue" size="lg"></font-awesome-icon>
-          </span>
-          <span @click="openDeleteConfirmationModal" v-if="accessList.delete && (currentUser.id === activityBlog.author.id || currentUser.role === 'ADMIN')">
-            <font-awesome-icon icon="trash-alt" class="icon red" size="lg"></font-awesome-icon>
-          </span>
+        <div class="activity-blog-detail__container__header-info">
+          <div class="activity-blog-detail__container__header-info-author">
+            by <span class="has-text-weight-bold">{{ activityBlog.author.name }}</span>
+          </div>
+          <div class="activity-blog-detail__container__header-info-date">
+            <span class="is-size-7">
+              {{ activityBlog.updatedAt | moment("dddd, MMMM Do YYYY") }}
+            </span>
+          </div>
         </div>
       </div>
-      <div class="preview wrap-word">
+      <div class="activity-blog-detail__container__content wrap-word">
         <span v-html="descriptionCompiledMarkdown"></span>
       </div>
-    </BaseCard>
+    </div>
     <modal-delete-confirmation v-if="showDeleteConfirmationModal"
                                @close="showDeleteConfirmationModal = false"
                                @clickDelete="deleteThisActivityBlog">
@@ -30,53 +46,63 @@
   </div>
 </template>
 
-<script type="text/javascript" src="./js/activity-blog-detail.js">
-</script>
+<script type="text/javascript" src="./js/activity-blog-detail.js"></script>
 
 <style lang="scss" scoped>
-  .card {
-    min-height: 80vh;
-  }
+  @import "@/assets/css/main.scss";
 
-  .header {
-    display: inline-block;
-  }
+  .activity-blog-detail {
+    &__container {
+      display: flex;
+      flex-direction: column;
+      padding: 1rem 1.25rem;
 
-  .date {
-    padding: 5px 15px 5px 5px;
-    display: inline-block;
-  }
+      &__actions {
+        margin-bottom: 0.75rem;
 
-  .float-right {
-    float: right;
-  }
+        button {
+          margin-left: 0.25rem;
+          margin-right: 0.25rem;
 
-  .preview {
-    text-align: justify;
-  }
+          &:first-child {
+            margin-left: 0;
+          }
 
-  .action {
-    border-left: 1px solid #BDBDBD;
-    padding-left: 15px;
-    display: inline-block;
-  }
+          @media only screen and (max-width: 1023px) {
+            margin-bottom: 0;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            right: 5vw;
+            bottom: 75px;
+            transition: all 0.1s ease-in-out;
+            border-radius: 50%;
 
-  .action span {
-    padding: 5px;
-    transition: all .2s ease;
-  }
+            button {
+              margin: 0.25rem 0;
+              box-shadow: 2px 2px 16px 4px rgba(0, 0, 0, 0.1);
+            }
+          }
+        }
+      }
 
-  .action span:hover {
-    opacity: 0.8;
-  }
+      &__header {
+        margin-bottom: 0.75rem;
 
-  .action span:active {
-    opacity: 0.9;
-  }
+        &-info {
+          margin-top: 0.25rem;
+          padding-left: 0.5rem;
+          border-left: 1px solid #BDBDBD;
+          line-height: 1.25rem;
+        }
+      }
 
-  h3 {
-    margin: 5px 0 15px 0;
-    text-align: left;
+      &__content {
+        @media only screen and (max-width: 1023px) {
+          margin-bottom: 15vh;
+        }
+      }
+    }
   }
 
   /deep/ img {
@@ -84,19 +110,5 @@
     margin-left: auto;
     margin-right: auto;
     max-height: 300px;
-  }
-
-  .blog-title {
-    margin-bottom: 5px;
-  }
-
-  .blog-author {
-    font-size: 0.9rem;
-    padding-left: 7px;
-    border-left: 1px solid #BDBDBD;
-
-    span {
-      font-weight: bold;
-    }
   }
 </style>
