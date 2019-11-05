@@ -12,7 +12,7 @@
         <b-button rounded
                   icon-left="trash"
                   type="is-danger"
-                  @click=""
+                  @click="showDeleteConfirmationModal = true"
                   v-if="accessList.delete">
           Delete
         </b-button>
@@ -41,6 +41,11 @@
         </comparison-item>
       </div>
     </div>
+    <modal-delete-confirmation v-if="showDeleteConfirmationModal"
+                               @close="showDeleteConfirmationModal = false"
+                               @clickDelete="deleteThisJudging">
+      <div slot="description">Are you sure you want to delete this judging session?</div>
+    </modal-delete-confirmation>
   </div>
 </template>
 
