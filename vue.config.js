@@ -47,5 +47,14 @@ module.exports = {
         }
       }
     }
+  },
+  pwa: {
+    name: 'Function',
+    themeColor: '#02AAF3',
+    workboxPluginMode: 'InjectManifest',
+    workboxOptions: {
+      swSrc: 'src/service-worker.js',
+      exclude: [/manifest\.json$/]
+    }
   }
 }
