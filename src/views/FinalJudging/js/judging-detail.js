@@ -161,6 +161,11 @@ export default {
     },
     failedDeletingJudging () {
       this.$toasted.error('Something went wrong')
+    },
+    moveToEditPage () {
+      this.$router.push({
+        name: 'editJudging'
+      })
     }
   }
 }

@@ -27,7 +27,7 @@ import quizQuestions from '@/views/Quiz/QuizQuestions'
 import judgingList from '@/views/FinalJudging/JudgingList'
 import judgingBatch from '@/views/FinalJudging/JudgingBatch'
 import judgingBatchForm from '@/views/FinalJudging/JudgingBatchForm'
-import addJudging from '@/views/FinalJudging/AddJudging'
+import judgingForm from '@/views/FinalJudging/JudgingForm'
 import judgingDetail from '@/views/FinalJudging/JudgingDetail'
 import comparison from '@/views/FinalJudging/Comparison'
 import reportPage from '@/views/FinalJudging/ReportPage'
@@ -1004,7 +1004,7 @@ const router = new Router({
     {
       path: config.app.pages.finalJudging.add,
       name: 'addJudging',
-      component: addJudging,
+      component: judgingForm,
       meta: {
         auth: true,
         title: 'Add Judging Session',
@@ -1012,8 +1012,25 @@ const router = new Router({
           { name: 'Home', link: 'feeds' },
           { name: 'Batches', link: 'judgingBatch' },
           { name: 'Add Judging Session', link: 'addJudging' }
-        ]
-      }
+        ],
+      },
+      props: { editMode: false }
+    },
+    {
+      path: config.app.pages.finalJudging.edit,
+      name: 'editJudging',
+      component: judgingForm,
+      meta: {
+        auth: true,
+        title: 'Add Judging Session',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Batches', link: 'judgingBatch' },
+          { name: 'Judging Session Detail', link: 'judgingDetail' },
+          { name: 'Edit Judging Session', link: 'editJudging' }
+        ],
+      },
+      props: { editMode: true }
     },
     {
       path: config.app.pages.finalJudging.detail,

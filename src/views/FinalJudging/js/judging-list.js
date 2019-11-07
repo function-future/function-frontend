@@ -78,6 +78,15 @@ export default {
         }
       })
     },
+    goToEditJudging (id) {
+      this.$router.push({
+        name: 'editJudging',
+        params: {
+          judgingId: id,
+          batchCode: this.selectedBatch
+        }
+      })
+    },
     openDeleteConfirmationModal (id) {
       this.selectedId = id
       console.log(this.selectedId)

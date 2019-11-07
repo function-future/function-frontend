@@ -5,7 +5,7 @@
         <b-button rounded
                   icon-left="pen"
                   type="is-primary"
-                  @click=""
+                  @click="moveToEditPage"
                   v-if="accessList.edit">
           Edit
         </b-button>

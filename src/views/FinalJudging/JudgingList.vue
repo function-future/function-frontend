@@ -43,7 +43,7 @@
             </button>
             <b-dropdown-item
               aria-role="listitem"
-              @click="goToJudgingDetail(judging.id)"
+              @click="goToEditJudging(judging.id)"
               v-if="accessList.edit">
               <span class="icon-wrapper">
                 <b-icon icon="edit" class="icon" size="is-small"></b-icon>
