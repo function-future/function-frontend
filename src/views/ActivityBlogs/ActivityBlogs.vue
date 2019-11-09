@@ -15,7 +15,7 @@
             </span>
           </span>
         </div>
-        <div class="activity-blog__container__actions-button">
+        <div class="activity-blog__container__actions-button" v-if="accessList.add">
           <b-button rounded
                     icon-left="plus"
                     type="is-primary"

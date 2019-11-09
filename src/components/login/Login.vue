@@ -3,10 +3,15 @@
     <div class="modal__wrapper" @click.self="closeLoginModal">
       <div class="modal__container">
         <div class="modal__header">
-          <img src="@/assets/logo.png">
-          <span class="close-button" @click="closeLoginModal">
-            <b-icon icon="times" class="icon"/>
-          </span>
+          <div class="modal__header__greetings-wrapper">
+            <div class="modal__header__greetings-content">
+              <div class="is-size-4 has-text-weight-bold has-text-grey-darker">Welcome back,</div>
+              <div class="is-size-6 has-text-grey">Please login to your account</div>
+            </div>
+            <div @click="closeLoginModal">
+              <b-icon icon="times" class="icon"/>
+            </div>
+          </div>
         </div>
         <div class="modal__body">
           <div class="fail-login-alert" v-if="errorAlert">
@@ -36,7 +41,7 @@
               </b-input>
             </b-field>
             <div class="login-button">
-              <button class="button is-primary is-medium is-fullwidth is-outlined"
+              <button class="button is-primary is-medium is-fullwidth"
                       @click="login"
                       :class="{'is-loading': loggingIn}">
                 Login
@@ -74,7 +79,7 @@
 
     &__wrapper {
       display: table-cell;
-      padding-top: 25vh;
+      padding-top: 20vh;
 
       @media (max-width: 1023px) {
         padding-top: 30vh;
@@ -100,20 +105,30 @@
 
     &__header {
       @extend %flex-center;
-      flex-direction: row;
-      background-color: #02AAF3;
+      flex-direction: column;
+      background-color: #fff;
       border-radius: 8px 8px 0 0;
-      height: 75px;
+      height: 125px;
       position: relative;
+      align-items: flex-start;
+      padding: 1rem 2.5rem;
 
       img {
         height: 35px;
       }
+
+      &__greetings {
+        &-wrapper {
+          display: flex;
+          justify-content: space-between;
+          margin-top: 1rem;
+          width: 100%;
+        }
+      }
     }
 
     &__body {
-      padding: 1rem 2rem;
-      margin: 1rem;
+      padding: 0 2.5rem 3rem 2.5rem;
       text-align: left;
     }
 
@@ -164,14 +179,13 @@
     }
   }
 
-  .close-button {
+  .icon {
     cursor: pointer;
-    position: absolute;
-    float: right;
-    right: 25px;
-    margin-top: 2px;
-    color: white;
+    margin-top: 0.25rem;
+    color: #363636;
     transition: all .2s ease;
+    width: auto;
+    height: auto;
   }
 
   .login-button {
