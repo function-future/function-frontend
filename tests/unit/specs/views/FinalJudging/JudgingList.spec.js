@@ -116,18 +116,6 @@ describe('JudgingList', () => {
     })
   })
 
-  test('goToComparison', () => {
-    initComponent()
-    wrapper.vm.$router.push = jest.fn()
-    wrapper.vm.goToComparison(1)
-    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
-      name: 'comparison',
-      params: {
-        judgingId: 1
-      }
-    })
-  })
-
   test('goToJudgingDetail', () => {
     initComponent()
     wrapper.vm.$router.push = jest.fn()

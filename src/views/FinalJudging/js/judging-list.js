@@ -62,14 +62,6 @@ export default {
     addJudging () {
       this.$router.push({name: 'addJudging'})
     },
-    goToComparison (id) {
-      this.$router.push({
-        name: 'comparison',
-        params: {
-          judgingId: id
-        }
-      })
-    },
     goToJudgingDetail (id) {
       this.$router.push({
         name: 'judgingDetail',
