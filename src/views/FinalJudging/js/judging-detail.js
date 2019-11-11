@@ -41,12 +41,6 @@ export default {
       'judging',
       'accessList'
     ]),
-    returnButtonText () {
-      return this.editMode ? 'Cancel' : 'Return'
-    },
-    actionButtonText () {
-      return this.editMode ? 'Save' : 'Edit'
-    },
     descriptionCompiledMarkdown() {
       return marked(this.judgingDetail.description)
     }

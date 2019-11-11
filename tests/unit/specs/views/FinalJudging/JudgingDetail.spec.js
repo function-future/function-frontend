@@ -308,27 +308,36 @@ describe('JudgingDetail', () => {
     expect(wrapper.vm.$toasted.error).toBeCalledTimes(1)
   })
 
-  test('returnButtonText true', () => {
+  test('deleteThisJudging', () => {
     initComponent()
-    wrapper.vm.editMode = true
-    expect(wrapper.vm.returnButtonText).toEqual('Cancel')
+    const spy = jest.spyOn(wrapper.vm, 'deleteJudging')
+    wrapper.vm.deleteThisJudging()
+    expect(wrapper.vm.showDeleteConfirmationModal).toEqual(false)
+    expect(spy).toHaveBeenCalledTimes(1)
   })
 
-  test('returnButtonText false', () => {
+  test('successDeletingJudging', () => {
     initComponent()
-    wrapper.vm.editMode = false
-    expect(wrapper.vm.returnButtonText).toEqual('Return')
+    wrapper.vm.$router.push = jest.fn()
+    wrapper.vm.successDeletingJudging()
+    expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
+      name: 'judgingList'
+    })
   })
 
-  test('actionButtonText true', () => {
+  test('failedDeletingJudging', () => {
     initComponent()
-    wrapper.vm.editMode = true
-    expect(wrapper.vm.actionButtonText).toEqual('Save')
+    wrapper.vm.failedDeletingJudging()
+    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
   })
 
-  test('actionButtonText false', () => {
+  test('moveToEditPage', () => {
     initComponent()
-    wrapper.vm.editMode = false
-    expect(wrapper.vm.actionButtonText).toEqual('Edit')
+    wrapper.vm.$router.push = jest.fn()
+    wrapper.vm.moveToEditPage()
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
+      name: 'editJudging'
+    })
   })
 })
