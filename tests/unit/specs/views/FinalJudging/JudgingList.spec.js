@@ -140,6 +140,20 @@ describe('JudgingList', () => {
     })
   })
 
+  test('goToEditJudging', () => {
+    initComponent()
+    wrapper.vm.$router.push = jest.fn()
+    wrapper.vm.selectedBatch = 'futurre3'
+    wrapper.vm.goToEditJudging(1)
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
+      name: 'editJudging',
+      params: {
+        judgingId: 1,
+        batchCode: 'futurre3'
+      }
+    })
+  })
+
   test('openDeleteConfirmationModal', () => {
     initComponent()
     wrapper.vm.openDeleteConfirmationModal('sample-id')
