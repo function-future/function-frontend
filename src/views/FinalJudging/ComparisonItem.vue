@@ -14,6 +14,12 @@
           <span class="comparison-item__profile-name is-size-7 has-text-weight-light">{{studentData.university}}</span>
           <span class="comparison-item__profile-name">Total Points: {{pointData.totalPoint}}</span>
         </div>
+        <div class="is-hidden-desktop comparison-item__profile-modal">
+          <b-button type="is-primary" icon-right="pencil-alt" @click="isMobileScoreModalVisible=true">
+            {{finalScore}}
+          </b-button>
+          <!--<b-button @click="isMobileScoreModalVisible = true">Score</b-button>-->
+        </div>
       </div>
       <div class="comparison-item__detail">
         <b-tabs type="is-boxed" v-model="activeTab">
@@ -34,7 +40,7 @@
           </b-tab-item>
         </b-tabs>
       </div>
-      <div class="comparison-item__final-score">
+      <div class="comparison-item__final-score is-hidden-mobile">
         <b-field label="Final Score" label-position="on-border" grouped>
           <b-input class="comparison-item__final-score-input" v-model="finalScore"></b-input>
           <p class="control">
@@ -43,6 +49,8 @@
         </b-field>
       </div>
     </div>
+    <modal-input-final-score v-if="isMobileScoreModalVisible" :studentData="studentData" :point="finalScore" @finalizeScore="getFinalScoreFromModal" @close="closeScoreModal">
+    </modal-input-final-score>
   </div>
 </template>
 
@@ -71,6 +79,9 @@
         margin-left: 1rem;
         display: flex;
         flex-direction: column;
+      }
+      &-modal {
+        margin-left: auto;
       }
     }
 

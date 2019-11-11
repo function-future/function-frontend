@@ -1,12 +1,14 @@
 import { mapActions, mapGetters } from 'vuex'
 import InfiniteLoading from 'vue-infinite-loading'
 import ListItem from '@/components/list/ListItem'
+import ModalInputFinalScore from '@/components/modals/ModalInputFinalScore'
 
 export default {
   name: 'comparison-detail',
   components: {
     InfiniteLoading,
-    ListItem
+    ListItem,
+    ModalInputFinalScore
   },
   props: [
     'studentData'
@@ -32,7 +34,8 @@ export default {
       infiniteId: +new Date(),
       state: '',
       pointData: {},
-      finalScore: ''
+      finalScore: '',
+      isMobileScoreModalVisible: false
     }
   },
   computed: {
@@ -107,6 +110,14 @@ export default {
     },
     failedSubmittingScore () {
       this.$toasted.error('Something went wrong')
+      this.finalScore = this.pointData.point
+    },
+    closeScoreModal () {
+      this.isMobileScoreModalVisible = false
+    },
+    getFinalScoreFromModal (score) {
+      this.finalScore = score
+      this.submitFinalScore()
     }
   },
   watch: {
