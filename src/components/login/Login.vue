@@ -41,7 +41,7 @@
               </b-input>
             </b-field>
             <div class="login-button">
-              <button class="button is-primary is-medium is-fullwidth"
+              <button class="button is-primary is-fullwidth"
                       @click="login"
                       :class="{'is-loading': loggingIn}">
                 Login
