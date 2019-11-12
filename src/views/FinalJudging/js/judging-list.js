@@ -62,19 +62,20 @@ export default {
     addJudging () {
       this.$router.push({name: 'addJudging'})
     },
-    goToComparison (id) {
-      this.$router.push({
-        name: 'comparison',
-        params: {
-          judgingId: id
-        }
-      })
-    },
     goToJudgingDetail (id) {
       this.$router.push({
         name: 'judgingDetail',
         params: {
           judgingId: id
+        }
+      })
+    },
+    goToEditJudging (id) {
+      this.$router.push({
+        name: 'editJudging',
+        params: {
+          judgingId: id,
+          batchCode: this.selectedBatch
         }
       })
     },

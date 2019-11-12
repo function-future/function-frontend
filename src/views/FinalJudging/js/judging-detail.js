@@ -3,7 +3,10 @@ import BaseInput from '@/components/BaseInput'
 import BaseCard from '@/components/BaseCard'
 import BaseButton from '@/components/BaseButton'
 import BaseTextArea from '@/components/BaseTextArea'
+import ComparisonItem from '@/views/FinalJudging/ComparisonItem'
 import ModalSelectMultipleStudents from '@/components/modals/ModalSelectMultipleStudents'
+import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
+let marked = require('marked')
 
 export default {
   name: 'JudgingDetail',
@@ -12,7 +15,9 @@ export default {
     BaseCard,
     BaseButton,
     BaseTextArea,
-    ModalSelectMultipleStudents
+    ModalSelectMultipleStudents,
+    ComparisonItem,
+    ModalDeleteConfirmation
   },
   data () {
     return {
@@ -24,7 +29,8 @@ export default {
       selectedStudents: [],
       isLoading: true,
       editMode: false,
-      showSelectStudentModal: false
+      showSelectStudentModal: false,
+      showDeleteConfirmationModal: false
     }
   },
   created () {
@@ -35,17 +41,15 @@ export default {
       'judging',
       'accessList'
     ]),
-    returnButtonText () {
-      return this.editMode ? 'Cancel' : 'Return'
-    },
-    actionButtonText () {
-      return this.editMode ? 'Save' : 'Edit'
+    descriptionCompiledMarkdown() {
+      return marked(this.judgingDetail.description)
     }
   },
   methods: {
     ...mapActions([
       'fetchJudgingDetail',
-      'updateJudging'
+      'updateJudging',
+      'deleteJudging'
     ]),
     initPage () {
       this.fetchJudgingDetail({
@@ -63,6 +67,9 @@ export default {
       this.judgingDetail.students = this.judging.students
       this.selectedStudents = this.judging.students
       this.isLoading = false
+      this.$route.meta.title = this.judging.name
+      this.$router.replace({query: {temp: Date.now()}})
+      this.$router.replace({query: {temp: undefined}})
     },
 
     failedFetchingJudgingDetail () {
@@ -128,6 +135,31 @@ export default {
     },
     failUpdatingJudging () {
       this.$toasted.error('Something went wrong')
+    },
+    deleteThisJudging () {
+      this.showDeleteConfirmationModal = false
+      this.deleteJudging({
+        data: {
+          batchCode: this.$route.params.batchCode,
+          judgingId: this.$route.params.judgingId
+        },
+        callback: this.successDeletingJudging,
+        fail: this.failedDeletingJudging
+      })
+    },
+    successDeletingJudging () {
+      this.$toasted.success('Successfully deleted this final judging session')
+      this.$router.push({
+        name: 'judgingList'
+      })
+    },
+    failedDeletingJudging () {
+      this.$toasted.error('Something went wrong')
+    },
+    moveToEditPage () {
+      this.$router.push({
+        name: 'editJudging'
+      })
     }
   }
 }
