@@ -130,8 +130,17 @@ export default {
       this.$toasted.error('Fail to post course discussion, please try again')
     },
     goToEditPage () {
+      this.master ? this.editMasterCourse() : this.editCourse()
+    },
+    editMasterCourse () {
       this.$router.push({
         name: 'editMasterCourse',
+        params: this.paramsData
+      })
+    },
+    editCourse () {
+      this.$router.push({
+        name: 'editCourse',
         params: this.paramsData
       })
     },
