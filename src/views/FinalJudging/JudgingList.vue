@@ -33,7 +33,7 @@
         </template>
         <template #content>
           <div class="wrap-word ellipsis">
-            <span>{{judging.description}}</span>
+            <span v-html="judging.description"></span>
           </div>
         </template>
         <template #actions>
