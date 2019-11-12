@@ -8,6 +8,7 @@ describe('Courses Revamp', () => {
   let localVue
   let $route = {
     name: 'editStickyNote',
+    params: { code: 'code' },
     query: { tab: 'master' }
   }
 
@@ -205,12 +206,12 @@ describe('Courses Revamp', () => {
       size: 10,
       totalRecords: 25
     }
-    wrapper.vm.state = {
+    wrapper.vm.infiniteState = {
       loaded: jest.fn(),
       complete: jest.fn()
     }
     wrapper.vm.successFetchCourse(response, paging)
-    expect(wrapper.vm.state.complete).toHaveBeenCalledTimes(1)
+    expect(wrapper.vm.infiniteState.complete).toHaveBeenCalledTimes(1)
   })
 
   test('successFetchCourse', () => {
@@ -245,14 +246,14 @@ describe('Courses Revamp', () => {
       size: 10,
       totalRecords: 25
     }
-    wrapper.vm.state = {
+    wrapper.vm.infiniteState = {
       loaded: jest.fn(),
       complete: jest.fn()
     }
     wrapper.vm.successFetchCourse(response, paging)
     expect(wrapper.vm.courses).toEqual(response)
     expect(wrapper.vm.paging).toEqual(paging)
-    expect(wrapper.vm.state.loaded).toHaveBeenCalledTimes(1)
+    expect(wrapper.vm.infiniteState.loaded).toHaveBeenCalledTimes(1)
   })
 
   test('failFetchCourse', () => {
@@ -456,16 +457,6 @@ describe('Courses Revamp', () => {
   test('watch currentTabType', (done) => {
     $route.query.tab = 'batch'
     $route.query.tab = 'master'
-    const spy = jest.spyOn(wrapper.vm, 'resetPage')
-    wrapper.vm.activeTab = 1
-    wrapper.vm.$nextTick(() => {
-      expect(spy).toHaveBeenCalledTimes(1)
-      done()
-    })
-  })
-
-  test('watch selectedBatchCode', (done) => {
-    wrapper.vm.selectedBatchCode = 'test-code'
     const spy = jest.spyOn(wrapper.vm, 'resetPage')
     wrapper.vm.activeTab = 1
     wrapper.vm.$nextTick(() => {

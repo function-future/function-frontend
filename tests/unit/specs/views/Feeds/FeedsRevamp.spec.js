@@ -166,6 +166,13 @@ describe('FeedsRevamp', () => {
     expect(wrapper.vm.stickyNote).toBe(wrapper.vm.stickyNotes[0])
   })
 
+  test('successLoadStickyNote no data', () => {
+    initComponent()
+    store.state.stickyNotes = {}
+    wrapper.vm.successLoadStickyNote()
+    expect(wrapper.vm.stickyNote).toBe('')
+  })
+
   test('failLoadStickyNote', () => {
     initComponent()
     wrapper.vm.failLoadStickyNote()
