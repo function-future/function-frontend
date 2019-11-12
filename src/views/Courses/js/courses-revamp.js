@@ -60,6 +60,9 @@ export default {
     },
     partialSelected () {
       return (this.selectedIds.length !== this.courses.length) && this.selectedIds.length > 0
+    },
+    originBatch () {
+      return this.currentTabType === 'master' ? null : this.$route.params.code
     }
   },
   created () {
@@ -111,6 +114,7 @@ export default {
         this.fetchCourse()
       } else {
         this.infiniteState.complete()
+        this.switchingTabLoading = false
         this.showNoBatchAvailableMessage = true
       }
     },
@@ -248,7 +252,7 @@ export default {
       let data = {
         code: destinationBatchCode,
         content: {
-          originBatch: this.selectedBatchCode,
+          originBatch: this.originBatch,
           courses: [ ...this.selectedIds ]
         }
       }
@@ -276,9 +280,6 @@ export default {
     },
     currentTabType () {
       this.switchingTabLoading = true
-      this.resetPage()
-    },
-    selectedBatchCode () {
       this.resetPage()
     },
     allSelected () {
