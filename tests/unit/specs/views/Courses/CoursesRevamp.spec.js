@@ -170,7 +170,7 @@ describe('Courses Revamp', () => {
     expect(spy).toHaveBeenCalledTimes(1)
   })
 
-  test('successFetchBatches', () => {
+  test('successFetchBatches has length', () => {
     const response = [
       { code: '1' },
       { code: '2' }
@@ -180,6 +180,20 @@ describe('Courses Revamp', () => {
     expect(wrapper.vm.batches).toEqual(response)
     expect(wrapper.vm.selectedBatchCode).toEqual(response[0].code)
     expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('successFetchBatches no length', () => {
+    const response = []
+    wrapper.vm.infiniteState = {
+      loaded: jest.fn(),
+      complete: jest.fn()
+    }
+    const spy = jest.spyOn(wrapper.vm, 'fetchCourse')
+    wrapper.vm.successFetchBatches(response)
+    expect(wrapper.vm.infiniteState.complete).toHaveBeenCalledTimes(1)
+    expect(wrapper.vm.switchingTabLoading).toEqual(false)
+    expect(wrapper.vm.showNoBatchAvailableMessage).toEqual(true)
+    expect(spy).toHaveBeenCalledTimes(0)
   })
 
   test('failFetchBatches', () => {
@@ -483,5 +497,15 @@ describe('Courses Revamp', () => {
       expect(spy).toHaveBeenCalledTimes(1)
       done()
     })
+  })
+
+  test('computed originBatch master', () => {
+    wrapper.vm.$route.query.tab = 'master'
+    expect(wrapper.vm.originBatch).toEqual(null)
+  })
+
+  test('computed originBatch batch', () => {
+    wrapper.vm.$route.query.tab = 'batch'
+    expect(wrapper.vm.originBatch).toEqual(wrapper.vm.$route.params.code)
   })
 })
