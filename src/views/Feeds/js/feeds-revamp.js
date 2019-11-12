@@ -49,7 +49,7 @@ export default {
       })
     },
     successLoadStickyNote () {
-      this.stickyNote = this.stickyNotes[0]
+      this.stickyNote = this.stickyNotes[0] || ''
     },
     failLoadStickyNote () {
       this.$toasted.error('Fail to load sticky note detail, please refresh the page')
@@ -58,6 +58,7 @@ export default {
       this.$router.push({ name: 'stickyNotes' })
     },
     stickyNotesDescriptionPreview (description) {
+      if (!description) return 'Important information will appear as sticky notes here'
       if (description.length > MAX_STICKY_NOTE_PREVIEW_LENGTH) {
         return marked(description.substr(0, MAX_STICKY_NOTE_PREVIEW_LENGTH) + '...')
       } else {
