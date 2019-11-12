@@ -19,7 +19,7 @@
             </div>
           </div>
           <div class="change-password-form__container-input">
-            <b-field label="Old Password" label-position="on-border">
+            <b-field label="New Password" label-position="on-border">
               <b-input v-model="data.newPassword"
                        type="password"
                        v-validate.continues="'required|min:5'"
@@ -31,7 +31,7 @@
             </div>
           </div>
           <div class="change-password-form__container-input">
-            <b-field label="Old Password" label-position="on-border">
+            <b-field label="Repeat New Password" label-position="on-border">
               <b-input v-model="repeatPassword"
                        type="password"
                        v-validate.continues="'required|min:5|confirmed:password'"
