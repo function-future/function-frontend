@@ -159,8 +159,8 @@
     display: flex;
     flex-direction: column;
     flex-shrink: 0;
-    width: 16rem;
-    padding: 2rem 1rem;
+    width: 23rem;
+    padding: 2rem 2rem 2rem 7.5rem;
     background: #f9f9f9;
   }
 

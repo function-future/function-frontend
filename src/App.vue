@@ -48,13 +48,15 @@
   }
 
   .main-content {
-    padding-top: 8px;
-    padding-right: 8px;
-    width: 83vw;
+    padding-top: 0.5rem;
+    padding-left: 0.5rem;
+    padding-right: 7.5rem;
+    width: 77vw;
 
     @media only screen and (max-width: 1023px) {
       width: 100vw;
       padding-top: 0;
+      padding-left: 0;
       padding-right: 0;
     }
   }
