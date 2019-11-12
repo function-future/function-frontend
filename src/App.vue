@@ -50,7 +50,7 @@
   .main-content {
     padding-top: 0.5rem;
     padding-left: 0.5rem;
-    padding-right: 10rem;
+    padding-right: 9rem;
     width: 75vw;
 
     @media only screen and (max-width: 1023px) {
