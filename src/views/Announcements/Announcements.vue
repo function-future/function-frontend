@@ -64,7 +64,7 @@
           </ListItem>
         </div>
       </div>
-      <div class="announcements__pagination-wrapper" v-if="!isLoading">
+      <div class="announcements__pagination-wrapper" v-if="!isLoading && announcementList.length">
         <b-pagination
           :total="paging.totalRecords"
           :current.sync="paging.page"

@@ -82,7 +82,7 @@
           </b-tab-item>
         </b-tabs>
       </div>
-      <div class="users__container__pagination-wrapper">
+      <div class="users__container__pagination-wrapper" v-if="!isLoading && userList.length">
         <b-pagination
           :total="paging.totalRecords"
           :current.sync="paging.page"

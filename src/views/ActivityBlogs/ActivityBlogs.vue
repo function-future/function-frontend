@@ -87,7 +87,7 @@
           </ListItem>
         </div>
       </div>
-      <div class="activity-blog__container__pagination-wrapper">
+      <div class="activity-blog__container__pagination-wrapper" v-if="!isLoading && activityBlogs.length">
         <b-pagination
           :total="paging.totalRecords"
           :current.sync="paging.page"
