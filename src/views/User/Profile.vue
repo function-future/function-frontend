@@ -70,7 +70,7 @@
           </b-field>
         </div>
         <div class="profile__container__form-input" v-if="profile.role !== 'STUDENT'">
-          <b-field label="University" label-position="on-border">
+          <b-field label="Role" label-position="on-border">
             <b-input disabled
                      v-model="profile.role"
                      name="role">
