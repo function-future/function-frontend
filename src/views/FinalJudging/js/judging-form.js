@@ -136,7 +136,11 @@ export default {
       this.$router.push({ name: 'judgingList' })
     },
     removeStudentFromJudging (student) {
-      this.judgingDetail.students.splice(this.judgingDetail.students.indexOf(student), 1)
+      this.judgingDetail.students.forEach((item, index) => {
+        if (item.id === student.id) {
+          this.judgingDetail.students.splice(index, 1)
+        }
+      })
     },
     toggleSelectStudentModal () {
       this.showSelectStudentModal = true
