@@ -1517,7 +1517,7 @@ export const users = [
       ],
       'paging': {
         'page': 1,
-        'size': 20,
+        'size': 10,
         'totalRecords': 20
       }
     }
@@ -1548,7 +1548,7 @@ export const users = [
       ],
       'paging': {
         'page': 1,
-        'size': 20,
+        'size': 10,
         'totalRecords': 1
       }
     }
@@ -1583,7 +1583,7 @@ export const users = [
       ],
       'paging': {
         'page': 1,
-        'size': 20,
+        'size': 10,
         'totalRecords': 20
       }
     }
@@ -1608,7 +1608,7 @@ export const users = [
       ],
       'paging': {
         'page': 1,
-        'size': 20,
+        'size': 10,
         'totalRecords': 20
       }
     }
@@ -1653,7 +1653,7 @@ export const users = [
       ],
       'paging': {
         'page': 1,
-        'size': 20,
+        'size': 10,
         'totalRecords': 20
       }
     }
