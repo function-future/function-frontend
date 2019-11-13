@@ -16,14 +16,11 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: Execute npm install and test
+    - name: Run SonarCloud analysis
       run: |
         npm install
         npm run test:unit
-      env:
-        CI: true
-    - name: Run SonarCloud analysis
-      run: |
+        
         PACKAGE_VERSION=$(cat package.json \
         | grep version \
         | head -1 \
@@ -44,5 +41,6 @@ jobs:
 
         sonar-scanner -Dsonar.projectVersion=${PACKAGE_VERSION}
       env:
+        CI: true
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
