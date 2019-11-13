@@ -74,7 +74,10 @@ export default {
       if (this.currentTab === 'Student') {
         this.$router.push({ name: 'addStudent' })
       } else {
-        this.$router.push({ name: 'addUser' })
+        this.$router.push({
+          name: 'addUser',
+          query: { role: this.currentTab.toUpperCase() }
+        })
       }
     },
     closeDeleteConfirmationModal () {
