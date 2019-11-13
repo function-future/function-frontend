@@ -315,6 +315,17 @@ describe('CourseForm Revamp', () => {
     expect(spy).toHaveBeenCalledTimes(1)
   })
 
+  test('onFileChange empty', () => {
+    const spy = jest.spyOn(wrapper.vm, 'materialUpload')
+    const e = {
+      target: {
+        files: []
+      }
+    }
+    wrapper.vm.onFileChange(e)
+    expect(spy).toHaveBeenCalledTimes(0)
+  })
+
   test('materialUpload', () => {
     const spy = jest.spyOn(wrapper.vm, 'uploadMaterial')
     const file = {
