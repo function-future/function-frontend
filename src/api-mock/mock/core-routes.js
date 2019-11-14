@@ -1110,23 +1110,23 @@ export const batches = [
       'data': [
         {
           'id': 'sample-id-1',
-          'code': '1',
-          'name': 'Batch 1'
+          'code': 'future1',
+          'name': 'Future Batch 1'
         },
         {
           'id': 'sample-id-2',
-          'code': '2',
-          'name': 'Batch 2'
+          'code': 'future2',
+          'name': 'Future Batch 2'
         },
         {
           'id': 'sample-id-3',
-          'code': '3',
-          'name': 'Batch 3'
+          'code': 'future3',
+          'name': 'Future Batch 3'
         },
         {
           'id': 'sample-id-4',
-          'code': '4',
-          'name': 'Batch 3'
+          'code': 'future4',
+          'name': 'Future Batch 4'
         }
       ],
       'paging': {
