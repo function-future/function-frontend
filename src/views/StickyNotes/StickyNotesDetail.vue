@@ -21,7 +21,7 @@
         </div>
       </div>
       <div class="sticky-notes__content">
-        <span v-html="stickyNoteCompiledMarkdown"></span>
+        <span class="content" v-html="stickyNoteCompiledMarkdown"></span>
       </div>
     </div>
   </div>

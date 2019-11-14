@@ -4,7 +4,7 @@
       <div class="column">
         <article class="media">
           <figure class="media-left image is-64x64 is-image-horizontal-center">
-            <img class="is-rounded" :src="currentUser.avatar">
+            <img class="is-rounded" :src="avatar">
           </figure>
           <div class="media-content">
             <div class="content">

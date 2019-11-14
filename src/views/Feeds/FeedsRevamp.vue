@@ -33,7 +33,7 @@
             </span>
             </div>
             <div>
-              <span v-html="stickyNotesDescriptionPreview(stickyNote.description)"></span>
+              <span class="content" v-html="stickyNotesDescriptionPreview(stickyNote.description)"></span>
             </div>
           </div>
         </div>
@@ -99,7 +99,7 @@
           </template>
           <template #content>
             <div class="wrap-word ellipsis">
-              <span v-html="announcementPreview(announcement)"></span>
+              <span class="content" v-html="announcementPreview(announcement)"></span>
             </div>
           </template>
         </ListItem>

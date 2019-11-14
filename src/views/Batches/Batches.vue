@@ -21,9 +21,12 @@
           <div class="column is-4"
                v-for="batch in batches"
                v-bind:key="batch.code">
-            <ListItem>
+            <ListItem class="no-pointer">
               <template #title>
                 {{ batch.name }}
+              </template>
+              <template #info>
+                {{ batch.code }}
               </template>
               <template #actions>
                 <b-dropdown aria-role="list" position="is-bottom-left" @click.prevent.stop>
@@ -100,4 +103,7 @@
     }
   }
 
+  .no-pointer {
+    cursor: default;
+  }
 </style>

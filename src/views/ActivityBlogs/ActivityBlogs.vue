@@ -47,7 +47,7 @@
             </template>
             <template #content>
               <div class="wrap-word ellipsis">
-                <span v-html="compileToMarkdown(activityBlog.description)"></span>
+                <span class="content" v-html="compileToMarkdown(activityBlog.description)"></span>
               </div>
             </template>
             <template #actions>

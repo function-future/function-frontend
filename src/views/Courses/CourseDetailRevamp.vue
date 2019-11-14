@@ -23,7 +23,7 @@
         </span>
       </div>
       <div class="course-detail__container__content wrap-word">
-        <span v-html="descriptionCompiledMarkdown"></span>
+        <span class="content" v-html="descriptionCompiledMarkdown"></span>
         <div class="course-detail__container__content-download">
             <a class="button is-primary is-outlined"
                v-if="courseDetail.material"

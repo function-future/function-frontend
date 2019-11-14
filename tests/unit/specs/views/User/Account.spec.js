@@ -133,4 +133,15 @@ describe('Account', () => {
     store.state.currentUser = { role: 'STUDENT' }
     expect(wrapper.vm.role).toEqual('Student')
   })
+
+  test('avatar has avatar', () => {
+    const url = 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+    store.state.currentUser = { avatar: url }
+    expect(wrapper.vm.avatar).toEqual(url)
+  })
+
+  test('avatar no avatar', () => {
+    store.state.currentUser = { avatar: null }
+    expect(wrapper.vm.avatar).toEqual('')
+  })
 })

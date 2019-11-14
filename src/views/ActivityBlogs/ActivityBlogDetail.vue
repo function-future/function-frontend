@@ -35,7 +35,7 @@
         </div>
       </div>
       <div class="activity-blog-detail__container__content wrap-word">
-        <span v-html="descriptionCompiledMarkdown"></span>
+        <span class="content" v-html="descriptionCompiledMarkdown"></span>
       </div>
     </div>
     <modal-delete-confirmation v-if="showDeleteConfirmationModal"

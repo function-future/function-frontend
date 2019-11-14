@@ -25,7 +25,7 @@
             </template>
             <template #content>
               <div class="wrap-word ellipsis">
-                <span v-html="textPreview(announcement)"></span>
+                <span class="content" v-html="textPreview(announcement)"></span>
               </div>
             </template>
             <template #actions>
