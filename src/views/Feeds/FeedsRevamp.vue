@@ -33,7 +33,7 @@
             </span>
             </div>
             <div>
-              <span v-html="stickyNotesDescriptionPreview(stickyNote.description)"></span>
+              <span class="content" v-html="stickyNotesDescriptionPreview(stickyNote.description)"></span>
             </div>
           </div>
         </div>
