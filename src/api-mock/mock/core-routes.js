@@ -914,7 +914,7 @@ export const courses = [
   // course list GET
   {
     method: 'GET',
-    url: '/api/core/batches/1/courses?page=1&size=10',
+    url: '/api/core/batches/future1/courses?page=1&size=10',
     response: {
       'code': 200,
       'status': 'OK',
@@ -957,7 +957,7 @@ export const courses = [
   },
   {
     method: 'GET',
-    url: '/api/core/batches/1/courses?page=2&size=10',
+    url: '/api/core/batches/future1/courses?page=2&size=10',
     response: {
       'code': 200,
       'status': 'OK',
@@ -986,7 +986,7 @@ export const courses = [
   },
   {
     method: 'GET',
-    url: '/api/core/batches/1/courses?page=3&size=10',
+    url: '/api/core/batches/future1/courses?page=3&size=10',
     response: {
       'code': 200,
       'status': 'OK',
