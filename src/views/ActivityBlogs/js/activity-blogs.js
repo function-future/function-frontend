@@ -74,7 +74,7 @@ export default {
       this.$toasted.error('Fail to load activity blogs list')
     },
     compileToMarkdown: function (description) {
-      return marked(this.showLimitedPreviewText(description.replace(/<img.*[^>]>/, '$1')))
+      return marked(this.showLimitedPreviewText(description.replace(/<img([\w\W]+?)>/g, '')))
     },
     showLimitedPreviewText: function (text) {
       let maximumCharacters = 350
