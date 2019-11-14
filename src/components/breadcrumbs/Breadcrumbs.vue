@@ -50,7 +50,7 @@
   }
 
   .breadcrumb-name {
-    max-width: 150px;
+    max-width: 125px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -71,7 +71,7 @@
   }
 
   .active {
-    max-width: 150px;
+    max-width: 200px;
     font-weight: bold;
     color: #F5F5F5;
   }
