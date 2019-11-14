@@ -1144,8 +1144,8 @@ export const batches = [
       'status': 'OK',
       'data': {
         'id': 'sample-id-1',
-        'code': 'Batch Code 1',
-        'name': 'Batch Name'
+        'code': 'future1',
+        'name': 'Future Batch 1'
       }
     }
   },
