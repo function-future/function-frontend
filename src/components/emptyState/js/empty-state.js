@@ -4,6 +4,10 @@ export default {
     src: {
       default: 'default',
       type: String
+    },
+    errorState: {
+      default: false,
+      type: Boolean
     }
   },
   computed: {
