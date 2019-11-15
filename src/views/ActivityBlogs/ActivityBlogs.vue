@@ -28,7 +28,7 @@
         <div v-if="isLoading">
           <ListItem v-for="n in 4" v-bind:key="n" :loading="isLoading"></ListItem>
         </div>
-        <div v-if="!isLoading">
+        <div v-if="!isLoading && !activityBlogEmpty">
           <ListItem @click="goToActivityBlogDetail(activityBlog.id)"
                     v-for="activityBlog in activityBlogs"
                     v-bind:key="activityBlog.id">
@@ -47,7 +47,7 @@
             </template>
             <template #content>
               <div class="wrap-word ellipsis">
-                <span v-html="compileToMarkdown(activityBlog.description)"></span>
+                <span class="content" v-html="compileToMarkdown(activityBlog.description)"></span>
               </div>
             </template>
             <template #actions>
@@ -86,8 +86,23 @@
             </template>
           </ListItem>
         </div>
+        <div v-if="!isLoading">
+          <div v-if="activityBlogEmpty && !failLoadActivityBlog">
+            <EmptyState src="blogs">
+              <template #title>
+                Welcome to Activity Blogs
+              </template>
+              <template #message>
+                Start sharing your first blog here!
+              </template>
+            </EmptyState>
+          </div>
+          <div v-if="activityBlogEmpty && failLoadActivityBlog">
+            <EmptyState src="error" errorState="true"></EmptyState>
+          </div>
+        </div>
       </div>
-      <div class="activity-blog__container__pagination-wrapper">
+      <div class="activity-blog__container__pagination-wrapper" v-if="!isLoading && !activityBlogEmpty">
         <b-pagination
           :total="paging.totalRecords"
           :current.sync="paging.page"

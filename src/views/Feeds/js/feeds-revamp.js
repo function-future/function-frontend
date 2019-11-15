@@ -1,12 +1,14 @@
 import { mapActions, mapGetters } from 'vuex'
 import ListItem from '@/components/list/ListItem'
+import EmptyState from '@/components/emptyState/EmptyState'
 let marked = require('marked')
 const MAX_STICKY_NOTE_PREVIEW_LENGTH = 200
 
 export default {
   name: 'feeds',
   components: {
-    ListItem
+    ListItem,
+    EmptyState
   },
   data () {
     return {
@@ -16,7 +18,8 @@ export default {
         page: 1,
         size: 5
       },
-      isLoadingAnnouncement: true
+      isLoadingAnnouncement: true,
+      failLoadAnnouncement: false
     }
   },
   created () {
@@ -35,6 +38,9 @@ export default {
     },
     stickyNotesAvailable () {
       return Object.keys(this.stickyNote).length
+    },
+    announcementEmpty () {
+      return !(this.announcements && this.announcements.length)
     }
   },
   methods: {
@@ -49,7 +55,7 @@ export default {
       })
     },
     successLoadStickyNote () {
-      this.stickyNote = this.stickyNotes[0]
+      this.stickyNote = this.stickyNotes[0] || ''
     },
     failLoadStickyNote () {
       this.$toasted.error('Fail to load sticky note detail, please refresh the page')
@@ -58,6 +64,7 @@ export default {
       this.$router.push({ name: 'stickyNotes' })
     },
     stickyNotesDescriptionPreview (description) {
+      if (!description) return 'Currently no important information is available'
       if (description.length > MAX_STICKY_NOTE_PREVIEW_LENGTH) {
         return marked(description.substr(0, MAX_STICKY_NOTE_PREVIEW_LENGTH) + '...')
       } else {
@@ -77,10 +84,12 @@ export default {
     successLoadAnnouncementList () {
       this.announcements = this.announcementList
       this.isLoadingAnnouncement = false
+      this.failLoadAnnouncement = false
     },
     failLoadAnnouncementList () {
       this.$toasted.error('Fail to load announcement list')
       this.isLoadingAnnouncement = false
+      this.failLoadAnnouncement = true
     },
     goToAnnouncementPage () {
       this.$router.push({ name: 'announcements' })
@@ -96,7 +105,7 @@ export default {
       return text.length > maximumCharacters ? text.slice(0, maximumCharacters) + '...' : text
     },
     announcementPreview: function (announcement) {
-      return this.showLimitedPreviewText(announcement.description.replace(/\!\[.*\]\(.*\)/,''))
+      return this.showLimitedPreviewText(announcement.description.replace(/<img([\w\W]+?)>/g, ''))
     },
     goToProfile () {
       if (!this.loggedIn) {

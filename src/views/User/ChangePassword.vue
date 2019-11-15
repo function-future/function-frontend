@@ -7,7 +7,7 @@
             Old password is not valid
           </b-notification>
           <div class="change-password-form__container-input">
-            <b-field label="Old Password" label-position="on-border">
+            <b-field label="Old password" label-position="on-border">
               <b-input v-model="data.oldPassword" autofocus
                        type="password"
                        v-validate.continues="'required'"
@@ -19,7 +19,7 @@
             </div>
           </div>
           <div class="change-password-form__container-input">
-            <b-field label="Old Password" label-position="on-border">
+            <b-field label="New password" label-position="on-border">
               <b-input v-model="data.newPassword"
                        type="password"
                        v-validate.continues="'required|min:5'"
@@ -31,7 +31,7 @@
             </div>
           </div>
           <div class="change-password-form__container-input">
-            <b-field label="Old Password" label-position="on-border">
+            <b-field label="Confirm new password" label-position="on-border">
               <b-input v-model="repeatPassword"
                        type="password"
                        v-validate.continues="'required|min:5|confirmed:password'"

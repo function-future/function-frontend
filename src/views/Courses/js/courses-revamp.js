@@ -43,7 +43,8 @@ export default {
       selectedIds: [],
       allSelected: false,
       infiniteId: +new Date(),
-      infiniteState: ''
+      infiniteState: '',
+      showNoBatchAvailableMessage: false
     }
   },
   computed: {
@@ -59,6 +60,9 @@ export default {
     },
     partialSelected () {
       return (this.selectedIds.length !== this.courses.length) && this.selectedIds.length > 0
+    },
+    originBatch () {
+      return this.currentTabType === 'master' ? null : this.$route.params.code
     }
   },
   created () {
@@ -84,7 +88,7 @@ export default {
       }
     },
     initPage ($state) {
-      this.state = $state
+      this.infiniteState = $state
       this.currentTabType === 'master' ? this.fetchMasterCourse() : this.initBatchCourse()
     },
     setQuery () {
@@ -105,8 +109,14 @@ export default {
     },
     successFetchBatches (response) {
       this.batches = response
-      this.selectedBatchCode = response[0].code
-      this.fetchCourse()
+      if (this.batches.length) {
+        this.selectedBatchCode = response[0].code
+        this.fetchCourse()
+      } else {
+        this.infiniteState.complete()
+        this.switchingTabLoading = false
+        this.showNoBatchAvailableMessage = true
+      }
     },
     failFetchBatches () {
       this.$toasted.error('Fail to load batch list, please refresh the page')
@@ -136,9 +146,9 @@ export default {
       this.courses.push(...response)
       if (response.length) {
         this.paging.page++
-        this.state.loaded()
+        this.infiniteState.loaded()
       } else {
-        this.state.complete()
+        this.infiniteState.complete()
       }
     },
     failFetchCourse () {
@@ -242,7 +252,7 @@ export default {
       let data = {
         code: destinationBatchCode,
         content: {
-          originBatch: this.selectedBatchCode,
+          originBatch: this.originBatch,
           courses: [ ...this.selectedIds ]
         }
       }
@@ -270,9 +280,6 @@ export default {
     },
     currentTabType () {
       this.switchingTabLoading = true
-      this.resetPage()
-    },
-    selectedBatchCode () {
       this.resetPage()
     },
     allSelected () {

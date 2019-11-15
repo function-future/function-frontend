@@ -1,5 +1,5 @@
 import announcements from '@/views/Announcements/Announcements'
-import { shallowMount, mount, createLocalVue } from '@vue/test-utils'
+import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 
 const localVue = createLocalVue()
@@ -435,5 +435,19 @@ describe('Announcements', () => {
     wrapper.vm.loadPage(1)
     expect(wrapper.vm.paging.page).toEqual(1)
     expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('announcementEmpty not empty', () => {
+    store.state.announcementList = [
+      {
+        title: 'announcement'
+      }
+    ]
+    wrapper = shallowMount(announcements, {
+      store,
+      localVue,
+      sync: false
+    })
+    expect(wrapper.vm.announcementEmpty).toEqual(false)
   })
 })

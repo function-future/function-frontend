@@ -24,8 +24,8 @@
             <div class="users__container__tabs-content">
               <div v-if="isLoading">
                 <div class="columns is-multiline">
-                  <div class="column is-6"
-                       v-for="n in 6"
+                  <div class="column is-12"
+                       v-for="n in 3"
                        v-bind:key="n">
                     <UserListItem :loading="isLoading"></UserListItem>
                   </div>
@@ -33,7 +33,7 @@
               </div>
               <div class="users__container__tabs-content__list-wrapper" v-else>
                 <div class="columns is-multiline">
-                  <div class="column is-6"
+                  <div class="column is-12"
                        v-for="user in userList"
                        :key="user.id">
                     <UserListItem :imageUrl="user.avatar">
@@ -82,7 +82,7 @@
           </b-tab-item>
         </b-tabs>
       </div>
-      <div class="users__container__pagination-wrapper">
+      <div class="users__container__pagination-wrapper" v-if="!isLoading && userList.length">
         <b-pagination
           :total="paging.totalRecords"
           :current.sync="paging.page"

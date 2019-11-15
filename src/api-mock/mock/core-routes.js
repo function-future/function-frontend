@@ -914,7 +914,7 @@ export const courses = [
   // course list GET
   {
     method: 'GET',
-    url: '/api/core/batches/1/courses?page=1&size=10',
+    url: '/api/core/batches/future1/courses?page=1&size=10',
     response: {
       'code': 200,
       'status': 'OK',
@@ -957,7 +957,7 @@ export const courses = [
   },
   {
     method: 'GET',
-    url: '/api/core/batches/1/courses?page=2&size=10',
+    url: '/api/core/batches/future1/courses?page=2&size=10',
     response: {
       'code': 200,
       'status': 'OK',
@@ -986,7 +986,7 @@ export const courses = [
   },
   {
     method: 'GET',
-    url: '/api/core/batches/1/courses?page=3&size=10',
+    url: '/api/core/batches/future1/courses?page=3&size=10',
     response: {
       'code': 200,
       'status': 'OK',
@@ -1110,23 +1110,23 @@ export const batches = [
       'data': [
         {
           'id': 'sample-id-1',
-          'code': '1',
-          'name': 'Batch 1'
+          'code': 'future1',
+          'name': 'Future Batch 1'
         },
         {
           'id': 'sample-id-2',
-          'code': '2',
-          'name': 'Batch 2'
+          'code': 'future2',
+          'name': 'Future Batch 2'
         },
         {
           'id': 'sample-id-3',
-          'code': '3',
-          'name': 'Batch 3'
+          'code': 'future3',
+          'name': 'Future Batch 3'
         },
         {
           'id': 'sample-id-4',
-          'code': '4',
-          'name': 'Batch 3'
+          'code': 'future4',
+          'name': 'Future Batch 4'
         }
       ],
       'paging': {
@@ -1144,8 +1144,8 @@ export const batches = [
       'status': 'OK',
       'data': {
         'id': 'sample-id-1',
-        'code': 'Batch Code 1',
-        'name': 'Batch Name'
+        'code': 'future1',
+        'name': 'Future Batch 1'
       }
     }
   },
@@ -1413,7 +1413,7 @@ export const discussions = [
 export const users = [
   {
     method: 'GET',
-    url: '/api/core/users?name=&page=1&size=20&role=STUDENT',
+    url: '/api/core/users?name=&page=1&size=10&role=STUDENT',
     response: {
       "code": 200,
       "status": "OK",
@@ -1517,14 +1517,14 @@ export const users = [
       ],
       'paging': {
         'page': 1,
-        'size': 20,
+        'size': 10,
         'totalRecords': 20
       }
     }
   },
   {
     method: 'GET',
-    url: '/api/core/users?name=kar&page=1&size=20&role=STUDENT',
+    url: '/api/core/users?name=kar&page=1&size=10&role=STUDENT',
     response: {
       "code": 200,
       "status": "OK",
@@ -1548,14 +1548,14 @@ export const users = [
       ],
       'paging': {
         'page': 1,
-        'size': 20,
+        'size': 10,
         'totalRecords': 1
       }
     }
   },
   {
     method: 'GET',
-    url: '/api/core/users?name=&page=1&size=20&role=MENTOR',
+    url: '/api/core/users?name=&page=1&size=10&role=MENTOR',
     response: {
       "code": 200,
       "status": "OK",
@@ -1583,14 +1583,14 @@ export const users = [
       ],
       'paging': {
         'page': 1,
-        'size': 20,
+        'size': 10,
         'totalRecords': 20
       }
     }
   },
   {
     method: 'GET',
-    url: '/api/core/users?name=&page=1&size=20&role=JUDGE',
+    url: '/api/core/users?name=&page=1&size=10&role=JUDGE',
     response: {
       "code": 200,
       "status": "OK",
@@ -1608,14 +1608,14 @@ export const users = [
       ],
       'paging': {
         'page': 1,
-        'size': 20,
+        'size': 10,
         'totalRecords': 20
       }
     }
   },
   {
     method: 'GET',
-    url: '/api/core/users?name=&page=1&size=20&role=ADMIN',
+    url: '/api/core/users?name=&page=1&size=10&role=ADMIN',
     response: {
       "code": 200,
       "status": "OK",
@@ -1653,7 +1653,7 @@ export const users = [
       ],
       'paging': {
         'page': 1,
-        'size': 20,
+        'size': 10,
         'totalRecords': 20
       }
     }

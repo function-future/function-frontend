@@ -1,5 +1,6 @@
 import { mapActions, mapGetters } from 'vuex'
 import ListItem from '@/components/list/ListItem'
+import EmptyState from '@/components/emptyState/EmptyState'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
 let marked = require('marked')
 
@@ -7,11 +8,13 @@ export default {
   name: 'announcements',
   components: {
     ListItem,
+    EmptyState,
     ModalDeleteConfirmation
   },
   data () {
     return {
       isLoading: false,
+      failLoadAnnouncement: false,
       paging: {
         page: 1,
         size: 10,
@@ -28,7 +31,10 @@ export default {
     ...mapGetters([
       'announcementList',
       'accessList'
-    ])
+    ]),
+    announcementEmpty () {
+      return !(this.announcementList && this.announcementList.length)
+    }
   },
   methods: {
     ...mapActions([
@@ -64,14 +70,16 @@ export default {
     },
     successLoadAnnouncementList (paging) {
       this.isLoading = false
+      this.failLoadAnnouncement = false
       this.paging = paging
     },
     failLoadingAnnouncementList () {
       this.isLoading = false
+      this.failLoadAnnouncement = true
       this.$toasted.error('Fail to load announcement list')
     },
     textPreview: function (announcement) {
-      return marked(this.showLimitedPreviewText(announcement.description.replace(/\!\[.*\]\(.*\)/,'')))
+      return marked(this.showLimitedPreviewText(announcement.description.replace(/<img([\w\W]+?)>/g, '')))
     },
     showLimitedPreviewText: function (text) {
       let maximumCharacters = 250

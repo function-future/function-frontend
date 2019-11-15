@@ -1,7 +1,6 @@
 import UserForm from '@/views/Users/UserForm'
 import { createLocalVue, shallowMount } from '@vue/test-utils'
 import Vuex from 'vuex'
-import VueRouter from 'vue-router'
 import VeeValidate from 'vee-validate'
 
 describe('UserForm', () => {
@@ -12,7 +11,6 @@ describe('UserForm', () => {
   function generateLocalVue () {
     const lv = createLocalVue()
     lv.use(Vuex)
-    lv.use(VueRouter)
     lv.use(VeeValidate)
     return lv
   }
@@ -38,7 +36,10 @@ describe('UserForm', () => {
     const actions = {
       initialState: jest.fn(),
       fetchUserById: jest.fn(),
-      fetchBatches: jest.fn()
+      fetchBatches: jest.fn(),
+      uploadProfilePicture: jest.fn(),
+      updateUser: jest.fn(),
+      createUser: jest.fn()
     }
     const getters = {
       user: state => state.user
@@ -62,7 +63,13 @@ describe('UserForm', () => {
   }
 
   function createWrapper (store, options) {
-    const router = new VueRouter([])
+    const $route = {
+      params: { id: 'id' },
+      query: { role: 'ADMIN' }
+    }
+    const $router = {
+      push: jest.fn()
+    }
     const $toasted = {
       error: jest.fn(),
       success: jest.fn()
@@ -71,19 +78,20 @@ describe('UserForm', () => {
       ...options,
       store,
       localVue,
-      router,
       stubs: [
-        'BaseCard',
-        'BaseButton',
-        'BaseInput',
-        'BaseSelect',
-        'font-awesome-icon'
+        'b-loading',
+        'b-field',
+        'b-input',
+        'b-select',
+        'b-button'
       ],
       propsData: {
         editMode: true
       },
       mocks: {
-        $toasted
+        $toasted,
+        $route,
+        $router
       },
       sync: false
     })
@@ -110,20 +118,24 @@ describe('UserForm', () => {
 
   test('initPage editMode false', () => {
     const initialStateSpy = jest.spyOn(UserForm.methods, 'initialState')
+    const setSelectedRoleBasedOnQueryParamSpy = jest.spyOn(UserForm.methods, 'setSelectedRoleBasedOnQueryParam')
     initComponent()
-    wrapper.vm.editMode = false
+    wrapper.setProps({ editMode: false })
     wrapper.vm.initPage()
     expect(initialStateSpy).toHaveBeenCalledTimes(2)
+    expect(setSelectedRoleBasedOnQueryParamSpy).toHaveBeenCalledTimes(2)
   })
 
   test('initPage editMode true', () => {
     const spy = jest.spyOn(UserForm.methods, 'initialState')
+    const setSelectedRoleBasedOnQueryParamSpy = jest.spyOn(UserForm.methods, 'setSelectedRoleBasedOnQueryParam')
     const getUserDetailSpy = jest.spyOn(UserForm.methods, 'getUserDetail')
     initComponent()
-    wrapper.vm.editMode = true
+    wrapper.setProps({ editMode: true })
     wrapper.vm.initPage()
     expect(wrapper.vm.isLoading).toEqual(true)
     expect(spy).toHaveBeenCalledTimes(2)
+    expect(setSelectedRoleBasedOnQueryParamSpy).toHaveBeenCalledTimes(2)
     expect(getUserDetailSpy).toHaveBeenCalledTimes(2)
   })
 
@@ -259,9 +271,21 @@ describe('UserForm', () => {
     expect(wrapper.vm.userAvatarId).toEqual(['sample-id'])
   })
 
+  test('roleFromQueryParam has query', () => {
+    initComponent()
+    wrapper.vm.$route.query.role = 'ADMIN'
+    expect(wrapper.vm.roleFromQueryParam).toEqual('ADMIN')
+  })
+
+  test('roleFromQueryParam no query', () => {
+    initComponent()
+    wrapper.vm.$route.query = {}
+    expect(wrapper.vm.roleFromQueryParam).toEqual(null)
+  })
+
   test('sendData not editMode', () => {
     initComponent()
-    wrapper.vm.editMode = false
+    wrapper.setProps({ editMode: false })
     const spy = jest.spyOn(wrapper.vm, 'createUser')
     wrapper.vm.sendData({})
     expect(spy).toHaveBeenCalledTimes(1)
@@ -305,7 +329,7 @@ describe('UserForm', () => {
 
   test('successCreateOrEditUser editMode false', () => {
     initComponent()
-    wrapper.vm.editMode = false
+    wrapper.setProps({ editMode: false })
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.successCreateOrEditUser()
     expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
@@ -314,7 +338,7 @@ describe('UserForm', () => {
 
   test('successCreateOrEditUser editMode true', () => {
     initComponent()
-    wrapper.vm.editMode = true
+    wrapper.setProps({ editMode: true })
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.successCreateOrEditUser()
     expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
@@ -323,14 +347,14 @@ describe('UserForm', () => {
 
   test('failCreateOrEditUser editMode false', () => {
     initComponent()
-    wrapper.vm.editMode = false
+    wrapper.setProps({ editMode: false })
     wrapper.vm.failCreateOrEditUser()
     expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
   })
 
   test('failCreateOrEditUser editMode true', () => {
     initComponent()
-    wrapper.vm.editMode = true
+    wrapper.setProps({ editMode: true })
     wrapper.vm.failCreateOrEditUser()
     expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
   })
@@ -356,4 +380,16 @@ describe('UserForm', () => {
     expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
   })
 
+  test('setSelectedRoleBasedOnQueryParam editMode true', () => {
+    initComponent()
+    wrapper.setProps({ editMode: true })
+    wrapper.vm.setSelectedRoleBasedOnQueryParam()
+  })
+
+  test('setSelectedRoleBasedOnQueryParam editMode false', () => {
+    initComponent()
+    wrapper.setProps({ editMode: false })
+    wrapper.vm.setSelectedRoleBasedOnQueryParam()
+    expect(wrapper.vm.userDetail.role).toEqual(wrapper.vm.$route.query.role)
+  })
 })

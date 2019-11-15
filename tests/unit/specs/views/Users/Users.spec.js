@@ -71,6 +71,7 @@ describe('Users', () => {
         'b-field',
         'b-pagination',
         'b-tab-item',
+        'b-tabs',
         'font-awesome-icon'
       ],
       mocks: {
@@ -153,7 +154,10 @@ describe('Users', () => {
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.activeTab = 3
     wrapper.vm.goToAddUser()
-    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'addUser' })
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
+      name: 'addUser',
+      query: { role: 'JUDGE' }
+    })
   })
 
   test('goToEditUser STUDENT', () => {

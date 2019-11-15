@@ -20,7 +20,7 @@ export default {
       activeTab: 0,
       paging: {
         page: 1,
-        size: 20,
+        size: 10,
         totalRecords: 0
       },
       userList: [],
@@ -74,7 +74,10 @@ export default {
       if (this.currentTab === 'Student') {
         this.$router.push({ name: 'addStudent' })
       } else {
-        this.$router.push({ name: 'addUser' })
+        this.$router.push({
+          name: 'addUser',
+          query: { role: this.currentTab.toUpperCase() }
+        })
       }
     },
     closeDeleteConfirmationModal () {

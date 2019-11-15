@@ -33,7 +33,10 @@
                          v-if="currentTabType === 'batch' && batches.length > 1">
                       <b-field label="Batch"
                                label-position="on-border">
-                        <b-select placeholder="Select a batch" v-model="selectedBatchCode" expanded>
+                        <b-select placeholder="Select a batch"
+                                  v-model="selectedBatchCode"
+                                  @input="resetPage"
+                                  expanded>
                           <option v-for="batch in batches"
                                   :key="batch.code"
                                   :value="batch.code">
@@ -98,20 +101,20 @@
                   </ListItem>
                 </div>
               </div>
-              <infinite-loading @infinite="initPage" :identifier="infiniteId">
-                <div slot="spinner">
-                  <ListItem v-for="n in 3" :key="n"
-                            :loading="true"
-                            :simple="true"
-                            :minHeight="'75px'"
-                  ></ListItem>
-                </div>
-                <div slot="no-more"></div>
-                <div slot="no-results"></div>
-              </infinite-loading>
             </div>
           </b-tab-item>
         </b-tabs>
+        <infinite-loading @infinite="initPage" :identifier="infiniteId">
+          <div slot="spinner">
+            <ListItem v-for="n in 3" :key="n"
+                      :loading="true"
+                      :simple="true"
+                      :minHeight="'75px'"
+            ></ListItem>
+          </div>
+          <div slot="no-more"></div>
+          <div slot="no-results"></div>
+        </infinite-loading>
       </div>
       <modal-delete-confirmation v-if="showDeleteConfirmationModal"
                                  @close="showDeleteConfirmationModal = false"

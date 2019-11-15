@@ -241,15 +241,42 @@ describe('CourseDetail Revamp', () => {
     expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
   })
 
-  test('goToEditPage', () => {
+  test('goToEditPage master', () => {
+    const spy = jest.spyOn(wrapper.vm, 'editMasterCourse')
     wrapper.setProps({ master: true })
+    wrapper.vm.goToEditPage()
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('goToEditPage not master', () => {
+    const spy = jest.spyOn(wrapper.vm, 'editCourse')
+    wrapper.setProps({ master: false })
+    wrapper.vm.goToEditPage()
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('editMasterCourse', () => {
     wrapper.vm.$route.params.id = 'sample-id'
     wrapper.vm.$router.push = jest.fn()
-    wrapper.vm.goToEditPage()
+    wrapper.vm.editMasterCourse()
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
       name: 'editMasterCourse',
       params: {
         id: 'sample-id'
+      }
+    })
+  })
+
+  test('editCourse', () => {
+    wrapper.setProps({ master: false })
+    wrapper.vm.$route.params.id = 'sample-id'
+    wrapper.vm.$router.push = jest.fn()
+    wrapper.vm.editCourse()
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
+      name: 'editCourse',
+      params: {
+        id: 'sample-id',
+        code: 'code'
       }
     })
   })
