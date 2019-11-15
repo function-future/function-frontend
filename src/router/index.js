@@ -11,6 +11,7 @@ import assignmentDetail from '@/views/Assignment/AssignmentDetail'
 import scoringAdmin from '@/views/Scoring/LandingPageAdmin'
 import questionBanks from '@/views/QuestionBank/QuestionBanks'
 import questionBankDetail from '@/views/QuestionBank/QuestionBankDetail'
+import questionBankForm from '@/views/QuestionBank/QuestionBankForm'
 import addQuestionBank from '@/views/QuestionBank/AddQuestionBank'
 import questionBankQuestionList from '@/views/QuestionBank/QuestionBankQuestionList'
 import questionBankAddQuestion from '@/views/QuestionBank/QuestionBankAddQuestion'
@@ -610,7 +611,7 @@ const router = new Router({
     {
       path: config.app.pages.questionBanks.add,
       name: 'addQuestionBank',
-      component: addQuestionBank,
+      component: questionBankForm,
       meta: {
         auth: true,
         title: 'Add Question Bank',
@@ -619,6 +620,26 @@ const router = new Router({
           { name: 'Question Banks', link: 'questionBanks' },
           { name: 'Add Question Bank', link: 'addQuestionBank' }
         ]
+      },
+      props: {
+        editMode: false
+      }
+    },
+    {
+      path: config.app.pages.questionBanks.edit,
+      name: 'editQuestionBank',
+      component: questionBankForm,
+      meta: {
+        auth: true,
+        title: 'Edit Question Bank',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Question Banks', link: 'questionBanks' },
+          { name: 'Add Question Bank', link: 'addQuestionBank' }
+        ]
+      },
+      props: {
+        editMode: true
       }
     },
     {

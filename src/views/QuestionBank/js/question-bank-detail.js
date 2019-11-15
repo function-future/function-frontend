@@ -61,7 +61,6 @@ export default {
     },
     successFetchingQuestionBankDetail () {
       this.questionBankDetail = {...this.questionBank}
-      // this.getQuestionList()
     },
     failFetchingQuestionBankDetail () {
       this.$toasted.error('Something went wrong')
@@ -124,7 +123,12 @@ export default {
       this.$toasted.error('Something went wrong')
     },
     redirectToEditQuestionBankForm() {
-      console.log('IPSUM ')
+      this.$router.push({
+        name: 'editQuestionBank',
+        params: {
+          id: this.$route.params.bankId
+        }
+      })
     },
     redirectToQuestionForm() {
       console.log('LOREM')

@@ -66,6 +66,7 @@ module.exports = {
       questionBanks: {
         list: '/question-banks',
         add: '/question-banks/add',
+        edit: '/question-banks/:id/edit',
         detail: '/question-banks/:bankId/detail',
         questions: {
           list: '/question-banks/:bankId/questions',

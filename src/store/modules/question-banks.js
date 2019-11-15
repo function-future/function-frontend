@@ -38,7 +38,7 @@ export const actions = {
   fetchQuestionBankDetail ({ commit }, { data, callback, fail }) {
     questionBankApi.getQuestionBankById(({data: response}) => {
       commit('SET_QUESTION_BANK', response)
-      callback && callback()
+      callback && callback(response)
     }, data, fail)
   },
   updateQuestionBank ({ commit }, { payload, data, callback, fail }) {
