@@ -30,7 +30,7 @@
       justify-content: center;
 
       &-asset {
-        padding: 1rem;
+        padding: 3rem 1rem 1rem 1rem;
         width: 40%;
 
         @media only screen and (max-width: 1023px) {
