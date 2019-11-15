@@ -1387,11 +1387,14 @@ router.beforeEach((to, from, next) => {
   }
 
   store.dispatch('getLoginStatus', {
-    callback: () => { return to.fullPath === '/login' ? next({ name: 'feeds' }) : next() },
+    callback: () => { return to.query.auth === 'login' ? next({ path: from.fullPath, query: {} }) : next() },
     fail: () => {
       store.dispatch('setCurrentUser', { data: {} })
       store.dispatch('setMenuList', { data: {} })
-      return !to.meta.auth ? next() : (to.path !== '/login' ? next('/login') : next())
+      return !to.meta.auth ? next() : (to.query.auth !== 'login' ? next({
+        path: from.fullPath,
+        query: { auth: 'login' }
+      }) : next())
     }
   })
 })
