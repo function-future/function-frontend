@@ -88,21 +88,33 @@
              @click="goToAnnouncementPage">
           <span>Announcements</span>
         </div>
-        <ListItem v-for="announcement in announcements"
-                  v-bind:key="announcement.id"
-                  @click="goToAnnouncementDetail(announcement.id)">
-          <template #title>
-            {{ announcement.title }}
-          </template>
-          <template #info>
-            {{ announcement.updatedAt |  moment("MMMM Do, YYYY") }}
-          </template>
-          <template #content>
-            <div class="wrap-word ellipsis">
-              <span class="content" v-html="announcementPreview(announcement)"></span>
-            </div>
-          </template>
-        </ListItem>
+        <div v-if="!announcementEmpty">
+          <ListItem v-for="announcement in announcements"
+                    v-bind:key="announcement.id"
+                    @click="goToAnnouncementDetail(announcement.id)">
+            <template #title>
+              {{ announcement.title }}
+            </template>
+            <template #info>
+              {{ announcement.updatedAt |  moment("MMMM Do, YYYY") }}
+            </template>
+            <template #content>
+              <div class="wrap-word ellipsis">
+                <span class="content" v-html="announcementPreview(announcement)"></span>
+              </div>
+            </template>
+          </ListItem>
+        </div>
+        <div v-if="announcementEmpty && !failLoadAnnouncement">
+          <EmptyState src="announcements">
+            <template #title>
+              Looks like there is no announcements!
+            </template>
+          </EmptyState>
+        </div>
+        <div v-if="announcementEmpty && failLoadAnnouncement">
+          <EmptyState src="error" errorState="true"></EmptyState>
+        </div>
       </div>
     </div>
   </div>

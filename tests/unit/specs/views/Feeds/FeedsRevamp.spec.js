@@ -182,12 +182,16 @@ describe('FeedsRevamp', () => {
   test('successLoadAnnouncementList', () => {
     initComponent()
     wrapper.vm.successLoadAnnouncementList()
+    expect(wrapper.vm.isLoadingAnnouncement).toEqual(false)
+    expect(wrapper.vm.failLoadAnnouncement).toEqual(false)
     expect(wrapper.vm.announcements).toBe(wrapper.vm.announcementList)
   })
 
   test('failLoadAnnouncementList', () => {
     initComponent()
     wrapper.vm.failLoadAnnouncementList()
+    expect(wrapper.vm.isLoadingAnnouncement).toEqual(false)
+    expect(wrapper.vm.failLoadAnnouncement).toEqual(true)
     expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
   })
 
@@ -275,5 +279,21 @@ describe('FeedsRevamp', () => {
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.goToPage('announcements')
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'announcements' })
+  })
+
+  test('announcementEmpty empty', () => {
+    initComponent()
+    wrapper.vm.announcements = []
+    expect(wrapper.vm.announcementEmpty).toEqual(true)
+  })
+
+  test('announcementEmpty not empty', () => {
+    initComponent()
+    wrapper.vm.announcements = [
+      {
+        title: 'announcement'
+      }
+    ]
+    expect(wrapper.vm.announcementEmpty).toEqual(false)
   })
 })

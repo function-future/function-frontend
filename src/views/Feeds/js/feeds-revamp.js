@@ -1,12 +1,14 @@
 import { mapActions, mapGetters } from 'vuex'
 import ListItem from '@/components/list/ListItem'
+import EmptyState from '@/components/emptyState/EmptyState'
 let marked = require('marked')
 const MAX_STICKY_NOTE_PREVIEW_LENGTH = 200
 
 export default {
   name: 'feeds',
   components: {
-    ListItem
+    ListItem,
+    EmptyState
   },
   data () {
     return {
@@ -16,7 +18,8 @@ export default {
         page: 1,
         size: 5
       },
-      isLoadingAnnouncement: true
+      isLoadingAnnouncement: true,
+      failLoadAnnouncement: false
     }
   },
   created () {
@@ -35,6 +38,9 @@ export default {
     },
     stickyNotesAvailable () {
       return Object.keys(this.stickyNote).length
+    },
+    announcementEmpty () {
+      return !(this.announcements && this.announcements.length)
     }
   },
   methods: {
@@ -78,10 +84,12 @@ export default {
     successLoadAnnouncementList () {
       this.announcements = this.announcementList
       this.isLoadingAnnouncement = false
+      this.failLoadAnnouncement = false
     },
     failLoadAnnouncementList () {
       this.$toasted.error('Fail to load announcement list')
       this.isLoadingAnnouncement = false
+      this.failLoadAnnouncement = true
     },
     goToAnnouncementPage () {
       this.$router.push({ name: 'announcements' })
