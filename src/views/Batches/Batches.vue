@@ -18,47 +18,62 @@
           </div>
         </div>
         <div class="columns is-multiline" v-else>
-          <div class="column is-4"
-               v-for="batch in batches"
-               v-bind:key="batch.code">
-            <ListItem class="no-pointer">
-              <template #title>
-                {{ batch.name }}
-              </template>
-              <template #info>
-                {{ batch.code }}
-              </template>
-              <template #actions>
-                <b-dropdown aria-role="list" position="is-bottom-left" @click.prevent.stop>
-                  <button class="button is-text" slot="trigger">
-                    <b-icon icon="ellipsis-v" size="is-small" class="icon"></b-icon>
-                  </button>
-                  <b-dropdown-item
-                    aria-role="listitem"
-                    @click="editBatch(batch.id)"
-                    v-if="accessList.edit">
+          <div v-if="!batchesEmpty">
+            <div class="column is-4"
+                 v-for="batch in batches"
+                 v-bind:key="batch.code">
+              <ListItem class="no-pointer">
+                <template #title>
+                  {{ batch.name }}
+                </template>
+                <template #info>
+                  {{ batch.code }}
+                </template>
+                <template #actions>
+                  <b-dropdown aria-role="list" position="is-bottom-left" @click.prevent.stop>
+                    <button class="button is-text" slot="trigger">
+                      <b-icon icon="ellipsis-v" size="is-small" class="icon"></b-icon>
+                    </button>
+                    <b-dropdown-item
+                      aria-role="listitem"
+                      @click="editBatch(batch.id)"
+                      v-if="accessList.edit">
                 <span class="icon-wrapper">
                   <b-icon icon="edit" class="icon" size="is-small"></b-icon>
                   Edit
                 </span>
-                  </b-dropdown-item>
-                  <b-dropdown-item
-                    aria-role="listitem"
-                    @click="openDeleteConfirmationModal(batch.id)"
-                    v-if="accessList.delete">
+                    </b-dropdown-item>
+                    <b-dropdown-item
+                      aria-role="listitem"
+                      @click="openDeleteConfirmationModal(batch.id)"
+                      v-if="accessList.delete">
                 <span class="icon-wrapper">
                   <b-icon icon="trash-alt" class="icon" size="is-small"></b-icon>
                   Delete
                 </span>
-                  </b-dropdown-item>
-                  <b-dropdown-item
-                    aria-role="listitem"
-                    class="is-hidden-desktop">
-                    <b-button type="is-light" expanded>Cancel</b-button>
-                  </b-dropdown-item>
-                </b-dropdown>
+                    </b-dropdown-item>
+                    <b-dropdown-item
+                      aria-role="listitem"
+                      class="is-hidden-desktop">
+                      <b-button type="is-light" expanded>Cancel</b-button>
+                    </b-dropdown-item>
+                  </b-dropdown>
+                </template>
+              </ListItem>
+            </div>
+          </div>
+          <div v-if="batchesEmpty && !failFetchBatch">
+            <EmptyState src="batches">
+              <template #title>
+                Looks like you have not created a batch!
               </template>
-            </ListItem>
+              <template #message>
+                Start creating a batch
+              </template>
+            </EmptyState>
+          </div>
+          <div v-if="batchesEmpty && failFetchBatch">
+            <EmptyState src="error" :errorState="true"></EmptyState>
           </div>
         </div>
       </div>

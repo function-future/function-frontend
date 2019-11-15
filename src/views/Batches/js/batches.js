@@ -1,26 +1,32 @@
 import { mapActions, mapGetters } from 'vuex'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
 import ListItem from '@/components/list/ListItem'
+import EmptyState from '@/components/emptyState/EmptyState'
 
 export default {
   name: 'batches',
   components: {
     ListItem,
-    ModalDeleteConfirmation
+    ModalDeleteConfirmation,
+    EmptyState
   },
   data () {
     return {
       isLoading: false,
       batches: [],
       selectedId: '',
-      showDeleteConfirmationModal: false
+      showDeleteConfirmationModal: false,
+      failFetchBatch: false
     }
   },
   computed: {
     ...mapGetters([
       'currentUser',
       'accessList'
-    ])
+    ]),
+    batchesEmpty () {
+      return !(this.batches && this.batches.length)
+    }
   },
   created () {
     this.initPage()
@@ -40,9 +46,11 @@ export default {
     successFetchBatches (response) {
       this.batches = response
       this.isLoading = false
+      this.failFetchBatch = false
     },
     failFetchBatches () {
       this.isLoading = false
+      this.failFetchBatch = true
       this.$toasted.error('Fail to fetch batches, please try again')
     },
     createNewBatch () {
