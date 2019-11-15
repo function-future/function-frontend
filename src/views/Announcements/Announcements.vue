@@ -72,7 +72,7 @@
             </EmptyState>
           </div>
           <div v-if="announcementEmpty && failLoadAnnouncement">
-            <EmptyState src="error" errorState="true"></EmptyState>
+            <EmptyState src="error" :errorState="true"></EmptyState>
           </div>
         </div>
       </div>
