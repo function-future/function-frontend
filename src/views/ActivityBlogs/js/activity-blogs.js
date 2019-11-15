@@ -1,17 +1,20 @@
 import { mapActions, mapGetters } from 'vuex'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
 import ListItem from '@/components/list/ListItem'
+import EmptyState from '@/components/emptyState/EmptyState'
 let marked = require('marked')
 
 export default {
   name: 'activityBlogs',
   components: {
     ListItem,
+    EmptyState,
     ModalDeleteConfirmation
   },
   data () {
     return {
       isLoading: false,
+      failLoadActivityBlog: false,
       paging: {
         page: 1,
         size: 10
@@ -31,6 +34,9 @@ export default {
     ]),
     userId () {
       return this.$route.query.userId || ''
+    },
+    activityBlogEmpty () {
+      return !(this.activityBlogs && this.activityBlogs.length)
     }
   },
   methods: {
@@ -67,10 +73,12 @@ export default {
     },
     successLoadActivityBlogList (paging) {
       this.isLoading = false
+      this.failLoadActivityBlog = false
       this.paging = paging
     },
     failLoadActivityBlogList () {
       this.isLoading = false
+      this.failLoadActivityBlog = true
       this.$toasted.error('Fail to load activity blogs list')
     },
     compileToMarkdown: function (description) {

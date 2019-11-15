@@ -185,6 +185,7 @@ describe('ActivityBlogs', () => {
   test('failLoadActivityBlogList', () => {
     wrapper.vm.failLoadActivityBlogList()
     expect(wrapper.vm.isLoading).toEqual(false)
+    expect(wrapper.vm.failLoadActivityBlog).toEqual(true)
     expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
   })
 
@@ -215,6 +216,7 @@ describe('ActivityBlogs', () => {
     }
     wrapper.vm.successLoadActivityBlogList(paging)
     expect(wrapper.vm.isLoading).toEqual(false)
+    expect(wrapper.vm.failLoadActivityBlog).toEqual(false)
     expect(wrapper.vm.paging).toEqual(paging)
   })
 
@@ -244,5 +246,19 @@ describe('ActivityBlogs', () => {
     wrapper.vm.$nextTick(() => {
       expect(spy).toHaveBeenCalledTimes(1)
     })
+  })
+
+  test('activityBlogEmpty empty', () => {
+    store.state.activityBlogs = []
+    expect(wrapper.vm.activityBlogEmpty).toEqual(true)
+  })
+
+  test('activityBlogEmpty not empty', () => {
+    store.state.activityBlogs = [
+      {
+        title: 'title'
+      }
+    ]
+    expect(wrapper.vm.activityBlogEmpty).toEqual(false)
   })
 })
