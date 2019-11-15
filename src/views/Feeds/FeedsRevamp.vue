@@ -106,7 +106,7 @@
           </ListItem>
         </div>
         <div v-if="announcementEmpty && !failLoadAnnouncement">
-          <EmptyState src="announcements">
+          <EmptyState src="announcements-feeds">
             <template #title>
               Looks like there is no announcements!
             </template>
