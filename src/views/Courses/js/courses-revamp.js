@@ -101,7 +101,9 @@ export default {
     },
     initPage ($state) {
       this.infiniteState = $state
-      this.currentTabType === 'master' ? this.fetchMasterCourse() : this.initBatchCourse()
+      if (this.currentTabType) {
+        this.currentTabType === 'master' ? this.fetchMasterCourse() : this.initBatchCourse()
+      }
     },
     setQuery () {
       if (this.activeTab < 0 || this.activeTab > this.tabs.length) this.activeTab = 0
