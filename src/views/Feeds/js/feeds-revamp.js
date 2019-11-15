@@ -64,7 +64,7 @@ export default {
       this.$router.push({ name: 'stickyNotes' })
     },
     stickyNotesDescriptionPreview (description) {
-      if (!description) return 'Important information will appear as sticky notes here'
+      if (!description) return 'Currently no important information is available'
       if (description.length > MAX_STICKY_NOTE_PREVIEW_LENGTH) {
         return marked(description.substr(0, MAX_STICKY_NOTE_PREVIEW_LENGTH) + '...')
       } else {
