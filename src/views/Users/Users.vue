@@ -86,7 +86,8 @@
                       Looks so empty!
                     </template>
                     <template #message>
-                      Start adding new user
+                      <span v-if="keyword">We couldn't find the user you're looking for</span>
+                      <span v-else>Start adding new user</span>
                     </template>
                   </EmptyState>
                 </div>
