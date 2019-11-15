@@ -161,7 +161,11 @@
                                  @clickDelete="deleteThis">
         <div slot="description">Are you sure you want to delete this course?</div>
       </modal-delete-confirmation>
-      <modal-copy v-if="showShareCourseModal" @close="showShareCourseModal = false" @copy="submitShareCourse"></modal-copy>
+      <modal-copy v-if="showShareCourseModal"
+                  @close="showShareCourseModal = false"
+                  @copy="submitShareCourse"
+                  :currentBatch="selectedBatchCode">
+      </modal-copy>
     </div>
   </div>
 </template>

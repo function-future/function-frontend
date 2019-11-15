@@ -15,6 +15,7 @@ export default {
       batchDestination: ''
     }
   },
+  props: [ 'currentBatch' ],
   computed: {
     ...mapGetters([
       'batchList'
@@ -42,7 +43,7 @@ export default {
     },
     successFetchBatches () {
       this.isLoading = false
-      this.batches = this.batchList.filter(batch => batch.code !== (this.$route.params.batchCode || this.$route.params.code))
+      this.batches = this.batchList.filter(batch => batch.code !== (this.$route.params.batchCode || this.currentBatch))
     },
     failFetchBatches () {
       this.isLoading = false
