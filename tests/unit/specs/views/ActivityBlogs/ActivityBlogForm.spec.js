@@ -36,6 +36,9 @@ describe('ActivityBlogForm', () => {
           'id': 'sample-id',
           'name': 'Student 1'
         }
+      },
+      currentUser: {
+        id: 'sample-id'
       }
     }
     const actions = {
@@ -44,7 +47,8 @@ describe('ActivityBlogForm', () => {
       uploadResource: jest.fn()
     }
     const getters = {
-      activityBlog: state => state.activityBlog
+      activityBlog: state => state.activityBlog,
+      currentUser: state => state.currentUser
     }
     const store = new Vuex.Store({
       modules: {
@@ -248,8 +252,24 @@ describe('ActivityBlogForm', () => {
   })
 
   test('setActivityBlogDetail', () => {
+    const spy = jest.spyOn(wrapper.vm, 'checkCurrentUser')
     wrapper.vm.setActivityBlogDetail()
+    expect(spy).toHaveBeenCalledTimes(1)
     expect(wrapper.vm.activityBlogDetail.id).toEqual(wrapper.vm.activityBlog.id)
+  })
+
+  test('checkCurrentUser is author', () => {
+    store.state.currentUser.id = 'sample-id'
+    wrapper.vm.$router.push = jest.fn()
+    wrapper.vm.checkCurrentUser()
+    expect(wrapper.vm.$router.push).toHaveBeenCalledTimes(0)
+  })
+
+  test('checkCurrentUser is not author', () => {
+    store.state.currentUser.id = ''
+    wrapper.vm.$router.push = jest.fn()
+    wrapper.vm.checkCurrentUser()
+    expect(wrapper.vm.$router.push).toHaveBeenCalledTimes(1)
   })
 
   test('$imgAdd', () => {

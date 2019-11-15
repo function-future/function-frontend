@@ -21,7 +21,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'activityBlog'
+      'activityBlog',
+      'currentUser'
     ])
   },
   methods: {
@@ -48,12 +49,21 @@ export default {
       })
     },
     setActivityBlogDetail () {
+      this.checkCurrentUser()
       this.activityBlogDetail = {
         id: this.activityBlog.id || '',
         title: this.activityBlog.title || '',
         description: this.activityBlog.description || ''
       }
       this.imageIds = [ ...this.activityBlog.files.map(i => i.id) ]
+    },
+    checkCurrentUser () {
+      if (this.currentUser.id !== this.activityBlog.author.id) {
+        this.$router.push({
+          name: 'activityBlogDetail',
+          params: { id: this.$route.params.id }
+        })
+      }
     },
     $imgAdd ($file) {
       this.uploadingFile = true
