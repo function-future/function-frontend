@@ -1410,7 +1410,7 @@ router.beforeEach((to, from, next) => {
       store.dispatch('setMenuList', { data: {} })
       return !to.meta.auth ? next() : (to.query.auth !== 'login' ? next({
         path: from.fullPath,
-        query: { auth: 'login' }
+        query: { auth: 'login', redirect: to.fullPath }
       }) : next())
     }
   })
