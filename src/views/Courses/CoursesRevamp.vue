@@ -50,6 +50,37 @@
               </div>
             </div>
             <div class="courses__container__tabs-content">
+              <div v-if="!isLoading">
+                <div v-if="coursesEmpty && currentTabType === 'master'">
+                  <EmptyState src="announcements">
+                    <template #title>
+                      No master course yet!
+                    </template>
+                    <template #message>
+                      Create master course to share it to batch course
+                    </template>
+                  </EmptyState>
+                </div>
+                <!--<div v-if="failFetchservererror">-->
+                  <!--<EmptyState src="error" :errorState="true"></EmptyState>-->
+                <!--</div>-->
+                <div v-if="coursesEmpty && currentTabType === 'batch' && showNoBatchAvailableMessage">
+                  <EmptyState src="announcements">
+                    <template #title>
+                      Looks like you have not created a batch!
+                    </template>
+                    <template #message>
+                      Create your first batch here
+                      <div class="courses__container__tabs-actions-create-batch">
+                        <b-button type="is-primary"
+                                  @click="goToCreateBatch">
+                          Create batch
+                        </b-button>
+                      </div>
+                    </template>
+                  </EmptyState>
+                </div>
+              </div>
               <div class="columns is-mobile" v-for="(course, index) in courses" :key="index">
                 <div class="column is-narrow is-flex" v-if="!isStudent">
                   <b-checkbox v-model="selectedIds" :native-value="course.id"></b-checkbox>
@@ -156,6 +187,10 @@
               min-width: 5rem;
               margin-left: auto;
             }
+          }
+
+          &-create-batch {
+            margin-top: 0.5rem;
           }
         }
       }

@@ -3,6 +3,7 @@ import InfiniteLoading from 'vue-infinite-loading'
 import ListItem from '@/components/list/ListItem'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
 import ModalCopy from '@/components/modals/ModalCopy'
+import EmptyState from '@/components/emptyState/EmptyState'
 
 export default {
   name: 'coursesRevamp',
@@ -10,7 +11,8 @@ export default {
     InfiniteLoading,
     ListItem,
     ModalDeleteConfirmation,
-    ModalCopy
+    ModalCopy,
+    EmptyState
   },
   data () {
     return {
@@ -63,6 +65,9 @@ export default {
     },
     originBatch () {
       return this.currentTabType === 'master' ? null : this.$route.params.code
+    },
+    coursesEmpty () {
+      return !(this.courses && this.courses.length)
     }
   },
   created () {
@@ -111,11 +116,13 @@ export default {
       this.batches = response
       if (this.batches.length) {
         this.selectedBatchCode = response[0].code
+        this.showNoBatchAvailableMessage = false
         this.fetchCourse()
       } else {
         this.infiniteState.complete()
         this.switchingTabLoading = false
         this.showNoBatchAvailableMessage = true
+        this.isLoading = false
       }
     },
     failFetchBatches () {
@@ -272,6 +279,9 @@ export default {
     courseTitleEllipsis (title) {
       let max = 50
       return title.length > max ? title.substr(0, max) + '...' : title
+    },
+    goToCreateBatch () {
+      this.$router.push({ name: 'addBatch' })
     }
   },
   watch: {
