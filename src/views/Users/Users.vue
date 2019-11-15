@@ -140,6 +140,10 @@
           align-items: center;
           margin-right: 1.5rem;
           margin-bottom: 0.5rem;
+
+          @media only screen and (max-width: 1023px) {
+            margin-right: 0;
+          }
         }
 
         &-content {
