@@ -86,6 +86,7 @@ const router = new Router({
       name: 'profile',
       component: profile,
       meta: {
+        auth: true,
         title: 'Profile',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
@@ -98,6 +99,7 @@ const router = new Router({
       name: 'profileMobile',
       component: profile,
       meta: {
+        auth: true,
         title: 'Profile',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
@@ -111,6 +113,7 @@ const router = new Router({
       name: 'account',
       component: account,
       meta: {
+        auth: true,
         title: 'Account',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
@@ -123,6 +126,7 @@ const router = new Router({
       name: 'changePassword',
       component: changePassword,
       meta: {
+        auth: true,
         title: 'Change Password',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
@@ -137,6 +141,7 @@ const router = new Router({
       name: 'changePasswordMobile',
       component: changePassword,
       meta: {
+        auth: true,
         title: 'Change Password',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
