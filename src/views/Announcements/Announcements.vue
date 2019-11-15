@@ -13,7 +13,7 @@
         <div v-if="isLoading">
           <ListItem v-for="n in 4" v-bind:key="n" :loading="isLoading"></ListItem>
         </div>
-        <div v-if="!isLoading">
+        <div v-if="!isLoading && !announcementEmpty">
           <ListItem @click="goToAnnouncementDetail(announcement.id)"
                     v-for="announcement in announcementList"
                     v-bind:key="announcement.id">
@@ -63,8 +63,20 @@
             </template>
           </ListItem>
         </div>
+        <div v-if="!isLoading">
+          <div v-if="announcementEmpty && !failLoadAnnouncement">
+            <EmptyState src="announcements">
+              <template #title>
+                Looks like there is no announcements!
+              </template>
+            </EmptyState>
+          </div>
+          <div v-if="announcementEmpty && failLoadAnnouncement">
+            <EmptyState src="error" errorState="true"></EmptyState>
+          </div>
+        </div>
       </div>
-      <div class="announcements__pagination-wrapper" v-if="!isLoading && announcementList.length">
+      <div class="announcements__pagination-wrapper" v-if="!isLoading && !announcementEmpty">
         <b-pagination
           :total="paging.totalRecords"
           :current.sync="paging.page"
