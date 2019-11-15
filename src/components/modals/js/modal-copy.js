@@ -1,10 +1,12 @@
 import { mapActions, mapGetters } from 'vuex'
 import ListItem from '@/components/list/ListItem'
+import EmptyState from '@/components/emptyState/EmptyState'
 
 export default {
   name: 'modal-copy',
   components: {
-    ListItem
+    ListItem,
+    EmptyState
   },
   data () {
     return {

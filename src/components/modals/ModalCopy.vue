@@ -23,10 +23,22 @@
                 </ListItem>
               </div>
             </div>
-            <div class="columns is-mobile is-vcentered" v-if="!batches && !isLoading">
-              <div class="column has-text-centered modal__body__empty-list">
-                No batches available, create batch here
-                <b-button type="is-primary" @click="goToCreateBatch">Create batch</b-button>
+            <div class="columns is-mobile is-vcentered" v-if="!batches.length && !isLoading">
+              <div class="has-text-centered modal__body__empty-list">
+                <EmptyState src="batches">
+                  <template #title>
+                    Looks like you have not created a batch!
+                  </template>
+                  <template #message>
+                    Create the first batch here
+                    <div class="courses__container__tabs-actions-create-batch">
+                      <b-button type="is-primary"
+                                @click="goToCreateBatch">
+                        Create batch
+                      </b-button>
+                    </div>
+                  </template>
+                </EmptyState>
               </div>
             </div>
           </div>
@@ -59,7 +71,7 @@
     }
 
     &__wrapper {
-      padding-top: 30vh;
+      padding-top: 20vh;
 
       @media (max-width: 1023px) {
         height: 100%;
@@ -104,7 +116,7 @@
 
     &__body {
       min-height: 15vh;
-      max-height: 40vh;
+      max-height: 50vh;
       overflow-y: auto;
       overflow-x: hidden;
       padding-right: 0.5rem;
@@ -112,8 +124,6 @@
       text-align: left;
 
       &__empty-list {
-        margin-top: 0.75rem;
-
         button {
           margin-top: 0.5rem;
         }
