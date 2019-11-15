@@ -23,7 +23,7 @@
                 </ListItem>
               </div>
             </div>
-            <div class="columns is-mobile is-vcentered" v-if="!batches.length && !isLoading">
+            <div class="is-mobile is-vcentered" v-if="!batches.length && !isLoading">
               <div class="has-text-centered modal__body__empty-list">
                 <EmptyState src="batches">
                   <template #title>
