@@ -50,37 +50,6 @@
               </div>
             </div>
             <div class="courses__container__tabs-content">
-              <div v-if="!isLoading">
-                <div v-if="coursesEmpty && currentTabType === 'master'">
-                  <EmptyState src="announcements">
-                    <template #title>
-                      No master course yet!
-                    </template>
-                    <template #message>
-                      Create master course to share it to batch course
-                    </template>
-                  </EmptyState>
-                </div>
-                <!--<div v-if="failFetchservererror">-->
-                  <!--<EmptyState src="error" :errorState="true"></EmptyState>-->
-                <!--</div>-->
-                <div v-if="coursesEmpty && currentTabType === 'batch' && showNoBatchAvailableMessage">
-                  <EmptyState src="announcements">
-                    <template #title>
-                      Looks like you have not created a batch!
-                    </template>
-                    <template #message>
-                      Create your first batch here
-                      <div class="courses__container__tabs-actions-create-batch">
-                        <b-button type="is-primary"
-                                  @click="goToCreateBatch">
-                          Create batch
-                        </b-button>
-                      </div>
-                    </template>
-                  </EmptyState>
-                </div>
-              </div>
               <div class="columns is-mobile" v-for="(course, index) in courses" :key="index">
                 <div class="column is-narrow is-flex" v-if="!isStudent">
                   <b-checkbox v-model="selectedIds" :native-value="course.id"></b-checkbox>
@@ -130,6 +99,46 @@
                       </b-dropdown>
                     </template>
                   </ListItem>
+                </div>
+              </div>
+              <div v-if="!isLoading">
+                <div v-if="failFetchData">
+                  <EmptyState src="error" :errorState="true"></EmptyState>
+                </div>
+                <div v-if="!failFetchData">
+                  <div v-if="coursesEmpty">
+                    <div v-if="showNoBatchAvailableMessage && isAdmin">
+                      <EmptyState src="batches">
+                        <template #title>
+                          Looks like you have not created a batch!
+                        </template>
+                        <template #message>
+                          Create the first batch here
+                          <div class="courses__container__tabs-actions-create-batch">
+                            <b-button type="is-primary"
+                                      @click="goToCreateBatch">
+                              Create batch
+                            </b-button>
+                          </div>
+                        </template>
+                      </EmptyState>
+                    </div>
+                    <div v-else>
+                      <EmptyState src="courses">
+                        <template #title>
+                          No courses yet!
+                        </template>
+                        <template #message>
+                          <span v-if="!isStudent && loggedIn">
+                            Create master course to share it to batch course!
+                          </span>
+                          <span v-else>
+                            Courses available to you will appear here!
+                          </span>
+                        </template>
+                      </EmptyState>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

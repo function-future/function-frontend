@@ -46,7 +46,8 @@ export default {
       allSelected: false,
       infiniteId: +new Date(),
       infiniteState: '',
-      showNoBatchAvailableMessage: false
+      showNoBatchAvailableMessage: false,
+      failFetchData: false
     }
   },
   computed: {
@@ -55,7 +56,13 @@ export default {
       'currentUser'
     ]),
     isStudent () {
-      return this.currentUser.role === 'STUDENT'
+      return this.currentUser && this.currentUser.role === 'STUDENT'
+    },
+    isAdmin () {
+      return this.currentUser && this.currentUser.role === 'ADMIN'
+    },
+    loggedIn () {
+      return Object.keys(this.currentUser).length
     },
     currentTabType () {
       return this.$route.query.tab
@@ -114,9 +121,10 @@ export default {
     },
     successFetchBatches (response) {
       this.batches = response
+      this.failFetchData = false
+      this.showNoBatchAvailableMessage = false
       if (this.batches.length) {
         this.selectedBatchCode = response[0].code
-        this.showNoBatchAvailableMessage = false
         this.fetchCourse()
       } else {
         this.infiniteState.complete()
@@ -126,6 +134,7 @@ export default {
       }
     },
     failFetchBatches () {
+      this.failFetchData = true
       this.$toasted.error('Fail to load batch list, please refresh the page')
     },
     fetchCourse () {
@@ -149,6 +158,8 @@ export default {
     successFetchCourse (response, paging) {
       this.switchingTabLoading = false
       this.isLoading = false
+      this.failFetchData = false
+      this.showNoBatchAvailableMessage = false
       this.paging = paging
       this.courses.push(...response)
       if (response.length) {
@@ -161,6 +172,8 @@ export default {
     failFetchCourse () {
       this.switchingTabLoading = false
       this.isLoading = false
+      this.failFetchData = true
+      this.showNoBatchAvailableMessage = false
       this.$toasted.error('Fail to load course list')
     },
     resetPage () {
