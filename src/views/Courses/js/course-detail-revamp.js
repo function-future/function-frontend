@@ -124,6 +124,7 @@ export default {
       this.$toasted.success('Successfully added course discussion')
       this.discussion.comment = ''
       this.discussions.push(response)
+      this.discussionPaging.totalRecords++
     },
     failSubmitCourseDiscussion () {
       this.submittingDiscussion = false
