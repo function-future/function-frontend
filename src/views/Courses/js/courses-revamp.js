@@ -113,6 +113,11 @@ export default {
       })
     },
     initBatchCourse () {
+      if (this.isStudent) {
+        this.selectedBatchCode = this.currentUser.batchCode
+        this.fetchCourse()
+        return
+      }
       this.batches.length ? this.fetchCourse() : this.fetchBatchList()
     },
     fetchBatchList () {

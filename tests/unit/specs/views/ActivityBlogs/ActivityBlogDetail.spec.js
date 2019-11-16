@@ -159,4 +159,20 @@ describe('ActivityBlogDetail', () => {
     expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
     expect(wrapper.vm.showDeleteConfirmationModal).toEqual(false)
   })
+
+  test('isAuthor false', () => {
+    store.state.activityBlog.author.id = 'id-1'
+    store.state.currentUser.id = 'id'
+    expect(wrapper.vm.isAuthor).toEqual(false)
+  })
+
+  test('isAuthor true', () => {
+    store.state.activityBlog.author.id = 'id-1'
+    store.state.currentUser.id = 'id'
+    expect(wrapper.vm.isAuthor).toEqual(false)
+  })
+
+  test('authorId', () => {
+    expect(wrapper.vm.authorId).toEqual('sample-id')
+  })
 })
