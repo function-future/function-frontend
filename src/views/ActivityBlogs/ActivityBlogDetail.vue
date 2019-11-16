@@ -6,14 +6,14 @@
                   icon-left="pen"
                   type="is-primary"
                   @click="goToEditActivityBlog"
-                  v-if="accessList.edit && (currentUser.id === activityBlog.author.id || currentUser.role === 'ADMIN')">
+                  v-if="accessList.edit && (isAuthor || currentUser.role === 'ADMIN')">
           Edit
         </b-button>
         <b-button rounded
                   icon-left="trash"
                   type="is-danger"
                   @click="openDeleteConfirmationModal"
-                  v-if="accessList.delete && (currentUser.id === activityBlog.author.id || currentUser.role === 'ADMIN')">
+                  v-if="accessList.delete && (isAuthor || currentUser.role === 'ADMIN')">
           Delete
         </b-button>
       </div>
@@ -25,7 +25,7 @@
         </div>
         <div class="activity-blog-detail__container__header-info">
           <div class="activity-blog-detail__container__header-info-author">
-            by <span class="has-text-weight-bold">{{ activityBlog.author.name }}</span>
+            by <span class="has-text-weight-bold">{{ authorName }}</span>
           </div>
           <div class="activity-blog-detail__container__header-info-date">
             <span class="is-size-7">
