@@ -151,6 +151,9 @@ describe('Courses Revamp', () => {
   })
 
   test('initBatchCourse batches length > 0', () => {
+    store.state.currentUser = {
+      role: 'ADMIN'
+    }
     wrapper.vm.batches = [ 'test1', 'test2' ]
     const spy = jest.spyOn(wrapper.vm, 'fetchCourse')
     wrapper.vm.initBatchCourse()
@@ -161,6 +164,18 @@ describe('Courses Revamp', () => {
     wrapper.vm.batches = []
     const spy = jest.spyOn(wrapper.vm, 'fetchBatchList')
     wrapper.vm.initBatchCourse()
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('initBatchCourse isStudent', () => {
+    store.state.currentUser = {
+      role: 'STUDENT',
+      batchCode: '1'
+    }
+    wrapper.vm.batches = []
+    const spy = jest.spyOn(wrapper.vm, 'fetchCourse')
+    wrapper.vm.initBatchCourse()
+    expect(wrapper.vm.selectedBatchCode).toEqual('1')
     expect(spy).toHaveBeenCalledTimes(1)
   })
 
