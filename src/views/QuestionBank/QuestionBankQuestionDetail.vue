@@ -1,65 +1,75 @@
 <template>
-  <div class="main-container scrollable-container">
-    <BaseCard class="question-container">
-      <span class="section-header">Question</span>
-      <BaseTextArea :style="{height: '200px'}" v-model="questionDetail.label" :disabled="!editMode"></BaseTextArea>
-    </BaseCard>
-    <div class="options-container">
-      <BaseCard class="choices-card" :style="{'margin-bottom': '0'}">
-        <span class="section-header">Options</span>
-        <div class="answer-container">
-          <div class="answer-container__option">
-            <span class="answer-container__option-label">A: </span>
-            <BaseInput class="answer-container__option-input" :inputType="selectedAnswer === 0 ? 'blue-input' : '' " v-model="questionDetail.options[0].label" placeholder="Option A" :disabled="!editMode"></BaseInput>
-          </div>
-          <div class="answer-container__option">
-            <span class="answer-container__option-label">B: </span>
-            <BaseInput class="answer-container__option-input" :inputType="selectedAnswer === 1 ? 'blue-input' : '' " v-model="questionDetail.options[1].label" placeholder="Option B" :disabled="!editMode"></BaseInput>
-          </div>
-          <div class="answer-container__option">
-            <span class="answer-container__option-label">C: </span>
-            <BaseInput class="answer-container__option-input" :inputType="selectedAnswer === 2 ? 'blue-input' : '' " v-model="questionDetail.options[2].label" placeholder="Option C" :disabled="!editMode"></BaseInput>
-          </div>
-          <div class="answer-container__option">
-            <span class="answer-container__option-label">D: </span>
-            <BaseInput class="answer-container__option-input" :inputType="selectedAnswer === 3 ? 'blue-input' : '' " v-model="questionDetail.options[3].label" placeholder="Option D" :disabled="!editMode"></BaseInput>
+  <div class="auto-overflow-container">
+    <div class="question__container">
+      <div class="question__container__actions">
+        <b-button rounded
+                  icon-left="pen"
+                  type="is-primary"
+                  @click=""
+                  v-if="accessList.edit">
+          Edit
+        </b-button>
+        <b-button rounded
+                  icon-left="trash"
+                  type="is-danger"
+                  @click="showDeleteConfirmationModal = true"
+                  v-if="accessList.delete">
+          Delete
+        </b-button>
+      </div>
+      <div class="question__container__detail">
+        <div class="question__container__header">
+          <div class="question__container__header-title has-text-centered">
+          <span class="is-size-5 has-text-weight-bold">
+            {{ questionDetail.label }}
+          </span>
           </div>
         </div>
-      </BaseCard>
-      <div>
-        <BaseCard class="answer-card">
-          <span class="section-header">Answer</span>
-          <label>
-            <BaseCard class="select-answer-card" :class="selectedAnswer === 0 ? 'blue-card' : '' " :style="selectAnswerCardStyle">
-              A
-            </BaseCard>
-            <input type="radio" name="selectedAnswer" :value="0" v-model="selectedAnswer" :disabled="!editMode">
-          </label>
-          <label>
-            <BaseCard class="select-answer-card" :class="selectedAnswer === 1 ? 'blue-card' : '' " :style="selectAnswerCardStyle">
-              B
-            </BaseCard>
-            <input type="radio" name="selectedAnswer" :value="1" v-model="selectedAnswer" :disabled="!editMode">
-          </label>
-          <label>
-            <BaseCard class="select-answer-card" :class="selectedAnswer === 2 ? 'blue-card' : '' " :style="selectAnswerCardStyle">
-              C
-            </BaseCard>
-            <input type="radio" name="selectedAnswer" :value="2" v-model="selectedAnswer" :disabled="!editMode">
-          </label>
-          <label>
-            <BaseCard class="select-answer-card" :class="selectedAnswer === 3 ? 'blue-card' : '' " :style="selectAnswerCardStyle">
-              D
-            </BaseCard>
-            <input type="radio" name="selectedAnswer" :value="3" v-model="selectedAnswer" :disabled="!editMode">
-          </label>
-        </BaseCard>
-        <div class="action-container">
-          <BaseButton buttonClass="button-cancel" @click="cancelButtonClicked">{{cancelButtonText}}</BaseButton>
-          <BaseButton buttonClass="button-save" @click="actionButtonClicked">{{actionButtonText}}</BaseButton>
+        <div class="question__container__options">
+          <div class="tile is-ancestor">
+            <div class="tile is-parent">
+              <article class="tile is-child box" :class="{'notification is-info': questionDetail.options[0].correct}">
+                <div class="tile-header">
+                  <p v-text="header(0)"></p>
+                </div>
+                <p class="subtitle">{{questionDetail.options[0].label}}</p>
+              </article>
+            </div>
+            <div class="tile is-parent">
+              <article class="tile is-child box" :class="{'notification is-info': questionDetail.options[1].correct}">
+                <div class="tile-header">
+                  <p v-text="header(1)"></p>
+                </div>
+                <p class="subtitle">{{questionDetail.options[1].label}}</p>
+              </article>
+            </div>
+          </div>
+          <div class="tile is-ancestor">
+            <div class="tile is-parent">
+              <article class="tile is-child box" :class="{'notification is-info': questionDetail.options[2].correct}">
+                <div class="tile-header">
+                  <p v-text="header(2)"></p>
+                </div>
+                <p class="subtitle">{{questionDetail.options[2].label}}</p>
+              </article>
+            </div>
+            <div class="tile is-parent">
+              <article class="tile is-child box" :class="{'notification is-info': questionDetail.options[3].correct}">
+                <div class="tile-header">
+                  <p v-text="header(3)"></p>
+                </div>
+                <p class="subtitle">{{questionDetail.options[3].label}}</p>
+              </article>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+    <modal-delete-confirmation v-if="showDeleteConfirmationModal"
+                               @close="showDeleteConfirmationModal = false"
+                               @clickDelete="deleteQuestion">
+      <div slot="description">{{deleteModalMessage}}</div>
+    </modal-delete-confirmation>
   </div>
 </template>
 
@@ -67,118 +77,87 @@
 </script>
 
 <style lang="scss" scoped>
-  .section-header {
-    font-weight: bold;
-    font-size: large;
-  }
-  .question-container {
-    padding-bottom: 40px;
-  }
-  .answer-container {
-    margin-top: 10px;
-    padding-bottom: 20px;
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: space-around;
-    &__option {
-      width: 90%;
+  @import "@/assets/css/main.scss";
+
+  .question {
+    &__container {
       display: flex;
-      flex-direction: row;
-      align-items: center;
-      &-label {
-        position: relative;
-        margin-right: 20px;
-        cursor: pointer;
-        font-size: 22px;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        & input[type=radio] {
-          position: absolute;
-          opacity: 0;
-          cursor: pointer;
-        }
-        &:hover input[type=radio] ~ .checkmark {
-          background-color: #ccc;
-        }
-        & input[type=radio]:checked ~ .checkmark {
-          background-color: #2196F3;
-          &:after {
-            display: block;
+      flex-direction: column;
+      height: 100%;
+      padding: 1rem 1.25rem;
+
+      &__actions {
+        margin-bottom: 0.75rem;
+
+        button {
+          margin-left: 0.25rem;
+          margin-right: 0.25rem;
+
+          &:first-child {
+            margin-left: 0;
           }
         }
-        .checkmark:after {
-          top: 9px;
-          left: 9px;
-          width: 8px;
-          height: 8px;
+
+        @media only screen and (max-width: 1023px) {
+          margin-bottom: 0;
+          display: flex;
+          flex-direction: column;
+          position: fixed;
+          right: 5vw;
+          bottom: 75px;
+          transition: all 0.1s ease-in-out;
           border-radius: 50%;
-          background: white;
+
+          button {
+            margin: 0.25rem 0;
+            box-shadow: 2px 2px 16px 4px rgba(0, 0, 0, 0.1);
+          }
         }
       }
-      &-input {
+
+      &__header {
+        margin-bottom: 0.75rem;
+
+        &__info {
+          border-left: 1px solid #BDBDBD;
+          padding-left: 0.5rem;
+        }
+      }
+
+      &__detail {
+        margin: auto 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      &__options {
         width: 100%;
+      }
+
+      &__content {
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #BDBDBD;
+        margin-bottom: 1rem;
+        @media only screen and (max-width: 1023px) {
+          margin-bottom: 15vh;
+        }
       }
     }
   }
-  .checkmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 25px;
-    width: 25px;
-    background-color: #eee;
-    border-radius: 50%;
-    &:after {
-      content: "";
-      position: absolute;
-      display: none;
-    }
-  }
-  .action-container {
-    float: right;
-    display: flex;
-    flex-direction: row;
+
+  .tile-header {
+    width: 100%;
+    border-bottom: 1px solid #BDBDBD;
+    margin-bottom: 1rem;
   }
 
-  .container {
+  /deep/ img {
     display: block;
-    position: relative;
-    padding-left: 35px;
-    margin-bottom: 12px;
-    cursor: pointer;
-    font-size: 22px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-  }
-
-  .options-container {
-    display: flex;
-    flex-direction: row;
-  }
-
-  .answer-card {
-    height: 80%;
-  }
-
-  input[type=radio] {
-    display: none;
-  }
-
-  .select-answer-card:hover {
-    cursor: pointer;
-    transition: all .3s ease;
-    box-shadow: 2px 2px 10px rgba(0,0,0,0.1), 2px 2px 10px rgba(0,0,0,0.3);
-  }
-
-  .blue-card {
-    background-color: #02AAF3;
-    color: white;
+    margin-left: auto;
+    margin-right: auto;
+    max-height: 300px;
   }
 </style>
 

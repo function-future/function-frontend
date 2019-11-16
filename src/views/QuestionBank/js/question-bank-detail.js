@@ -137,7 +137,13 @@ export default {
       console.log('LOREM ' + id)
     },
     redirectToQuestionDetail(id) {
-      console.log('DOLOR ' + id)
+      this.$router.push({
+        name: 'questionBankQuestionDetail',
+        params: {
+          questionId: id,
+          bankId: this.$route.params.bankId
+        }
+      })
     },
     openDeleteConfirmationModal(id) {
       this.selectedId = id

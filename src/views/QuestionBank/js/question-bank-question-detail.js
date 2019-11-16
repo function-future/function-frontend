@@ -34,10 +34,7 @@ export default {
       },
       submittedQuestion: {},
       editMode: false,
-      selectAnswerCardStyle: {
-        'padding': '10px 20px',
-        'margin': '10px 0'
-      }
+      showDeleteConfirmationModal: false
     }
   },
   created () {
@@ -45,14 +42,9 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'question'
-    ]),
-    cancelButtonText () {
-      return this.editMode ? 'Cancel' : 'Return'
-    },
-    actionButtonText () {
-      return this.editMode ? 'Save' : 'Edit'
-    }
+      'question',
+      'accessList'
+    ])
   },
   methods: {
     ...mapActions([
@@ -122,6 +114,21 @@ export default {
           bankId: this.$route.params.bankId
         }
       })
+    },
+    header (idx) {
+      switch (idx) {
+        case 0:
+          return 'Option A'
+        case 1:
+          return 'Option B'
+        case 2:
+          return 'Option C'
+        case 3:
+          return 'Option D'
+      }
+    },
+    deleteQuestion () {
+
     }
   }
 }
