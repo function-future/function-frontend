@@ -124,16 +124,14 @@ describe('ModalCopy', () => {
       }
     ]
     initComponent()
+    wrapper.setProps({
+      currentBatch: ''
+    })
     wrapper.vm.successFetchBatches()
     expect(wrapper.vm.batches).toEqual(expectedResult)
   })
 
-  test('successFetchBatches params code', () => {
-    $route = {
-      params: {
-        code: 'batch-code'
-      }
-    }
+  test('successFetchBatches currentBatch', () => {
     const expectedResult = [
       {
         'id': 'sample-id',
@@ -142,6 +140,9 @@ describe('ModalCopy', () => {
       }
     ]
     initComponent()
+    wrapper.setProps({
+      currentBatch: 'batch-code'
+    })
     wrapper.vm.successFetchBatches()
     expect(wrapper.vm.batches).toEqual(expectedResult)
   })

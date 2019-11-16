@@ -52,7 +52,7 @@ describe('EmptyState', () => {
       store,
       localVue,
       propsData: {
-        src: 'announcements'
+        src: 'announcements-feeds'
       },
       mocks: {
         $toasted

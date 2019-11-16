@@ -30,11 +30,11 @@
       justify-content: center;
 
       &-asset {
-        padding: 4rem 1rem 1rem 1rem;
-        width: 300px;
+        padding: 3rem 1rem 1rem 1rem;
+        width: 40%;
 
         @media only screen and (max-width: 1023px) {
-          width: 200px;
+          width: 50%;
         }
       }
 

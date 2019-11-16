@@ -3,6 +3,7 @@ import InfiniteLoading from 'vue-infinite-loading'
 import ListItem from '@/components/list/ListItem'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
 import ModalCopy from '@/components/modals/ModalCopy'
+import EmptyState from '@/components/emptyState/EmptyState'
 
 export default {
   name: 'coursesRevamp',
@@ -10,7 +11,8 @@ export default {
     InfiniteLoading,
     ListItem,
     ModalDeleteConfirmation,
-    ModalCopy
+    ModalCopy,
+    EmptyState
   },
   data () {
     return {
@@ -44,7 +46,8 @@ export default {
       allSelected: false,
       infiniteId: +new Date(),
       infiniteState: '',
-      showNoBatchAvailableMessage: false
+      showNoBatchAvailableMessage: false,
+      failFetchData: false
     }
   },
   computed: {
@@ -53,7 +56,13 @@ export default {
       'currentUser'
     ]),
     isStudent () {
-      return this.currentUser.role === 'STUDENT'
+      return this.currentUser && this.currentUser.role === 'STUDENT'
+    },
+    isAdmin () {
+      return this.currentUser && this.currentUser.role === 'ADMIN'
+    },
+    loggedIn () {
+      return Object.keys(this.currentUser).length
     },
     currentTabType () {
       return this.$route.query.tab
@@ -63,6 +72,9 @@ export default {
     },
     originBatch () {
       return this.currentTabType === 'master' ? null : this.$route.params.code
+    },
+    coursesEmpty () {
+      return !(this.courses && this.courses.length)
     }
   },
   created () {
@@ -89,7 +101,9 @@ export default {
     },
     initPage ($state) {
       this.infiniteState = $state
-      this.currentTabType === 'master' ? this.fetchMasterCourse() : this.initBatchCourse()
+      if (this.currentTabType) {
+        this.currentTabType === 'master' ? this.fetchMasterCourse() : this.initBatchCourse()
+      }
     },
     setQuery () {
       if (this.activeTab < 0 || this.activeTab > this.tabs.length) this.activeTab = 0
@@ -109,6 +123,8 @@ export default {
     },
     successFetchBatches (response) {
       this.batches = response
+      this.failFetchData = false
+      this.showNoBatchAvailableMessage = false
       if (this.batches.length) {
         this.selectedBatchCode = response[0].code
         this.fetchCourse()
@@ -116,9 +132,11 @@ export default {
         this.infiniteState.complete()
         this.switchingTabLoading = false
         this.showNoBatchAvailableMessage = true
+        this.isLoading = false
       }
     },
     failFetchBatches () {
+      this.failFetchData = true
       this.$toasted.error('Fail to load batch list, please refresh the page')
     },
     fetchCourse () {
@@ -142,6 +160,8 @@ export default {
     successFetchCourse (response, paging) {
       this.switchingTabLoading = false
       this.isLoading = false
+      this.failFetchData = false
+      this.showNoBatchAvailableMessage = false
       this.paging = paging
       this.courses.push(...response)
       if (response.length) {
@@ -154,6 +174,8 @@ export default {
     failFetchCourse () {
       this.switchingTabLoading = false
       this.isLoading = false
+      this.failFetchData = true
+      this.showNoBatchAvailableMessage = false
       this.$toasted.error('Fail to load course list')
     },
     resetPage () {
@@ -272,6 +294,9 @@ export default {
     courseTitleEllipsis (title) {
       let max = 50
       return title.length > max ? title.substr(0, max) + '...' : title
+    },
+    goToCreateBatch () {
+      this.$router.push({ name: 'addBatch' })
     }
   },
   watch: {

@@ -98,7 +98,7 @@
             </EmptyState>
           </div>
           <div v-if="activityBlogEmpty && failLoadActivityBlog">
-            <EmptyState src="error" errorState="true"></EmptyState>
+            <EmptyState src="error" :errorState="true"></EmptyState>
           </div>
         </div>
       </div>

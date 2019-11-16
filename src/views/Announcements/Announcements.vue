@@ -65,14 +65,14 @@
         </div>
         <div v-if="!isLoading">
           <div v-if="announcementEmpty && !failLoadAnnouncement">
-            <EmptyState src="announcements">
+            <EmptyState src="announcements-list">
               <template #title>
                 Looks like there is no announcements!
               </template>
             </EmptyState>
           </div>
           <div v-if="announcementEmpty && failLoadAnnouncement">
-            <EmptyState src="error" errorState="true"></EmptyState>
+            <EmptyState src="error" :errorState="true"></EmptyState>
           </div>
         </div>
       </div>

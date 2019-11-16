@@ -58,6 +58,7 @@ export default {
       this.stickyNote = this.stickyNotes[0] || ''
     },
     failLoadStickyNote () {
+      //TODO: change to buefy toasted
       this.$toasted.error('Fail to load sticky note detail, please refresh the page')
     },
     goToStickyNotesDetail () {
