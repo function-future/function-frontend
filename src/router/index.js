@@ -16,6 +16,7 @@ import addQuestionBank from '@/views/QuestionBank/AddQuestionBank'
 import questionBankQuestionList from '@/views/QuestionBank/QuestionBankQuestionList'
 import questionBankAddQuestion from '@/views/QuestionBank/QuestionBankAddQuestion'
 import questionBankQuestionDetail from '@/views/QuestionBank/QuestionBankQuestionDetail'
+import questionForm from '@/views/QuestionBank/QuestionForm'
 import quizBatch from '@/views/Quiz/QuizBatch'
 import quizBatchForm from '@/views/Quiz/QuizBatchForm'
 import quizzes from '@/views/Quiz/Quiz'
@@ -687,6 +688,30 @@ const router = new Router({
           { name: 'Questions', link: 'questionBankQuestionList' },
           { name: 'Question Detail', link: 'questionBankQuestionDetail' }
         ]
+      }
+    },
+    {
+      path: config.app.pages.questionBanks.questions.add,
+      name: 'addQuestion',
+      component: questionForm,
+      meta: {
+        auth: true,
+        title: 'New Question'
+      },
+      props: {
+        editMode: false
+      }
+    },
+    {
+      path: config.app.pages.questionBanks.questions.edit,
+      name: 'editQuestion',
+      component: questionForm,
+      meta: {
+        auth: true,
+        title: 'Edit Question'
+      },
+      props: {
+        editMode: true
       }
     },
     {

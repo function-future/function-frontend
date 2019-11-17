@@ -121,6 +121,15 @@ export default {
           return 'Option D'
       }
     },
+    redirectToEditPage () {
+      this.$router.push({
+        name: 'editQuestion',
+        params: {
+          bankId: this.$route.params.bankId,
+          questionId: this.$route.params.questionId
+        }
+      })
+    },
     deleteQuestion () {
       this.deleteQuestionById({
         data: {
