@@ -124,6 +124,7 @@
 
       &__header {
         margin-bottom: 0.75rem;
+        width: 100%;
 
         &__info {
           border-left: 1px solid #BDBDBD;
