@@ -20,9 +20,16 @@
       <div class="question__container__detail">
         <div class="question__container__header">
           <div class="question__container__header-title has-text-centered">
-          <span class="is-size-5 has-text-weight-bold">
-            {{ questionDetail.label }}
-          </span>
+            <div class="tile is-ancestor">
+              <div class="tile is-parent">
+                <article class="tile is-child box">
+                  <span class="is-size-5 has-text-weight-bold">
+                    {{ questionDetail.label }}
+                  </span>
+                </article>
+              </div>
+            </div>
+
           </div>
         </div>
         <div class="question__container__options">
@@ -68,7 +75,7 @@
     <modal-delete-confirmation v-if="showDeleteConfirmationModal"
                                @close="showDeleteConfirmationModal = false"
                                @clickDelete="deleteQuestion">
-      <div slot="description">{{deleteModalMessage}}</div>
+      <div slot="description">Are you sure you want to delete this question?</div>
     </modal-delete-confirmation>
   </div>
 </template>
