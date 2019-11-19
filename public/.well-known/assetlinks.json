@@ -1,0 +1,5 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target" : { "namespace": "android_app", "package_name": "com.future.function",
+               "sha256_cert_fingerprints": ["A6:2C:7D:E3:B9:9A:3E:39:37:CA:F5:A7:AE:1F:E8:B4:F4:74:5D:EE:7F:6D:1F:9B:BA:35:F5:FD:A9:30:2B:7A"] }
+}]

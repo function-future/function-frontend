@@ -16,6 +16,7 @@ import VCalendar from 'v-calendar'
 import VueCookies from 'vue-cookies'
 import Buefy from 'buefy'
 import '@/assets/css/bulma.scss'
+import './registerServiceWorker'
 
 library.add(fas)
 library.add(far)
