@@ -31,7 +31,8 @@ describe('Users', () => {
       setAdminList: jest.fn(),
       setMentorList: jest.fn(),
       setJudgeList: jest.fn(),
-      deleteUserById: jest.fn()
+      deleteUserById: jest.fn(),
+      toast: jest.fn()
     }
     const getters = {
       accessList: state => state.accessList
@@ -56,10 +57,6 @@ describe('Users', () => {
 
   function createWrapper (store, options) {
     const router = new VueRouter([])
-    const $toasted = {
-      error: jest.fn(),
-      success: jest.fn()
-    }
     return shallowMount(Users, {
       ...options,
       store,
@@ -74,9 +71,6 @@ describe('Users', () => {
         'b-tabs',
         'font-awesome-icon'
       ],
-      mocks: {
-        $toasted
-      },
       sync: false
     })
   }
@@ -136,9 +130,15 @@ describe('Users', () => {
 
   test('failGetUserList', () => {
     initComponent()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failGetUserList()
     expect(wrapper.vm.isLoading).toEqual(false)
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Fail to fetch list',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('goToAddUser student', () => {
@@ -203,14 +203,26 @@ describe('Users', () => {
 
   test('successDeleteUserById', () => {
     initComponent()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.successDeleteUserById()
-    expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'successfully delete user',
+        type: 'is-success'
+      }
+    })
   })
 
   test('failDeleteUserById', () => {
     initComponent()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failDeleteUserById()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Fail to delete user',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('loadPage', () => {
