@@ -30,7 +30,8 @@ describe('EditStickyNotes', () => {
     const actions = {
       fetchStickyNotes: jest.fn(),
       postStickyNotes: jest.fn(),
-      initialState: jest.fn()
+      initialState: jest.fn(),
+      toast: jest.fn()
     }
     const getters = {
       stickyNotes: state => state.stickyNotes
@@ -55,22 +56,15 @@ describe('EditStickyNotes', () => {
 
   function createWrapper (store, options) {
     const router = new VueRouter([])
-    const $toasted = {
-      error: jest.fn(),
-      success: jest.fn()
-    }
     return shallowMount(EditStickyNotes, {
       ...options,
       store,
       localVue,
       router,
-      mocks: {
-        $toasted
-      },
       stubs: [
-        'BaseInput',
-        'BaseButton',
-        'mavon-editor'
+        'b-field',
+        'b-input',
+        'b-button'
       ],
       sync: false
     })
@@ -106,8 +100,14 @@ describe('EditStickyNotes', () => {
 
   test('failFetchingStickyNotes', () => {
     initComponent()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failFetchingStickyNotes()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Fail to load sticky note detail, , please refresh the page',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('setStickyNote', () => {
@@ -150,18 +150,30 @@ describe('EditStickyNotes', () => {
 
   test('successPostStickyNote', () => {
     initComponent()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     const spy = jest.spyOn(wrapper.vm, 'initialState')
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.successPostStickyNotes()
     expect(spy).toHaveBeenCalledTimes(1)
     expect(wrapper.vm.$router.push).toHaveBeenCalledTimes(1)
-    expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Successfully created new sticky note',
+        type: 'is-success'
+      }
+    })
   })
 
   test('failPostStickyNotes', () => {
     initComponent()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failPostStickyNotes()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Fail to create new sticky note',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('cancel', () => {
