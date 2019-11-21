@@ -30,7 +30,8 @@ export default {
       'createAnnouncement',
       'updateAnnouncement',
       'initialState',
-      'uploadResource'
+      'uploadResource',
+      'toast'
     ]),
     initPage () {
       this.initialState()
@@ -51,7 +52,12 @@ export default {
       this.setAnnouncementDetail()
     },
     failFetchAnnouncementById () {
-      this.$toasted.error('Fail to load announcement detail')
+      this.toast({
+        data: {
+          message: 'Fail to load announcement detail',
+          type: 'is-danger'
+        }
+      })
     },
     setAnnouncementDetail () {
       this.announcementDetail = {
@@ -90,11 +96,21 @@ export default {
     successSendCreateAnnouncementData () {
       this.initialState()
       this.$router.push({ name: 'announcements' })
-      this.$toasted.success('Successfully created new announcement')
+      this.toast({
+        data: {
+          message: 'Successfully created new announcement',
+          type: 'is-success'
+        }
+      })
     },
     failSendCreateAnnouncementData () {
       this.isSubmitting = false
-      this.$toasted.error('Fail to create new announcement')
+      this.toast({
+        data: {
+          message: 'Fail to create new announcement',
+          type: 'is-danger'
+        }
+      })
     },
     sendUpdateAnnouncementData (data) {
       this.updateAnnouncement({
@@ -108,12 +124,22 @@ export default {
         name: 'announcementDetail',
         params: { id: this.announcementDetail.id }
       })
-      this.$toasted.success('Successfully update announcement')
+      this.toast({
+        data: {
+          message: 'Successfully update announcement',
+          type: 'is-success'
+        }
+      })
       this.initialState()
     },
     failSendUpdateAnnouncementData () {
       this.isSubmitting = false
-      this.$toasted.error('Fail to update announcement')
+      this.toast({
+        data: {
+          message: 'Fail to update announcement',
+          type: 'is-danger'
+        }
+      })
     },
     cancel () {
       this.$router.push({ name: 'announcements' })
@@ -138,7 +164,12 @@ export default {
     },
     failUploadResource () {
       this.uploadingFile = false
-      this.$toasted.error('Fail to upload image, please delete the image and re-upload')
+      this.toast({
+        data: {
+          message: 'Fail to upload image, please delete the image and re-upload',
+          type: 'is-danger'
+        }
+      })
     }
   }
 }

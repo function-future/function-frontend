@@ -62,7 +62,8 @@ describe('AnnouncementForm.vue on edit mode', () => {
       initialState: jest.fn(),
       fetchAnnouncementById: jest.fn(),
       createAnnouncement: jest.fn(),
-      updateAnnouncement: jest.fn()
+      updateAnnouncement: jest.fn(),
+      toast: jest.fn()
     }
     getters = {
       announcement: state => state.announcement
@@ -149,16 +150,10 @@ describe('AnnouncementForm.vue on edit mode', () => {
   })
 
   test('failFetchAnnouncementById', () => {
-    const $toasted = {
-      error: jest.fn()
-    }
     const wrapper = shallowMount(AnnouncementForm, {
       store,
       localVue,
       router,
-      mocks: {
-        $toasted
-      },
       stubs: [
         'BaseInput',
         'BaseTextArea',
@@ -170,8 +165,14 @@ describe('AnnouncementForm.vue on edit mode', () => {
       ],
       sync: false
     })
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failFetchAnnouncementById()
-    expect($toasted.error).toHaveBeenCalled()
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Fail to load announcement detail',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('sendAnnouncement', () => {
@@ -238,16 +239,10 @@ describe('AnnouncementForm.vue on edit mode', () => {
   })
 
   test('successSendCreateAnnouncementData', () => {
-    const $toasted = {
-      success: jest.fn()
-    }
     const wrapper = shallowMount(AnnouncementForm, {
       store,
       localVue,
       router,
-      mocks: {
-        $toasted,
-      },
       stubs: [
         'BaseInput',
         'BaseTextArea',
@@ -260,24 +255,24 @@ describe('AnnouncementForm.vue on edit mode', () => {
       sync: false
     })
     const spy = jest.spyOn(wrapper.vm, 'initialState')
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.successSendCreateAnnouncementData()
-    expect($toasted.success).toHaveBeenCalledWith('Successfully created new announcement')
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'announcements' })
     expect(spy).toBeCalled()
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Successfully created new announcement',
+        type: 'is-success'
+      }
+    })
   })
 
   test('failSendCreateAnnouncementData', () => {
-    const $toasted = {
-      error: jest.fn()
-    }
     const wrapper = shallowMount(AnnouncementForm, {
       store,
       localVue,
       router,
-      mocks: {
-        $toasted
-      },
       stubs: [
         'BaseInput',
         'BaseTextArea',
@@ -289,21 +284,21 @@ describe('AnnouncementForm.vue on edit mode', () => {
       ],
       sync: false
     })
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failSendCreateAnnouncementData()
-    expect($toasted.error).toHaveBeenCalled()
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Fail to create new announcement',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('successSendUpdateAnnouncementData', () => {
-    const $toasted = {
-      success: jest.fn()
-    }
     const wrapper = shallowMount(AnnouncementForm, {
       store,
       localVue,
       router,
-      mocks: {
-        $toasted
-      },
       stubs: [
         'BaseInput',
         'BaseTextArea',
@@ -317,23 +312,23 @@ describe('AnnouncementForm.vue on edit mode', () => {
     })
     wrapper.vm.$router.push = jest.fn()
     const spy = jest.spyOn(wrapper.vm, 'initialState')
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.successSendUpdateAnnouncementData()
     expect(wrapper.vm.$router.push).toHaveBeenCalledTimes(1)
-    expect($toasted.success).toHaveBeenCalledTimes(1)
     expect(spy).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Successfully update announcement',
+        type: 'is-success'
+      }
+    })
   })
 
   test('failSendUpdateAnnouncementData', () => {
-    const $toasted = {
-      error: jest.fn()
-    }
     const wrapper = shallowMount(AnnouncementForm, {
       store,
       localVue,
       router,
-      mocks: {
-        $toasted
-      },
       stubs: [
         'BaseInput',
         'BaseTextArea',
@@ -345,8 +340,14 @@ describe('AnnouncementForm.vue on edit mode', () => {
       ],
       sync: false
     })
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failSendUpdateAnnouncementData()
-    expect($toasted.error).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Fail to update announcement',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('cancel', () => {
@@ -474,11 +475,6 @@ describe('AnnouncementForm.vue on edit mode', () => {
         'v-date-picker',
         'v-calendar'
       ],
-      mocks: {
-        $toasted: {
-          error: jest.fn()
-        }
-      },
       propsData: { editMode: true },
       sync: false
     })
@@ -511,16 +507,17 @@ describe('AnnouncementForm.vue on edit mode', () => {
         'v-date-picker',
         'v-calendar'
       ],
-      mocks: {
-        $toasted: {
-          error: jest.fn()
-        }
-      },
       propsData: { editMode: true },
       sync: false
     })
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failUploadResource()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Fail to upload image, please delete the image and re-upload',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('$imgAdd', () => {
@@ -537,11 +534,6 @@ describe('AnnouncementForm.vue on edit mode', () => {
         'v-date-picker',
         'v-calendar'
       ],
-      mocks: {
-        $toasted: {
-          error: jest.fn()
-        }
-      },
       propsData: { editMode: true },
       sync: false
     })

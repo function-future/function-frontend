@@ -365,58 +365,60 @@ describe('Announcements', () => {
   })
 
   test('failLoadingAnnouncementList', () => {
-    const $toasted = {
-      error: jest.fn()
-    }
     wrapper = shallowMount(announcements, {
       store,
       localVue,
-      mocks: {
-        $toasted
-      },
       sync: false
     })
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failLoadingAnnouncementList()
     expect(wrapper.vm.isLoading).toEqual(false)
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Fail to load announcement list',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('successDeleteAnnouncementById', () => {
     const $router = {
       push: jest.fn()
     }
-    const $toasted = {
-      success: jest.fn()
-    }
     wrapper = shallowMount(announcements, {
       store,
       localVue,
       mocks: {
-        $toasted,
         $router
       },
       sync: false
     })
     const loadAnnouncementListSpy = jest.spyOn(wrapper.vm, 'loadAnnouncementList')
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.successDeleteAnnouncementById()
-    expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
     expect(loadAnnouncementListSpy).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Successfully delete announcement',
+        type: 'is-success'
+      }
+    })
   })
 
   test('failDeleteAnnouncementById', () => {
-    const $toasted = {
-      error: jest.fn()
-    }
     wrapper = shallowMount(announcements, {
       store,
       localVue,
-      mocks: {
-        $toasted
-      },
       sync: false
     })
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failDeleteAnnouncementById()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Fail to delete announcement',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('successLoadAnnouncementList', () => {
