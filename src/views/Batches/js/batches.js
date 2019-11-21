@@ -34,7 +34,8 @@ export default {
   methods: {
     ...mapActions([
       'fetchBatches',
-      'deleteBatch'
+      'deleteBatch',
+      'toast'
     ]),
     initPage () {
       this.isLoading = true
@@ -51,7 +52,12 @@ export default {
     failFetchBatches () {
       this.isLoading = false
       this.failFetchBatch = true
-      this.$toasted.error('Fail to fetch batches, please try again')
+      this.toast({
+        data: {
+          message: 'Fail to fetch batches, please try again',
+          type: 'is-danger'
+        }
+      })
     },
     createNewBatch () {
       this.$router.push({ name: 'addBatch' })
@@ -80,11 +86,21 @@ export default {
     successDeleteBatch () {
       this.selectedId = ''
       this.initPage()
-      this.$toasted.success('Successfully delete batch')
+      this.toast({
+        data: {
+          message: 'Successfully delete batch',
+          type: 'is-success'
+        }
+      })
     },
     failDeleteBatch () {
       this.selectedId = ''
-      this.$toasted.error('Fail to delete batch')
+      this.toast({
+        data: {
+          message: 'Fail to delete batch',
+          type: 'is-danger'
+        }
+      })
     }
   }
 }

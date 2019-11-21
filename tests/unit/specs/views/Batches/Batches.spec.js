@@ -29,7 +29,8 @@ describe('Batches', () => {
     }
     const actions = {
       fetchBatches: jest.fn(),
-      deleteBatch: jest.fn()
+      deleteBatch: jest.fn(),
+      toast: jest.fn()
     }
     const getters = {
       accessList: state => state.accessList,
@@ -55,10 +56,6 @@ describe('Batches', () => {
 
   function createWrapper (store, options) {
     const router = new VueRouter([])
-    const $toasted = {
-      error: jest.fn(),
-      success: jest.fn()
-    }
     return shallowMount(Batches, {
       ...options,
       store,
@@ -68,9 +65,6 @@ describe('Batches', () => {
         'b-button',
         'b-input'
       ],
-      mocks: {
-        $toasted
-      },
       sync: false
     })
   }
@@ -110,9 +104,15 @@ describe('Batches', () => {
   })
 
   test('failFetchBatches', () => {
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failFetchBatches()
     expect(wrapper.vm.isLoading).toEqual(false)
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Fail to fetch batches, please try again',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('editBatch', () => {
@@ -138,16 +138,28 @@ describe('Batches', () => {
 
   test('successDeleteBatch', () => {
     const spy = jest.spyOn(wrapper.vm, 'initPage')
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.successDeleteBatch()
-    expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
     expect(wrapper.vm.selectedId).toEqual('')
     expect(spy).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Successfully delete batch',
+        type: 'is-success'
+      }
+    })
   })
 
   test('failDeleteBatch', () => {
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.failDeleteBatch()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Fail to delete batch',
+        type: 'is-danger'
+      }
+    })
     expect(wrapper.vm.selectedId).toEqual('')
   })
 })
