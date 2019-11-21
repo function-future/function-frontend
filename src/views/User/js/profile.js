@@ -25,7 +25,8 @@ export default {
     ...mapActions([
       'fetchProfile',
       'uploadProfilePicture',
-      'sendProfilePictureId'
+      'sendProfilePictureId',
+      'toast'
     ]),
     initPage () {
       this.fetchProfile({
@@ -37,7 +38,12 @@ export default {
       this.avatarPreview = this.profile.avatar || require('@/assets/profile-picture-placeholder.png')
     },
     failFetchProfile () {
-      this.$toasted.error('Fail to load profile')
+      this.toast({
+        data: {
+          message: 'Fail to load profile',
+          type: 'is-danger'
+        }
+      })
     },
     goToChangePassword () {
       this.$router.push({ name: 'changePassword' })
@@ -77,7 +83,12 @@ export default {
     },
     failUploadProfilePicture () {
       this.uploadingProfilePicture = false
-      this.$toasted.error('Fail to upload image, please try again')
+      this.toast({
+        data: {
+          message: 'Fail to upload image, please try again',
+          type: 'is-danger'
+        }
+      })
     },
     sendUpdatedProfilePictureId () {
       this.updatingProfilePicture = true
@@ -93,12 +104,22 @@ export default {
     successSendProfilePictureId () {
       this.updatingProfilePicture = false
       this.changeProfilePictureConfirmation = false
-      this.$toasted.success('successfully updated profile picture')
+      this.toast({
+        data: {
+          message: 'successfully updated profile picture',
+          type: 'is-success'
+        }
+      })
       this.initPage()
     },
     failSendProfilePictureId () {
       this.updatingProfilePicture = false
-      this.$toasted.error('Fail to save new profile picture, please try again')
+      this.toast({
+        data: {
+          message: 'Fail to save new profile picture, please try again',
+          type: 'is-danger'
+        }
+      })
     },
     cancelChangeProfilePicture () {
       this.changeProfilePictureConfirmation = false
