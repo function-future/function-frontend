@@ -35,7 +35,8 @@ describe('CourseForm Revamp', () => {
       createMasterCourse: jest.fn(),
       updateCourse: jest.fn(),
       updateMasterCourse: jest.fn(),
-      uploadMaterial: jest.fn()
+      uploadMaterial: jest.fn(),
+      toast: jest.fn()
     }
     const getters = {
       accessList: state => state.accessList
@@ -60,10 +61,6 @@ describe('CourseForm Revamp', () => {
 
   function createWrapper (store, options) {
     const router = new VueRouter([])
-    const $toasted = {
-      error: jest.fn(),
-      success: jest.fn()
-    }
     return shallowMount(CourseForm, {
       ...options,
       store,
@@ -75,9 +72,6 @@ describe('CourseForm Revamp', () => {
         'b-input',
         'b-icon'
       ],
-      mocks: {
-        $toasted
-      },
       propsData: {
         editMode: true,
         master: true
@@ -190,8 +184,14 @@ describe('CourseForm Revamp', () => {
   })
 
   test('failFetchById', () => {
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failFetchById()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Fail to load course detail, please refresh the page',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('validateBeforeSubmit is resolved', (done) => {
@@ -286,16 +286,18 @@ describe('CourseForm Revamp', () => {
 
   test('successCreateOrEditCourse', () => {
     const spy = jest.spyOn(wrapper.vm, 'backToCourseList')
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.successCreateOrEditCourse()
     expect(spy).toHaveBeenCalledTimes(1)
     expect(wrapper.vm.isSubmitting).toEqual(false)
-    expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledTimes(1)
   })
 
   test('failCreateOrEditCourse', () => {
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failCreateOrEditCourse()
     expect(wrapper.vm.isSubmitting).toEqual(false)
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledTimes(1)
   })
 
   test('onFileChange', () => {
@@ -354,10 +356,16 @@ describe('CourseForm Revamp', () => {
   })
 
   test('failUploadMaterial', () => {
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failUploadMaterial()
     expect(wrapper.vm.uploadingFile).toEqual(false)
     expect(wrapper.vm.filePreviewName).toEqual('Fail to upload material, please try again')
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Fail to upload material, please try again',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('cancel when editMode true', () => {

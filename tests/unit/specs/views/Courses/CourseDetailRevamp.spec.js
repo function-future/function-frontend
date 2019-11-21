@@ -39,7 +39,8 @@ describe('CourseDetail Revamp', () => {
       submitCourseDiscussion: jest.fn(),
       deleteCourseById: jest.fn(),
       deleteMasterCourseById: jest.fn(),
-      downloadCourseMaterial: jest.fn()
+      downloadCourseMaterial: jest.fn(),
+      toast: jest.fn()
     }
     const getters = {
       accessList: state => state.accessList
@@ -63,10 +64,6 @@ describe('CourseDetail Revamp', () => {
   }
 
   function createWrapper (store, options) {
-    const $toasted = {
-      error: jest.fn(),
-      success: jest.fn()
-    }
     const $state = {
       loaded: jest.fn(),
       complete: jest.fn()
@@ -84,7 +81,6 @@ describe('CourseDetail Revamp', () => {
       },
       mocks: {
         $state,
-        $toasted,
         $route,
         $router: {
           replace: jest.fn(),
@@ -150,8 +146,14 @@ describe('CourseDetail Revamp', () => {
   })
 
   test('failFetchById', () => {
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failFetchById()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Fail to load detail, please refresh the page',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('initDiscussion', () => {
@@ -210,8 +212,14 @@ describe('CourseDetail Revamp', () => {
   })
 
   test('failFetchCourseDiscussions', () => {
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failFetchCourseDiscussions()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Fail to load course discussion, please refresh the page',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('postDiscussion', () => {
@@ -230,15 +238,27 @@ describe('CourseDetail Revamp', () => {
       'comment': 'Comment Example 11',
       'createdAt': 1570000000
     }
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.successSubmitCourseDiscussion(response)
-    expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Successfully added course discussion',
+        type: 'is-success'
+      }
+    })
     expect(wrapper.vm.discussion.comment).toEqual('')
     expect(wrapper.vm.discussions).toContain(response)
   })
 
   test('failSubmitCourseDiscussion', () => {
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failSubmitCourseDiscussion()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Fail to post course discussion, please try again',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('goToEditPage master', () => {
@@ -316,14 +336,26 @@ describe('CourseDetail Revamp', () => {
 
   test('successDeleteById', () => {
     const spy = jest.spyOn(wrapper.vm, 'backToCourseList')
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.successDeleteById()
     expect(spy).toHaveBeenCalledTimes(1)
-    expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Successfully delete course',
+        type: 'is-success'
+      }
+    })
   })
 
   test('failDeleteById', () => {
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failDeleteById()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Fail to delete course',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('backToCourseList master', () => {
