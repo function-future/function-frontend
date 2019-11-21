@@ -43,7 +43,8 @@ export default {
     ...mapActions([
       'fetchActivityBlogs',
       'fetchUserActivityBlogs',
-      'deleteActivityBlogById'
+      'deleteActivityBlogById',
+      'toast'
     ]),
     initPage () {
       this.userId ? this.loadUserActivityBlogList() : this.loadActivityBlogList()
@@ -79,7 +80,12 @@ export default {
     failLoadActivityBlogList () {
       this.isLoading = false
       this.failLoadActivityBlog = true
-      this.$toasted.error('Fail to load activity blogs list')
+      this.toast({
+        data: {
+          message: 'Fail to load activity blogs list',
+          type: 'is-danger'
+        }
+      })
     },
     compileToMarkdown: function (description) {
       return marked(this.showLimitedPreviewText(description.replace(/<img([\w\W]+?)>/g, '')))
@@ -126,10 +132,20 @@ export default {
     },
     successDeleteActivityBlogById () {
       this.initPage()
-      this.$toasted.success('Successfully delete activity blog')
+      this.toast({
+        data: {
+          message: 'Successfully delete activity blog',
+          type: 'is-success'
+        }
+      })
     },
     failDeleteActivityBlogById () {
-      this.$toasted.error('Fail to delete activity blog')
+      this.toast({
+        data: {
+          message: 'Fail to delete activity blog',
+          type: 'is-danger'
+        }
+      })
     },
     loadPage (page) {
       this.paging.page = page
