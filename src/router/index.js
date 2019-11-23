@@ -680,7 +680,14 @@ const router = new Router({
       component: questionForm,
       meta: {
         auth: true,
-        title: 'New Question'
+        title: 'New Question',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Question Banks', link: 'questionBanks' },
+          { name: 'Question Bank Detail', link: 'questionBankDetail' },
+          { name: 'Questions', link: 'questionBankQuestionList' },
+          { name: 'Add Question', link: 'addQuestion' }
+        ]
       },
       props: {
         editMode: false
@@ -692,7 +699,14 @@ const router = new Router({
       component: questionForm,
       meta: {
         auth: true,
-        title: 'Edit Question'
+        title: 'Edit Question',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Question Banks', link: 'questionBanks' },
+          { name: 'Question Bank Detail', link: 'questionBankDetail' },
+          { name: 'Questions', link: 'questionBankQuestionList' },
+          { name: 'Edit Question', link: 'editQuestion' }
+        ]
       },
       props: {
         editMode: true

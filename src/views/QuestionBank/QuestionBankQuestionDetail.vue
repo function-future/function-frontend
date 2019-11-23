@@ -92,6 +92,7 @@
       flex-direction: column;
       height: 100%;
       padding: 1rem 1.25rem;
+      margin-bottom: 10vh;
 
       &__actions {
         margin-bottom: 0.75rem;
