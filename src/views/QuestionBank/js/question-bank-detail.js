@@ -131,10 +131,21 @@ export default {
       })
     },
     redirectToQuestionForm() {
-      console.log('LOREM')
+      this.$router.push({
+        name: 'addQuestion',
+        params: {
+          bankId: this.$route.params.bankId
+        }
+      })
     },
     redirectToEditQuestionForm(id) {
-      console.log('LOREM ' + id)
+      this.$router.push({
+        name: 'editQuestion',
+        params: {
+          bankId: this.$route.params.bankId,
+          questionId: id
+        }
+      })
     },
     redirectToQuestionDetail(id) {
       this.$router.push({

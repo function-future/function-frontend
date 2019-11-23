@@ -659,22 +659,6 @@ const router = new Router({
       }
     },
     {
-      path: config.app.pages.questionBanks.questions.add,
-      name: 'questionBankAddQuestion',
-      component: questionBankAddQuestion,
-      meta: {
-        auth: true,
-        title: 'Add Question',
-        breadcrumb: [
-          { name: 'Home', link: 'feeds' },
-          { name: 'Question Banks', link: 'questionBanks' },
-          { name: 'Question Bank Detail', link: 'questionBankDetail' },
-          { name: 'Questions', link: 'questionBankQuestionList' },
-          { name: 'Add Question', link: 'questionBankAddQuestion' }
-        ]
-      }
-    },
-    {
       path: config.app.pages.questionBanks.questions.detail,
       name: 'questionBankQuestionDetail',
       component: questionBankQuestionDetail,
