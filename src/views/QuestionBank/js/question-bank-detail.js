@@ -44,7 +44,6 @@ export default {
   },
   methods: {
     ...mapActions([
-      'updateQuestionBank',
       'fetchQuestionBankDetail',
       'fetchQuestionBankQuestionList',
       'deleteQuestionBankById',
@@ -88,38 +87,6 @@ export default {
       }
     },
     failFetchingQuestionBankQuestionList () {
-      this.$toasted.error('Something went wrong')
-    },
-    cancelButtonClicked () {
-      if (this.editMode) {
-        this.initPage()
-        this.editMode = !this.editMode
-        return
-      }
-      this.$router.push({
-        name: 'questionBanks'
-      })
-    },
-    actionButtonClicked () {
-      if (this.editMode) {
-        this.updateQuestionBank({
-          data: {
-            bankId: this.$route.params.bankId
-          },
-          payload: {...this.questionBankDetail},
-          callback: this.successUpdatingQuestionBank,
-          fail: this.failUpdatingQuestionBank
-        })
-      }
-      this.editMode = !this.editMode
-    },
-    successUpdatingQuestionBank () {
-      this.$toasted.success(`Success updating question bank ${this.$route.params.bankId}`)
-      this.$router.push({
-        name: 'questionBanks'
-      })
-    },
-    failUpdatingQuestionBank () {
       this.$toasted.error('Something went wrong')
     },
     redirectToEditQuestionBankForm() {
