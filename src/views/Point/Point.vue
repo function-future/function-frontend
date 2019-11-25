@@ -76,7 +76,7 @@
     &__container {
       &__header {
         position: sticky;
-        top: 0;
+        top: -1px;
         z-index: 5;
         background-color: #ffffff;
 
