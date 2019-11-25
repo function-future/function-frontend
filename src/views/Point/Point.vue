@@ -1,34 +1,59 @@
 <template>
-  <div class="main-container">
-    <div class="profile-section">
-      <BaseCard :style="{height: '100%'}" class="profile-section__card">
-        <div class="profile-section__card-image">
-          <img :src="points.avatar" alt="Image not available" width="100px" height="100px" style="margin-right: 20px; border-radius: 8px">
-        </div>
-        <div class="profile-section__card-detail">
-          <h2>{{points.studentName}}</h2>
-          <div>{{points.university}}</div>
-          <div>Batch {{points.batchCode}}</div>
-        </div>
-      </BaseCard>
-    </div>
-    <div class="points-section">
-      <BaseCard :style="{height: '100%'}" class="point-section__card">
-        <span style="font-weight: bold; font-size: 30px">Summary</span>
-        <div class="points-section__card-scrollable-content">
-          <BaseCard v-for="point in points.scores" class="points-section__card-item" :key="point.id">
-            <div class="points-section__card-item-detail">
-              <h3>{{point.type}}</h3>
-              <h4>{{point.title}}</h4>
+  <div class="auto-overflow-container">
+    <div class="point__container">
+      <div class="point__container__header">
+        <UserListItem :imageUrl="studentData.avatar">
+          <template #name>
+            {{ studentData.name }}
+          </template>
+          <template #info>
+            <div>{{ studentData.batchCode }}</div>
+            <div>{{ studentData.university }}</div>
+          </template>
+          <template #actions>
+            <div class="point__container__header-point">
+              <span class="has-text-weight-bold">{{ studentData.point }}</span>
             </div>
-            <div class="points-section__card-item-score">
-              <div class="points-section__card-item-score-border">
-                <div class="points-section__card-item-score-border-point">{{point.point}}</div>
+          </template>
+        </UserListItem>
+      </div>
+      <div class="point__container__tabs">
+        <b-tabs v-model="activeTab">
+          <b-tab-item v-for="tab in tabs"
+                      :key="tab.value"
+                      :label="tab.title">
+            <div class="point__container__tabs-content">
+              <div class="point__container__tabs-content__list-wrapper">
+                <div class="columns is-multiline">
+                  <div class="column is-12"
+                       v-for="point in pointList"
+                       :key="point.id">
+                    <ListItem>
+                      <template #title>
+                        {{point.title}}
+                      </template>
+                      <template #actions>
+                        <span>{{point.point}}</span>
+                      </template>
+                    </ListItem>
+                  </div>
+                </div>
               </div>
             </div>
-          </BaseCard>
-        </div>
-      </BaseCard>
+          </b-tab-item>
+        </b-tabs>
+        <infinite-loading @infinite="initPage" :identifier="infiniteId" :distance="100">
+          <div slot="spinner">
+            <ListItem v-for="n in 3" :key="n"
+                      :loading="true"
+                      :simple="true"
+                      :minHeight="'75px'"
+            ></ListItem>
+          </div>
+          <div slot="no-more"></div>
+          <div slot="no-results"></div>
+        </infinite-loading>
+      </div>
     </div>
   </div>
 </template>
@@ -36,91 +61,41 @@
 <script type="text/javascript" src="./js/point.js">
 </script>
 
+
 <style lang="scss" scoped>
+  @import "@/assets/css/main.scss";
+
   .main-container {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     height: 85%;
+  }
 
-    .profile-section {
-      height: 20%;
-      &__card {
-        display: flex;
-        flex-direction: row;
-        &-detail {
-          margin-top: -10px;
-        }
-        &-image {
-          width: 100px;
-          border-radius: 10px;
-          border: 0.5px solid rgba(0, 0, 0, 0.2);
-          margin-right: 15px;
+  .point {
+    &__container {
+      &__header {
+        position: sticky;
+        top: 0;
+        z-index: 5;
+        background-color: #ffffff;
+
+        &-point {
+          height: 100%;
+          display: flex;
+          align-items: center;
         }
       }
-    }
 
-    .points-section {
-      height: 70%;
-      &__card {
-        display: flex;
-        flex-direction: column;
-        &-scrollable-content {
-          max-height: 90%;
-          overflow: auto;
-          padding-right: 5px;
-          &::-webkit-scrollbar-track
-          {
-            background-color: #F5F5F5;
-            border-radius: 10px;
-          }
-          &::-webkit-scrollbar
-          {
-            width: 10px;
-            background-color: #02AAF3;
-            border-radius: 10px;
-          }
-          &::-webkit-scrollbar-thumb
-          {
-            border-radius: 10px;
-            background-color: #02AAF3;
-          }
-        }
-        &-item {
-          display: flex;
-          flex-direction: row;
-          justify-content: space-between;
-          padding: 10px 20px;
-          &-detail {
-            h3 {
-              font-size: 18px;
-            }
-            h3, h4 {
-              margin: 10px 0;
-            }
-            h4 {
-              font-weight: normal;
-              font-size: 16px;
-              margin-left: 12px;
-            }
-          }
-          &-score {
-            align-self: center;
-            width: 50px;
-            height: 50px;
-            text-align: center;
-            &-border {
-              border-radius: 100%;
-              border: 3px solid rgba(0, 0, 0, 0.3);
-              width: 100%;
-              height: 100%;
-              font-size: larger;
-              font-weight: bolder;
-              &-point {
-                color: rgba(0, 0, 0, 0.8);
-                margin-top: 1.85vh;
-                margin-left: auto;
-                margin-right: auto;
+      &__tabs {
+        &-content {
+          &__list {
+            &-wrapper {
+              margin-left: 0.25rem;
+              margin-right: 0.75rem;
+
+              @media only screen and (max-width: 1023px) {
+                margin-right: 0;
               }
             }
           }
