@@ -30,7 +30,7 @@ const getComparison = function (callback, data, errorHandler) {
 }
 
 const postFinalScore = function (callback, data, payload, errorHandler) {
-  request.postRequest(config.api.scoring.finalJudging.score(data.batchCode, data.judgingId), callback, payload, errorHandler)
+  request.postRequest(config.api.scoring.finalJudging.score(), callback, payload, errorHandler)
 }
 
 export default {

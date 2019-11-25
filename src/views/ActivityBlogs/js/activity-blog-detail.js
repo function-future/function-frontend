@@ -25,6 +25,15 @@ export default {
     ]),
     descriptionCompiledMarkdown: function () {
       return marked(this.activityBlogDescriptionMarkdown)
+    },
+    isAuthor () {
+      return (this.currentUser && this.currentUser.id) === this.authorId
+    },
+    authorId () {
+      return this.activityBlog && this.activityBlog.author && this.activityBlog.author.id
+    },
+    authorName () {
+      return this.activityBlog && this.activityBlog.author && this.activityBlog.author.name
     }
   },
   methods: {

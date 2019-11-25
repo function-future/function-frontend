@@ -17,13 +17,16 @@
             <ListItem :loading="isLoading" :simple="true"></ListItem>
           </div>
         </div>
-        <div class="columns is-multiline" v-else>
+        <div class="columns is-multiline" v-if="!isLoading">
           <div class="column is-4"
                v-for="batch in batches"
                v-bind:key="batch.code">
-            <ListItem>
+            <ListItem class="no-pointer">
               <template #title>
                 {{ batch.name }}
+              </template>
+              <template #info>
+                {{ batch.code }}
               </template>
               <template #actions>
                 <b-dropdown aria-role="list" position="is-bottom-left" @click.prevent.stop>
@@ -56,6 +59,19 @@
                 </b-dropdown>
               </template>
             </ListItem>
+          </div>
+          <div v-if="batchesEmpty && !failFetchBatch">
+            <EmptyState src="batches">
+              <template #title>
+                Looks like you have not created a batch!
+              </template>
+              <template #message>
+                Start creating a batch
+              </template>
+            </EmptyState>
+          </div>
+          <div v-if="batchesEmpty && failFetchBatch">
+            <EmptyState src="error" :errorState="true"></EmptyState>
           </div>
         </div>
       </div>
@@ -100,4 +116,7 @@
     }
   }
 
+  .no-pointer {
+    cursor: default;
+  }
 </style>

@@ -8,6 +8,14 @@ describe('actions', () => {
     expect(true).toBe(true)
   })
 
+  test('initialState', () => {
+    const commit = jest.fn()
+    store.actions.initialState({ commit })
+    expect(commit).toHaveBeenCalledWith('GET_JUDGING_LIST', [])
+    expect(commit).toHaveBeenCalledWith('GET_JUDGING', {})
+    expect(commit).toHaveBeenCalledWith('GET_COMPARISON', {})
+  })
+
   test('fetchJudgingList', () => {
     api.getJudgingList = (success) => {
       success({
@@ -496,6 +504,24 @@ describe('actions', () => {
     const callback = jest.fn()
     const fail = jest.fn()
     store.actions.deleteJudging({ state }, { data, callback, fail })
+    expect(callback).toHaveBeenCalledTimes(1)
+    expect(fail).not.toHaveBeenCalled()
+  })
+
+  test('getBatchReport', () => {
+    api.getReportPage = (success) => {
+      success({
+        "code": 200,
+        "status": "OK"
+      })
+    }
+    const data = {
+      batchCode: 'futur3'
+    }
+    const state = jest.fn()
+    const callback = jest.fn()
+    const fail = jest.fn()
+    store.actions.getBatchReport({ state }, { data, callback, fail })
     expect(callback).toHaveBeenCalledTimes(1)
     expect(fail).not.toHaveBeenCalled()
   })

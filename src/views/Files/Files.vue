@@ -172,7 +172,13 @@
                         spinner="spiral"
                         force-use-infinite-wrapper=".scrollable-container">
         <div slot="no-more"></div>
-        <div slot="no-results" class="is-empty">This folder is empty</div>
+        <div slot="no-results" class="is-empty">
+          <EmptyState src="folder">
+            <template #title>
+              This folder is empty
+            </template>
+          </EmptyState>
+        </div>
       </infinite-loading>
       <modal-delete-confirmation v-if="showDeleteConfirmationModal"
                                  @close="closeDeleteConfirmationModal"

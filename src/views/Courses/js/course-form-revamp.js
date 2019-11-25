@@ -152,6 +152,7 @@ export default {
       this.$toasted.error('Fail to ' + this.message + this.courseType)
     },
     onFileChange (e) {
+      if (!e.target.files.length) return
       this.file = e.target.files[0]
       this.materialUpload(this.file)
     },

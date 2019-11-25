@@ -12,7 +12,7 @@
       </div>
       <div class="sticky-notes__header">
         <div class="sticky-notes__header-title">
-          <span class="is-size-5 has-text-weight-bold">{{ stickyNote.title }}</span>
+          <span class="is-size-5 has-text-weight-bold">{{ stickyNote.title || 'Sticky Notes' }}</span>
         </div>
         <div class="sticky-notes__header-date">
           <span class="is-size-7">
@@ -21,7 +21,7 @@
         </div>
       </div>
       <div class="sticky-notes__content">
-        <span v-html="stickyNoteCompiledMarkdown"></span>
+        <span class="content" v-html="stickyNoteCompiledMarkdown"></span>
       </div>
     </div>
   </div>

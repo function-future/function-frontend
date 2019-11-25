@@ -8,7 +8,7 @@ export default {
         email: '',
         password: ''
       },
-      errorAlert: '',
+      errorAlert: false,
       loggingIn: false
     }
   },
@@ -65,7 +65,7 @@ export default {
       setTimeout(this.showFailMessage, 700)
     },
     showFailMessage () {
-      this.errorAlert = 'You have entered an invalid email or password'
+      this.errorAlert = true
       this.loggingIn = false
     }
   }

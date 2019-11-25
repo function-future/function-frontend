@@ -3,6 +3,7 @@ import InfiniteLoading from 'vue-infinite-loading'
 import ListItem from '@/components/list/ListItem'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
 import ModalCopy from '@/components/modals/ModalCopy'
+import EmptyState from '@/components/emptyState/EmptyState'
 
 export default {
   name: 'coursesRevamp',
@@ -10,7 +11,8 @@ export default {
     InfiniteLoading,
     ListItem,
     ModalDeleteConfirmation,
-    ModalCopy
+    ModalCopy,
+    EmptyState
   },
   data () {
     return {
@@ -43,7 +45,9 @@ export default {
       selectedIds: [],
       allSelected: false,
       infiniteId: +new Date(),
-      infiniteState: ''
+      infiniteState: '',
+      showNoBatchAvailableMessage: false,
+      failFetchData: false
     }
   },
   computed: {
@@ -52,13 +56,25 @@ export default {
       'currentUser'
     ]),
     isStudent () {
-      return this.currentUser.role === 'STUDENT'
+      return this.currentUser && this.currentUser.role === 'STUDENT'
+    },
+    isAdmin () {
+      return this.currentUser && this.currentUser.role === 'ADMIN'
+    },
+    loggedIn () {
+      return Object.keys(this.currentUser).length
     },
     currentTabType () {
       return this.$route.query.tab
     },
     partialSelected () {
       return (this.selectedIds.length !== this.courses.length) && this.selectedIds.length > 0
+    },
+    originBatch () {
+      return this.currentTabType === 'master' ? null : this.$route.params.code
+    },
+    coursesEmpty () {
+      return !(this.courses && this.courses.length)
     }
   },
   created () {
@@ -84,8 +100,10 @@ export default {
       }
     },
     initPage ($state) {
-      this.state = $state
-      this.currentTabType === 'master' ? this.fetchMasterCourse() : this.initBatchCourse()
+      this.infiniteState = $state
+      if (this.currentTabType) {
+        this.currentTabType === 'master' ? this.fetchMasterCourse() : this.initBatchCourse()
+      }
     },
     setQuery () {
       if (this.activeTab < 0 || this.activeTab > this.tabs.length) this.activeTab = 0
@@ -95,6 +113,11 @@ export default {
       })
     },
     initBatchCourse () {
+      if (this.isStudent) {
+        this.selectedBatchCode = this.currentUser.batchCode
+        this.fetchCourse()
+        return
+      }
       this.batches.length ? this.fetchCourse() : this.fetchBatchList()
     },
     fetchBatchList () {
@@ -105,10 +128,20 @@ export default {
     },
     successFetchBatches (response) {
       this.batches = response
-      this.selectedBatchCode = response[0].code
-      this.fetchCourse()
+      this.failFetchData = false
+      this.showNoBatchAvailableMessage = false
+      if (this.batches.length) {
+        this.selectedBatchCode = response[0].code
+        this.fetchCourse()
+      } else {
+        this.infiniteState.complete()
+        this.switchingTabLoading = false
+        this.showNoBatchAvailableMessage = true
+        this.isLoading = false
+      }
     },
     failFetchBatches () {
+      this.failFetchData = true
       this.$toasted.error('Fail to load batch list, please refresh the page')
     },
     fetchCourse () {
@@ -132,18 +165,22 @@ export default {
     successFetchCourse (response, paging) {
       this.switchingTabLoading = false
       this.isLoading = false
+      this.failFetchData = false
+      this.showNoBatchAvailableMessage = false
       this.paging = paging
       this.courses.push(...response)
       if (response.length) {
         this.paging.page++
-        this.state.loaded()
+        this.infiniteState.loaded()
       } else {
-        this.state.complete()
+        this.infiniteState.complete()
       }
     },
     failFetchCourse () {
       this.switchingTabLoading = false
       this.isLoading = false
+      this.failFetchData = true
+      this.showNoBatchAvailableMessage = false
       this.$toasted.error('Fail to load course list')
     },
     resetPage () {
@@ -242,7 +279,7 @@ export default {
       let data = {
         code: destinationBatchCode,
         content: {
-          originBatch: this.selectedBatchCode,
+          originBatch: this.originBatch,
           courses: [ ...this.selectedIds ]
         }
       }
@@ -262,6 +299,9 @@ export default {
     courseTitleEllipsis (title) {
       let max = 50
       return title.length > max ? title.substr(0, max) + '...' : title
+    },
+    goToCreateBatch () {
+      this.$router.push({ name: 'addBatch' })
     }
   },
   watch: {
@@ -270,9 +310,6 @@ export default {
     },
     currentTabType () {
       this.switchingTabLoading = true
-      this.resetPage()
-    },
-    selectedBatchCode () {
       this.resetPage()
     },
     allSelected () {

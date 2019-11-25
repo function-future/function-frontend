@@ -27,7 +27,7 @@ import quizQuestions from '@/views/Quiz/QuizQuestions'
 import judgingList from '@/views/FinalJudging/JudgingList'
 import judgingBatch from '@/views/FinalJudging/JudgingBatch'
 import judgingBatchForm from '@/views/FinalJudging/JudgingBatchForm'
-import addJudging from '@/views/FinalJudging/AddJudging'
+import judgingForm from '@/views/FinalJudging/JudgingForm'
 import judgingDetail from '@/views/FinalJudging/JudgingDetail'
 import comparison from '@/views/FinalJudging/Comparison'
 import reportPage from '@/views/FinalJudging/ReportPage'
@@ -86,6 +86,7 @@ const router = new Router({
       name: 'profile',
       component: profile,
       meta: {
+        auth: true,
         title: 'Profile',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
@@ -98,6 +99,7 @@ const router = new Router({
       name: 'profileMobile',
       component: profile,
       meta: {
+        auth: true,
         title: 'Profile',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
@@ -111,6 +113,7 @@ const router = new Router({
       name: 'account',
       component: account,
       meta: {
+        auth: true,
         title: 'Account',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
@@ -123,6 +126,7 @@ const router = new Router({
       name: 'changePassword',
       component: changePassword,
       meta: {
+        auth: true,
         title: 'Change Password',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
@@ -137,6 +141,7 @@ const router = new Router({
       name: 'changePasswordMobile',
       component: changePassword,
       meta: {
+        auth: true,
         title: 'Change Password',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
@@ -1032,7 +1037,7 @@ const router = new Router({
     {
       path: config.app.pages.finalJudging.add,
       name: 'addJudging',
-      component: addJudging,
+      component: judgingForm,
       meta: {
         auth: true,
         title: 'Add Judging Session',
@@ -1040,8 +1045,25 @@ const router = new Router({
           { name: 'Home', link: 'feeds' },
           { name: 'Batches', link: 'judgingBatch' },
           { name: 'Add Judging Session', link: 'addJudging' }
-        ]
-      }
+        ],
+      },
+      props: { editMode: false }
+    },
+    {
+      path: config.app.pages.finalJudging.edit,
+      name: 'editJudging',
+      component: judgingForm,
+      meta: {
+        auth: true,
+        title: 'Add Judging Session',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Batches', link: 'judgingBatch' },
+          { name: 'Judging Session Detail', link: 'judgingDetail' },
+          { name: 'Edit Judging Session', link: 'editJudging' }
+        ],
+      },
+      props: { editMode: true }
     },
     {
       path: config.app.pages.finalJudging.detail,
@@ -1382,11 +1404,14 @@ router.beforeEach((to, from, next) => {
   }
 
   store.dispatch('getLoginStatus', {
-    callback: () => { return to.fullPath === '/login' ? next({ name: 'feeds' }) : next() },
+    callback: () => { return to.query.auth === 'login' ? next({ path: from.fullPath, query: {} }) : next() },
     fail: () => {
       store.dispatch('setCurrentUser', { data: {} })
       store.dispatch('setMenuList', { data: {} })
-      return !to.meta.auth ? next() : (to.path !== '/login' ? next('/login') : next())
+      return !to.meta.auth ? next() : (to.query.auth !== 'login' ? next({
+        path: from.fullPath,
+        query: { auth: 'login', redirect: to.fullPath }
+      }) : next())
     }
   })
 })

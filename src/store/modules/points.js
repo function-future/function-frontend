@@ -11,9 +11,10 @@ export const mutations = {
 }
 
 export const actions = {
-  fetchPointList ({ commit }, { data, fail }) {
+  fetchPointList ({ commit }, { data, callback, fail }) {
     pointsApi.getPoints(({ data: response }) => {
       commit('GET_POINTS', response)
+      callback && callback(response)
     }, data, fail)
   }
 }

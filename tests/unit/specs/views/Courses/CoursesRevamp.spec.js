@@ -8,6 +8,7 @@ describe('Courses Revamp', () => {
   let localVue
   let $route = {
     name: 'editStickyNote',
+    params: { code: 'code' },
     query: { tab: 'master' }
   }
 
@@ -150,6 +151,9 @@ describe('Courses Revamp', () => {
   })
 
   test('initBatchCourse batches length > 0', () => {
+    store.state.currentUser = {
+      role: 'ADMIN'
+    }
     wrapper.vm.batches = [ 'test1', 'test2' ]
     const spy = jest.spyOn(wrapper.vm, 'fetchCourse')
     wrapper.vm.initBatchCourse()
@@ -163,13 +167,25 @@ describe('Courses Revamp', () => {
     expect(spy).toHaveBeenCalledTimes(1)
   })
 
+  test('initBatchCourse isStudent', () => {
+    store.state.currentUser = {
+      role: 'STUDENT',
+      batchCode: '1'
+    }
+    wrapper.vm.batches = []
+    const spy = jest.spyOn(wrapper.vm, 'fetchCourse')
+    wrapper.vm.initBatchCourse()
+    expect(wrapper.vm.selectedBatchCode).toEqual('1')
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
   test('fetchBatchList', () => {
     const spy = jest.spyOn(wrapper.vm, 'fetchBatches')
     wrapper.vm.fetchBatchList()
     expect(spy).toHaveBeenCalledTimes(1)
   })
 
-  test('successFetchBatches', () => {
+  test('successFetchBatches has length', () => {
     const response = [
       { code: '1' },
       { code: '2' }
@@ -179,6 +195,20 @@ describe('Courses Revamp', () => {
     expect(wrapper.vm.batches).toEqual(response)
     expect(wrapper.vm.selectedBatchCode).toEqual(response[0].code)
     expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('successFetchBatches no length', () => {
+    const response = []
+    wrapper.vm.infiniteState = {
+      loaded: jest.fn(),
+      complete: jest.fn()
+    }
+    const spy = jest.spyOn(wrapper.vm, 'fetchCourse')
+    wrapper.vm.successFetchBatches(response)
+    expect(wrapper.vm.infiniteState.complete).toHaveBeenCalledTimes(1)
+    expect(wrapper.vm.switchingTabLoading).toEqual(false)
+    expect(wrapper.vm.showNoBatchAvailableMessage).toEqual(true)
+    expect(spy).toHaveBeenCalledTimes(0)
   })
 
   test('failFetchBatches', () => {
@@ -205,12 +235,12 @@ describe('Courses Revamp', () => {
       size: 10,
       totalRecords: 25
     }
-    wrapper.vm.state = {
+    wrapper.vm.infiniteState = {
       loaded: jest.fn(),
       complete: jest.fn()
     }
     wrapper.vm.successFetchCourse(response, paging)
-    expect(wrapper.vm.state.complete).toHaveBeenCalledTimes(1)
+    expect(wrapper.vm.infiniteState.complete).toHaveBeenCalledTimes(1)
   })
 
   test('successFetchCourse', () => {
@@ -245,14 +275,14 @@ describe('Courses Revamp', () => {
       size: 10,
       totalRecords: 25
     }
-    wrapper.vm.state = {
+    wrapper.vm.infiniteState = {
       loaded: jest.fn(),
       complete: jest.fn()
     }
     wrapper.vm.successFetchCourse(response, paging)
     expect(wrapper.vm.courses).toEqual(response)
     expect(wrapper.vm.paging).toEqual(paging)
-    expect(wrapper.vm.state.loaded).toHaveBeenCalledTimes(1)
+    expect(wrapper.vm.infiniteState.loaded).toHaveBeenCalledTimes(1)
   })
 
   test('failFetchCourse', () => {
@@ -464,16 +494,6 @@ describe('Courses Revamp', () => {
     })
   })
 
-  test('watch selectedBatchCode', (done) => {
-    wrapper.vm.selectedBatchCode = 'test-code'
-    const spy = jest.spyOn(wrapper.vm, 'resetPage')
-    wrapper.vm.activeTab = 1
-    wrapper.vm.$nextTick(() => {
-      expect(spy).toHaveBeenCalledTimes(1)
-      done()
-    })
-  })
-
   test('watch allSelected', (done) => {
     wrapper.vm.allSelected = true
     const spy = jest.spyOn(wrapper.vm, 'selectAll')
@@ -492,5 +512,15 @@ describe('Courses Revamp', () => {
       expect(spy).toHaveBeenCalledTimes(1)
       done()
     })
+  })
+
+  test('computed originBatch master', () => {
+    wrapper.vm.$route.query.tab = 'master'
+    expect(wrapper.vm.originBatch).toEqual(null)
+  })
+
+  test('computed originBatch batch', () => {
+    wrapper.vm.$route.query.tab = 'batch'
+    expect(wrapper.vm.originBatch).toEqual(wrapper.vm.$route.params.code)
   })
 })

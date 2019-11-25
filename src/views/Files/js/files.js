@@ -4,6 +4,7 @@ import ModalCreateFolder from '@/components/modals/ModalCreateFolder'
 import ModalRenameFileFolder from '@/components/modals/ModalRenameFileFolder'
 import ModalFileUploadProgress from '@/components/modals/ModalFileUploadProgress'
 import ModalFileVersion from '@/components/modals/ModalFileVersion'
+import EmptyState from '@/components/emptyState/EmptyState'
 import InfiniteLoading from 'vue-infinite-loading'
 import config from '@/config/index'
 
@@ -15,6 +16,7 @@ export default {
     ModalRenameFileFolder,
     ModalFileUploadProgress,
     ModalFileVersion,
+    EmptyState,
     InfiniteLoading
   },
   data () {

@@ -116,18 +116,6 @@ describe('JudgingList', () => {
     })
   })
 
-  test('goToComparison', () => {
-    initComponent()
-    wrapper.vm.$router.push = jest.fn()
-    wrapper.vm.goToComparison(1)
-    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
-      name: 'comparison',
-      params: {
-        judgingId: 1
-      }
-    })
-  })
-
   test('goToJudgingDetail', () => {
     initComponent()
     wrapper.vm.$router.push = jest.fn()
@@ -136,6 +124,20 @@ describe('JudgingList', () => {
       name: 'judgingDetail',
       params: {
         judgingId: 1
+      }
+    })
+  })
+
+  test('goToEditJudging', () => {
+    initComponent()
+    wrapper.vm.$router.push = jest.fn()
+    wrapper.vm.selectedBatch = 'futurre3'
+    wrapper.vm.goToEditJudging(1)
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
+      name: 'editJudging',
+      params: {
+        judgingId: 1,
+        batchCode: 'futurre3'
       }
     })
   })

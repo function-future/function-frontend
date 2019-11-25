@@ -13,7 +13,7 @@
         <div v-if="isLoading">
           <ListItem v-for="n in 4" v-bind:key="n" :loading="isLoading"></ListItem>
         </div>
-        <div v-if="!isLoading">
+        <div v-if="!isLoading && !announcementEmpty">
           <ListItem @click="goToAnnouncementDetail(announcement.id)"
                     v-for="announcement in announcementList"
                     v-bind:key="announcement.id">
@@ -25,11 +25,14 @@
             </template>
             <template #content>
               <div class="wrap-word ellipsis">
-                <span v-html="textPreview(announcement)"></span>
+                <span class="content" v-html="textPreview(announcement)"></span>
               </div>
             </template>
             <template #actions>
-              <b-dropdown aria-role="list" position="is-bottom-left" @click.prevent.stop>
+              <b-dropdown aria-role="list"
+                          position="is-bottom-left"
+                          v-if="accessList.edit || accessList.delete"
+                          @click.prevent.stop>
                 <button class="button is-text" slot="trigger">
                   <b-icon icon="ellipsis-v" size="is-small" class="icon"></b-icon>
                 </button>
@@ -60,8 +63,20 @@
             </template>
           </ListItem>
         </div>
+        <div v-if="!isLoading">
+          <div v-if="announcementEmpty && !failLoadAnnouncement">
+            <EmptyState src="announcements-list">
+              <template #title>
+                Looks like there is no announcements!
+              </template>
+            </EmptyState>
+          </div>
+          <div v-if="announcementEmpty && failLoadAnnouncement">
+            <EmptyState src="error" :errorState="true"></EmptyState>
+          </div>
+        </div>
       </div>
-      <div class="announcements__pagination-wrapper" v-if="!isLoading">
+      <div class="announcements__pagination-wrapper" v-if="!isLoading && !announcementEmpty">
         <b-pagination
           :total="paging.totalRecords"
           :current.sync="paging.page"

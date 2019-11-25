@@ -6,14 +6,14 @@
                   icon-left="pen"
                   type="is-primary"
                   @click="goToEditActivityBlog"
-                  v-if="accessList.edit && (currentUser.id === activityBlog.author.id || currentUser.role === 'ADMIN')">
+                  v-if="accessList.edit && (isAuthor || currentUser.role === 'ADMIN')">
           Edit
         </b-button>
         <b-button rounded
                   icon-left="trash"
                   type="is-danger"
                   @click="openDeleteConfirmationModal"
-                  v-if="accessList.delete && (currentUser.id === activityBlog.author.id || currentUser.role === 'ADMIN')">
+                  v-if="accessList.delete && (isAuthor || currentUser.role === 'ADMIN')">
           Delete
         </b-button>
       </div>
@@ -25,7 +25,7 @@
         </div>
         <div class="activity-blog-detail__container__header-info">
           <div class="activity-blog-detail__container__header-info-author">
-            by <span class="has-text-weight-bold">{{ activityBlog.author.name }}</span>
+            by <span class="has-text-weight-bold">{{ authorName }}</span>
           </div>
           <div class="activity-blog-detail__container__header-info-date">
             <span class="is-size-7">
@@ -35,7 +35,7 @@
         </div>
       </div>
       <div class="activity-blog-detail__container__content wrap-word">
-        <span v-html="descriptionCompiledMarkdown"></span>
+        <span class="content" v-html="descriptionCompiledMarkdown"></span>
       </div>
     </div>
     <modal-delete-confirmation v-if="showDeleteConfirmationModal"
@@ -67,21 +67,21 @@
           &:first-child {
             margin-left: 0;
           }
+        }
 
-          @media only screen and (max-width: 1023px) {
-            margin-bottom: 0;
-            display: flex;
-            flex-direction: column;
-            position: fixed;
-            right: 5vw;
-            bottom: 75px;
-            transition: all 0.1s ease-in-out;
-            border-radius: 50%;
+        @media only screen and (max-width: 1023px) {
+          margin-bottom: 0;
+          display: flex;
+          flex-direction: column;
+          position: fixed;
+          right: 5vw;
+          bottom: 75px;
+          transition: all 0.1s ease-in-out;
+          border-radius: 50%;
 
-            button {
-              margin: 0.25rem 0;
-              box-shadow: 2px 2px 16px 4px rgba(0, 0, 0, 0.1);
-            }
+          button {
+            margin: 0.25rem 0;
+            box-shadow: 2px 2px 16px 4px rgba(0, 0, 0, 0.1);
           }
         }
       }

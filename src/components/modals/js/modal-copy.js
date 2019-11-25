@@ -1,10 +1,12 @@
 import { mapActions, mapGetters } from 'vuex'
 import ListItem from '@/components/list/ListItem'
+import EmptyState from '@/components/emptyState/EmptyState'
 
 export default {
   name: 'modal-copy',
   components: {
-    ListItem
+    ListItem,
+    EmptyState
   },
   data () {
     return {
@@ -13,6 +15,7 @@ export default {
       batchDestination: ''
     }
   },
+  props: [ 'currentBatch' ],
   computed: {
     ...mapGetters([
       'batchList'
@@ -40,7 +43,7 @@ export default {
     },
     successFetchBatches () {
       this.isLoading = false
-      this.batches = this.batchList.filter(batch => batch.code !== (this.$route.params.batchCode || this.$route.params.code))
+      this.batches = this.batchList.filter(batch => batch.code !== (this.$route.params.batchCode || this.currentBatch))
     },
     failFetchBatches () {
       this.isLoading = false

@@ -154,7 +154,7 @@ describe('Login', () => {
   test('showFailMessage', () => {
     wrapper.vm.showFailMessage()
     expect(wrapper.vm.loggingIn).toEqual(false)
-    expect(wrapper.vm.errorAlert).toEqual('You have entered an invalid email or password')
+    expect(wrapper.vm.errorAlert).toEqual(true)
   })
 
   test('checkLoggedIn not logged in', () => {

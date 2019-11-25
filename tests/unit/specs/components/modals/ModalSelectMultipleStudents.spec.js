@@ -93,9 +93,63 @@ describe('ModalSelectMultipleStudents', () => {
     expect(wrapper.emitted().close.length).toEqual(1)
   })
 
+  test('select an already selected ID with 3 IDs already selected', () => {
+    initComponent()
+    wrapper.vm.selectedId = ['1', '2', '3']
+    wrapper.vm.select('3')
+    expect(wrapper.vm.selectedId).toEqual(['1', '2'])
+  })
+
+  test('select another ID with 3 IDs already selected', () => {
+    initComponent()
+    wrapper.vm.selectedId = ['1', '2', '3']
+    wrapper.vm.select('4')
+    expect(wrapper.vm.selectedId).toEqual(['1', '2', '3'])
+  })
+
+  test('select with only 2 IDs already selected', () => {
+    initComponent()
+    wrapper.vm.selectedId = ['1', '2']
+    wrapper.vm.select('3')
+    expect(wrapper.vm.selectedId).toEqual(['1', '2', '3'])
+  })
+
   test('selectStudents', () => {
     initComponent()
+    wrapper.vm.selectedId = ['1', '2', '3']
+    wrapper.vm.studentList = [
+      {
+        id: '1',
+        name: 'John'
+      },
+      {
+        id: '2',
+        name: 'Jane'
+      },
+      {
+        id: '3',
+        name: 'Doe'
+      },
+      {
+        id: '4',
+        name: 'Appleseed'
+      }
+    ]
     wrapper.vm.selectStudents()
+    expect(wrapper.vm.selectedStudents).toEqual([
+      {
+        id: '1',
+        name: 'John'
+      },
+      {
+        id: '2',
+        name: 'Jane'
+      },
+      {
+        id: '3',
+        name: 'Doe'
+      }
+    ])
     expect(wrapper.emitted().selected[0].length).toEqual(1)
   })
 

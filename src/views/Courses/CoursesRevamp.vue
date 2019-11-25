@@ -33,7 +33,10 @@
                          v-if="currentTabType === 'batch' && batches.length > 1">
                       <b-field label="Batch"
                                label-position="on-border">
-                        <b-select placeholder="Select a batch" v-model="selectedBatchCode" expanded>
+                        <b-select placeholder="Select a batch"
+                                  v-model="selectedBatchCode"
+                                  @input="resetPage"
+                                  expanded>
                           <option v-for="batch in batches"
                                   :key="batch.code"
                                   :value="batch.code">
@@ -98,27 +101,71 @@
                   </ListItem>
                 </div>
               </div>
-              <infinite-loading @infinite="initPage" :identifier="infiniteId">
-                <div slot="spinner">
-                  <ListItem v-for="n in 3" :key="n"
-                            :loading="true"
-                            :simple="true"
-                            :minHeight="'75px'"
-                  ></ListItem>
+              <div v-if="!isLoading">
+                <div v-if="failFetchData">
+                  <EmptyState src="error" :errorState="true"></EmptyState>
                 </div>
-                <div slot="no-more"></div>
-                <div slot="no-results"></div>
-              </infinite-loading>
+                <div v-if="!failFetchData">
+                  <div v-if="coursesEmpty">
+                    <div v-if="showNoBatchAvailableMessage && isAdmin">
+                      <EmptyState src="batches">
+                        <template #title>
+                          Looks like you have not created a batch!
+                        </template>
+                        <template #message>
+                          Create the first batch here
+                          <div class="courses__container__tabs-actions-create-batch">
+                            <b-button type="is-primary"
+                                      @click="goToCreateBatch">
+                              Create batch
+                            </b-button>
+                          </div>
+                        </template>
+                      </EmptyState>
+                    </div>
+                    <div v-else>
+                      <EmptyState src="courses">
+                        <template #title>
+                          No courses yet!
+                        </template>
+                        <template #message>
+                          <span v-if="!isStudent && loggedIn">
+                            Create master course to share it to batch course!
+                          </span>
+                          <span v-else>
+                            Courses available to you will appear here!
+                          </span>
+                        </template>
+                      </EmptyState>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </b-tab-item>
         </b-tabs>
+        <infinite-loading @infinite="initPage" :identifier="infiniteId" v-if="currentTabType">
+          <div slot="spinner">
+            <ListItem v-for="n in 3" :key="n"
+                      :loading="true"
+                      :simple="true"
+                      :minHeight="'75px'"
+            ></ListItem>
+          </div>
+          <div slot="no-more"></div>
+          <div slot="no-results"></div>
+        </infinite-loading>
       </div>
       <modal-delete-confirmation v-if="showDeleteConfirmationModal"
                                  @close="showDeleteConfirmationModal = false"
                                  @clickDelete="deleteThis">
         <div slot="description">Are you sure you want to delete this course?</div>
       </modal-delete-confirmation>
-      <modal-copy v-if="showShareCourseModal" @close="showShareCourseModal = false" @copy="submitShareCourse"></modal-copy>
+      <modal-copy v-if="showShareCourseModal"
+                  @close="showShareCourseModal = false"
+                  @copy="submitShareCourse"
+                  :currentBatch="selectedBatchCode">
+      </modal-copy>
     </div>
   </div>
 </template>
@@ -153,6 +200,10 @@
               min-width: 5rem;
               margin-left: auto;
             }
+          }
+
+          &-create-batch {
+            margin-top: 0.5rem;
           }
         }
       }

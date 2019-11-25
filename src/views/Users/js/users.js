@@ -1,12 +1,14 @@
 import { mapActions, mapGetters } from 'vuex'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
 import UserListItem from '@/components/list/UserListItem'
+import EmptyState from '@/components/emptyState/EmptyState'
 
 export default {
   name: 'users',
   components: {
     ModalDeleteConfirmation,
-    UserListItem
+    UserListItem,
+    EmptyState
   },
   data () {
     return {
@@ -20,12 +22,13 @@ export default {
       activeTab: 0,
       paging: {
         page: 1,
-        size: 20,
+        size: 10,
         totalRecords: 0
       },
       userList: [],
       keyword: '',
-      showDeleteConfirmationModal: false
+      showDeleteConfirmationModal: false,
+      failFetchUser: false
     }
   },
   computed: {
@@ -34,6 +37,9 @@ export default {
     ]),
     currentTab () {
       return this.tabs[this.activeTab].value
+    },
+    usersEmpty () {
+      return !(this.userList && this.userList.length)
     }
   },
   created () {
@@ -63,18 +69,23 @@ export default {
     },
     successGetUserList (response) {
       this.isLoading = false
+      this.failFetchUser = false
       this.paging = response.paging
       this.userList = response.data
     },
     failGetUserList () {
       this.isLoading = false
+      this.failFetchUser = true
       this.$toasted.error('Fail to fetch list')
     },
     goToAddUser () {
       if (this.currentTab === 'Student') {
         this.$router.push({ name: 'addStudent' })
       } else {
-        this.$router.push({ name: 'addUser' })
+        this.$router.push({
+          name: 'addUser',
+          query: { role: this.currentTab.toUpperCase() }
+        })
       }
     },
     closeDeleteConfirmationModal () {

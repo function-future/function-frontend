@@ -15,6 +15,9 @@ export default {
     role () {
       return (this.currentUser && this.currentUser.role &&
         this.currentUser.role.substring(0, 1) + this.currentUser.role.slice(1).toLowerCase()) || ''
+    },
+    avatar () {
+      return this.currentUser.avatar || require('@/assets/profile-picture-placeholder.png')
     }
   },
   methods: {

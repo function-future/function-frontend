@@ -83,4 +83,27 @@ describe('BottomNavBar', () => {
   test('Rendered correctly', () => {
     expect(wrapper.isVueInstance()).toBe(true)
   })
+
+  test('goToPage not loggedIn go to feeds', () => {
+    store.state.currentUser = {}
+    wrapper.vm.$router.push = jest.fn()
+    wrapper.vm.goToPage('feeds')
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'feeds' })
+  })
+
+  test('goToPage not loggedIn go to points', () => {
+    store.state.currentUser = {}
+    wrapper.vm.$router.push = jest.fn()
+    wrapper.vm.goToPage('points')
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ query: { auth: 'login' } })
+  })
+
+  test('goToPage loggedIn', () => {
+    store.state.currentUser = {
+      name: 'Karnando Sepryan'
+    }
+    wrapper.vm.$router.push = jest.fn()
+    wrapper.vm.goToPage('feeds')
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'feeds' })
+  })
 })

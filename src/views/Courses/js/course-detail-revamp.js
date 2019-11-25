@@ -124,14 +124,24 @@ export default {
       this.$toasted.success('Successfully added course discussion')
       this.discussion.comment = ''
       this.discussions.push(response)
+      this.discussionPaging.totalRecords++
     },
     failSubmitCourseDiscussion () {
       this.submittingDiscussion = false
       this.$toasted.error('Fail to post course discussion, please try again')
     },
     goToEditPage () {
+      this.master ? this.editMasterCourse() : this.editCourse()
+    },
+    editMasterCourse () {
       this.$router.push({
         name: 'editMasterCourse',
+        params: this.paramsData
+      })
+    },
+    editCourse () {
+      this.$router.push({
+        name: 'editCourse',
         params: this.paramsData
       })
     },

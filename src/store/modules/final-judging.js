@@ -20,6 +20,11 @@ export const mutations = {
 }
 
 export const actions = {
+  initialState ({ commit }) {
+    commit('GET_JUDGING_LIST', [])
+    commit('GET_JUDGING', {})
+    commit('GET_COMPARISON', {})
+  },
   fetchJudgingList ({ commit }, { data, callback, fail }) {
     judgingApi.getJudgingList(({ data: response, paging }) => {
       commit('GET_JUDGING_LIST', response)

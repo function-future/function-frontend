@@ -38,7 +38,7 @@ export default {
       })
     },
     successFetchStickyNote () {
-      this.stickyNote = this.stickyNotes[0]
+      this.stickyNote = this.stickyNotes[0] || ''
     },
     fetchStickyNoteFailed () {
       this.$toasted.error('Fail to load sticky note detail, please refresh the page')

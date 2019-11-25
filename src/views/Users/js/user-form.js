@@ -54,6 +54,9 @@ export default {
     ]),
     userAvatarId () {
       return this.userDetail.avatarId ? [ this.userDetail.avatarId ] : []
+    },
+    roleFromQueryParam () {
+      return (this.$route.query && this.$route.query.role) || null
     }
   },
   methods: {
@@ -68,6 +71,7 @@ export default {
     initPage () {
       this.initialState()
       this.initBatches()
+      this.setSelectedRoleBasedOnQueryParam()
       if (this.editMode) {
         this.isLoading = true
         this.getUserDetail()
@@ -201,6 +205,10 @@ export default {
     },
     failFetchBatches () {
       this.$toasted.error('Fail to fetch batches, please try again')
+    },
+    setSelectedRoleBasedOnQueryParam () {
+      if (this.editMode) return
+      this.userDetail.role = this.roleFromQueryParam
     }
   }
 }
