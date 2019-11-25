@@ -42,7 +42,9 @@
             </div>
           </b-tab-item>
         </b-tabs>
-        <infinite-loading @infinite="initPage" :identifier="infiniteId" :distance="100">
+        <infinite-loading @infinite="initPage"
+                          :identifier="infiniteId"
+                          :distance="100">
           <div slot="spinner">
             <ListItem v-for="n in 3" :key="n"
                       :loading="true"
