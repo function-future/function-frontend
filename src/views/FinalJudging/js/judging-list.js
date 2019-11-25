@@ -60,13 +60,19 @@ export default {
       this.$toasted.error('Something went wrong')
     },
     addJudging () {
-      this.$router.push({name: 'addJudging'})
+      this.$router.push({
+        name: 'addJudging',
+        params: {
+          batchCode: this.selectedBatch
+        }
+      })
     },
     goToJudgingDetail (id) {
       this.$router.push({
         name: 'judgingDetail',
         params: {
-          judgingId: id
+          judgingId: id,
+          batchCode: this.selectedBatch
         }
       })
     },

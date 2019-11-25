@@ -110,20 +110,26 @@ describe('JudgingList', () => {
   test('addJudging', () => {
     initComponent()
     wrapper.vm.$router.push = jest.fn()
+    wrapper.vm.selectedBatch = 'futurre3'
     wrapper.vm.addJudging()
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
-      name: 'addJudging'
+      name: 'addJudging',
+      params: {
+        batchCode: 'futurre3'
+      }
     })
   })
 
   test('goToJudgingDetail', () => {
     initComponent()
+    wrapper.vm.selectedBatch = 'futurre3'
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.goToJudgingDetail(1)
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
       name: 'judgingDetail',
       params: {
-        judgingId: 1
+        judgingId: 1,
+        batchCode: 'futurre3'
       }
     })
   })

@@ -25,11 +25,8 @@ import studentQuizList from '@/views/Quiz/StudentQuizList'
 import studentQuizDetail from '@/views/Quiz/StudentQuizDetail'
 import quizQuestions from '@/views/Quiz/QuizQuestions'
 import judgingList from '@/views/FinalJudging/JudgingList'
-import judgingBatch from '@/views/FinalJudging/JudgingBatch'
-import judgingBatchForm from '@/views/FinalJudging/JudgingBatchForm'
 import judgingForm from '@/views/FinalJudging/JudgingForm'
 import judgingDetail from '@/views/FinalJudging/JudgingDetail'
-import comparison from '@/views/FinalJudging/Comparison'
 import reportPage from '@/views/FinalJudging/ReportPage'
 import points from '@/views/Point/Point'
 import feeds from '@/views/Feeds/FeedsRevamp.vue'
@@ -977,50 +974,6 @@ const router = new Router({
       }
     },
     {
-      path: config.app.pages.finalJudging.batches.list,
-      name: 'judgingBatch',
-      component: judgingBatch,
-      meta: {
-        auth: true,
-        title: 'Judging Batch List',
-        breadcrumb: [
-          { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'judgingBatch' }
-        ]
-      }
-    },
-    {
-      path: config.app.pages.finalJudging.batches.add,
-      name: 'addJudgingBatch',
-      component: judgingBatchForm,
-      meta: {
-        auth: true,
-        title: 'Judging Batch List',
-        breadcrumb: [
-          { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'judgingBatch' },
-          { name: 'Add Batch', link: 'addJudgingBatch' }
-        ]
-      }
-    },
-    {
-      path: config.app.pages.finalJudging.batches.edit,
-      name: 'editJudgingBatch',
-      component: judgingBatchForm,
-      meta: {
-        auth: true,
-        title: 'Judging Batch List',
-        breadcrumb: [
-          { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'judgingBatch' },
-          { name: 'Edit Batch', link: 'editJudgingBatch' }
-        ]
-      },
-      props: {
-        editMode: true
-      }
-    },
-    {
       path: config.app.pages.finalJudging.list,
       name: 'judgingList',
       component: judgingList,
@@ -1077,22 +1030,6 @@ const router = new Router({
           { name: 'Batches', link: 'judgingBatch' },
           { name: 'Judging Sessions', link: 'judgingList' },
           { name: 'Judging Session Detail', link: 'judgingDetail' }
-        ]
-      }
-    },
-    {
-      path: config.app.pages.finalJudging.comparisons,
-      name: 'comparison',
-      component: comparison,
-      meta: {
-        auth: true,
-        title: 'Comparison',
-        breadcrumb: [
-          { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'judgingBatch' },
-          { name: 'Judging Sessions', link: 'judgingList' },
-          { name: 'Judging Session Detail', link: 'judgingDetail' },
-          { name: 'Comparison', link: 'comparison' }
         ]
       }
     },
