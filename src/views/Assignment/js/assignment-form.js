@@ -14,7 +14,7 @@ export default {
       assignmentDetail: {
         title: '',
         description: '',
-        file: '',
+        file: {},
         fileId: '',
         deadline: null
       },
@@ -65,6 +65,7 @@ export default {
 
     },
     onFileChange (e) {
+      if (!e.target.files.length) return
       this.assignmentDetail.file = e.target.files[0]
       this.materialUpload(this.assignmentDetail.file)
     },
