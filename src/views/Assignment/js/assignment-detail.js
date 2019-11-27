@@ -18,7 +18,6 @@ export default {
         file: '',
         fileId: ''
       },
-      editMode: false,
       uploadingFile: false,
       filePreviewName: '',
       file: {},
@@ -124,6 +123,15 @@ export default {
     // failUpdatingAssignment () {
     //   this.$toasted.error('Something went wrong, please try again')
     // },
+    goToEditAssignment () {
+      this.$router.push({
+        name: 'editAssignment',
+        params: {
+          batchCode: this.$route.params.batchCode,
+          assignmentId: this.assignmentDetail.id
+        }
+      })
+    },
     goToRoomList () {
       this.$router.push({
         name: 'assignmentRooms',

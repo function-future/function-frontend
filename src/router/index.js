@@ -1,10 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import assignmentBatch from '@/views/Assignment/AssignmentBatch'
-import assignmentBatchForm from '@/views/Assignment/AssignmentBatchForm'
 import studentAssignments from '@/views/Assignment/StudentAssignments'
 import assignments from '@/views/Assignment/Assignments'
-import addAssignment from '@/views/Assignment/AddAssignment'
+import assignmentForm from '@/views/Assignment/AssignmentForm'
 import assignmentRooms from '@/views/Assignment/AssignmentRooms'
 import assignmentRoomDetail from '@/views/Assignment/AssignmentRoomDetail'
 import assignmentDetail from '@/views/Assignment/AssignmentDetail'
@@ -818,48 +816,6 @@ const router = new Router({
       }
     },
     {
-      path: config.app.pages.assignments.batches.list,
-      name: 'assignmentBatch',
-      component: assignmentBatch,
-      meta: {
-        auth: true,
-        title: 'Assignment Batch List',
-        breadcrumb: [
-          { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'assignmentBatch' }
-        ]
-      }
-    },
-    {
-      path: config.app.pages.assignments.batches.add,
-      name: 'addAssignmentBatch',
-      component: assignmentBatchForm,
-      meta: {
-        auth: true,
-        title: 'Assignment Batch List',
-        breadcrumb: [
-          { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'assignmentBatch' },
-          { name: 'Add Batch', link: 'addAssignmentBatch' }
-        ]
-      }
-    },
-    {
-      path: config.app.pages.assignments.batches.edit,
-      name: 'editAssignmentBatch',
-      component: assignmentBatchForm,
-      meta: {
-        auth: true,
-        title: 'Assignment Batch List',
-        breadcrumb: [
-          { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'assignmentBatch' },
-          { name: 'Edit Batch', link: 'editAssignmentBatch' }
-        ]
-      },
-      props: { editMode: true }
-    },
-    {
       path: config.app.pages.students.assignments,
       name: 'studentAssignments',
       component: studentAssignments,
@@ -900,7 +856,7 @@ const router = new Router({
     {
       path: config.app.pages.assignments.add,
       name: 'addAssignment',
-      component: addAssignment,
+      component: assignmentForm,
       meta: {
         auth: true,
         title: 'Add Assignments',
@@ -910,6 +866,27 @@ const router = new Router({
           { name: 'Assignments', link: 'assignments' },
           { name: 'Add Assignment', link: 'addAssignment' }
         ]
+      },
+      props: {
+        editMode: false
+      }
+    },
+    {
+      path: config.app.pages.assignments.edit,
+      name: 'editAssignment',
+      component: assignmentForm,
+      meta: {
+        auth: true,
+        title: 'Edit Assignments',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Batches', link: 'assignmentBatch' },
+          { name: 'Assignments', link: 'assignments' },
+          { name: 'Edit Assignment', link: 'editAssignment' }
+        ]
+      },
+      props: {
+        editMode: true
       }
     },
     {
