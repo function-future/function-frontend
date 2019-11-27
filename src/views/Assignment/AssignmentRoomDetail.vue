@@ -107,15 +107,15 @@
                     <p class="control">
                   <textarea class="textarea"
                             v-model="discussion.comment"
-                            placeholder="Start a discussion...">
+                            placeholder="Say something..."
+                            :disabled="!accessList.add">
                   </textarea>
                     </p>
                   </div>
-                  <div class="field has-text-right">
+                  <div class="field has-text-right" v-if="accessList.add">
                     <b-button type="is-primary"
                               @click="submitComment"
-                              :loading="submittingDiscussion"
-                              :disabled="disableDiscussion">
+                              :loading="submittingDiscussion">
                       Post discussion
                     </b-button>
                   </div>

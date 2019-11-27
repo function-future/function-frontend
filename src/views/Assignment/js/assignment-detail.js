@@ -75,54 +75,6 @@ export default {
         }
       })
     },
-    // editAssignment () {
-    //   this.editMode = !this.editMode
-    //   this.displayedDates.start = this.assignmentDetail.deadline < new Date() ? this.assignmentDetail.deadline : new Date()
-    //   this.displayedDates.end = null
-    // },
-    // cancel () {
-    //   this.successFetchingAssignmentDetail()
-    //   this.editMode = !this.editMode
-    //   this.file = this.assignmentDetail.file
-    // },
-    // deleteAssignmentFile () {
-    //   this.assignmentDetail.file = ''
-    //   this.assignmentDetail.fileId = ''
-    //   this.file = ''
-    //   this.filePreviewName = ''
-    // },
-    // saveAssignment () {
-    //   let payload = {
-    //     title: this.assignmentDetail.title,
-    //     description: this.assignmentDetail.description,
-    //     deadline: this.assignmentDetail.deadline
-    //   }
-    //   if (this.assignmentDetail.fileId === '') {
-    //     payload.files = []
-    //   } else {
-    //     payload.files = [ this.assignmentDetail.fileId ]
-    //   }
-    //   payload.deadline = new Date(payload.deadline).getTime()
-    //   this.updateAssignmentDetail({
-    //     payload,
-    //     data: {
-    //       batchCode: this.$route.params.batchCode,
-    //       id: this.$route.params.assignmentId
-    //     },
-    //     callback: this.successUpdatingAssignment,
-    //     fail: this.failUpdatingAssignment
-    //   })
-    // },
-    // successUpdatingAssignment () {
-    //   this.$toasted.success('Succeed updating assignment')
-    //   this.editMode = !this.editMode
-    //   this.displayedDates.start = this.assignmentDetail.deadline
-    //   this.displayedDates.end = this.assignmentDetail.deadline
-    //   this.initPage()
-    // },
-    // failUpdatingAssignment () {
-    //   this.$toasted.error('Something went wrong, please try again')
-    // },
     goToEditAssignment () {
       this.$router.push({
         name: 'editAssignment',
@@ -140,37 +92,6 @@ export default {
           assignmentId: this.assignmentDetail.id
         }
       })
-    },
-    // onFileChange (e) {
-    //   this.file = e.target.files[0]
-    //   this.materialUpload(this.file)
-    // },
-    // materialUpload (file) {
-    //   this.uploadingFile = true
-    //   let formData = new FormData()
-    //   formData.append('file', file)
-    //   let data = {
-    //     source: 'ASSIGNMENT',
-    //     resources: formData
-    //   }
-    //   data = { ...data }
-    //   let configuration = { headers: { 'Content-Type': 'multipart/form-data' } }
-    //   this.uploadMaterial({
-    //     data,
-    //     configuration,
-    //     callback: this.successUploadMaterial,
-    //     fail: this.failUploadMaterial
-    //   })
-    // },
-    // successUploadMaterial (response) {
-    //   this.uploadingFile = false
-    //   this.assignmentDetail.fileId = response.id
-    //   this.filePreviewName = this.file.name
-    // },
-    // failUploadMaterial () {
-    //   this.uploadingFile = false
-    //   this.filePreviewName = 'Fail to upload material, please try again'
-    //   this.$toasted.error('Fail to upload material, please try again')
-    // }
+    }
   }
 }
