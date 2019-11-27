@@ -56,6 +56,9 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      @media only screen and (max-width:1023px) {
+        width: 40vw;
+      }
     }
     &-footer {
       margin-top: auto;
