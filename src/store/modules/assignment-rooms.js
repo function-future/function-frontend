@@ -22,7 +22,7 @@ export const actions = {
   fetchRoomList ({ commit }, { data, callback, fail }) {
     assignmentRoomApi.getAssignmentRooms(({data: response, paging}) => {
       commit('GET_ROOM_LIST', response)
-      callback && callback(paging)
+      callback && callback(response, paging)
     }, data, fail)
   },
   fetchRoomDetail ({ commit }, { data, callback, fail }) {

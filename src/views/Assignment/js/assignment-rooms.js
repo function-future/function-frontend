@@ -14,6 +14,7 @@ export default {
         size: 10,
         totalRecords: 0
       },
+      rooms: []
     }
   },
   created () {
@@ -40,8 +41,9 @@ export default {
         fail: this.failFetchingRoomList
       })
     },
-    successFetchingRoomList (paging) {
+    successFetchingRoomList (response, paging) {
       this.paging = paging
+      this.rooms = [ ...response ]
     },
     failFetchingRoomList () {
       this.$toasted.error('Something went wrong while fetching room list')
@@ -52,7 +54,7 @@ export default {
         params: {
           batchCode: this.$route.params.batchCode,
           assignmentId: this.$route.params.assignmentId,
-          roomId: room.id
+          studentId: room.id
         }
       })
     },
