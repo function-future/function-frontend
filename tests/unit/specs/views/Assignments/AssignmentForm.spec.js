@@ -1,4 +1,4 @@
-import AssignmentForm from '@/views/assignment/AssignmentForm'
+import AssignmentForm from '@/views/Assignment/AssignmentForm'
 import { createLocalVue, shallowMount } from '@vue/test-utils'
 import Vuex from 'vuex'
 import VueRouter from 'vue-router'
