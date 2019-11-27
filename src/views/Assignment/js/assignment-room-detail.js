@@ -1,20 +1,12 @@
 import { mapActions, mapGetters } from 'vuex'
-import BaseCard from '@/components/BaseCard'
-import BaseButton from '@/components/BaseButton'
-import BaseTextArea from '@/components/BaseTextArea'
-import BaseInput from '@/components/BaseInput'
-import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
+import ListItem from '@/components/list/ListItem'
 import InfiniteLoading from 'vue-infinite-loading'
 let marked = require('marked')
 
 export default {
   name: 'AssignmentRoomDetail',
   components: {
-    BaseCard,
-    BaseButton,
-    BaseTextArea,
-    BaseInput,
-    ModalDeleteConfirmation,
+    ListItem,
     InfiniteLoading
   },
   data () {
@@ -93,7 +85,7 @@ export default {
       let data = {
         batchCode: this.$route.params.batchCode,
         assignmentId: this.$route.params.assignmentId,
-        studentId: this.currentUser.id,
+        studentId: this.$route.params.studentId,
         page: this.discussionPaging.page,
         pageSize: this.discussionPaging.size
       }
@@ -106,7 +98,7 @@ export default {
     successFetchComments (response, paging) {
       this.discussionPaging = {
         page: paging.page,
-        size: paging.size,
+        size: 4,
         totalRecords: paging.totalRecords
       }
       this.discussions.push(...response)
@@ -124,7 +116,7 @@ export default {
       const data = {
         batchCode: this.$route.params.batchCode,
         assignmentId: this.$route.params.assignmentId,
-        studentId: this.currentUser.id
+        studentId: this.$route.params.studentId
       }
       const payload = this.discussion
       this.postComment({

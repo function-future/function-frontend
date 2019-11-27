@@ -1,66 +1,131 @@
 <template>
-  <div class="scrollable-container" v-if="!isLoading">
-    <div class="room-detail">
-      <BaseCard class="room-detail-card" cardClass="no-pointer">
-        <div class="header">
-          <h3>{{ roomDetail.assignment.title }}</h3>
+  <div class="auto-overflow-container">
+    <div class="room-detail__container">
+      <div class="room-detail__container__header">
+        <div class="room-detail__container__header-title">
+          <span class="is-size-5 has-text-weight-bold">
+            {{ roomDetail.assignment.title }}
+          </span>
         </div>
-        <div class="header float-right">
-          <div class="action">
-            <span class="edit-btn">
-              {{roomDetail.assignment.deadline | moment('dddd, MMMM Do YYYY')}}
-            </span>
+      </div>
+      <div class="room-detail__container__content wrap-word">
+        <div class="room-detail__container__content-download">
+          <span class="content" v-html="descriptionCompiledMarkdown"></span>
+          <a class="button is-primary is-outlined"
+             v-if="roomDetail.assignment.file"
+             :href="roomDetail.assignment.file"
+             target="_blank">
+            Download material
+          </a>
+        </div>
+      </div>
+      <b-collapse class="card room-detail__container__discussion" aria-id="contentIdForA11y3" v-if="accessList.add && accessList.add.score" :open="false">
+        <div
+          slot="trigger"
+          slot-scope="props"
+          class="card-header"
+          role="button"
+          aria-controls="contentIdForA11y3">
+          <p class="card-header-title">
+            Score
+          </p>
+          <a class="card-header-icon">
+            <b-icon
+              :icon="props.open ? 'chevron-down' : 'chevron-up'">
+            </b-icon>
+          </a>
+        </div>
+        <div class="card-content">
+          <div class="content">
+            <b-field>
+              <b-input placeholder="Score"
+                       type="number"
+                       min="0"
+                       max="100"
+                       v-model="roomDetail.point">
+              </b-input>
+            </b-field>
           </div>
         </div>
-        <a v-if="roomDetail.assignment.file && roomDetail.assignment.file !== ''" :href="roomDetail.assignment.file" target="_blank" class="download-button">
-          <font-awesome-icon icon="download" class="icon"></font-awesome-icon>Download material
-        </a>
-        <div class="scrollable">
-          <span v-html="descriptionCompiledMarkdown"></span>
+        <footer class="card-footer">
+          <a class="card-footer-item" @click="updateScore">Submit</a>
+        </footer>
+      </b-collapse>
+      <b-collapse class="card room-detail__container__discussion" aria-id="contentIdForA11y3">
+        <div
+          slot="trigger"
+          slot-scope="props"
+          class="card-header"
+          role="button"
+          aria-controls="contentIdForA11y3">
+          <p class="card-header-title">
+            Discussions
+          </p>
+          <a class="card-header-icon">
+            <b-icon
+              :icon="props.open ? 'chevron-down' : 'chevron-up'">
+            </b-icon>
+          </a>
         </div>
-      </BaseCard>
-      <BaseCard class="room-detail-score" v-if="accessList.add && accessList.add.score">
-        <div class="room-detail-score-header">
-          <span>Score</span>
-          <font-awesome-icon icon="save" class="icon blue" @click="updateScore"></font-awesome-icon>
+        <div class="card-content">
+          <div class="content">
+            <div class="room-detail__container__discussion-container">
+              <article class="media room-detail__container__discussion__list"
+                       v-for="discussion in discussions" :key="discussion.id">
+                <figure class="media-left">
+                  <p class="image is-32x32">
+                    <img class="is-rounded" :src="require('@/assets/profile-picture-placeholder.png')">
+                  </p>
+                </figure>
+                <div class="media-content">
+                  <div class="content">
+                    <div class="has-text-weight-bold">
+                      {{ discussion.author.name }}
+                    </div>
+                    <div class="is-size-7">
+                      {{ discussion.createdAt | moment("dddd, MMMM Do YYYY") }}
+                    </div>
+                    <div class="room-detail__container__discussion__list-content">
+                      {{ discussion.comment }}
+                    </div>
+                  </div>
+                </div>
+              </article>
+              <infinite-loading @infinite="initDiscussion" :distance="4"
+                                spinner="spiral">
+                <div slot="no-more"></div>
+                <div slot="no-results"></div>
+              </infinite-loading>
+              <article class="media room-detail__container__discussion__list">
+                <figure class="media-left">
+                  <p class="image is-32x32">
+                    <img class="is-rounded" :src="require('@/assets/profile-picture-placeholder.png')">
+                  </p>
+                </figure>
+                <div class="media-content">
+                  <div class="field">
+                    <p class="control">
+                  <textarea class="textarea"
+                            v-model="discussion.comment"
+                            placeholder="Start a discussion...">
+                  </textarea>
+                    </p>
+                  </div>
+                  <div class="field has-text-right">
+                    <b-button type="is-primary"
+                              @click="submitComment"
+                              :loading="submittingDiscussion"
+                              :disabled="disableDiscussion">
+                      Post discussion
+                    </b-button>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
         </div>
-        <input type="number" min="0" max="100" v-model="roomDetail.point" class="room-detail-score-input">
-      </BaseCard>
+      </b-collapse>
     </div>
-    <BaseCard class="discussion-wrapper" cardClass="no-pointer">
-      <h3>Discussion</h3>
-      <div class="scrollable discussion-scrollable">
-        <div v-for="discussion in discussions" :key="discussion.id">
-          <BaseCard class="discussion-card">
-            <div class="discussion-info">
-              <span style="font-weight: bold; font-size: 15px; margin-left: -15px;">{{ discussion.author.name }}</span>
-              <span class="discussion-date">{{ discussion.createdAt | moment("dddd, MMMM Do YYYY") }}</span>
-            </div>
-            <div class="discussion-content">
-              <span>{{ discussion.comment }}</span>
-            </div>
-          </BaseCard>
-        </div>
-        <infinite-loading direction="top"
-                          @infinite="initDiscussion"
-                          spinner="spiral"
-                          force-use-infinite-wrapper=".scrollable">
-          <div slot="no-more"></div>
-          <div slot="no-results"></div>
-        </infinite-loading>
-      </div>
-      <div class="discussion-input-wrapper">
-        <div class="discussion-input">
-          <BaseTextArea class="discussion-input-box"
-                        :placeholder="commentBoxPlaceholder"
-                        :disabled="disableCommentBox"
-                        v-model="discussion.comment"></BaseTextArea>
-        </div>
-        <div class="discussion-button">
-          <BaseButton type="submit" buttonClass="button-save" @click="submitComment" v-if="accessList.add && accessList.add.discussion" :disabled="isDeadlineHasPassed">Post</BaseButton>
-        </div>
-      </div>
-    </BaseCard>
   </div>
 </template>
 
@@ -68,168 +133,60 @@
 </script>
 
 <style lang="scss" scoped>
-  .scrollable {
-    overflow: auto;
-    margin-bottom: 5px;
-    max-height: 60%;
-    padding: 0 10px 5px 5px;
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-  }
-
-  .discussion-scrollable {
-    display: flex;
-    flex-direction: column-reverse;
-  }
-
+  @import "@/assets/css/main.scss";
   .room-detail {
-    height: auto;
-    display: flex;
-  }
+    &__container {
+      padding: 1rem 1.25rem;
+      margin-bottom: 2rem;
 
-  .room-detail-card {
-    max-height: 100%;
-    flex-grow: 10;
-  }
+      &-title {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 1rem;
+      }
 
-  .room-detail-score {
-    display: flex;
-    flex-direction: column;
-    &-header {
-      display: flex;
-      justify-content: space-between;
-      height: 20%;
-      font-size: larger;
-      font-weight: bolder;
-    }
-    &-input {
-      height: 80%;
-      border: none;
-      font-weight: bolder;
-      font-size: 5rem;
-      text-align: right;
-      &:focus {
-        outline: none;
+      &-description {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 1rem;
+      }
+
+      &-upload {
+        margin-top: 0.5rem;
+        margin-bottom: 1rem;
+      }
+
+      &-date {
+        margin-top: 0.5rem;
+        margin-bottom: 1rem;
+        padding-bottom: 1rem;
+      }
+
+      &-actions {
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      &__discussion {
+        margin-top: 1rem;
       }
     }
   }
 
-  .discussion-wrapper {
-    max-height: 80vh;
-    display: flex;
-    flex-direction: column;
+  /deep/ figure {
+    margin-right: 0!important;
+    margin-left: 0!important;
   }
 
-  .discussion-card {
-    min-height: 85px;
-    width: 100%;
-    box-shadow: none;
-    margin: 0 0 15px 0;
-    border: 1px solid #828282;
-    cursor: pointer;
-  }
+  .card-content {
+    @media only screen and (max-width: 1023px) {
+      padding: 0;
+    }
 
-  .discussion-info {
-    font-size: 0.8rem;
-    margin-bottom: 10px;
-    color: #828282;
-  }
-
-  .discussion-date {
-    border-left: 1px solid #BDBDBD;
-    padding-left: 5px;
-    margin-left: 5px;
-    font-size: 0.8rem;
-  }
-
-  .discussion-content {
-    margin: 5px 0;
-    margin-left: -10px;
-    text-align: justify;
-    font-size: 1rem;
-    font-weight: 600;
-  }
-
-  .discussion-input-wrapper {
-    margin-top: 10px;
-  }
-
-  .discussion-input {
-    height: 120px;
-  }
-
-  .discussion-input-box {
-    height: 100px;
-  }
-
-  .header {
-    display: inline-block;
-  }
-
-  .float-right {
-    float: right;
-  }
-
-  .description {
-    text-align: justify;
-  }
-
-  .action {
-    border-left: 1px solid #BDBDBD;
-    padding-left: 15px;
-    display: inline-block;
-  }
-
-  .action span {
-    padding: 5px;
-    transition: all .2s ease;
-  }
-
-  .action span:hover {
-    opacity: 0.8;
-  }
-
-  .action span:active {
-    opacity: 0.9;
-  }
-
-  .discussion-button {
-    display: flex;
-    justify-content: flex-end;
-  }
-
-  .download-button {
-    border: 1px solid #828282;
-    border-radius: 10px;
-    padding: 10px 20px;
-    color: #505050;
-    cursor: pointer;
-  }
-
-  .download-button:hover {
-    background-color: #F2F2F2;
-  }
-
-  h3 {
-    margin: 5px 0 15px 0;
-    text-align: left;
-  }
-
-  .icon {
-    margin-right: 5px;
-  }
-
-  .download-button {
-    display: block;
-    border: 1px solid #828282;
-    border-radius: 10px;
-    padding: 10px 20px;
-    color: #505050;
-    cursor: pointer;
-  }
-
-  .download-button:hover {
-    background-color: #F2F2F2;
+    &-action {
+      display: flex;
+      align-items: center;
+      height: 100%;
+    }
   }
 </style>
