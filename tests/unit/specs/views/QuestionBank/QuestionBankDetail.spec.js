@@ -17,24 +17,25 @@ describe('QuestionBankDetail', () => {
 
   function initStore() {
     const state = {
-      questionBank: {}
+      questionBank: {},
+      questionList: [],
+      accessList: {}
     }
     const actions = {
-      updateQuestionBank: jest.fn(),
-      fetchQuestionBankDetail: jest.fn()
+      fetchQuestionBankDetail: jest.fn(),
+      fetchQuestionBankQuestionList: jest.fn(),
+      deleteQuestionBankById: jest.fn(),
+      deleteQuestionById: jest.fn()
     }
     const getters = {
-      questionBank: state => state.questionBank
+      questionBank: state => state.questionBank,
+      questionList: state => state.questionList,
+      accessList: state => state.accessList
     }
     const store = new Vuex.Store({
-      modules: {
-        questionBanks: {
-          state,
-          actions,
-          getters,
-          namespaced: true
-        }
-      }
+      state,
+      actions,
+      getters,
     })
 
     return {
@@ -90,28 +91,16 @@ describe('QuestionBankDetail', () => {
     expect(wrapper.isVueInstance()).toBe(true)
   })
 
-  test('cancelButtonText true', () => {
+  test('deleteModalMessage for questionBank', ()  => {
     initComponent()
-    wrapper.vm.editMode = true
-    expect(wrapper.vm.cancelButtonText).toEqual('Cancel')
+    wrapper.vm.selectedId = ''
+    expect(wrapper.vm.deleteModalMessage).toEqual('Are you sure you want to delete this question bank?')
   })
 
-  test('cancelButtonText false', () => {
+  test('deleteModalMessage for question', ()  => {
     initComponent()
-    wrapper.vm.editMode = false
-    expect(wrapper.vm.cancelButtonText).toEqual('Return')
-  })
-
-  test('actionButtonText true', () => {
-    initComponent()
-    wrapper.vm.editMode = true
-    expect(wrapper.vm.actionButtonText).toEqual('Save')
-  })
-
-  test('actionButtonText false', () => {
-    initComponent()
-    wrapper.vm.editMode = false
-    expect(wrapper.vm.actionButtonText).toEqual('Edit')
+    wrapper.vm.selectedId = 'QTN001'
+    expect(wrapper.vm.deleteModalMessage).toEqual('Are you sure you want to delete this question?')
   })
 
   test('initPage', () => {
@@ -133,53 +122,231 @@ describe('QuestionBankDetail', () => {
     expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
   })
 
-  test('actionButtonClicked editMode is true', () => {
+  test('getQuestionList', () => {
     initComponent()
-    wrapper.vm.editMode = true
-    wrapper.vm.updateQuestionBank = jest.fn()
-    wrapper.vm.actionButtonClicked()
-    expect(wrapper.vm.updateQuestionBank).toHaveBeenCalledTimes(1)
-  })
-
-  test('actionButtonClicked editMode is false', () => {
-    initComponent()
-    wrapper.vm.editMode = false
-    wrapper.vm.updateQuestionBank = jest.fn()
-    wrapper.vm.actionButtonClicked()
-    expect(wrapper.vm.updateQuestionBank).not.toHaveBeenCalled()
-  })
-
-  test('cancelButtonClicked editMode is true', () => {
-    initComponent()
-    wrapper.vm.editMode = true
-    const spy = jest.spyOn(wrapper.vm, 'initPage')
-    wrapper.vm.cancelButtonClicked()
+    const spy = jest.spyOn(wrapper.vm, 'fetchQuestionBankQuestionList')
+    wrapper.vm.getQuestionList()
     expect(spy).toHaveBeenCalledTimes(1)
   })
 
-  test('cancelButtonClicked editMode is false', () => {
+  test('successFetchingQuestionBankQuestionList response is not yet empty', () => {
     initComponent()
-    wrapper.vm.editMode = false
-    wrapper.vm.$router.push = jest.fn()
-    wrapper.vm.cancelButtonClicked()
-    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
-      name: 'questionBanks'
+    wrapper.vm.state =  {
+      loaded: jest.fn(),
+      complete: jest.fn()
+    }
+    const response = [
+      {
+        "id": "QST0001",
+        "label": "Question Sample 1",
+        "options": [
+          {
+            "id": "OPT0001",
+            "label": "Answer Sample 1-1"
+          },
+          {
+            "id": "OPT0002",
+            "label": "Answer Sample 1-2"
+          },
+          {
+            "id": "OPT0003",
+            "label": "Answer Sample 1-3"
+          },
+          {
+            "id": "OPT0004",
+            "label": "Answer Sample 1-4",
+            "correct": true
+          }
+        ]
+      },
+      {
+        "id": "QST0002",
+        "label": "Question Sample 2",
+        "options": [
+          {
+            "id": "OPT0011",
+            "label": "Answer Sample 2-1"
+          },
+          {
+            "id": "OPT0012",
+            "label": "Answer Sample 2-2"
+          },
+          {
+            "id": "OPT0013",
+            "label": "Answer Sample 2-3"
+          },
+          {
+            "id": "OPT0014",
+            "label": "Answer Sample 2-4",
+            "correct": true
+          }
+        ]
+      }
+    ]
+    const paging = {
+      page: 1,
+      size: 2,
+      totalRecords: 20
+    }
+    wrapper.vm.successFetchingQuestionBankQuestionList(paging, response)
+    expect(wrapper.vm.questions).toEqual(response)
+    expect(wrapper.vm.paging.page).toEqual(2)
+    expect(wrapper.vm.state.loaded).toHaveBeenCalledTimes(1)
+  })
+
+  test('successFetchingQuestionBankQuestionList response is empty', () => {
+    initComponent()
+    wrapper.vm.state = {
+      loaded: jest.fn(),
+      complete: jest.fn()
+    }
+    const response = []
+    const paging = {
+      page: 1,
+      size: 10,
+      totalRecords: 20
+    }
+    wrapper.vm.successFetchingQuestionBankQuestionList(paging, response)
+    expect(wrapper.vm.questions).toEqual([])
+    expect(wrapper.vm.paging.page).toEqual(1)
+    expect(wrapper.vm.state.complete).toHaveBeenCalledTimes(1)
+  })
+
+  test('failFetchingQuestionBankQuestionList', () => {
+    initComponent()
+    wrapper.vm.failFetchingQuestionBankQuestionList()
+    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+  })
+
+  test('redirectToEditQuestionBankForm', () => {
+    initComponent()
+    wrapper.vm.$route.params.bankId = 'BNK001'
+    const routerSpy = jest.spyOn(wrapper.vm.$router, 'push')
+    wrapper.vm.redirectToEditQuestionBankForm()
+    expect(routerSpy).toHaveBeenCalledWith({
+      name: 'editQuestionBank',
+      params: {
+        id: 'BNK001'
+      }
     })
   })
 
-  test('successUpdatingQuestionBank', () => {
+  test('redirectToQuestionForm', () => {
+    initComponent()
+    wrapper.vm.$route.params.bankId = 'BNK001'
+    const routerSpy = jest.spyOn(wrapper.vm.$router, 'push')
+    wrapper.vm.redirectToQuestionForm()
+    expect(routerSpy).toHaveBeenCalledWith({
+      name: 'addQuestion',
+      params: {
+        bankId: 'BNK001'
+      }
+    })
+  })
+
+  test('redirectToEditQuestionForm', () => {
+    initComponent()
+    wrapper.vm.$route.params.bankId = 'BNK001'
+    const routerSpy = jest.spyOn(wrapper.vm.$router, 'push')
+    wrapper.vm.redirectToEditQuestionForm('QTN001')
+    expect(routerSpy).toHaveBeenCalledWith({
+      name: 'editQuestion',
+      params: {
+        bankId: 'BNK001',
+        questionId: 'QTN001'
+      }
+    })
+  })
+
+  test('redirectToQuestionDetail', () => {
+    initComponent()
+    wrapper.vm.$route.params.bankId = 'BNK001'
+    const routerSpy = jest.spyOn(wrapper.vm.$router, 'push')
+    wrapper.vm.redirectToQuestionDetail('QTN001')
+    expect(routerSpy).toHaveBeenCalledWith({
+      name: 'questionBankQuestionDetail',
+      params: {
+        bankId: 'BNK001',
+        questionId: 'QTN001'
+      }
+    })
+  })
+
+  test('openDeleteConfirmationModal', () => {
+    initComponent()
+    wrapper.vm.openDeleteConfirmationModal('ID01')
+    expect(wrapper.vm.selectedId).toEqual('ID01')
+    expect(wrapper.vm.showDeleteConfirmationModal).toEqual(true)
+  })
+
+  test('closeDeleteConfirmationModal', () => {
+    initComponent()
+    wrapper.vm.closeDeleteConfirmationModal()
+    expect(wrapper.vm.selectedId).toEqual('')
+    expect(wrapper.vm.showDeleteConfirmationModal).toEqual(false)
+  })
+
+  test('deleteItem deleting questionBank', () => {
+    initComponent()
+    wrapper.vm.selectedId = ''
+    const spy = jest.spyOn(wrapper.vm, 'deleteThisBank')
+    wrapper.vm.deleteItem()
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('deleteItem deleting question with selected ID', () => {
+    initComponent()
+    wrapper.vm.selectedId = 'QTN001'
+    const spy = jest.spyOn(wrapper.vm, 'deleteThisQuestion')
+    wrapper.vm.deleteItem()
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('deleteThisBank', () => {
+    initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'deleteQuestionBankById')
+    wrapper.vm.deleteThisBank()
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('successDeletingBank', () => {
     initComponent()
     wrapper.vm.$router.push = jest.fn()
-    wrapper.vm.successUpdatingQuestionBank()
+    wrapper.vm.successDeletingBank()
+    expect(wrapper.vm.showDeleteConfirmationModal).toEqual(false)
     expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
-      name: 'questionBanks'
+      name: 'scoringAdmin'
     })
   })
 
-  test('failUpdatingQuestionBank', () => {
+  test('failedDeletingBank', () => {
     initComponent()
-    wrapper.vm.failUpdatingQuestionBank()
+    wrapper.vm.failedDeletingBank()
+    expect(wrapper.vm.showDeleteConfirmationModal).toEqual(false)
+    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+  })
+
+  test('deleteThisQuestion', () => {
+    initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'deleteQuestionById')
+    wrapper.vm.deleteThisQuestion()
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('successDeletingQuestion', () => {
+    initComponent()
+    wrapper.vm.$router.go = jest.fn()
+    wrapper.vm.successDeletingQuestion()
+    expect(wrapper.vm.showDeleteConfirmationModal).toEqual(false)
+    expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
+    expect(wrapper.vm.$router.go).toHaveBeenCalledTimes(1)
+  })
+
+  test('failedDeletingQuestion', () => {
+    initComponent()
+    wrapper.vm.failedDeletingQuestion()
+    expect(wrapper.vm.showDeleteConfirmationModal).toEqual(false)
     expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
   })
 })

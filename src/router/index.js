@@ -11,10 +11,12 @@ import assignmentDetail from '@/views/Assignment/AssignmentDetail'
 import scoringAdmin from '@/views/Scoring/LandingPageAdmin'
 import questionBanks from '@/views/QuestionBank/QuestionBanks'
 import questionBankDetail from '@/views/QuestionBank/QuestionBankDetail'
+import questionBankForm from '@/views/QuestionBank/QuestionBankForm'
 import addQuestionBank from '@/views/QuestionBank/AddQuestionBank'
 import questionBankQuestionList from '@/views/QuestionBank/QuestionBankQuestionList'
 import questionBankAddQuestion from '@/views/QuestionBank/QuestionBankAddQuestion'
 import questionBankQuestionDetail from '@/views/QuestionBank/QuestionBankQuestionDetail'
+import questionForm from '@/views/QuestionBank/QuestionForm'
 import quizBatch from '@/views/Quiz/QuizBatch'
 import quizBatchForm from '@/views/Quiz/QuizBatchForm'
 import quizzes from '@/views/Quiz/Quiz'
@@ -615,7 +617,7 @@ const router = new Router({
     {
       path: config.app.pages.questionBanks.add,
       name: 'addQuestionBank',
-      component: addQuestionBank,
+      component: questionBankForm,
       meta: {
         auth: true,
         title: 'Add Question Bank',
@@ -624,6 +626,26 @@ const router = new Router({
           { name: 'Question Banks', link: 'questionBanks' },
           { name: 'Add Question Bank', link: 'addQuestionBank' }
         ]
+      },
+      props: {
+        editMode: false
+      }
+    },
+    {
+      path: config.app.pages.questionBanks.edit,
+      name: 'editQuestionBank',
+      component: questionBankForm,
+      meta: {
+        auth: true,
+        title: 'Edit Question Bank',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Question Banks', link: 'questionBanks' },
+          { name: 'Add Question Bank', link: 'addQuestionBank' }
+        ]
+      },
+      props: {
+        editMode: true
       }
     },
     {
@@ -642,22 +664,6 @@ const router = new Router({
       }
     },
     {
-      path: config.app.pages.questionBanks.questions.add,
-      name: 'questionBankAddQuestion',
-      component: questionBankAddQuestion,
-      meta: {
-        auth: true,
-        title: 'Add Question',
-        breadcrumb: [
-          { name: 'Home', link: 'feeds' },
-          { name: 'Question Banks', link: 'questionBanks' },
-          { name: 'Question Bank Detail', link: 'questionBankDetail' },
-          { name: 'Questions', link: 'questionBankQuestionList' },
-          { name: 'Add Question', link: 'questionBankAddQuestion' }
-        ]
-      }
-    },
-    {
       path: config.app.pages.questionBanks.questions.detail,
       name: 'questionBankQuestionDetail',
       component: questionBankQuestionDetail,
@@ -671,6 +677,44 @@ const router = new Router({
           { name: 'Questions', link: 'questionBankQuestionList' },
           { name: 'Question Detail', link: 'questionBankQuestionDetail' }
         ]
+      }
+    },
+    {
+      path: config.app.pages.questionBanks.questions.add,
+      name: 'addQuestion',
+      component: questionForm,
+      meta: {
+        auth: true,
+        title: 'New Question',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Question Banks', link: 'questionBanks' },
+          { name: 'Question Bank Detail', link: 'questionBankDetail' },
+          { name: 'Questions', link: 'questionBankQuestionList' },
+          { name: 'Add Question', link: 'addQuestion' }
+        ]
+      },
+      props: {
+        editMode: false
+      }
+    },
+    {
+      path: config.app.pages.questionBanks.questions.edit,
+      name: 'editQuestion',
+      component: questionForm,
+      meta: {
+        auth: true,
+        title: 'Edit Question',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Question Banks', link: 'questionBanks' },
+          { name: 'Question Bank Detail', link: 'questionBankDetail' },
+          { name: 'Questions', link: 'questionBankQuestionList' },
+          { name: 'Edit Question', link: 'editQuestion' }
+        ]
+      },
+      props: {
+        editMode: true
       }
     },
     {

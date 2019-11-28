@@ -1,16 +1,10 @@
 import { mapActions, mapGetters } from 'vuex'
-import BaseCard from '@/components/BaseCard'
-import BaseTextArea from '@/components/BaseTextArea'
-import BaseInput from '@/components/BaseInput'
-import BaseButton from '@/components/BaseButton'
+import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
 
 export default {
   name: 'QuestionBankQuestionDetail',
   components: {
-    BaseCard,
-    BaseButton,
-    BaseTextArea,
-    BaseInput
+    ModalDeleteConfirmation
   },
   data () {
     return {
@@ -34,10 +28,7 @@ export default {
       },
       submittedQuestion: {},
       editMode: false,
-      selectAnswerCardStyle: {
-        'padding': '10px 20px',
-        'margin': '10px 0'
-      }
+      showDeleteConfirmationModal: false
     }
   },
   created () {
@@ -45,19 +36,14 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'question'
-    ]),
-    cancelButtonText () {
-      return this.editMode ? 'Cancel' : 'Return'
-    },
-    actionButtonText () {
-      return this.editMode ? 'Save' : 'Edit'
-    }
+      'question',
+      'accessList'
+    ])
   },
   methods: {
     ...mapActions([
       'fetchQuestionDetail',
-      'updateQuestion'
+      'deleteQuestionById'
     ]),
     initPage () {
       this.fetchQuestionDetail({
@@ -80,48 +66,49 @@ export default {
     failFetchingQuestionDetail () {
       this.$toasted.error('Something went wrong')
     },
-    actionButtonClicked () {
-      if (this.editMode) {
-        this.question.options.find((option, index) => {if (option.correct) delete this.questionDetail.options[index].correct })
-        this.submittedQuestion = JSON.parse(JSON.stringify(this.questionDetail))
-        this.submittedQuestion.options[this.selectedAnswer].correct = true
-        this.updateQuestion({
-          payload: {...this.submittedQuestion},
-          data: {
-            bankId: this.$route.params.bankId,
-            questionId: this.$route.params.questionId
-          },
-          callback: this.successUpdatingQuestion,
-          fail: this.failUpdatingQuestion
-        })
+    header (idx) {
+      switch (idx) {
+        case 0:
+          return 'Option A'
+        case 1:
+          return 'Option B'
+        case 2:
+          return 'Option C'
+        case 3:
+          return 'Option D'
       }
-      this.editMode = !this.editMode
     },
-    successUpdatingQuestion () {
-      this.$toasted.success(`Success updating question ${this.$route.params.questionId}`)
+    redirectToEditPage () {
       this.$router.push({
-        name: 'questionBankQuestionList',
+        name: 'editQuestion',
+        params: {
+          bankId: this.$route.params.bankId,
+          questionId: this.$route.params.questionId
+        }
+      })
+    },
+    deleteQuestion () {
+      this.deleteQuestionById({
+        data: {
+          bankId: this.$route.params.bankId,
+          id: this.$route.params.questionId
+        },
+        callback: this.successDeletingQuestion,
+        fail: this.failedDeletingQuestion
+      })
+    },
+    successDeletingQuestion () {
+      this.$toasted.success('Successfully deleted question')
+      this.$router.push({
+        name: 'questionBankDetail',
         params: {
           bankId: this.$route.params.bankId
         }
       })
     },
-    failUpdatingQuestion () {
+    failedDeletingQuestion () {
       this.$toasted.error('Something went wrong')
-    },
-    cancelButtonClicked () {
-      if (this.editMode) {
-        this.initPage()
-        this.selectedAnswer = ''
-        this.editMode = !this.editMode
-        return
-      }
-      this.$router.push({
-        name: 'questionBankQuestionList',
-        params: {
-          bankId: this.$route.params.bankId
-        }
-      })
+      this.showDeleteConfirmationModal = false
     }
   }
 }

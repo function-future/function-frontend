@@ -66,11 +66,13 @@ module.exports = {
       questionBanks: {
         list: '/question-banks',
         add: '/question-banks/add',
+        edit: '/question-banks/:id/edit',
         detail: '/question-banks/:bankId/detail',
         questions: {
           list: '/question-banks/:bankId/questions',
           add: '/question-banks/:bankId/questions/add',
-          detail: '/question-banks/:bankId/questions/:questionId'
+          detail: '/question-banks/:bankId/questions/:questionId/detail',
+          edit: '/question-banks/:bankId/questions/:questionId/edit'
         }
       },
       quizzes: {

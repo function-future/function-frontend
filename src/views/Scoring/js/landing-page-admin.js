@@ -215,7 +215,7 @@ export default {
     goToItemDetail(id) {
       if (this.selectedTab === 0) {
         this.$router.push({
-          name: 'questionBankQuestionList',
+          name: 'questionBankDetail',
           params: {
             bankId: id
           }
