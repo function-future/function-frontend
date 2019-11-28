@@ -89,16 +89,12 @@ module.exports = {
       assignments: {
         list: '/batches/:batchCode/assignments',
         add: '/batches/:batchCode/assignments/add',
+        edit: '/batches/:batchCode/assignments/:assignmentId/edit',
         rooms: {
           list: '/batches/:batchCode/assignments/:assignmentId/rooms',
           detail: '/batches/:batchCode/assignments/:assignmentId/rooms/:studentId'
         },
         detail: '/batches/:batchCode/assignments/:assignmentId/detail',
-        batches: {
-          list: '/assignment/batches',
-          add: '/assignment/batches/add',
-          edit: '/assignment/batches/:batchCode/edit'
-        }
       },
       finalJudging: {
         list: '/final-judging',

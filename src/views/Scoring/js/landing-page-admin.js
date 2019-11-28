@@ -269,7 +269,10 @@ export default {
     },
     goToAddAssignment() {
       this.$router.push({
-        name: 'addAssignment'
+        name: 'addAssignment',
+        params: {
+          batchCode: this.batchCode
+        }
       })
     }
   },

@@ -1,69 +1,75 @@
 <template>
-  <div class="scrollable-container">
-    <div class="edit-container">
-      <div class="title">
-        <BaseInput class="input-title"
-                   placeholder="Insert Title"
-                   inputType="title"
-                   v-model="assignmentDetail.title"
-                  :disabled="!editMode">
-        </BaseInput>
+  <div class="auto-overflow-container">
+    <div class="assignment-detail__container">
+      <div class="assignment-detail__container__actions">
+        <b-button rounded
+                  icon-left="pen"
+                  type="is-primary"
+                  @click="goToEditAssignment"
+                  v-if="accessList.edit">
+          Edit
+        </b-button>
+        <b-button rounded
+                  icon-left="trash"
+                  type="is-danger"
+                  @click="showDeleteConfirmationModal = true"
+                  v-if="accessList.delete">
+          Delete
+        </b-button>
+        <b-button rounded
+                  class="is-pulled-right is-hidden-mobile"
+                  icon-left="eye"
+                  type="is-primary"
+                  @click="goToRoomList"
+                  v-if="accessList.edit">
+          Rooms
+        </b-button>
       </div>
-      <div class="assignment-body">
-        <div class="description">
-          <mavon-editor class="input-description"
-                        placeholder="Question Goes Here"
-                        language="en"
-                        v-model="assignmentDetail.description"
-                        v-validate.disable="'required'"
-                        name="description"
-                        :editable="editMode"/>
+      <div class="assignment-detail__container__header">
+        <div class="assignment-detail__container__header-title">
+          <span class="is-size-5 has-text-weight-bold">
+            {{ assignmentDetail.title }}
+          </span>
+          <b-button rounded
+                    class="is-pulled-right is-hidden-desktop is-small"
+                    icon-left="eye"
+                    type="is-primary"
+                    @click="goToRoomList"
+                    v-if="accessList.edit">
+            Rooms
+          </b-button>
         </div>
-        <div class="assignment-detail">
-          <v-date-picker class="assignment-detail-deadline"
-                         v-if="assignmentDetail.deadline"
-                         :value="assignmentDetail.deadline"
-                         v-model="assignmentDetail.deadline"
-                         :available-dates="{start: displayedDates.start, end: displayedDates.end}"
-                         is-required
-                         is-inline>
-          </v-date-picker>
-          <a v-if="!editMode && assignmentDetail.file && assignmentDetail.file !== ''" :href="assignmentDetail.file" target="_blank" class="download-button">
-            <font-awesome-icon icon="download" class="icon"></font-awesome-icon>Download material
+        <div class="assignment-detail__container__header__info">
+          <div class="assignment-detail__container-header__info-date">
+            <template>
+              <b-field label="Deadline" label-position="on-border">
+                <b-datepicker
+                  v-model="dates"
+                  :min-date="minDate"
+                  range>
+                </b-datepicker>
+              </b-field>
+            </template>
+          </div>
+        </div>
+      </div>
+      <div class="assignment-detail__container__content wrap-word">
+        <span class="content" v-html="descriptionCompiledMarkdown"></span>
+        <div class="assignment-detail__container__content-download">
+          <a class="button is-primary is-outlined"
+             v-if="assignmentDetail.file"
+             :href="assignmentDetail.file"
+             target="_blank">
+            Download material
           </a>
-          <div v-if="editMode" class="material-upload">
-            <label class="upload-button">
-              <input type="file" :name="file" @change="onFileChange($event)">
-              <span v-if="!uploadingFile">
-                <font-awesome-icon icon="upload" class="icon"></font-awesome-icon>
-                <span v-if="filePreviewName === ''">Upload File</span>
-                <span v-else> {{ filePreviewName }} </span>
-              </span>
-              <span v-if="uploadingFile">
-                <font-awesome-icon icon="spinner" spin class="icon"></font-awesome-icon> Uploading ...
-              </span>
-            </label>
-            <span v-if="editMode && file" class="delete-file-button" @click="deleteAssignmentFile()">
-              <font-awesome-icon icon="times-circle" class="icon" size="lg" style="cursor: pointer;"></font-awesome-icon>
-            </span>
-          </div>
-          <div class="action">
-            <div class="action-button" v-if="editMode">
-              <BaseButton type="cancel" buttonClass="button-cancel" @click="cancel">Cancel</BaseButton>
-            </div>
-            <div class="action-button" v-if="editMode">
-              <BaseButton type="submit" buttonClass="button-save" @click="saveAssignment">Save</BaseButton>
-            </div>
-            <div class="action-button" v-if="!editMode">
-              <BaseButton type="submit" buttonClass="button-save" @click="editAssignment" v-if="accessList.edit">Edit</BaseButton>
-            </div>
-            <div class="action-button" v-if="!editMode">
-              <BaseButton type="submit" buttonClass="button-save" @click="goToRoomList()">Rooms</BaseButton>
-            </div>
-          </div>
         </div>
       </div>
     </div>
+    <modal-delete-confirmation v-if="showDeleteConfirmationModal"
+                               @close="showDeleteConfirmationModal = false"
+                               @clickDelete="deleteThis">
+      <div slot="description">Are you sure you want to delete this assignment?</div>
+    </modal-delete-confirmation>
   </div>
 </template>
 
@@ -71,114 +77,87 @@
 </script>
 
 <style lang="scss" scoped>
-  .edit-container {
-    max-height: 97%;
-    max-width: 95%;
-  }
-
-  .input-title {
-    margin-right: 10px;
-    width: 100%;
-    font-size: 1.2em;
-  }
-
-  .assignment-body {
-    display: flex;
-    justify-content: space-between;
-    padding: 0 0 20px 0;
-  }
-
-  .description {
-    height: 530px;
-    width: 75%;
-  }
-
-  .input-description {
-    height: 100%;
-  }
-
+  @import "@/assets/css/main.scss";
   .assignment-detail {
-    width: 22%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
+    &__container {
+      display: flex;
+      flex-direction: column;
+      padding: 1rem 1.25rem;
+      @media only screen and (max-width: 1023px) {
+        margin-bottom: 20vh;
+      }
 
-  .assignment-detail-file {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-  }
+      &__actions {
+        z-index: 5;
+        margin-bottom: 0.75rem;
 
-  .assignment-detail-file-name {
-    flex-grow: 2;
-  }
+        button {
+          margin-left: 0.25rem;
+          margin-right: 0.25rem;
 
-  .assignment-detail-file-actions {
-    display: flex;
-    justify-content: space-around;
-  }
+          &:first-child {
+            margin-left: 0;
+          }
+        }
 
-  .action {
-    display: flex;
-    justify-content: space-between;
-  }
+        @media only screen and (max-width: 1023px) {
+          margin-bottom: 0;
+          display: flex;
+          flex-direction: column;
+          position: fixed;
+          right: 5vw;
+          bottom: 75px;
+          transition: all 0.1s ease-in-out;
+          border-radius: 50%;
 
-  .action-button {
-  }
+          button {
+            margin: 0.25rem 0;
+            box-shadow: 2px 2px 16px 4px rgba(0, 0, 0, 0.1);
+          }
+        }
+      }
 
-  .download-button {
-    display: block;
-    border: 1px solid #828282;
-    border-radius: 10px;
-    padding: 10px 20px;
-    color: #505050;
-    cursor: pointer;
-  }
+      &__header {
+        margin-bottom: 0.5rem;
 
-  .download-button:hover {
-    background-color: #F2F2F2;
-  }
+        &__info {
+          margin-top: 0.5rem;
+          &-date {
 
-  .upload-button:hover {
-    background-color: #F2F2F2;
-  }
+          }
+        }
+      }
 
-  .icon {
-    margin-right: 5px;
-  }
+      &__content {
+        &-download {
+          margin-top: 1rem;
+        }
+      }
 
-  .material-upload {
-    text-align: left;
-    width: 100%;
-    display: inline;
+      &__discussion {
+        &-wrapper {
+          margin-top: 1rem;
+        }
 
-    p {
-      font-size: 12px;
-      padding-left: 10px;
+        &-title {
+          padding: 0.25rem 0.5rem;
+          margin-bottom: 0.25rem;
+        }
+
+        &-container {
+          padding: 0.5rem;
+          border-radius: 0.25rem;
+          background-color: #f9f9f9;
+        }
+
+        &__list {
+          padding: 0.5rem 0.75rem 0.5rem 0.5rem;
+
+          &-content {
+            margin-top: 0.5rem;
+          }
+        }
+      }
     }
-  }
-
-  .delete-file-button {
-    margin-left: 5px;
-  }
-
-  .upload-button {
-    width: 70%;
-    display: inline-block;
-    border: 1px solid #BDBDBD;
-    border-radius: 10px;
-    padding: 10px 20px;
-    color: #505050;
-    cursor: pointer;
-    margin: 10px 0;
-  }
-
-  input[type=file] {
-    display: none;
-  }
-
-  .upload-button:hover {
-    background-color: #F2F2F2;
   }
 </style>
