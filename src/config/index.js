@@ -101,16 +101,10 @@ module.exports = {
         }
       },
       finalJudging: {
-        list: '/batches/:batchCode/final-judging',
-        batches: {
-          list: '/final-judging/batches',
-          add: '/final-judging/batches/add',
-          edit: '/final-judging/batches/:batchCode/edit',
-        },
+        list: '/final-judging',
         add: '/batches/:batchCode/final-judging/add',
         detail: '/batches/:batchCode/final-judging/:judgingId/detail',
         edit: '/batches/:batchCode/final-judging/:judgingId/edit',
-        comparisons: '/batches/:batchCode/final-judging/:judgingId/comparison',
         reportPage: '/batches/:batchCode/final-judging/report-page'
       },
       stickyNotes: {
