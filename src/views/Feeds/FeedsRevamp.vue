@@ -6,7 +6,7 @@
         <img src="@/assets/logo.png"
              class="logo is-center"
              alt="function">
-        <b-icon icon="user-circle"
+        <b-icon :icon="profileIcon"
                 class="is-right"
                 @click.native="goToProfile">
         </b-icon>

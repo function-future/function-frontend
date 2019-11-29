@@ -41,6 +41,10 @@ export default {
     },
     announcementEmpty () {
       return !(this.announcements && this.announcements.length)
+    },
+    profileIcon () {
+      if (this.loggedIn) return 'user-circle'
+      return 'sign-in-alt'
     }
   },
   methods: {
