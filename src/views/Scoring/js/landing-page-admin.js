@@ -142,7 +142,7 @@ export default {
         })
       } else if (this.selectedTab === 1) {
         this.$router.push({
-          name: 'quizDetail',
+          name: 'editQuiz',
           params: {
             quizId: id,
             batchCode: this.batchCode

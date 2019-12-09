@@ -62,8 +62,10 @@ export default {
         fail: this.failedFetchingQuizDetail
       })
     },
-    successFetchingQuizDetail () {
-
+    successFetchingQuizDetail (response) {
+      this.quizDetail = { ...response }
+      this.calendarDetails.dates[0] = new Date(response.startDate)
+      this.calendarDetails.dates[1] = new Date(response.endDate)
     },
     failedFetchingQuizDetail () {
       this.$toasted.error('Something went wrong')
@@ -89,6 +91,8 @@ export default {
       })
       let payload = { ...this.quizDetail }
       payload.questionBanks = bankId
+      payload.startDate = this.calendarDetails.dates[0].getTime()
+      payload.endDate = this.calendarDetails.dates[1].getTime()
       this.updateQuizDetail({
         data: {
           batchCode: this.$route.params.batchCode,
@@ -101,6 +105,9 @@ export default {
     },
     successUpdatingQuizDetail () {
       this.$toasted.success('Successfully updated this quiz')
+      this.$router.push({
+        name: 'scoringAdmin'
+      })
     },
     failedUpdatingQuizDetail () {
       this.isSubmitting = false
