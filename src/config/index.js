@@ -79,6 +79,7 @@ module.exports = {
         list: '/batches/:batchCode/quizzes',
         add: '/batches/:batchCode/quizzes/add',
         addDetail: '/batches/:batchCode/quizzes/addDetail',
+        edit: '/batches/batchCode/quizzes/:quizId/edit',
         detail: '/batches/:batchCode/quizzes/:quizId/detail',
         batches: {
           list: '/quiz/batches',

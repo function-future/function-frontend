@@ -12,13 +12,12 @@ import questionBankDetail from '@/views/QuestionBank/QuestionBankDetail'
 import questionBankForm from '@/views/QuestionBank/QuestionBankForm'
 import addQuestionBank from '@/views/QuestionBank/AddQuestionBank'
 import questionBankQuestionList from '@/views/QuestionBank/QuestionBankQuestionList'
-import questionBankAddQuestion from '@/views/QuestionBank/QuestionBankAddQuestion'
 import questionBankQuestionDetail from '@/views/QuestionBank/QuestionBankQuestionDetail'
 import questionForm from '@/views/QuestionBank/QuestionForm'
 import quizBatch from '@/views/Quiz/QuizBatch'
 import quizBatchForm from '@/views/Quiz/QuizBatchForm'
 import quizzes from '@/views/Quiz/Quiz'
-import addQuiz from '@/views/Quiz/AddQuiz'
+import quizForm from '@/views/Quiz/QuizForm'
 import addQuizDetail from '@/views/Quiz/AddQuizDetail'
 import quizDetail from '@/views/Quiz/QuizDetail'
 import studentQuizList from '@/views/Quiz/StudentQuizList'
@@ -771,7 +770,7 @@ const router = new Router({
     {
       path: config.app.pages.quizzes.add,
       name: 'addQuiz',
-      component: addQuiz,
+      component: quizForm,
       meta: {
         auth: true,
         title: 'Add Quiz',
@@ -781,6 +780,27 @@ const router = new Router({
           { name: 'Quizzes', link: 'quizzes' },
           { name: 'Add Quiz', link: 'addQuiz' }
         ]
+      },
+      props: {
+        editMode: false
+      }
+    },
+    {
+      path: config.app.pages.quizzes.edit,
+      name: 'editQuiz',
+      component: quizForm,
+      meta: {
+        auth: true,
+        title: 'Edit Quiz',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Batches', link: 'quizBatch' },
+          { name: 'Quizzes', link: 'quizzes' },
+          { name: 'Edit Quiz', link: 'editQuiz' }
+        ]
+      },
+      props: {
+        editMode: true
       }
     },
     {
