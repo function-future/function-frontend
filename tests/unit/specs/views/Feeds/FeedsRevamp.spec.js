@@ -296,4 +296,18 @@ describe('FeedsRevamp', () => {
     ]
     expect(wrapper.vm.announcementEmpty).toEqual(false)
   })
+
+  test('profileIcon loggedIn', () => {
+    initComponent()
+    store.state.currentUser = {
+      name: 'Karnando Sepryan'
+    }
+    expect(wrapper.vm.profileIcon).toEqual('user-circle')
+  })
+
+  test('profileIcon not loggedIn', () => {
+    initComponent()
+    store.state.currentUser = {}
+    expect(wrapper.vm.profileIcon).toEqual('sign-in-alt')
+  })
 })
