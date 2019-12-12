@@ -36,7 +36,8 @@ describe('Courses Revamp', () => {
       fetchMasterCourses: jest.fn(),
       deleteCourseById: jest.fn(),
       deleteMasterCourseById: jest.fn(),
-      copyCourse: jest.fn()
+      copyCourse: jest.fn(),
+      toast: jest.fn()
     }
     const getters = {
       accessList: state => state.accessList,
@@ -61,10 +62,6 @@ describe('Courses Revamp', () => {
   }
 
   function createWrapper (store, options) {
-    const $toasted = {
-      error: jest.fn(),
-      success: jest.fn()
-    }
     return shallowMount(Courses, {
       ...options,
       store,
@@ -73,10 +70,11 @@ describe('Courses Revamp', () => {
         'b-tabs',
         'b-tab-item',
         'b-checkbox',
-        'b-button'
+        'b-button',
+        'b-field',
+        'b-select'
       ],
       mocks: {
-        $toasted,
         $route,
         $router: {
           replace: jest.fn(),
@@ -212,8 +210,14 @@ describe('Courses Revamp', () => {
   })
 
   test('failFetchBatches', () => {
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failFetchBatches()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Fail to load batch list, please refresh the page',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('fetchCourse', () => {
@@ -286,10 +290,16 @@ describe('Courses Revamp', () => {
   })
 
   test('failFetchCourse', () => {
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failFetchCourse()
     expect(wrapper.vm.switchingTabLoading).toEqual(false)
     expect(wrapper.vm.isLoading).toEqual(false)
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Fail to load course list',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('resetPage', () => {
@@ -406,16 +416,28 @@ describe('Courses Revamp', () => {
 
   test('successDeleteCourse', () => {
     const spy = jest.spyOn(wrapper.vm, 'resetPage')
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.successDeleteCourse()
     expect(spy).toHaveBeenCalledTimes(1)
     expect(wrapper.vm.showDeleteConfirmationModal).toEqual(false)
-    expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Successfully delete master course',
+        type: 'is-success'
+      }
+    })
   })
 
   test('failDeleteCourse', () => {
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failDeleteCourse()
     expect(wrapper.vm.showDeleteConfirmationModal).toEqual(false)
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Fail to delete master course',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('selectAll', () => {
@@ -454,14 +476,26 @@ describe('Courses Revamp', () => {
   })
 
   test('successSubmitShareCourse', () => {
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.successSubmitShareCourse()
     expect(wrapper.vm.selectedIds).toEqual([])
-    expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Successfully share course',
+        type: 'is-success'
+      }
+    })
   })
 
   test('failSubmitShareCourse', () => {
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failSubmitShareCourse()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Fail to share course, please try again',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('courseTitleEllipsis ellipsis', () => {
@@ -522,5 +556,12 @@ describe('Courses Revamp', () => {
   test('computed originBatch batch', () => {
     wrapper.vm.$route.query.tab = 'batch'
     expect(wrapper.vm.originBatch).toEqual(wrapper.vm.$route.params.code)
+  })
+
+  test('computed loggedIn', () => {
+    store.state.currentUser = {
+      name: 'Karnando Sepryan'
+    }
+    expect(wrapper.vm.loggedIn).toEqual(1)
   })
 })

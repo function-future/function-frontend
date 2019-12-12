@@ -66,7 +66,8 @@ export default {
       'createUser',
       'updateUser',
       'uploadProfilePicture',
-      'fetchBatches'
+      'fetchBatches',
+      'toast'
     ]),
     initPage () {
       this.initialState()
@@ -92,7 +93,12 @@ export default {
     },
     failFetchUserById () {
       this.isLoading = false
-      this.$toasted.error('Fail to load user detail')
+      this.toast({
+        data: {
+          message: 'Fail to load user detail',
+          type: 'is-danger'
+        }
+      })
     },
     setUserDetail () {
       this.avatarPreview = require('@/assets/profile-picture-placeholder.png')
@@ -129,7 +135,12 @@ export default {
       this.avatarPreview = response.file.full
     },
     failUploadProfilePicture () {
-      this.$toasted.error('Fail to upload image, please try again')
+      this.toast({
+        data: {
+          message: 'Fail to upload image, please try again',
+          type: 'is-danger'
+        }
+      })
     },
     cancel () {
       this.$router.push({ name: 'users' })
@@ -185,13 +196,23 @@ export default {
       this.$router.push({ name: 'users' })
       let msg = ''
       this.editMode ? msg = 'save edited' : msg = 'created new'
-      this.$toasted.success('Successfully ' + msg + ' user')
+      this.toast({
+        data: {
+          message: 'Successfully ' + msg + ' user',
+          type: 'is-success'
+        }
+      })
     },
     failCreateOrEditUser () {
       this.isSubmitting = false
       let msg = ''
       this.editMode ? msg = 'save edited' : msg = 'create new'
-      this.$toasted.error('Fail to ' + msg + ' user')
+      this.toast({
+        data: {
+          message: 'Fail to ' + msg + ' user',
+          type: 'is-danger'
+        }
+      })
     },
     initBatches () {
       this.fetchBatches({
@@ -204,7 +225,12 @@ export default {
       this.batches = response
     },
     failFetchBatches () {
-      this.$toasted.error('Fail to fetch batches, please try again')
+      this.toast({
+        data: {
+          message: 'Fail to fetch batches, please try again',
+          type: 'is-danger'
+        }
+      })
     },
     setSelectedRoleBasedOnQueryParam () {
       if (this.editMode) return

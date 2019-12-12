@@ -29,7 +29,8 @@ export default {
   },
   methods: {
     ...mapActions([
-      'fetchStickyNotes'
+      'fetchStickyNotes',
+      'toast'
     ]),
     initPage () {
       this.fetchStickyNotes({
@@ -41,7 +42,12 @@ export default {
       this.stickyNote = this.stickyNotes[0] || ''
     },
     fetchStickyNoteFailed () {
-      this.$toasted.error('Fail to load sticky note detail, please refresh the page')
+      this.toast({
+        data: {
+          message: 'Fail to load sticky note detail, please refresh the page',
+          type: 'is-danger'
+        }
+      })
     },
     goToEditStickyNote () {
       this.$router.push({ name: 'editStickyNote' })

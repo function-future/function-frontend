@@ -58,7 +58,8 @@ describe('AnnouncementDetail.vue', () => {
     }
     actions = {
       initialState: jest.fn(),
-      fetchAnnouncementById: jest.fn()
+      fetchAnnouncementById: jest.fn(),
+      toast: jest.fn()
     }
     getters = {
       announcement: state => state.announcement,
@@ -85,6 +86,9 @@ describe('AnnouncementDetail.vue', () => {
     const wrapper = shallowMount(AnnouncementDetail, {
       store,
       localVue,
+      stubs: [
+        'b-button'
+      ],
       router
     })
     expect(wrapper.isVueInstance()).toBe(true)
@@ -105,6 +109,9 @@ describe('AnnouncementDetail.vue', () => {
     const wrapper = shallowMount(AnnouncementDetail, {
       store,
       localVue,
+      stubs: [
+        'b-button'
+      ],
       mocks: {
         $route,
         $router
@@ -123,6 +130,9 @@ describe('AnnouncementDetail.vue', () => {
     const wrapper = shallowMount(AnnouncementDetail, {
       store,
       localVue,
+      stubs: [
+        'b-button'
+      ],
       router
     })
     wrapper.vm.openDeleteConfirmationModal()
@@ -141,6 +151,9 @@ describe('AnnouncementDetail.vue', () => {
     const wrapper = shallowMount(AnnouncementDetail, {
       store,
       localVue,
+      stubs: [
+        'b-button'
+      ],
       mocks: {
         $route
       }
@@ -160,6 +173,9 @@ describe('AnnouncementDetail.vue', () => {
     const wrapper = shallowMount(AnnouncementDetail, {
       store,
       localVue,
+      stubs: [
+        'b-button'
+      ],
       mocks: {
         $route
       }
@@ -175,20 +191,25 @@ describe('AnnouncementDetail.vue', () => {
         id: 'sample-id'
       }
     }
-    const $toasted = {
-      error: jest.fn()
-    }
     localVue.use(Vuex)
     const wrapper = shallowMount(AnnouncementDetail, {
       store,
       localVue,
+      stubs: [
+        'b-button'
+      ],
       mocks: {
-        $route,
-        $toasted
+        $route
       }
     })
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failGetAnnouncementDetail()
-    expect(wrapper.vm.$toasted.error).toBeCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Fail to load announcement detail',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('successDeleteAnnouncementById', () => {
@@ -201,22 +222,27 @@ describe('AnnouncementDetail.vue', () => {
     const $router = {
       push: jest.fn()
     }
-    const $toasted = {
-      success: jest.fn()
-    }
     localVue.use(Vuex)
     const wrapper = shallowMount(AnnouncementDetail, {
       store,
       localVue,
+      stubs: [
+        'b-button'
+      ],
       mocks: {
         $route,
-        $router,
-        $toasted
+        $router
       }
     })
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.successDeleteAnnouncementById()
-    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({name: 'announcements'})
-    expect(wrapper.vm.$toasted.success).toBeCalledTimes(1)
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'announcements' })
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Successfully delete announcement',
+        type: 'is-success'
+      }
+    })
   })
 
   test('failDeleteAnnouncementById', () => {
@@ -226,19 +252,24 @@ describe('AnnouncementDetail.vue', () => {
         id: 'sample-id'
       }
     }
-    const $toasted = {
-      error: jest.fn()
-    }
     localVue.use(Vuex)
     const wrapper = shallowMount(AnnouncementDetail, {
       store,
       localVue,
+      stubs: [
+        'b-button'
+      ],
       mocks: {
-        $route,
-        $toasted
+        $route
       }
     })
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failDeleteAnnouncementById()
-    expect(wrapper.vm.$toasted.error).toBeCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Fail to delete announcement',
+        type: 'is-danger'
+      }
+    })
   })
 })

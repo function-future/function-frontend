@@ -26,7 +26,8 @@ export default {
     ...mapActions([
       'fetchStickyNotes',
       'postStickyNotes',
-      'initialState'
+      'initialState',
+      'toast'
     ]),
     initPage () {
       this.getStickyNoteDetail()
@@ -38,7 +39,12 @@ export default {
       })
     },
     failFetchingStickyNotes () {
-      this.$toasted.error('Fail to load sticky note detail, , please refresh the page')
+      this.toast({
+        data: {
+          message: 'Fail to load sticky note detail, , please refresh the page',
+          type: 'is-danger'
+        }
+      })
     },
     setStickyNote () {
       this.stickyNote = { ...this.stickyNotes[0] }
@@ -63,11 +69,21 @@ export default {
     successPostStickyNotes () {
       this.initialState()
       this.$router.push({ name: 'stickyNotes' })
-      this.$toasted.success('Successfully created new sticky note')
       this.isSubmitting = false
+      this.toast({
+        data: {
+          message: 'Successfully created new sticky note',
+          type: 'is-success'
+        }
+      })
     },
     failPostStickyNotes () {
-      this.$toasted.error('Fail to create new sticky note')
+      this.toast({
+        data: {
+          message: 'Fail to create new sticky note',
+          type: 'is-danger'
+        }
+      })
       this.isSubmitting = false
     },
     cancel () {

@@ -34,10 +34,15 @@
   .list {
     &-wrapper {
       text-align: left;
-      padding: 0.75rem 1rem;
+      padding: 0.75rem 0.5rem;
       min-height: 4rem;
       cursor: pointer;
       border-bottom: #E7E7E7 1px solid;
+      transition: all .5s ease;
+
+      &:hover {
+        border-bottom: #02AAF3 1px solid;
+      }
 
       &:last-child {
         /*border-bottom: none;*/

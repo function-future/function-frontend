@@ -48,7 +48,8 @@ export default {
   methods: {
     ...mapActions([
       'fetchUsersByRoleAndName',
-      'deleteUserById'
+      'deleteUserById',
+      'toast'
     ]),
     initPage () {
       this.isLoading = true
@@ -76,7 +77,12 @@ export default {
     failGetUserList () {
       this.isLoading = false
       this.failFetchUser = true
-      this.$toasted.error('Fail to fetch list')
+      this.toast({
+        data: {
+          message: 'Fail to fetch list',
+          type: 'is-danger'
+        }
+      })
     },
     goToAddUser () {
       if (this.currentTab === 'Student') {
@@ -116,10 +122,20 @@ export default {
     },
     successDeleteUserById () {
       this.fetchTabList()
-      this.$toasted.success('successfully delete user')
+      this.toast({
+        data: {
+          message: 'successfully delete user',
+          type: 'is-success'
+        }
+      })
     },
     failDeleteUserById () {
-      this.$toasted.error('Fail to delete user')
+      this.toast({
+        data: {
+          message: 'Fail to delete user',
+          type: 'is-danger'
+        }
+      })
     },
     loadPage (page) {
       this.paging.page = page

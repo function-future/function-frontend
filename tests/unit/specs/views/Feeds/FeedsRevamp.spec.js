@@ -63,7 +63,8 @@ describe('FeedsRevamp', () => {
     }
     const actions = {
       fetchAnnouncements: jest.fn(),
-      fetchStickyNotes: jest.fn()
+      fetchStickyNotes: jest.fn(),
+      toast: jest.fn()
     }
     const getters = {
       currentUser: state => state.currentUser,
@@ -91,9 +92,6 @@ describe('FeedsRevamp', () => {
 
   function createWrapper (store, options) {
     const router = new VueRouter([])
-    const $toasted = {
-      error: jest.fn()
-    }
     const marked = jest.fn()
     return shallowMount(FeedsRevamp, {
       ...options,
@@ -101,12 +99,7 @@ describe('FeedsRevamp', () => {
       localVue,
       router,
       stubs: [
-        'BaseCard',
-        'BaseButton',
-        'BaseInput',
-        'BaseSelect',
-        'font-awesome-icon',
-        'vue-toasted'
+        'b-icon'
       ],
       propsData: {
         stickyNote: {
@@ -114,7 +107,6 @@ describe('FeedsRevamp', () => {
         }
       },
       mocks: {
-        $toasted,
         marked
       },
       sync: false
@@ -175,8 +167,14 @@ describe('FeedsRevamp', () => {
 
   test('failLoadStickyNote', () => {
     initComponent()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failLoadStickyNote()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Fail to load sticky note detail, please refresh the page',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('successLoadAnnouncementList', () => {
@@ -189,10 +187,16 @@ describe('FeedsRevamp', () => {
 
   test('failLoadAnnouncementList', () => {
     initComponent()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failLoadAnnouncementList()
     expect(wrapper.vm.isLoadingAnnouncement).toEqual(false)
     expect(wrapper.vm.failLoadAnnouncement).toEqual(true)
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Fail to load announcement list',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('stickyNotesDescriptionPreview', () => {

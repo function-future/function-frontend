@@ -88,7 +88,8 @@ export default {
       'fetchMasterCourses',
       'deleteCourseById',
       'deleteMasterCourseById',
-      'copyCourse'
+      'copyCourse',
+      'toast'
     ]),
     checkCurrentUser () {
       if (!this.isStudent) {
@@ -142,7 +143,12 @@ export default {
     },
     failFetchBatches () {
       this.failFetchData = true
-      this.$toasted.error('Fail to load batch list, please refresh the page')
+      this.toast({
+        data: {
+          message: 'Fail to load batch list, please refresh the page',
+          type: 'is-danger'
+        }
+      })
     },
     fetchCourse () {
       let data = {
@@ -181,7 +187,12 @@ export default {
       this.isLoading = false
       this.failFetchData = true
       this.showNoBatchAvailableMessage = false
-      this.$toasted.error('Fail to load course list')
+      this.toast({
+        data: {
+          message: 'Fail to load course list',
+          type: 'is-danger'
+        }
+      })
     },
     resetPage () {
       this.isLoading = true
@@ -257,11 +268,21 @@ export default {
     successDeleteCourse () {
       this.resetPage()
       this.showDeleteConfirmationModal = false
-      this.$toasted.success('Successfully delete master course')
+      this.toast({
+        data: {
+          message: 'Successfully delete master course',
+          type: 'is-success'
+        }
+      })
     },
     failDeleteCourse () {
       this.showDeleteConfirmationModal = false
-      this.$toasted.error('Fail to delete master course')
+      this.toast({
+        data: {
+          message: 'Fail to delete master course',
+          type: 'is-danger'
+        }
+      })
     },
     selectAll () {
       this.allSelected ? this.selectedIds = this.courses.map(i => i.id) : this.selectedIds = []
@@ -291,10 +312,20 @@ export default {
     },
     successSubmitShareCourse () {
       this.selectedIds = []
-      this.$toasted.success('Successfully share course')
+      this.toast({
+        data: {
+          message: 'Successfully share course',
+          type: 'is-success'
+        }
+      })
     },
     failSubmitShareCourse () {
-      this.$toasted.error('Fail to share course, please try again')
+      this.toast({
+        data: {
+          message: 'Fail to share course, please try again',
+          type: 'is-danger'
+        }
+      })
     },
     courseTitleEllipsis (title) {
       let max = 50

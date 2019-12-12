@@ -39,7 +39,8 @@ describe('UserForm', () => {
       fetchBatches: jest.fn(),
       uploadProfilePicture: jest.fn(),
       updateUser: jest.fn(),
-      createUser: jest.fn()
+      createUser: jest.fn(),
+      toast: jest.fn()
     }
     const getters = {
       user: state => state.user
@@ -70,10 +71,6 @@ describe('UserForm', () => {
     const $router = {
       push: jest.fn()
     }
-    const $toasted = {
-      error: jest.fn(),
-      success: jest.fn()
-    }
     return shallowMount(UserForm, {
       ...options,
       store,
@@ -89,7 +86,6 @@ describe('UserForm', () => {
         editMode: true
       },
       mocks: {
-        $toasted,
         $route,
         $router
       },
@@ -155,8 +151,14 @@ describe('UserForm', () => {
 
   test('failFetchUserById', () => {
     initComponent()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failFetchUserById()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Fail to load user detail',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('setUserDetail with avatar', () => {
@@ -196,8 +198,14 @@ describe('UserForm', () => {
 
   test('failUploadProfilePicture', () => {
     initComponent()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failUploadProfilePicture()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Fail to upload image, please try again',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('cancel', () => {
@@ -329,34 +337,58 @@ describe('UserForm', () => {
 
   test('successCreateOrEditUser editMode false', () => {
     initComponent()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.setProps({ editMode: false })
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.successCreateOrEditUser()
-    expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'users' })
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Successfully created new user',
+        type: 'is-success'
+      }
+    })
   })
 
   test('successCreateOrEditUser editMode true', () => {
     initComponent()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.setProps({ editMode: true })
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.successCreateOrEditUser()
-    expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'users' })
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Successfully save edited user',
+        type: 'is-success'
+      }
+    })
   })
 
   test('failCreateOrEditUser editMode false', () => {
     initComponent()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.setProps({ editMode: false })
     wrapper.vm.failCreateOrEditUser()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Fail to create new user',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('failCreateOrEditUser editMode true', () => {
     initComponent()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.setProps({ editMode: true })
     wrapper.vm.failCreateOrEditUser()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Fail to save edited user',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('initBatches', () => {
@@ -376,8 +408,14 @@ describe('UserForm', () => {
 
   test('failFetchBatches', () => {
     initComponent()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failFetchBatches()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Fail to fetch batches, please try again',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('setSelectedRoleBasedOnQueryParam editMode true', () => {

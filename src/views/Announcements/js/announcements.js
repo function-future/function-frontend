@@ -39,7 +39,8 @@ export default {
   methods: {
     ...mapActions([
       'fetchAnnouncements',
-      'deleteAnnouncementById'
+      'deleteAnnouncementById',
+      'toast'
     ]),
     goToAnnouncementDetail (id) {
       id && this.$router.push({
@@ -76,7 +77,12 @@ export default {
     failLoadingAnnouncementList () {
       this.isLoading = false
       this.failLoadAnnouncement = true
-      this.$toasted.error('Fail to load announcement list')
+      this.toast({
+        data: {
+          message: 'Fail to load announcement list',
+          type: 'is-danger'
+        }
+      })
     },
     textPreview: function (announcement) {
       return marked(this.showLimitedPreviewText(announcement.description.replace(/<img([\w\W]+?)>/g, '')))
@@ -109,10 +115,20 @@ export default {
     },
     successDeleteAnnouncementById () {
       this.loadAnnouncementList()
-      this.$toasted.success('Successfully delete announcement')
+      this.toast({
+        data: {
+          message: 'Successfully delete announcement',
+          type: 'is-success'
+        }
+      })
     },
     failDeleteAnnouncementById () {
-      this.$toasted.error('Fail to delete announcement')
+      this.toast({
+        data: {
+          message: 'Fail to delete announcement',
+          type: 'is-danger'
+        }
+      })
     },
     loadPage (page) {
       this.paging.page = page
