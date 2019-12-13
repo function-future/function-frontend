@@ -1,7 +1,7 @@
 <template>
   <div class="auto-overflow-container">
-    <div class="judging-form__container">
-      <div class="judging-form__container-title">
+    <div class="quiz-form__container">
+      <div class="quiz-form__container-title">
         <b-field label="Title">
           <b-input autofocus
                    placeholder="Insert title here"
@@ -12,7 +12,7 @@
         </b-field>
         <div v-if="errors.has('title')"><span class="input-invalid-message">{{ errors.first('title') }}</span></div>
       </div>
-      <div class="judging-form__container-description">
+      <div class="quiz-form__container-description">
         <input type="hidden"
                v-model="quizDetail.description"
                name="description"
@@ -24,9 +24,9 @@
         </Editor>
         <div v-if="errors.has('description')"><span class="input-invalid-message">{{ errors.first('description') }}</span></div>
       </div>
-      <div class="judging-form__container-details">
-        <div class="judging-form__container-details__date">
-          <div class="judging-form__container-details-input">
+      <div class="quiz-form__container-details">
+        <div class="quiz-form__container-details__date">
+          <div class="quiz-form__container-details-input">
             <b-field label="Submission Date" label-position="on-border">
               <b-datepicker v-model="calendarDetails.dates"
                             placeholder="Select Dates"
@@ -35,24 +35,24 @@
             </b-field>
           </div>
         </div>
-        <div class="judging-form__container-details__limit">
-          <div class="judging-form__container-details-input">
+        <div class="quiz-form__container-details__limit">
+          <div class="quiz-form__container-details-input">
             <b-field label="Time Limit" label-position="on-border">
               <b-input v-model="quizDetail.timeLimit"
                        type="number"></b-input>
             </b-field>
           </div>
         </div>
-        <div class="judging-form__container-details__limit">
-          <div class="judging-form__container-details-input">
+        <div class="quiz-form__container-details__limit">
+          <div class="quiz-form__container-details-input">
             <b-field label="Trials" label-position="on-border">
               <b-input v-model="quizDetail.trials"
                        type="number"></b-input>
             </b-field>
           </div>
         </div>
-        <div class="judging-form__container-details__limit">
-          <div class="judging-form__container-details-input">
+        <div class="quiz-form__container-details__limit">
+          <div class="quiz-form__container-details-input">
             <b-field label="Question Amount" label-position="on-border">
               <b-input v-model="quizDetail.questionCount"
                        type="number"></b-input>
@@ -60,7 +60,7 @@
           </div>
         </div>
       </div>
-      <div class="judging-form__container-students">
+      <div class="quiz-form__container-students">
         <template>
           <section>
             <b-collapse class="card" aria-id="contentIdForA11y3">
@@ -95,7 +95,7 @@
                       </template>
                     </ListItem>
                   </div>
-                  <div class="buttons is-right judging-form__container-students-add">
+                  <div class="buttons is-right quiz-form__container-students-add">
                     <b-button type="is-primary" @click="toggleQuestionBankSelectModal">Add Question Banks</b-button>
                   </div>
                 </div>
@@ -104,7 +104,7 @@
           </section>
         </template>
       </div>
-      <div class="judging-form__container-actions">
+      <div class="quiz-form__container-actions">
         <div class="buttons">
           <b-button type="is-light" @click="cancel">Cancel</b-button>
           <b-button type="is-primary" @click="validateQuiz" :loading="isSubmitting">Save</b-button>
@@ -126,7 +126,7 @@
   @import "@/assets/css/main.scss";
 
 
-  .judging-form {
+  .quiz-form {
     &__container {
       padding: 1rem 1.25rem;
       margin-bottom: 2rem;
