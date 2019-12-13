@@ -1,20 +1,16 @@
 import { mapActions, mapGetters } from 'vuex'
-import BaseCard from '@/components/BaseCard'
-import BaseButton from '@/components/BaseButton'
-import BaseTextArea from '@/components/BaseTextArea'
-import BaseInput from '@/components/BaseInput'
+import ListItem from '@/components/list/ListItem'
+import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
+let marked = require('marked')
 
 export default {
   name: 'QuizDetail',
   components: {
-    BaseButton,
-    BaseCard,
-    BaseTextArea,
-    BaseInput
+    ListItem,
+    ModalDeleteConfirmation
   },
   data () {
     return {
-      editMode: false,
       quizDetail: {
         title: '',
         description: '',
@@ -22,7 +18,8 @@ export default {
         timeLimit: 0,
         trials: 0,
         questionCount: 0
-      }
+      },
+      showDeleteConfirmationModal: false
     }
   },
   created () {
@@ -30,22 +27,18 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'quiz'
+      'quiz',
+      'accessList'
     ]),
-    isCalendarDisabled () {
-      return this.editMode ? { placement: 'bottom', visibility: 'click' } : {visibility: null}
-    },
-    cancelButtonText () {
-      return this.editMode ? 'Cancel' : 'Return'
-    },
-    actionButtonText () {
-      return this.editMode ? 'Save' : 'Edit'
+    descriptionCompiledMarkdown: function () {
+      return marked(this.quizDetail.description)
     }
   },
   methods: {
     ...mapActions([
       'fetchQuizById',
-      'updateQuizDetail'
+      'updateQuizDetail',
+      'deleteQuizById'
     ]),
     initPage () {
       this.fetchQuizById({
@@ -65,44 +58,32 @@ export default {
     failFetchingQuizById () {
       this.$toasted.error('Something went wrong')
     },
-    actionButtonClicked () {
-      if (this.editMode) {
-        let payload = {
-          ...this.quizDetail,
-          startDate: new Date().getTime()
-        }
-        payload.questionBanks = payload.questionBanks.map(bank => bank.id)
-        payload.endDate = new Date(payload.endDate).getTime()
-        payload.timeLimit = Math.floor(this.quizDetail.timeLimit * 60)
-        this.updateQuizDetail({
-          payload,
-          data: {
-            batchCode: this.$route.params.batchCode,
-            id: this.$route.params.quizId
-          },
-          callback: this.successUpdatingQuiz,
-          fail: this.failUpdatingQuiz
-        })
-      }
-      this.editMode = !this.editMode
-    },
-    returnButtonClicked () {
-      if (this.editMode) {
-        this.initPage()
-        this.editMode = !this.editMode
-        return
-      }
+    goToEditQuiz () {
       this.$router.push({
-        name: 'quizzes',
+        name: 'editQuiz',
         params: {
-          batchCode: this.$route.params.batchCode
+          batchCode: this.$route.params.batchCode,
+          id: this.$route.params.quizId
         }
       })
     },
-    successUpdatingQuiz () {
-      this.$toasted.success(`Quiz ${this.$route.params.quizId} successfully updated`)
+    deleteThisQuiz () {
+      this.deleteQuizById({
+        data: {
+          batchCode: this.$route.params.batchCode,
+          id: this.$route.params.quizId
+        },
+        callback: this.successDeletingQuiz,
+        fail: this.failedDeletingQuiz
+      })
     },
-    failUpdatingQuiz () {
+    successDeletingQuiz () {
+      this.$router.push({
+        name: 'scoringAdmin'
+      })
+      this.$toasted.success('Successfully deleted this quiz')
+    },
+    failedDeletingQuiz () {
       this.$toasted.error('Something went wrong')
     }
   }
