@@ -26,7 +26,7 @@ export default {
       selectedTab: 0,
       selectedId:'',
       state: '',
-      batchCode: 'futurre3',
+      batchCode: '',
       infiniteId: +new Date()
     }
   },
