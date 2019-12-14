@@ -14,8 +14,12 @@ export default {
   },
   data () {
     return {
+      tabs: [
+        { value: 'questionBanks', title: 'Question Banks' },
+        { value: 'quizzes', title: 'Quizzes' },
+        { value: 'assignments', title: 'Assignments' }
+      ],
       isLoading: false,
-      isVisibleBatchModal: false,
       isVisibleDeleteModal: false,
       paging: {
         page: 1,
@@ -26,6 +30,7 @@ export default {
       selectedTab: 0,
       selectedId:'',
       state: '',
+      batches: [],
       batchCode: '',
       infiniteId: +new Date()
     }
@@ -46,6 +51,7 @@ export default {
       'fetchQuestionBankList',
       'fetchQuizList',
       'fetchAssignmentList',
+      'fetchBatches',
       'deleteQuestionBankById',
       'deleteQuizById',
       'deleteAssignmentById'
@@ -64,10 +70,30 @@ export default {
       if (this.selectedTab === 0) {
         this.getQuestionBanks($state)
       } else if (this.selectedTab === 1) {
+        this.getBatchList()
         this.getQuizzes($state)
       } else {
+        this.getBatchList()
         this.getAssignments($state)
       }
+    },
+    getBatchList () {
+      this.fetchBatches({
+        callback: this.successFetchBatches,
+        fail: this.failFetchBatches
+      })
+    },
+    successFetchBatches (response) {
+      this.batches = response
+      if (this.batches.length) {
+        this.batchCode = response[0].code
+      }
+      else {
+        this.batchCode = 'No batch found'
+      }
+    },
+    failFetchBatches () {
+      this.$toasted.error('Fail to load batch list, please refresh the page')
     },
     getQuestionBanks($state) {
       this.state = $state

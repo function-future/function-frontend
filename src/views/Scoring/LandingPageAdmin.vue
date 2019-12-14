@@ -1,82 +1,94 @@
 <template>
   <div class="auto-overflow-container scoring-container">
-    <section class="scoring-header level">
-      <b-tabs class="block level-left scoring-header-tabs" v-model="selectedTab">
-        <b-tab-item class="level-item" label="Question Banks" icon="database"></b-tab-item>
-        <b-tab-item class="level-item" label="Quizzes" icon="laptop-code">
-          <span>
-            <b-button class="block button is-primary level-right scoring-header-action"
-                      slot="trigger"
-                      v-show="selectedTab!==0"
-                      @click="isVisibleBatchModal=!isVisibleBatchModal" outlined>
-              <span>{{batchButtonText}}</span>
-            </b-button>
-          </span>
-        </b-tab-item>
-        <b-tab-item class="level-item" label="Assignments" icon="chalkboard-teacher">
-          <span>
-            <b-button class="block button is-primary level-right scoring-header-action"
-                        slot="trigger"
-                        v-show="selectedTab!==0"
-                        @click="isVisibleBatchModal=!isVisibleBatchModal" outlined>
-              <span>{{batchButtonText}}</span>
-            </b-button>
-          </span>
-        </b-tab-item>
-      </b-tabs>
-      <b-button class="block button is-primary add-button"
-                slot="trigger"
-                @click="addItem()" icon-left="plus" rounded>
-        <span>Add</span>
-      </b-button>
-
-
-    </section>
-    <section class="auto-overflow-container scoring-content">
-      <ListItem v-for="item in items"
-                v-bind:key="item.id"
-                @click="goToItemDetail(item.id)">
-        <template #title>
-          {{item.title}}
-        </template>
-        <template #content>
-          <div class="wrap-word ellipsis">
-            <span v-html="textPreview(item.description)"></span>
+    <section>
+      <b-tabs class="scoring-header-tabs" v-model="selectedTab">
+        <b-tab-item v-for="tab in tabs"
+                    :key="tab.value"
+                    :label="tab.title">
+          <div class="scoring-header">
+            <div class="columns is-mobile">
+              <div class="column">
+                <div class="buttons">
+                  <b-button rounded
+                            @click="addItem"
+                            icon-left="plus"
+                            type="is-primary">
+                    Add
+                  </b-button>
+                  <div class="courses__container__tabs-actions-filter"
+                       v-if="selectedTab !== 0">
+                    <b-field label="Batch"
+                             label-position="on-border">
+                      <b-select placeholder="Select a batch"
+                                v-model="batchCode"
+                                expanded>
+                        <option v-for="batch in batches"
+                                :key="batch.code"
+                                :value="batch.code">
+                          {{ batch.name }}
+                        </option>
+                      </b-select>
+                    </b-field>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-        </template>
-        <template #actions>
-          <b-dropdown aria-role="list" position="is-bottom-left" @click.prevent.stop>
-            <button class="button is-text" slot="trigger">
-              <b-icon icon="ellipsis-v" size="is-small" class="icon"></b-icon>
-            </button>
-            <b-dropdown-item
-              aria-role="listitem"
-              @click="goToEditItem(item.id)"
-              v-if="accessList.edit">
+          <section class="scoring-content">
+            <ListItem v-for="item in items"
+                      v-bind:key="item.id"
+                      @click="goToItemDetail(item.id)">
+              <template #title>
+                {{item.title}}
+              </template>
+              <template #content>
+                <div class="wrap-word ellipsis">
+                  <span v-html="textPreview(item.description)"></span>
+                </div>
+              </template>
+              <template #actions>
+                <b-dropdown aria-role="list" position="is-bottom-left" @click.prevent.stop>
+                  <button class="button is-text" slot="trigger">
+                    <b-icon icon="ellipsis-v" size="is-small" class="icon"></b-icon>
+                  </button>
+                  <b-dropdown-item
+                    aria-role="listitem"
+                    @click="goToEditItem(item.id)"
+                    v-if="accessList.edit">
               <span class="icon-wrapper">
                 <b-icon icon="edit" class="icon" size="is-small"></b-icon>
                 Edit
               </span>
-            </b-dropdown-item>
-            <b-dropdown-item
-              aria-role="listitem"
-              @click="openDeleteConfirmationModal(item.id)"
-              v-if="accessList.delete">
+                  </b-dropdown-item>
+                  <b-dropdown-item
+                    aria-role="listitem"
+                    @click="openDeleteConfirmationModal(item.id)"
+                    v-if="accessList.delete">
               <span class="icon-wrapper">
                 <b-icon icon="trash-alt" class="icon" size="is-small"></b-icon>
                 Delete
               </span>
-            </b-dropdown-item>
-          </b-dropdown>
-        </template>
-      </ListItem>
-      <infinite-loading :identifier="infiniteId"
-                        @infinite="getListData"
-                        spinner="spiral"
-                        force-use-infinite-wrapper=".auto-overflow-container">
-        <div slot="no-more"></div>
-        <div slot="no-results"></div>
-      </infinite-loading>
+                  </b-dropdown-item>
+                </b-dropdown>
+              </template>
+            </ListItem>
+          </section>
+        </b-tab-item>
+        <infinite-loading :identifier="infiniteId"
+                          @infinite="getListData"
+                          spinner="spiral"
+                          force-use-infinite-wrapper=".auto-overflow-container">
+          <div slot="no-more"></div>
+          <div slot="no-results"></div>
+        </infinite-loading>
+      </b-tabs>
+      <!--<b-button class="block button is-primary add-button"-->
+                <!--slot="trigger"-->
+                <!--@click="addItem()" icon-left="plus" rounded>-->
+        <!--<span>Add</span>-->
+      <!--</b-button>-->
+
+
     </section>
     <modal-select-batch v-if="isVisibleBatchModal" @close="closeModal"
                         @select="selectBatch">
