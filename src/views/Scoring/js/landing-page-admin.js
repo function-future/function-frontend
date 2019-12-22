@@ -215,7 +215,7 @@ export default {
     goToItemDetail(id) {
       if (this.selectedTab === 0) {
         this.$router.push({
-          name: 'questionBankQuestionList',
+          name: 'questionBankDetail',
           params: {
             bankId: id
           }
@@ -269,7 +269,10 @@ export default {
     },
     goToAddAssignment() {
       this.$router.push({
-        name: 'addAssignment'
+        name: 'addAssignment',
+        params: {
+          batchCode: this.batchCode
+        }
       })
     }
   },

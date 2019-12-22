@@ -66,11 +66,13 @@ module.exports = {
       questionBanks: {
         list: '/question-banks',
         add: '/question-banks/add',
+        edit: '/question-banks/:id/edit',
         detail: '/question-banks/:bankId/detail',
         questions: {
           list: '/question-banks/:bankId/questions',
           add: '/question-banks/:bankId/questions/add',
-          detail: '/question-banks/:bankId/questions/:questionId'
+          detail: '/question-banks/:bankId/questions/:questionId/detail',
+          edit: '/question-banks/:bankId/questions/:questionId/edit'
         }
       },
       quizzes: {
@@ -87,28 +89,18 @@ module.exports = {
       assignments: {
         list: '/batches/:batchCode/assignments',
         add: '/batches/:batchCode/assignments/add',
+        edit: '/batches/:batchCode/assignments/:assignmentId/edit',
         rooms: {
           list: '/batches/:batchCode/assignments/:assignmentId/rooms',
           detail: '/batches/:batchCode/assignments/:assignmentId/rooms/:studentId'
         },
         detail: '/batches/:batchCode/assignments/:assignmentId/detail',
-        batches: {
-          list: '/assignment/batches',
-          add: '/assignment/batches/add',
-          edit: '/assignment/batches/:batchCode/edit'
-        }
       },
       finalJudging: {
-        list: '/batches/:batchCode/final-judging',
-        batches: {
-          list: '/final-judging/batches',
-          add: '/final-judging/batches/add',
-          edit: '/final-judging/batches/:batchCode/edit',
-        },
+        list: '/final-judging',
         add: '/batches/:batchCode/final-judging/add',
         detail: '/batches/:batchCode/final-judging/:judgingId/detail',
         edit: '/batches/:batchCode/final-judging/:judgingId/edit',
-        comparisons: '/batches/:batchCode/final-judging/:judgingId/comparison',
         reportPage: '/batches/:batchCode/final-judging/report-page'
       },
       stickyNotes: {

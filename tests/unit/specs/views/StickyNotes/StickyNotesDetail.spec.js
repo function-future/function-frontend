@@ -66,7 +66,8 @@ describe('StickyNotesDetail.vue', () => {
     }
     const actions = {
       fetchAnnouncements: jest.fn(),
-      fetchStickyNotes: jest.fn()
+      fetchStickyNotes: jest.fn(),
+      toast: jest.fn()
     }
     const getters = {
       currentUser: state => state.currentUser,
@@ -92,9 +93,6 @@ describe('StickyNotesDetail.vue', () => {
   }
 
   function createWrapper (store, options) {
-    const $toasted = {
-      error: jest.fn()
-    }
     const $route = {
       name: 'editStickyNote'
     }
@@ -107,12 +105,7 @@ describe('StickyNotesDetail.vue', () => {
       store,
       localVue,
       stubs: [
-        'BaseCard',
-        'BaseButton',
-        'BaseInput',
-        'BaseSelect',
-        'font-awesome-icon',
-        'vue-toasted'
+        'b-button'
       ],
       propsData: {
         stickyNote: {
@@ -120,7 +113,6 @@ describe('StickyNotesDetail.vue', () => {
         }
       },
       mocks: {
-        $toasted,
         $route,
         $router,
         marked
@@ -170,8 +162,14 @@ describe('StickyNotesDetail.vue', () => {
 
   test('fetchStickyNoteFailed', () => {
     initComponent()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.fetchStickyNoteFailed()
-    expect(wrapper.vm.$toasted.error).toBeCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Fail to load sticky note detail, please refresh the page',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('goToEditStickyNote', () => {

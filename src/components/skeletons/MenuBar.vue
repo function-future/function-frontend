@@ -83,7 +83,7 @@
                      label="Comparisons"
                      tag="router-link"
                      :active="isActive('judgingBatch')"
-                     :to="{ name: 'judgingBatch' }"
+                     :to="{ name: 'judgingList' }"
                      v-if="menuList.comparisons">
         </b-menu-item>
         <b-menu-item class="menu-item"

@@ -56,7 +56,8 @@ export default {
       'submitCourseDiscussion',
       'deleteCourseById',
       'deleteMasterCourseById',
-      'downloadCourseMaterial'
+      'downloadCourseMaterial',
+      'toast'
     ]),
     initPage () {
       this.master ? this.initMasterCourse() : this.initCourse()
@@ -80,7 +81,12 @@ export default {
     },
     failFetchById () {
       this.disableDiscussion = true
-      this.$toasted.error('Fail to load detail, please refresh the page')
+      this.toast({
+        data: {
+          message: 'Fail to load detail, please refresh the page',
+          type: 'is-danger'
+        }
+      })
     },
     initDiscussion ($state) {
       this.state = $state
@@ -105,7 +111,12 @@ export default {
       }
     },
     failFetchCourseDiscussions () {
-      this.$toasted.error('Fail to load course discussion, please refresh the page')
+      this.toast({
+        data: {
+          message: 'Fail to load course discussion, please refresh the page',
+          type: 'is-danger'
+        }
+      })
     },
     postDiscussion () {
       this.submittingDiscussion = true
@@ -120,15 +131,25 @@ export default {
       })
     },
     successSubmitCourseDiscussion (response) {
+      this.toast({
+        data: {
+          message: 'Successfully added course discussion',
+          type: 'is-success'
+        }
+      })
       this.submittingDiscussion = false
-      this.$toasted.success('Successfully added course discussion')
       this.discussion.comment = ''
       this.discussions.push(response)
       this.discussionPaging.totalRecords++
     },
     failSubmitCourseDiscussion () {
       this.submittingDiscussion = false
-      this.$toasted.error('Fail to post course discussion, please try again')
+      this.toast({
+        data: {
+          message: 'Fail to post course discussion, please try again',
+          type: 'is-danger'
+        }
+      })
     },
     goToEditPage () {
       this.master ? this.editMasterCourse() : this.editCourse()
@@ -169,10 +190,20 @@ export default {
     },
     successDeleteById () {
       this.backToCourseList()
-      this.$toasted.success('Successfully delete course')
+      this.toast({
+        data: {
+          message: 'Successfully delete course',
+          type: 'is-success'
+        }
+      })
     },
     failDeleteById () {
-      this.$toasted.error('Fail to delete course')
+      this.toast({
+        data: {
+          message: 'Fail to delete course',
+          type: 'is-danger'
+        }
+      })
     },
     backToCourseList () {
       this.$router.push({

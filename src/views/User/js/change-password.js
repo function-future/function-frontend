@@ -16,7 +16,8 @@ export default {
   },
   methods: {
     ...mapActions([
-      'changePassword'
+      'changePassword',
+      'toast'
     ]),
     save () {
       this.validateBeforeSubmit(this.validationSuccess)
@@ -37,8 +38,13 @@ export default {
       })
     },
     successChangePassword () {
+      this.toast({
+        data: {
+          message: 'Successfully updated password',
+          type: 'is-success'
+        }
+      })
       this.isSubmitting = false
-      this.$toasted.success('Successfully updated password')
       this.$router.push({ name: this.mobile ? 'account' : 'profile' })
     },
     failChangePassword (error) {
@@ -50,7 +56,12 @@ export default {
         this.repeatPassword = ''
         return
       }
-      this.$toasted.error('Fail to update password')
+      this.toast({
+        data: {
+          message: 'Fail to update password',
+          type: 'is-danger'
+        }
+      })
     },
     cancel () {
       this.$router.push({ name: this.mobile ? 'account' : 'profile' })

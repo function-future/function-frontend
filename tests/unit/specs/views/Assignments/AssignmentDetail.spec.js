@@ -121,8 +121,6 @@ describe('AssignmentDetail', () => {
       'file': 'http://function-static.com/ASG0001/fileName.docx',
       'fileId': 'fileId',
       'batch': 3 })
-    expect(wrapper.vm.displayedDates.start).toEqual(wrapper.vm.assignmentDetail.deadline)
-    expect(wrapper.vm.displayedDates.end).toEqual(wrapper.vm.assignmentDetail.deadline)
   })
 
   test('successFetchingAssignmentDetailWithoutFile', () => {
@@ -151,8 +149,6 @@ describe('AssignmentDetail', () => {
       'fileId': '',
       'batch': 3 })
     expect(wrapper.vm.filePreviewName).toEqual('')
-    expect(wrapper.vm.displayedDates.start).toEqual(wrapper.vm.assignmentDetail.deadline)
-    expect(wrapper.vm.displayedDates.end).toEqual(wrapper.vm.assignmentDetail.deadline)
   })
 
   test('failFetchingAssignmentDetail', () => {
@@ -163,62 +159,26 @@ describe('AssignmentDetail', () => {
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'assignments'})
   })
 
-  test('editAnnouncement deadline < current date', () => {
+  test('deleteThis', () => {
     initComponent()
-    wrapper.vm.assignmentDetail.deadline = 15000
-    wrapper.vm.editAssignment()
-    expect(wrapper.vm.displayedDates.start).toEqual(15000)
-  })
-
-  test('editAnnouncement deadline >= currentDate', () => {
-    initComponent()
-    const date = new Date()
-    wrapper.vm.assignmentDetail.deadline = date
-    wrapper.vm.editAssignment()
-    expect(wrapper.vm.displayedDates.start).toEqual(date)
-  })
-
-  test('cancel', () => {
-    initComponent()
-    wrapper.vm.editMode = true
-    wrapper.vm.successFetchingAssignmentDetail = jest.fn()
-    wrapper.vm.cancel()
-    expect(wrapper.vm.editMode).toEqual(false)
-    expect(wrapper.vm.successFetchingAssignmentDetail).toHaveBeenCalled()
-  })
-
-  test('saveAssignmentWithEmptyFile', () => {
-    initComponent()
-    wrapper.vm.assignmentDetail.fileId = ''
-    const spy = jest.spyOn(wrapper.vm, 'updateAssignmentDetail')
-    wrapper.vm.saveAssignment()
+    const spy = jest.spyOn(wrapper.vm, 'deleteAssignmentById')
+    wrapper.vm.deleteThis()
     expect(spy).toHaveBeenCalledTimes(1)
   })
 
-  test('saveAssignmentWithFile', () => {
+  test('goToEditAssignment', () => {
     initComponent()
-    wrapper.vm.assignmentDetail.fileId = 'abc'
-    const spy = jest.spyOn(wrapper.vm, 'updateAssignmentDetail')
-    wrapper.vm.saveAssignment()
-    expect(spy).toHaveBeenCalledTimes(1)
-  })
-
-  test('successUpdatingAssignment', () => {
-    initComponent()
-    wrapper.vm.editMode = true
-    wrapper.vm.assignmentDetail.deadline = new Date(15000)
-    wrapper.vm.displayedDates.start = new Date(30000)
-    wrapper.vm.displayedDates.end = new Date(60000)
-    wrapper.vm.successUpdatingAssignment()
-    expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
-    expect(wrapper.vm.displayedDates.start).toEqual(wrapper.vm.assignmentDetail.deadline)
-    expect(wrapper.vm.displayedDates.end).toEqual(wrapper.vm.assignmentDetail.deadline)
-  })
-
-  test('failUpdatingAssignment', () => {
-    initComponent()
-    wrapper.vm.failUpdatingAssignment()
-    expect(wrapper.vm.$toasted.error).toBeCalledTimes(1)
+    const spy = jest.spyOn(wrapper.vm.$router, 'push')
+    wrapper.vm.$route.params.batchCode = 'futurre3'
+    wrapper.vm.assignmentDetail.id = 'ASG001'
+    wrapper.vm.goToEditAssignment()
+    expect(spy).toHaveBeenCalledWith({
+      name: 'editAssignment',
+      params: {
+        batchCode: 'futurre3',
+        assignmentId: 'ASG001'
+      }
+    })
   })
 
   test('goToRoomList', () => {
@@ -226,78 +186,5 @@ describe('AssignmentDetail', () => {
     const spy = jest.spyOn(wrapper.vm.$router, 'push')
     wrapper.vm.goToRoomList()
     expect(spy).toHaveBeenCalledTimes(1)
-  })
-
-  test('onFileChange', () => {
-    initComponent()
-    const spy = jest.spyOn(wrapper.vm, 'materialUpload')
-    const e = {
-      target: {
-        files: [
-          {
-            name: 'test.png',
-            size: 2000000,
-            type: 'image/png'
-          }
-        ]
-      }
-    }
-    wrapper.vm.onFileChange(e)
-    expect(spy).toHaveBeenCalledTimes(1)
-  })
-
-  test('materialUpload', () => {
-    initComponent()
-    const spy = jest.spyOn(wrapper.vm, 'uploadMaterial')
-    const file = {
-      name: 'test.png',
-      size: 2000000,
-      type: 'image/png'
-    }
-    wrapper.vm.materialUpload(file)
-    expect(spy).toHaveBeenCalledTimes(1)
-  })
-
-  test('successUploadMaterial', () => {
-    initComponent()
-    const response = {
-      'id': 'sample-id',
-      'name': 'File Name',
-      'file': {
-        'full': 'https://i.pinimg.com/originals/8c/cf/ec/8ccfec7d5cb3c92265cbf153523eb9b5.jpg',
-        'thumbnail': null
-      }
-    }
-    wrapper.vm.file.name = 'sample-file-name'
-    wrapper.vm.successUploadMaterial(response)
-    expect(wrapper.vm.uploadingFile).toEqual(false)
-    expect(wrapper.vm.assignmentDetail.fileId).toEqual(response.id)
-    expect(wrapper.vm.filePreviewName).toEqual('sample-file-name')
-  })
-
-  test('failUploadMaterial', () => {
-    initComponent()
-    wrapper.vm.failUploadMaterial()
-    expect(wrapper.vm.uploadingFile).toEqual(false)
-    expect(wrapper.vm.filePreviewName).toEqual('Fail to upload material, please try again')
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
-  })
-
-  test('deleteAssignmentFile', () => {
-    initComponent()
-    wrapper.vm.deleteAssignmentFile()
-    expect(wrapper.vm.assignmentDetail.fileId).toEqual('')
-  })
-
-  test('isFileIdNull fileId not Null', () => {
-    initComponent()
-    wrapper.vm.assignmentDetail.fileId = 'id'
-    expect(wrapper.vm.isFileIdNull).toEqual('id')
-  })
-
-  test('isFileIdNull fileId Null', () => {
-    initComponent()
-    wrapper.vm.assignmentDetail.fileId = null
-    expect(wrapper.vm.isFileIdNull).toEqual('')
   })
 })

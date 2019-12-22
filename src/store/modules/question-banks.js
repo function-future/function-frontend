@@ -38,7 +38,7 @@ export const actions = {
   fetchQuestionBankDetail ({ commit }, { data, callback, fail }) {
     questionBankApi.getQuestionBankById(({data: response}) => {
       commit('SET_QUESTION_BANK', response)
-      callback && callback()
+      callback && callback(response)
     }, data, fail)
   },
   updateQuestionBank ({ commit }, { payload, data, callback, fail }) {
@@ -50,7 +50,7 @@ export const actions = {
   fetchQuestionBankQuestionList ({ commit }, { data, callback, fail }) {
     questionBankApi.getQuestionList(({data: response, paging}) => {
       commit('SET_QUESTION_LIST', response)
-      callback && callback(paging)
+      callback && callback(paging, response)
     }, data, fail)
   },
   createQuestion ({ commit }, { payload, data, callback, fail }) {
@@ -62,7 +62,7 @@ export const actions = {
   fetchQuestionDetail ({ commit }, { data, callback, fail }) {
     questionBankApi.getQuestionById(({data: response}) => {
       commit('SET_QUESTION', response)
-      callback && callback()
+      callback && callback(response)
     }, data, fail)
   },
   updateQuestion ({ commit }, { payload, data, callback, fail }) {

@@ -41,12 +41,17 @@ export default {
     },
     announcementEmpty () {
       return !(this.announcements && this.announcements.length)
+    },
+    profileIcon () {
+      if (this.loggedIn) return 'user-circle'
+      return 'sign-in-alt'
     }
   },
   methods: {
     ...mapActions([
       'fetchStickyNotes',
-      'fetchAnnouncements'
+      'fetchAnnouncements',
+      'toast'
     ]),
     loadStickyNote () {
       this.fetchStickyNotes({
@@ -58,8 +63,12 @@ export default {
       this.stickyNote = this.stickyNotes[0] || ''
     },
     failLoadStickyNote () {
-      //TODO: change to buefy toasted
-      this.$toasted.error('Fail to load sticky note detail, please refresh the page')
+      this.toast({
+        data: {
+          message: 'Fail to load sticky note detail, please refresh the page',
+          type: 'is-danger'
+        }
+      })
     },
     goToStickyNotesDetail () {
       this.$router.push({ name: 'stickyNotes' })
@@ -88,7 +97,12 @@ export default {
       this.failLoadAnnouncement = false
     },
     failLoadAnnouncementList () {
-      this.$toasted.error('Fail to load announcement list')
+      this.toast({
+        data: {
+          message: 'Fail to load announcement list',
+          type: 'is-danger'
+        }
+      })
       this.isLoadingAnnouncement = false
       this.failLoadAnnouncement = true
     },

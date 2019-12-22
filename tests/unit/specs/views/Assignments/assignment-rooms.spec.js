@@ -80,6 +80,13 @@ describe('AssignmentRoom', () => {
     expect(spy).toBeCalledTimes(1)
   })
 
+  test('initPage', () => {
+    initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'fetchRoomList')
+    wrapper.vm.initPage()
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
   test('successFetchingRoomList', () => {
     initComponent()
     const paging = {
@@ -87,8 +94,10 @@ describe('AssignmentRoom', () => {
       pageSize: 10,
       totalRecords: 20
     }
-    wrapper.vm.successFetchingRoomList(paging)
+    const response = []
+    wrapper.vm.successFetchingRoomList(response, paging)
     expect(wrapper.vm.paging).toEqual(paging)
+    expect(wrapper.vm.rooms).toEqual(response)
   })
 
   test('failFetchingRoomList', () => {
@@ -135,7 +144,7 @@ describe('AssignmentRoom', () => {
       params: {
         assignmentId: 'ASG0001',
         batchCode: '1',
-        roomId: 'ROM0001'
+        studentId: 'ROM0001'
       }
     })
   })

@@ -37,7 +37,8 @@ describe('ChangePassword', () => {
     }
     const actions = {
       fetchProfile: jest.fn(),
-      changePassword: jest.fn()
+      changePassword: jest.fn(),
+      toast: jest.fn()
     }
     const getters = {
       profile: state => state.profile
@@ -62,10 +63,6 @@ describe('ChangePassword', () => {
 
   function createWrapper (store, options) {
     const router = new VueRouter([])
-    const $toasted = {
-      error: jest.fn(),
-      success: jest.fn()
-    }
     return shallowMount(ChangePassword, {
       ...options,
       store,
@@ -77,9 +74,6 @@ describe('ChangePassword', () => {
         'b-input',
         'b-button'
       ],
-      mocks: {
-        $toasted
-      },
       sync: false
     })
   }
@@ -152,26 +146,44 @@ describe('ChangePassword', () => {
       }
     }
     initComponent()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failChangePassword(error)
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Fail to update password',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('successChangePassword mobile', () => {
     initComponent()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.setProps({ mobile: true })
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.successChangePassword()
-    expect(wrapper.vm.$toasted.success).toHaveBeenCalled()
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'account' })
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Successfully updated password',
+        type: 'is-success'
+      }
+    })
   })
 
   test('successChangePassword not mobile', () => {
     initComponent()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.setProps({ mobile: false })
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.successChangePassword()
-    expect(wrapper.vm.$toasted.success).toHaveBeenCalled()
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'profile' })
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Successfully updated password',
+        type: 'is-success'
+      }
+    })
   })
 
   test('cancel mobile', () => {

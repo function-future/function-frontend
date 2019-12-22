@@ -1,20 +1,20 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import assignmentBatch from '@/views/Assignment/AssignmentBatch'
-import assignmentBatchForm from '@/views/Assignment/AssignmentBatchForm'
 import studentAssignments from '@/views/Assignment/StudentAssignments'
 import assignments from '@/views/Assignment/Assignments'
-import addAssignment from '@/views/Assignment/AddAssignment'
+import assignmentForm from '@/views/Assignment/AssignmentForm'
 import assignmentRooms from '@/views/Assignment/AssignmentRooms'
 import assignmentRoomDetail from '@/views/Assignment/AssignmentRoomDetail'
 import assignmentDetail from '@/views/Assignment/AssignmentDetail'
 import scoringAdmin from '@/views/Scoring/LandingPageAdmin'
 import questionBanks from '@/views/QuestionBank/QuestionBanks'
 import questionBankDetail from '@/views/QuestionBank/QuestionBankDetail'
+import questionBankForm from '@/views/QuestionBank/QuestionBankForm'
 import addQuestionBank from '@/views/QuestionBank/AddQuestionBank'
 import questionBankQuestionList from '@/views/QuestionBank/QuestionBankQuestionList'
 import questionBankAddQuestion from '@/views/QuestionBank/QuestionBankAddQuestion'
 import questionBankQuestionDetail from '@/views/QuestionBank/QuestionBankQuestionDetail'
+import questionForm from '@/views/QuestionBank/QuestionForm'
 import quizBatch from '@/views/Quiz/QuizBatch'
 import quizBatchForm from '@/views/Quiz/QuizBatchForm'
 import quizzes from '@/views/Quiz/Quiz'
@@ -25,11 +25,8 @@ import studentQuizList from '@/views/Quiz/StudentQuizList'
 import studentQuizDetail from '@/views/Quiz/StudentQuizDetail'
 import quizQuestions from '@/views/Quiz/QuizQuestions'
 import judgingList from '@/views/FinalJudging/JudgingList'
-import judgingBatch from '@/views/FinalJudging/JudgingBatch'
-import judgingBatchForm from '@/views/FinalJudging/JudgingBatchForm'
 import judgingForm from '@/views/FinalJudging/JudgingForm'
 import judgingDetail from '@/views/FinalJudging/JudgingDetail'
-import comparison from '@/views/FinalJudging/Comparison'
 import reportPage from '@/views/FinalJudging/ReportPage'
 import points from '@/views/Point/Point'
 import feeds from '@/views/Feeds/FeedsRevamp.vue'
@@ -615,7 +612,7 @@ const router = new Router({
     {
       path: config.app.pages.questionBanks.add,
       name: 'addQuestionBank',
-      component: addQuestionBank,
+      component: questionBankForm,
       meta: {
         auth: true,
         title: 'Add Question Bank',
@@ -624,6 +621,26 @@ const router = new Router({
           { name: 'Question Banks', link: 'questionBanks' },
           { name: 'Add Question Bank', link: 'addQuestionBank' }
         ]
+      },
+      props: {
+        editMode: false
+      }
+    },
+    {
+      path: config.app.pages.questionBanks.edit,
+      name: 'editQuestionBank',
+      component: questionBankForm,
+      meta: {
+        auth: true,
+        title: 'Edit Question Bank',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Question Banks', link: 'questionBanks' },
+          { name: 'Add Question Bank', link: 'addQuestionBank' }
+        ]
+      },
+      props: {
+        editMode: true
       }
     },
     {
@@ -642,22 +659,6 @@ const router = new Router({
       }
     },
     {
-      path: config.app.pages.questionBanks.questions.add,
-      name: 'questionBankAddQuestion',
-      component: questionBankAddQuestion,
-      meta: {
-        auth: true,
-        title: 'Add Question',
-        breadcrumb: [
-          { name: 'Home', link: 'feeds' },
-          { name: 'Question Banks', link: 'questionBanks' },
-          { name: 'Question Bank Detail', link: 'questionBankDetail' },
-          { name: 'Questions', link: 'questionBankQuestionList' },
-          { name: 'Add Question', link: 'questionBankAddQuestion' }
-        ]
-      }
-    },
-    {
       path: config.app.pages.questionBanks.questions.detail,
       name: 'questionBankQuestionDetail',
       component: questionBankQuestionDetail,
@@ -671,6 +672,44 @@ const router = new Router({
           { name: 'Questions', link: 'questionBankQuestionList' },
           { name: 'Question Detail', link: 'questionBankQuestionDetail' }
         ]
+      }
+    },
+    {
+      path: config.app.pages.questionBanks.questions.add,
+      name: 'addQuestion',
+      component: questionForm,
+      meta: {
+        auth: true,
+        title: 'New Question',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Question Banks', link: 'questionBanks' },
+          { name: 'Question Bank Detail', link: 'questionBankDetail' },
+          { name: 'Questions', link: 'questionBankQuestionList' },
+          { name: 'Add Question', link: 'addQuestion' }
+        ]
+      },
+      props: {
+        editMode: false
+      }
+    },
+    {
+      path: config.app.pages.questionBanks.questions.edit,
+      name: 'editQuestion',
+      component: questionForm,
+      meta: {
+        auth: true,
+        title: 'Edit Question',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Question Banks', link: 'questionBanks' },
+          { name: 'Question Bank Detail', link: 'questionBankDetail' },
+          { name: 'Questions', link: 'questionBankQuestionList' },
+          { name: 'Edit Question', link: 'editQuestion' }
+        ]
+      },
+      props: {
+        editMode: true
       }
     },
     {
@@ -818,48 +857,6 @@ const router = new Router({
       }
     },
     {
-      path: config.app.pages.assignments.batches.list,
-      name: 'assignmentBatch',
-      component: assignmentBatch,
-      meta: {
-        auth: true,
-        title: 'Assignment Batch List',
-        breadcrumb: [
-          { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'assignmentBatch' }
-        ]
-      }
-    },
-    {
-      path: config.app.pages.assignments.batches.add,
-      name: 'addAssignmentBatch',
-      component: assignmentBatchForm,
-      meta: {
-        auth: true,
-        title: 'Assignment Batch List',
-        breadcrumb: [
-          { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'assignmentBatch' },
-          { name: 'Add Batch', link: 'addAssignmentBatch' }
-        ]
-      }
-    },
-    {
-      path: config.app.pages.assignments.batches.edit,
-      name: 'editAssignmentBatch',
-      component: assignmentBatchForm,
-      meta: {
-        auth: true,
-        title: 'Assignment Batch List',
-        breadcrumb: [
-          { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'assignmentBatch' },
-          { name: 'Edit Batch', link: 'editAssignmentBatch' }
-        ]
-      },
-      props: { editMode: true }
-    },
-    {
       path: config.app.pages.students.assignments,
       name: 'studentAssignments',
       component: studentAssignments,
@@ -900,7 +897,7 @@ const router = new Router({
     {
       path: config.app.pages.assignments.add,
       name: 'addAssignment',
-      component: addAssignment,
+      component: assignmentForm,
       meta: {
         auth: true,
         title: 'Add Assignments',
@@ -910,6 +907,27 @@ const router = new Router({
           { name: 'Assignments', link: 'assignments' },
           { name: 'Add Assignment', link: 'addAssignment' }
         ]
+      },
+      props: {
+        editMode: false
+      }
+    },
+    {
+      path: config.app.pages.assignments.edit,
+      name: 'editAssignment',
+      component: assignmentForm,
+      meta: {
+        auth: true,
+        title: 'Edit Assignments',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Batches', link: 'assignmentBatch' },
+          { name: 'Assignments', link: 'assignments' },
+          { name: 'Edit Assignment', link: 'editAssignment' }
+        ]
+      },
+      props: {
+        editMode: true
       }
     },
     {
@@ -977,50 +995,6 @@ const router = new Router({
       }
     },
     {
-      path: config.app.pages.finalJudging.batches.list,
-      name: 'judgingBatch',
-      component: judgingBatch,
-      meta: {
-        auth: true,
-        title: 'Judging Batch List',
-        breadcrumb: [
-          { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'judgingBatch' }
-        ]
-      }
-    },
-    {
-      path: config.app.pages.finalJudging.batches.add,
-      name: 'addJudgingBatch',
-      component: judgingBatchForm,
-      meta: {
-        auth: true,
-        title: 'Judging Batch List',
-        breadcrumb: [
-          { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'judgingBatch' },
-          { name: 'Add Batch', link: 'addJudgingBatch' }
-        ]
-      }
-    },
-    {
-      path: config.app.pages.finalJudging.batches.edit,
-      name: 'editJudgingBatch',
-      component: judgingBatchForm,
-      meta: {
-        auth: true,
-        title: 'Judging Batch List',
-        breadcrumb: [
-          { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'judgingBatch' },
-          { name: 'Edit Batch', link: 'editJudgingBatch' }
-        ]
-      },
-      props: {
-        editMode: true
-      }
-    },
-    {
       path: config.app.pages.finalJudging.list,
       name: 'judgingList',
       component: judgingList,
@@ -1077,22 +1051,6 @@ const router = new Router({
           { name: 'Batches', link: 'judgingBatch' },
           { name: 'Judging Sessions', link: 'judgingList' },
           { name: 'Judging Session Detail', link: 'judgingDetail' }
-        ]
-      }
-    },
-    {
-      path: config.app.pages.finalJudging.comparisons,
-      name: 'comparison',
-      component: comparison,
-      meta: {
-        auth: true,
-        title: 'Comparison',
-        breadcrumb: [
-          { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'judgingBatch' },
-          { name: 'Judging Sessions', link: 'judgingList' },
-          { name: 'Judging Session Detail', link: 'judgingDetail' },
-          { name: 'Comparison', link: 'comparison' }
         ]
       }
     },

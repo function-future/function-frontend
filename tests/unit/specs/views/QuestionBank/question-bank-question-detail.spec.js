@@ -39,14 +39,16 @@ describe('QuestionBankQuestionDetail', () => {
             "label": "Answer Example 1-4"
           }
         ]
-      }
+      },
+      accessList: {}
     }
     const actions = {
-      updateQuestion: jest.fn(),
+      deleteQuestionById: jest.fn(),
       fetchQuestionDetail: jest.fn()
     }
     const getters = {
-      question: state => state.question
+      question: state => state.question,
+      accessList: state => state.accessList
     }
     const store = new Vuex.Store({
       state,
@@ -108,30 +110,6 @@ describe('QuestionBankQuestionDetail', () => {
     expect(wrapper.isVueInstance()).toBe(true)
   })
 
-  test('cancelButtonText true', () => {
-    initComponent()
-    wrapper.vm.editMode = true
-    expect(wrapper.vm.cancelButtonText).toEqual('Cancel')
-  })
-
-  test('cancelButtonText false', () => {
-    initComponent()
-    wrapper.vm.editMode = false
-    expect(wrapper.vm.cancelButtonText).toEqual('Return')
-  })
-
-  test('actionButtonText true', () => {
-    initComponent()
-    wrapper.vm.editMode = true
-    expect(wrapper.vm.actionButtonText).toEqual('Save')
-  })
-
-  test('actionButtonText false', () => {
-    initComponent()
-    wrapper.vm.editMode = false
-    expect(wrapper.vm.actionButtonText).toEqual('Edit')
-  })
-
   test('initPage', () => {
     initComponent()
     wrapper.vm.fetchQuestionDetail = jest.fn()
@@ -165,6 +143,7 @@ describe('QuestionBankQuestionDetail', () => {
       ],
       "text": "Question Example 1"
     })
+    expect(wrapper.vm.selectedAnswer).toEqual(2)
   })
 
   test('failFetchingQuestionDetail', () => {
@@ -173,50 +152,65 @@ describe('QuestionBankQuestionDetail', () => {
     expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
   })
 
-  // test('actionButtonClicked editMode is true', () => {
-  //   initComponent()
-  //   wrapper.vm.editMode = true
-  //   wrapper.vm.updateQuestion = jest.fn()
-  //   wrapper.vm.actionButtonClicked()
-  //   expect(wrapper.vm.updateQuestion).toHaveBeenCalledTimes(1)
-  // })
-  // TODO: Unit test this
-
-  test('actionButtonClicked editMode is false', () => {
+  test('header text for option A', () => {
     initComponent()
-    wrapper.vm.editMode = false
-    wrapper.vm.updateQuestion = jest.fn()
-    wrapper.vm.actionButtonClicked()
-    expect(wrapper.vm.updateQuestion).not.toHaveBeenCalled()
+    expect(wrapper.vm.header(0)).toEqual('Option A')
   })
 
-  test('cancelButtonClicked editMode is true', () => {
+  test('header text for option B', () => {
     initComponent()
-    wrapper.vm.editMode = true
-    const spy = jest.spyOn(wrapper.vm, 'initPage')
-    wrapper.vm.cancelButtonClicked()
+    expect(wrapper.vm.header(1)).toEqual('Option B')
+  })
+
+  test('header text for option C', () => {
+    initComponent()
+    expect(wrapper.vm.header(2)).toEqual('Option C')
+  })
+
+  test('header text for option D', () => {
+    initComponent()
+    expect(wrapper.vm.header(3)).toEqual('Option D')
+  })
+
+  test('redirectToEditPage', () => {
+    initComponent()
+    wrapper.vm.$router.push = jest.fn()
+    wrapper.vm.$route.params.bankId = 'BNK001'
+    wrapper.vm.$route.params.questionId = 'QTN001'
+    wrapper.vm.redirectToEditPage()
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
+      name: 'editQuestion',
+      params: {
+        bankId: 'BNK001',
+        questionId: 'QTN001'
+      }
+    })
+  })
+
+  test('deleteQuestion', () => {
+    initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'deleteQuestionById')
+    wrapper.vm.deleteQuestion()
     expect(spy).toHaveBeenCalledTimes(1)
   })
 
-  test('cancelButtonClicked editMode is false', () => {
+  test('successDeletingQuestion', () => {
     initComponent()
-    wrapper.vm.editMode = false
+    wrapper.vm.$route.params.bankId = 'BNK001'
     wrapper.vm.$router.push = jest.fn()
-    wrapper.vm.cancelButtonClicked()
-    expect(wrapper.vm.$router.push).toHaveBeenCalledTimes(1)
+    wrapper.vm.successDeletingQuestion()
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
+      name: 'questionBankDetail',
+      params: {
+        bankId: 'BNK001'
+      }
+    })
   })
 
-  test('successUpdatingQuestionBank', () => {
+  test('failedDeletingQuestion', () => {
     initComponent()
-    wrapper.vm.$router.push = jest.fn()
-    wrapper.vm.successUpdatingQuestion()
-    expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
-    expect(wrapper.vm.$router.push).toHaveBeenCalledTimes(1)
-  })
-
-  test('failUpdatingQuestionBank', () => {
-    initComponent()
-    wrapper.vm.failUpdatingQuestion()
+    wrapper.vm.failedDeletingQuestion()
     expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(wrapper.vm.showDeleteConfirmationModal).toEqual(false)
   })
 })

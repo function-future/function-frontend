@@ -31,7 +31,8 @@ export default {
       'fetchActivityBlogById',
       'createActivityBlog',
       'updateActivityBlog',
-      'uploadResource'
+      'uploadResource',
+      'toast'
     ]),
     initPage () {
       this.initialState()
@@ -85,7 +86,12 @@ export default {
     },
     failUploadResource () {
       this.uploadingFile = false
-      this.$toasted.error('Fail to upload image, please delete the image and re-upload')
+      this.toast({
+        data: {
+          message: 'Fail to upload image, please delete the image and re-upload',
+          type: 'is-danger'
+        }
+      })
     },
     validateBeforeSubmit (callback) {
       this.$validator.validateAll().then((result) => {
@@ -123,28 +129,53 @@ export default {
       this.$router.push({ name: 'activityBlogs' })
     },
     failFetchActivityBlogById () {
-      this.$toasted.error('Fail to load activity blog detail')
+      this.toast({
+        data: {
+          message: 'Fail to load activity blog detail',
+          type: 'is-danger'
+        }
+      })
     },
     successCreateActivityBlog () {
       this.initialState()
       this.$router.push({ name: 'activityBlogs' })
-      this.$toasted.success('Successfully created new activity blog')
+      this.toast({
+        data: {
+          message: 'Successfully created new activity blog',
+          type: 'is-success'
+        }
+      })
     },
     failCreateActivityBlog () {
       this.isSubmitting = false
-      this.$toasted.error('Fail to create new activity blog')
+      this.toast({
+        data: {
+          message: 'Fail to create new activity blog',
+          type: 'is-danger'
+        }
+      })
     },
     successUpdateActivityBlog () {
       this.$router.push({
         name: 'activityBlogDetail',
         params: { id: this.activityBlogDetail.id }
       })
-      this.$toasted.success('Successfully update activity blog')
+      this.toast({
+        data: {
+          message: 'Successfully update activity blog',
+          type: 'is-success'
+        }
+      })
       this.initialState()
     },
     failUpdateActivityBlog () {
       this.isSubmitting = false
-      this.$toasted.error('Fail to update activity blog')
+      this.toast({
+        data: {
+          message: 'Fail to update activity blog',
+          type: 'is-danger'
+        }
+      })
     }
   }
 }

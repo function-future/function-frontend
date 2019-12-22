@@ -46,7 +46,8 @@ export default {
       'createMasterCourse',
       'updateCourse',
       'updateMasterCourse',
-      'uploadMaterial'
+      'uploadMaterial',
+      'toast'
     ]),
     initPage () {
       if (this.editMode) {
@@ -80,7 +81,12 @@ export default {
       this.filePreviewName = this.courseData.material || 'No file uploaded'
     },
     failFetchById () {
-      this.$toasted.error('Fail to load course detail, please refresh the page')
+      this.toast({
+        data: {
+          message: 'Fail to load course detail, please refresh the page',
+          type: 'is-danger'
+        }
+      })
     },
     validateBeforeSubmit (callback) {
       this.$validator.validateAll().then((result) => {
@@ -145,11 +151,21 @@ export default {
     successCreateOrEditCourse () {
       this.isSubmitting = false
       this.backToCourseList()
-      this.$toasted.success('Successfully ' + this.message + this.courseType)
+      this.toast({
+        data: {
+          message: 'Successfully ' + this.message + this.courseType,
+          type: 'is-success'
+        }
+      })
     },
     failCreateOrEditCourse () {
       this.isSubmitting = false
-      this.$toasted.error('Fail to ' + this.message + this.courseType)
+      this.toast({
+        data: {
+          message: 'Fail to ' + this.message + this.courseType,
+          type: 'is-danger'
+        }
+      })
     },
     onFileChange (e) {
       if (!e.target.files.length) return
@@ -181,7 +197,12 @@ export default {
     failUploadMaterial () {
       this.uploadingFile = false
       this.filePreviewName = 'Fail to upload material, please try again'
-      this.$toasted.error('Fail to upload material, please try again')
+      this.toast({
+        data: {
+          message: 'Fail to upload material, please try again',
+          type: 'is-danger'
+        }
+      })
     },
     cancel () {
       this.editMode ? this.backToDetail() : this.backToCourseList()

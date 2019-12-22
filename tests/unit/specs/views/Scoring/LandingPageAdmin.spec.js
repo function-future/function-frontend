@@ -393,7 +393,7 @@ describe('LandingPageAdmin', () => {
     wrapper.vm.selectedTab = 0
     wrapper.vm.goToItemDetail(1)
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
-      name: 'questionBankQuestionList',
+      name: 'questionBankDetail',
       params: {
         bankId: 1
       }
