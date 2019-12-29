@@ -43,6 +43,31 @@
           </span>
         </div>
         <div class="course-detail__container__discussion-container">
+          <article class="media course-detail__container__discussion__list">
+            <figure class="media-left">
+              <p class="image is-32x32">
+                <img class="is-rounded" :src="require('@/assets/profile-picture-placeholder.png')">
+              </p>
+            </figure>
+            <div class="media-content">
+              <div class="field">
+                <p class="control">
+                  <textarea class="textarea"
+                            v-model="discussion.comment"
+                            placeholder="Start a discussion...">
+                  </textarea>
+                </p>
+              </div>
+              <div class="field has-text-right">
+                <b-button type="is-primary"
+                          @click="postDiscussion"
+                          :loading="submittingDiscussion"
+                          :disabled="disableDiscussion">
+                  Post discussion
+                </b-button>
+              </div>
+            </div>
+          </article>
           <article class="media course-detail__container__discussion__list"
                    v-for="discussion in discussions" :key="discussion.id">
             <figure class="media-left">
@@ -69,31 +94,6 @@
             <div slot="no-more"></div>
             <div slot="no-results"></div>
           </infinite-loading>
-          <article class="media course-detail__container__discussion__list">
-            <figure class="media-left">
-              <p class="image is-32x32">
-                <img class="is-rounded" :src="require('@/assets/profile-picture-placeholder.png')">
-              </p>
-            </figure>
-            <div class="media-content">
-              <div class="field">
-                <p class="control">
-                  <textarea class="textarea"
-                            v-model="discussion.comment"
-                            placeholder="Start a discussion...">
-                  </textarea>
-                </p>
-              </div>
-              <div class="field has-text-right">
-                  <b-button type="is-primary"
-                            @click="postDiscussion"
-                            :loading="submittingDiscussion"
-                            :disabled="disableDiscussion">
-                    Post discussion
-                  </b-button>
-              </div>
-            </div>
-          </article>
         </div>
       </div>
     </div>

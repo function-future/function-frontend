@@ -139,7 +139,7 @@ export default {
       })
       this.submittingDiscussion = false
       this.discussion.comment = ''
-      this.discussions.push(response)
+      this.discussions.unshift(response)
       this.discussionPaging.totalRecords++
     },
     failSubmitCourseDiscussion () {
