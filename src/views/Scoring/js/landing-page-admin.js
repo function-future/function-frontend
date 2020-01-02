@@ -32,7 +32,8 @@ export default {
       state: '',
       batches: [],
       batchCode: '',
-      infiniteId: +new Date()
+      infiniteId: +new Date(),
+      isPassedDeadline: false
     }
   },
   created () {
@@ -149,6 +150,7 @@ export default {
     getQuizzes() {
       this.fetchQuizList({
         data: {
+          isPassedDeadline: this.isPassedDeadline,
           batchCode: this.batchCode,
           page: this.paging.page,
           pageSize: this.paging.size
@@ -160,6 +162,7 @@ export default {
     getAssignments() {
       this.fetchAssignmentList({
         data: {
+          isPassedDeadline: this.isPassedDeadline,
           batchCode: this.batchCode,
           page: this.paging.page,
           pageSize: this.paging.size
@@ -364,6 +367,9 @@ export default {
       this.resetData()
     },
     batchCode() {
+      this.resetData()
+    },
+    isPassedDeadline() {
       this.resetData()
     }
   }

@@ -1,12 +1,12 @@
 <template>
   <div class="auto-overflow-container scoring-container">
     <section>
-      <b-tabs class="scoring-header-tabs" v-model="selectedTab">
+      <b-tabs class="scoring__header-tabs" v-model="selectedTab">
         <b-tab-item v-for="tab in tabs"
                     :key="tab.title"
                     :label="tab.title"
                     :visible="tab.visible">
-          <div class="scoring-header">
+          <div class="scoring__header">
             <div class="columns is-mobile">
               <div class="column">
                 <div class="buttons">
@@ -16,7 +16,7 @@
                             type="is-primary">
                     Add
                   </b-button>
-                  <div class="courses__container__tabs-actions-filter"
+                  <div class="scoring__container__tabs-actions-filter"
                        v-if="visibleBatchSelection">
                     <b-field label="Batch"
                              label-position="on-border">
@@ -30,6 +30,11 @@
                         </option>
                       </b-select>
                     </b-field>
+                  </div>
+                  <div class="scoring__container__tabs-actions-deadline" v-if="selectedTab !== 0">
+                    <b-checkbox v-model="isPassedDeadline">
+                      View passed {{ tabTitle }} only
+                    </b-checkbox>
                   </div>
                 </div>
               </div>
@@ -107,31 +112,29 @@
   @import "@/assets/css/main.scss";
 
   .scoring {
-    &-container {
+    &__container {
       padding: 0.4rem 1.25rem;
       height: 85vh;
+
+      &__tabs {
+        @media only screen and (min-width: 1023px) {
+          min-height: 10vh;
+        }
+
+        &-actions {
+          &-deadline {
+            margin-left: 0.5rem;
+          }
+        }
+      }
     }
 
-    &-header {
+    &__header {
       position: sticky;
       top: 0;
       background-color: #ffffff;
       z-index: 1;
       margin-bottom: 0 !important;
-
-      &-tabs {
-        @media only screen and (min-width: 1023px) {
-          min-height: 10vh;
-        }
-      }
-
-      &-action {
-        float: right;
-
-        @media only screen and (max-width: 1023px) {
-          width: 80vw;
-        }
-      }
     }
 
     &-content {

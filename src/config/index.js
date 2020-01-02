@@ -263,8 +263,8 @@ module.exports = {
     },
     scoring: {
       assignments: {
-        list(batchCode, page, pageSize) {
-          return `/api/scoring/batches/${batchCode}/assignments?page=${page}&size=${pageSize}`
+        list(batchCode, isPassedDeadline, page, pageSize) {
+          return `/api/scoring/batches/${batchCode}/assignments?isPassedDeadline=${isPassedDeadline}&page=${page}&size=${pageSize}`
         },
         create(batchCode) {
           return `/api/scoring/batches/${batchCode}/assignments`
@@ -340,8 +340,8 @@ module.exports = {
         }
       },
       quiz: {
-        list(batchCode, page, pageSize) {
-          return `/api/scoring/batches/${batchCode}/quizzes?page=${page}&size=${pageSize}`
+        list(batchCode, isPassedDeadline, page, pageSize) {
+          return `/api/scoring/batches/${batchCode}/quizzes?isPassedDeadline=${isPassedDeadline}&page=${page}&size=${pageSize}`
         },
         create(batchCode) {
           return `/api/scoring/batches/${batchCode}/quizzes`
@@ -359,8 +359,8 @@ module.exports = {
           return `/api/scoring/batches/${batchCode}/quizzes/${id}`
         },
         students: {
-          list(batchCode, page, pageSize) {
-            return `/api/scoring/batches/${batchCode}/quizzes?page=${page}&size=${pageSize}`
+          list(batchCode, isPassedDeadline, page, pageSize) {
+            return `/api/scoring/batches/${batchCode}/quizzes?isPassedDeadline=${isPassedDeadline}&page=${page}&size=${pageSize}`
           },
           detail(batchCode, id) {
             return `/api/scoring/batches/${batchCode}/quizzes/${id}/student`
