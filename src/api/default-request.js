@@ -21,6 +21,8 @@ const getRequest = function (path, callback, errorHandler, configuration) {
       callback(data)
     })
     .catch(error => {
+      console.log(path)
+      console.log(error)
       if (typeof errorHandler === 'function') {
         errorHandler(error)
       }

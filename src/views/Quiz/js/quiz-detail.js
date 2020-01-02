@@ -28,7 +28,8 @@ export default {
   computed: {
     ...mapGetters([
       'quiz',
-      'accessList'
+      'accessList',
+      'currentUser',
     ]),
     descriptionCompiledMarkdown: function () {
       return marked(this.quizDetail.description)
@@ -38,7 +39,8 @@ export default {
     ...mapActions([
       'fetchQuizById',
       'updateQuizDetail',
-      'deleteQuizById'
+      'deleteQuizById',
+      'fetchStudentQuizDetail'
     ]),
     initPage () {
       this.fetchQuizById({
@@ -84,6 +86,27 @@ export default {
       this.$toasted.success('Successfully deleted this quiz')
     },
     failedDeletingQuiz () {
+      this.$toasted.error('Something went wrong')
+    },
+    goToStudentQuiz () {
+      this.fetchStudentQuizDetail({
+        data: {
+          batchCode: this.currentUser.batchCode,
+          quizId: this.$route.params.quizId
+        },
+        callback: this.successFetchingStudentQuiz,
+        fail: this.failedFetchingStudentQuiz
+      })
+    },
+    successFetchingStudentQuiz () {
+      this.$router.push({
+        name: 'studentQuizQuestions',
+        params: {
+          quizId: this.$route.params.quizId
+        }
+      })
+    },
+    failedFetchingStudentQuiz () {
       this.$toasted.error('Something went wrong')
     }
   }

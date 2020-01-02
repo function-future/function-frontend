@@ -15,10 +15,11 @@ export default {
   data () {
     return {
       tabs: [
-        { value: 'questionBanks', title: 'Question Banks' },
-        { value: 'quizzes', title: 'Quizzes' },
-        { value: 'assignments', title: 'Assignments' }
+        { type: 'questionBanks', title: 'Question Banks', visible: false },
+        { type: 'quizzes', title: 'Quizzes', visible: true },
+        { type: 'assignments', title: 'Assignments', visible: true }
       ],
+      selectedTab: 0,
       isLoading: false,
       isVisibleDeleteModal: false,
       paging: {
@@ -27,7 +28,6 @@ export default {
         totalRecords: 0
       },
       items: [],
-      selectedTab: 0,
       selectedId:'',
       state: '',
       batches: [],
@@ -35,15 +35,29 @@ export default {
       infiniteId: +new Date()
     }
   },
+  created () {
+    this.checkCurrentUser()
+    this.setQuery()
+  },
   computed: {
     ...mapGetters([
-      'accessList'
+      'accessList',
+      'currentUser'
     ]),
+    currentTabType () {
+      return this.$route.query.tab
+    },
+    tabTitle() {
+      return (this.currentTabType === 'questionBanks') ? 'Question Bank' : (this.currentTabType === 'quizzes') ? 'Quiz' : 'Assignment'
+    },
     batchButtonText() {
       return this.batchCode || 'Select Batch'
     },
-    tabTitle() {
-      return (this.selectedTab === 0) ? 'Question Bank' : (this.selectedTab === 1) ? 'Quiz' : 'Assignment'
+    loggedInRole() {
+      return this.currentUser && this.currentUser.role
+    },
+    visibleBatchSelection() {
+      return this.currentUser.role !== 'STUDENT' && this.currentTabType !== 'questionBanks'
     }
   },
   methods: {
@@ -56,6 +70,26 @@ export default {
       'deleteQuizById',
       'deleteAssignmentById'
     ]),
+    checkCurrentUser () {
+      if (this.loggedInRole === 'ADMIN') {
+        this.tabs[0].visible = true
+      }
+      else if (this.loggedInRole === 'STUDENT') {
+        this.tabs.splice(0, 1)
+        this.batchCode = this.currentUser.batchCode
+      }
+      else if (this.loggedInRole === 'JUDGE' || this.loggedInRole === 'MENTOR') {
+        this.tabs.splice(0, 2)
+      }
+      this.selectedTab = this.tabs.findIndex(i => i.type === this.currentTabType)
+    },
+    setQuery () {
+      if (this.selectedTab < 0 || this.selectedTab > this.tabs.length) this.selectedTab = 0
+      if (this.tabs[this.selectedTab].type === this.currentTabType) return
+      this.$router.replace({
+        query: { tab: this.tabs[this.selectedTab].type }
+      })
+    },
     resetData() {
       this.paging = {
         page: 1,
@@ -67,23 +101,29 @@ export default {
       this.infiniteId += 1
     },
     getListData($state) {
-      if (this.selectedTab === 0) {
-        this.getQuestionBanks($state)
-      } else if (this.selectedTab === 1) {
-        this.getBatchList()
-        this.getQuizzes($state)
-      } else {
-        this.getBatchList()
-        this.getAssignments($state)
+      if (!!this.currentTabType) {
+        switch (this.currentTabType) {
+          case 'questionBanks':
+            this.getQuestionBanks($state)
+            break
+          default:
+            this.getBatchList($state)
+            break
+        }
       }
     },
-    getBatchList () {
+    getBatchList ($state) {
+      this.state = $state
       this.fetchBatches({
         callback: this.successFetchBatches,
         fail: this.failFetchBatches
       })
     },
     successFetchBatches (response) {
+      if (!!this.batchCode) {
+        this.currentTabType === 'quizzes' ? this.getQuizzes() : this.getAssignments()
+        return
+      }
       this.batches = response
       if (this.batches.length) {
         this.batchCode = response[0].code
@@ -106,8 +146,7 @@ export default {
         fail: this.failFetchingQuestionBankList
       })
     },
-    getQuizzes($state) {
-      this.state = $state
+    getQuizzes() {
       this.fetchQuizList({
         data: {
           batchCode: this.batchCode,
@@ -118,8 +157,7 @@ export default {
         fail: this.failFetchingListData
       })
     },
-    getAssignments($state) {
-      this.state = $state
+    getAssignments() {
       this.fetchAssignmentList({
         data: {
           batchCode: this.batchCode,
@@ -145,7 +183,7 @@ export default {
       this.state.complete()
     },
     failFetchingListData () {
-      this.$toasted.error('Please select batch')
+      this.$toasted.error('Something went wrong')
       this.state.complete()
     },
     textPreview(markdown) {
@@ -159,29 +197,33 @@ export default {
       return text
     },
     goToEditItem(id) {
-      if (this.selectedTab === 0) {
-        this.$router.push({
-          name: 'questionBankDetail',
-          params: {
-            bankId: id
-          }
-        })
-      } else if (this.selectedTab === 1) {
-        this.$router.push({
-          name: 'editQuiz',
-          params: {
-            quizId: id,
-            batchCode: this.batchCode
-          }
-        })
-      } else if (this.selectedTab === 2) {
-        this.$router.push({
-          name: 'assignmentDetail',
-          params: {
-            assignmentId: id,
-            batchCode: this.batchCode
-          }
-        })
+      switch (this.currentTabType) {
+        case 'questionBanks':
+          this.$router.push({
+            name: 'questionBankDetail',
+            params: {
+              bankId: id
+            }
+          })
+          break
+        case 'quizzes':
+          this.$router.push({
+            name: 'editQuiz',
+            params: {
+              quizId: id,
+              batchCode: this.batchCode
+            }
+          })
+          break
+        case 'assignments':
+          this.$router.push({
+            name: 'assignmentDetail',
+            params: {
+              assignmentId: id,
+              batchCode: this.batchCode
+            }
+          })
+          break
       }
     },
     openDeleteConfirmationModal (id) {
@@ -193,12 +235,16 @@ export default {
       this.selectedId = ''
     },
     deleteItem() {
-      if (this.selectedTab === 0) {
-        this.deleteQuestionBank()
-      } else if (this.selectedTab === 1) {
-        this.deleteQuiz()
-      } else if (this.selectedTab === 2) {
-        this.deleteAssignment()
+      switch (this.currentTabType) {
+        case 'questionBanks':
+          this.deleteQuestionBank()
+          break
+        case 'quizzes':
+          this.deleteQuiz()
+          break
+        case 'assignments':
+          this.deleteAssignment()
+          break
       }
     },
     deleteQuestionBank() {
@@ -239,29 +285,33 @@ export default {
       this.$toasted.error('Something went wrong')
     },
     goToItemDetail(id) {
-      if (this.selectedTab === 0) {
-        this.$router.push({
-          name: 'questionBankDetail',
-          params: {
-            bankId: id
-          }
-        })
-      } else if (this.selectedTab === 1) {
-        this.$router.push({
-          name: 'quizDetail',
-          params: {
-            quizId: id,
-            batchCode: this.batchCode
-          }
-        })
-      } else {
-        this.$router.push({
-          name: 'assignmentDetail',
-          params: {
-            assignmentId: id,
-            batchCode: this.batchCode
-          }
-        })
+      switch (this.currentTabType) {
+        case 'questionBanks':
+          this.$router.push({
+            name: 'questionBankDetail',
+            params: {
+              bankId: id
+            }
+          })
+          break
+        case 'quizzes':
+          this.$router.push({
+            name: 'quizDetail',
+            params: {
+              quizId: id,
+              batchCode: this.batchCode
+            }
+          })
+          break
+        case 'assignments':
+          this.$router.push({
+            name: 'assignmentDetail',
+            params: {
+              assignmentId: id,
+              batchCode: this.batchCode
+            }
+          })
+          break
       }
     },
     selectBatch (code) {
@@ -272,12 +322,16 @@ export default {
       this.isVisibleBatchModal = false
     },
     addItem() {
-      if (this.selectedTab === 0) {
-        this.goToAddQuestionBank()
-      } else if (this.selectedTab === 1) {
-        this.goToAddQuiz()
-      } else {
-        this.goToAddAssignment()
+      switch (this.currentTabType) {
+        case 'questionBanks':
+          this.goToAddQuestionBank()
+          break
+        case 'quizzes':
+          this.goToAddQuiz()
+          break
+        case 'assignments':
+          this.goToAddAssignment()
+          break
       }
     },
     goToAddQuestionBank() {
@@ -304,6 +358,9 @@ export default {
   },
   watch: {
     selectedTab() {
+      this.setQuery()
+    },
+    currentTabType() {
       this.resetData()
     },
     batchCode() {

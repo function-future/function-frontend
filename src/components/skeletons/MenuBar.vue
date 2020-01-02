@@ -51,7 +51,7 @@
                    label="Grades"
                    tag="router-link"
                    :active="isActive('grades')"
-                   :to="{ name: 'questionBanks' }"
+                   :to="{ name: 'scoringAdmin' }"
                    v-if="menuList.grades">
       </b-menu-item>
       <b-menu-item class="menu-item"

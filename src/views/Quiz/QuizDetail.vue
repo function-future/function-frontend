@@ -92,6 +92,12 @@
             </section>
           </template>
         </div>
+        <div class="quiz-detail__container__footer">
+          <b-button type="is-primary"
+                    @click="goToStudentQuiz">
+            Start
+          </b-button>
+        </div>
       </div>
       <modal-delete-confirmation v-if="showDeleteConfirmationModal"
                                  @close="showDeleteConfirmationModal = false"
@@ -171,29 +177,9 @@
         }
       }
 
-      &__discussion {
-        &-wrapper {
-          margin-top: 1rem;
-        }
-
-        &-title {
-          padding: 0.25rem 0.5rem;
-          margin-bottom: 0.25rem;
-        }
-
-        &-container {
-          padding: 0.5rem;
-          border-radius: 0.25rem;
-          background-color: #f9f9f9;
-        }
-
-        &__list {
-          padding: 0.5rem 0.75rem 0.5rem 0.5rem;
-
-          &-content {
-            margin-top: 0.5rem;
-          }
-        }
+      &__footer {
+        display: flex;
+        justify-content: flex-end;
       }
     }
   }

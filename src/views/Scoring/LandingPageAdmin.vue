@@ -3,8 +3,9 @@
     <section>
       <b-tabs class="scoring-header-tabs" v-model="selectedTab">
         <b-tab-item v-for="tab in tabs"
-                    :key="tab.value"
-                    :label="tab.title">
+                    :key="tab.title"
+                    :label="tab.title"
+                    :visible="tab.visible">
           <div class="scoring-header">
             <div class="columns is-mobile">
               <div class="column">
@@ -16,7 +17,7 @@
                     Add
                   </b-button>
                   <div class="courses__container__tabs-actions-filter"
-                       v-if="selectedTab !== 0">
+                       v-if="visibleBatchSelection">
                     <b-field label="Batch"
                              label-position="on-border">
                       <b-select placeholder="Select a batch"
@@ -90,9 +91,6 @@
 
 
     </section>
-    <modal-select-batch v-if="isVisibleBatchModal" @close="closeModal"
-                        @select="selectBatch">
-    </modal-select-batch>
     <modal-delete-confirmation v-if="isVisibleDeleteModal"
                                @close="closeDeleteConfirmationModal"
                                @clickDelete="deleteItem">
