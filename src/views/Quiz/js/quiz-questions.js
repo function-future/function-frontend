@@ -55,7 +55,8 @@ export default {
   methods: {
     ...mapActions([
       'fetchStudentQuizQuestions',
-      'submitAnswers'
+      'submitAnswers',
+      'toast'
     ]),
     optionLabel (index) {
       switch (index) {
@@ -84,7 +85,12 @@ export default {
       this.isLoading = false
     },
     failedFetchingStudentQuizQuestions () {
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        data: {
+          message: 'Fail to load the questions, please try again',
+          type: 'is-danger'
+        }
+      })
     },
     viewQuestion (number) {
       this.currentNumber = number - 1
@@ -122,7 +128,12 @@ export default {
     },
     failedSubmitStudentQuiz () {
       this.isSubmitting = false
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        data: {
+          message: 'Fail to submit your answers',
+          type: 'is-danger'
+        }
+      })
     },
     highlightedOption (option) {
       return this.answers.includes(option) ? 'active' : ''
