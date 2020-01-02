@@ -31,7 +31,7 @@
                       </b-select>
                     </b-field>
                   </div>
-                  <div class="scoring__container__tabs-actions-deadline" v-if="selectedTab !== 0">
+                  <div class="scoring__container__tabs-actions-deadline" v-if="currentTabType !== 'questionBanks'">
                     <b-checkbox v-model="isPassedDeadline">
                       View passed {{ tabTitle }} only
                     </b-checkbox>
