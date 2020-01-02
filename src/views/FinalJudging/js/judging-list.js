@@ -40,7 +40,8 @@ export default {
     ...mapActions([
       'fetchJudgingList',
       'fetchBatches',
-      'deleteJudging'
+      'deleteJudging',
+      'toast'
     ]),
     initPage () {
       this.fetchJudgingList({
@@ -57,7 +58,12 @@ export default {
       this.paging = paging
     },
     failFetchingJudgingList () {
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        data: {
+          message: 'Fail to load judging sessions',
+          type: 'is-danger'
+        }
+      })
     },
     addJudging () {
       this.$router.push({
@@ -105,7 +111,12 @@ export default {
       })
     },
     successDeletingJudging () {
-      this.$toasted.success('Successfully deleted judging session')
+      this.toast({
+        data: {
+          message: 'Successfully deleted judging session',
+          type: 'is-success'
+        }
+      })
       this.$router.push({
         name: 'judgingList',
         params: {
@@ -116,7 +127,12 @@ export default {
       this.initPage()
     },
     failDeletingJudging () {
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        data: {
+          message: 'Fail to delete judging session',
+          type: 'is-danger'
+        }
+      })
     },
     loadPage (page) {
       this.paging.page = page
@@ -143,7 +159,12 @@ export default {
       this.selectedBatch = this.batches[0].code
     },
     failFetchBatches () {
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        data: {
+          message: 'Fail to load batch list, please refresh the page',
+          type: 'is-danger'
+        }
+      })
     }
   },
   watch: {
