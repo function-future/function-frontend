@@ -69,7 +69,8 @@ export default {
       'fetchBatches',
       'deleteQuestionBankById',
       'deleteQuizById',
-      'deleteAssignmentById'
+      'deleteAssignmentById',
+      'toast'
     ]),
     checkCurrentUser () {
       if (this.loggedInRole === 'ADMIN') {
@@ -134,7 +135,12 @@ export default {
       }
     },
     failFetchBatches () {
-      this.$toasted.error('Fail to load batch list, please refresh the page')
+      this.toast({
+        data: {
+          message: 'Fail to load batch list, please refresh the page',
+          type: 'is-danger'
+        }
+      })
     },
     getQuestionBanks($state) {
       this.state = $state
@@ -182,11 +188,21 @@ export default {
       }
     },
     failFetchingQuestionBankList() {
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        data: {
+          message: 'Fail to load question banks',
+          type: 'is-danger'
+        }
+      })
       this.state.complete()
     },
     failFetchingListData () {
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        data: {
+          message: 'Fail to load ' + this.tabTitle,
+          type: 'is-danger'
+        }
+      })
       this.state.complete()
     },
     textPreview(markdown) {
@@ -280,12 +296,22 @@ export default {
       })
     },
     successDeletingItem () {
-      this.$toasted.success('Successfully deleted ' + this.tabTitle)
+      this.toast({
+        data: {
+          message: 'Successfully deleted ' + this.tabTitle,
+          type: 'is-success'
+        }
+      })
       this.closeDeleteConfirmationModal()
       this.resetData()
     },
     failDeletingItem () {
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        data: {
+          message: 'Fail to delete ' + this.tabTitle,
+          type: 'is-danger'
+        }
+      })
     },
     goToItemDetail(id) {
       switch (this.currentTabType) {
