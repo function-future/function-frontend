@@ -39,7 +39,8 @@ export default {
       'fetchJudgingDetail',
       'createJudging',
       'updateJudging',
-      'initialState'
+      'initialState',
+      'toast'
     ]),
     initPage () {
       this.initialState()
@@ -61,7 +62,12 @@ export default {
       this.setJudgingDetail()
     },
     failedFetchingJudgingDetail () {
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        data: {
+          message: 'Fail to load judging session',
+          type: 'is-danger'
+        }
+      })
     },
     setJudgingDetail () {
       this.judgingDetail = { ...this.judging }
@@ -93,11 +99,21 @@ export default {
     successCreatingJudgingDetail () {
       this.initialState()
       this.$router.push({ name: 'judgingList' })
-      this.$toasted.success('Successfully created new judging session')
+      this.toast({
+        data: {
+          message: 'Successfully created a judging session',
+          type: 'is-success'
+        }
+      })
     },
     failedCreatingJudgingDetail () {
       this.isSubmitting = false
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        data: {
+          message: 'Fail to create judging session',
+          type: 'is-danger'
+        }
+      })
     },
     updateJudgingDetail () {
       let students = []
@@ -125,12 +141,22 @@ export default {
         name: 'judgingDetail',
         params: { id: this.judgingDetail.id }
       })
-      this.$toasted.success('Successfully updated judging session')
+      this.toast({
+        data: {
+          message: 'Successfully updated judging session',
+          type: 'is-success'
+        }
+      })
       this.initialState()
     },
     failedUpdatingJudgingDetail () {
       this.isSubmitting = false
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        data: {
+          message: 'Fail to update judging session',
+          type: 'is-danger'
+        }
+      })
     },
     cancel () {
       this.$router.push({ name: 'judgingList' })
