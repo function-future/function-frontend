@@ -40,7 +40,8 @@ export default {
       'fetchQuizById',
       'updateQuizDetail',
       'deleteQuizById',
-      'fetchStudentQuizDetail'
+      'fetchStudentQuizDetail',
+      'toast'
     ]),
     initPage () {
       this.fetchQuizById({
@@ -58,7 +59,12 @@ export default {
       this.quizDetail.timeLimit = Math.floor(this.quizDetail.timeLimit / 60)
     },
     failFetchingQuizById () {
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        data: {
+          message: 'Fail to load quiz',
+          type: 'is-danger'
+        }
+      })
     },
     goToEditQuiz () {
       this.$router.push({
@@ -83,10 +89,20 @@ export default {
       this.$router.push({
         name: 'scoringAdmin'
       })
-      this.$toasted.success('Successfully deleted this quiz')
+      this.toast({
+        data: {
+          message: 'Successfully deleted quiz',
+          type: 'is-success'
+        }
+      })
     },
     failedDeletingQuiz () {
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        data: {
+          message: 'Fail to delete quiz',
+          type: 'is-danger'
+        }
+      })
     },
     goToStudentQuiz () {
       this.fetchStudentQuizDetail({
@@ -107,7 +123,12 @@ export default {
       })
     },
     failedFetchingStudentQuiz () {
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        data: {
+          message: 'Can\'t start quiz, please check your remaining trials',
+          type: 'is-danger'
+        }
+      })
     }
   }
 }
