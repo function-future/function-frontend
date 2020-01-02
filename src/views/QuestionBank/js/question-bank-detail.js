@@ -47,7 +47,8 @@ export default {
       'fetchQuestionBankDetail',
       'fetchQuestionBankQuestionList',
       'deleteQuestionBankById',
-      'deleteQuestionById'
+      'deleteQuestionById',
+      'toast'
     ]),
     initPage () {
       this.fetchQuestionBankDetail({
@@ -62,7 +63,12 @@ export default {
       this.questionBankDetail = {...this.questionBank}
     },
     failFetchingQuestionBankDetail () {
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        data: {
+          message: 'Fail to load question bank',
+          type: 'is-danger'
+        }
+      })
     },
     getQuestionList($state) {
       this.state = $state
@@ -87,6 +93,7 @@ export default {
       }
     },
     failFetchingQuestionBankQuestionList () {
+      //TODO : CHANGE TO EMPTY STATE
       this.$toasted.error('Something went wrong')
     },
     redirectToEditQuestionBankForm() {
@@ -145,13 +152,23 @@ export default {
     },
     successDeletingBank() {
       this.showDeleteConfirmationModal = false
-      this.$toasted.success('Successfully deleted question bank')
+      this.toast({
+        data: {
+          message: 'Successfully delete question bank',
+          type: 'is-success'
+        }
+      })
       this.$router.push({
         name: 'scoringAdmin'
       })
     },
     failedDeletingBank() {
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        data: {
+          message: 'Fail to delete question bank',
+          type: 'is-danger'
+        }
+      })
       this.showDeleteConfirmationModal = false
     },
     deleteThisQuestion() {
@@ -166,12 +183,22 @@ export default {
     },
     successDeletingQuestion () {
       this.showDeleteConfirmationModal = false
-      this.$toasted.success('Successfully deleted this question')
+      this.toast({
+        data: {
+          message: 'Successfully delete question bank',
+          type: 'is-success'
+        }
+      })
       this.$router.go()
     },
     failedDeletingQuestion () {
       this.showDeleteConfirmationModal = false
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        data: {
+          message: 'Fail to delete question bank',
+          type: 'is-danger'
+        }
+      })
     }
   }
 
