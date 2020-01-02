@@ -1,17 +1,13 @@
 import { mapActions, mapGetters } from 'vuex'
-import BaseButton from '@/components/BaseButton'
 import UserListItem from '@/components/list/UserListItem'
 import ListItem from '@/components/list/ListItem'
-import BaseCard from '@/components/BaseCard'
 import InfiniteLoading from 'vue-infinite-loading'
 
 export default {
   name: 'modal-select-multiple-students',
   components: {
-    BaseButton,
     ListItem,
     UserListItem,
-    BaseCard,
     InfiniteLoading
   },
   props: ['currentlySelected'],
@@ -40,7 +36,8 @@ export default {
   methods: {
     ...mapActions([
       'getBatchReport',
-      'setStudentList'
+      'setStudentList',
+      'toast'
     ]),
     initialState () {
       this.selectedStudents = [ ...this.currentlySelected ]
@@ -98,7 +95,12 @@ export default {
       this.isLoading = false
     },
     failedFetchingStudentList () {
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        data: {
+          message: 'Fail to load student list, please try again',
+          type: 'is-danger'
+        }
+      })
       this.isLoading = false
     }
   }
