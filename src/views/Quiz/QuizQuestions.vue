@@ -68,65 +68,6 @@
 
     </QuizModal>
   </div>
-
-  <!--<div class="scrollable-container">-->
-    <!--<div class="quiz" v-if="!isLoading">-->
-      <!--<div class="quiz-content" v-for="(question, idx) in studentQuizQuestions" :key="question.number" v-if="currentNumber === idx">-->
-        <!--<div class="quiz-content-question">-->
-          <!--<BaseCard :style="{ margin: 0, height: '100%' }">-->
-            <!--{{question.text}}-->
-          <!--</BaseCard>-->
-        <!--</div>-->
-        <!--<div class="quiz-content-option">-->
-          <!--<label class="quiz-content-option__item" v-for="(option, idx) in question.options" :key="option.id">-->
-            <!--<input type="radio" v-model="answers[currentNumber]" :value="option.id"/>-->
-            <!--<BaseCard class="quiz-content-option__item-button" :class="highlightedOption(option.id)" :style="{ 'margin': '0 0 5px 0'}">-->
-              <!--{{option.label}}-->
-            <!--</BaseCard>-->
-          <!--</label>-->
-        <!--</div>-->
-      <!--</div>-->
-      <!--<div class="quiz-action">-->
-        <!--<div class="quiz-action-button">-->
-          <!--<BaseButton :style="{ width: '100%', height: '100%' }" buttonClass="button-save" @click="submitQuiz">Finish</BaseButton>-->
-        <!--</div>-->
-        <!--<div class="quiz-action-legend">-->
-          <!--<BaseCard :style="{ 'margin': '15px 0 0 0', 'padding': '15px 0 15px 0', 'height': '100%' }">-->
-            <!--<div class="quiz-action-legend__title-area">-->
-              <!--Go To-->
-            <!--</div>-->
-            <!--<div class="quiz-action-legend__content-area scrollable-container" style="max-height: 85%;">-->
-              <!--<div class="quiz-action-legend__content-area-row scrollable-container">-->
-                <!--<label style="width: 100%" v-for="question in studentQuizQuestions">-->
-                  <!--<BaseCard class="quiz-action-legend__content-area-row-item" :style="{ 'padding': '10px', 'margin': '15px 0 15px 0', 'width': '100%' }">-->
-                      <!--<input type="radio" @click="viewQuestion(question.number)">-->
-                      <!--<span class="radio" :class="{active: question.number - 1 === currentNumber}">-->
-                        <!--<font-awesome-icon icon="check" class="check" size="xs" v-if="question.number - 1 === currentNumber"/>-->
-                      <!--</span>-->
-                      <!--<span class="quiz-action-legend__content-area-row-item-text">-->
-                        <!--Question {{question.number}}-->
-                      <!--</span>-->
-                  <!--</BaseCard>-->
-                <!--</label>-->
-              <!--</div>-->
-            <!--</div>-->
-          <!--</BaseCard>-->
-        <!--</div>-->
-      <!--</div>-->
-    <!--</div>-->
-    <!--<div class="navigation" v-if="!isLoading">-->
-      <!--<BaseButton class="navigation__button" :style="{ height: '100%' }" buttonClass="button-save" @click="viewPreviousQuestion" :disabled="currentNumber === 0">Previous</BaseButton>-->
-      <!--<BaseButton class="navigation__button" :style="{ height: '100%' }" buttonClass="button-save" @click="viewNextQuestion" :disabled="currentNumber === studentQuizQuestions.length - 1">Next</BaseButton>-->
-    <!--</div>-->
-    <!--<QuizModal v-if="showPointModal">-->
-      <!--<div slot="title">Finished</div>-->
-      <!--<p slot="body">You earned {{result}} for this quiz</p>-->
-      <!--<div slot="footer">-->
-        <!--<BaseButton @click="restart" class="button-save" v-if="trialsLeft > 0">Retry</BaseButton>-->
-        <!--<BaseButton @click="finish" class="button-save">Done</BaseButton>-->
-      <!--</div>-->
-    <!--</QuizModal>-->
-  <!--</div>-->
 </template>
 
 <script type="text/javascript" src="./js/quiz-questions.js">

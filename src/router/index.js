@@ -1,26 +1,17 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import studentAssignments from '@/views/Assignment/StudentAssignments'
-import assignments from '@/views/Assignment/Assignments'
 import assignmentForm from '@/views/Assignment/AssignmentForm'
 import assignmentRooms from '@/views/Assignment/AssignmentRooms'
 import assignmentRoomDetail from '@/views/Assignment/AssignmentRoomDetail'
 import assignmentDetail from '@/views/Assignment/AssignmentDetail'
 import scoringAdmin from '@/views/Scoring/LandingPageAdmin'
-import questionBanks from '@/views/QuestionBank/QuestionBanks'
 import questionBankDetail from '@/views/QuestionBank/QuestionBankDetail'
 import questionBankForm from '@/views/QuestionBank/QuestionBankForm'
-import addQuestionBank from '@/views/QuestionBank/AddQuestionBank'
-import questionBankQuestionList from '@/views/QuestionBank/QuestionBankQuestionList'
 import questionBankQuestionDetail from '@/views/QuestionBank/QuestionBankQuestionDetail'
 import questionForm from '@/views/QuestionBank/QuestionForm'
-import quizBatch from '@/views/Quiz/QuizBatch'
-import quizBatchForm from '@/views/Quiz/QuizBatchForm'
-import quizzes from '@/views/Quiz/Quiz'
 import quizForm from '@/views/Quiz/QuizForm'
-import addQuizDetail from '@/views/Quiz/AddQuizDetail'
 import quizDetail from '@/views/Quiz/QuizDetail'
-import studentQuizList from '@/views/Quiz/StudentQuizList'
 import studentQuizDetail from '@/views/Quiz/StudentQuizDetail'
 import quizQuestions from '@/views/Quiz/QuizQuestions'
 import judgingList from '@/views/FinalJudging/JudgingList'
@@ -643,21 +634,6 @@ const router = new Router({
       }
     },
     {
-      path: config.app.pages.questionBanks.questions.list,
-      name: 'questionBankQuestionList',
-      component: questionBankQuestionList,
-      meta: {
-        auth: true,
-        title: 'Question List',
-        breadcrumb: [
-          { name: 'Home', link: 'feeds' },
-          { name: 'Question Banks', link: 'questionBanks' },
-          { name: 'Question Bank Detail', link: 'questionBankDetail' },
-          { name: 'Questions', link: 'questionBankQuestionList' }
-        ]
-      }
-    },
-    {
       path: config.app.pages.questionBanks.questions.detail,
       name: 'questionBankQuestionDetail',
       component: questionBankQuestionDetail,
@@ -712,62 +688,6 @@ const router = new Router({
       }
     },
     {
-      path: config.app.pages.quizzes.batches.list,
-      name: 'quizBatch',
-      component: quizBatch,
-      meta: {
-        auth: true,
-        title: 'Quiz Batch List',
-        breadcrumb: [
-          { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'quizBatch' }
-        ]
-      }
-    },
-    {
-      path: config.app.pages.quizzes.batches.add,
-      name: 'addQuizBatch',
-      component: quizBatchForm,
-      meta: {
-        auth: true,
-        title: 'Quiz Batch List',
-        breadcrumb: [
-          { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'quizBatch' },
-          { name: 'Add Batch', link: 'addQuizBatch' }
-        ]
-      }
-    },
-    {
-      path: config.app.pages.quizzes.batches.edit,
-      name: 'editQuizBatch',
-      component: quizBatchForm,
-      meta: {
-        auth: true,
-        title: 'Quiz Batch List',
-        breadcrumb: [
-          { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'quizBatch' },
-          { name: 'Edit Batch', link: 'editQuizBatch' }
-        ]
-      },
-      props: { editMode: true }
-    },
-    {
-      path: config.app.pages.quizzes.list,
-      name: 'quizzes',
-      component: quizzes,
-      meta: {
-        auth: true,
-        title: 'Quizzes',
-        breadcrumb: [
-          { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'quizBatch' },
-          { name: 'Quizzes', link: 'quizzes' }
-        ]
-      }
-    },
-    {
       path: config.app.pages.quizzes.add,
       name: 'addQuiz',
       component: quizForm,
@@ -804,22 +724,6 @@ const router = new Router({
       }
     },
     {
-      path: config.app.pages.quizzes.addDetail,
-      name: 'addQuizDetail',
-      component: addQuizDetail,
-      meta: {
-        auth: true,
-        title: 'Add Detail',
-        breadcrumb: [
-          { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'quizBatch' },
-          { name: 'Quizzes', link: 'quizzes' },
-          { name: 'Add Quiz', link: 'addQuiz' },
-          { name: 'Add Quiz Detail', link: 'addQuizDetail' }
-        ]
-      }
-    },
-    {
       path: config.app.pages.quizzes.detail,
       name: 'quizDetail',
       component: quizDetail,
@@ -831,19 +735,6 @@ const router = new Router({
           { name: 'Batches', link: 'quizBatch' },
           { name: 'Quizzes', link: 'quizzes' },
           { name: 'Quiz Detail', link: 'quizDetail' }
-        ]
-      }
-    },
-    {
-      path: config.app.pages.students.quizzes.list,
-      name: 'studentQuizzes',
-      component: studentQuizList,
-      meta: {
-        auth: true,
-        title: 'Quizzes',
-        breadcrumb: [
-          { name: 'Home', link: 'feeds' },
-          { name: 'Quizzes', link: 'studentQuizzes' }
         ]
       }
     },
@@ -883,20 +774,6 @@ const router = new Router({
       meta: {
         auth: true,
         title: 'Assignments'
-      }
-    },
-    {
-      path: config.app.pages.assignments.list,
-      name: 'assignments',
-      component: assignments,
-      meta: {
-        auth: true,
-        title: 'Assignments',
-        breadcrumb: [
-          { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'assignmentBatch' },
-          { name: 'Assignments', link: 'assignments' }
-        ]
       }
     },
     {
