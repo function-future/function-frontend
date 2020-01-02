@@ -44,7 +44,8 @@ export default {
     ...mapActions([
       'fetchQuizById',
       'updateQuizDetail',
-      'createQuiz'
+      'createQuiz',
+      'toast'
     ]),
     initPage () {
       if (this.editMode) {
@@ -68,7 +69,12 @@ export default {
       this.calendarDetails.dates[1] = new Date(response.endDate)
     },
     failedFetchingQuizDetail () {
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        data: {
+          message: 'Fail to load quiz detail',
+          type: 'is-danger'
+        }
+      })
     },
     validateBeforeSubmit (callback) {
       this.$validator.validateAll().then((result) => {
@@ -104,14 +110,24 @@ export default {
       })
     },
     successUpdatingQuizDetail () {
-      this.$toasted.success('Successfully updated this quiz')
+      this.toast({
+        data: {
+          message: 'Successfully updated quiz',
+          type: 'is-success'
+        }
+      })
       this.$router.push({
         name: 'scoringAdmin'
       })
     },
     failedUpdatingQuizDetail () {
       this.isSubmitting = false
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        data: {
+          message: 'Fail to update quiz',
+          type: 'is-danger'
+        }
+      })
     },
     newQuiz () {
       let bankId = []
@@ -132,14 +148,24 @@ export default {
       })
     },
     successCreatingQuiz () {
-      this.$toasted.success('Successfully created a quiz')
+      this.toast({
+        data: {
+          message: 'Successfully created a quiz',
+          type: 'is-success'
+        }
+      })
       this.$router.push({
         name: 'scoringAdmin'
       })
     },
     failedCreatingQuiz () {
       this.isSubmitting = false
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        data: {
+          message: 'Fail to create quiz',
+          type: 'is-danger'
+        }
+      })
     },
     removeQuestionBank (id) {
       this.quizDetail.questionBanks.forEach((bank, index) => {
