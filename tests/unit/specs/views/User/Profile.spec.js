@@ -37,7 +37,10 @@ describe('Profile', () => {
   function initStore () {
     const state = usersState
     const actions = {
-      fetchProfile: jest.fn()
+      fetchProfile: jest.fn(),
+      uploadProfilePicture: jest.fn(),
+      sendProfilePictureId: jest.fn(),
+      toast: jest.fn()
     }
     const getters = {
       profile: state => state.profile
@@ -62,25 +65,16 @@ describe('Profile', () => {
 
   function createWrapper (store, options) {
     const router = new VueRouter([])
-    const $toasted = {
-      error: jest.fn(),
-      success: jest.fn()
-    }
     return shallowMount(Profile, {
       ...options,
       store,
       localVue,
       router,
       stubs: [
-        'BaseCard',
-        'BaseButton',
-        'BaseInput',
-        'BaseSelect',
-        'font-awesome-icon'
+        'b-field',
+        'b-input',
+        'b-button'
       ],
-      mocks: {
-        $toasted
-      },
       sync: false
     })
   }
@@ -142,8 +136,14 @@ describe('Profile', () => {
 
   test('failFetchProfile', () => {
     initComponent()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failFetchProfile()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Fail to load profile',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('goToChangePassword', () => {
@@ -205,9 +205,15 @@ describe('Profile', () => {
 
   test('failUploadProfilePicture', () => {
     initComponent()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failUploadProfilePicture()
     expect(wrapper.vm.uploadingProfilePicture).toEqual(false)
-    expect(wrapper.vm.$toasted.error).toBeCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Fail to upload image, please try again',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('imageUpload', () => {
@@ -237,9 +243,15 @@ describe('Profile', () => {
 
   test('failSendProfilePictureId', () => {
     initComponent()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failSendProfilePictureId()
-    expect(wrapper.vm.$toasted.error).toBeCalledTimes(1)
     expect(wrapper.vm.updatingProfilePicture).toEqual(false)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Fail to save new profile picture, please try again',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('cancelChangeProfilePicture', () => {

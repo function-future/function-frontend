@@ -1,8 +1,6 @@
 import activityBlogs from '@/views/ActivityBlogs/ActivityBlogs'
 import { createLocalVue, shallowMount } from '@vue/test-utils'
 import Vuex from 'vuex'
-import VueRouter from 'vue-router'
-import config from '@/config/index'
 
 describe('ActivityBlogs', () => {
   let store
@@ -39,7 +37,8 @@ describe('ActivityBlogs', () => {
       fetchActivityBlogById: jest.fn(),
       fetchActivityBlogs: jest.fn(),
       fetchUserActivityBlogs: jest.fn(),
-      uploadResource: jest.fn()
+      uploadResource: jest.fn(),
+      toast: jest.fn()
     }
     const getters = {
       activityBlog: state => state.activityBlog,
@@ -64,10 +63,6 @@ describe('ActivityBlogs', () => {
   }
 
   function createWrapper (store, options) {
-    const $toasted = {
-      error: jest.fn(),
-      success: jest.fn()
-    }
     const $router = {
       push: jest.fn()
     }
@@ -77,15 +72,9 @@ describe('ActivityBlogs', () => {
       store,
       localVue,
       stubs: [
-        'BaseCard',
-        'BaseButton',
-        'BaseInput',
-        'BaseSelect',
-        'font-awesome-icon',
-        'vue-toasted'
+        'b-button'
       ],
       mocks: {
-        $toasted,
         $route,
         $router,
         marked
@@ -183,10 +172,16 @@ describe('ActivityBlogs', () => {
   })
 
   test('failLoadActivityBlogList', () => {
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failLoadActivityBlogList()
     expect(wrapper.vm.isLoading).toEqual(false)
     expect(wrapper.vm.failLoadActivityBlog).toEqual(true)
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Fail to load activity blogs list',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('deleteThisActivityBlog', () => {
@@ -204,8 +199,14 @@ describe('ActivityBlogs', () => {
   })
 
   test('failDeleteActivityBlogById', () => {
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failDeleteActivityBlogById()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Fail to delete activity blog',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('successLoadActivityBlogList', () => {

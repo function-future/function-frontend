@@ -34,7 +34,8 @@ describe('ActivityBlogDetail', () => {
     }
     const actions = {
       initialState: jest.fn(),
-      fetchActivityBlogById: jest.fn()
+      fetchActivityBlogById: jest.fn(),
+      toast: jest.fn()
     }
     const getters = {
       activityBlog: state => state.activityBlog,
@@ -59,10 +60,6 @@ describe('ActivityBlogDetail', () => {
   }
 
   function createWrapper (store, options) {
-    const $toasted = {
-      error: jest.fn(),
-      success: jest.fn()
-    }
     const $route = {
       params: {
         id: 'sample-id'
@@ -76,15 +73,9 @@ describe('ActivityBlogDetail', () => {
       store,
       localVue,
       stubs: [
-        'BaseCard',
-        'BaseButton',
-        'BaseInput',
-        'BaseSelect',
-        'font-awesome-icon',
-        'vue-toasted'
+        'b-button'
       ],
       mocks: {
-        $toasted,
         $route,
         $router
       },
@@ -141,22 +132,40 @@ describe('ActivityBlogDetail', () => {
   })
 
   test('failFetchActivityBlogById', () => {
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failFetchActivityBlogById()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Fail to load activity blog detail',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('successDeleteActivityBlogById', () => {
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     const push = jest.fn()
     wrapper.vm.$router.push = push
     wrapper.vm.successDeleteActivityBlogById()
-    expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Successfully delete activity blog',
+        type: 'is-success'
+      }
+    })
     expect(push).toBeCalled()
   })
 
   test('failDeleteActivityBlogById', () => {
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.showDeleteConfirmationModal = true
     wrapper.vm.failDeleteActivityBlogById()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Fail to delete activity blog',
+        type: 'is-danger'
+      }
+    })
     expect(wrapper.vm.showDeleteConfirmationModal).toEqual(false)
   })
 

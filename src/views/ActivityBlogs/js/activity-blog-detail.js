@@ -40,7 +40,8 @@ export default {
     ...mapActions([
       'initialState',
       'fetchActivityBlogById',
-      'deleteActivityBlogById'
+      'deleteActivityBlogById',
+      'toast'
     ]),
     getActivityBlogDetail () {
       let id = { 'id': this.$route.params.id }
@@ -75,14 +76,29 @@ export default {
       this.activityBlogDescriptionMarkdown = this.activityBlog.description
     },
     failFetchActivityBlogById () {
-      this.$toasted.error('Fail to load activity blog detail')
+      this.toast({
+        data: {
+          message: 'Fail to load activity blog detail',
+          type: 'is-danger'
+        }
+      })
     },
     successDeleteActivityBlogById () {
       this.$router.push({ name: 'activityBlogs' })
-      this.$toasted.success('Successfully delete activity blog')
+      this.toast({
+        data: {
+          message: 'Successfully delete activity blog',
+          type: 'is-success'
+        }
+      })
     },
     failDeleteActivityBlogById () {
-      this.$toasted.error('Fail to delete activity blog')
+      this.toast({
+        data: {
+          message: 'Fail to delete activity blog',
+          type: 'is-danger'
+        }
+      })
       this.showDeleteConfirmationModal = false
     }
   }

@@ -32,7 +32,8 @@ export default {
     ...mapActions([
       'fetchAnnouncementById',
       'deleteAnnouncementById',
-      'initialState'
+      'initialState',
+      'toast'
     ]),
     getAnnouncementDetail () {
       let id = { 'id': this.$route.params.id }
@@ -47,7 +48,12 @@ export default {
       this.announcementDescriptionMarkdown = this.announcement.description
     },
     failGetAnnouncementDetail () {
-      this.$toasted.error('Fail to load announcement detail')
+      this.toast({
+        data: {
+          message: 'Fail to load announcement detail',
+          type: 'is-danger'
+        }
+      })
     },
     goToEditAnnouncement () {
       this.$router.push({
@@ -70,10 +76,20 @@ export default {
     },
     successDeleteAnnouncementById () {
       this.$router.push({ name: 'announcements' })
-      this.$toasted.success('Successfully delete announcement')
+      this.toast({
+        data: {
+          message: 'Successfully delete announcement',
+          type: 'is-success'
+        }
+      })
     },
     failDeleteAnnouncementById () {
-      this.$toasted.error('Fail to delete announcement')
+      this.toast({
+        data: {
+          message: 'Fail to delete announcement',
+          type: 'is-danger'
+        }
+      })
     }
   }
 }

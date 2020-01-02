@@ -44,7 +44,10 @@ describe('ActivityBlogForm', () => {
     const actions = {
       initialState: jest.fn(),
       fetchActivityBlogById: jest.fn(),
-      uploadResource: jest.fn()
+      uploadResource: jest.fn(),
+      createActivityBlog: jest.fn(),
+      updateActivityBlog: jest.fn(),
+      toast: jest.fn()
     }
     const getters = {
       activityBlog: state => state.activityBlog,
@@ -68,10 +71,6 @@ describe('ActivityBlogForm', () => {
   }
 
   function createWrapper (store, options) {
-    const $toasted = {
-      error: jest.fn(),
-      success: jest.fn()
-    }
     const $route = {
       params: {
         id: 'sample-id'
@@ -86,15 +85,11 @@ describe('ActivityBlogForm', () => {
       store,
       localVue,
       stubs: [
-        'BaseCard',
-        'BaseButton',
-        'BaseInput',
-        'BaseSelect',
-        'font-awesome-icon',
-        'vue-toasted'
+        'b-button',
+        'b-field',
+        'b-input'
       ],
       mocks: {
-        $toasted,
         $route,
         $router
       },
@@ -157,8 +152,14 @@ describe('ActivityBlogForm', () => {
   })
 
   test('failUploadResource', () => {
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failUploadResource()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Fail to upload image, please delete the image and re-upload',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('sendActivityBlog', () => {
@@ -187,38 +188,68 @@ describe('ActivityBlogForm', () => {
   })
 
   test('failFetchActivityBlogById', () => {
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failFetchActivityBlogById()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Fail to load activity blog detail',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('successCreateActivityBlog', () => {
     const push = jest.fn()
     wrapper.vm.$router.push = push
     const spy = jest.spyOn(wrapper.vm, 'initialState')
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.successCreateActivityBlog()
     expect(spy).toHaveBeenCalledTimes(1)
     expect(push).toHaveBeenCalledTimes(1)
-    expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Successfully created new activity blog',
+        type: 'is-success'
+      }
+    })
   })
 
   test('failCreateActivityBlog', () => {
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failCreateActivityBlog()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Fail to create new activity blog',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('successUpdateActivityBlog', () => {
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     const push = jest.fn()
     wrapper.vm.$router.push = push
     const spy = jest.spyOn(wrapper.vm, 'initialState')
     wrapper.vm.successUpdateActivityBlog()
     expect(spy).toHaveBeenCalledTimes(1)
     expect(push).toHaveBeenCalledTimes(1)
-    expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Successfully update activity blog',
+        type: 'is-success'
+      }
+    })
   })
 
   test('failUpdateActivityBlog', () => {
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failUpdateActivityBlog()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Fail to update activity blog',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('validateBeforeSubmit is resolved', (done) => {

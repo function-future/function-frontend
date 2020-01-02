@@ -29,7 +29,8 @@ export default {
     ...mapActions([
       'fetchBatchById',
       'createBatch',
-      'updateBatch'
+      'updateBatch',
+      'toast'
     ]),
     initPage () {
       if (this.editMode) {
@@ -50,7 +51,12 @@ export default {
       this.batch = res
     },
     failFetchBatchById () {
-      this.$toasted.error('Fail to load batch detail, please refresh the page')
+      this.toast({
+        data: {
+          message: 'Fail to load batch detail, please refresh the page',
+          type: 'is-danger'
+        }
+      })
     },
     validateBeforeSubmit (callback) {
       this.$validator.validateAll().then((result) => {
@@ -86,13 +92,23 @@ export default {
       this.$router.push({ name: 'batches' })
       let msg = ''
       this.editMode ? msg = 'edit' : msg = 'created new'
-      this.$toasted.success('Successfully ' + msg + ' batch')
+      this.toast({
+        data: {
+          message: 'Successfully ' + msg + ' batch',
+          type: 'is-success'
+        }
+      })
     },
     failCreateOrEditBatch () {
       this.isSubmitting = false
       let msg = ''
       this.editMode ? msg = 'edit' : msg = 'create new'
-      this.$toasted.error('Fail to ' + msg + ' batch')
+      this.toast({
+        data: {
+          message: 'Fail to ' + msg + ' batch',
+          type: 'is-danger'
+        }
+      })
     },
     cancel () {
       this.$router.push({ name: 'batches' })

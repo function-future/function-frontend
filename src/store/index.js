@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import auth from './modules/auth.js'
+import util from './modules/util.js'
 import user from './modules/user.js'
 import stickyNotes from './modules/stickyNotes.js'
 import announcements from './modules/announcements.js'
@@ -29,6 +30,7 @@ export default new Vuex.Store({
   modules: {
     auth,
     user,
+    util,
     stickyNotes,
     announcements,
     activityBlogs,

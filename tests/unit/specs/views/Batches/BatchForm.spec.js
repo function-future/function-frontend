@@ -45,7 +45,10 @@ describe('BatchForm', () => {
     const actions = {
       fetchBatches: jest.fn(),
       deleteBatch: jest.fn(),
-      fetchBatchById: jest.fn()
+      fetchBatchById: jest.fn(),
+      updateBatch: jest.fn(),
+      createBatch: jest.fn(),
+      toast: jest.fn()
     }
     const getters = {
       batchList: state => state.batchList
@@ -70,25 +73,16 @@ describe('BatchForm', () => {
 
   function createWrapper (store, options) {
     const router = new VueRouter([])
-    const $toasted = {
-      error: jest.fn(),
-      success: jest.fn()
-    }
     return shallowMount(BatchForm, {
       ...options,
       store,
       localVue,
       router,
       stubs: [
-        'BaseCard',
-        'BaseButton',
-        'BaseInput',
-        'BaseSelect',
-        'font-awesome-icon'
+        'b-button',
+        'b-input',
+        'b-field'
       ],
-      mocks: {
-        $toasted
-      },
       propsData: {
         editMode: true
       },
@@ -146,8 +140,14 @@ describe('BatchForm', () => {
   })
 
   test('failFetchBatchById', () => {
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failFetchBatchById()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Fail to load batch detail, please refresh the page',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('validateBeforeSubmit is resolved', (done) => {
@@ -189,29 +189,53 @@ describe('BatchForm', () => {
   test('successCreateOrEditBatch', () => {
     wrapper.vm.editMode = false
     wrapper.vm.$router.push = jest.fn()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.successCreateOrEditBatch()
-    expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Successfully created new batch',
+        type: 'is-success'
+      }
+    })
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'batches' })
   })
 
   test('successCreateOrEditBatch editMode', () => {
     wrapper.vm.editMode = true
     wrapper.vm.$router.push = jest.fn()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.successCreateOrEditBatch()
-    expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Successfully edit batch',
+        type: 'is-success'
+      }
+    })
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'batches' })
   })
 
   test('failCreateOrEditBatch', () => {
     wrapper.vm.editMode = false
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failCreateOrEditBatch()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Fail to create new batch',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('failCreateOrEditBatch editMode', () => {
     wrapper.vm.editMode = true
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failCreateOrEditBatch()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Fail to edit batch',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('cancel', () => {
