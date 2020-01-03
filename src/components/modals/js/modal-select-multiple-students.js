@@ -65,7 +65,7 @@ export default {
           }
         })
       })
-      this.$emit('selected', this.selectedId)
+      this.$emit('selected', this.selectedStudents)
     },
     initStudents ($state) {
       this.isLoading = true

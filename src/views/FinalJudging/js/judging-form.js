@@ -1,6 +1,7 @@
 import { mapActions, mapGetters } from 'vuex'
 import Editor from '@/components/editor/Editor'
 import UserListItem from '@/components/list/UserListItem'
+import EmptyState from '@/components/emptyState/EmptyState'
 import ModalSelectMultipleStudents from '@/components/modals/ModalSelectMultipleStudents'
 
 export default {
@@ -8,11 +9,16 @@ export default {
   components: {
     Editor,
     UserListItem,
+    EmptyState,
     ModalSelectMultipleStudents
   },
   data () {
     return {
-      judgingDetail: {},
+      judgingDetail: {
+        name: '',
+        description: '',
+        students: []
+      },
       isSubmitting: false,
       showSelectStudentModal: false
     }
@@ -32,6 +38,9 @@ export default {
     },
     disableButtonAddStudent () {
       return this.studentList.length >= 3
+    },
+    studentNotEmpty() {
+      return !!(this.judgingDetail.students && this.judgingDetail.students.length)
     }
   },
   methods: {
@@ -58,8 +67,9 @@ export default {
         fail: this.failedFetchingJudgingDetail
       })
     },
-    successFetchingJudgingDetail () {
-      this.setJudgingDetail()
+    successFetchingJudgingDetail (response) {
+      this.judgingDetail = { ...response }
+      console.log(this.judgingDetail)
     },
     failedFetchingJudgingDetail () {
       this.toast({
@@ -87,11 +97,16 @@ export default {
       this.editMode ? this.updateJudgingDetail() : this.createJudgingDetail()
     },
     createJudgingDetail () {
+      let payload = { ...this.judgingDetail }
+      payload.students = []
+      this.judgingDetail.students.forEach(student => {
+        payload.students.push(student.id)
+      })
       this.createJudging({
         data: {
           batchCode: this.$route.params.batchCode
         },
-        payload: { ...this.judgingDetail },
+        payload,
         callback: this.successCreatingJudgingDetail,
         fail: this.failedCreatingJudgingDetail
       })
@@ -176,6 +191,7 @@ export default {
     },
     setSelectedStudents (selectedStudentList) {
       this.judgingDetail.students = selectedStudentList
+      console.log(this.judgingDetail)
       this.closeSelectStudentModal()
     },
   }
