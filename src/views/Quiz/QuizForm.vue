@@ -81,19 +81,31 @@
               </div>
               <div class="card-content">
                 <div class="content">
-                  <div v-for="bank in quizDetail.questionBanks" :key="bank.id">
-                    <ListItem>
-                      <template #title>
-                        {{ bank.title }}
-                      </template>
-                      <template #actions>
-                        <div class="card-content-action">
+                  <div v-if="bankNotEmpty">
+                    <div v-for="bank in quizDetail.questionBanks" :key="bank.id">
+                      <ListItem>
+                        <template #title>
+                          {{ bank.title }}
+                        </template>
+                        <template #actions>
+                          <div class="card-content-action">
                         <span @click="removeQuestionBank(bank.id)">
                         <b-icon icon="trash-alt" class="icon is-danger" size="is-small"></b-icon>
                         </span>
-                        </div>
+                          </div>
+                        </template>
+                      </ListItem>
+                    </div>
+                  </div>
+                  <div v-else>
+                    <EmptyState src="question-bank">
+                      <template #title>
+                        Attach an existing question bank
                       </template>
-                    </ListItem>
+                      <template #message>
+                        You can't make a quiz without them!
+                      </template>
+                    </EmptyState>
                   </div>
                   <div class="buttons is-right quiz-form__container-students-add">
                     <b-button type="is-primary" @click="toggleQuestionBankSelectModal">Add Question Banks</b-button>

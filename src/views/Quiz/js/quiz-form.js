@@ -1,12 +1,14 @@
 import { mapActions, mapGetters } from 'vuex'
 import Editor from '@/components/editor/Editor'
 import ListItem from '@/components/list/ListItem'
+import EmptyState from '@/components/emptyState/EmptyState'
 import ModalSelectQuestionBanks from '@/components/modals/ModalSelectQuestionBank'
 export default {
   name: 'AddQuiz',
   components: {
     Editor,
     ListItem,
+    EmptyState,
     ModalSelectQuestionBanks
   },
   props: [
@@ -38,7 +40,10 @@ export default {
   computed: {
     ...mapGetters([
       'questionBanks'
-    ])
+    ]),
+    bankNotEmpty() {
+      return !!(this.quizDetail.questionBanks && this.quizDetail.questionBanks.length)
+    }
   },
   methods: {
     ...mapActions([
