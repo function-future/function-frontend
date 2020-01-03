@@ -41,60 +41,69 @@
             </div>
           </div>
           <section class="scoring-content">
-            <ListItem v-for="item in items"
-                      v-bind:key="item.id"
-                      @click="goToItemDetail(item.id)">
-              <template #title>
-                {{item.title}}
-              </template>
-              <template #content>
-                <div class="wrap-word ellipsis">
-                  <span v-html="textPreview(item.description)"></span>
-                </div>
-              </template>
-              <template #actions>
-                <b-dropdown aria-role="list" position="is-bottom-left" @click.prevent.stop>
-                  <button class="button is-text" slot="trigger">
-                    <b-icon icon="ellipsis-v" size="is-small" class="icon"></b-icon>
-                  </button>
-                  <b-dropdown-item
-                    aria-role="listitem"
-                    @click="goToEditItem(item.id)"
-                    v-if="accessList.edit">
+            <div v-if="isLoading">
+              <ListItem v-for="n in 4" v-bind:key="n" :loading="isLoading"></ListItem>
+            </div>
+            <div v-if="!isLoading && !listEmpty">
+              <ListItem v-for="item in items"
+                        v-bind:key="item.id"
+                        @click="goToItemDetail(item.id)">
+                <template #title>
+                  {{item.title}}
+                </template>
+                <template #content>
+                  <div class="wrap-word ellipsis">
+                    <span v-html="textPreview(item.description)"></span>
+                  </div>
+                </template>
+                <template #actions>
+                  <b-dropdown aria-role="list" position="is-bottom-left" @click.prevent.stop>
+                    <button class="button is-text" slot="trigger">
+                      <b-icon icon="ellipsis-v" size="is-small" class="icon"></b-icon>
+                    </button>
+                    <b-dropdown-item
+                      aria-role="listitem"
+                      @click="goToEditItem(item.id)"
+                      v-if="accessList.edit">
               <span class="icon-wrapper">
                 <b-icon icon="edit" class="icon" size="is-small"></b-icon>
                 Edit
               </span>
-                  </b-dropdown-item>
-                  <b-dropdown-item
-                    aria-role="listitem"
-                    @click="openDeleteConfirmationModal(item.id)"
-                    v-if="accessList.delete">
+                    </b-dropdown-item>
+                    <b-dropdown-item
+                      aria-role="listitem"
+                      @click="openDeleteConfirmationModal(item.id)"
+                      v-if="accessList.delete">
               <span class="icon-wrapper">
                 <b-icon icon="trash-alt" class="icon" size="is-small"></b-icon>
                 Delete
               </span>
-                  </b-dropdown-item>
-                </b-dropdown>
-              </template>
-            </ListItem>
+                    </b-dropdown-item>
+                  </b-dropdown>
+                </template>
+              </ListItem>
+            </div>
+            <div v-if="!isLoading">
+              <div v-if="listEmpty && !failLoadItem">
+                <EmptyState :src="emptyStateSrc">
+                  <template #title>
+                    Looks like there is no {{tabTitle}}!
+                  </template>
+                </EmptyState>
+              </div>
+              <div v-if="listEmpty && failLoadItem">
+                <EmptyState src="error" :errorState="true"></EmptyState>
+              </div>
+            </div>
           </section>
         </b-tab-item>
         <infinite-loading :identifier="infiniteId"
                           @infinite="getListData"
-                          spinner="spiral"
                           force-use-infinite-wrapper=".auto-overflow-container">
           <div slot="no-more"></div>
           <div slot="no-results"></div>
         </infinite-loading>
       </b-tabs>
-      <!--<b-button class="block button is-primary add-button"-->
-                <!--slot="trigger"-->
-                <!--@click="addItem()" icon-left="plus" rounded>-->
-        <!--<span>Add</span>-->
-      <!--</b-button>-->
-
-
     </section>
     <modal-delete-confirmation v-if="isVisibleDeleteModal"
                                @close="closeDeleteConfirmationModal"

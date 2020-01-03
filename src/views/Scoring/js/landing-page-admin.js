@@ -1,5 +1,6 @@
 import { mapGetters, mapActions } from 'vuex'
-import ListItem from "@/components/list/ListItem"
+import ListItem from '@/components/list/ListItem'
+import EmptyState from '@/components/emptyState/EmptyState'
 import ModalSelectBatch  from "@/components/modals/ModalSelectBatch"
 import ModalDeleteConfirmation from "@/components/modals/ModalDeleteConfirmation"
 import InfiniteLoading from 'vue-infinite-loading'
@@ -8,6 +9,7 @@ export default {
   name: 'LandingPageAdmin',
   components: {
     ListItem,
+    EmptyState,
     InfiniteLoading,
     ModalSelectBatch,
     ModalDeleteConfirmation
@@ -21,6 +23,7 @@ export default {
       ],
       selectedTab: 0,
       isLoading: false,
+      failLoadItem: false,
       isVisibleDeleteModal: false,
       paging: {
         page: 1,
@@ -59,6 +62,19 @@ export default {
     },
     visibleBatchSelection() {
       return this.currentUser.role !== 'STUDENT' && this.currentTabType !== 'questionBanks'
+    },
+    listEmpty() {
+      return !(this.items && this.items.length)
+    },
+    emptyStateSrc() {
+      switch (this.currentTabType) {
+        case 'questionBanks':
+          return 'question-bank'
+        case 'quizzes':
+          return 'quiz'
+        case 'assignments':
+          return 'assignment'
+      }
     }
   },
   methods: {
@@ -103,6 +119,7 @@ export default {
       this.infiniteId += 1
     },
     getListData($state) {
+      this.isLoading = true
       if (!!this.currentTabType) {
         switch (this.currentTabType) {
           case 'questionBanks':
@@ -179,6 +196,7 @@ export default {
     },
     successFetchingListData (response, paging) {
       this.paging = paging
+      this.isLoading = false
       if (response.length) {
         this.items.push(...response)
         this.paging.page++
@@ -188,6 +206,8 @@ export default {
       }
     },
     failFetchingQuestionBankList() {
+      this.failLoadItem = true
+      this.isLoading = false
       this.toast({
         data: {
           message: 'Fail to load question banks',
@@ -197,6 +217,7 @@ export default {
       this.state.complete()
     },
     failFetchingListData () {
+      this.failLoadItem = false
       this.toast({
         data: {
           message: 'Fail to load ' + this.tabTitle,
