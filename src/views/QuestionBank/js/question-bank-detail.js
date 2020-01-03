@@ -1,5 +1,6 @@
 import { mapActions, mapGetters } from 'vuex'
 import ListItem from '@/components/list/ListItem'
+import EmptyState from '@/components/emptyState/EmptyState'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
 import InfiniteLoading from 'vue-infinite-loading'
 
@@ -7,6 +8,7 @@ export default {
   name: 'QuestionBankDetail',
   components: {
     ListItem,
+    EmptyState,
     ModalDeleteConfirmation,
     InfiniteLoading
   },
@@ -26,7 +28,9 @@ export default {
       showDeleteConfirmationModal: false,
       state: '',
       selectedId: '',
-      infiniteId: +new Date()
+      infiniteId: +new Date(),
+      isLoading: false,
+      failLoadQuestion: false
     }
   },
   created () {
@@ -40,6 +44,9 @@ export default {
     ]),
     deleteModalMessage() {
       return !!this.selectedId ? 'Are you sure you want to delete this question?' : 'Are you sure you want to delete this question bank?'
+    },
+    questionEmpty() {
+      return !(this.questions && this.questions.length)
     }
   },
   methods: {
@@ -71,6 +78,7 @@ export default {
       })
     },
     getQuestionList($state) {
+      this.isLoading = true
       this.state = $state
       this.fetchQuestionBankQuestionList({
         data: {
@@ -83,6 +91,7 @@ export default {
       })
     },
     successFetchingQuestionBankQuestionList (paging, response) {
+      this.isLoading = false
       this.paging = paging
       if (response.length) {
         this.questions.push(...response)
@@ -93,6 +102,8 @@ export default {
       }
     },
     failFetchingQuestionBankQuestionList () {
+      this.isLoading = false
+      this.failLoadQuestion = true
       //TODO : CHANGE TO EMPTY STATE
       this.$toasted.error('Something went wrong')
     },
