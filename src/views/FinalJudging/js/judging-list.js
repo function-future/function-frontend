@@ -1,5 +1,6 @@
 import { mapActions, mapGetters } from 'vuex'
 import ListItem from '@/components/list/ListItem'
+import EmptyState from '@/components/emptyState/EmptyState'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
 import BasePagination from '@/components/BasePagination'
 
@@ -7,6 +8,7 @@ export default {
   name: 'FinalJudgingList',
   components: {
     ListItem,
+    EmptyState,
     ModalDeleteConfirmation,
     BasePagination
   },
@@ -20,7 +22,9 @@ export default {
       batches: [],
       showDeleteConfirmationModal: false,
       selectedId: '',
-      selectedBatch: ''
+      selectedBatch: '',
+      isLoading: false,
+      failLoadJudging: false
     }
   },
   created () {
@@ -34,7 +38,10 @@ export default {
       'judgingList',
       'accessList',
       'batchList'
-    ])
+    ]),
+    judgingEmpty() {
+      return !(this.judgingList && this.judgingList.length)
+    }
   },
   methods: {
     ...mapActions([
@@ -44,6 +51,7 @@ export default {
       'toast'
     ]),
     initPage () {
+      this.isLoading = true
       this.fetchJudgingList({
         data: {
           batchCode: this.selectedBatch,
@@ -55,9 +63,12 @@ export default {
       })
     },
     successFetchingJudgingList (paging) {
+      this.isLoading = false
       this.paging = paging
     },
     failFetchingJudgingList () {
+      this.isLoading = false
+      this.failLoadJudging = true
       this.toast({
         data: {
           message: 'Fail to load judging sessions',
