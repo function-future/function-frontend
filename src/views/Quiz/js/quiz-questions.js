@@ -153,9 +153,6 @@ export default {
       }
     },
     select (option, index) {
-      console.log(this.currentNumber)
-      console.log(this.answers)
-      console.log(option === this.answers[this.currentNumber])
       this.answers[index] = option
     },
   }

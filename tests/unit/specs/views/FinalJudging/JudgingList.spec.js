@@ -27,7 +27,8 @@ describe('JudgingList', () => {
     }
     const actions = {
       fetchJudgingList: jest.fn(),
-      deleteJudging: jest.fn()
+      deleteJudging: jest.fn(),
+      toast: jest.fn()
     }
     const getters = {
       judgingList: state => state.judgingList,
@@ -103,8 +104,9 @@ describe('JudgingList', () => {
 
   test('failFetchingJudgingList', () => {
     initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failFetchingJudgingList()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(spy).toHaveBeenCalledTimes(1)
   })
 
   test('addJudging', () => {
@@ -175,6 +177,7 @@ describe('JudgingList', () => {
     wrapper.vm.selectedId = 'FNC0001'
     const routerSpy = jest.spyOn(wrapper.vm.$router, 'push')
     const closeDeleteConfirmationModal = jest.spyOn(wrapper.vm, 'closeDeleteConfirmationModal')
+    const spy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.successDeletingJudging()
     expect(routerSpy).toHaveBeenCalledWith({
       name: 'judgingList',
@@ -182,14 +185,15 @@ describe('JudgingList', () => {
         batchCode: '1'
       }
     })
-    expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
+    expect(spy).toHaveBeenCalledTimes(1)
     expect(closeDeleteConfirmationModal).toHaveBeenCalledTimes(1)
   })
 
   test('failDeletingJudging', () => {
     initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failDeletingJudging()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(spy).toHaveBeenCalledTimes(1)
   })
 
   test('loadPage', () => {
@@ -240,7 +244,8 @@ describe('JudgingList', () => {
 
   test('failFetchBatches', () => {
     initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failFetchBatches()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(spy).toHaveBeenCalledTimes(1)
   })
 })

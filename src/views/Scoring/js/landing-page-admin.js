@@ -55,7 +55,14 @@ export default {
       return this.$route.query.tab
     },
     tabTitle() {
-      return (this.currentTabType === 'questionBanks') ? 'Question Bank' : (this.currentTabType === 'quizzes') ? 'Quiz' : 'Assignment'
+      switch (this.currentTabType) {
+        case 'questionBanks':
+          return 'Question Bank'
+        case 'quizzes':
+          return 'Quiz'
+        case 'assignments':
+          return 'Assignment'
+      }
     },
     batchButtonText() {
       return this.batchCode || 'Select Batch'

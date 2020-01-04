@@ -25,7 +25,8 @@ describe('QuestionBankDetail', () => {
       fetchQuestionBankDetail: jest.fn(),
       fetchQuestionBankQuestionList: jest.fn(),
       deleteQuestionBankById: jest.fn(),
-      deleteQuestionById: jest.fn()
+      deleteQuestionById: jest.fn(),
+      toast: jest.fn()
     }
     const getters = {
       questionBank: state => state.questionBank,
@@ -118,8 +119,9 @@ describe('QuestionBankDetail', () => {
 
   test('failFetchingQuestionBankDetail', () => {
     initComponent()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failFetchingQuestionBankDetail()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledTimes(1)
   })
 
   test('getQuestionList', () => {
@@ -311,10 +313,11 @@ describe('QuestionBankDetail', () => {
 
   test('successDeletingBank', () => {
     initComponent()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.successDeletingBank()
     expect(wrapper.vm.showDeleteConfirmationModal).toEqual(false)
-    expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledTimes(1)
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
       name: 'scoringAdmin'
     })
@@ -322,9 +325,10 @@ describe('QuestionBankDetail', () => {
 
   test('failedDeletingBank', () => {
     initComponent()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failedDeletingBank()
     expect(wrapper.vm.showDeleteConfirmationModal).toEqual(false)
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledTimes(1)
   })
 
   test('deleteThisQuestion', () => {
@@ -336,17 +340,19 @@ describe('QuestionBankDetail', () => {
 
   test('successDeletingQuestion', () => {
     initComponent()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.$router.go = jest.fn()
     wrapper.vm.successDeletingQuestion()
     expect(wrapper.vm.showDeleteConfirmationModal).toEqual(false)
-    expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledTimes(1)
     expect(wrapper.vm.$router.go).toHaveBeenCalledTimes(1)
   })
 
   test('failedDeletingQuestion', () => {
     initComponent()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failedDeletingQuestion()
     expect(wrapper.vm.showDeleteConfirmationModal).toEqual(false)
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledTimes(1)
   })
 })

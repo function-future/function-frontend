@@ -38,7 +38,8 @@ export default {
   methods: {
     ...mapActions([
       'fetchQuestionBankList',
-      'setSelectedBank'
+      'setSelectedBank',
+      'toast'
     ]),
     initialState () {
       this.selectedBank = [ ...this.currentlySelected ]
@@ -96,7 +97,12 @@ export default {
       this.isLoading = false
     },
     failedFetchingBankList () {
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        data: {
+          message: 'Fail to load question bank list',
+          type: 'is-danger'
+        }
+      })
       this.isLoading = false
     }
   }

@@ -21,7 +21,8 @@ describe('ComparisonItem', () => {
     }
     const actions = {
       fetchPointList : jest.fn(),
-      submitScore: jest.fn()
+      submitScore: jest.fn(),
+      toast: jest.fn()
     }
     const getters = {
       accessList: state => state.accessList
@@ -184,12 +185,13 @@ describe('ComparisonItem', () => {
 
   test('failFetchingPointList', () => {
     initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.state = {
       loaded: jest.fn(),
       complete: jest.fn()
     }
     wrapper.vm.failFetchingPointList()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(spy).toHaveBeenCalledTimes(1)
     expect(wrapper.vm.state.complete).toHaveBeenCalledTimes(1)
   })
 
@@ -202,14 +204,16 @@ describe('ComparisonItem', () => {
 
   test('successSubmittingScore', () => {
     initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.successSubmittingScore()
-    expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
+    expect(spy).toHaveBeenCalledTimes(1)
   })
 
   test('failedSubmittingScore', () => {
     initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failedSubmittingScore()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(spy).toHaveBeenCalledTimes(1)
   })
 
   test('closeScoreModal', () => {

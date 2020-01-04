@@ -17,6 +17,7 @@ describe('QuizQuestions', () => {
 
   function initStore() {
     const state = {
+      quiz: {},
       studentQuizQuestions: [
         {
           "number" : 1,
@@ -67,9 +68,11 @@ describe('QuizQuestions', () => {
     }
     const actions = {
       fetchStudentQuizQuestions: jest.fn(),
-      submitAnswers: jest.fn()
+      submitAnswers: jest.fn(),
+      toast: jest.fn()
     }
     const getters = {
+      quiz: state => state.quiz,
       studentQuizQuestions: state => state.studentQuizQuestions,
       currentUser: state => state.currentUser
     }
@@ -112,8 +115,10 @@ describe('QuizQuestions', () => {
         'v-date-picker',
         'font-awesome-icon'
       ],
-      mocks: {
-        $toasted
+      refs: {
+        timer: {
+          pause: jest.fn(),
+        }
       },
       sync: false
     })
@@ -138,6 +143,26 @@ describe('QuizQuestions', () => {
     expect(wrapper.isVueInstance()).toBe(true)
   })
 
+  test('optionLabel A', () => {
+    initComponent()
+    expect(wrapper.vm.optionLabel(0)).toEqual('A')
+  })
+
+  test('optionLabel B', () => {
+    initComponent()
+    expect(wrapper.vm.optionLabel(1)).toEqual('B')
+  })
+
+  test('optionLabel C', () => {
+    initComponent()
+    expect(wrapper.vm.optionLabel(2)).toEqual('C')
+  })
+
+  test('optionLabel D', () => {
+    initComponent()
+    expect(wrapper.vm.optionLabel(3)).toEqual('D')
+  })
+
   test('successFetchingStudentQuizQuestions', () => {
     initComponent()
     wrapper.vm.successFetchingStudentQuizQuestions()
@@ -147,8 +172,9 @@ describe('QuizQuestions', () => {
 
   test('failedFetchingStudentQuizQuestions', () => {
     initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failedFetchingStudentQuizQuestions ()
-    expect(wrapper.vm.$toasted.error).toBeCalledTimes(1)
+    expect(spy).toBeCalledTimes(1)
   })
 
   test('viewQuestion', () => {
@@ -199,17 +225,27 @@ describe('QuizQuestions', () => {
     initComponent()
     const response = {
       data: {
-        point: 80
+        point: 80,
+        trials: 10
       }
     }
-    store.state.currentUser.id = 'sample-id'
+    wrapper.vm.$refs = {
+      timer: {
+        pause: jest.fn()
+      }
+    }
     wrapper.vm.successSubmitStudentQuiz(response)
+    expect(wrapper.vm.result).toEqual(80)
+    expect(wrapper.vm.trialsLeft).toEqual(10)
+    expect(wrapper.vm.showPointModal).toEqual(true)
+    expect(wrapper.vm.$refs.timer.pause).toHaveBeenCalledTimes(1)
   })
 
   test('failedSubmitStudentQuiz', () => {
     initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failedSubmitStudentQuiz()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(spy).toHaveBeenCalledTimes(1)
   })
 
   test('highlightedOption is true', () => {
@@ -232,23 +268,17 @@ describe('QuizQuestions', () => {
 
   test('restart', () => {
     initComponent()
-    const spy = jest.spyOn(wrapper.vm, 'initPage')
+    wrapper.vm.$router.go = jest.fn()
     wrapper.vm.restart()
-    expect(spy).toHaveBeenCalledTimes(1)
+    expect(wrapper.vm.$router.go).toHaveBeenCalledTimes(1)
   })
 
   test('finish', () => {
     initComponent()
     const routeSpy = jest.spyOn(wrapper.vm.$router, 'push')
-    store.state.currentUser.id = 'sample-id'
     wrapper.vm.finish()
     expect(routeSpy).toHaveBeenCalledWith({
-      name: 'studentQuizzes',
-      params: {
-        studentId: 'sample-id',
-        page: 1,
-        pageSize: 10
-      }
+      name: 'scoringAdmin'
     })
   })
 
@@ -263,5 +293,27 @@ describe('QuizQuestions', () => {
     const spy = jest.spyOn(window, 'removeEventListener')
     wrapper.destroy()
     expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('reloadHandler with isSubmitting equal false', () => {
+    initComponent()
+    wrapper.vm.isSubmitting = false
+    let event = {}
+    wrapper.vm.reloadHandler(event)
+    expect(event.returnValue).toEqual('Page reload')
+  })
+
+  test('reloadHandler with isSubmitting equal true', () => {
+    initComponent()
+    wrapper.vm.isSubmitting = true
+    let event = {}
+    wrapper.vm.reloadHandler(event)
+    expect(event).toEqual({})
+  })
+
+  test('select', () => {
+    initComponent()
+    wrapper.vm.select(0, 0)
+    expect(wrapper.vm.answers[0]).toEqual(0)
   })
 })

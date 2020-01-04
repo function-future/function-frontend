@@ -69,7 +69,6 @@ export default {
     },
     successFetchingJudgingDetail (response) {
       this.judgingDetail = { ...response }
-      console.log(this.judgingDetail)
     },
     failedFetchingJudgingDetail () {
       this.toast({
@@ -191,7 +190,6 @@ export default {
     },
     setSelectedStudents (selectedStudentList) {
       this.judgingDetail.students = selectedStudentList
-      console.log(this.judgingDetail)
       this.closeSelectStudentModal()
     },
   }
