@@ -3,6 +3,7 @@ import ListItem from '@/components/list/ListItem'
 import EmptyState from '@/components/emptyState/EmptyState'
 import ModalSelectBatch  from "@/components/modals/ModalSelectBatch"
 import ModalDeleteConfirmation from "@/components/modals/ModalDeleteConfirmation"
+import ModalCopy from '@/components/modals/ModalCopy'
 import InfiniteLoading from 'vue-infinite-loading'
 let marked = require('marked')
 export default {
@@ -12,7 +13,8 @@ export default {
     EmptyState,
     InfiniteLoading,
     ModalSelectBatch,
-    ModalDeleteConfirmation
+    ModalDeleteConfirmation,
+    ModalCopy
   },
   data () {
     return {
@@ -25,6 +27,7 @@ export default {
       isLoading: false,
       failLoadItem: false,
       isVisibleDeleteModal: false,
+      isVisibleCopyModal: false,
       paging: {
         page: 1,
         size: 10,
@@ -43,7 +46,7 @@ export default {
     this.checkCurrentUser()
     this.setQuery()
   },
-  computed: {
+    computed: {
     ...mapGetters([
       'accessList',
       'currentUser'
@@ -83,6 +86,8 @@ export default {
       'fetchQuizList',
       'fetchAssignmentList',
       'fetchBatches',
+      'copyQuiz',
+      'copyAssignment',
       'deleteQuestionBankById',
       'deleteQuizById',
       'deleteAssignmentById',
@@ -404,6 +409,55 @@ export default {
           batchCode: this.batchCode
         }
       })
+    },
+    showCopyModal(id) {
+      this.selectedId = id
+      this.isVisibleCopyModal = true
+    },
+    copyItem(batchDestination) {
+      if (this.currentTabType === 'quizzes') {
+        this.copyQuiz({
+          data: {
+            batchCode: this.batchCode
+          },
+          payload: {
+            batchCode: batchDestination,
+            quizId: this.selectedId
+          },
+          callback: this.successCopyItem,
+          fail: this.failCopyItem
+        })
+        return
+      }
+      this.copyAssignment({
+        data: {
+          batchCode: this.batchCode
+        },
+        payload: {
+          batchCode: batchDestination,
+          assignmentId: this.selectedId
+        },
+        callback: this.successCopyItem,
+        fail: this.failCopyItem
+      })
+    },
+    successCopyItem() {
+      this.toast({
+        data: {
+          message: 'Successfully copied this ' + this.tabTitle,
+          type: 'is-success'
+        }
+      })
+      this.isVisibleCopyModal = false
+    },
+    failCopyItem() {
+      this.toast({
+        data: {
+          message: 'Fail to copy this ' + this.tabTitle,
+          type: 'is-danger'
+        }
+      })
+      this.isVisibleCopyModal = false
     }
   },
   watch: {

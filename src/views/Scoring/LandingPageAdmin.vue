@@ -10,7 +10,8 @@
             <div class="columns is-mobile">
               <div class="column">
                 <div class="buttons">
-                  <b-button rounded
+                  <b-button v-if="accessList.add"
+                            rounded
                             @click="addItem"
                             icon-left="plus"
                             type="is-primary">
@@ -57,18 +58,27 @@
                   </div>
                 </template>
                 <template #actions>
-                  <b-dropdown aria-role="list" position="is-bottom-left" @click.prevent.stop>
+                  <b-dropdown v-if="accessList.add || accessList.edit" aria-role="list"
+                              position="is-bottom-left"
+                              @click.prevent.stop>
                     <button class="button is-text" slot="trigger">
                       <b-icon icon="ellipsis-v" size="is-small" class="icon"></b-icon>
                     </button>
-                    <b-dropdown-item
-                      aria-role="listitem"
-                      @click="goToEditItem(item.id)"
-                      v-if="accessList.edit">
-              <span class="icon-wrapper">
-                <b-icon icon="edit" class="icon" size="is-small"></b-icon>
-                Edit
-              </span>
+                    <b-dropdown-item aria-role="listitem"
+                                     @click="goToEditItem(item.id)"
+                                     v-if="accessList.edit">
+                      <span class="icon-wrapper">
+                        <b-icon icon="edit" class="icon" size="is-small"></b-icon>
+                        Edit
+                      </span>
+                    </b-dropdown-item>
+                    <b-dropdown-item aria-role="listitem"
+                                     @click="showCopyModal(item.id)"
+                                     v-if="accessList.add && (currentTabType !== 'questionBanks')">
+                      <span class="icon-wrapper">
+                        <b-icon icon="copy" class="icon" size="is-small"></b-icon>
+                        Copy
+                      </span>
                     </b-dropdown-item>
                     <b-dropdown-item
                       aria-role="listitem"
@@ -110,6 +120,11 @@
                                @clickDelete="deleteItem">
       <div slot="description">Delete this {{tabTitle}}?</div>
     </modal-delete-confirmation>
+    <modal-copy v-if="isVisibleCopyModal"
+                @close="isVisibleCopyModal = false"
+                @copy="copyItem"
+                :currentBatch="batchCode">
+    </modal-copy>
   </div>
 </template>
 
