@@ -104,7 +104,6 @@ export default {
     failFetchingQuestionBankQuestionList () {
       this.isLoading = false
       this.failLoadQuestion = true
-      //TODO : CHANGE TO EMPTY STATE
       this.$toasted.error('Something went wrong')
     },
     redirectToEditQuestionBankForm() {

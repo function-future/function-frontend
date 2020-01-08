@@ -296,10 +296,10 @@ module.exports = {
           },
           comments: {
             list(batchCode, assignmentId, studentId, page, pageSize) {
-              return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/rooms/${studentId}/comments?page=${page}&size=${pageSize}`
+              return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/room/${studentId}/comments?page=${page}&size=${pageSize}`
             },
             create(batchCode, assignmentId, studentId) {
-              return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/rooms/${studentId}/comments`
+              return `/api/scoring/batches/${batchCode}/assignments/${assignmentId}/room/${studentId}/comments`
             },
           }
         },
