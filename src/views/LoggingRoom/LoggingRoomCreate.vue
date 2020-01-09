@@ -3,9 +3,12 @@
       <div class="logging-room-create__container">
         <BaseCard class="logging-room-create__content">
           <div class="logging-room-create__save-button">
-            <BaseButton class="save-btn" type="submit" buttonClass="button-save" @click="saveLoggingRoom">
-              <font-awesome-icon class="icon" icon="save"/> Save
-            </BaseButton>
+            <b-button class="is-rounded is-primary  save-btn"
+                      type="submit" buttonClass="button-save"
+                      icon-left="save"
+                      @click="saveLoggingRoom">
+              <span>Save</span>
+            </b-button>
           </div>
           <div class="logging-room-create__input-title">
             <BaseInput :label="titleLabel" class="input-title" v-model="titleTemp"></BaseInput>
@@ -16,9 +19,13 @@
           <div class="logging-room-create__input-participant">
             MEMBERS
             <div class="logging-room-create__input-participant__add-btn">
-              <BaseButton class="add-btn" type="submit" buttonClass="button-save" @click="participantModal = true">
-                <font-awesome-icon class="icon icon-plus" icon="plus"/> Add
-              </BaseButton>
+              <b-button class="is-rounded is-primary  add-btn"
+                        type="submit"
+                        buttonClass="button-save"
+                        icon-left="plus"
+                        @click="participantModal = true">
+                <span>Add</span>
+              </b-button>
             </div>
           </div>
           <div class="logging-room-create__participant-list">

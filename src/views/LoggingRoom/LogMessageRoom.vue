@@ -1,8 +1,9 @@
 <template>
     <div class="log-message">
       <div class="log-message__container">
-        <div class="log-messsage__title">
-          <h2>{{title}}</h2>
+        <div class="log-message__title">
+          <b>{{title}}</b>
+          <br>
         </div>
         <div class="log-message__messages-room">
           <infinite-loading direction="top" ref="infiniteLoading" @infinite="infiniteHandler">
@@ -30,9 +31,11 @@
             ></BaseInput>
           </div>
           <div class="log-message__input-bar__btn-send">
-            <BaseButton type="submit" buttonClass="button-save" @click="submitMessage">
-              <font-awesome-icon icon="arrow-circle-right" class="icon"/> Send
-            </BaseButton>
+            <font-awesome-icon icon="arrow-circle-up" class="icon button-save" @click="submitMessage"/>
+
+<!--            <BaseButton type="submit" buttonClass="button-save" @click="submitMessage">-->
+<!--              <font-awesome-icon icon="arrow-circle-up" class="icon"/>-->
+<!--            </BaseButton>-->
           </div>
         </div>
       </div>
@@ -52,17 +55,21 @@
    display: flex;
    align-items: center;
    flex-direction: column;
-   height: 90vh;
+   height: 95vh;
    width: 100%;
+
+   &__title{
+     margin-top: 2vh;
+     font-size: 2rem;
+   }
 
    &__container {
      display: flex;
      flex-direction: column;
+     justify-content: space-between;
      align-items: center;
-
-     @media only screen and (min-width: 800px) {
-       width: 500px;
-     }
+     width: 100%;
+     height: 98%;
 
      @media only screen and (min-width: 1300px) {
        width: 800px;
@@ -70,7 +77,7 @@
    }
 
    &__messages-room {
-     width: 80%;
+     width: 100%;
      height: 75vh;
      overflow: auto;
 
@@ -90,19 +97,34 @@
    &__input-bar {
      display: flex;
      align-items: center;
-     width: 80%;
      justify-content: space-between;
+     width: 100%;
+     padding-left: 2%;
+     padding-right: 2%;
 
      &__text-area {
-       padding-left: 5%;
-       padding-right: 2%;
        width: 100%;
      }
+
+     &__btn-send {
+       margin-left: 2%;
+       font-size: 2rem;
+       pointer: hover;
+     }
+
    }
 
-   .btn-send{
-     margin-left: 5px;
-     height: 4vh;
+   .button-save {
+     display: flex;
+     align-self: center;
+     height: 100%;
+     vertical-align: 0em;
+     color: #02AAF3;
    }
+   .button-save:hover {
+     box-shadow: 2px 2px 8px rgba(0,0,0,0.08), 2px 2px 10px rgba(0,0,0,0.15);
+     border-radius: 50%;
+   }
+
  }
 </style>

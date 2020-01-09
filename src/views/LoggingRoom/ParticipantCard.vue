@@ -28,8 +28,11 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    width: 95%;
     padding: 2px 2.5%;
+    @media only screen and (max-width: 1023px) {
+      padding: 0px;
+      margin: 0px 2px;
+    }
 
     &__container {
       display: flex;
