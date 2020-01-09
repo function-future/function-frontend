@@ -5,6 +5,8 @@ import loggingRoomApi from '@/api/controller/logging-room'
 import BaseButton from '@/components/BaseButton'
 import ModalAddQuestion from '@/views/Questionnaire/ModalAddQuestion'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
+import MenuCard from '@/views/LoggingRoom/MenuCard'
+
 import { mapGetters } from 'vuex'
 
 export default {
@@ -16,7 +18,8 @@ export default {
     InfiniteLoading,
     BaseButton,
     ModalAddQuestion,
-    ModalDeleteConfirmation
+    ModalDeleteConfirmation,
+    MenuCard
   },
   data () {
     return {
@@ -35,13 +38,26 @@ export default {
         show: false,
         title: '',
         id: ''
-      }
+      },
+      iconMenuMembers: 'user',
+      iconMenuMembersTitle: 'Members',
+      iconMenuLoggingRooms: 'list',
+      iconMenuLoggingRoomsTitle: 'Logging Roooms',
+      showMembers: 'none',
+      show: ''
     }
   },
   computed: {
     ...mapGetters([
       'accessList'
-    ])
+    ]),
+    isShowMembers: function () {
+      return this.showMembers
+    },
+    isShow: function () {
+      return this.show
+    }
+
   },
   methods: {
     infiniteHandler ($state) {
@@ -130,6 +146,10 @@ export default {
           topicId: this.modalDeleteConfirmation.id
         }
       })
+    },
+    callShowMembers () {
+      this.showMembers = this.showMembers === '' ? 'none' : ''
+      this.show = 'none'
     }
   },
   created () {

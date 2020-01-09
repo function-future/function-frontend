@@ -3,7 +3,7 @@
       <BaseCard class="logging-room-card__outer">
         <div class="logging-room-card__container" @click="$emit('click')">
           <div class="logging-room-card__title">
-            <h2>{{computedTitle}}</h2>
+            <h2> <b>{{computedTitle}}</b> </h2>
           </div>
           <div class="logging-room-card__description" >
             <span>{{computedDescription}}</span>
@@ -61,14 +61,15 @@
     }
 
     &__edit-delete {
-      min-width: 10%;
+      min-width: 8%;
+      display: flex;
+      justify-content: space-between;
     }
   }
 
   .icon-edit {
     font-size : 1.5rem;
     color: #02aaf3;
-    padding-right: 10px;
     cursor: pointer;
   }
 
