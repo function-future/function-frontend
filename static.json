@@ -5,7 +5,7 @@
   },
   "proxies": {
     "/api/": {
-      "origin": "https://backend.example.com/api"
+      "origin": "http://localhost:8080/api/"
     }
   },
   "headers": {
