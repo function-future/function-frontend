@@ -4,7 +4,7 @@
     "/**": "index.html"
   },
   "proxies": {
-    "https://functionfuture3frontend.herokuapp.com/api/": {
+    "/api/": {
       "origin": "http://localhost:8080/api/"
     }
   },
