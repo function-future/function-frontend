@@ -6,7 +6,7 @@
   },
   "proxies": {
     "/api/": {
-      "origin": "http://localhost:8080/api/"
+      "origin": "https://www.google.com"
     }
   },
   "headers": {
