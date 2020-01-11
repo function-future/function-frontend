@@ -1,12 +1,12 @@
 {
   "root": "dist/",
-  "https_only": false,
+  "https_only": true,
   "routes": {
     "/**": "index.html"
   },
   "proxies": {
     "/api/": {
-      "origin": "https://www.google.com"
+      "origin": "https://function-backend.herokuapp.com/api/"
     }
   },
   "headers": {
