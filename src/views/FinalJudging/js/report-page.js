@@ -1,11 +1,11 @@
 import { mapActions, mapGetters } from 'vuex'
-import ReportCard from '@/components/users/ReportCard'
+import UserListItem from '@/components/list/UserListItem'
 import InfiniteLoading from 'vue-infinite-loading'
 
 export default {
   name: 'ReportPage',
   components: {
-    ReportCard,
+    UserListItem,
     InfiniteLoading
   },
   data () {
@@ -45,18 +45,21 @@ export default {
     },
     successFetchingStudentList (response) {
       this.paging = response.paging
-      this.studentList.push(...response.data)
       if (response.data.length) {
+        this.studentList.push(...response.data)
         this.setStudentList({ data: response.data })
-        this.studentList.push(this.students)
         this.paging.page++
         this.state.loaded()
       } else {
         this.state.complete()
       }
+      console.log(this.studentList)
     },
     failedFetchingStudentList () {
       this.$toasted.error('Something went wrong')
+    },
+    batch (user) {
+      return user.role === 'STUDENT' ? user.batch.name : ''
     }
   }
 }

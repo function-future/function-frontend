@@ -21,7 +21,8 @@ describe('ModalSelectMultipleStudents', () => {
     }
     const actions = {
       getBatchReport: jest.fn(),
-      setStudentList: jest.fn()
+      setStudentList: jest.fn(),
+      toast: jest.fn()
     }
     const getters = {
       students: state => state.students
@@ -294,7 +295,8 @@ describe('ModalSelectMultipleStudents', () => {
 
   test('failedFetchingStudentList', () => {
     initComponent()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failedFetchingStudentList()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledTimes(1)
   })
 })

@@ -52,7 +52,8 @@ export default {
   methods: {
     ...mapActions([
       'fetchPointList',
-      'submitScore'
+      'submitScore',
+      'toast'
     ]),
     resetPage() {
       this.paging = {
@@ -92,7 +93,12 @@ export default {
       }
     },
     failFetchingPointList () {
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        data: {
+          message: 'Fail fetching student\'s points',
+          type: 'is-danger'
+        }
+      })
       this.state.complete()
     },
     submitFinalScore () {
@@ -106,10 +112,20 @@ export default {
       })
     },
     successSubmittingScore () {
-      this.$toasted.success('Score has been given to ' + this.studentData.name)
+      this.toast({
+        data: {
+          message: 'Score has been successfully given to ' + this.studentData.name,
+          type: 'is-success'
+        }
+      })
     },
     failedSubmittingScore () {
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        data: {
+          message: 'Fail to give score to ' + this.studentData.name,
+          type: 'is-danger'
+        }
+      })
       this.finalScore = this.pointData.point
     },
     closeScoreModal () {

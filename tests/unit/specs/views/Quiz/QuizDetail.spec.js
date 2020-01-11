@@ -20,31 +20,36 @@ describe('QuizDetail', () => {
       quiz: {
         title: '',
         description: '',
-        endDate: new Date(15000),
+        endDate: 15000,
         timeLimit: 3600,
         trials: 0,
         batch: '',
         questionCount: 0
       },
-      accessLIst: {}
+      accessList: {
+        add: true,
+        delete: true,
+        read: true,
+        edit: true
+      },
+      currentUser: {
+        batchCode: 'future3'
+      }
     }
     const actions = {
       fetchQuizById: jest.fn(),
-      updateQuizDetail: jest.fn()
+      updateQuizDetail: jest.fn(),
+      toast: jest.fn()
     }
     const getters = {
       quiz: state => state.quiz,
-      accessList: state => state.accessList
+      accessList: state => state.accessList,
+      currentUser: state => state.currentUser
     }
     const store = new Vuex.Store({
-      modules: {
-        quizzes: {
-          state,
-          actions,
-          getters,
-          namespaced: true
-        }
-      }
+      state,
+      actions,
+      getters
     })
 
     return {
@@ -57,10 +62,6 @@ describe('QuizDetail', () => {
 
   function createWrapper(store, options) {
     const router = new VueRouter([])
-    const $toasted = {
-      error: jest.fn(),
-      success: jest.fn()
-    }
     return shallowMount(QuizDetail, {
       ...options,
       store,
@@ -74,9 +75,6 @@ describe('QuizDetail', () => {
         'v-date-picker',
         'font-awesome-icon'
       ],
-      mocks: {
-        $toasted
-      },
       sync: false
     })
   }
@@ -100,53 +98,15 @@ describe('QuizDetail', () => {
     expect(wrapper.isVueInstance()).toBe(true)
   })
 
-  test('isCalendarDisabled true', () => {
+  test('initPage', () => {
     initComponent()
-    wrapper.vm.editMode = true
-    expect(wrapper.vm.isCalendarDisabled).toEqual({ placement: 'bottom', visibility: 'click' })
-  })
-
-  test('isCalendarDisabled false', () => {
-    initComponent()
-    wrapper.vm.editMode = false
-    expect(wrapper.vm.isCalendarDisabled).toEqual({visibility: null})
-  })
-
-  test('cancelButtonText true', () => {
-    initComponent()
-    wrapper.vm.editMode = true
-    expect(wrapper.vm.cancelButtonText).toEqual('Cancel')
-  })
-
-  test('cancelButtonText false', () => {
-    initComponent()
-    wrapper.vm.editMode = false
-    expect(wrapper.vm.cancelButtonText).toEqual('Return')
-  })
-
-  test('actionButtonText true', () => {
-    initComponent()
-    wrapper.vm.editMode = true
-    expect(wrapper.vm.actionButtonText).toEqual('Save')
-  })
-
-  test('actionButtonText false', () => {
-    initComponent()
-    wrapper.vm.editMode = false
-    expect(wrapper.vm.actionButtonText).toEqual('Edit')
+    const spy = jest.spyOn(wrapper.vm, 'fetchQuizById')
+    wrapper.vm.initPage()
+    expect(spy).toHaveBeenCalledTimes(1)
   })
 
   test('successFetchingQuizById', () => {
     initComponent()
-    wrapper.vm.$store.getters.quiz = {
-      title: '',
-      description: '',
-      endDate: 15000,
-      timeLimit: 3600,
-      trials: 0,
-      batch: '',
-      questionCount: 0
-    }
     wrapper.vm.successFetchingQuizById()
     expect(wrapper.vm.quizDetail).toEqual({
       title: '',
@@ -161,61 +121,76 @@ describe('QuizDetail', () => {
 
   test('failFetchingQuizById', () => {
     initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failFetchingQuizById()
-    expect(wrapper.vm.$toasted.error).toBeCalledTimes(1)
+    expect(spy).toHaveBeenCalledTimes(1)
   })
 
-  test('actionButtonClicked editMode is true', () => {
+  test('goToEditQuiz', () => {
     initComponent()
-    wrapper.vm.quizDetail.questionBanks = [{
-      id: 'QZ1'
-    }]
-    wrapper.vm.updateQuizDetail = jest.fn()
-    wrapper.vm.editMode = true
-    wrapper.vm.actionButtonClicked()
-    expect(wrapper.vm.updateQuizDetail).toBeCalledTimes(1)
-    expect(wrapper.vm.editMode).toEqual(false)
-  })
-
-  test('actionButtonClicked editMode is false', () => {
-    initComponent()
-    wrapper.vm.editMode = false
-    wrapper.vm.actionButtonClicked()
-    expect(store.actions.updateQuizDetail).not.toBeCalled()
-    expect(wrapper.vm.editMode).toEqual(true)
-  })
-
-  test('returnButtonClicked editMode is true', () => {
-    initComponent()
-    const spy = jest.spyOn(wrapper.vm, 'initPage')
-    wrapper.vm.editMode = true
-    wrapper.vm.returnButtonClicked()
-    expect(spy).toBeCalledTimes(1)
-  })
-
-  test('returnButtonClicked editMode is false', () => {
-    initComponent()
-    wrapper.vm.$route.params.batchCode = '1'
-    const routerSpy = jest.spyOn(wrapper.vm.$router, 'push')
-    wrapper.vm.editMode = false
-    wrapper.vm.returnButtonClicked()
-    expect(routerSpy).toHaveBeenCalledWith({
-      name: 'quizzes',
+    wrapper.vm.$router.push = jest.fn()
+    wrapper.vm.$route.params.batchCode = 'future3'
+    wrapper.vm.$route.params.quizId = 'QZ0001'
+    wrapper.vm.goToEditQuiz()
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
+      name: 'editQuiz',
       params: {
-        batchCode: '1'
+        batchCode: 'future3',
+        id: 'QZ0001'
       }
     })
   })
 
-  test('successUpdatingQuiz', () => {
+  test('deleteThisQuiz', () => {
     initComponent()
-    wrapper.vm.successUpdatingQuiz()
-    expect(wrapper.vm.$toasted.success).toBeCalledTimes(1)
+    const spy = jest.spyOn(wrapper.vm, 'deleteQuizById')
+    wrapper.vm.deleteThisQuiz()
+    expect(spy).toHaveBeenCalledTimes(1)
   })
 
-  test('failUpdatingQuiz', () => {
+  test('successDeletingQuiz', () => {
     initComponent()
-    wrapper.vm.failUpdatingQuiz()
-    expect(wrapper.vm.$toasted.error).toBeCalledTimes(1)
+    const spy = jest.spyOn(wrapper.vm, 'toast')
+    wrapper.vm.$router.push = jest.fn()
+    wrapper.vm.successDeletingQuiz()
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
+      name: 'scoringAdmin'
+    })
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('failedDeletingQuiz', () => {
+    initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'toast')
+    wrapper.vm.failedDeletingQuiz()
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('goToStudentQuiz', () => {
+    initComponent()
+    wrapper.vm.$route.params.quizId = 'QZ0001'
+    const spy = jest.spyOn(wrapper.vm, 'fetchStudentQuizDetail')
+    wrapper.vm.goToStudentQuiz()
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('successFetchingStudentQuiz', () => {
+    initComponent()
+    wrapper.vm.$route.params.quizId = 'QZ0001'
+    wrapper.vm.$router.push = jest.fn()
+    wrapper.vm.successFetchingStudentQuiz()
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
+      name: 'studentQuizQuestions',
+      params: {
+        quizId: 'QZ0001'
+      }
+    })
+  })
+
+  test('failedFetchingStudentQuiz', () => {
+    initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'toast')
+    wrapper.vm.failedFetchingStudentQuiz()
+    expect(spy).toHaveBeenCalledTimes(1)
   })
 })

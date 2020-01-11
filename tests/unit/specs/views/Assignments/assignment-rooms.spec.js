@@ -21,7 +21,8 @@ describe('AssignmentRoom', () => {
       accessList: {}
     }
     const actions = {
-      fetchRoomList: jest.fn()
+      fetchRoomList: jest.fn(),
+      toast: jest.fn()
     }
     const getters = {
       roomList: state => state.roomList,
@@ -102,8 +103,9 @@ describe('AssignmentRoom', () => {
 
   test('failFetchingRoomList', () => {
     initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failFetchingRoomList()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(spy).toHaveBeenCalledTimes(1)
   })
 
   test('goToRoomDetail', () => {

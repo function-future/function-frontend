@@ -32,7 +32,6 @@
             <div class="columns is-mobile is-vcentered" v-if="!studentList && !isLoading">
               <div class="column has-text-centered modal__body__empty-list">
                 No batches available, create batch here
-                <!--<b-button type="is-primary" @click="goToCreateBatch">Create batch</b-button>-->
               </div>
             </div>
             <infinite-loading direction="top"
@@ -51,56 +50,6 @@
       </div>
     </div>
   </transition>
-
-  <!--<div class="modal__mask">-->
-    <!--<div class="modal__wrapper">-->
-      <!--<div class="modal__container">-->
-        <!--<div class="modal__header">-->
-          <!--<h3 class="modal__header__title">Select Students</h3>-->
-          <!--<span class="modal__close"><font-awesome-icon icon="times" class="icon" @click="close" size="lg"></font-awesome-icon></span>-->
-        <!--</div>-->
-        <!--<div class="modal__selected-list">-->
-          <!--<BaseCard v-for="(student, index) in selectedStudents" class="modal__selected-list-item" :style="{'margin': '10px', 'padding': '10px 15px', 'width': '30%', 'max-height': '40px'}">-->
-            <!--<span>{{student.name}}</span>-->
-            <!--<font-awesome-icon icon="times" class="icon" @click="selectedStudents.splice(index, 1)" size="lg" style="cursor: pointer; position: relative; top: 2px; left: 5px;"></font-awesome-icon>-->
-          <!--</BaseCard>-->
-        <!--</div>-->
-        <!--<div class="modal__body scrollable-container" style="border-radius: 10px">-->
-          <!--<label class="batch__row" v-for="student in studentList" :key="student.id">-->
-            <!--<div class="batch__col&#45;&#45;batches">-->
-              <!--<UserListCard :name="student.name"-->
-                            <!--:university="student.university"-->
-                            <!--:role="student.role"-->
-                            <!--:batch="student.batch ? student.batch.name : null"-->
-                            <!--:key="student.id"-->
-                            <!--:avatar="student.avatar">-->
-                <!--<div class="batch__col student_checkbox" :class="{active: selectedStudents.find(value => value.id === student.id)}">-->
-                  <!--<span class="checkbox">-->
-                    <!--<font-awesome-icon icon="check" class="check" style="color: white; margin-left: 1px" v-if="selectedStudents.find(value => value.id === student.id)"/>-->
-                  <!--</span>-->
-                  <!--<input type="checkbox"-->
-                         <!--:value="student"-->
-                         <!--:disabled="selectedStudents.length >=3 && !selectedStudents.find(value => value.id === student.id)"-->
-                         <!--v-model="selectedStudents" style="visibility: hidden;">-->
-                <!--</div>-->
-              <!--</UserListCard>-->
-            <!--</div>-->
-          <!--</label>-->
-          <!--<infinite-loading direction="top"-->
-                            <!--@infinite="initStudents"-->
-                            <!--spinner="spiral"-->
-                            <!--force-use-infinite-wrapper=".scrollable">-->
-            <!--<div slot="no-more"></div>-->
-            <!--<div slot="no-results"></div>-->
-          <!--</infinite-loading>-->
-        <!--</div>-->
-        <!--<div class="modal__footer">-->
-          <!--<BaseButton class="modal__footer__button" type="cancel" buttonClass="button-cancel" @click="close">Cancel</BaseButton>-->
-          <!--<BaseButton class="modal__footer__button" type="submit" buttonClass="button-save" @click="selectStudents">Save</BaseButton>-->
-        <!--</div>-->
-      <!--</div>-->
-    <!--</div>-->
-  <!--</div>-->
 </template>
 
 <script type="text/javascript" src="./js/modal-select-multiple-students.js"></script>

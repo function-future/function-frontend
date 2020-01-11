@@ -1,23 +1,28 @@
 import LandingPageAdmin from '@/views/Scoring/LandingPageAdmin'
 import { createLocalVue, shallowMount } from '@vue/test-utils'
 import Vuex from 'vuex'
-import VueRouter from 'vue-router'
 
 describe('LandingPageAdmin', () => {
   let store
   let wrapper
   let localVue
+  let $route = {
+    name: 'scoring',
+    query: {
+      tab: 'questionBanks'
+    }
+  }
 
   function generateLocalVue() {
     const lv = createLocalVue()
     lv.use(Vuex)
-    lv.use(VueRouter)
     return lv
   }
 
   function initStore() {
     const state = {
-      accessList: []
+      accessList: [],
+      currentUser: {}
     }
     const actions = {
       fetchQuestionBankList: jest.fn(),
@@ -28,7 +33,8 @@ describe('LandingPageAdmin', () => {
       deleteAssignmentById: jest.fn()
     }
     const getters = {
-      accessList: state => state.accessList
+      accessList: state => state.accessList,
+      currentUser: state => state.currentUser
     }
     const store = new Vuex.Store({
       state,
@@ -45,12 +51,10 @@ describe('LandingPageAdmin', () => {
   }
 
   function createWrapper(store, options) {
-    const router = new VueRouter([])
     return shallowMount(LandingPageAdmin, {
       ...options,
       store,
       localVue,
-      router,
       stubs: [
         'BaseCard',
         'BaseButton',
@@ -60,9 +64,10 @@ describe('LandingPageAdmin', () => {
         'b-icon'
       ],
       mocks: {
-        $toasted: {
-          error: jest.fn(),
-          success: jest.fn()
+        $route,
+        $router: {
+          replace: jest.fn(),
+          push: jest.fn()
         }
       },
       sync: false
@@ -102,20 +107,86 @@ describe('LandingPageAdmin', () => {
 
   test('Computed tabTitle with QuestionBank as selectedTab', () => {
     initComponent()
-    wrapper.vm.selectedTab = 0
+    wrapper.vm.$route.query.tab = 'questionBanks'
     expect(wrapper.vm.tabTitle).toEqual('Question Bank')
   })
 
   test('Computed tabTitle with Quiz as selectedTab', () => {
     initComponent()
-    wrapper.vm.selectedTab = 1
+    wrapper.vm.$route.query.tab = 'quizzes'
     expect(wrapper.vm.tabTitle).toEqual('Quiz')
   })
 
   test('Computed tabTitle with Assignment as selectedTab', () => {
     initComponent()
-    wrapper.vm.selectedTab = 2
+    wrapper.vm.$route.query.tab = 'assignments'
     expect(wrapper.vm.tabTitle).toEqual('Assignment')
+  })
+
+  test('checkCurrentUser with an ADMIN logged in', () => {
+    initComponent()
+    store.state.currentUser = {
+      role: 'ADMIN'
+    }
+    wrapper.vm.checkCurrentUser()
+    expect(wrapper.vm.tabs).toEqual([
+      { type: 'questionBanks', title: 'Question Banks', visible: true },
+      { type: 'quizzes', title: 'Quizzes', visible: true },
+      { type: 'assignments', title: 'Assignments', visible: true }
+    ])
+  })
+
+  test('checkCurrentUser with a STUDENT logged in', () => {
+    initComponent()
+    store.state.currentUser = {
+      role: 'STUDENT'
+    }
+    wrapper.vm.checkCurrentUser()
+    expect(wrapper.vm.tabs).toEqual([
+      { type: 'quizzes', title: 'Quizzes', visible: true },
+      { type: 'assignments', title: 'Assignments', visible: true }
+    ])
+  })
+
+  test('checkCurrentUser with a JUDGE logged in', () => {
+    initComponent()
+    store.state.currentUser = {
+      role: 'JUDGE'
+    }
+    wrapper.vm.checkCurrentUser()
+    expect(wrapper.vm.tabs).toEqual([
+      { type: 'assignments', title: 'Assignments', visible: true }
+    ])
+  })
+
+  test('checkCurrentUser with a MENTOR logged in', () => {
+    initComponent()
+    store.state.currentUser = {
+      role: 'MENTOR'
+    }
+    wrapper.vm.checkCurrentUser()
+    expect(wrapper.vm.tabs).toEqual([
+      { type: 'assignments', title: 'Assignments', visible: true }
+    ])
+  })
+
+  test('setQuery active tab outside validation', () => {
+    initComponent()
+    wrapper.vm.$route.query.tab = ''
+    wrapper.vm.selectedTab = -1
+    wrapper.vm.setQuery()
+    expect(wrapper.vm.selectedTab).toEqual(0)
+    expect(wrapper.vm.$router.replace).toHaveBeenCalledTimes(1)
+    $route.query.tab = 'questionBanks'
+  })
+
+  test('setQuery active tab same as query', () => {
+    initComponent()
+    $route.query.tab = 'questionBanks'
+    wrapper.vm.selectedTab = 0
+    wrapper.vm.setQuery()
+    expect(wrapper.vm.selectedTab).toEqual(0)
+    expect(wrapper.vm.$router.replace).toHaveBeenCalledTimes(0)
   })
 
   test('resetData', () => {
@@ -130,9 +201,19 @@ describe('LandingPageAdmin', () => {
     expect(wrapper.vm.state).toEqual('')
   })
 
+  test('getListData while route query is empty', () => {
+    initComponent()
+    wrapper.vm.$route.query.tab = ''
+    const bankSpy = jest.spyOn(wrapper.vm, 'getQuestionBanks')
+    const batchSpy = jest.spyOn(wrapper.vm, 'getBatchList')
+    wrapper.vm.getListData()
+    expect(bankSpy).not.toHaveBeenCalled()
+    expect(batchSpy).not.toHaveBeenCalled()
+  })
+
   test('getListData while selectedTab is questionBanks', () => {
     initComponent()
-    wrapper.vm.selectedTab = 0
+    wrapper.vm.$route.query.tab = 'questionBanks'
     const spy = jest.spyOn(wrapper.vm, 'getQuestionBanks')
     wrapper.vm.getListData()
     expect(spy).toHaveBeenCalledTimes(1)
@@ -140,18 +221,75 @@ describe('LandingPageAdmin', () => {
 
   test('getListData while selectedTab is quizzes', () => {
     initComponent()
-    wrapper.vm.selectedTab = 1
-    const spy = jest.spyOn(wrapper.vm, 'getQuizzes')
+    wrapper.vm.$route.query.tab = 'quizzes'
+    const spy = jest.spyOn(wrapper.vm, 'getBatchList')
     wrapper.vm.getListData()
     expect(spy).toHaveBeenCalledTimes(1)
   })
 
   test('getListData while selectedTab is assignments', () => {
     initComponent()
-    wrapper.vm.selectedTab = 2
-    const spy = jest.spyOn(wrapper.vm, 'getAssignments')
+    wrapper.vm.$route.query.tab = 'assignments'
+    const spy = jest.spyOn(wrapper.vm, 'getBatchList')
     wrapper.vm.getListData()
     expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('getBatchList', () => {
+    initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'fetchBatches')
+    wrapper.vm.getBatchList()
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('successFetchBatches with quiz as the selected tab and a batch is already pre-selected', () => {
+    initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'getQuizzes')
+    wrapper.vm.batchCode = 'future3'
+    wrapper.vm.$route.query.tab = 'quizzes'
+    wrapper.vm.successFetchBatches()
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('successFetchBatches with assignment as the selected tab and a batch is already pre-selected', () => {
+    initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'getAssignments')
+    wrapper.vm.batchCode = 'future3'
+    wrapper.vm.$route.query.tab = 'assignments'
+    wrapper.vm.successFetchBatches()
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('successFetchBatches with no batch selected yet', () => {
+    initComponent()
+    const response = [
+      {
+        code: 'future3',
+        id: '3'
+      },
+      {
+        code: 'future4',
+        id: '4'
+      }
+    ]
+    wrapper.vm.successFetchBatches(response)
+    expect(wrapper.vm.batches).toEqual(response)
+    expect(wrapper.vm.batchCode).toEqual('future3')
+  })
+
+  test('successFetchBatches with no batch created yet', () => {
+    initComponent()
+    const response = []
+    wrapper.vm.successFetchBatches(response)
+    expect(wrapper.vm.batches).toEqual(response)
+    expect(wrapper.vm.batchCode).toEqual('No batch found')
+  })
+
+  test('failFetchBatches', () => {
+    initComponent()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
+    wrapper.vm.failFetchBatches()
+    expect(toastSpy).toHaveBeenCalledTimes(1)
   })
 
   test('getQuestionBanks', () => {
@@ -197,6 +335,7 @@ describe('LandingPageAdmin', () => {
       totalRecords: 2
     }
     wrapper.vm.successFetchingListData(response, paging)
+    expect(wrapper.vm.isLoading).toEqual(false)
     expect(wrapper.vm.items).toEqual(response)
     expect(wrapper.vm.paging.page).toEqual(2)
     expect(wrapper.vm.state.loaded).toHaveBeenCalledTimes(1)
@@ -215,6 +354,7 @@ describe('LandingPageAdmin', () => {
       totalRecords: 2
     }
     wrapper.vm.successFetchingListData(response, paging)
+    expect(wrapper.vm.isLoading).toEqual(false)
     expect(wrapper.vm.items).toEqual([])
     expect(wrapper.vm.paging.page).toEqual(2)
     expect(wrapper.vm.state.complete).toHaveBeenCalledTimes(1)
@@ -222,25 +362,25 @@ describe('LandingPageAdmin', () => {
 
   test('failFetchingQuestionBankList', () => {
     initComponent()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.state = {
       loaded: jest.fn(),
       complete: jest.fn()
     }
     wrapper.vm.failFetchingQuestionBankList()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledWith('Something went wrong')
+    expect(toastSpy).toHaveBeenCalledTimes(1)
     expect(wrapper.vm.state.complete).toHaveBeenCalledTimes(1)
   })
 
   test('failFetchingListData', () => {
     initComponent()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.state = {
       loaded: jest.fn(),
       complete: jest.fn()
     }
     wrapper.vm.failFetchingListData()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledWith('Please select batch')
+    expect(toastSpy).toHaveBeenCalledTimes(1)
     expect(wrapper.vm.state.complete).toHaveBeenCalledTimes(1)
   })
 
@@ -267,7 +407,7 @@ describe('LandingPageAdmin', () => {
   test('goToEditItem with questionBankDetail as the target', () => {
     initComponent()
     wrapper.vm.$router.push = jest.fn()
-    wrapper.vm.selectedTab = 0
+    wrapper.vm.$route.query.tab = 'questionBanks'
     wrapper.vm.goToEditItem(1)
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
       name: 'questionBankDetail',
@@ -280,11 +420,11 @@ describe('LandingPageAdmin', () => {
   test('goToEditItem with quizDetail as the target', () => {
     initComponent()
     wrapper.vm.$router.push = jest.fn()
-    wrapper.vm.selectedTab = 1
+    wrapper.vm.$route.query.tab = 'quizzes'
     wrapper.vm.batchCode = 'futurre3'
     wrapper.vm.goToEditItem(1)
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
-      name: 'quizDetail',
+      name: 'editQuiz',
       params: {
         quizId: 1,
         batchCode: 'futurre3'
@@ -295,7 +435,7 @@ describe('LandingPageAdmin', () => {
   test('goToEditItem with assignmentDetail as the target', () => {
     initComponent()
     wrapper.vm.$router.push = jest.fn()
-    wrapper.vm.selectedTab = 2
+    wrapper.vm.$route.query.tab = 'assignments'
     wrapper.vm.batchCode = 'futurre3'
     wrapper.vm.goToEditItem(1)
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
@@ -327,7 +467,7 @@ describe('LandingPageAdmin', () => {
 
   test('deleteItem with questionBank as active tab', () => {
     initComponent()
-    wrapper.vm.selectedTab = 0
+    wrapper.vm.$route.query.tab = 'questionBanks'
     const spy = jest.spyOn(wrapper.vm, 'deleteQuestionBank')
     wrapper.vm.deleteItem()
     expect(spy).toHaveBeenCalledTimes(1)
@@ -335,7 +475,7 @@ describe('LandingPageAdmin', () => {
 
   test('deleteItem with quiz as active tab', () => {
     initComponent()
-    wrapper.vm.selectedTab = 1
+    wrapper.vm.$route.query.tab = 'quizzes'
     const spy = jest.spyOn(wrapper.vm, 'deleteQuiz')
     wrapper.vm.deleteItem()
     expect(spy).toHaveBeenCalledTimes(1)
@@ -343,7 +483,7 @@ describe('LandingPageAdmin', () => {
 
   test('deleteItem with assignment as active tab', () => {
     initComponent()
-    wrapper.vm.selectedTab = 2
+    wrapper.vm.$route.query.tab = 'assignments'
     const spy = jest.spyOn(wrapper.vm, 'deleteAssignment')
     wrapper.vm.deleteItem()
     expect(spy).toHaveBeenCalledTimes(1)
@@ -372,25 +512,27 @@ describe('LandingPageAdmin', () => {
 
   test('successDeletingItem', () => {
     initComponent()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     const modalSpy = jest.spyOn(wrapper.vm, 'closeDeleteConfirmationModal')
     const resetSpy = jest.spyOn(wrapper.vm, 'resetData')
-    wrapper.vm.selectedTab = 0
+    wrapper.vm.$route.query.tab = 'questionBanks'
     wrapper.vm.successDeletingItem()
-    expect(wrapper.vm.$toasted.success).toHaveBeenCalledWith('Successfully deleted Question Bank')
+    expect(toastSpy).toHaveBeenCalledTimes(1)
     expect(modalSpy).toHaveBeenCalledTimes(1)
     expect(resetSpy).toHaveBeenCalledTimes(1)
   })
 
   test('failDeletingItem', () => {
     initComponent()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failDeletingItem()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledWith('Something went wrong')
+    expect(toastSpy).toHaveBeenCalledTimes(1)
   })
 
   test('goToItemDetail with Question Bank as the active tab', () => {
     initComponent()
     wrapper.vm.$router.push = jest.fn()
-    wrapper.vm.selectedTab = 0
+    wrapper.vm.$route.query.tab = 'questionBanks'
     wrapper.vm.goToItemDetail(1)
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
       name: 'questionBankDetail',
@@ -403,7 +545,7 @@ describe('LandingPageAdmin', () => {
   test('goToItemDetail with Quiz as the active tab', () => {
     initComponent()
     wrapper.vm.$router.push = jest.fn()
-    wrapper.vm.selectedTab = 1
+    wrapper.vm.$route.query.tab = 'quizzes'
     wrapper.vm.batchCode = 'futurre3'
     wrapper.vm.goToItemDetail(1)
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
@@ -418,7 +560,7 @@ describe('LandingPageAdmin', () => {
   test('goToItemDetail with Assignemnt as the active tab', () => {
     initComponent()
     wrapper.vm.$router.push = jest.fn()
-    wrapper.vm.selectedTab = 2
+    wrapper.vm.$route.query.tab = 'assignments'
     wrapper.vm.batchCode = 'futurre3'
     wrapper.vm.goToItemDetail(1)
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
@@ -448,7 +590,7 @@ describe('LandingPageAdmin', () => {
 
   test('addItem with selectedTab is questionBank', () => {
     initComponent()
-    wrapper.vm.selectedTab = 0
+    wrapper.vm.$route.query.tab = 'questionBanks'
     const spy = jest.spyOn(wrapper.vm, 'goToAddQuestionBank')
     wrapper.vm.addItem()
     expect(spy).toHaveBeenCalledTimes(1)
@@ -456,7 +598,7 @@ describe('LandingPageAdmin', () => {
 
   test('addItem with selectedTab is quiz', () => {
     initComponent()
-    wrapper.vm.selectedTab = 1
+    wrapper.vm.$route.query.tab = 'quizzes'
     const spy = jest.spyOn(wrapper.vm, 'goToAddQuiz')
     wrapper.vm.addItem()
     expect(spy).toHaveBeenCalledTimes(1)
@@ -464,9 +606,58 @@ describe('LandingPageAdmin', () => {
 
   test('addItem with selectedTab is assignment', () => {
     initComponent()
-    wrapper.vm.selectedTab = 2
+    wrapper.vm.$route.query.tab = 'assignments'
     const spy = jest.spyOn(wrapper.vm, 'goToAddAssignment')
     wrapper.vm.addItem()
     expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('showCopyModal', () => {
+    initComponent()
+    wrapper.vm.showCopyModal('future3')
+    expect(wrapper.vm.selectedId).toEqual('future3')
+    expect(wrapper.vm.isVisibleCopyModal).toEqual(true)
+  })
+
+  test('copyItem with quiz as the selected tab', () => {
+    initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'copyQuiz')
+    wrapper.vm.$route.query.tab = 'quizzes'
+    wrapper.vm.copyItem()
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('copyItem with assignment as the selected tab', () => {
+    initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'copyAssignment')
+    wrapper.vm.$route.query.tab = 'assignments'
+    wrapper.vm.copyItem()
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('successCopyItem', () => {
+    initComponent()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
+    wrapper.vm.successCopyItem()
+    expect(toastSpy).toHaveBeenCalledTimes(1)
+    expect(wrapper.vm.isVisibleCopyModal).toEqual(false)
+  })
+
+  test('failCopyItem', () => {
+    initComponent()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
+    wrapper.vm.failCopyItem()
+    expect(toastSpy).toHaveBeenCalledTimes(1)
+    expect(wrapper.vm.isVisibleCopyModal).toEqual(false)
+  })
+
+  test('watch isPassedDeadline', (done) => {
+    initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'resetData')
+    wrapper.vm.isPassedDeadline = true
+    wrapper.vm.$nextTick(() => {
+      expect(spy).toHaveBeenCalledTimes(1)
+      done()
+    })
   })
 })

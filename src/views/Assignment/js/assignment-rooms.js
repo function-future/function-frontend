@@ -1,12 +1,9 @@
 import { mapActions, mapGetters } from 'vuex'
-import BasePagination from '@/components/BasePagination'
 import config from '@/config'
 
 export default {
   name: 'AssignmentRooms',
-  components: {
-    BasePagination
-  },
+  components: {},
   data () {
     return {
       paging: {
@@ -27,7 +24,8 @@ export default {
   },
   methods: {
     ...mapActions([
-      'fetchRoomList'
+      'fetchRoomList',
+      'toast'
     ]),
     initPage () {
       this.fetchRoomList({
@@ -46,7 +44,12 @@ export default {
       this.rooms = [ ...response ]
     },
     failFetchingRoomList () {
-      this.$toasted.error('Something went wrong while fetching room list')
+      this.toast({
+        data: {
+          message: 'Fail to load assignment rooms',
+          type: 'is-danger'
+        }
+      })
     },
     goToRoomDetail (room) {
       this.$router.push({

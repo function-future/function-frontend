@@ -1,90 +1,109 @@
 <template>
-  <div class="quiz-detail-container">
-    <div class="quiz-detail-section">
-      <div class="description-container">
-        <BaseInput v-model="quizDetail.title"
-                   :placeholder="'Quiz Title'"
-                   :disabled="!editMode">
-        </BaseInput>
-        <BaseTextArea v-model="quizDetail.description"
-                      :disabled="!editMode"
-                      placeholder="Description here"
-                      :style="{height: '70%'}"
-                      :placeholder="'Quiz description'">
-        </BaseTextArea>
-      </div>
-      <BaseCard class="banks-container" :style="{'margin': '0 15px', 'padding': '10px'}">
-        <div class="banks-container__header">
-          <span>Question Banks</span>
-          <font-awesome-icon v-if="editMode" icon="edit" class="icon blue"></font-awesome-icon>
+  <div class="auto-overflow-container">
+    <div class="auto-overflow-container">
+      <div class="quiz-detail__container">
+        <div class="quiz-detail__container__actions">
+          <b-button rounded
+                    icon-left="pen"
+                    type="is-primary"
+                    @click="goToEditQuiz"
+                    v-if="accessList.edit">
+            Edit
+          </b-button>
+          <b-button rounded
+                    icon-left="trash"
+                    type="is-danger"
+                    @click="showDeleteConfirmationModal = true"
+                    v-if="accessList.delete">
+            Delete
+          </b-button>
         </div>
-        <div class="scrollable-container">
-          <BaseCard v-for="bank in quizDetail.questionBanks" :style="{'margin': '15px 10px'}" class="banks-container__item">
-            <div class="banks-container__item-content">
-              {{bank.title}}
+        <div class="quiz-detail__container__header">
+          <div class="quiz-detail__container__header-title">
+            <span class="is-size-5 has-text-weight-bold">
+              {{ quizDetail.title }}
+            </span>
+          </div>
+          <div class="quiz-detail__container__content wrap-word">
+            <span class="quiz-detail__container__content-description content" v-html="descriptionCompiledMarkdown"></span>
+            <div class="tile is-ancestor">
+              <div class="tile is-parent">
+                <article class="tile is-child box">
+                  <p>Start Date</p>
+                  <p class="subtitle has-text-weight-bold">{{ quizDetail.startDate | moment("MMMM Do YYYY") }}</p>
+                </article>
+              </div>
+              <div class="tile is-parent">
+                <article class="tile is-child box">
+                  <p>End Date</p>
+                  <p class="subtitle has-text-weight-bold">{{ quizDetail.endDate | moment("MMMM Do YYYY") }}</p>
+                </article>
+              </div>
+              <div class="tile is-parent">
+                <article class="tile is-child box">
+                  <p>Time Limit</p>
+                  <p class="subtitle has-text-weight-bold">{{ quizDetail.timeLimit }}</p>
+                </article>
+              </div>
+              <div class="tile is-parent">
+                <article class="tile is-child box">
+                  <p>Trials</p>
+                  <p class="subtitle has-text-weight-bold">{{ quizDetail.trials }}</p>
+                </article>
+              </div>
+              <div class="tile is-parent">
+                <article class="tile is-child box">
+                  <p>Question Count</p>
+                  <p class="subtitle has-text-weight-bold">{{ quizDetail.questionCount }}</p>
+                </article>
+              </div>
             </div>
-          </BaseCard>
+          </div>
+          <template>
+            <section>
+              <b-collapse class="card" aria-id="contentIdForA11y3">
+                <div
+                  slot="trigger"
+                  slot-scope="props"
+                  class="card-header"
+                  role="button"
+                  aria-controls="contentIdForA11y3">
+                  <p class="card-header-title">
+                    Question Banks
+                  </p>
+                  <a class="card-header-icon">
+                    <b-icon
+                      :icon="props.open ? 'chevron-down' : 'chevron-up'">
+                    </b-icon>
+                  </a>
+                </div>
+                <div class="card-content">
+                  <div class="content">
+                    <div v-for="bank in quizDetail.questionBanks" :key="bank.id">
+                      <ListItem>
+                        <template #title>
+                          {{ bank.title }}
+                        </template>
+                      </ListItem>
+                    </div>
+                  </div>
+                </div>
+              </b-collapse>
+            </section>
+          </template>
         </div>
-      </BaseCard>
-    </div>
-    <div class="detail-container">
-      <div class="detail-container__info">
-        <div class="detail-container__info-time">
-          <BaseCard :style="{height: '100%', margin: 0}"
-                    class="detail-card">
-            <div class="detail-card__caption">
-              <div>Given Time</div>
-              <div style="font-size: smaller">(Minutes)</div>
-            </div>
-            <input type="number"
-                   class="detail-card__content"
-                   v-model="quizDetail.timeLimit"
-                   :disabled="!editMode"/>
-          </BaseCard>
-        </div>
-        <div class="detail-container__info-deadline">
-          <BaseCard :style="{height: '100%', margin: 0}"
-                    class="detail-card">
-            <div class="detail-card__caption">Due Date</div>
-            <v-date-picker :class="editMode ? 'quiz-calendar__editable' : 'quiz-calendar'"
-                           :popover="isCalendarDisabled"
-                           v-model="quizDetail.endDate"
-                           v-if="quizDetail.endDate"
-                           :value="quizDetail.endDate">
-              <div class="detail-card__content"
-                   style="width: 250px; height: 60px;"
-                   v-if="quizDetail.endDate">
-                {{quizDetail.endDate | moment('MMM, Do YYYY')}}</div>
-            </v-date-picker>
-          </BaseCard>
-        </div>
-        <div class="detail-container__info-trials">
-          <BaseCard :style="{height: '100%', margin: 0}"
-                    class="detail-card">
-            <div class="detail-card__caption">Trials</div>
-            <input type="number"
-                   class="detail-card__content"
-                   v-model="quizDetail.trials"
-                   :disabled="!editMode"/>
-          </BaseCard>
+        <div class="quiz-detail__container__footer">
+          <b-button type="is-primary"
+                    @click="goToStudentQuiz">
+            Start
+          </b-button>
         </div>
       </div>
-      <div class="detail-container__question">
-        <div class="detail-container__question-card">
-          <BaseCard :style="{height: '100%', margin: 0}"
-                    class="question-info">
-            <div class="question-info__caption">Question</div>
-            <input type="text"
-                   class="question-info__content"
-                   v-model="quizDetail.questionCount"
-                   :disabled="!editMode"/>
-          </BaseCard>
-        </div>
-        <div class="detail-container__action">
-          <BaseButton buttonClass="button-cancel" @click="returnButtonClicked()">{{ cancelButtonText }}</BaseButton>
-          <BaseButton buttonClass="button-save" @click="actionButtonClicked()">{{ actionButtonText }}</BaseButton>
-        </div>
-      </div>
+      <modal-delete-confirmation v-if="showDeleteConfirmationModal"
+                                 @close="showDeleteConfirmationModal = false"
+                                 @clickDelete="deleteThisQuiz">
+        <div slot="description">Are you sure you want to delete this quiz?</div>
+      </modal-delete-confirmation>
     </div>
   </div>
 </template>
@@ -96,154 +115,71 @@
 
 
 <style lang="scss" scoped>
-  .quiz-detail-container {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-  }
+  @import "@/assets/css/main.scss";
 
-  .quiz-detail-section {
-    display: flex;
-    flex-direction: row;
-    height: 40%;
-    max-height: 40%;
-    width: 100%;
-  }
-
-  .description-container {
-    flex-grow: 3;
-  }
-
-  .banks-container {
-    flex-grow: 1;
-    max-height: 100%;
-    max-width: 25%;
-    &__header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-    }
-    &__item {
-      &-content {
-        text-overflow: ellipsis;
-        overflow: hidden;
-        white-space: nowrap;
-      }
-    }
-  }
-
-  .detail-container {
-    height: 50%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 100%;
-    &__info {
-      width: 32%;
-      height: 100%;
+  .quiz-detail {
+    &__container {
       display: flex;
       flex-direction: column;
-      &-time, &-deadline, &-trials, &-batch {
-        height: 20%;
-        margin: 10px 0;
+      padding: 1rem 1.25rem;
+      @media only screen and (max-width: 1023px) {
+        margin-bottom: 20vh;
       }
-    }
-    &__question {
-      width: 65%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      &-card {
-        margin-top: 10px;
-        height: 80%;
-      }
-    }
-    &__action {
-      margin-top: 15px;
-      align-self: flex-end;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-around;
-      height: 15%;
-      width: 35%;
-      align-items: center;
-    }
-  }
 
-  .detail-card {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    &__caption {
-      width: 50%;
-    }
-    &__content {
-      font-weight: bolder;
-      font-size: xx-large;
-      border: none;
-      width: 100%;
-      text-align: right;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      &:focus {
-        outline: none;
-      }
-      &:disabled {
-        background-color: #ffffff;
-      }
-      &:enabled {
-        &:hover {
-          cursor: pointer;
+      &__actions {
+        z-index: 5;
+        margin-bottom: 0.75rem;
+
+        button {
+          margin-left: 0.25rem;
+          margin-right: 0.25rem;
+
+          &:first-child {
+            margin-left: 0;
+          }
+        }
+
+        @media only screen and (max-width: 1023px) {
+          margin-bottom: 0;
+          display: flex;
+          flex-direction: column;
+          position: fixed;
+          right: 5vw;
+          bottom: 75px;
+          transition: all 0.1s ease-in-out;
+          border-radius: 50%;
+
+          button {
+            margin: 0.25rem 0;
+            box-shadow: 2px 2px 16px 4px rgba(0, 0, 0, 0.1);
+          }
         }
       }
-      /* TODO Find good font */
-    }
-  }
 
-  .question-info {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    &__caption {
-      width: 30%;
-      font-size: xx-large;
-      align-self: flex-start;
-    }
-    &__content {
-      background-color: transparent !important;
-      width: 70%;
-      border: none;
-      font-weight: bolder;
-      font-size: 13rem;
-      display: flex;
-      justify-content: flex-end;
-      text-align: right;
-      &:focus {
-        outline: none;
-      }
-      &:disabled {
-        background-color: #ffffff;
-      }
-      &:enabled {
-        &:hover {
-          cursor: pointer;
+      &__header {
+        margin-bottom: 0.5rem;
+
+        &__info {
+          margin-top: 0.5rem;
+          &-date {
+
+          }
         }
       }
-      /* TODO Find good font */
-    }
-  }
 
-  .quiz-calendar {
-    cursor: default;
-    &__editable {
-      &:hover {
-        cursor: pointer;
+      &__content {
+        margin-bottom: 1rem;
+
+        &-description {
+          /deep/ p {
+            margin-bottom: 0.5rem;
+          }
+        }
+      }
+
+      &__footer {
+        display: flex;
+        justify-content: flex-end;
       }
     }
   }

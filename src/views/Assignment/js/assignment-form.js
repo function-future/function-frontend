@@ -37,7 +37,8 @@ export default {
       'fetchAssignmentDetail',
       'updateAssignmentDetail',
       'createAssignment',
-      'uploadMaterial'
+      'uploadMaterial',
+      'toast'
     ]),
     initPage () {
       if (this.editMode) {
@@ -60,7 +61,12 @@ export default {
         this.filePreviewName = this.assignmentDetail.file.name
     },
     failedFetchingAssignmentDetail () {
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        data: {
+          message: 'Fail to load assignment detail',
+          type: 'is-danger'
+        }
+      })
       this.$router.go(-1)
 
     },
@@ -91,7 +97,10 @@ export default {
     },
     failUploadMaterial () {
       this.filePreviewName = 'Fail to upload file, please try again'
-      this.$toasted.error('Fail to upload file, please try again')
+      this.toast({
+        message: 'Fail to upload file, please try again',
+        type: 'is-danger'
+      })
     },
     cancel () {
       this.$router.go(-1)
@@ -119,7 +128,12 @@ export default {
       })
     },
     successUpdatingAssignment () {
-      this.$toasted.success('Successfully updated assignment')
+      this.toast({
+        data: {
+          message: 'Successfully updated assignment',
+          type: 'is-success'
+        }
+      })
       this.$router.push({
         name: 'assignmentDetail',
         params: {
@@ -129,7 +143,12 @@ export default {
       })
     },
     failedUpdatingAssignment () {
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        data: {
+          message: 'Fail to update assignment',
+          type: 'is-danger'
+        }
+      })
     },
     addAssignment () {
       let payload = { ...this.assignmentDetail }
@@ -145,13 +164,21 @@ export default {
       })
     },
     successCreatingAssignment () {
-      this.$toasted.success('Successfully created assignment')
+      this.toast({
+        data: 'Successfully created assignment',
+        type: 'is-success'
+      })
       this.$router.push({
         name: 'questionBanks'
       })
     },
     failedCreatingAssignment () {
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        data: {
+          message: 'Fail to create assignment',
+          type: 'is-danger'
+        }
+      })
     }
   }
 }
