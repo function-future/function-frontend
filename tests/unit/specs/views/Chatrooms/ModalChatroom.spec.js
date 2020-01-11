@@ -1,4 +1,4 @@
-import ModalChatroom from '@/views/Chatrooms/ModalChatroom'
+import ModalChatroom from '@/views/Chatrooms/deprecated/ModalChatroom'
 import { createLocalVue, shallowMount } from '@vue/test-utils'
 import chatroomApi from '@/api/controller/chatrooms'
 import userApi from '@/api/controller/users'

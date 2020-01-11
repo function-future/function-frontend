@@ -2,7 +2,7 @@ import { createLocalVue, shallowMount } from '@vue/test-utils'
 import Vuex from 'vuex'
 import chatroomApi from '@/api/controller/chatrooms'
 import moment from 'moment'
-import Chatrooms from '@/views/Chatrooms/Chatrooms'
+import Chatrooms from '@/views/Chatrooms/deprecated/Chatrooms'
 
 jest.mock('@/api/controller/chatrooms')
 

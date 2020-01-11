@@ -6,7 +6,7 @@
   </div>
 </template>
 
-<script src="./js/message-bubble-sent.js">
+<script src="js/message-bubble-sent.js">
 
 </script>
 

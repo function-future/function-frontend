@@ -46,7 +46,7 @@ import courses from '@/views/Courses/CoursesRevamp.vue'
 import courseDetail from '@/views/Courses/CourseDetailRevamp.vue'
 import courseForm from '@/views/Courses/CourseFormRevamp.vue'
 import config from '@/config/index'
-import chatrooms from '@/views/Chatrooms/Chatrooms'
+import chatrooms from '@/views/Chatrooms/Chatroom'
 import myQuestionnaire from '@/views/Questionnaire/MyQuestionnaire'
 import myQuestionnaireAppraisee from '@/views/Questionnaire/MyQuestionnaireAppraisee'
 import questionnaires from '@/views/Questionnaire/Questionnaires'
@@ -1075,7 +1075,11 @@ const router = new Router({
       component: chatrooms,
       meta: {
         auth: true,
-        title: 'Chatrooms'
+        title: 'Chatrooms',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Chatrooms', link: 'chatrooms' }
+        ]
       }
     },
     {
