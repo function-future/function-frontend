@@ -557,7 +557,7 @@ describe('LandingPageAdmin', () => {
     })
   })
 
-  test('goToItemDetail with Assignemnt as the active tab', () => {
+  test('goToItemDetail with Assignment as the active tab', () => {
     initComponent()
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.$route.query.tab = 'assignments'
@@ -568,6 +568,26 @@ describe('LandingPageAdmin', () => {
       params: {
         assignmentId: 1,
         batchCode: 'futurre3'
+      }
+    })
+  })
+
+  test('goToItemDetail with Assignment as the active tab and student as logged in user', () => {
+    initComponent()
+    wrapper.vm.$router.push = jest.fn()
+    wrapper.vm.$route.query.tab = 'assignments'
+    wrapper.vm.batchCode = 'futurre3'
+    store.state.currentUser = {
+      role: 'STUDENT',
+      id: 'STD001'
+    }
+    wrapper.vm.goToItemDetail(1)
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
+      name: 'assignmentRoomDetail',
+      params: {
+        assignmentId: 1,
+        batchCode: 'futurre3',
+        studentId: 'STD001'
       }
     })
   })

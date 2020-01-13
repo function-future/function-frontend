@@ -23,7 +23,10 @@ export default {
       result: '',
       showPointModal: false,
       trialsLeft: 0,
-      isSubmitting: false
+      isSubmitting: false,
+      quizDetail: {
+        timeLimit: 1
+      }
     }
   },
   created () {
@@ -55,6 +58,7 @@ export default {
   methods: {
     ...mapActions([
       'fetchStudentQuizQuestions',
+      'fetchStudentQuizTimeLimit',
       'submitAnswers',
       'toast'
     ]),
@@ -70,6 +74,35 @@ export default {
           return 'D'
       }
     },
+    getTimeLimit () {
+      this.fetchStudentQuizTimeLimit({
+        data: {
+          batchCode: this.currentUser.batchCode,
+          quizId: this.$route.params.quizId
+        },
+        callback: this.successFetchingTimeLimit,
+        fail: this.failedFetchingTimeLimit
+      })
+    },
+    successFetchingTimeLimit (response) {
+      this.quizDetail.timeLimit = response
+      this.isLoading = false
+    },
+    failedFetchingTimeLimit () {
+      this.toast({
+        data: {
+          message: 'Something went wrong',
+          type: 'is-error'
+        }
+      })
+      this.$router.push({
+        name: 'quizDetail',
+        params: {
+          quizId: this.quizDetail.id,
+          batchCode: this.currentUser.batchCode
+        }
+      })
+    },
     initPage () {
       this.fetchStudentQuizQuestions({
         data: {
@@ -81,8 +114,9 @@ export default {
       })
     },
     successFetchingStudentQuizQuestions () {
+      this.quizDetail = { ...this.quiz }
       this.currentNumber = 0
-      this.isLoading = false
+      this.getTimeLimit()
     },
     failedFetchingStudentQuizQuestions () {
       this.toast({

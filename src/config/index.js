@@ -367,6 +367,9 @@ module.exports = {
           },
           questions(batchCode, quizId) {
             return `/api/scoring/batches/${batchCode}/quizzes/${quizId}/student/questions`
+          },
+          time(batchCode, quizId) {
+            return `/api/scoring/batches/${batchCode}/quizzes/${quizId}/student/questions/time`
           }
         }
       },

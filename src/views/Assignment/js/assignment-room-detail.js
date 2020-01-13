@@ -107,7 +107,7 @@ export default {
         size: 4,
         totalRecords: paging.totalRecords
       }
-      this.discussions.push(...response)
+      this.discussions.unshift(...response.reverse())
       if (response.length) {
         this.discussionPaging.page++
         this.state.loaded()
