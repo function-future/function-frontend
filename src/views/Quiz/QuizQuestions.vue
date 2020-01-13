@@ -3,7 +3,11 @@
     <div class="quiz-questions__container">
       <div class="quiz-questions__container__header">
         <div>
-          <Timer class="quiz-questions__container__header-timer" :timeLimit="quiz.timeLimit" @finish="submitQuiz" ref="timer"></Timer>
+          <Timer class="quiz-questions__container__header-timer"
+                 v-if="!isLoading"
+                 :timeLimit="quizDetail.timeLimit"
+                 @finish="submitQuiz"
+                 ref="timer"></Timer>
         </div>
       </div>
     </div>
@@ -18,7 +22,7 @@
                    :key="question.number"
                    :label="(question.number) + ''"
                    :clickable="true" :type="{'is-primary': !!answers[idx], 'is-light': !answers[idx]}">
-        <h1 class="title has-text-centered">{{question.text}}</h1>
+        <h1 class="title has-text-centered" v-html="question.text"></h1>
         <div class="columns is-mobile" v-for="(option) in question.options" :key="option.id">
           <div class="column is-flex">
             <b-radio-button class="quiz-questions__container__options" :native-value="option.id" v-model="answers[idx]">
@@ -35,6 +39,7 @@
         slot-scope="{previous, next}">
         <div class="quiz-questions__container__actions">
           <b-button
+            class="quiz-questions__container__actions-prev"
             outlined
             type="is-danger"
             icon-pack="fas"
@@ -88,6 +93,9 @@
       }
       &__actions {
         padding: 0 16px;
+        &-prev {
+          margin-right: 0.5rem;
+        }
         &-submit {
           float: right;
         }
