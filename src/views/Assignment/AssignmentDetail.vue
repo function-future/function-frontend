@@ -16,14 +16,6 @@
                   v-if="accessList.delete">
           Delete
         </b-button>
-        <b-button rounded
-                  class="is-pulled-right is-hidden-mobile"
-                  icon-left="eye"
-                  type="is-primary"
-                  @click="goToRoomList"
-                  v-if="accessList.edit">
-          Rooms
-        </b-button>
       </div>
       <div class="assignment-detail__container__header">
         <div class="assignment-detail__container__header-title">
@@ -31,11 +23,11 @@
             {{ assignmentDetail.title }}
           </span>
           <b-button rounded
-                    class="is-pulled-right is-hidden-desktop is-small"
+                    class="is-pulled-right is-small"
                     icon-left="eye"
                     type="is-primary"
                     @click="goToRoomList"
-                    v-if="accessList.edit">
+                    v-if="accessList.read">
             Rooms
           </b-button>
         </div>
@@ -130,7 +122,7 @@
 
       &__content {
         &-download {
-          margin-top: 1rem;
+          margin-top: 0.4rem;
         }
       }
 
