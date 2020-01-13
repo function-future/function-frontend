@@ -71,10 +71,17 @@ export default {
       return (this.selectedIds.length !== this.courses.length) && this.selectedIds.length > 0
     },
     originBatch () {
-      return this.currentTabType === 'master' ? null : this.$route.params.code
+      return this.currentTabType === 'master' ? null : this.shareCourseCurrentSelectedBatch
     },
     coursesEmpty () {
       return !(this.courses && this.courses.length)
+    },
+    courseType () {
+      return this.currentTabType === 'master' ? ' master course' : ' course'
+    },
+    shareCourseCurrentSelectedBatch () {
+      if (this.currentTabType === 'master') return ''
+      return this.selectedBatchCode
     }
   },
   created () {
@@ -270,7 +277,7 @@ export default {
       this.showDeleteConfirmationModal = false
       this.toast({
         data: {
-          message: 'Successfully delete master course',
+          message: 'Successfully delete ' + this.courseType,
           type: 'is-success'
         }
       })
@@ -279,7 +286,7 @@ export default {
       this.showDeleteConfirmationModal = false
       this.toast({
         data: {
-          message: 'Fail to delete master course',
+          message: 'Fail to delete ' + this.courseType,
           type: 'is-danger'
         }
       })
