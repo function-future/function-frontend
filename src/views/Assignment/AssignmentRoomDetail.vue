@@ -91,7 +91,7 @@
                   </div>
                 </div>
               </article>
-              <infinite-loading @infinite="initDiscussion" :distance="4"
+              <infinite-loading @infinite="initDiscussion" :distance="4" direction="top"
                                 spinner="spiral">
                 <div slot="no-more"></div>
                 <div slot="no-results"></div>
