@@ -3,8 +3,11 @@
       <div class="logging-room__container">
         <div class="logging-room__top-bar-container" :class="{flexEnd: !accessList.edit }">
           <b-button v-if="accessList.edit"
-                      class="is-rounded is-primary add-button" type="submit" buttonClass="button-save" @click="goToCreate"
-                      icon-left="plus" rounded>
+                    class="is-rounded is-primary add-button"
+                    icon-left="plus" rounded
+                    type="submit"
+                    buttonClass="button-save"
+                    @click="goToCreate">
             <span>Add</span>
           </b-button>
           <SearchBar class="logging-room__search-bar" @input="searchHandler"/>
@@ -51,14 +54,6 @@
     &__container {
 
       width: 100%;
-
-      /*@media only screen and (min-width: 800px) {*/
-      /*  width: 500px;*/
-      /*}*/
-
-      /*@media only screen and (min-width: 1300px) {*/
-      /*  width: 800px;*/
-      /*}*/
     }
 
     &__top-bar-container {
@@ -66,7 +61,7 @@
       justify-content: space-between;
       align-items: center;
       margin: 0 15px;
-      max-height: 10vh;
+      min-height: 10vh;
     }
 
     &__search-bar {
@@ -81,7 +76,7 @@
 
     &__list-card {
       @media only screen and (max-width: 1023px) {
-        height: 79vh;
+        height: 70vh;
       }
       overflow: auto;
       height: 85vh;

@@ -65,6 +65,8 @@ import notifications from '@/views/Notifications/Notifications.vue'
 import changePassword from '@/views/User/ChangePassword'
 import loggingRoom from '@/views/LoggingRoom/LoggingRoom.vue'
 import loggingRoomDetail from '@/views/LoggingRoom/LoggingRoomDetail.vue'
+import loggingRoomMembersPage from '@/views/LoggingRoom/MembersPage.vue'
+import loggingRoomTopicsPage from '@/views/LoggingRoom/LoggingRoomTopicsPage.vue'
 import logMessageRoom from '@/views/LoggingRoom/LogMessageRoom.vue'
 import loggingRoomCreate from '@/views/LoggingRoom/LoggingRoomCreate'
 import loggingRoomEdit from '@/views/LoggingRoom/LoggingRoomEdit'
@@ -1314,16 +1316,55 @@ const router = new Router({
       component: loggingRoom,
       meta: {
         title: 'Logging Rooms',
-        auth: true
+        auth: true,
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'logging Room', link: 'loggingRoom' }
+        ]
       }
     },
     {
-      path: config.app.pages.loggingRoom.topics,
+      path: config.app.pages.loggingRoom.detail,
       name: 'loggingRoomDetail',
       component: loggingRoomDetail,
       meta: {
         title: 'Logging Room - Detail',
-        auth: true
+        auth: true,
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'logging Room', link: 'loggingRoom' },
+          { name: 'logging Room Detail', link: 'loggingRoomDetail' }
+        ]
+      }
+    },
+    {
+      path: config.app.pages.loggingRoom.members,
+      name: 'loggingRoomMembersPage',
+      component: loggingRoomMembersPage,
+      meta: {
+        title: 'Logging Room - Members',
+        auth: true,
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'logging Room', link: 'loggingRoom' },
+          { name: 'logging Room Detail', link: 'loggingRoomDetail' },
+          { name: 'logging Room Detail Members', link: 'loggingRoomMembersPage' }
+        ]
+      }
+    },
+    {
+      path: config.app.pages.loggingRoom.topics,
+      name: 'loggingRoomTopicsPage',
+      component: loggingRoomTopicsPage,
+      meta: {
+        title: 'Logging Room - Topics',
+        auth: true,
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'logging Room', link: 'loggingRoom' },
+          { name: 'logging Room Detail', link: 'loggingRoomDetail' },
+          { name: 'logging Room Detail Topics', link: 'loggingRoomTopicsPage' }
+        ]
       }
     },
     {
@@ -1332,7 +1373,13 @@ const router = new Router({
       component: logMessageRoom,
       meta: {
         title: 'Logging Room',
-        auth: true
+        auth: true,
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'logging Room', link: 'loggingRoom' },
+          { name: 'logging Room Detail', link: 'loggingRoomDetail' },
+          { name: 'log Message', link: 'logMessage' }
+        ]
       }
     },
     {
@@ -1341,7 +1388,12 @@ const router = new Router({
       component: loggingRoomCreate,
       meta: {
         title: 'Logging Room - Create',
-        auth: true
+        auth: true,
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'logging Room', link: 'loggingRoom' },
+          { name: 'Logging Room Create', link: 'loggingRoomCreate' }
+        ]
       }
     },
     {
@@ -1350,7 +1402,12 @@ const router = new Router({
       component: loggingRoomEdit,
       meta: {
         title: 'Logging Room - Edit',
-        auth: true
+        auth: true,
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'logging Room', link: 'loggingRoom' },
+          { name: 'Logging Room Edit', link: 'loggingRoomEdit' }
+        ]
       }
     }
   ]

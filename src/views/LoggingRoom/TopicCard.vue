@@ -5,7 +5,7 @@
         <h3> {{title}}</h3>
       </div>
       <div class="topic-card__content__delete-icon">
-        <font-awesome-icon v-if="accessList.edit" class="icon icon-delete" icon="times" @click="$emit('delete')"/>
+        <font-awesome-icon v-if="accessList.edit" class="icon icon-delete red" icon="trash-alt" @click="$emit('delete')"/>
       </div>
     </BaseCard>
   </div>
@@ -37,5 +37,9 @@
         cursor: pointer;
       }
     }
+  }
+
+  .red {
+    color: red;
   }
 </style>
