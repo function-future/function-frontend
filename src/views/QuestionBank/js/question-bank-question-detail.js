@@ -43,7 +43,8 @@ export default {
   methods: {
     ...mapActions([
       'fetchQuestionDetail',
-      'deleteQuestionById'
+      'deleteQuestionById',
+      'toast'
     ]),
     initPage () {
       this.fetchQuestionDetail({
@@ -64,7 +65,12 @@ export default {
       })
     },
     failFetchingQuestionDetail () {
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        data: {
+          message: 'Fail to load question',
+          type: 'is-danger'
+        }
+      })
     },
     header (idx) {
       switch (idx) {
@@ -98,7 +104,12 @@ export default {
       })
     },
     successDeletingQuestion () {
-      this.$toasted.success('Successfully deleted question')
+      this.toast({
+        data: {
+          message: 'Successfully deleted question',
+          type: 'is-success'
+        }
+      })
       this.$router.push({
         name: 'questionBankDetail',
         params: {
@@ -107,7 +118,12 @@ export default {
       })
     },
     failedDeletingQuestion () {
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        data: {
+          message: 'Fail to delete question',
+          type: 'is-danger'
+        }
+      })
       this.showDeleteConfirmationModal = false
     }
   }

@@ -1,8 +1,4 @@
 import { mapActions, mapGetters } from 'vuex'
-import BaseInput from '@/components/BaseInput'
-import BaseCard from '@/components/BaseCard'
-import BaseButton from '@/components/BaseButton'
-import BaseTextArea from '@/components/BaseTextArea'
 import ComparisonItem from '@/views/FinalJudging/ComparisonItem'
 import ModalSelectMultipleStudents from '@/components/modals/ModalSelectMultipleStudents'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
@@ -11,10 +7,6 @@ let marked = require('marked')
 export default {
   name: 'JudgingDetail',
   components: {
-    BaseInput,
-    BaseCard,
-    BaseButton,
-    BaseTextArea,
     ModalSelectMultipleStudents,
     ComparisonItem,
     ModalDeleteConfirmation
@@ -49,7 +41,8 @@ export default {
     ...mapActions([
       'fetchJudgingDetail',
       'updateJudging',
-      'deleteJudging'
+      'deleteJudging',
+      'toast'
     ]),
     initPage () {
       this.fetchJudgingDetail({
@@ -73,7 +66,12 @@ export default {
     },
 
     failedFetchingJudgingDetail () {
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        data: {
+          message: 'Fail to load judging session',
+          type: 'is-danger'
+        }
+      })
     },
     goToComparison () {
       this.$router.push({
@@ -125,7 +123,12 @@ export default {
       })
     },
     successUpdatingJudging () {
-      this.$toasted.success('Successfully updated final judging')
+      this.toast({
+        data: {
+          message: 'Successfully updated judging session',
+          type: 'is-success'
+        }
+      })
       this.$router.push({
         name: 'judgingList',
         params: {
@@ -134,7 +137,12 @@ export default {
       })
     },
     failUpdatingJudging () {
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        data: {
+          message: 'Fail to update judging session',
+          type: 'is-danger'
+        }
+      })
     },
     deleteThisJudging () {
       this.showDeleteConfirmationModal = false
@@ -148,13 +156,23 @@ export default {
       })
     },
     successDeletingJudging () {
-      this.$toasted.success('Successfully deleted this final judging session')
+      this.toast({
+        data: {
+          message: 'Successfully deleted judging session',
+          type: 'is-success'
+        }
+      })
       this.$router.push({
         name: 'judgingList'
       })
     },
     failedDeletingJudging () {
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        data: {
+          message: 'Fail to delete judging session',
+          type: 'is-danger'
+        }
+      })
     },
     moveToEditPage () {
       this.$router.push({

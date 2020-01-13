@@ -40,7 +40,8 @@ export default {
   },
   methods: {
     ...mapActions([
-      'fetchPointList'
+      'fetchPointList',
+      'toast'
     ]),
     resetPage () {
       this.isLoading = false
@@ -87,7 +88,12 @@ export default {
       }
     },
     failFetchingPointList () {
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        data: {
+          message: 'Fail to load point list',
+          type: 'is-danger'
+        }
+      })
     }
   },
   watch: {

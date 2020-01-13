@@ -48,42 +48,59 @@
               </div>
               <div class="card-content overflow-container">
                 <div class="content">
-                  <div v-for="question in questions" :key="question.id">
-                    <ListItem @click="redirectToQuestionDetail(question.id)">
-                      <template #title>
-                        {{ question.label }}
-                      </template>
-                      <template #actions>
-                        <b-dropdown aria-role="list"
-                                    position="is-bottom-left"
-                                    @click.prevent.stop>
-                          <button class="button is-text" slot="trigger">
-                            <b-icon icon="ellipsis-v" size="is-small" class="icon"></b-icon>
-                          </button>
-                          <b-dropdown-item
-                            aria-role="listitem"
-                            @click="redirectToEditQuestionForm(question.id)">
+                  <div v-if="isLoading">
+                    <ListItem v-for="n in 4" v-bind:key="n" :loading="isLoading"></ListItem>
+                  </div>
+                  <div v-if="!isLoading && !questionEmpty">
+                    <div v-for="question in questions" :key="question.id">
+                      <ListItem @click="redirectToQuestionDetail(question.id)">
+                        <template #title>
+                          {{ question.label }}
+                        </template>
+                        <template #actions>
+                          <b-dropdown aria-role="list"
+                                      position="is-bottom-left"
+                                      @click.prevent.stop>
+                            <button class="button is-text" slot="trigger">
+                              <b-icon icon="ellipsis-v" size="is-small" class="icon"></b-icon>
+                            </button>
+                            <b-dropdown-item
+                              aria-role="listitem"
+                              @click="redirectToEditQuestionForm(question.id)">
                               <span class="icon-wrapper">
                                 <b-icon icon="edit" class="icon" size="is-small"></b-icon>
                                 Edit
                               </span>
-                          </b-dropdown-item>
-                          <b-dropdown-item
-                            aria-role="listitem"
-                            @click="openDeleteConfirmationModal(question.id)">
+                            </b-dropdown-item>
+                            <b-dropdown-item
+                              aria-role="listitem"
+                              @click="openDeleteConfirmationModal(question.id)">
                               <span class="icon-wrapper">
                                 <b-icon icon="trash-alt" class="icon" size="is-small"></b-icon>
                                 Delete
                               </span>
-                          </b-dropdown-item>
-                          <b-dropdown-item
-                            aria-role="listitem"
-                            class="is-hidden-desktop">
-                            <b-button type="is-light" expanded>Cancel</b-button>
-                          </b-dropdown-item>
-                        </b-dropdown>
-                      </template>
-                    </ListItem>
+                            </b-dropdown-item>
+                            <b-dropdown-item
+                              aria-role="listitem"
+                              class="is-hidden-desktop">
+                              <b-button type="is-light" expanded>Cancel</b-button>
+                            </b-dropdown-item>
+                          </b-dropdown>
+                        </template>
+                      </ListItem>
+                    </div>
+                  </div>
+                  <div v-if="!isLoading">
+                    <div v-if="questionEmpty && !failLoadQuestion">
+                      <EmptyState src="questions">
+                        <template #title>
+                          Looks like there is no question in this bank!
+                        </template>
+                      </EmptyState>
+                    </div>
+                    <div v-if="questionEmpty && failLoadQuestion">
+                      <EmptyState src="error" :errorState="true"></EmptyState>
+                    </div>
                   </div>
                 </div>
                 <infinite-loading @infinite="getQuestionList" :identifier="infiniteId"

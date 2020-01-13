@@ -2,7 +2,7 @@ import request from '../default-request'
 import config from '@/config/index'
 
 const getQuizList = function (callback, data, errorHandler) {
-  request.getRequest(config.api.scoring.quiz.list(data.batchCode, data.page, data.pageSize), callback, errorHandler)
+  request.getRequest(config.api.scoring.quiz.list(data.batchCode, data.isPassedDeadline, data.page, data.pageSize), callback, errorHandler)
 }
 
 const getQuizById = function (callback, data, errorHandler) {

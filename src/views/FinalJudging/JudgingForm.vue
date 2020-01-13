@@ -45,23 +45,35 @@
               </div>
               <div class="card-content">
                 <div class="content">
-                  <div v-for="student in judgingDetail.students" :key="student.id">
-                    <UserListItem :imageUrl="student.avatar">
-                      <template #name>
-                        {{ student.name }}
-                      </template>
-                      <template #info>
-                        <div>{{ student.batch.name }}</div>
-                        <div>{{ student.university }}</div>
-                      </template>
-                      <template #actions>
-                        <div class="card-content-action">
+                  <div v-if="studentNotEmpty">
+                    <div v-for="student in judgingDetail.students" :key="student.id">
+                      <UserListItem :imageUrl="student.avatar">
+                        <template #name>
+                          {{ student.name }}
+                        </template>
+                        <template #info>
+                          <div>{{ student.batch.name }}</div>
+                          <div>{{ student.university }}</div>
+                        </template>
+                        <template #actions>
+                          <div class="card-content-action">
                         <span @click="removeStudentFromJudging(student)">
                         <b-icon icon="trash-alt" class="icon is-danger" size="is-small"></b-icon>
                         </span>
-                        </div>
+                          </div>
+                        </template>
+                      </UserListItem>
+                    </div>
+                  </div>
+                  <div v-else>
+                    <EmptyState src="users">
+                      <template #title>
+                        Looks like there is no students selected yet
                       </template>
-                    </UserListItem>
+                      <template #message>
+                        You need to select them before creating a session!
+                      </template>
+                    </EmptyState>
                   </div>
                   <div class="buttons is-right judging-form__container-students-add">
                     <b-button type="is-primary" :disabled="disableButtonAddStudent" @click="toggleSelectStudentModal">Add Student</b-button>

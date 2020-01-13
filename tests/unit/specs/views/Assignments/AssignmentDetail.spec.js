@@ -24,7 +24,8 @@ describe('AssignmentDetail', () => {
       updateAssignmentDetail: jest.fn(),
       fetchAssignmentDetail: jest.fn(),
       downloadCourseMaterial: jest.fn(),
-      uploadMaterial: jest.fn()
+      uploadMaterial: jest.fn(),
+      toast: jest.fn()
     }
     const getters = {
       assignment: state => state.assignment,
@@ -153,10 +154,11 @@ describe('AssignmentDetail', () => {
 
   test('failFetchingAssignmentDetail', () => {
     initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.failFetchingAssignmentDetail()
-    expect(wrapper.vm.$toasted.error).toBeCalledTimes(1)
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'assignments'})
+    expect(spy).toHaveBeenCalledTimes(1)
   })
 
   test('deleteThis', () => {

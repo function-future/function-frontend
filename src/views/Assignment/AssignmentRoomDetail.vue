@@ -114,8 +114,7 @@
                   </div>
                   <div class="field has-text-right" v-if="accessList.add">
                     <b-button type="is-primary"
-                              @click="submitComment"
-                              :loading="submittingDiscussion">
+                              @click="submitComment">
                       Post discussion
                     </b-button>
                   </div>
