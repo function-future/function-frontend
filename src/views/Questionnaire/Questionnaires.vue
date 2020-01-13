@@ -1,15 +1,20 @@
 <template>
-  <div class="questionnaires-outer">
-    <div class="questionnaires-container">
-      <div class="questionnaire-top-bar">
-        <div class="button-create">
-          <BaseButton type="submit" buttonClass="button-save" @click="goToCreate">New</BaseButton>
+  <div class="questionnaires__outer">
+    <div class="questionnaires__container">
+      <div class="questionnaires__top-bar">
+        <div class="questionnaires__top-bar__create-button">
+          <b-button class="is-rounded is-primary create-button"
+                    icon-left="plus"
+                    type="submit"
+                    @click="goToCreate">
+            <span>New</span>
+          </b-button>
         </div>
-        <div class="search-bar-questionnaire">
+        <div class="questionnaires__top-bar__search-bar">
           <SearchBar @input="searchHandler"></SearchBar>
         </div>
       </div>
-      <div class="questionnaire-list-container">
+      <div class="questionnaires__content">
         <QuestionnaireCard v-for="myQuestionnaire in questionnaires"
                            :id="myQuestionnaire.id"
                            :title="myQuestionnaire.title"
@@ -40,44 +45,51 @@
 
 </script>
 
-<style scoped>
-  .questionnaires-outer {
-    display: flex;
-    justify-content: center;
-    height: 80vh;
+<style lang="scss" scoped >
+
+  .questionnaires {
+    &__outer {
+      display: flex;
+      justify-content: center;
+      height: 80vh;
+      width: 100%;
+    }
+    &__container {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
+    &__top-bar {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      width: 100%;
+
+      &__create-button {
+        padding-top: 12px;
+        align-self: flex-start;
+      }
+
+      &__search-bar {
+        width: 300px;
+        align-self: flex-end;
+      }
+    }
+    &__content {
+      overflow: auto;
+      padding: 10px;
+      width: 100%;
+    }
   }
 
-  .questionnaires-container {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    width: 800px;
-  }
-
-  .search-bar-questionnaire {
-    width: 300px;
-    align-self: flex-end;
-  }
-
-  .questionnaire-top-bar {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    width: 100%;
-  }
-
-  .button-create {
-    padding-top: 12px;
-    align-self: flex-start;
-  }
-
-  .search-bar-questionnaire {
-    align-self: flex-end;
-  }
-
-  .questionnaire-list-container {
-    overflow: auto;
-    padding: 10px;
-    width: 100%;
+  .create-button {
+    @media only screen and (max-width: 1023px) {
+      position: fixed;
+      right: 5vw;
+      bottom: 75px;
+      transition: all 0.1s ease-in-out;
+      box-shadow: 2px 2px 16px 4px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+    }
   }
 </style>

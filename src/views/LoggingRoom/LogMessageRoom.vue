@@ -66,10 +66,9 @@
    &__container {
      display: flex;
      flex-direction: column;
-     justify-content: space-between;
      align-items: center;
      width: 100%;
-     height: 98%;
+     height: 98vh;
 
      @media only screen and (min-width: 1300px) {
        width: 800px;

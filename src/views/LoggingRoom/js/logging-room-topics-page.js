@@ -1,63 +1,53 @@
-import ParticipantCard from '@/views/LoggingRoom/ParticipantCard'
-import TopicCard from '@/views/LoggingRoom/TopicCard'
 import InfiniteLoading from 'vue-infinite-loading'
 import loggingRoomApi from '@/api/controller/logging-room'
-import BaseButton from '@/components/BaseButton'
+import TopicCard from '@/views/LoggingRoom/TopicCard'
 import ModalAddQuestion from '@/views/Questionnaire/ModalAddQuestion'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
-import MenuCard from '@/views/LoggingRoom/MenuCard'
-
 import { mapGetters } from 'vuex'
 
+
 export default {
-  name: 'logging-room-detail',
+  name: 'logging-room-topics-page',
   components: {
-    ParticipantCard,
-    TopicCard,
-    loggingRoomApi,
     InfiniteLoading,
-    BaseButton,
+    loggingRoomApi,
     ModalAddQuestion,
     ModalDeleteConfirmation,
-    MenuCard
+    TopicCard
   },
   data () {
     return {
       topics: [],
       page: 1,
       size: 10,
-      loggingRoom: {},
+      topicModal: false,
       topic: {
         id: '',
         title: '',
         isUpdate: false,
         type: 'Topic'
       },
-      topicModal: false,
       modalDeleteConfirmation: {
         show: false,
         title: '',
         id: ''
-      },
-      iconMenuMembers: 'user',
-      iconMenuMembersTitle: 'Members',
-      iconMenuTopics: 'list',
-      iconMenuTopicsTitle: 'Topics',
-      showMembers: 'none',
-      show: ''
+      }
     }
   },
   computed: {
     ...mapGetters([
       'accessList'
-    ]),
-    isShowMembers: function () {
-      return this.showMembers
+    ])
+  },
+  props: {
+    iconMenu: {
+      type: String,
+      default: 'plus'
     },
-    isShow: function () {
-      return this.show
+    iconTitle: {
+      type: String,
+      default: 'Title'
     }
-
   },
   methods: {
     infiniteHandler ($state) {
@@ -80,25 +70,12 @@ export default {
         }
       })
     },
-    errorCallBack (err) {
-      console.log(err)
-      this.$toasted.error('Something Error')
-    },
     goToLoggingRoom (topicId) {
       this.$router.push({
         name: 'logMessage',
         params: {
           loggingRoomId: this.$route.params.loggingRoomId,
           topicId: topicId
-        }
-      })
-    },
-    setLoggingRoom () {
-      loggingRoomApi.getLoggingRoom(response => {
-        this.loggingRoom = response.data
-      }, this.errorCallBack, {
-        params: {
-          loggingRoomId: this.$route.params.loggingRoomId
         }
       })
     },
@@ -146,25 +123,6 @@ export default {
           topicId: this.modalDeleteConfirmation.id
         }
       })
-    },
-    callShowMembers () {
-      this.$router.push({
-        name: 'loggingRoomMembersPage',
-        params: {
-          loggingRoomId: this.$route.params.loggingRoomId
-        }
-      })
-    },
-    callShowTopics () {
-      this.$router.push({
-        name: 'loggingRoomTopicsPage',
-        params: {
-          loggingRoomId: this.$route.params.loggingRoomId
-        }
-      })
     }
-  },
-  created () {
-    this.setLoggingRoom()
   }
 }

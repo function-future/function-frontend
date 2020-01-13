@@ -1,9 +1,15 @@
 import ParticipantCard from '@/views/LoggingRoom/ParticipantCard'
+import loggingRoomApi from '@/api/controller/logging-room'
 
 export default {
   name: 'members-page',
   components: {
     ParticipantCard
+  },
+  data () {
+    return {
+      loggingRoom: {}
+    }
   },
   props: {
     iconMenu: {
@@ -16,11 +22,17 @@ export default {
     }
   },
   methods: {
-    testclick () {
-      window.alert('hai')
-      console.log('broken')
-      this.iconTitle = 'skipskip'
-      this.$emit('click')
+    setLoggingRoom () {
+      loggingRoomApi.getLoggingRoom(response => {
+        this.loggingRoom = response.data
+      }, this.errorCallBack, {
+        params: {
+          loggingRoomId: this.$route.params.loggingRoomId
+        }
+      })
     }
+  },
+  created () {
+    this.setLoggingRoom()
   }
 }

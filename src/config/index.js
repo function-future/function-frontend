@@ -144,6 +144,8 @@ module.exports = {
       },
       loggingRoom: {
         default: '/logging-rooms',
+        detail: '/logging-rooms/:loggingRoomId',
+        members: '/logging-rooms/:loggingRoomId/members',
         topics: '/logging-rooms/:loggingRoomId/topics',
         logMessages: '/logging-rooms/:loggingRoomId/topics/:topicId',
         create: '/logging-rooms/_create',

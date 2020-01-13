@@ -9,7 +9,16 @@
           <br>
           <br>
         </div>
-        <div class="logging-room-detail__member-list-container" :style="{display: isShowMembers}">
+        <div class="logging-room-detail__mobile">
+          <MenuCard  :iconMenu="iconMenuMembers" :iconTitle="iconMenuMembersTitle"
+                     @click="callShowMembers"
+          ></MenuCard>
+          <br>
+          <MenuCard :iconMenu="iconMenuTopics" :iconTitle="iconMenuTopicsTitle"
+                    @click="callShowTopics"
+          ></MenuCard>
+        </div>
+        <div class="logging-room-detail__member-list-container">
           <span class="logging-room-detail__member-list-container__title"><b>Members</b></span>
           <participant-card v-for="member in loggingRoom.members"
                             :key="member.id"
@@ -20,17 +29,9 @@
                             :batch="member.batchName"
           ></participant-card>
         </div>
-        <div :style="{display: isShow}">
-          <MenuCard  :iconMenu="iconMenuMembers" :iconTitle="iconMenuMembersTitle"
-                    @click="callShowMembers"
-          ></MenuCard>
-          <br>
-          <MenuCard :iconMenu="iconMenuLoggingRooms" :iconTitle="iconMenuLoggingRoomsTitle"
-          ></MenuCard>
-        </div>
         <div class="logging-room-detail__topic-list-container">
           <div class="logging-room-detail__topic-list-container__top-bar">
-            <h3> Topics </h3>
+            <span class="logging-room-detail__member-list-container__title"><b>Topics</b></span>
             <div class="logging-room-detail__topic-list-container__top-bar__create-btn">
               <b-button
                 v-if="accessList.edit"
@@ -88,6 +89,11 @@
     height: 90vh;
     width: 100%;
 
+    &__mobile {
+      @media only screen and (min-width: 1024px) {
+        display: none;
+      }
+    }
     &__container {
 
       display: flex;
@@ -113,7 +119,7 @@
       /*  display: none;*/
       /*}*/
       @media only screen and (max-width: 1023px) {
-        height: 87vh;
+        display: none;
       }
       height: 30vh;
       overflow: auto;
