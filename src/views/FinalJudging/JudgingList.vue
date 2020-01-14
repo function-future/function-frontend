@@ -27,41 +27,58 @@
           </b-field>
         </div>
       </div>
-      <ListItem v-for="judging in judgingList" v-bind:key="judging.id" @click="goToJudgingDetail(judging.id)">
-        <template #title>
-          {{judging.name}}
-        </template>
-        <template #content>
-          <div class="wrap-word ellipsis">
-            <span v-html="judging.description"></span>
-          </div>
-        </template>
-        <template #actions>
-          <b-dropdown aria-role="list" position="is-bottom-left" @click.prevent.stop>
-            <button class="button is-text" slot="trigger">
-              <b-icon icon="ellipsis-v" size="is-small" class="icon"></b-icon>
-            </button>
-            <b-dropdown-item
-              aria-role="listitem"
-              @click="goToEditJudging(judging.id)"
-              v-if="accessList.edit">
+      <div v-if="isLoading">
+        <ListItem v-for="n in 4" v-bind:key="n" :loading="isLoading"></ListItem>
+      </div>
+      <div v-if="!isLoading && !judgingEmpty">
+        <ListItem v-for="judging in judgingList" v-bind:key="judging.id" @click="goToJudgingDetail(judging.id)">
+          <template #title>
+            {{judging.name}}
+          </template>
+          <template #content>
+            <div class="wrap-word ellipsis">
+              <span v-html="judging.description"></span>
+            </div>
+          </template>
+          <template #actions>
+            <b-dropdown aria-role="list" position="is-bottom-left" @click.prevent.stop>
+              <button class="button is-text" slot="trigger">
+                <b-icon icon="ellipsis-v" size="is-small" class="icon"></b-icon>
+              </button>
+              <b-dropdown-item
+                aria-role="listitem"
+                @click="goToEditJudging(judging.id)"
+                v-if="accessList.edit">
               <span class="icon-wrapper">
                 <b-icon icon="edit" class="icon" size="is-small"></b-icon>
                 Edit
               </span>
-            </b-dropdown-item>
-            <b-dropdown-item
-              aria-role="listitem"
-              @click="openDeleteConfirmationModal(judging.id)"
-              v-if="accessList.delete">
+              </b-dropdown-item>
+              <b-dropdown-item
+                aria-role="listitem"
+                @click="openDeleteConfirmationModal(judging.id)"
+                v-if="accessList.delete">
               <span class="icon-wrapper">
                 <b-icon icon="trash-alt" class="icon" size="is-small"></b-icon>
                 Delete
               </span>
-            </b-dropdown-item>
-          </b-dropdown>
-        </template>
-      </ListItem>
+              </b-dropdown-item>
+            </b-dropdown>
+          </template>
+        </ListItem>
+      </div>
+      <div v-if="!isLoading">
+        <div v-if="judgingEmpty && !failLoadJudging">
+          <EmptyState src="final-judging">
+            <template #title>
+              Looks like there is no judging session!
+            </template>
+          </EmptyState>
+        </div>
+        <div v-if="judgingEmpty && failLoadJudging">
+          <EmptyState src="error" :errorState="true"></EmptyState>
+        </div>
+      </div>
       <div class="judging__pagination-wrapper">
         <b-pagination
           :total="paging.totalRecords"

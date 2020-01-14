@@ -60,7 +60,8 @@ export default {
       'fetchRoomDetail',
       'fetchComments',
       'postComment',
-      'postAssignmentScore'
+      'postAssignmentScore',
+      'toast'
     ]),
     initPage () {
       this.fetchRoomDetail({
@@ -78,7 +79,12 @@ export default {
       this.isLoading = false
     },
     failFetchRoomById () {
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        data: {
+          message: 'Fail to load assignment room\'s detail',
+          type: 'is-danger'
+        }
+      })
     },
     initDiscussion ($state) {
       this.state = $state
@@ -101,7 +107,7 @@ export default {
         size: 4,
         totalRecords: paging.totalRecords
       }
-      this.discussions.push(...response)
+      this.discussions.unshift(...response.reverse())
       if (response.length) {
         this.discussionPaging.page++
         this.state.loaded()
@@ -110,7 +116,12 @@ export default {
       }
     },
     failFetchComments () {
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        data: {
+          message: 'Fail to load comments',
+          type: 'is-danger'
+        }
+      })
     },
     submitComment () {
       const data = {
@@ -127,12 +138,22 @@ export default {
       })
     },
     successSubmitComment (response) {
-      this.$toasted.success(`Successfully commented on discussion`)
+      this.toast({
+        data: {
+          message: 'Successfully posted comment on this discussion',
+          type: 'is-success'
+        }
+      })
       this.discussion.comment = ''
       this.discussions.unshift(response)
     },
     failSubmitComment () {
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        data: {
+          message: 'Fail to post comment',
+          type: 'is-danger'
+        }
+      })
     },
     updateScore () {
       let payload = {
@@ -150,10 +171,20 @@ export default {
       })
     },
     successUpdatingScore () {
-      this.$toasted.success('Successfully updated score')
+      this.toast({
+        data: {
+          message: 'Successfully updated score',
+          type: 'is-success'
+        }
+      })
     },
     failedUpdatingScore () {
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        data: {
+          message: 'Fail to update score',
+          type: 'is-danger'
+        }
+      })
     }
   }
 }

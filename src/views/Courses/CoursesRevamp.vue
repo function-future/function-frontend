@@ -164,7 +164,7 @@
       <modal-copy v-if="showShareCourseModal"
                   @close="showShareCourseModal = false"
                   @copy="submitShareCourse"
-                  :currentBatch="selectedBatchCode">
+                  :currentBatch="shareCourseCurrentSelectedBatch">
       </modal-copy>
     </div>
   </div>

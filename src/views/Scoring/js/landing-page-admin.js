@@ -1,44 +1,90 @@
 import { mapGetters, mapActions } from 'vuex'
-import ListItem from "@/components/list/ListItem"
+import ListItem from '@/components/list/ListItem'
+import EmptyState from '@/components/emptyState/EmptyState'
 import ModalSelectBatch  from "@/components/modals/ModalSelectBatch"
 import ModalDeleteConfirmation from "@/components/modals/ModalDeleteConfirmation"
+import ModalCopy from '@/components/modals/ModalCopy'
 import InfiniteLoading from 'vue-infinite-loading'
 let marked = require('marked')
 export default {
   name: 'LandingPageAdmin',
   components: {
     ListItem,
+    EmptyState,
     InfiniteLoading,
     ModalSelectBatch,
-    ModalDeleteConfirmation
+    ModalDeleteConfirmation,
+    ModalCopy
   },
   data () {
     return {
+      tabs: [
+        { type: 'questionBanks', title: 'Question Banks', visible: false },
+        { type: 'quizzes', title: 'Quizzes', visible: true },
+        { type: 'assignments', title: 'Assignments', visible: true }
+      ],
+      selectedTab: 0,
       isLoading: false,
-      isVisibleBatchModal: false,
+      failLoadItem: false,
       isVisibleDeleteModal: false,
+      isVisibleCopyModal: false,
       paging: {
         page: 1,
         size: 10,
         totalRecords: 0
       },
       items: [],
-      selectedTab: 0,
       selectedId:'',
       state: '',
-      batchCode: 'futurre3',
-      infiniteId: +new Date()
+      batches: [],
+      batchCode: '',
+      infiniteId: +new Date(),
+      isPassedDeadline: false
     }
   },
-  computed: {
+  created () {
+    this.checkCurrentUser()
+    this.setQuery()
+  },
+    computed: {
     ...mapGetters([
-      'accessList'
+      'accessList',
+      'currentUser'
     ]),
+    currentTabType () {
+      return this.$route.query.tab
+    },
+    tabTitle() {
+      switch (this.currentTabType) {
+        case 'questionBanks':
+          return 'Question Bank'
+        case 'quizzes':
+          return 'Quiz'
+        case 'assignments':
+          return 'Assignment'
+      }
+    },
     batchButtonText() {
       return this.batchCode || 'Select Batch'
     },
-    tabTitle() {
-      return (this.selectedTab === 0) ? 'Question Bank' : (this.selectedTab === 1) ? 'Quiz' : 'Assignment'
+    loggedInRole() {
+      return this.currentUser && this.currentUser.role
+    },
+    visibleBatchSelection() {
+      return this.currentUser.role !== 'STUDENT' && this.currentTabType !== 'questionBanks'
+    },
+    listEmpty() {
+      return !(this.items && this.items.length)
+    },
+    emptyStateSrc() {
+      switch (this.currentTabType) {
+        case 'questionBanks':
+          return 'question-bank'
+        case 'quizzes':
+          return 'quiz'
+        case 'assignments':
+          return 'assignment'
+      }
     }
   },
   methods: {
@@ -46,10 +92,34 @@ export default {
       'fetchQuestionBankList',
       'fetchQuizList',
       'fetchAssignmentList',
+      'fetchBatches',
+      'copyQuiz',
+      'copyAssignment',
       'deleteQuestionBankById',
       'deleteQuizById',
-      'deleteAssignmentById'
+      'deleteAssignmentById',
+      'toast'
     ]),
+    checkCurrentUser () {
+      if (this.loggedInRole === 'ADMIN') {
+        this.tabs[0].visible = true
+      }
+      else if (this.loggedInRole === 'STUDENT') {
+        this.tabs.splice(0, 1)
+        this.batchCode = this.currentUser.batchCode
+      }
+      else if (this.loggedInRole === 'JUDGE' || this.loggedInRole === 'MENTOR') {
+        this.tabs.splice(0, 2)
+      }
+      this.selectedTab = this.tabs.findIndex(i => i.type === this.currentTabType)
+    },
+    setQuery () {
+      if (this.selectedTab < 0 || this.selectedTab > this.tabs.length) this.selectedTab = 0
+      if (this.tabs[this.selectedTab].type === this.currentTabType) return
+      this.$router.replace({
+        query: { tab: this.tabs[this.selectedTab].type }
+      })
+    },
     resetData() {
       this.paging = {
         page: 1,
@@ -61,13 +131,45 @@ export default {
       this.infiniteId += 1
     },
     getListData($state) {
-      if (this.selectedTab === 0) {
-        this.getQuestionBanks($state)
-      } else if (this.selectedTab === 1) {
-        this.getQuizzes($state)
-      } else {
-        this.getAssignments($state)
+      this.isLoading = true
+      if (!!this.currentTabType) {
+        switch (this.currentTabType) {
+          case 'questionBanks':
+            this.getQuestionBanks($state)
+            break
+          default:
+            this.getBatchList($state)
+            break
+        }
       }
+    },
+    getBatchList ($state) {
+      this.state = $state
+      this.fetchBatches({
+        callback: this.successFetchBatches,
+        fail: this.failFetchBatches
+      })
+    },
+    successFetchBatches (response) {
+      if (!!this.batchCode) {
+        this.currentTabType === 'quizzes' ? this.getQuizzes() : this.getAssignments()
+        return
+      }
+      this.batches = response
+      if (this.batches.length) {
+        this.batchCode = response[0].code
+      }
+      else {
+        this.batchCode = 'No batch found'
+      }
+    },
+    failFetchBatches () {
+      this.toast({
+        data: {
+          message: 'Fail to load batch list, please refresh the page',
+          type: 'is-danger'
+        }
+      })
     },
     getQuestionBanks($state) {
       this.state = $state
@@ -80,10 +182,10 @@ export default {
         fail: this.failFetchingQuestionBankList
       })
     },
-    getQuizzes($state) {
-      this.state = $state
+    getQuizzes() {
       this.fetchQuizList({
         data: {
+          isPassedDeadline: this.isPassedDeadline,
           batchCode: this.batchCode,
           page: this.paging.page,
           pageSize: this.paging.size
@@ -92,10 +194,10 @@ export default {
         fail: this.failFetchingListData
       })
     },
-    getAssignments($state) {
-      this.state = $state
+    getAssignments() {
       this.fetchAssignmentList({
         data: {
+          isPassedDeadline: this.isPassedDeadline,
           batchCode: this.batchCode,
           page: this.paging.page,
           pageSize: this.paging.size
@@ -106,6 +208,7 @@ export default {
     },
     successFetchingListData (response, paging) {
       this.paging = paging
+      this.isLoading = false
       if (response.length) {
         this.items.push(...response)
         this.paging.page++
@@ -115,11 +218,24 @@ export default {
       }
     },
     failFetchingQuestionBankList() {
-      this.$toasted.error('Something went wrong')
+      this.failLoadItem = true
+      this.isLoading = false
+      this.toast({
+        data: {
+          message: 'Fail to load question banks',
+          type: 'is-danger'
+        }
+      })
       this.state.complete()
     },
     failFetchingListData () {
-      this.$toasted.error('Please select batch')
+      this.failLoadItem = false
+      this.toast({
+        data: {
+          message: 'Fail to load ' + this.tabTitle,
+          type: 'is-danger'
+        }
+      })
       this.state.complete()
     },
     textPreview(markdown) {
@@ -133,29 +249,33 @@ export default {
       return text
     },
     goToEditItem(id) {
-      if (this.selectedTab === 0) {
-        this.$router.push({
-          name: 'questionBankDetail',
-          params: {
-            bankId: id
-          }
-        })
-      } else if (this.selectedTab === 1) {
-        this.$router.push({
-          name: 'quizDetail',
-          params: {
-            quizId: id,
-            batchCode: this.batchCode
-          }
-        })
-      } else if (this.selectedTab === 2) {
-        this.$router.push({
-          name: 'assignmentDetail',
-          params: {
-            assignmentId: id,
-            batchCode: this.batchCode
-          }
-        })
+      switch (this.currentTabType) {
+        case 'questionBanks':
+          this.$router.push({
+            name: 'questionBankDetail',
+            params: {
+              bankId: id
+            }
+          })
+          break
+        case 'quizzes':
+          this.$router.push({
+            name: 'editQuiz',
+            params: {
+              quizId: id,
+              batchCode: this.batchCode
+            }
+          })
+          break
+        case 'assignments':
+          this.$router.push({
+            name: 'assignmentDetail',
+            params: {
+              assignmentId: id,
+              batchCode: this.batchCode
+            }
+          })
+          break
       }
     },
     openDeleteConfirmationModal (id) {
@@ -167,12 +287,16 @@ export default {
       this.selectedId = ''
     },
     deleteItem() {
-      if (this.selectedTab === 0) {
-        this.deleteQuestionBank()
-      } else if (this.selectedTab === 1) {
-        this.deleteQuiz()
-      } else if (this.selectedTab === 2) {
-        this.deleteAssignment()
+      switch (this.currentTabType) {
+        case 'questionBanks':
+          this.deleteQuestionBank()
+          break
+        case 'quizzes':
+          this.deleteQuiz()
+          break
+        case 'assignments':
+          this.deleteAssignment()
+          break
       }
     },
     deleteQuestionBank() {
@@ -205,37 +329,62 @@ export default {
       })
     },
     successDeletingItem () {
-      this.$toasted.success('Successfully deleted ' + this.tabTitle)
+      this.toast({
+        data: {
+          message: 'Successfully deleted ' + this.tabTitle,
+          type: 'is-success'
+        }
+      })
       this.closeDeleteConfirmationModal()
       this.resetData()
     },
     failDeletingItem () {
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        data: {
+          message: 'Fail to delete ' + this.tabTitle,
+          type: 'is-danger'
+        }
+      })
     },
     goToItemDetail(id) {
-      if (this.selectedTab === 0) {
-        this.$router.push({
-          name: 'questionBankDetail',
-          params: {
-            bankId: id
+      switch (this.currentTabType) {
+        case 'questionBanks':
+          this.$router.push({
+            name: 'questionBankDetail',
+            params: {
+              bankId: id
+            }
+          })
+          break
+        case 'quizzes':
+          this.$router.push({
+            name: 'quizDetail',
+            params: {
+              quizId: id,
+              batchCode: this.batchCode
+            }
+          })
+          break
+        case 'assignments':
+          if (this.currentUser.role !== 'STUDENT')
+            this.$router.push({
+              name: 'assignmentDetail',
+              params: {
+                assignmentId: id,
+                batchCode: this.batchCode
+              }
+            })
+          else {
+            this.$router.push({
+              name: 'assignmentRoomDetail',
+              params: {
+                batchCode: this.batchCode,
+                assignmentId: id,
+                studentId: this.currentUser.id
+              }
+            })
           }
-        })
-      } else if (this.selectedTab === 1) {
-        this.$router.push({
-          name: 'quizDetail',
-          params: {
-            quizId: id,
-            batchCode: this.batchCode
-          }
-        })
-      } else {
-        this.$router.push({
-          name: 'assignmentDetail',
-          params: {
-            assignmentId: id,
-            batchCode: this.batchCode
-          }
-        })
+          break
       }
     },
     selectBatch (code) {
@@ -246,12 +395,16 @@ export default {
       this.isVisibleBatchModal = false
     },
     addItem() {
-      if (this.selectedTab === 0) {
-        this.goToAddQuestionBank()
-      } else if (this.selectedTab === 1) {
-        this.goToAddQuiz()
-      } else {
-        this.goToAddAssignment()
+      switch (this.currentTabType) {
+        case 'questionBanks':
+          this.goToAddQuestionBank()
+          break
+        case 'quizzes':
+          this.goToAddQuiz()
+          break
+        case 'assignments':
+          this.goToAddAssignment()
+          break
       }
     },
     goToAddQuestionBank() {
@@ -274,13 +427,68 @@ export default {
           batchCode: this.batchCode
         }
       })
+    },
+    showCopyModal(id) {
+      this.selectedId = id
+      this.isVisibleCopyModal = true
+    },
+    copyItem(batchDestination) {
+      if (this.currentTabType === 'quizzes') {
+        this.copyQuiz({
+          data: {
+            batchCode: this.batchCode
+          },
+          payload: {
+            batchCode: batchDestination,
+            quizId: this.selectedId
+          },
+          callback: this.successCopyItem,
+          fail: this.failCopyItem
+        })
+        return
+      }
+      this.copyAssignment({
+        data: {
+          batchCode: this.batchCode
+        },
+        payload: {
+          batchCode: batchDestination,
+          assignmentId: this.selectedId
+        },
+        callback: this.successCopyItem,
+        fail: this.failCopyItem
+      })
+    },
+    successCopyItem() {
+      this.toast({
+        data: {
+          message: 'Successfully copied this ' + this.tabTitle,
+          type: 'is-success'
+        }
+      })
+      this.isVisibleCopyModal = false
+    },
+    failCopyItem() {
+      this.toast({
+        data: {
+          message: 'Fail to copy this ' + this.tabTitle,
+          type: 'is-danger'
+        }
+      })
+      this.isVisibleCopyModal = false
     }
   },
   watch: {
     selectedTab() {
+      this.setQuery()
+    },
+    currentTabType() {
       this.resetData()
     },
     batchCode() {
+      this.resetData()
+    },
+    isPassedDeadline() {
       this.resetData()
     }
   }

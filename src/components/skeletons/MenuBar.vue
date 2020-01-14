@@ -47,52 +47,26 @@
                    :to="{ name: 'files' }"
                    v-if="menuList.files">
       </b-menu-item>
-      <b-menu-item :active="showGrades"
-                   :expanded="showGrades"
-                   @click="toggleGradesMenu"
-                   v-if="menuList.assignments">
-        <template slot="label" slot-scope="props">
-          Grades
-          <b-icon
-            class="is-pulled-right"
-            :icon="props.expanded ? 'caret-down' : 'caret-up'">
-          </b-icon>
-        </template>
-        <b-menu-item class="menu-item"
-                     label="Question Banks"
-                     tag="router-link"
-                     :active="isActive('questionBanks')"
-                     :to="{ name: 'questionBanks' }"
-                     v-if="menuList.questionBanks">
-        </b-menu-item>
-        <b-menu-item class="menu-item"
-                     label="Quizzes"
-                     tag="router-link"
-                     :active="isActive('quizRoute')"
-                     :to="{ name: 'quizRoute' }"
-                     v-if="menuList.quizzes">
-        </b-menu-item>
-        <b-menu-item class="menu-item"
-                     label="Assignments"
-                     tag="router-link"
-                     :active="isActive('assignmentRoute')"
-                     :to="{ name: 'assignmentRoute' }"
-                     v-if="menuList.assignments">
-        </b-menu-item>
-        <b-menu-item class="menu-item"
-                     label="Comparisons"
-                     tag="router-link"
-                     :active="isActive('judgingBatch')"
-                     :to="{ name: 'judgingList' }"
-                     v-if="menuList.comparisons">
-        </b-menu-item>
-        <b-menu-item class="menu-item"
-                     label="Points"
-                     tag="router-link"
-                     :active="isActive('points')"
-                     :to="{ name: 'points' }"
-                     v-if="menuList.points">
-        </b-menu-item>
+      <b-menu-item class="menu-item"
+                   label="Grades"
+                   tag="router-link"
+                   :active="isActive('grades')"
+                   :to="{ name: 'scoringAdmin' }"
+                   v-if="menuList.grades">
+      </b-menu-item>
+      <b-menu-item class="menu-item"
+                   label="Judging"
+                   tag="router-link"
+                   :active="isActive('comparisons')"
+                   :to="{ name: 'judgingList' }"
+                   v-if="menuList.comparisons">
+      </b-menu-item>
+      <b-menu-item class="menu-item"
+                   label="Points"
+                   tag="router-link"
+                   :active="isActive('points')"
+                   :to="{ name: 'points' }"
+                   v-if="menuList.points">
       </b-menu-item>
       <b-menu-item class="menu-item"
                    label="Chatrooms"

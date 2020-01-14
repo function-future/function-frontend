@@ -269,6 +269,24 @@ describe('actions', () => {
     })
   })
 
+  test('fetchStudentQuizQuestions', () => {
+    api.getTimeLimit = (success) => {
+      success({
+        "code" : 200,
+        "status" : "OK",
+        "data" : 10
+      })
+    }
+    const data = {}
+    const state = {}
+    const fail = jest.fn()
+    const callback = jest.fn()
+    store.actions.fetchStudentQuizTimeLimit({ state }, { data, callback, fail })
+    expect(callback).toHaveBeenCalledTimes(1)
+    expect(fail).not.toBeCalled()
+  })
+
+
   test('submitAnswers', () => {
     api.postQuizAnswer = (success) => {
       success({

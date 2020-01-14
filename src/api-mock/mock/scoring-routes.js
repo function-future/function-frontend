@@ -1,7 +1,7 @@
 export const assignments = [
   {
     method: 'GET',
-    url: '/api/scoring/batches/1/assignments?page=1&size=10',
+    url: '/api/scoring/batches/future1/assignments?page=1&size=10',
     response: {
       "code": 200,
       "status": "OK",
@@ -11,32 +11,40 @@ export const assignments = [
           "title": "Assignment 1",
           "description": "Description Number 1",
           "deadline": 15000000,
-          "batch": 3,
-          "uploadedDate": 15000000000
+          "batchCode": "future1",
+          "uploadedDate": 15000000000,
+          "file": "",
+          "fileId": ""
         },
         {
           "id": "ASG0002",
           "title": "Assignment 2",
           "description": "Description Number 2",
           "deadline": 30000000,
-          "batch": 3,
-          "uploadedDate": 30000000000
+          "batchCode": "future1",
+          "uploadedDate": 30000000000,
+          "file": "",
+          "fileId": ""
         },
         {
           "id": "ASG0003",
           "title": "Assignment 3",
           "description": "Description Number 3",
           "deadline": 60000000,
-          "batch": 3,
-          "uploadedDate": 60000000000
+          "batchCode": "future1",
+          "uploadedDate": 60000000000,
+          "file": "",
+          "fileId": ""
         },
         {
           "id": "ASG0004",
           "title": "Assignment 4",
           "description": "Description Number 4",
           "deadline": 90000000,
-          "batch": 3,
-          "uploadedDate": 90000000000
+          "batchCode": "future1",
+          "uploadedDate": 90000000000,
+          "file": "",
+          "fileId": ""
         }
       ],
       "paging": {
@@ -48,7 +56,7 @@ export const assignments = [
   },
   {
     method: 'POST',
-    url: '/api/scoring/batches/1/assignments',
+    url: '/api/scoring/batches/future1/assignments',
     response: {
       "code": 201,
       "status": "CREATED",
@@ -58,13 +66,15 @@ export const assignments = [
         "description": "Description Number 1",
         "deadline": 1500000000,
         "file": "function-static.com/fileName.docx",
-        "batch": 3
+        "fileId": "",
+        "batchCode": "future1",
+        "uploadedDate": 60000000000
       }
     }
   },
   {
     method: 'POST',
-    url: '/api/scoring/batches/sample-id-3/assignments/copy',
+    url: '/api/scoring/batches/future1/assignments/copy',
     response: {
       "code": 201,
       "status": "CREATED",
@@ -74,7 +84,9 @@ export const assignments = [
         "description": "Description Number 1",
         "deadline": 1500000000,
         "file": "function-static.com/fileName.docx",
-        "batch": 3
+        "fileId": "",
+        "batchCode": "future1",
+        "uploadedDate": 60000000000
       }
     }
   }
@@ -83,7 +95,7 @@ export const assignments = [
 export const assignmentDetails = [
   {
     method: 'GET',
-    url: '/api/scoring/batches/1/assignments/ASG0001',
+    url: '/api/scoring/batches/future1/assignments/ASG0001',
     response: {
       "code": 200,
       "status": "OK",
@@ -93,13 +105,15 @@ export const assignmentDetails = [
         "description": "Description Number 1",
         "deadline": 15000000,
         "file": "http://function-static.com/ASG0001/fileName.docx",
-        "batch": 3
+        "fileId": "",
+        "batchCode": "future1",
+        "uploadedDate": 60000000000
       }
     }
   },
   {
     method: 'PUT',
-    urL: '/api/scoring/batches/1/assignments/ASG0001',
+    urL: '/api/scoring/batches/future1/assignments/ASG0001',
     response: {
       "code": 200,
       "status": "OK",
@@ -109,7 +123,9 @@ export const assignmentDetails = [
         "description": "Description Number 1",
         "deadline": 15000000,
         "file": "http://function-static.com/ASG0001/fileName.docx",
-        "batch": 3
+        "fileId": "",
+        "batchCode": "future1",
+        "uploadedDate": 60000000000
       }
     }
   },
@@ -127,64 +143,44 @@ export const assignmentDetails = [
 export const assignmentRooms = [
   {
     method: 'GET',
-    url: '/api/scoring/batches/1/assignments/ASG0001/rooms?page=1&size=10',
+    url: '/api/scoring/batches/future1/judgings/students?page=1&size=10',
     response: {
       "code": 200,
       "status": "OK",
-      "data": [ // TODO Update API spec
+      "data": [
         {
-          "id": "ROM0001",
-          "point": 80,
-          "student": {
+          "id": "sample-id",
+          "role": "STUDENT",
+          "email": "user@user.com",
+          "name": "John Doe",
+          "phone": "088888888888",
+          "address": "Jl. Address 1 Address 2",
+          "avatar": "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
+          "avatarId": "",
+          "batch": {
             "id": "sample-id",
-            "role": "STUDENT",
-            "email": "user@user.com",
-            "name": "John Doe",
-            "phone": "088888888888",
-            "address": "Jl. Address 1 Address 2",
-            "avatar": "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
-            "batch": {
-              "id": "sample-id",
-              "name": "Batch Name",
-              "code": "3"
-            },
-            "university": "Bina Nusantara University"
+            "name": "Batch Name",
+            "code": "3"
           },
-          "assignment": {
-            "id": "ASG0001",
-            "title": "Assignment 1",
-            "description": "Description Number 1",
-            "deadline": 15000000,
-            "file": "http://function-static.com/ASG0001/fileName.docx",
-            "batch": 3
-          }
+          "university": "Bina Nusantara University",
+          "finalPoint": 100
         },
         {
-          "id": "ROM0002",
-          "point": 90,
-          "student": {
-            "id": "sample-id-2",
-            "role": "STUDENT",
-            "email": "user2@user.com",
-            "name": "Jane Doe",
-            "phone": "088888888888",
-            "address": "Jl. Address 1 Address 2",
-            "avatar": "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
-            "batch": {
-              "id": "sample-id",
-              "name": "Batch Name",
-              "code": "3"
-            },
-            "university": "Bina Nusantara University"
+          "id": "sample-id-2",
+          "role": "STUDENT",
+          "email": "user2@user.com",
+          "name": "Jane Doe",
+          "phone": "088888888888",
+          "address": "Jl. Address 1 Address 2",
+          "avatar": "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
+          "avatarId": "",
+          "batch": {
+            "id": "future1",
+            "name": "Batch Name",
+            "code": "3"
           },
-          "assignment": {
-            "id": "ASG0001",
-            "title": "Assignment 1",
-            "description": "Description Number 1",
-            "deadline": 15000000,
-            "file": "http://function-static.com/ASG0001/fileName.docx",
-            "batch": 3
-          }
+          "university": "Bina Nusantara University",
+          "finalPoint": 100
         }
       ],
       "paging": {
@@ -195,13 +191,24 @@ export const assignmentRooms = [
     }
   },
   {
-    method: 'GET',
-    url: 'api/scoring/batches/1/assignments/ASG0001/rooms/ROM0001',
+    method: 'POST',
+    url: 'api/scoring/batches/future1/assignments/ASG0001/room/sample-id',
     response: {
       "code": 200,
       "status": "OK",
       "data": {
+        "assignment": {
+          "id": "ASG0001",
+          "title": "Assignment 1",
+          "description": "Description Number 1",
+          "deadline": 15000000,
+          "file": "http://function-static.com/ASG0001/fileName.docx",
+          "fileId": "",
+          "batchCode": "future1",
+          "uploadedDate": 60000000000
+        },
         "id": "ROM0001",
+        "point": 100,
         "student": {
           "id": "sample-id",
           "role": "STUDENT",
@@ -210,34 +217,36 @@ export const assignmentRooms = [
           "phone": "088888888888",
           "address": "Jl. Address 1 Address 2",
           "avatar": "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
+          "avatarId": "",
           "batch": {
-            "id": "sample-id",
+            "id": "future1",
             "name": "Batch Name",
             "code": "3"
           },
-          "university": "Bina Nusantara University"
+          "university": "Bina Nusantara University",
+          "finalPoint": 100
         },
-        "point": 100,
+      }
+    }
+  },
+  {
+    method: 'PUT',
+    url: 'api/scoring/batches/future1/assignments/ASG0001/room/sample-id',
+    response: {
+      "code": 200,
+      "status": "OK",
+      "data": {
         "assignment": {
           "id": "ASG0001",
           "title": "Assignment 1",
           "description": "Description Number 1",
           "deadline": 15000000,
           "file": "http://function-static.com/ASG0001/fileName.docx",
-          "batch": 3
-        }
-      }
-    }
-  },
-  {
-    method: 'PUT',
-    url: 'api/scoring/batches/1/assignments/ASG0001/rooms/ROM0001',
-    response: {
-      "code": 200,
-      "status": "OK",
-      "data": {
+          "fileId": "",
+          "batchCode": "future1",
+          "uploadedDate": 60000000000
+        },
         "id": "ROM0001",
-        "answer": "Answer Example 1",
         "point": 300,
         "student": {
           "id": "sample-id",
@@ -247,18 +256,24 @@ export const assignmentRooms = [
           "phone": "088888888888",
           "address": "Jl. Address 1 Address 2",
           "avatar": "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
-          "batch": "3",
-          "university": "Bina Nusantara University"
-        },
-        "assignment": {
-          "id": "ASG0001",
-          "title": "Assignment 1",
-          "description": "Description Number 1",
-          "deadline": 15000000,
-          "file": "http://function-static.com/ASG0001/fileName.docx",
-          "batch": "3"
+          "avatarId": "",
+          "batch": {
+            "code": "future1",
+            "id": "3",
+            "name": "Batch Name"
+          },
+          "university": "Bina Nusantara University",
+          "finalPoint": 100
         }
       }
+    }
+  },
+  {
+    method: 'DELETE',
+    url: 'api/scoring/batches/future1/assignments/ASG0001/room/sample-id',
+    response: {
+      "code": 200,
+      "status": "OK"
     }
   }
 ]
@@ -266,7 +281,7 @@ export const assignmentRooms = [
 export const assignmentRoomComment = [
   {
     method: 'GET',
-    url: '/api/scoring/batches/1/assignments/ASG0001/rooms/ROM0001/comments?page=1&size=4',
+    url: '/api/scoring/batches/future1/assignments/ASG0001/rooms/sample-id/comments?page=1&size=4',
     response: {
       "code": 200,
       "status": "OK",
@@ -299,27 +314,27 @@ export const assignmentRoomComment = [
   },
   {
     method: 'GET',
-    url: '/api/scoring/batches/1/assignments/ASG0001/rooms/ROM0001/comments?page=2&size=4',
+    url: '/api/scoring/batches/future1/assignments/ASG0001/rooms/sample-id/comments?page=2&size=4',
     response: {
       "code": 200,
       "status": "OK",
       "data": [
         {
-          "id": "CMT00001",
+          "id": "CMT00003",
           "author": {
             "id": "USR00001",
             "name": "User 1"
           },
-          "comment": "Comment Example 1",
+          "comment": "Comment Example 3",
           "createdAt": 1500000000
         },
         {
-          "id": "CMT00002",
+          "id": "CMT00004",
           "author": {
             "id": "USR00001",
             "name": "User 1"
           },
-          "comment": "Comment Example 2",
+          "comment": "Comment Example 4",
           "createdAt": 1500000000
         }
       ],
@@ -332,27 +347,27 @@ export const assignmentRoomComment = [
   },
   {
     method: 'GET',
-    url: '/api/scoring/batches/1/assignments/ASG0001/rooms/ROM0001/comments?page=3&size=4',
+    url: '/api/scoring/batches/future1/assignments/ASG0001/rooms/sample-id/comments?page=3&size=4',
     response: {
       "code": 200,
       "status": "OK",
       "data": [
         {
-          "id": "CMT00001",
+          "id": "CMT00005",
           "author": {
             "id": "USR00001",
             "name": "User 1"
           },
-          "comment": "Comment Example 1",
+          "comment": "Comment Example 5",
           "createdAt": 1500000000
         },
         {
-          "id": "CMT00002",
+          "id": "CMT00006",
           "author": {
             "id": "USR00001",
             "name": "User 1"
           },
-          "comment": "Comment Example 2",
+          "comment": "Comment Example 6",
           "createdAt": 1500000000
         }
       ],
@@ -364,8 +379,22 @@ export const assignmentRoomComment = [
     }
   },
   {
+    method: 'GET',
+    url: '/api/scoring/batches/future1/assignments/ASG0001/rooms/sample-id/comments?page=4&size=4',
+    response: {
+      "code": 200,
+      "status": "OK",
+      "data": [],
+      "paging": {
+        "page": 4,
+        "size": 4,
+        "totalRecords": 12
+      }
+    }
+  },
+  {
     method: 'POST',
-    url: '/api/scoring/batches/1/assignments/ASG0001/rooms/ROM0001/comments',
+    url: '/api/scoring/batches/future1/assignments/ASG0001/rooms/sample-id/comments',
     response: {
       "code": 201,
       "status": "CREATED",

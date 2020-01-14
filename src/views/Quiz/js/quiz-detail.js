@@ -1,20 +1,16 @@
 import { mapActions, mapGetters } from 'vuex'
-import BaseCard from '@/components/BaseCard'
-import BaseButton from '@/components/BaseButton'
-import BaseTextArea from '@/components/BaseTextArea'
-import BaseInput from '@/components/BaseInput'
+import ListItem from '@/components/list/ListItem'
+import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
+let marked = require('marked')
 
 export default {
   name: 'QuizDetail',
   components: {
-    BaseButton,
-    BaseCard,
-    BaseTextArea,
-    BaseInput
+    ListItem,
+    ModalDeleteConfirmation
   },
   data () {
     return {
-      editMode: false,
       quizDetail: {
         title: '',
         description: '',
@@ -22,7 +18,8 @@ export default {
         timeLimit: 0,
         trials: 0,
         questionCount: 0
-      }
+      },
+      showDeleteConfirmationModal: false
     }
   },
   created () {
@@ -30,22 +27,21 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'quiz'
+      'quiz',
+      'accessList',
+      'currentUser',
     ]),
-    isCalendarDisabled () {
-      return this.editMode ? { placement: 'bottom', visibility: 'click' } : {visibility: null}
-    },
-    cancelButtonText () {
-      return this.editMode ? 'Cancel' : 'Return'
-    },
-    actionButtonText () {
-      return this.editMode ? 'Save' : 'Edit'
+    descriptionCompiledMarkdown: function () {
+      return marked(this.quizDetail.description)
     }
   },
   methods: {
     ...mapActions([
       'fetchQuizById',
-      'updateQuizDetail'
+      'updateQuizDetail',
+      'deleteQuizById',
+      'fetchStudentQuizDetail',
+      'toast'
     ]),
     initPage () {
       this.fetchQuizById({
@@ -63,47 +59,76 @@ export default {
       this.quizDetail.timeLimit = Math.floor(this.quizDetail.timeLimit / 60)
     },
     failFetchingQuizById () {
-      this.$toasted.error('Something went wrong')
-    },
-    actionButtonClicked () {
-      if (this.editMode) {
-        let payload = {
-          ...this.quizDetail,
-          startDate: new Date().getTime()
-        }
-        payload.questionBanks = payload.questionBanks.map(bank => bank.id)
-        payload.endDate = new Date(payload.endDate).getTime()
-        payload.timeLimit = Math.floor(this.quizDetail.timeLimit * 60)
-        this.updateQuizDetail({
-          payload,
-          data: {
-            batchCode: this.$route.params.batchCode,
-            id: this.$route.params.quizId
-          },
-          callback: this.successUpdatingQuiz,
-          fail: this.failUpdatingQuiz
-        })
-      }
-      this.editMode = !this.editMode
-    },
-    returnButtonClicked () {
-      if (this.editMode) {
-        this.initPage()
-        this.editMode = !this.editMode
-        return
-      }
-      this.$router.push({
-        name: 'quizzes',
-        params: {
-          batchCode: this.$route.params.batchCode
+      this.toast({
+        data: {
+          message: 'Fail to load quiz',
+          type: 'is-danger'
         }
       })
     },
-    successUpdatingQuiz () {
-      this.$toasted.success(`Quiz ${this.$route.params.quizId} successfully updated`)
+    goToEditQuiz () {
+      this.$router.push({
+        name: 'editQuiz',
+        params: {
+          batchCode: this.$route.params.batchCode,
+          id: this.$route.params.quizId
+        }
+      })
     },
-    failUpdatingQuiz () {
-      this.$toasted.error('Something went wrong')
+    deleteThisQuiz () {
+      this.deleteQuizById({
+        data: {
+          batchCode: this.$route.params.batchCode,
+          id: this.$route.params.quizId
+        },
+        callback: this.successDeletingQuiz,
+        fail: this.failedDeletingQuiz
+      })
+    },
+    successDeletingQuiz () {
+      this.$router.push({
+        name: 'scoringAdmin'
+      })
+      this.toast({
+        data: {
+          message: 'Successfully deleted quiz',
+          type: 'is-success'
+        }
+      })
+    },
+    failedDeletingQuiz () {
+      this.toast({
+        data: {
+          message: 'Fail to delete quiz',
+          type: 'is-danger'
+        }
+      })
+    },
+    goToStudentQuiz () {
+      this.fetchStudentQuizDetail({
+        data: {
+          batchCode: this.currentUser.batchCode,
+          quizId: this.$route.params.quizId
+        },
+        callback: this.successFetchingStudentQuiz,
+        fail: this.failedFetchingStudentQuiz
+      })
+    },
+    successFetchingStudentQuiz () {
+      this.$router.push({
+        name: 'studentQuizQuestions',
+        params: {
+          quizId: this.$route.params.quizId
+        }
+      })
+    },
+    failedFetchingStudentQuiz () {
+      this.toast({
+        data: {
+          message: 'Can\'t start quiz, please check your remaining trials',
+          type: 'is-danger'
+        }
+      })
     }
   }
 }

@@ -13,6 +13,10 @@ const getQuestions = function (callback, data, errorHandler) {
   request.getRequest(config.api.scoring.quiz.students.questions(data.batchCode, data.quizId), callback, errorHandler)
 }
 
+const getTimeLimit = function (callback, data, errorHandler) {
+  request.getRequest(config.api.scoring.quiz.students.time(data.batchCode, data.quizId), callback, errorHandler)
+}
+
 const postQuizAnswer = function (callback, data, payload, errorHandler) {
   request.postRequest(config.api.scoring.quiz.students.questions(data.batchCode, data.quizId), callback, payload, errorHandler)
 }
@@ -21,5 +25,6 @@ export default {
   getQuizzes,
   getQuizDetail,
   getQuestions,
+  getTimeLimit,
   postQuizAnswer
 }

@@ -44,7 +44,8 @@ describe('QuestionBankQuestionDetail', () => {
     }
     const actions = {
       deleteQuestionById: jest.fn(),
-      fetchQuestionDetail: jest.fn()
+      fetchQuestionDetail: jest.fn(),
+      toast: jest.fn()
     }
     const getters = {
       question: state => state.question,
@@ -148,8 +149,9 @@ describe('QuestionBankQuestionDetail', () => {
 
   test('failFetchingQuestionDetail', () => {
     initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failFetchingQuestionDetail()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(spy).toHaveBeenCalledTimes(1)
   })
 
   test('header text for option A', () => {
@@ -209,8 +211,9 @@ describe('QuestionBankQuestionDetail', () => {
 
   test('failedDeletingQuestion', () => {
     initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failedDeletingQuestion()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(spy).toHaveBeenCalledTimes(1)
     expect(wrapper.vm.showDeleteConfirmationModal).toEqual(false)
   })
 })

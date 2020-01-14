@@ -39,6 +39,15 @@ describe('QuestionBanks Controller', () => {
     expect(spy).toBeCalledTimes(1)
   })
 
+  test('getTimeLimit', () => {
+    const spy = jest.spyOn(request, 'getRequest')
+    const data = {}
+    const callback = jest.fn()
+    const errorHandler = jest.fn()
+    api.getTimeLimit(callback, data, errorHandler)
+    expect(spy).toBeCalledTimes(1)
+  })
+
   test('postQuizAnswer', () => {
     const spy = jest.spyOn(request, 'postRequest')
     const payload = {}
