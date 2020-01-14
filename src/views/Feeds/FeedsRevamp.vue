@@ -126,7 +126,7 @@
   @import "@/assets/css/main.scss";
 
   .logo {
-    width: 6rem;
+    width: 5rem;
   }
 
   .overlap-header-background {
