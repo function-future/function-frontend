@@ -170,9 +170,6 @@
 
 <script src="./js/editor.js"></script>
 
-
-
-
 <style lang="scss" scoped>
   .menubar {
     transition: visibility 0.2s 0.4s, opacity 0.2s 0.4s;

@@ -1,5 +1,6 @@
 import Icon from '@/components/editor/Icon'
 import { Editor, EditorContent, EditorMenuBar, EditorMenuBubble } from 'tiptap'
+import { mapActions, mapGetters } from 'vuex'
 import {
   Blockquote,
   CodeBlock,
@@ -40,6 +41,8 @@ export default {
         if (html === '<p></p>') html = ''
         this.$emit('input', html)
       },
+      onFocus: () => { this.hideBottomNavBar() },
+      onBlur: () => { this.showBottomNavBar() },
       extensions: [
         new Blockquote(),
         new BulletList(),
@@ -83,7 +86,16 @@ export default {
       imagebubble: false
     }
   },
+  computed: {
+    ...mapGetters([
+      'bottomNavBarVisible'
+    ])
+  },
   methods: {
+    ...mapActions([
+      'showBottomNavBar',
+      'hideBottomNavBar'
+    ]),
     showLinkMenu (attrs) {
       this.linkUrl = attrs.href
       this.linkMenuIsActive = true
