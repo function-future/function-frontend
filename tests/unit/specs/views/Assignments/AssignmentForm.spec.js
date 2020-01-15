@@ -234,9 +234,18 @@ describe('AssignmentForm', () => {
     expect(spy).toHaveBeenCalledTimes(1)
   })
 
-  test('editAssignment', () => {
+  test('editAssignment without file', () => {
     const spy = jest.spyOn(wrapper.vm, 'updateAssignmentDetail')
     wrapper.vm.editAssignment()
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('editAssignment with file', () => {
+    wrapper.vm.assignmentDetail = {
+      fileId: 'FILE001'
+    }
+    const spy = jest.spyOn(wrapper.vm, 'updateAssignmentDetail')
+    wrapper.vm.addAssignment()
     expect(spy).toHaveBeenCalledTimes(1)
   })
 
@@ -262,7 +271,16 @@ describe('AssignmentForm', () => {
     expect(toastSpy).toHaveBeenCalledTimes(1)
   })
 
-  test('addAssignment', () => {
+  test('addAssignment without file', () => {
+    const spy = jest.spyOn(wrapper.vm, 'createAssignment')
+    wrapper.vm.addAssignment()
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('addAssignment with file', () => {
+    wrapper.vm.assignmentDetail = {
+      fileId: 'FILE001'
+    }
     const spy = jest.spyOn(wrapper.vm, 'createAssignment')
     wrapper.vm.addAssignment()
     expect(spy).toHaveBeenCalledTimes(1)

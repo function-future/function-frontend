@@ -18,7 +18,7 @@ export default {
         fileId: '',
         deadline: null
       },
-      date: new Date(),
+      date: new Date(new Date().setDate(new Date().getDate() + 1)),
       minDate: new Date(),
       filePreviewName: ''
     }
@@ -116,7 +116,7 @@ export default {
     editAssignment () {
       let payload = { ...this.assignmentDetail }
       payload.deadline = new Date(this.date).getTime()
-      payload.files = [ this.assignmentDetail.fileId ] || []
+      !!this.assignmentDetail.fileId ? payload.files = [ this.assignmentDetail.fileId ] : payload.files = []
       this.updateAssignmentDetail({
         data: {
           batchCode: this.$route.params.batchCode,
@@ -153,7 +153,7 @@ export default {
     addAssignment () {
       let payload = { ...this.assignmentDetail }
       payload.deadline = new Date(this.date).getTime()
-      payload.files = [ this.assignmentDetail.fileId ] || []
+      !!this.assignmentDetail.fileId ? payload.files = [ this.assignmentDetail.fileId ] : payload.files = []
       this.createAssignment({
         data: {
           batchCode: this.$route.params.batchCode
