@@ -31,7 +31,8 @@
                    tag="router-link"
                    :active="isActive('courses')"
                    :to="{ name: 'courses' }"
-                   v-if="menuList.courses">
+                   v-if="menuList.courses"
+                   @click.native="updateViewKey">
       </b-menu-item>
       <b-menu-item class="menu-item"
                    label="Users"
