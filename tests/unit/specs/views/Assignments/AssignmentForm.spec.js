@@ -245,7 +245,7 @@ describe('AssignmentForm', () => {
       fileId: 'FILE001'
     }
     const spy = jest.spyOn(wrapper.vm, 'updateAssignmentDetail')
-    wrapper.vm.addAssignment()
+    wrapper.vm.editAssignment()
     expect(spy).toHaveBeenCalledTimes(1)
   })
 
