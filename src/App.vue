@@ -10,7 +10,7 @@
         <transition name="fade" mode="out-in">
           <router-view></router-view>
         </transition>
-        <BottomNavBar class="is-hidden-desktop"></BottomNavBar>
+        <BottomNavBar class="is-hidden-desktop" v-if="bottomNavBarVisible"></BottomNavBar>
       </div>
     </div>
     <transition name="fade">
