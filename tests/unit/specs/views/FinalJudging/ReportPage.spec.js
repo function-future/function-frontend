@@ -21,7 +21,8 @@ describe('ReportPage', () => {
     }
     const actions = {
       getBatchReport: jest.fn(),
-      setStudentList: jest.fn()
+      setStudentList: jest.fn(),
+      toast: jest.fn()
     }
     const getters = {
       students: state => state.students
@@ -223,8 +224,9 @@ describe('ReportPage', () => {
 
   test('failedFetchingStudentList', () => {
     initComponent()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failedFetchingStudentList()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledTimes(1)
   })
 
   test('batch with user\'s role is STUDENT', () => {

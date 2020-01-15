@@ -25,7 +25,8 @@ describe('QuestionBankForm', () => {
     const actions = {
       fetchQuestionBankDetail: jest.fn(),
       createQuestionBank: jest.fn(),
-      updateQuestionBank: jest.fn()
+      updateQuestionBank: jest.fn(),
+      toast: jest.fn()
     }
     const getters = {
       questionBank: state => state.questionBank,
@@ -126,8 +127,9 @@ describe('QuestionBankForm', () => {
 
   test('failedFetchingQuestionBankDetail', () => {
     initComponent()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failedFetchingQuestionBankDetail()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledTimes(1)
   })
 
   test('validateBeforeSubmit is resolved', (done) => {
@@ -182,8 +184,9 @@ describe('QuestionBankForm', () => {
   test('successCreatingQuestionBank', () => {
     initComponent()
     wrapper.vm.$router.push = jest.fn()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.successCreatingQuestionBank()
-    expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledTimes(1)
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
       name: 'questionBanks'
     })
@@ -191,9 +194,10 @@ describe('QuestionBankForm', () => {
 
   test('failedCreatingQuestionBank', () => {
     initComponent()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failedCreatingQuestionBank()
     expect(wrapper.vm.isSubmitting).toEqual(false)
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledTimes(1)
   })
 
   test('updateBank', () => {
@@ -205,10 +209,11 @@ describe('QuestionBankForm', () => {
 
   test('successUpdatingQuestionBank', () => {
     initComponent()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.$route.params.id = 'BNK001'
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.successUpdatingQuestionBank()
-    expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledTimes(1)
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
       name: 'questionBankDetail',
       params: {
@@ -219,9 +224,11 @@ describe('QuestionBankForm', () => {
 
   test('failedUpdatingQuestionBank', () => {
     initComponent()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failedUpdatingQuestionBank()
     expect(wrapper.vm.isSubmitting).toEqual(false)
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledTimes(1)
   })
 
   test('cancel', () => {
