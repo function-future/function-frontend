@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import studentAssignments from '@/views/Assignment/StudentAssignments'
 import assignmentForm from '@/views/Assignment/AssignmentForm'
 import assignmentRooms from '@/views/Assignment/AssignmentRooms'
 import assignmentRoomDetail from '@/views/Assignment/AssignmentRoomDetail'
@@ -12,7 +11,6 @@ import questionBankQuestionDetail from '@/views/QuestionBank/QuestionBankQuestio
 import questionForm from '@/views/QuestionBank/QuestionForm'
 import quizForm from '@/views/Quiz/QuizForm'
 import quizDetail from '@/views/Quiz/QuizDetail'
-import studentQuizDetail from '@/views/Quiz/StudentQuizDetail'
 import quizQuestions from '@/views/Quiz/QuizQuestions'
 import judgingList from '@/views/FinalJudging/JudgingList'
 import judgingForm from '@/views/FinalJudging/JudgingForm'
@@ -739,20 +737,6 @@ const router = new Router({
       }
     },
     {
-      path: config.app.pages.students.quizzes.detail,
-      name: 'studentQuizDetail',
-      component: studentQuizDetail,
-      meta: {
-        auth: true,
-        title: 'Quiz Detail',
-        breadcrumb: [
-          { name: 'Home', link: 'feeds' },
-          { name: 'Quizzes', link: 'studentQuizzes' },
-          { name: 'Quiz Detail', link: 'studentQuizDetail' }
-        ]
-      }
-    },
-    {
       path: config.app.pages.students.quizzes.questions,
       name: 'studentQuizQuestions',
       component: quizQuestions,
@@ -765,15 +749,6 @@ const router = new Router({
           { name: 'Quiz Detail', link: 'studentQuizDetail' },
           { name: 'Questions', link: 'studentQuizQuestions' }
         ]
-      }
-    },
-    {
-      path: config.app.pages.students.assignments,
-      name: 'studentAssignments',
-      component: studentAssignments,
-      meta: {
-        auth: true,
-        title: 'Assignments'
       }
     },
     {
