@@ -31,7 +31,8 @@ export default {
     ...mapActions([
       'fetchQuestionBankDetail',
       'createQuestionBank',
-      'updateQuestionBank'
+      'updateQuestionBank',
+      'toast'
     ]),
     initPage() {
       if (!!this.editMode) {
@@ -51,7 +52,12 @@ export default {
       this.questionBankDetail = { ...response }
     },
     failedFetchingQuestionBankDetail () {
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        data: {
+          message: 'Fail to load question bank',
+          type: 'is-error'
+        }
+      })
     },
     submitQuestionBank () {
       this.validateBeforeSubmit(this.validationSuccess)
@@ -78,14 +84,24 @@ export default {
       })
     },
     successCreatingQuestionBank () {
-      this.$toasted.success('Successfully created a question bank')
+      this.toast({
+        data: {
+          message: 'Successfully created a question bank',
+          type: 'is-success'
+        }
+      })
       this.$router.push({
         name: 'questionBanks'
       })
     },
     failedCreatingQuestionBank () {
       this.isSubmitting = false
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        data: {
+          message: 'Fail to create question bank',
+          type: 'is-error'
+        }
+      })
     },
     updateBank () {
       this.updateQuestionBank({
@@ -98,7 +114,10 @@ export default {
       })
     },
     successUpdatingQuestionBank () {
-      this.$toasted.success('Successfully updated question bank')
+      this.toast({
+        message: 'Successfully update question bank',
+        type: 'is-success'
+      })
       this.$router.push({
         name: 'questionBankDetail',
         params: {
@@ -108,7 +127,12 @@ export default {
     },
     failedUpdatingQuestionBank () {
       this.isSubmitting = false
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        data: {
+          message: 'Fail to update question bank',
+          type: 'is-error'
+        }
+      })
     },
     cancel () {
       this.$router.go(-1)

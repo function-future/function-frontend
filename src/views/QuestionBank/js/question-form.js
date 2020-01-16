@@ -36,7 +36,8 @@ export default {
     ...mapActions([
       'fetchQuestionDetail',
       'createQuestion',
-      'updateQuestion'
+      'updateQuestion',
+      'toast'
     ]),
     initPage () {
       if (this.editMode) {
@@ -62,7 +63,12 @@ export default {
       })
     },
     failFetchingQuestionDetail() {
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        data: {
+          message: 'Fail to load question',
+          type: 'is-error'
+        }
+      })
       this.$router.go(-1)
     },
     optionLabel(idx) {
@@ -97,7 +103,12 @@ export default {
       })
     },
     successCreatingQuestion () {
-      this.$toasted.success('Successfully created a question')
+      this.toast({
+        data: {
+          message: 'Successfully created a question',
+          type: 'is-success'
+        }
+      })
       this.$router.push({
         name: 'questionBankDetail',
         params: {
@@ -106,7 +117,12 @@ export default {
       })
     },
     failedCreatingQuestion () {
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        data: {
+          message: 'Fail to create question',
+          type: 'is-error'
+        }
+      })
     },
     editQuestion () {
       this.questionDetail.options.forEach(option => {
@@ -126,7 +142,12 @@ export default {
       })
     },
     successUpdatingQuestion () {
-      this.$toasted.success('Successfully updated this question')
+      this.toast({
+        data: {
+          message: 'Successfully updated question',
+          type: 'is-success'
+        }
+      })
       this.$router.push({
         name: 'questionBankQuestionDetail',
         params: {
@@ -136,7 +157,12 @@ export default {
       })
     },
     failedUpdatingQuestion () {
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        data: {
+          message: 'Fail to update question',
+          type: 'is-error'
+        }
+      })
     }
   }
 }
