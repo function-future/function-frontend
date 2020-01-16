@@ -21,7 +21,8 @@ describe('Users', () => {
       currentUser: {}
     }
     const actions = {
-      fetchPointList: jest.fn()
+      fetchPointList: jest.fn(),
+      toast: jest.fn()
     }
     const getters = {
       points: state => state.points,
@@ -259,7 +260,8 @@ describe('Users', () => {
 
   test('failFetchingPointList', () => {
     initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failFetchingPointList()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(spy).toHaveBeenCalledTimes(1)
   })
 })

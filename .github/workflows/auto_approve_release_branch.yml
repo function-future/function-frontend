@@ -1,0 +1,14 @@
+name: Auto approve PR from release branch
+
+on:
+  pull_request:
+    branches: master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: hmarr/auto-approve-action@v2.0.0
+      if: contains(github.head_ref, 'release/')
+      with:
+        github-token: "${{ secrets.GITHUB_TOKEN }}"

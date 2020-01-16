@@ -43,7 +43,8 @@ export default {
     ...mapActions([
       'fetchAssignmentDetail',
       'downloadCourseMaterial',
-      'deleteAssignmentById'
+      'deleteAssignmentById',
+      'toast'
     ]),
     initPage () {
       this.fetchAssignmentDetail({
@@ -64,7 +65,12 @@ export default {
       this.filePreviewName = this.isFileIdNull
     },
     failFetchingAssignmentDetail () {
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        data: {
+          message: 'Fail to load assignment',
+          type: 'is-danger'
+        }
+      })
       this.$router.push({name: 'assignments'})
     },
     deleteThis () {

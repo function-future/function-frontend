@@ -44,7 +44,7 @@
           </div>
           <div class="modal__footer">
             <b-button class="modal__footer__button" type="is-light" @click="close" expanded>Cancel</b-button>
-            <b-button class="modal__footer__button" type="is-primary" @click="copy" :disabled="!batches.length" expanded>Share</b-button>
+            <b-button class="modal__footer__button" type="is-primary" @click="copy" :disabled="!batches.length || batchDestination === ''" expanded>Share</b-button>
           </div>
         </div>
       </div>

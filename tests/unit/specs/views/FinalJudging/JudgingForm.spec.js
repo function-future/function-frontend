@@ -27,7 +27,8 @@ describe('JudgingForm', () => {
       fetchJudgingDetail: jest.fn(),
       createJudging: jest.fn(),
       updateJudging: jest.fn(),
-      initialState: jest.fn()
+      initialState: jest.fn(),
+      toast: jest.fn()
     }
     const getters = {
       judging: state => state.judging
@@ -120,15 +121,42 @@ describe('JudgingForm', () => {
 
   test('successFetchingJudgingDetail', () => {
     initComponent()
-    const spy = jest.spyOn(wrapper.vm, 'setJudgingDetail')
-    wrapper.vm.successFetchingJudgingDetail()
-    expect(spy).toHaveBeenCalledTimes(1)
+    const response = {
+      "batchCode": "future3",
+      "description": "Lorem",
+      "id": "JD0001",
+      "name": "Dummy Team",
+      "studentCount": 1,
+      "students": [
+        {
+          "address": "Ad1",
+          "avatar": "Av1",
+          "avatarId": "AvId1",
+          "batch": {
+            "code": "future3",
+            "id": "future3",
+            "name": "FUTURE3.0"
+          },
+          "email": "em1",
+          "finalPoint": 100,
+          "id": "sample1",
+          "name": "name1",
+          "phone": "ph1",
+          "role": "STUDENT",
+          "university": "uni1"
+        }
+      ],
+      "uploadedDate": 10000
+    }
+    wrapper.vm.successFetchingJudgingDetail(response)
+    expect(wrapper.vm.judgingDetail).toEqual(response)
   })
 
   test('failedFetchingJudgingDetail', () => {
     initComponent()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failedFetchingJudgingDetail()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledTimes(1)
   })
 
   test('setJudgingDetail', () => {
@@ -182,17 +210,19 @@ describe('JudgingForm', () => {
   })
 
   test('successCreatingJudgingDetail', () => {
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.editMode = false
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.successCreatingJudgingDetail()
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'judgingList' })
-    expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledTimes(1)
   })
 
   test('failedCreatingJudgingDetail', () => {
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.editMode = false
     wrapper.vm.failedCreatingJudgingDetail()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledTimes(1)
   })
 
   test('updateJudgingDetail', () => {
@@ -218,6 +248,7 @@ describe('JudgingForm', () => {
   })
 
   test('successUpdatingJudgingDetail', () => {
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.judgingDetail = {
       id: '1'
     }
@@ -229,12 +260,13 @@ describe('JudgingForm', () => {
         id: '1'
       }
     })
-    expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledTimes(1)
   })
 
   test('failedUpdatingJudgingDetail', () => {
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failedUpdatingJudgingDetail()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledTimes(1)
   })
 
   test('cancel', () => {
@@ -305,22 +337,20 @@ describe('JudgingForm', () => {
         name: 'Doe'
       }
     ])
-    expect(wrapper.vm.judgingDetail).toEqual({
-      students: [
-        {
-          id: '1',
-          name: 'John'
-        },
-        {
-          id: '2',
-          name: 'Jane'
-        },
-        {
-          id: '3',
-          name: 'Doe'
-        }
-      ]
-    })
+    expect(wrapper.vm.judgingDetail.students).toEqual([
+      {
+        id: '1',
+        name: 'John'
+      },
+      {
+        id: '2',
+        name: 'Jane'
+      },
+      {
+        id: '3',
+        name: 'Doe'
+      }
+    ])
     expect(spy).toHaveBeenCalledTimes(1)
   })
 })

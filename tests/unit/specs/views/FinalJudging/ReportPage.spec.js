@@ -226,4 +226,26 @@ describe('ReportPage', () => {
     wrapper.vm.failedFetchingStudentList()
     expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
   })
+
+  test('batch with user\'s role is STUDENT', () => {
+    initComponent()
+    const user = {
+      role: 'STUDENT',
+      batch: {
+        name: 'FUTURE3.0'
+      }
+    }
+    expect(wrapper.vm.batch(user)).toEqual('FUTURE3.0')
+  })
+
+  test('batch with user\'s role is NOT STUDENT', () => {
+    initComponent()
+    const user = {
+      role: 'ADMIN',
+      batch: {
+        name: 'FUTURE3.0'
+      }
+    }
+    expect(wrapper.vm.batch(user)).toEqual('')
+  })
 })

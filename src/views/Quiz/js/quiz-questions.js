@@ -1,24 +1,32 @@
 import { mapActions, mapGetters } from 'vuex'
-import BaseCard from '@/components/BaseCard'
-import BaseButton from '@/components/BaseButton'
 import QuizModal from '@/components/modals/QuizModal'
+import Timer from '@/components/quiz/Timer'
+import ListItem from '@/components/list/ListItem'
 
 export default {
   name: 'QuizQuestions',
   components: {
-    BaseCard,
-    BaseButton,
-    QuizModal
+    QuizModal,
+    Timer,
+    ListItem
   },
   data () {
     return {
-      currentNumber: '',
+      currentNumber: 0,
+      customNavigation: true,
+      prevIcon: 'chevron-left',
+      nextIcon: 'chevron-right',
+      isStepsClickable: true,
       selectedAnswer: '',
       answers: [],
       isLoading: true,
       result: '',
       showPointModal: false,
-      trialsLeft: 0
+      trialsLeft: 0,
+      isSubmitting: false,
+      quizDetail: {
+        timeLimit: 1
+      }
     }
   },
   created () {
@@ -31,11 +39,18 @@ export default {
     window.removeEventListener('beforeunload', this.reloadHandler)
   },
   beforeRouteLeave (to, from, next) {
-    if (confirm('Changes you made may not be saved.'))
+    if (this.isSubmitting) {
       next()
+      return
+    }
+    const answer = window.confirm('Changes you made may not be saved')
+    if (!!answer)
+      next()
+    else next(false)
   },
   computed: {
     ...mapGetters([
+      'quiz',
       'studentQuizQuestions',
       'currentUser'
     ])
@@ -43,8 +58,51 @@ export default {
   methods: {
     ...mapActions([
       'fetchStudentQuizQuestions',
-      'submitAnswers'
+      'fetchStudentQuizTimeLimit',
+      'submitAnswers',
+      'toast'
     ]),
+    optionLabel (index) {
+      switch (index) {
+        case 0:
+          return 'A'
+        case 1:
+          return 'B'
+        case 2:
+          return 'C'
+        case 3:
+          return 'D'
+      }
+    },
+    getTimeLimit () {
+      this.fetchStudentQuizTimeLimit({
+        data: {
+          batchCode: this.currentUser.batchCode,
+          quizId: this.$route.params.quizId
+        },
+        callback: this.successFetchingTimeLimit,
+        fail: this.failedFetchingTimeLimit
+      })
+    },
+    successFetchingTimeLimit (response) {
+      this.quizDetail.timeLimit = response
+      this.isLoading = false
+    },
+    failedFetchingTimeLimit () {
+      this.toast({
+        data: {
+          message: 'Something went wrong',
+          type: 'is-error'
+        }
+      })
+      this.$router.push({
+        name: 'quizDetail',
+        params: {
+          quizId: this.quizDetail.id,
+          batchCode: this.currentUser.batchCode
+        }
+      })
+    },
     initPage () {
       this.fetchStudentQuizQuestions({
         data: {
@@ -56,11 +114,17 @@ export default {
       })
     },
     successFetchingStudentQuizQuestions () {
+      this.quizDetail = { ...this.quiz }
       this.currentNumber = 0
-      this.isLoading = false
+      this.getTimeLimit()
     },
     failedFetchingStudentQuizQuestions () {
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        data: {
+          message: 'Fail to load the questions, please try again',
+          type: 'is-danger'
+        }
+      })
     },
     viewQuestion (number) {
       this.currentNumber = number - 1
@@ -72,6 +136,7 @@ export default {
       if (this.currentNumber !== 0) this.currentNumber--
     },
     submitQuiz () {
+      this.isSubmitting = true
       let payload = []
       this.studentQuizQuestions.forEach((item, idx) => {
         payload.push({
@@ -93,35 +158,36 @@ export default {
       this.result = response.data.point
       this.trialsLeft = response.data.trials
       this.showPointModal = true
+      this.$refs.timer.pause()
     },
     failedSubmitStudentQuiz () {
-      this.$toasted.error('Something went wrong')
+      this.isSubmitting = false
+      this.toast({
+        data: {
+          message: 'Fail to submit your answers',
+          type: 'is-danger'
+        }
+      })
     },
     highlightedOption (option) {
       return this.answers.includes(option) ? 'active' : ''
     },
     restart () {
-      this.currentNumber = ''
-      this.selectedAnswer = ''
-      this.answers = []
-      this.isLoading = true
-      this.result = ''
-      this.showPointModal = false
-      this.initPage()
+      this.$router.go()
     },
     finish () {
       this.$router.push({
-        name: 'studentQuizzes',
-        params: {
-          studentId: this.currentUser.id,
-          page: 1,
-          pageSize: 10
-        }
+        name: 'scoringAdmin'
       })
     },
     reloadHandler (event) {
-      event.returnValue = 'Page reload'
-      return null
-    }
+      if (!this.isSubmitting) {
+        event.returnValue = 'Page reload'
+        return null
+      }
+    },
+    select (option, index) {
+      this.answers[index] = option
+    },
   }
 }

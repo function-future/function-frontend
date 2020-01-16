@@ -22,7 +22,8 @@ describe('JudgingDetail', () => {
     }
     const actions = {
       updateJudging: jest.fn(),
-      fetchJudgingDetail: jest.fn()
+      fetchJudgingDetail: jest.fn(),
+      toast: jest.fn()
     }
     const getters = {
       judging: state => state.judging,
@@ -175,9 +176,10 @@ describe('JudgingDetail', () => {
 
   test('failedFetchingJudgingDetail', () => {
     initComponent()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.failedFetchingJudgingDetail()
-    expect(wrapper.vm.$toasted.error).toBeCalledTimes(1)
+    expect(toastSpy).toBeCalledTimes(1)
   })
 
   test('goToComparison', () => {
@@ -290,9 +292,10 @@ describe('JudgingDetail', () => {
   test('successUpdatingJudging', () => {
     initComponent()
     wrapper.vm.$route.params.batchCode = '1'
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     const spy = jest.spyOn(wrapper.vm.$router, 'push')
     wrapper.vm.successUpdatingJudging()
-    expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledTimes(1)
     expect(spy).toHaveBeenCalledWith({
       name: 'judgingList',
       params: {
@@ -304,8 +307,9 @@ describe('JudgingDetail', () => {
 
   test('failUpdatingJudging', () => {
     initComponent()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failUpdatingJudging()
-    expect(wrapper.vm.$toasted.error).toBeCalledTimes(1)
+    expect(toastSpy).toBeCalledTimes(1)
   })
 
   test('deleteThisJudging', () => {
@@ -318,9 +322,10 @@ describe('JudgingDetail', () => {
 
   test('successDeletingJudging', () => {
     initComponent()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.successDeletingJudging()
-    expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledTimes(1)
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
       name: 'judgingList'
     })
@@ -328,8 +333,9 @@ describe('JudgingDetail', () => {
 
   test('failedDeletingJudging', () => {
     initComponent()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failedDeletingJudging()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledTimes(1)
   })
 
   test('moveToEditPage', () => {

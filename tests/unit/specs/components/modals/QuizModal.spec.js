@@ -16,12 +16,15 @@ describe('QuizModal', () => {
     expect(wrapper.isVueInstance()).toBe(true)
   })
 
-  test('close from icon', async () => {
-    const spy = jest.spyOn(modal.methods, 'close')
+  test('Retry', () => {
     const wrapper = shallowMount(modal)
-    wrapper.find('font-awesome-icon').trigger('click')
-    await wrapper.vm.$nextTick()
-    expect(spy).toBeCalledTimes(1)
-    expect(wrapper.emitted().close.length).toBe(1)
+    wrapper.vm.retry()
+    expect(wrapper.emitted().retry.length).toEqual(1)
+  })
+
+  test('finish', () => {
+    const wrapper = shallowMount(modal)
+    wrapper.vm.finish()
+    expect(wrapper.emitted().finish.length).toEqual(1)
   })
 })

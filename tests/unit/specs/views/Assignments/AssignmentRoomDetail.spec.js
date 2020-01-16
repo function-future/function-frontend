@@ -4,7 +4,7 @@ import Vuex from 'vuex'
 import VueRouter from 'vue-router'
 import InfiniteLoading from 'vue-infinite-loading'
 
-describe('CourseDetail', () => {
+describe('AssignmentRoomDetail', () => {
   let store
   let wrapper
   let localVue
@@ -28,7 +28,8 @@ describe('CourseDetail', () => {
       fetchRoomDetail: jest.fn(),
       fetchComments: jest.fn(),
       postComment: jest.fn(),
-      postAssignmentScore: jest.fn()
+      postAssignmentScore: jest.fn(),
+      toast: jest.fn()
     }
     const getters = {
       room: state => state.room,
@@ -114,8 +115,9 @@ describe('CourseDetail', () => {
   })
 
   test('failFetchRoomById', () => {
+    const spy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failFetchRoomById()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(spy).toHaveBeenCalledTimes(1)
   })
 
   test('initDiscussion', () => {
@@ -174,8 +176,9 @@ describe('CourseDetail', () => {
   })
 
   test('failFetchComments', () => {
+    const spy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failFetchComments()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(spy).toHaveBeenCalledTimes(1)
   })
 
   test('submitComment', () => {
@@ -194,15 +197,17 @@ describe('CourseDetail', () => {
       'comment': 'Comment Example 11',
       'createdAt': 1570000000
     }
+    const spy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.successSubmitComment(response)
-    expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
+    expect(spy).toHaveBeenCalledTimes(1)
     expect(wrapper.vm.discussion.comment).toEqual('')
     expect(wrapper.vm.discussions).toContain(response)
   })
 
   test('failSubmitComment', () => {
+    const spy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failSubmitComment()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(spy).toHaveBeenCalledTimes(1)
   })
 
   test('updateScore', () => {
@@ -211,13 +216,15 @@ describe('CourseDetail', () => {
   })
 
   test('successUpdatingScore', () => {
+    const spy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.successUpdatingScore()
-    expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
+    expect(spy).toHaveBeenCalledTimes(1)
   })
 
   test('failedUpdatingScore', () => {
+    const spy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failedUpdatingScore()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(spy).toHaveBeenCalledTimes(1)
   })
 
   test('isDeadlineHasPassed true computed', () => {

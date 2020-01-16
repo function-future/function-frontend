@@ -134,11 +134,9 @@ export const menuList = [
       'files': true,
       'users': true,
       'chatroom': true,
-      'questionBanks': true,
-      'quizzes': true,
-      'assignments': true,
       'comparisons': true,
-      'points': true
+      'points': true,
+      'grades': true
     }
   }
 ]

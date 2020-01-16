@@ -1,6 +1,7 @@
 import { mapActions, mapGetters } from 'vuex'
 import Editor from '@/components/editor/Editor'
 import UserListItem from '@/components/list/UserListItem'
+import EmptyState from '@/components/emptyState/EmptyState'
 import ModalSelectMultipleStudents from '@/components/modals/ModalSelectMultipleStudents'
 
 export default {
@@ -8,11 +9,16 @@ export default {
   components: {
     Editor,
     UserListItem,
+    EmptyState,
     ModalSelectMultipleStudents
   },
   data () {
     return {
-      judgingDetail: {},
+      judgingDetail: {
+        name: '',
+        description: '',
+        students: []
+      },
       isSubmitting: false,
       showSelectStudentModal: false
     }
@@ -32,6 +38,9 @@ export default {
     },
     disableButtonAddStudent () {
       return this.studentList.length >= 3
+    },
+    studentNotEmpty() {
+      return !!(this.judgingDetail.students && this.judgingDetail.students.length)
     }
   },
   methods: {
@@ -39,7 +48,8 @@ export default {
       'fetchJudgingDetail',
       'createJudging',
       'updateJudging',
-      'initialState'
+      'initialState',
+      'toast'
     ]),
     initPage () {
       this.initialState()
@@ -57,11 +67,16 @@ export default {
         fail: this.failedFetchingJudgingDetail
       })
     },
-    successFetchingJudgingDetail () {
-      this.setJudgingDetail()
+    successFetchingJudgingDetail (response) {
+      this.judgingDetail = { ...response }
     },
     failedFetchingJudgingDetail () {
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        data: {
+          message: 'Fail to load judging session',
+          type: 'is-danger'
+        }
+      })
     },
     setJudgingDetail () {
       this.judgingDetail = { ...this.judging }
@@ -81,11 +96,16 @@ export default {
       this.editMode ? this.updateJudgingDetail() : this.createJudgingDetail()
     },
     createJudgingDetail () {
+      let payload = { ...this.judgingDetail }
+      payload.students = []
+      this.judgingDetail.students.forEach(student => {
+        payload.students.push(student.id)
+      })
       this.createJudging({
         data: {
           batchCode: this.$route.params.batchCode
         },
-        payload: { ...this.judgingDetail },
+        payload,
         callback: this.successCreatingJudgingDetail,
         fail: this.failedCreatingJudgingDetail
       })
@@ -93,11 +113,21 @@ export default {
     successCreatingJudgingDetail () {
       this.initialState()
       this.$router.push({ name: 'judgingList' })
-      this.$toasted.success('Successfully created new judging session')
+      this.toast({
+        data: {
+          message: 'Successfully created a judging session',
+          type: 'is-success'
+        }
+      })
     },
     failedCreatingJudgingDetail () {
       this.isSubmitting = false
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        data: {
+          message: 'Fail to create judging session',
+          type: 'is-danger'
+        }
+      })
     },
     updateJudgingDetail () {
       let students = []
@@ -125,12 +155,22 @@ export default {
         name: 'judgingDetail',
         params: { id: this.judgingDetail.id }
       })
-      this.$toasted.success('Successfully updated judging session')
+      this.toast({
+        data: {
+          message: 'Successfully updated judging session',
+          type: 'is-success'
+        }
+      })
       this.initialState()
     },
     failedUpdatingJudgingDetail () {
       this.isSubmitting = false
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        data: {
+          message: 'Fail to update judging session',
+          type: 'is-danger'
+        }
+      })
     },
     cancel () {
       this.$router.push({ name: 'judgingList' })

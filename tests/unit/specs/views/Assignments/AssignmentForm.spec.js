@@ -33,7 +33,8 @@ describe('AssignmentForm', () => {
       fetchAssignmentDetail: jest.fn(),
       updateAssignmentDetail: jest.fn(),
       createAssignment: jest.fn(),
-      uploadMaterial: jest.fn()
+      uploadMaterial: jest.fn(),
+      toast: jest.fn()
     }
     const getters = {
       accessList: state => state.accessList,
@@ -146,8 +147,9 @@ describe('AssignmentForm', () => {
 
   test('failedFetchingAssignmentDetail', () => {
     const routerSpy = jest.spyOn(wrapper.vm.$router, 'go')
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failedFetchingAssignmentDetail()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledTimes(1)
     expect(routerSpy).toHaveBeenCalledTimes(1)
   })
 
@@ -206,9 +208,10 @@ describe('AssignmentForm', () => {
   })
 
   test('failUploadMaterial', () => {
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failUploadMaterial()
     expect(wrapper.vm.filePreviewName).toEqual('Fail to upload file, please try again')
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledTimes(1)
   })
 
   test('cancel', () => {
@@ -231,7 +234,16 @@ describe('AssignmentForm', () => {
     expect(spy).toHaveBeenCalledTimes(1)
   })
 
-  test('editAssignment', () => {
+  test('editAssignment without file', () => {
+    const spy = jest.spyOn(wrapper.vm, 'updateAssignmentDetail')
+    wrapper.vm.editAssignment()
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('editAssignment with file', () => {
+    wrapper.vm.assignmentDetail = {
+      fileId: 'FILE001'
+    }
     const spy = jest.spyOn(wrapper.vm, 'updateAssignmentDetail')
     wrapper.vm.editAssignment()
     expect(spy).toHaveBeenCalledTimes(1)
@@ -239,10 +251,11 @@ describe('AssignmentForm', () => {
 
   test('successUpdatingAssignment', () => {
     const routerSpy = jest.spyOn(wrapper.vm.$router, 'push')
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.$route.params.batchCode = 'futurre3'
     wrapper.vm.$route.params.assignmentId = 'ASG001'
     wrapper.vm.successUpdatingAssignment()
-    expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledTimes(1)
     expect(routerSpy).toHaveBeenCalledWith({
       name: 'assignmentDetail',
       params: {
@@ -253,11 +266,21 @@ describe('AssignmentForm', () => {
   })
 
   test('failedUpdatingAssignment', () => {
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failedUpdatingAssignment()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledTimes(1)
   })
 
-  test('addAssignment', () => {
+  test('addAssignment without file', () => {
+    const spy = jest.spyOn(wrapper.vm, 'createAssignment')
+    wrapper.vm.addAssignment()
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('addAssignment with file', () => {
+    wrapper.vm.assignmentDetail = {
+      fileId: 'FILE001'
+    }
     const spy = jest.spyOn(wrapper.vm, 'createAssignment')
     wrapper.vm.addAssignment()
     expect(spy).toHaveBeenCalledTimes(1)
@@ -265,15 +288,17 @@ describe('AssignmentForm', () => {
 
   test('successCreatingAssignment', () => {
     const routerSpy = jest.spyOn(wrapper.vm.$router, 'push')
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.successCreatingAssignment()
     expect(routerSpy).toHaveBeenCalledWith({
       name: 'questionBanks'
     })
-    expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledTimes(1)
   })
 
   test('failedCreatingAssignment', () => {
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failedCreatingAssignment()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledTimes(1)
   })
 })

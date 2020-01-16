@@ -1,5 +1,6 @@
 import { mapActions, mapGetters } from 'vuex'
 import ListItem from '@/components/list/ListItem'
+import EmptyState from '@/components/emptyState/EmptyState'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
 import InfiniteLoading from 'vue-infinite-loading'
 
@@ -7,6 +8,7 @@ export default {
   name: 'QuestionBankDetail',
   components: {
     ListItem,
+    EmptyState,
     ModalDeleteConfirmation,
     InfiniteLoading
   },
@@ -26,7 +28,9 @@ export default {
       showDeleteConfirmationModal: false,
       state: '',
       selectedId: '',
-      infiniteId: +new Date()
+      infiniteId: +new Date(),
+      isLoading: false,
+      failLoadQuestion: false
     }
   },
   created () {
@@ -40,6 +44,9 @@ export default {
     ]),
     deleteModalMessage() {
       return !!this.selectedId ? 'Are you sure you want to delete this question?' : 'Are you sure you want to delete this question bank?'
+    },
+    questionEmpty() {
+      return !(this.questions && this.questions.length)
     }
   },
   methods: {
@@ -47,7 +54,8 @@ export default {
       'fetchQuestionBankDetail',
       'fetchQuestionBankQuestionList',
       'deleteQuestionBankById',
-      'deleteQuestionById'
+      'deleteQuestionById',
+      'toast'
     ]),
     initPage () {
       this.fetchQuestionBankDetail({
@@ -62,9 +70,15 @@ export default {
       this.questionBankDetail = {...this.questionBank}
     },
     failFetchingQuestionBankDetail () {
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        data: {
+          message: 'Fail to load question bank',
+          type: 'is-danger'
+        }
+      })
     },
     getQuestionList($state) {
+      this.isLoading = true
       this.state = $state
       this.fetchQuestionBankQuestionList({
         data: {
@@ -77,6 +91,7 @@ export default {
       })
     },
     successFetchingQuestionBankQuestionList (paging, response) {
+      this.isLoading = false
       this.paging = paging
       if (response.length) {
         this.questions.push(...response)
@@ -87,6 +102,8 @@ export default {
       }
     },
     failFetchingQuestionBankQuestionList () {
+      this.isLoading = false
+      this.failLoadQuestion = true
       this.$toasted.error('Something went wrong')
     },
     redirectToEditQuestionBankForm() {
@@ -145,13 +162,23 @@ export default {
     },
     successDeletingBank() {
       this.showDeleteConfirmationModal = false
-      this.$toasted.success('Successfully deleted question bank')
+      this.toast({
+        data: {
+          message: 'Successfully delete question bank',
+          type: 'is-success'
+        }
+      })
       this.$router.push({
         name: 'scoringAdmin'
       })
     },
     failedDeletingBank() {
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        data: {
+          message: 'Fail to delete question bank',
+          type: 'is-danger'
+        }
+      })
       this.showDeleteConfirmationModal = false
     },
     deleteThisQuestion() {
@@ -166,12 +193,22 @@ export default {
     },
     successDeletingQuestion () {
       this.showDeleteConfirmationModal = false
-      this.$toasted.success('Successfully deleted this question')
+      this.toast({
+        data: {
+          message: 'Successfully delete question bank',
+          type: 'is-success'
+        }
+      })
       this.$router.go()
     },
     failedDeletingQuestion () {
       this.showDeleteConfirmationModal = false
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        data: {
+          message: 'Fail to delete question bank',
+          type: 'is-danger'
+        }
+      })
     }
   }
 

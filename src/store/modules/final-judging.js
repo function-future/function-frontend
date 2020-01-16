@@ -34,7 +34,7 @@ export const actions = {
   fetchJudgingDetail({ commit }, { data, callback, fail }) {
     judgingApi.getJudgingDetail(({ data: response}) => {
       commit('GET_JUDGING', response)
-      callback && callback()
+      callback && callback(response)
     }, data, fail)
   },
   fetchComparison({ commit }, { data, callback, fail }) {
