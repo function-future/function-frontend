@@ -6,7 +6,7 @@
   },
   "proxies": {
     "/api/": {
-      "origin": "https://function-backend.herokuapp.com/api/"
+      "origin": " http://198.46.208.254:8080"
     }
   },
   "headers": {
