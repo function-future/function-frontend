@@ -4,7 +4,7 @@ import QuestionnaireParticipantCard from '@/views/Questionnaire/QuestionnairePar
 import BaseButton from '@/components/BaseButton'
 import ModalAddQuestion from '@/views/Questionnaire/ModalAddQuestion'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
-import ModalChatroom from '@/views/Chatrooms/deprecated/ModalChatroom'
+import ModalChatroom from '@/views/Chatrooms/ModalChatroom'
 import { mapActions, mapGetters } from 'vuex'
 import questionnaireApi from '@/api/controller/questionnaire'
 import ReminderMemberModal from '@/views/Reminders/ReminderMemberModal'

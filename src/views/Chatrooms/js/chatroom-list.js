@@ -10,6 +10,11 @@ export default {
       page: 0
     }
   },
+  methods: {
+    onClickAdd () {
+      this.$emit('clickAdd')
+    }
+  },
   props: {
     mobile: Boolean
   }

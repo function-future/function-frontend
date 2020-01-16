@@ -1,6 +1,6 @@
 <template>
   <div :class="customClass" class="user-list-card__container" @click="$emit('click')">
-    <img class="user-list-card__avatar" :src="avatar" alt="">
+    <img class="user-list-card__avatar" :src="avatar || require('@/assets/profile-picture-placeholder.png')" alt="">
     <div class="user-list-card__info">
       <p class="user-list-card__info__name"><strong>{{ name }}</strong></p>
       <p class="user-list-card__info__university" v-if="this.role === 'STUDENT'">{{ university }}</p>
@@ -35,8 +35,9 @@
 
   .user-list-card__avatar {
     border-radius: 100%;
-    height: 40px;
-    width: 40px;
+    object-fit: cover;
+    height: 42px;
+    width: 42px;
   }
 
   .user-list-card__info {

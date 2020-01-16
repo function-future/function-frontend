@@ -1,4 +1,5 @@
 import chatroomApi from '@/api/controller/chatrooms'
+import resourceApi from '@/api/controller/resources'
 
 export const state = {
   chatrooms: [],
@@ -86,6 +87,11 @@ export const actions = {
         chatroom.lastMessage.seen = true
       }
     }
+  },
+  uploadGroupImage ({ commit }, { data, configuration, callback, fail }) {
+    resourceApi.uploadResource(({ data: response }) => {
+      callback(response)
+    }, data, fail, configuration)
   },
   pushMessages ({ commit }, messages) {
     commit('PUSH_MESSAGES', messages)

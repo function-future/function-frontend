@@ -1,4 +1,4 @@
-import ChatroomCard from '@/views/Chatrooms/ChatroomCard'
+import ChatroomCard from '@/views/Chatrooms/deprecated/ChatroomCard'
 import { shallowMount } from '@vue/test-utils'
 import moment from 'moment'
 

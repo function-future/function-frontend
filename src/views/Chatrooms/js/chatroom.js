@@ -1,5 +1,6 @@
 import ChatroomList from '@/views/Chatrooms/ChatroomList'
 import ChatroomContent from '@/views/Chatrooms/ChatroomContent'
+import ModalChatroom from '@/views/Chatrooms/ModalChatroom'
 import Breakpoint from '@/mixins/breakpoint'
 export default {
   name: 'Chatroom',
@@ -8,12 +9,19 @@ export default {
   ],
   components: {
     ChatroomList,
-    ChatroomContent
+    ChatroomContent,
+    ModalChatroom
   },
   created () {
   },
   data () {
     return {
+      showCreateModal: false
+    }
+  },
+  methods: {
+    onSubmitNewChatroom (data) {
+      console.log(data)
     }
   }
 }

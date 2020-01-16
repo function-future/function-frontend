@@ -6,20 +6,17 @@
       placeholder="Search..."
       class="is-rounded chatroom-list__search" />
     <div class="chatroom-list__content">
-      <div class="chatroom-list__element" v-for="i in 1">
+      <div class="chatroom-list__element">
         <ChatroomCard
-          :key="i"
           :isSeen="true"
-          :time="Date.now()"
-          lastMessage="Hahahahaha"
-          avatar="./favicon.ico"
+          lastMessage=""
+          :avatar="require('@/assets/profile-picture-placeholder.png')"
           type="PRIVATE"
           :isChoosen="true"
           name="Public Chatroom"></ChatroomCard>
       </div>
-      <div class="chatroom-list__element" v-for="i in 2">
+      <div class="chatroom-list__element" v-for="i in 10" :key="i">
         <ChatroomCard
-          :key="i"
           :isSeen="false"
           :time="Date.now()"
           lastMessage="Hahahahaha"
@@ -29,7 +26,7 @@
           name="Public Chatroom"></ChatroomCard>
       </div>
     </div>
-    <b-button class="chatroom-list__actions" size="is-medium" type="is-primary">
+    <b-button class="chatroom-list__actions" size="is-medium" type="is-primary" @click="onClickAdd">
       <b-icon icon="plus" size="is-medium"></b-icon>
     </b-button>
   </div>

@@ -1,12 +1,13 @@
 <template>
   <div class="auto-overflow-container chatroom__container">
     <div class="chatroom__left">
-      <ChatroomList :mobile="isMobile"></ChatroomList>
+      <ChatroomList :mobile="isMobile" @clickAdd="showCreateModal = true"></ChatroomList>
     </div>
     <div v-if="!isMobile" class="chatroom__separator"></div>
     <div v-if="!isMobile" class="chatroom_right">
       <ChatroomContent></ChatroomContent>
     </div>
+    <ModalChatroom v-if="showCreateModal" @close="showCreateModal = false" @submit="onSubmitNewChatroom"></ModalChatroom>
   </div>
 </template>
 
@@ -18,7 +19,7 @@
   .chatroom {
     &__container {
       display: grid;
-      grid-template-columns: auto 3px 60%;
+      grid-template-columns: auto 3px 70%;
       @media only screen and (max-width: 1023px) {
         grid-template-columns: 100%;
       }
