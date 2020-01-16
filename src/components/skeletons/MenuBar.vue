@@ -53,7 +53,8 @@
                    tag="router-link"
                    :active="isActive('grades')"
                    :to="{ name: 'scoringAdmin' }"
-                   v-if="menuList.grades">
+                   v-if="menuList.grades"
+                   @click.native="updateViewKey">
       </b-menu-item>
       <b-menu-item class="menu-item"
                    label="Judging"
