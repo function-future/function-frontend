@@ -2,8 +2,17 @@ const webpack = require('webpack')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const helpers = require('./helpers')
 const path = require('path')
+const CompressionPlugin = require('compression-webpack-plugin')
 
 module.exports = {
+  chainWebpack: config => {
+    config.plugin('CompressionPlugin').use(
+      new CompressionPlugin({
+        algorithm: 'gzip',
+        test: /\.(js|css)$/
+      })
+    )
+  },
   configureWebpack: config => {
     if (process.env.NODE_ENV === 'development') {
       return {
