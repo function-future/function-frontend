@@ -79,7 +79,8 @@ export default {
       'uploadFile',
       'deleteFile',
       'downloadFile',
-      'updateFile'
+      'updateFile',
+      'toast'
     ]),
     initPage ($state) {
       this.state = $state
