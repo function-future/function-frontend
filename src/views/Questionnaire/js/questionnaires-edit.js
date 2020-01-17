@@ -53,7 +53,16 @@ export default {
         participantId: '',
         name: '',
         isAppraisee: false
-      }
+      },
+      progressValue: 1,
+      maxValue: 4,
+      progressTitle: [
+        '',
+        'Description',
+        'Questions',
+        'Participants',
+        'Review'
+      ]
     }
   },
   computed: {
@@ -324,6 +333,12 @@ export default {
     },
     errorHandler (err) {
       console.log(err)
+    },
+    nextProgress() {
+      this.progressValue = this.progressValue + 1
+    },
+    prevProgress () {
+      this.progressValue = this.progressValue - 1
     }
   },
   created () {

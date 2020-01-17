@@ -27,11 +27,11 @@
         <span class="score-number"><strong>{{score.toFixed(1)}}/6.0</strong></span>
       </div>
       <div v-if="isEdit" class="questionnaire-edit">
-        <div class="button-delete">
-          <span><font-awesome-icon @click="$emit('clickDelete')" icon="times"></font-awesome-icon></span>
-        </div>
         <div class="button-create">
-          <span> <font-awesome-icon @click="goToEdit" icon="pencil-alt" class="icon-edit"></font-awesome-icon></span>
+          <span> <font-awesome-icon @click="goToEdit" icon="edit" class="blue icon-edit"></font-awesome-icon></span>
+        </div>
+        <div class="button-delete">
+          <span><font-awesome-icon @click="$emit('clickDelete')" icon="trash-alt" class="red icon-delete"></font-awesome-icon></span>
         </div>
       </div>
     </div>
@@ -112,17 +112,15 @@
   .questionnaire-edit {
     display: flex;
     height: auto;
-    align-self: center;
     padding-right: 10px;
-    flex-direction: column;
   }
-  .button-create {
-    align-self: flex-end;
-  }
-  .button-delete {
-    display: flex;
-    justify-content: flex-end;
-  }
+  /*.button-create {*/
+  /*  align-self: flex-end;*/
+  /*}*/
+  /*.button-delete {*/
+  /*  display: flex;*/
+  /*  justify-content: flex-end;*/
+  /*}*/
 
   .icon-delete {
     cursor: pointer;
@@ -131,7 +129,6 @@
   .questionnaire-score {
     display: flex;
     flex-direction: column;
-    /*padding: 15px 15px 0px 0px;*/
   }
 
   .star-icon {
@@ -145,5 +142,13 @@
 
   .detail {
     font-size: 2rem;
+  }
+
+  .blue {
+    color: #02AAF3;
+  }
+
+  .red {
+    color: red;
   }
 </style>

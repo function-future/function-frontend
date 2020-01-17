@@ -2,24 +2,40 @@
     <div>
       <BaseCard class="card-container">
         <div class="questionnaire-title-input">
-          <BaseInput :label="titleLabel" class="input-title" v-model="value.title"></BaseInput>
+          <label class="questionnaire-title-input__label-title">{{titleLabel}}</label>
+          <br>
+          <div v-if="isReview" class="questionnaire-title-input__text-show">
+            {{value.title}}
+          </div>
+          <BaseInput v-else class="input-title" v-model="value.title"></BaseInput>
         </div>
         <div class="questionnaire-desc-area">
-          <BaseTextArea :label="descriptionLabel" class="input-description" v-model="value.description"></BaseTextArea>
+          <label class="questionnaire-title-input__label-title">{{descriptionLabel}}</label>
+          <br>
+          <div v-if="isReview" class="questionnaire-title-input__text-show">
+            {{value.description}}
+          </div>
+          <BaseTextArea v-else class="input-description" v-model="value.description"></BaseTextArea>
         </div>
         <div class="date-picker">
           <div class="start-date-container">
-            <span> START DATE </span>
+            <label class="questionnaire-title-input__label-title">
+              START DATE :
+            </label>
             <div class="start-date-placeholder">
               <span><font-awesome-icon icon="calendar-check" class="calendar-icon"></font-awesome-icon></span>
-              <datepicker placeholder="select Date" v-model="value.startDate"></datepicker>
+              <span v-if="isReview">{{dateToString(value.startDate)}}</span>
+              <datepicker v-else placeholder="select Date" v-model="value.startDate"></datepicker>
             </div>
           </div>
           <div class="due-date-container">
-            <span> DUE DATE </span>
+            <label class="questionnaire-title-input__label-title">
+              DUE DATE :
+            </label>
             <div class="due-date-placeholder">
               <span><font-awesome-icon icon="calendar-times" class="calendar-icon"></font-awesome-icon></span>
-              <datepicker placeholder="select Date" v-model="value.dueDate"></datepicker>
+              <span v-if="isReview">{{dateToString(value.dueDate)}}</span>
+              <datepicker v-else placeholder="select Date" v-model="value.dueDate"></datepicker>
             </div>
           </div>
         </div>
@@ -30,7 +46,17 @@
 <script src="./js/questionnaire-form.js">
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+  .questionnaire-title-input {
+    &__text-show {
+      margin: 10px 0px;
+      border-radius: 5px;
+      padding: 10px;
+      background: #FFFFFF;
+      border: 1px solid #E5E5E5;
+      text-align: left;
+    }
+  }
   .card-container {
     display: flex;
     padding: 20px;
@@ -41,10 +67,10 @@
   }
 
   .questionnaire-title-input {
-    margin: 10px 0px 10px 0px;
+    margin: 10px 0px;
   }
 
-  @media only screen and (max-width: 1000px) {
+  @media only screen and (max-width: 1023px) {
     .date-picker {
       flex-direction: column;
     }
@@ -63,7 +89,7 @@
     min-height: 20vh;
   }
 
-  @media only screen and (min-width: 900px) {
+  @media only screen and (min-width: 1023px) {
     .start-date-placeholder, .due-date-placeholder {
       min-width: 250px;
     }
@@ -83,5 +109,4 @@
   .calendar-icon {
     padding-right: 5px;
   }
-
 </style>
