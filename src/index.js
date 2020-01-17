@@ -41,7 +41,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'currentUser'
+      'currentUser',
+      'bottomNavBarVisible'
     ]),
     showLoginModal () {
       return this.$route.query.auth === 'login'
