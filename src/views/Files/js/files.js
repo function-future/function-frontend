@@ -108,7 +108,12 @@ export default {
     failFetchFiles () {
       this.fileList = []
       this.folderList = []
-      this.$toasted.error('Fail to load files, please try again')
+      this.toast({
+        data: {
+          message: 'Fail to load files, please try again',
+          type: 'is-danger'
+        }
+      })
     },
     resetPage () {
       this.paging.page = 1
@@ -229,11 +234,21 @@ export default {
       })
     },
     successCreateFolder () {
-      this.$toasted.success('Folder created')
+      this.toast({
+        data: {
+          message: 'Folder created',
+          type: 'is-success'
+        }
+      })
       this.resetPage()
     },
     failCreateFolder () {
-      this.$toasted.error('Fail to create folder, please try again')
+      this.toast({
+        data: {
+          message: 'Fail to create folder, please try again',
+          type: 'is-danger'
+        }
+      })
     },
     deleteThisFile () {
       let data = {
@@ -249,10 +264,20 @@ export default {
     },
     successDeleteFile () {
       this.resetPage()
-      this.$toasted.success('successfully delete file')
+      this.toast({
+        data: {
+          message: 'successfully delete file',
+          type: 'is-success'
+        }
+      })
     },
     failDeleteFile () {
-      this.$toasted.error('Fail to delete file, please try again')
+      this.toast({
+        data: {
+          message: 'Fail to delete file, please try again',
+          type: 'is-danger'
+        }
+      })
     },
     closeDeleteConfirmationModal () {
       this.showDeleteConfirmationModal = false
@@ -289,12 +314,22 @@ export default {
     },
     successUpdateFile () {
       this.closeRenameFileFolderModal()
-      this.$toasted.success('Rename successful')
+      this.toast({
+        data: {
+          message: 'Rename successful',
+          type: 'is-success'
+        }
+      })
       this.resetPage()
     },
     failUpdateFile () {
       this.closeRenameFileFolderModal()
-      this.$toasted.error('Rename failed, please try again')
+      this.toast({
+        data: {
+          message: 'Rename failed, please try again',
+          type: 'is-danger'
+        }
+      })
     }
   },
   watch: {
