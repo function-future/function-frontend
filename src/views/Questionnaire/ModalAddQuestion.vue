@@ -10,10 +10,22 @@
           <BaseTextArea :label="descriptionLabel" class="modal__body__input" v-model="descriptionTemp"></BaseTextArea>
         </div>
         <div v-if="!isUpdate" class="modal__footer">
-          <BaseButton class="modal__footer__button" type="save" buttonClass="button-save" @click="submit">Submit</BaseButton>
+          <b-button
+            class="modal__footer__button is-rounded is-primary"
+            type="save"
+            buttonClass="button-save"
+            @click="submit">
+            <span>Submit</span>
+          </b-button>
         </div>
         <div v-else class="modal__footer">
-          <BaseButton class="modal__footer__button" type="save" buttonClass="button-save" @click="updateQuestion">Update</BaseButton>
+          <b-button
+            class="modal__footer__button is-rounded is-primary"
+            type="save"
+            buttonClass="button-save"
+            @click="updateQuestion">
+            <span>Update</span>
+          </b-button>
         </div>
       </div>
     </div>
@@ -42,6 +54,9 @@
     }
 
     &__container {
+      @media only screen and (max-width: 1023px) {
+        width: 80vw;
+      }
       display: flex;
       flex-direction: column;
       width: 50vw;

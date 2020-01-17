@@ -1,49 +1,112 @@
 <template>
-    <div class="questionnaire-edit-outer">
-      <div class="questionnaire-edit-container">
-        <div class="title-placeholder">
-          <h2>Description</h2>
-          <BaseButton button-class="button-save" class="button-save-desc" @click="goToUpdateDescription">Save Description</BaseButton>
+    <div class="questionnaire-edit__outer">
+      <div class="questionnaire-edit__container">
+        <div class="questionnaire-edit__progress-bar">
+          <b-progress :value="progressValue" :max="maxValue" type="is-info" show-value>
+            <span>{{progressValue}} out of 4</span>
+          </b-progress>
         </div>
-        <hr>
-        <QuestionnaireForm :value="currentQuestionnaireAdmin"
-                           @input="(newValue) => { setCurrentQuestionnaire(newValue) }"
-        />
-        <div class="title-placeholder">
-          <h2>Questions</h2>
-          <BaseButton button-class="button-save" class="button-save" @click="questionModal = true">Add</BaseButton>
+        <div class="questionnaire-edit__progress-action">
+          <div class="questionnaire-edit__progress-action__back-button">
+            <b-button v-if="progressValue > 1"
+                      class="is-primary is-rounded"
+                      @click="prevProgress">
+              <span>Back</span>
+            </b-button>
+          </div>
+          <div class="questionnaire-edit__progress-action__next-button">
+            <b-button
+              class="is-primary is-rounded"
+              @click="nextProgress">
+              <span v-if="progressValue != 4">Next</span>
+              <span v-if="progressValue == 4">Finish</span>
+            </b-button>
+          </div>
         </div>
-        <hr>
-        <div class="question-container-list">
-          <QuestionCard v-for="(question, index) in currentQuestions"
-                        :id="question.id"
-                        :number="index+1"
-                        :description="question.description"
-                        :score="question.score"
-                        :isEdit="true"
-                        @clickEdit="openEditModal(question)"
-                        @clickDelete="openDeleteConfirmationModalQuestion(index, question)"
-          ></QuestionCard>
+        <div class="questionnaire-edit__container__content-description" v-if="progressValue == 1 || progressValue == 4">
+          <div class="title-placeholder">
+            <span class="questionnaire-edit__container__content-description__progress-title">
+              Description
+            </span>
+<!--            <b-button-->
+<!--              button-class="button-save"-->
+<!--              class="button-save-desc is-rounded is-primary"-->
+<!--              @click="goToUpdateDescription">-->
+<!--              <span>Save Description</span>-->
+<!--            </b-button>-->
+          </div>
+          <hr>
+          <QuestionnaireForm :value="currentQuestionnaireAdmin"
+                             :isReview="progressValue == 4"
+                             @input="(newValue) => { setCurrentQuestionnaire(newValue) }"
+          />
         </div>
-        <div class="title-placeholder">
-          <h2>Participant - Appraisee</h2>
-          <BaseButton button-class="button-save" class="button-save" @click="participantModal = true">Add</BaseButton>
+        <div class="questionnaire-edit__container__content-question" v-if="progressValue == 2 || progressValue == 4">
+          <div class="title-placeholder" >
+            <span class="questionnaire-edit__container__content-description__progress-title">
+              Questions
+            </span>
+            <b-button v-if="progressValue == 2"
+              button-class="button-save"
+              class="button-save is-primary is-rounded"
+              @click="questionModal = true">
+              <span>Add</span>
+            </b-button>
+          </div>
+          <hr>
+          <div class="question-container-list">
+            <QuestionCard v-for="(question, index) in currentQuestions"
+                          :id="question.id"
+                          :number="index+1"
+                          :description="question.description"
+                          :score="question.score"
+                          :isEdit="progressValue != 4"
+                          @clickEdit="openEditModal(question)"
+                          @clickDelete="openDeleteConfirmationModalQuestion(index, question)"
+            ></QuestionCard>
+          </div>
         </div>
-        <hr>
-        <div class="appraiser-container-list">
-          <template v-for="appraisee in currentAppraisee">
-            <UserSimpleCard :user="appraisee" @remove="openDeleteConfirmationModalParticipantAppraisee(appraisee)"></UserSimpleCard>
-          </template>
+        <div class="questionnaire-edit__container__content-appraisee" v-if="progressValue == 3 || progressValue == 4">
+          <div class="title-placeholder">
+            <span class="questionnaire-edit__container__content-description__progress-title">Participant - Appraisee</span>
+            <b-button v-if="progressValue == 3"
+              button-class="button-save"
+              class="button-save is-rounded is-primary"
+              @click="participantModal = true">
+              <span>Add</span>
+            </b-button>
+          </div>
+          <hr>
+          <div class="appraiser-container-list">
+            <template v-for="appraisee in currentAppraisee">
+              <UserSimpleCard
+                :user="appraisee"
+                :showRemove="progressValue != 4"
+                @remove="openDeleteConfirmationModalParticipantAppraisee(appraisee)">
+              </UserSimpleCard>
+            </template>
+          </div>
         </div>
-        <div class="title-placeholder">
-          <h2>Participant - Appraiser</h2>
-          <BaseButton button-class="button-save" class="button-save" @click="participantModalAppraiser = true">Add</BaseButton>
-        </div>
-        <hr>
-        <div class="appraisee-container-list">
-          <template v-for="appraiser in currentAppraiser">
-            <UserSimpleCard :user="appraiser" @remove="openDeleteConfirmationModalParticipantAppraiser(appraiser)"></UserSimpleCard>
-          </template>
+        <div class="questionnaire-edit__container__content-appraiser" v-if="progressValue == 3 || progressValue == 4">
+          <div class="title-placeholder">
+            <span class="questionnaire-edit__container__content-description__progress-title">Participant - Appraiser</span>
+            <b-button v-if="progressValue == 3"
+              button-class="button-save"
+              class="button-save is-primary is-rounded"
+              @click="participantModalAppraiser = true">
+              <span>Add</span>
+            </b-button>
+          </div>
+          <hr>
+          <div class="appraisee-container-list">
+            <template v-for="appraiser in currentAppraiser">
+              <UserSimpleCard
+                :user="appraiser"
+                :showRemove="progressValue != 4"
+                @remove="openDeleteConfirmationModalParticipantAppraiser(appraiser)">
+              </UserSimpleCard>
+            </template>
+          </div>
         </div>
       </div>
       <modal-add-question :type="question.type" :description="question.description" :isUpdate="question.isUpdate" v-if="questionModal"
@@ -85,7 +148,73 @@
 <script src="./js/questionnaires-edit.js">
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+
+  .questionnaire-edit {
+    &__outer {
+      display: flex;
+      justify-content: center;
+      height: 80vh;
+      padding : 10px;
+    }
+
+    &__container {
+      overflow: auto;
+      width: 100%;
+      max-width: 800px;
+
+      &__content-description {
+        width: 100%;
+        max-width: 800px;
+        padding: 10px;
+
+        &__progress-title {
+          text-align: left;
+          margin: 10px 0px;
+          font-weight: bold;
+          font-size: 1.5rem;
+        }
+      }
+
+      &__content-quesiton {
+        width: 100%;
+        max-width: 800px;
+      }
+
+      &__content-appraisee {
+        width: 100%;
+        max-width: 800px;
+      }
+
+      &__content-appraiser {
+        width: 100%;
+        max-width: 800px;
+      }
+    }
+
+    &__progress-action {
+      margin-top: 10px;
+      display: flex;
+      align-items: baseline;
+
+      &__back-button {
+        display: flex;
+        flex-grow: 1;
+      }
+      /*&__progress-title {*/
+      /*  flex-grow: 2;*/
+      /*  text-align: center;*/
+      /*  font-weight: bold;*/
+      /*  font-size: 1.5rem;*/
+      /*}*/
+      &__next-button {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        align-items: flex-end;
+      }
+    }
+  }
 
   h2 {
     text-align: left;
@@ -110,14 +239,13 @@
     height: auto;
     max-height: 75vh;
     overflow: auto;
-    max-width: 95%;
-    padding: 0% 2.5%;
   }
 
   .appraiser-container-list,
   .appraisee-container-list {
     display: flex;
     flex-wrap: wrap;
+    padding: 10px;
   }
 
   .title-placeholder {
