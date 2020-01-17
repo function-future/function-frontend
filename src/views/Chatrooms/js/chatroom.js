@@ -1,7 +1,7 @@
 import ChatroomList from '@/views/Chatrooms/ChatroomList'
 import ChatroomContent from '@/views/Chatrooms/ChatroomContent'
 import ModalChatroom from '@/views/Chatrooms/ModalChatroom'
-import Breakpoint from '@/mixins/breakpoint'
+import Breakpoint from '@/mixins/Breakpoint'
 export default {
   name: 'Chatroom',
   mixins: [

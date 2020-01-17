@@ -1,7 +1,7 @@
 <template>
   <div class="auto-overflow-container chatroom__container">
     <div class="chatroom__left">
-      <ChatroomList :mobile="isMobile" @clickAdd="showCreateModal = true"></ChatroomList>
+      <ChatroomList @clickAdd="showCreateModal = true"></ChatroomList>
     </div>
     <div v-if="!isMobile" class="chatroom__separator"></div>
     <div v-if="!isMobile" class="chatroom_right">

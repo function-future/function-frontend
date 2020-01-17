@@ -38,17 +38,7 @@ const isChatroomEqual = function (chatroom1, chatroom2) {
 export const actions = {
   fetchChatrooms ({ state, commit }, { data, fail, cb }) {
     chatroomApi.getChatrooms(response => {
-      let i = 0
-      let shouldChange = false
-      for (const chatroom of response.data) {
-        if (state.chatrooms[i] && !isChatroomEqual(chatroom, state.chatrooms[i])) {
-          shouldChange = true
-        }
-        i += 1
-      }
-      if (shouldChange) {
-        cb(response.data)
-      }
+      cb(response)
     }, fail, data)
   },
   fetchMessages ({ commit }, { data, fail, cb }) {
@@ -92,6 +82,18 @@ export const actions = {
     resourceApi.uploadResource(({ data: response }) => {
       callback(response)
     }, data, fail, configuration)
+  },
+  setChatroomsLimit ({ commit }, { data, fail }) {
+    chatroomApi.setLimit(response => {
+    }, fail, data)
+  },
+  enterChatroom ({ commit }, { data, fail }) {
+    chatroomApi.enterChatroom(response => {
+    }, fail, data)
+  },
+  leaveChatroom ({ commit }, { data, fail }) {
+    chatroomApi.leaveChatroom(response => {
+    }, fail, data)
   },
   pushMessages ({ commit }, messages) {
     commit('PUSH_MESSAGES', messages)

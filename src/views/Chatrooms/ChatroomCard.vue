@@ -5,12 +5,12 @@
       <div class="media"
            @click="$emit('click')">
         <div v-if="avatar" class="media-left">
-          <figure class="image is-32x32">
-            <img :src="avatar" class="is-rounded">
+          <figure class="image is-48x48">
+            <img :src="avatar" class="image is-48x48 is-rounded">
           </figure>
         </div>
         <div class="media-content">
-          <p><strong>{{ computedName }}</strong></p>
+          <p><strong>{{ computedName }} {{ type === chatroomType.GROUP ? `(${totalMembers})` : '' }}</strong></p>
           <p class="chatroom-card__content--message">{{ computedLastMessage }}</p>
         </div>
         <div class="media-right">

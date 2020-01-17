@@ -2,29 +2,50 @@
   <div class="chatroom-list__container">
     <b-input
       icon="search"
-      v-model="searchKeyword"
+      v-model="search"
       placeholder="Search..."
       class="is-rounded chatroom-list__search" />
     <div class="chatroom-list__content">
-      <div class="chatroom-list__element">
-        <ChatroomCard
-          :isSeen="true"
-          lastMessage=""
-          :avatar="require('@/assets/profile-picture-placeholder.png')"
-          type="PRIVATE"
-          :isChoosen="true"
-          name="Public Chatroom"></ChatroomCard>
-      </div>
-      <div class="chatroom-list__element" v-for="i in 10" :key="i">
-        <ChatroomCard
-          :isSeen="false"
-          :time="Date.now()"
-          lastMessage="Hahahahaha"
-          avatar="./favicon.ico"
-          type="PRIVATE"
-          :isChoosen="false"
-          name="Public Chatroom"></ChatroomCard>
-      </div>
+      <template v-if="search">
+        <div class="chatroom-list__element" v-for="chatroom in chatrooms" :key="chatroom.id">
+          <ChatroomCard
+            :isSeen="chatroom.lastMessage ? chatroom.lastMessage.seen : true"
+            :time="chatroom.lastMessage && chatroom.lastMessage.time"
+            :lastMessage="chatroom.lastMessage ? chatroom.lastMessage.message : ''"
+            :avatar="chatroom.picture !== 'null' && chatroom.picture || require('@/assets/profile-picture-placeholder.png')"
+            :isChoosen="!isMobile && chatroom.id === activeChatroomId"
+            :type="chatroom.type"
+            :totalMembers="chatroom.participants.length"
+            :name="getChatroomName(chatroom)"></ChatroomCard>
+        </div>
+      </template>
+      <template v-else>
+        <div class="chatroom-list__element">
+          <ChatroomCard
+            :isSeen="true"
+            lastMessage=""
+            :avatar="require('@/assets/profile-picture-placeholder.png')"
+            :type="chatroomType.PUBLIC"
+            :isChoosen="false"
+            name="Public Chatroom"></ChatroomCard>
+        </div>
+        <div class="chatroom-list__element" v-for="chatroom in chatrooms" :key="chatroom.id">
+          <ChatroomCard
+            :isSeen="chatroom.lastMessage ? chatroom.lastMessage.seen : true"
+            :time="chatroom.lastMessage && chatroom.lastMessage.time"
+            :lastMessage="chatroom.lastMessage ? chatroom.lastMessage.message : ''"
+            :avatar="chatroom.picture !== 'null' && chatroom.picture || require('@/assets/profile-picture-placeholder.png')"
+            :isChoosen="!isMobile && chatroom.id === activeChatroomId"
+            :type="chatroom.type"
+            :totalMembers="chatroom.participants.length"
+            :name="getChatroomName(chatroom)"></ChatroomCard>
+        </div>
+        <infinite-loading ref="chatroomInfiniteLoading" :identifier="totalSize" @infinite="infiniteChatroomHandler">
+          <div slot="no-more"></div>
+          <div slot="no-results"></div>
+          <div slot="spinner"></div>
+        </infinite-loading>
+      </template>
     </div>
     <b-button class="chatroom-list__actions" size="is-medium" type="is-primary" @click="onClickAdd">
       <b-icon icon="plus" size="is-medium"></b-icon>
