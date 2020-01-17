@@ -1,4 +1,5 @@
 import { mapActions, mapGetters } from 'vuex'
+import EmptyState from '@/components/emptyState/EmptyState'
 import ListItem from '@/components/list/ListItem'
 import UserListItem from '@/components/list/UserListItem'
 import InfiniteLoading from 'vue-infinite-loading'
@@ -6,6 +7,7 @@ import InfiniteLoading from 'vue-infinite-loading'
 export default {
   name: 'Point',
   components: {
+    EmptyState,
     UserListItem,
     ListItem,
     InfiniteLoading
@@ -25,6 +27,7 @@ export default {
         totalRecords: 20
       },
       isLoading: false,
+      failLoadingPoints: false,
       infiniteId: +new Date(),
       state: ''
     }
@@ -36,6 +39,17 @@ export default {
     ]),
     activeTabType () {
       return this.activeTab === 0 ? 'quiz' : 'assignment'
+    },
+    pointListEmpty () {
+      return !(this.pointList && this.pointList.length)
+    },
+    emptyStateSrc() {
+      switch (this.activeTabType) {
+        case 'quiz':
+          return 'quiz'
+        case 'assignment':
+          return 'assignment'
+      }
     }
   },
   methods: {
@@ -45,6 +59,7 @@ export default {
     ]),
     resetPage () {
       this.isLoading = false
+      this.failLoadingPoints = false
       this.pointList = []
       this.state = ''
       this.paging = {
@@ -88,12 +103,8 @@ export default {
       }
     },
     failFetchingPointList () {
-      this.toast({
-        data: {
-          message: 'Fail to load point list',
-          type: 'is-danger'
-        }
-      })
+      this.isLoading = false
+      this.failLoadingPoints = true
     }
   },
   watch: {

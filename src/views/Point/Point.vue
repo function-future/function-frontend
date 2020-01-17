@@ -2,12 +2,12 @@
   <div class="auto-overflow-container">
     <div class="point__container">
       <div class="point__container__header">
-        <UserListItem :imageUrl="studentData.avatar">
+        <UserListItem :imageUrl="currentUser.avatar">
           <template #name>
-            {{ studentData.name }}
+            {{ currentUser.name }}
           </template>
           <template #info>
-            <div>{{ studentData.batchCode }}</div>
+            <div>{{ currentUser.batchCode }}</div>
             <div>{{ studentData.university }}</div>
           </template>
           <template #actions>
@@ -23,7 +23,11 @@
                       :key="tab.value"
                       :label="tab.title">
             <div class="point__container__tabs-content">
-              <div class="point__container__tabs-content__list-wrapper">
+              <div v-if="isLoading">
+                <ListItem v-for="n in 4" v-bind:key="n" :loading="isLoading"></ListItem>
+              </div>
+              <div v-if="!isLoading && !pointListEmpty"
+                   class="point__container__tabs-content__list-wrapper">
                 <div class="columns is-multiline">
                   <div class="column is-12"
                        v-for="point in pointList"
@@ -39,19 +43,27 @@
                   </div>
                 </div>
               </div>
+              <div v-if="!isLoading">
+                <div>
+                  <div v-if="pointListEmpty && !failLoadingPoints">
+                    <EmptyState :src="emptyStateSrc">
+                      <template #title>
+                        Looks like you haven't finish any {{tab.value}}!
+                      </template>
+                    </EmptyState>
+                  </div>
+                  <div v-if="pointListEmpty && failLoadingPoints">
+                    <EmptyState src="error" :errorState="true"></EmptyState>
+                  </div>
+                </div>
+              </div>
             </div>
           </b-tab-item>
         </b-tabs>
         <infinite-loading @infinite="initPage"
                           :identifier="infiniteId"
                           :distance="100">
-          <div slot="spinner">
-            <ListItem v-for="n in 3" :key="n"
-                      :loading="true"
-                      :simple="true"
-                      :minHeight="'75px'"
-            ></ListItem>
-          </div>
+          <div slot="spinner"></div>
           <div slot="no-more"></div>
           <div slot="no-results"></div>
         </infinite-loading>
