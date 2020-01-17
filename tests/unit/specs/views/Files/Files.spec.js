@@ -36,7 +36,8 @@ describe('Files', () => {
       createFolder: jest.fn(),
       uploadFile: jest.fn(),
       deleteFile: jest.fn(),
-      downloadFile: jest.fn()
+      downloadFile: jest.fn(),
+      toast: jest.fn()
     }
     const getters = {
       files: state => state.files,
@@ -62,10 +63,6 @@ describe('Files', () => {
   }
 
   function createWrapper (store, options) {
-    const $toasted = {
-      error: jest.fn(),
-      success: jest.fn()
-    }
     const $router = {
       push: jest.fn()
     }
@@ -79,8 +76,7 @@ describe('Files', () => {
       ],
       mocks: {
         $route,
-        $router,
-        $toasted
+        $router
       },
       sync: false
     })
@@ -193,10 +189,16 @@ describe('Files', () => {
   })
 
   test('failFetchFiles', () => {
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failFetchFiles()
     expect(wrapper.vm.fileList).toEqual([])
     expect(wrapper.vm.folderList).toEqual([])
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Fail to load files, please try again',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('resetPage', () => {
@@ -348,15 +350,27 @@ describe('Files', () => {
   })
 
   test('successCreateFolder', () => {
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     const spy = jest.spyOn(wrapper.vm, 'resetPage')
     wrapper.vm.successCreateFolder()
-    expect(wrapper.vm.$toasted.success).toHaveBeenCalled()
     expect(spy).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Folder created',
+        type: 'is-success'
+      }
+    })
   })
 
   test('failCreateFolder', () => {
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failCreateFolder()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Fail to create folder, please try again',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('deleteThisFile', () => {
@@ -368,13 +382,25 @@ describe('Files', () => {
   })
 
   test('successDeleteFile', () => {
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.successDeleteFile()
-    expect(wrapper.vm.$toasted.success).toHaveBeenCalled()
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'successfully delete file',
+        type: 'is-success'
+      }
+    })
   })
 
   test('failDeleteFile', () => {
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failDeleteFile()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Fail to delete file, please try again',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('closeDeleteConfirmationModal', () => {
@@ -414,16 +440,28 @@ describe('Files', () => {
   })
 
   test('successUpdateFile', () => {
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     const spy = jest.spyOn(wrapper.vm, 'closeRenameFileFolderModal')
     wrapper.vm.successUpdateFile()
-    expect(wrapper.vm.$toasted.success).toHaveBeenCalled()
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Rename successful',
+        type: 'is-success'
+      }
+    })
     expect(spy).toHaveBeenCalledTimes(1)
   })
 
   test('failUpdateFile', () => {
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     const spy = jest.spyOn(wrapper.vm, 'closeRenameFileFolderModal')
     wrapper.vm.failUpdateFile()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Rename failed, please try again',
+        type: 'is-danger'
+      }
+    })
     expect(spy).toHaveBeenCalledTimes(1)
   })
 
