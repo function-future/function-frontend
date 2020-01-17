@@ -27,7 +27,7 @@ export default {
         questionBanks: []
       },
       calendarDetails: {
-        minDate: new Date(),
+        minDate: new Date(new Date().setDate(new Date().getDate() - 1)),
         dates: []
       },
       showSelectQuestionBankModal: false,
