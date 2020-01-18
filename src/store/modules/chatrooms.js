@@ -27,14 +27,6 @@ export const mutations = {
   }
 }
 
-const isChatroomEqual = function (chatroom1, chatroom2) {
-  return chatroom1.id === chatroom2.id &&
-    ((!chatroom1.lastMessage && !chatroom2.lastMessage) ||
-    (chatroom1.lastMessage && chatroom2.lastMessage &&
-    chatroom1.lastMessage.seen === chatroom2.lastMessage.seen &&
-    chatroom1.lastMessage.message === chatroom2.lastMessage.message))
-}
-
 export const actions = {
   fetchChatrooms ({ state, commit }, { data, fail, cb }) {
     chatroomApi.getChatrooms(response => {
@@ -95,6 +87,11 @@ export const actions = {
   },
   leaveChatroom ({ commit }, { data, fail, cb }) {
     chatroomApi.leaveChatroom(response => {
+      cb && cb(response)
+    }, fail, data)
+  },
+  createChatroom ({ commit }, { data, fail, cb }) {
+    chatroomApi.createChatroom(response => {
       cb && cb(response)
     }, fail, data)
   },

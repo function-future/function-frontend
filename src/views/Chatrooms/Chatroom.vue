@@ -19,7 +19,7 @@
   .chatroom {
     &__container {
       display: grid;
-      grid-template-columns: auto 3px 70%;
+      grid-template-columns: auto 3px 65%;
       @media only screen and (max-width: 1023px) {
         grid-template-columns: 100%;
       }
