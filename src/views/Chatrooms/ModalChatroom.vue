@@ -35,7 +35,7 @@
           <hr>
           <div class="group-section" v-if="selectedUsers.length > 1 || chatroomId">
             <figure class="image is-64x64 group-section-element">
-              <img class="is-rounded" :src="picture || require('@/assets/profile-picture-placeholder.png')">
+              <img class="is-rounded image is-64x64" style="object-fit: cover" :src="picture || require('@/assets/profile-picture-placeholder.png')">
             </figure>
             <label for="upload-image"
                    class="button is-primary is-outlined group-section-element" :class="{ 'is-loading': isUploading }">
