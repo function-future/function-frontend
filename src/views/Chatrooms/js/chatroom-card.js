@@ -14,7 +14,7 @@ export default {
     isSeen: Boolean,
     time: Number,
     lastMessage: String,
-    avatar: String,
+    avatar: Object,
     isChoosen: Boolean,
     type: String,
     totalMembers: Number

@@ -24,6 +24,7 @@ export default {
         name: null,
         picture: null
       },
+      picture: null,
       wrongName: false,
       nameMember: '',
       maximumSizeAlert: false,
@@ -119,7 +120,8 @@ export default {
     },
     successUploadGroupPicture (response) {
       this.isUploading = false
-      this.chatroom.picture = response.file.full
+      this.chatroom.picture = response.id
+      this.picture = response.file.full
     },
     failUploadGroupPicture () {
       this.isUploading = false

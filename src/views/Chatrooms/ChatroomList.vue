@@ -12,7 +12,7 @@
             :isSeen="chatroom.lastMessage ? chatroom.lastMessage.seen : true"
             :time="chatroom.lastMessage && chatroom.lastMessage.time"
             :lastMessage="chatroom.lastMessage ? chatroom.lastMessage.message : ''"
-            :avatar="chatroom.picture !== 'null' && chatroom.picture || require('@/assets/profile-picture-placeholder.png')"
+            :avatar="chatroom.picture || { file: { thumbnail: require('@/assets/profile-picture-placeholder.png') } }"
             :isChoosen="!isMobile && chatroom.id === activeChatroomId"
             :type="chatroom.type"
             :totalMembers="chatroom.participants.length"
@@ -24,7 +24,7 @@
           <ChatroomCard
             :isSeen="true"
             lastMessage=""
-            :avatar="require('@/assets/profile-picture-placeholder.png')"
+            :avatar="{ file: { thumbnail: require('@/assets/profile-picture-placeholder.png') } }"
             :type="chatroomType.PUBLIC"
             :isChoosen="false"
             name="Public Chatroom"></ChatroomCard>
@@ -34,7 +34,7 @@
             :isSeen="chatroom.lastMessage ? chatroom.lastMessage.seen : true"
             :time="chatroom.lastMessage && chatroom.lastMessage.time"
             :lastMessage="chatroom.lastMessage ? chatroom.lastMessage.message : ''"
-            :avatar="chatroom.picture !== 'null' && chatroom.picture || require('@/assets/profile-picture-placeholder.png')"
+            :avatar="chatroom.picture || { file: { thumbnail: require('@/assets/profile-picture-placeholder.png') } }"
             :isChoosen="!isMobile && chatroom.id === activeChatroomId"
             :type="chatroom.type"
             :totalMembers="chatroom.participants.length"

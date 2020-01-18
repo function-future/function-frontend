@@ -6,7 +6,7 @@
            @click="$emit('click')">
         <div v-if="avatar" class="media-left">
           <figure class="image is-48x48">
-            <img :src="avatar" class="image is-48x48 is-rounded">
+            <img :src="avatar.file.thumbnail" class="image is-48x48 is-rounded">
           </figure>
         </div>
         <div class="media-content">

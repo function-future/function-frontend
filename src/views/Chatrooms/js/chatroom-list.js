@@ -22,7 +22,7 @@ export default {
       search: '',
       page: 1,
       size: 10,
-      totalSize: 0,
+      totalSize: null,
       activeChatroomId: '',
       chatroomSubscription: null
     }
@@ -48,6 +48,7 @@ export default {
           this.chatroomSubscription.unsubscribe()
           this.chatroomSubscription = null
         }
+        this.page = 1
         this.fetchChatrooms({
           data: {
             params: {
@@ -70,17 +71,6 @@ export default {
     }
   },
   created () {
-    this.fetchChatrooms({
-      data: {
-        params: {
-          page: this.page,
-          size: this.size,
-          search: this.search
-        }
-      },
-      fail: this.onFetchChatroomsFail,
-      cb: this.onFetchChatroomsSuccess
-    })
     this.setChatroomsLimit({
       data: {
         body: {
@@ -101,7 +91,38 @@ export default {
       'setChatroomsLimit'
     ]),
     infiniteChatroomHandler ($state) {
-
+      if (this.totalSize === null) {
+        this.fetchChatrooms({
+          data: {
+            params: {
+              page: this.page,
+              size: this.size,
+              search: this.search
+            }
+          },
+          fail: this.onFetchChatroomsFail,
+          cb: this.onFetchInitialChatroomsSuccess($state)
+        })
+      } else if (this.totalSize <= this.page * this.size) {
+        $state.complete()
+      } else {
+        console.log(this.page)
+        this.page++
+        this.setChatroomsLimit({
+          data: {
+            body: {
+              limit: this.page * this.size
+            }
+          },
+          fail: this.onError,
+          cb: this.onSetChatroomLimitSuccess($state)
+        })
+      }
+    },
+    onSetChatroomLimitSuccess ($state) {
+      return () => {
+        $state.loaded()
+      }
     },
     onClickAdd () {
       this.$emit('clickAdd')
@@ -123,8 +144,14 @@ export default {
         }
       })
     },
+    onFetchInitialChatroomsSuccess ($state) {
+      return (data) => {
+        this.onFetchChatroomsSuccess(data)
+        this.totalSize = data.paging.totalRecords
+        $state.loaded()
+      }
+    },
     onFetchChatroomsSuccess (data) {
-      this.totalSize = data.paging.totalRecords
       this.updateChatrooms(data.data)
     },
     getChatroomName (chatroom) {
@@ -144,8 +171,10 @@ export default {
       this.pushChatrooms(data)
     },
     chatroomSubscriptionCallback (data) {
-      this.totalSize = data.paging.totalRecords
-      this.updateChatrooms(JSON.parse(data.body).data)
+      let parsedData = JSON.parse(data.body)
+      console.log(parsedData)
+      this.totalSize = parsedData.paging.totalRecords
+      this.updateChatrooms(parsedData.data)
     }
   }
 }

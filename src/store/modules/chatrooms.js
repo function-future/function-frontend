@@ -83,16 +83,19 @@ export const actions = {
       callback(response)
     }, data, fail, configuration)
   },
-  setChatroomsLimit ({ commit }, { data, fail }) {
+  setChatroomsLimit ({ commit }, { data, fail, cb }) {
     chatroomApi.setLimit(response => {
+      cb && cb(response)
     }, fail, data)
   },
-  enterChatroom ({ commit }, { data, fail }) {
+  enterChatroom ({ commit }, { data, fail, cb }) {
     chatroomApi.enterChatroom(response => {
+      cb && cb(response)
     }, fail, data)
   },
-  leaveChatroom ({ commit }, { data, fail }) {
+  leaveChatroom ({ commit }, { data, fail, cb }) {
     chatroomApi.leaveChatroom(response => {
+      cb && cb(response)
     }, fail, data)
   },
   pushMessages ({ commit }, messages) {
