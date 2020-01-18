@@ -455,7 +455,8 @@ module.exports = {
         leaveChatroom (chatroomId) {
           return `/api/communication/chatrooms/${chatroomId}/_leave`
         },
-        setLimit: `/api/communication/chatrooms/_setlimit`
+        setLimit: `/api/communication/chatrooms/_setlimit`,
+        unsetLimit: `/api/communication/chatrooms/_unsetlimit`
       },
       notifications: {
         list (page, size) {

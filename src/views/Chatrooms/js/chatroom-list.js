@@ -82,13 +82,15 @@ export default {
   },
   destroyed () {
     this.chatroomSubscription.unsubscribe()
+    this.unsetChatroomsLimit({ fail: this.onError })
   },
   methods: {
     ...mapActions([
       'fetchChatrooms',
       'resetChatrooms',
       'pushChatrooms',
-      'setChatroomsLimit'
+      'setChatroomsLimit',
+      'unsetChatroomsLimit'
     ]),
     infiniteChatroomHandler ($state) {
       if (this.totalSize === null) {

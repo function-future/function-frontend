@@ -112,6 +112,15 @@ const setLimit = function (callback, error, data) {
   )
 }
 
+const unsetLimit = function (callback, error) {
+  request.postRequest(
+    config.api.communication.chatrooms.unsetLimit,
+    callback,
+    null,
+    error
+  )
+}
+
 export default {
   getChatrooms,
   getChatroomDetails,
@@ -125,5 +134,6 @@ export default {
   updateSeenStatus,
   enterChatroom,
   leaveChatroom,
-  setLimit
+  setLimit,
+  unsetLimit
 }

@@ -80,6 +80,11 @@ export const actions = {
       cb && cb(response)
     }, fail, data)
   },
+  unsetChatroomsLimit ({ commit }, { fail, cb }) {
+    chatroomApi.unsetLimit(response => {
+      cb && cb(response)
+    }, fail)
+  },
   enterChatroom ({ commit }, { data, fail, cb }) {
     chatroomApi.enterChatroom(response => {
       cb && cb(response)
