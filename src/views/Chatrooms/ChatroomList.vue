@@ -4,10 +4,11 @@
       icon="search"
       v-model="search"
       placeholder="Search..."
-      class="is-rounded chatroom-list__search" />
+      class="is-rounded chatroom-list__search"/>
     <div class="chatroom-list__content">
       <template v-if="search">
-        <div class="chatroom-list__element" v-for="chatroom in chatrooms" :key="chatroom.id">
+        <div class="chatroom-list__element" @click="onChatroomCardClicked(chatroom.id)"
+             v-for="chatroom in chatrooms" :key="chatroom.id">
           <ChatroomCard
             :isSeen="chatroom.lastMessage ? chatroom.lastMessage.seen : true"
             :time="chatroom.lastMessage && chatroom.lastMessage.time"
@@ -20,16 +21,18 @@
         </div>
       </template>
       <template v-else>
-        <div class="chatroom-list__element">
+        <div class="chatroom-list__element" @click="onChatroomCardClicked('public')"
+        >
           <ChatroomCard
             :isSeen="true"
             lastMessage=""
             :avatar="{ file: { thumbnail: require('@/assets/profile-picture-placeholder.png') } }"
             :type="chatroomType.PUBLIC"
-            :isChoosen="false"
+            :isChoosen="!isMobile && activeChatroomId === 'public'"
             name="Public Chatroom"></ChatroomCard>
         </div>
-        <div class="chatroom-list__element" v-for="chatroom in chatrooms" :key="chatroom.id">
+        <div class="chatroom-list__element" v-for="chatroom in chatrooms" @click="onChatroomCardClicked(chatroom.id)"
+             :key="chatroom.id">
           <ChatroomCard
             :isSeen="chatroom.lastMessage ? chatroom.lastMessage.seen : true"
             :time="chatroom.lastMessage && chatroom.lastMessage.time"
@@ -65,7 +68,11 @@
     }
 
     &__element {
-      margin: 5px 10px;
+      margin: 0 10px;
+      cursor: pointer;
+      @media only screen and (max-width: 1023px) {
+        margin: 0;
+      }
     }
 
     &__actions {
@@ -74,16 +81,22 @@
       box-shadow: 2px 2px 16px 4px rgba(0, 0, 0, 0.2);
       border-radius: 100%;
       position: absolute;
-      right: 20px;
-      bottom: 1vh;
+      right: 2rem;
+      bottom: 2rem;
+      @media only screen and (max-width: 1023px) {
+        position: fixed;
+        right: 2rem;
+        bottom: 5.25rem;
+      }
     }
 
     &__content {
-      height: 78vh;
+      padding: 3px 0;
+      height: 79vh;
       overflow-y: auto;
       overflow-x: hidden;
       @media only screen and (max-width: 1023px) {
-        height: 78vh;
+        height: 83vh;
         padding-bottom: 1.25rem;
       }
     }

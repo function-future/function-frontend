@@ -1,12 +1,12 @@
 <template>
-  <div class="box is-marginless is-paddingless"
+  <div class="box is-marginless is-paddingless chatroom-card__wrapper"
        :class="{'chatroom-card__outer--blue-border': isChoosen}">
     <div class="chatroom-card__container">
-      <div class="media"
+      <div class="media chatroom-card__content"
            @click="$emit('click')">
         <div v-if="avatar" class="media-left">
-          <figure class="image is-48x48">
-            <img :src="avatar.file.thumbnail" class="image is-48x48 is-rounded">
+          <figure class="image is-32x32">
+            <img :src="avatar.file.thumbnail" class="image is-32x32 is-rounded">
           </figure>
         </div>
         <div class="media-content">
@@ -30,12 +30,20 @@
 
 <style lang="scss" scoped>
   .chatroom-card {
+    &__wrapper {
+      border-radius: 0;
+    }
+
     &__container {
-      padding: 25px 15px;
+      padding: 20px 15px;
      }
 
+    &__content {
+      align-items: center;
+    }
+
     &__outer--blue-border {
-      border: 2px solid #02AAF3
+      border: 1px solid #02AAF3;
     }
 
     &__status--seen-status {
@@ -96,12 +104,12 @@
   }
 
   .chatroom-card__content--message {
-    font-size: 0.8em;
+    font-size: 0.9rem;
   }
 
   p {
     margin: 0;
-    font-size: 0.9em;
+    font-size: 1rem;
   }
 
   .chatroom-card__status {

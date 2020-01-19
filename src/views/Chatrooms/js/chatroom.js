@@ -18,12 +18,14 @@ export default {
   },
   data () {
     return {
-      showCreateModal: false
+      showCreateModal: false,
+      activeChatroomId: ''
     }
   },
   methods: {
     ...mapActions([
-      'createChatroom'
+      'createChatroom',
+      'toast'
     ]),
     onSubmitNewChatroom (data) {
       this.createChatroom({
@@ -43,8 +45,17 @@ export default {
         }
       })
     },
+    activateChatroom (chatroomId) {
+      this.activeChatroomId = chatroomId
+      if (this.isMobile) {
+        this.$router.push({ name: 'chatroomsMobile', params: { chatroomId } })
+      }
+    },
     onSuccessCreateChatroom (response) {
-      console.log(response)
+      this.activateChatroom(response.data.id)
+    },
+    onClickChatroom (chatroomId) {
+      this.activateChatroom(chatroomId)
     }
   }
 }

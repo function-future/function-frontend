@@ -117,6 +117,7 @@ module.exports = {
         assignments: '/assignments'
       },
       chatrooms: '/chatrooms',
+      chatroomsMobile: '/m/chatrooms/:chatroomId',
       reminders: {
         list: '/reminders',
         detail: '/reminders/:reminderId/detail',

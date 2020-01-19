@@ -100,6 +100,11 @@ export const actions = {
       cb && cb(response)
     }, fail, data)
   },
+  fetchDetailChatroom ({ commit }, { data, fail, cb }) {
+    chatroomApi.getChatroomDetails(response => {
+      cb && cb(response)
+    }, fail, data)
+  },
   pushMessages ({ commit }, messages) {
     commit('PUSH_MESSAGES', messages)
   },

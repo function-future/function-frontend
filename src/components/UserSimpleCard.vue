@@ -20,9 +20,7 @@
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
         box-sizing: border-box;
-        -webkit-box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.1);
-        -moz-box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.1);
-        box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.1);
+        border: 1px solid #828282;
     }
 
     .selected-user-card > p, .selected-user-remove {

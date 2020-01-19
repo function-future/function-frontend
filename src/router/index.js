@@ -58,6 +58,7 @@ import loggingRoomDetail from '@/views/LoggingRoom/LoggingRoomDetail.vue'
 import logMessageRoom from '@/views/LoggingRoom/LogMessageRoom.vue'
 import loggingRoomCreate from '@/views/LoggingRoom/LoggingRoomCreate'
 import loggingRoomEdit from '@/views/LoggingRoom/LoggingRoomEdit'
+import chatroomContent from '@/views/Chatrooms/ChatroomContent'
 
 import files from '@/views/Files/Files'
 import store from '../store/index.js'
@@ -978,6 +979,16 @@ const router = new Router({
           { name: 'Chatrooms', link: 'chatrooms' }
         ]
       }
+    },
+    {
+      path: config.app.pages.chatroomsMobile,
+      name: 'chatroomsMobile',
+      component: chatroomContent,
+      meta: {
+        auth: true,
+        title: 'Chatrooms'
+      },
+      props: true
     },
     {
       path: config.app.pages.reminders.list,

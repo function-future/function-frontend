@@ -1,21 +1,24 @@
 import ChatroomCard from '@/views/Chatrooms/ChatroomCard'
 import { mapActions, mapGetters } from 'vuex'
-import Breakpoint from '@/mixins/Breakpoint'
 import ChatroomType from '@/mixins/ChatroomType'
 import Websocket from '@/mixins/Websocket'
+import Breakpoint from '@/mixins/Breakpoint'
 import config from '@/config/index'
 import InfiniteLoading from 'vue-infinite-loading'
 
 export default {
   name: 'ChatroomList',
   mixins: [
-    Breakpoint,
     ChatroomType,
-    Websocket
+    Websocket,
+    Breakpoint
   ],
   components: {
     ChatroomCard,
     InfiniteLoading
+  },
+  props: {
+    activeChatroomId: String
   },
   data () {
     return {
@@ -23,7 +26,6 @@ export default {
       page: 1,
       size: 10,
       totalSize: null,
-      activeChatroomId: '',
       chatroomSubscription: null
     }
   },
@@ -90,7 +92,8 @@ export default {
       'resetChatrooms',
       'pushChatrooms',
       'setChatroomsLimit',
-      'unsetChatroomsLimit'
+      'unsetChatroomsLimit',
+      'toast'
     ]),
     infiniteChatroomHandler ($state) {
       if (this.totalSize === null) {
@@ -108,7 +111,6 @@ export default {
       } else if (this.totalSize <= this.page * this.size) {
         $state.complete()
       } else {
-        console.log(this.page)
         this.page++
         this.setChatroomsLimit({
           data: {
@@ -168,15 +170,16 @@ export default {
       }
     },
     updateChatrooms (data) {
-      console.log(data)
       this.resetChatrooms()
       this.pushChatrooms(data)
     },
     chatroomSubscriptionCallback (data) {
       let parsedData = JSON.parse(data.body)
-      console.log(parsedData)
       this.totalSize = parsedData.paging.totalRecords
       this.updateChatrooms(parsedData.data)
+    },
+    onChatroomCardClicked (chatroomId) {
+      this.$emit('onClickChatroom', chatroomId)
     }
   }
 }

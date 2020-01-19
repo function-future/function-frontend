@@ -1,5 +1,5 @@
 <template>
-  <div :class="customClass" class="user-list-card__container" @click="$emit('click')">
+  <div :class="customClass" class="box is-marginless user-list-card__container" @click="$emit('click')">
     <img class="user-list-card__avatar" :src="avatar || require('@/assets/profile-picture-placeholder.png')" alt="">
     <div class="user-list-card__info">
       <p class="user-list-card__info__name"><strong>{{ name }}</strong></p>
@@ -21,16 +21,12 @@
 
   .user-list-card__container {
     display: flex;
-    padding: 10px;
+    padding: 5px;
     align-items: center;
     border: 1px solid #F2F2F2;
     box-sizing: border-box;
-    -webkit-box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.1);
-    -moz-box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.1);
-    box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.1);
-    height: 72px;
-    margin: 5px 0;
-    border-radius: 10px;
+    margin: 0;
+    border-radius: 0;
   }
 
   .user-list-card__avatar {

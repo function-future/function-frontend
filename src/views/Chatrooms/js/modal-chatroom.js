@@ -28,7 +28,8 @@ export default {
       wrongName: false,
       nameMember: '',
       maximumSizeAlert: false,
-      isUploading: false
+      isUploading: false,
+      isNext: false
     }
   },
   props: {
@@ -61,6 +62,13 @@ export default {
     },
     close () {
       this.$emit('close')
+    },
+    nextOrSave () {
+      if (this.selectedUsers.length > 1) {
+        this.isNext = true
+      } else {
+        this.create()
+      }
     },
     create () {
       if (this.selectedUsers.length > 1 && !this.chatroom.name) {
