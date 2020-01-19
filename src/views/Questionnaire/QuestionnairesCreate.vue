@@ -34,9 +34,9 @@
     &__container {
       display: flex;
       flex-direction: column;
-      @media only screen and (min-width: 1000px) {
-          display: flex;
-          flex-direction: column;
+      @media only screen and (max-width: 1023px) {
+          width: 100%;
+          padding: 10px;
       }
     }
 

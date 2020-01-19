@@ -28,14 +28,7 @@
             <span class="questionnaire-edit__container__content-description__progress-title">
               Description
             </span>
-<!--            <b-button-->
-<!--              button-class="button-save"-->
-<!--              class="button-save-desc is-rounded is-primary"-->
-<!--              @click="goToUpdateDescription">-->
-<!--              <span>Save Description</span>-->
-<!--            </b-button>-->
           </div>
-          <hr>
           <QuestionnaireForm :value="currentQuestionnaireAdmin"
                              :isReview="progressValue == 4"
                              @input="(newValue) => { setCurrentQuestionnaire(newValue) }"
@@ -53,15 +46,14 @@
               <span>Add</span>
             </b-button>
           </div>
-          <hr>
           <div class="question-container-list">
-            <QuestionCard v-for="(question, index) in currentQuestions"
+            <QuestionCard v-for="(question, index) in currentQuestionsTemp"
                           :id="question.id"
                           :number="index+1"
                           :description="question.description"
                           :score="question.score"
                           :isEdit="progressValue != 4"
-                          @clickEdit="openEditModal(question)"
+                          @clickEdit="openEditModal(question, index)"
                           @clickDelete="openDeleteConfirmationModalQuestion(index, question)"
             ></QuestionCard>
           </div>
@@ -76,9 +68,8 @@
               <span>Add</span>
             </b-button>
           </div>
-          <hr>
           <div class="appraiser-container-list">
-            <template v-for="appraisee in currentAppraisee">
+            <template v-for="appraisee in currentAppraiseeTemp">
               <UserSimpleCard
                 :user="appraisee"
                 :showRemove="progressValue != 4"
@@ -97,9 +88,8 @@
               <span>Add</span>
             </b-button>
           </div>
-          <hr>
           <div class="appraisee-container-list">
-            <template v-for="appraiser in currentAppraiser">
+            <template v-for="appraiser in currentAppraiserTemp">
               <UserSimpleCard
                 :user="appraiser"
                 :showRemove="progressValue != 4"
@@ -124,13 +114,13 @@
           " {{ this.deleteConfirmationModalQuestion.description}} "
         </div>></modal-delete-confirmation>
       <ReminderMemberModal
-        @addMember="submitParticipant"
+        @addMember="addAppraisee"
         :selectedUsers="currentAppraiseeTemp"
         :isQuestionnaireSearch="true"
         @close="participantModal = false"
         v-if="participantModal"></ReminderMemberModal>
       <ReminderMemberModal
-        @addMember="submitParticipantAppraiser"
+        @addMember="addAppraiser"
         :selectedUsers="currentAppraiserTemp"
         :isQuestionnaireSearch="true"
         @close="participantModalAppraiser = false"
@@ -140,7 +130,7 @@
         @close="closeDeleteConfirmationModalParticipant"
         @clickDelete="deleteTheParticipant">
         <div slot="description">
-          to delete {{deleteConfirmationModalParticipant.name}} as participant
+          to delete {{deleteConfirmationModalParticipant.participant.name}} as participant
         </div>></modal-delete-confirmation>
     </div>
 </template>

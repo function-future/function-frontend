@@ -49,10 +49,10 @@ export default {
       }
     },
     computedStartDate () {
-      return moment(this.startDate).format('DD/MM/YYYY')
+      return moment(this.startDate).format('DD/MMM/YYYY, h:mm a')
     },
     computedDueDate () {
-      return moment(this.dueDate).format('DD/MM/YYYY')
+      return moment(this.dueDate).format('DD/MM/YYYY,  h:mm a')
     }
   }
 }

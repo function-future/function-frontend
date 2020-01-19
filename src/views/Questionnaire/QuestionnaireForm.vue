@@ -23,9 +23,13 @@
               START DATE :
             </label>
             <div class="start-date-placeholder">
-              <span><font-awesome-icon icon="calendar-check" class="calendar-icon"></font-awesome-icon></span>
               <span v-if="isReview">{{dateToString(value.startDate)}}</span>
-              <datepicker v-else placeholder="select Date" v-model="value.startDate"></datepicker>
+              <b-datetimepicker v-else
+                placeholder="Type or select a date..."
+                icon="calendar"
+                v-model="value.startDate"
+                editable>
+              </b-datetimepicker>
             </div>
           </div>
           <div class="due-date-container">
@@ -33,9 +37,13 @@
               DUE DATE :
             </label>
             <div class="due-date-placeholder">
-              <span><font-awesome-icon icon="calendar-times" class="calendar-icon"></font-awesome-icon></span>
               <span v-if="isReview">{{dateToString(value.dueDate)}}</span>
-              <datepicker v-else placeholder="select Date" v-model="value.dueDate"></datepicker>
+              <b-datetimepicker v-else
+                placeholder="Type or select a date..."
+                icon="calendar-times"
+                v-model="value.dueDate"
+                editable>
+              </b-datetimepicker>
             </div>
           </div>
         </div>
@@ -61,7 +69,6 @@
     display: flex;
     padding: 20px;
     margin : 20px 0px 0px 0px;
-    height: 60vh;
     flex-direction: column;
     max-width: 800px;
   }

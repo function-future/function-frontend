@@ -57,10 +57,11 @@ export const actions = {
   setCurrentQuestionnaireAdmin ({ commit }, { data }) {
     commit('ASSIGN_CURRENT_QUESTIONNAIRE_ADMIN', data)
   },
-  fetchCurrentQuestions ({ state, commit }, { data, fail }) {
+  fetchCurrentQuestions ({ state, commit }, { data, fail, cb }) {
     questionnaireApi.getQuestionsQuestionnaire(response => {
       commit('RESET_CURRENT_QUESTIONS')
       commit('PUSH_CURRENT_QUESTIONS', response.data)
+      cb(response)
     }, fail, data)
   },
   fetchCurrentAppraisee ({ state, commit }, { data, fail, cb }) {
