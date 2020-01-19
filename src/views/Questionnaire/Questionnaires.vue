@@ -65,6 +65,7 @@
       align-items: baseline;
       justify-content: space-between;
       width: 100%;
+      padding: 0px 10px;
 
       &__create-button {
         padding-top: 12px;
@@ -74,6 +75,9 @@
       &__search-bar {
         width: 300px;
         align-self: flex-end;
+        @media only screen and (max-width: 1023px) {
+          flex-grow: 1;
+        }
       }
     }
     &__content {

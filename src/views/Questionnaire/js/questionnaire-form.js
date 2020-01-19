@@ -15,7 +15,13 @@ export default {
   props: {
     value: {
       type: Object,
-      required: true
+      required: true,
+      startDate: {
+        default: new Date()
+      },
+      dueDate: {
+        default: new Date()
+      }
     },
     isReview: {
       default: false,
@@ -40,7 +46,8 @@ export default {
   },
   methods: {
     dateToString (input) {
-      return moment(input).format('DD MMM YYYY')
+      return moment(input).format('DD MMM YYYY, h:mm a')
     }
   }
+
 }

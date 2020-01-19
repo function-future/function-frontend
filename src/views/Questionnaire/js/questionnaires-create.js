@@ -13,8 +13,8 @@ export default {
       questionnaire: {
         title: '',
         description: '',
-        startDate: null,
-        dueDate: null
+        startDate: new Date(),
+        dueDate: new Date()
       }
     }
   },
