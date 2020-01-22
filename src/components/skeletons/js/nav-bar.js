@@ -1,7 +1,6 @@
 import { mapActions, mapGetters } from 'vuex'
 import Breadcrumbs from '@/components/breadcrumbs/Breadcrumbs'
 import ChangePageTitleMixins from '@/mixins/ChangePageTitleMixins'
-import notificationApi from '@/api/controller/notifications'
 
 export default {
   name: 'NavBar',
@@ -11,12 +10,6 @@ export default {
   mixins: [
     ChangePageTitleMixins
   ],
-  data () {
-    return {
-      unreadNotifications: 0,
-      notificationPollingInterval: null
-    }
-  },
   computed: {
     ...mapGetters([
       'menuList',
@@ -24,10 +17,8 @@ export default {
     ]),
     loggedIn () {
       if (Object.keys(this.currentUser).length) {
-        this.startPolling()
         return true
       } else {
-        this.stopPolling()
         return false
       }
     },
@@ -46,15 +37,6 @@ export default {
     ...mapActions([
       'attemptLogout'
     ]),
-    startPolling () {
-      if (!this.notificationPollingInterval) {
-        this.notificationPollingInterval = setInterval(this.notificationPollingHandler, 2000)
-      }
-    },
-    stopPolling () {
-      clearInterval(this.notificationPollingInterval)
-      this.notificationPollingInterval = null
-    },
     login () {
       if (!this.loggedIn) {
         this.$router.push({ query: { auth: 'login' } })
@@ -82,11 +64,6 @@ export default {
     },
     errorHandler (err) {
       console.log(err)
-    },
-    notificationPollingHandler () {
-      notificationApi.getTotalUnseen(response => {
-        this.unreadNotifications = response.data.total
-      }, this.errorHandler)
     }
   }
 }
