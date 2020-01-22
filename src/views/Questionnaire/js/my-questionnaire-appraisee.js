@@ -45,7 +45,7 @@ export default {
       'resetQuestionnaireList'
     ]),
     computedDate (date) {
-      return moment(date).format('DD/MM/YYYY')
+      return moment(date).format('DD MMM YYYY, h:mm a')
     },
     goToInputQuestionnaireAnswer (appraisee) {
       this.fetchingQuestionnaireData(appraisee.id)

@@ -191,12 +191,7 @@
         display: flex;
         flex-grow: 1;
       }
-      /*&__progress-title {*/
-      /*  flex-grow: 2;*/
-      /*  text-align: center;*/
-      /*  font-weight: bold;*/
-      /*  font-size: 1.5rem;*/
-      /*}*/
+
       &__next-button {
         display: flex;
         flex-direction: column;

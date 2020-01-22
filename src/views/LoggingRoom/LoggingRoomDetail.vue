@@ -115,9 +115,6 @@
     }
 
     &__member-list-container{
-      /*@media only screen and (max-width: 1023px) {*/
-      /*  display: none;*/
-      /*}*/
       @media only screen and (max-width: 1023px) {
         display: none;
       }

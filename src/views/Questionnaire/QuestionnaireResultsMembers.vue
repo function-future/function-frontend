@@ -1,12 +1,12 @@
 <template>
-    <div class="questionnaire-results-member-outer">
-      <div class="questionnaire-results-member-container">
-        <div class="top-bar">
-          <div class="title-bar">
-            <h2><strong>Members</strong></h2>
+    <div class="questionnaire-results-member__outer">
+      <div class="questionnaire-results-member__container">
+        <div class="questionnaire-results-member__top-bar">
+          <div class="questionnaire-results-member__top-bar__title">
+            <span>Members : </span>
           </div>
         </div>
-        <div class="participant-list-container">
+        <div class="questionnaire-results-member__content">
           <QuestionnaireParticipantCard v-for="appraisee in appraiseeResults"
                                         :id="appraisee.id"
                                         :name="appraisee.member.name"
@@ -30,58 +30,43 @@
 <script src="./js/questionnaire-results-members.js">
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
-  .questionnaire-results-member-outer {
-    display: flex;
-    justify-content: center;
-    height: 80vh;
-  }
+  .questionnaire-results-member {
+    &__outer {
+      display: flex;
+      justify-content: center;
+      height: 80vh;
+    }
 
+    &__container {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      padding: 10px;
+      width: 40vw;
+      @media only screen and (max-width: 1023px) {
+        width: 80vw;
+      }
+    }
 
-  @media only screen and (min-width: 700px) {
-    .questionnaire-results-member-container {
+    &__top-bar {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      width: 100%;
+      padding: 10px 10px 10px 10px;
+
+      &__title {
+        font-weight: bold;
+        font-size: 1.5rem;
+      }
+    }
+
+    &__content {
+      height: 75vh;
+      overflow: auto;
       width: 100%;
     }
-
-    .top-bar, .participant-list-container {
-      width: 500px;
-    }
-
-    .search-bar {
-      width: 300px;
-    }
   }
-
-  @media only screen and (max-width: 700px) {
-    .search-bar {
-      width: 150px;
-    }
-  }
-
-  .questionnaire-results-member-container {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-  }
-
-  .top-bar {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-  }
-
-  .search-bar {
-    align-self: flex-end;
-  }
-
-  .participant-list-container {
-    height: 75vh;
-    overflow: auto;
-  }
-
-  h2 {
-    margin: 0px;
-  }
-
 </style>

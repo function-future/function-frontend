@@ -1,4 +1,5 @@
 import QuestionnaireParticipantDetailCard from '@/views/Questionnaire/QuestionnaireParticipantDetailCard'
+import QuestionnaireParticipantCard from '@/views/Questionnaire/QuestionnaireParticipantCard'
 import QuestionnaireCard from '@/views/Questionnaire/QuestionnaireCard'
 import { mapActions, mapGetters } from 'vuex'
 import InfiniteLoading from 'vue-infinite-loading'
@@ -8,6 +9,7 @@ export default {
   name: 'QuestionnaireResultsMemberDetail',
   components: {
     QuestionnaireParticipantDetailCard,
+    QuestionnaireParticipantCard,
     QuestionnaireCard,
     InfiniteLoading
   },
@@ -77,5 +79,16 @@ export default {
       },
       fail: this.errorHandler
     })
+    //
+    // questionnaireResultsApi.getQuestionnaireSimpleSummary(response => {
+    //   this.appraiseeResultsQuestionnaires.push(...response.data)
+    //   console.log(response)
+    // }, this.errorCallback, {
+    //   params: {
+    //     page: this.page,
+    //     size: this.size,
+    //     userSummaryId: this.$route.params.userSummaryId
+    //   }
+    // })
   }
 }
