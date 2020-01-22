@@ -115,7 +115,9 @@
     }
 
     &__wrapper {
-      width: 30vw;
+      @media (min-width: 1023px) {
+        width: 30vw;
+      }
       @media (max-width: 1023px) {
         height: 100%;
         display: flex;

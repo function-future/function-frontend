@@ -1,6 +1,8 @@
 import ChatroomList from '@/views/Chatrooms/ChatroomList'
 import ChatroomContent from '@/views/Chatrooms/ChatroomContent'
 import ModalChatroom from '@/views/Chatrooms/ModalChatroom'
+import EmptyState from '@/components/emptyState/EmptyState'
+
 import Breakpoint from '@/mixins/Breakpoint'
 import { mapActions } from 'vuex'
 
@@ -12,7 +14,8 @@ export default {
   components: {
     ChatroomList,
     ChatroomContent,
-    ModalChatroom
+    ModalChatroom,
+    EmptyState
   },
   created () {
   },
@@ -52,6 +55,12 @@ export default {
       }
     },
     onSuccessCreateChatroom (response) {
+      this.toast({
+        data: {
+          message: 'Create chatroom success',
+          type: 'is-success'
+        }
+      })
       this.activateChatroom(response.data.id)
     },
     onClickChatroom (chatroomId) {

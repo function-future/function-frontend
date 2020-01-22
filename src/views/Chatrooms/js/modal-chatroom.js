@@ -20,10 +20,7 @@ export default {
     return {
       users: [],
       selectedUsers: [],
-      chatroom: {
-        name: null,
-        picture: null
-      },
+      chatroom: {},
       picture: null,
       wrongName: false,
       nameMember: '',
@@ -48,7 +45,8 @@ export default {
   },
   methods: {
     ...mapActions([
-      'uploadGroupImage'
+      'uploadGroupImage',
+      'fetchDetailChatroom'
     ]),
     convertToListUserId (users) {
       let result = users.map(user => user.id)
@@ -87,7 +85,7 @@ export default {
       this.callSearchUserApi(value)
     },
     errorHandler (err) {
-      console.log(err)
+      console.error(err)
     },
     callSearchUserApi (name) {
       usersApi.searchUser(response => {
@@ -139,20 +137,25 @@ export default {
           type: 'is-danger'
         }
       })
+    },
+    fetchDetailChatroomCallback (response) {
+      this.callSearchUserApi('')
+      this.picture = response.data.picture ? response.data.picture.file.full : null
+      this.selectedUsers = response.data.members.filter(user => user.id !== this.currentUser.id)
+      this.chatroom = response.data
+      this.chatroom.picture = response.data.picture ? response.data.picture.id : null
     }
   },
   created () {
     if (this.chatroomId) {
-      chatroomApi.getChatroomDetails(response => {
-        this.callSearchUserApi('')
-        if (response.data.type === 'GROUP') {
-          this.chatroom.name = response.data.name
-        }
-        this.selectedUsers = response.data.members.filter(user => user.id !== this.currentUser.id)
-      }, this.errorHandler, {
-        params: {
-          chatroomId: this.chatroomId
-        }
+      this.fetchDetailChatroom({
+        data: {
+          params: {
+            chatroomId: this.chatroomId
+          }
+        },
+        fail: this.errorHandler,
+        cb: this.fetchDetailChatroomCallback
       })
     } else {
       this.callSearchUserApi('')

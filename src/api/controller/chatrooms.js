@@ -19,7 +19,7 @@ const getChatroomDetails = function (callback, error, data) {
 
 const getMessages = function (callback, error, data) {
   request.getRequest(
-    config.api.communication.chatrooms.getMessages(data.params.chatroomId, data.params.page, config.dev.defaultPageSize),
+    config.api.communication.chatrooms.getMessages(data.params.chatroomId, data.params.page, data.params.size),
     callback,
     error
   )

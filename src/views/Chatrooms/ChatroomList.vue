@@ -65,6 +65,9 @@
   .chatroom-list {
     &__container {
       position: relative;
+      @media only screen and (max-width: 1023px) {
+        height: 100%;
+      }
     }
 
     &__element {
@@ -96,13 +99,16 @@
       overflow-y: auto;
       overflow-x: hidden;
       @media only screen and (max-width: 1023px) {
-        height: 83vh;
-        padding-bottom: 1.25rem;
+        height: calc(100% - 50px);
       }
     }
 
     &__search {
-      margin: 10px;
+      margin: 0 10px 10px 10px;
+      box-sizing: border-box;
+      @media only screen and (max-width: 1023px) {
+        height: 30px;
+      }
     }
   }
 

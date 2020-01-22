@@ -1,6 +1,8 @@
-  <template>
+<template>
   <div class="message-container">
-    <div class="message-avatar"><img :src="avatar" onerror="this.src='@/assets/avatar.png'"></div>
+    <figure class="image is-32x32 message-avatar">
+      <img class="image is-32x32 is-rounded" :src="avatar || require('@/assets/profile-picture-placeholder.png')">
+    </figure>
     <div class="message-content">
       <p>{{ name }}</p>
       <div class="message-card">
@@ -13,7 +15,7 @@
   </div>
 </template>
 
-<script src="js/message-bubble-received.js">
+<script src="./js/message-bubble-received.js">
 
 </script>
 
@@ -58,12 +60,9 @@
     word-break: break-all;
   }
 
-  .message-avatar > img {
-    -webkit-border-radius: 100%;
-    -moz-border-radius: 100%;
-    border-radius: 100%;
-    height: 35px;
-    width: 35px;
+  .message-avatar {
+    flex-shrink: 0;
+    flex-basis: 32px;
   }
 
   .message-time {

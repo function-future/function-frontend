@@ -1,14 +1,16 @@
 <template>
-  <div class="auto-overflow-container chatroom__container">
+  <div class="chatroom__container">
     <div class="chatroom__left">
       <ChatroomList
         :activeChatroomId="activeChatroomId"
         @clickAdd="showCreateModal = true"
         @onClickChatroom="onClickChatroom"></ChatroomList>
     </div>
-    <div v-if="!isMobile" class="chatroom__separator"></div>
-    <div v-if="!isMobile" class="chatroom_right">
+    <div v-if="!isMobile" class="chatroom__right">
       <ChatroomContent v-if="activeChatroomId" :chatroomId="activeChatroomId"></ChatroomContent>
+      <div v-else class="chatroom__empty-state__wrapper">
+        <EmptyState class="chatroom__empty-state" src="empty-chatrooms"></EmptyState>
+      </div>
     </div>
     <ModalChatroom v-if="showCreateModal" @close="showCreateModal = false"
                    @submit="onSubmitNewChatroom"></ModalChatroom>
@@ -20,28 +22,48 @@
 </script>
 
 <style lang="scss" scoped>
-  @import "@/assets/css/main.scss";
+  .auto-overflow-container {
+    height: 85vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    @media only screen and (max-width: 1023px) {
+      height: calc(100vh - 60px - 0.5rem - 3.25rem);
+    }
+  }
 
   .chatroom {
     &__container {
-      display: grid;
-      grid-template-columns: auto 2px 65%;
+      height: 85vh;
+      overflow-y: auto;
+      overflow-x: hidden;
+      display: flex;
       @media only screen and (max-width: 1023px) {
-        grid-template-columns: 100%;
+        flex-direction: column;
+        height: calc(100vh - 60px - 0.5rem - 3.25rem);
+
       }
     }
 
     &__left {
-      grid-column: 1;
+      flex-grow: 1;
+      @media only screen and (max-width: 1023px) {
+        height: calc(100% - 0.5rem);
+      }
     }
 
     &__right {
-      grid-column: 3;
+      flex-basis: 70%;
+      flex-grow: 3;
     }
 
-    &__separator {
-      background-color: #bfbfbf;
-      height: 100%;
+    &__empty-state {
+      align-items: center;
+
+      &__wrapper {
+        display: flex;
+        height: 100%
+      }
     }
   }
 </style>

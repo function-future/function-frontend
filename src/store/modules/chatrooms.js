@@ -35,10 +35,12 @@ export const actions = {
   },
   fetchMessages ({ commit }, { data, fail, cb }) {
     chatroomApi.getMessages(response => {
-      commit('PUSH_MESSAGES', response.data.reverse())
-      if (response.data.length > 0) {
-        cb()
-      }
+      cb && cb(response)
+    }, fail, data)
+  },
+  createMessage ({ commit }, { data, fail, cb }) {
+    chatroomApi.createMessage(response => {
+      cb && cb(response)
     }, fail, data)
   },
   fetchChatroomWithKeyword ({ commit }, { data, fail }) {
@@ -62,6 +64,11 @@ export const actions = {
       fail,
       data
     )
+  },
+  fetchMessagesBeforePivot ({ commit, state }, { data, fail, cb }) {
+    chatroomApi.getMessagesBeforePivot(response => {
+      cb && cb(response)
+    }, fail, data)
   },
   updateSeenStatus ({ state, commit }, chatroomId) {
     for (let chatroom of state.chatrooms) {
@@ -97,6 +104,11 @@ export const actions = {
   },
   createChatroom ({ commit }, { data, fail, cb }) {
     chatroomApi.createChatroom(response => {
+      cb && cb(response)
+    }, fail, data)
+  },
+  updateChatroom ({ commit }, { data, fail, cb }) {
+    chatroomApi.updateChatroom(response => {
       cb && cb(response)
     }, fail, data)
   },

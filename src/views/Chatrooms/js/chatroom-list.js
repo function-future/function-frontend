@@ -83,7 +83,9 @@ export default {
     })
   },
   destroyed () {
-    this.chatroomSubscription.unsubscribe()
+    if (this.chatroomSubscription !== null) {
+      this.chatroomSubscription.unsubscribe()
+    }
     this.unsetChatroomsLimit({ fail: this.onError })
   },
   methods: {
