@@ -321,7 +321,7 @@ export default {
         } else {
           questionnaireApi.updateQuestionQuestionnaire(response => {
             // this.$toasted.success('success Update Question')
-            this.fetchingQuestions()
+            // this.fetchingQuestions()
           }, this.updateErrorCallback,
           {
             params: {
@@ -363,22 +363,24 @@ export default {
     },
     updateAppraiser () {
       this.currentAppraiserTemp.forEach(member => {
-        questionnaireApi.addAppraiserQuestionnaire(response => {
-        }, this.addErrorCallback,
-        {
-          params: {
-            questionnaireId: this.$route.params.questionnaireId
-          },
-          body: {
-            idParticipant: member.id
-          }
-        })
+        if (!this.currentAppraiser.includes(member)) {
+          questionnaireApi.addAppraiserQuestionnaire(response => {
+          }, this.addErrorCallback,
+          {
+            params: {
+              questionnaireId: this.$route.params.questionnaireId
+            },
+            body: {
+              idParticipant: member.id
+            }
+          })
+        }
       })
       this.removedAppraiser.forEach(member => {
         questionnaireApi.deleteAppraiserQuestionnaire(response => {
-          this.$toasted.success('success delete Appraiser')
+          // this.$toasted.success('success delete Appraiser')
           // this.fetchingAppraiser()
-          this.closeDeleteConfirmationModalParticipant()
+          // this.closeDeleteConfirmationModalParticipant()
         }, this.deleteErrorCallback,
         {
           params: {

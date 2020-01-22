@@ -50,5 +50,15 @@ export default {
         }
       })
     }
+  },
+  created () {
+    myQuestionnaireApi.getMyQuestionnaires(response => {
+      this.myQuestionnaires.push(...response.data)
+    }, this.errorHandler, {
+      params: {
+        page: this.page,
+        size: this.size
+      }
+    })
   }
 }

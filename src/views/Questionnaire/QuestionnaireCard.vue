@@ -114,13 +114,10 @@
     height: auto;
     padding-right: 10px;
   }
-  /*.button-create {*/
-  /*  align-self: flex-end;*/
-  /*}*/
-  /*.button-delete {*/
-  /*  display: flex;*/
-  /*  justify-content: flex-end;*/
-  /*}*/
+
+  .icon-edit {
+    cursor:pointer;
+  }
 
   .icon-delete {
     cursor: pointer;
@@ -150,5 +147,10 @@
 
   .red {
     color: red;
+  }
+
+  .disabled{
+    opacity: 0.5;
+    background-color: white;
   }
 </style>

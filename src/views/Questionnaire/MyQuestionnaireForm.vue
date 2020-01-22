@@ -1,6 +1,6 @@
 <template>
   <div class="questionnaire-form-outer">
-    <BaseCard class="questionnaire-form-card">
+    <div class="questionnaire-form-card">
       <div class="question-container">
         <div class="no-question">{{ noQuestion}}</div>
         <div class="question-content">
@@ -24,7 +24,7 @@
           </div>
         </div>
       </div>
-    </BaseCard>
+    </div>
   </div>
 </template>
 

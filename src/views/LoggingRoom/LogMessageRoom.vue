@@ -68,9 +68,9 @@
      flex-direction: column;
      align-items: center;
      width: 100%;
-     height: 98vh;
+     height: 80vh;
 
-     @media only screen and (min-width: 1300px) {
+     @media only screen and (min-width: 1023px) {
        width: 800px;
      }
    }

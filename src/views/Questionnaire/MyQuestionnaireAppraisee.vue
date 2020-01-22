@@ -1,35 +1,50 @@
 <template>
-    <div class="my-questionnaire-appraisees-outer">
-      <div class="my-questionnaire-appraisees-containter">
-        <div class="questionnaire-detail">
-          <p class="questionnaire-title"><strong>{{ currentQuestionnaire.title }}</strong></p>
-          <p class="questionnaire-description">
+    <div class="my-questionnaire-appraisees__outer">
+      <div class="my-questionnaire-appraisees__container">
+        <div class="my-questionnaire-appraisees__content">
+          <p class="my-questionnaire-appraisees__content__questionnaire-title"><strong>{{ currentQuestionnaire.title }}</strong></p>
+          <p class="my-questionnaire-appraisees__content__questionnaire-description">
             {{ currentQuestionnaire.description }}
           </p>
-          <div class="questionnaire-date">
-            <div class="placeholder-start-date">
-              Start Date : {{ computedDate(currentQuestionnaire.startDate) }}
+          <div class="my-questionnaire-appraisees__content__questionnaire-date">
+            <div class="my-questionnaire-appraisees__content__questionnaire-date__placeholder-start-date">
+              Start Date :
+              <span class="green">
+                <br>
+                {{ computedDate(currentQuestionnaire.startDate) }}
+              </span>
             </div>
-            <div class="placeholder-due-date">
-              Due Date : {{ computedDate(currentQuestionnaire.dueDate) }}
+            <div class="my-questionnaire-appraisees__content__questionnaire-date__placeholder-due-date">
+              Due Date :
+              <span class="red">
+                <br>
+                {{ computedDate(currentQuestionnaire.dueDate) }}
+              </span>
             </div>
           </div>
         </div>
-        <div v-if="!this.$route.params.appraiseeId" class="my-appraisees-list-containner">
-          <div class="title-appraisee">
+        <div v-if="!this.$route.params.appraiseeId" class="my-questionnaire-appraisees__content__appraisees-list">
+          <div class="my-questionnaire-appraisees__content__appraisees-list__title-appraisee">
             <p><strong>Appraisee</strong></p>
           </div>
-          <QuestionnaireParticipantCard v-for="appraisee in myListAppraisees"
-                                        :key="appraisee.id"
-                                        :name="appraisee.name"
-                                        :avatar="appraisee.avatar"
-                                        :role="appraisee.role"
-                                        :university="appraisee.university"
-                                        :batch="appraisee.batch.name"
-                                        v-on:click="goToInputQuestionnaireAnswer(appraisee)"
-          ></QuestionnaireParticipantCard>
+<!--          <div class="my-questionnaire-appraisees__content__appraisees-list__appraisee-card-container">-->
+<!--            <MenuCard  :iconMenu="iconMenuMembers" :iconTitle="iconMenuMembersTitle"-->
+<!--                       @click="callShowMembers"-->
+<!--            ></MenuCard>-->
+<!--          </div>-->
+          <div class="my-questionnaire-appraisees__content__appraisees-list__appraisee-card-container">
+            <QuestionnaireParticipantCard v-for="appraisee in myListAppraisees"
+                                          :key="appraisee.id"
+                                          :name="appraisee.name"
+                                          :avatar="appraisee.avatar"
+                                          :role="appraisee.role"
+                                          :university="appraisee.university"
+                                          :batch="appraisee.batch.name"
+                                          v-on:click="goToInputQuestionnaireAnswer(appraisee)"
+            ></QuestionnaireParticipantCard>
+          </div>
         </div>
-        <div v-else class="form-questionnaire">
+        <div v-else class="my-questionnaire-appraisees__content__form-questionnaire">
           <div class="title-questionnaire">
             <p><i>Questionnaire for {{currentQuestionnaireData.appraisee.name }}</i></p>
           </div>
@@ -41,7 +56,13 @@
             ></MyQuestionnaireForm>
           </div>
           <div class="submit-button">
-            <BaseButton type="submit" buttonClass="button-save" @click="printScore">Submit</BaseButton>
+            <b-button
+              type="submit"
+              class="is-primary is-rounded"
+              buttonClass="button-save"
+              @click="printScore">
+              <span>Submit</span>
+            </b-button>
           </div>
         </div>
       </div>
@@ -51,16 +72,93 @@
 <script src="./js/my-questionnaire-appraisee.js">
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   *{
     margin: 0;
     padding: 0;
   }
 
-  @media only screen and (min-width: 1050px ) {
-    .my-questionnaire-appraisees-outer {
+  .my-questionnaire-appraisees {
+    &__outer{
       width: 100%;
+      display: flex;
+      justify-content: center;
+      height: 80vh;
+      overflow: auto;
     }
+    &__container {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      width: 100%;
+      padding: 10px;
+    }
+
+    &__content {
+      display: flex;
+      align-items: start;
+      flex-direction: column;
+      width: 100%;
+
+      &__questionnaire-title > strong {
+        font-weight: bold;
+        font-size: x-large;
+      }
+
+      &__questionnaire-description {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        word-break: break-all;
+        font-size: large;
+        padding: 5px 0px;
+      }
+
+      &__questionnaire-date {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+
+        &__placeholder-start-date {
+          padding: 0px 1px;
+          flex-grow: 1;
+          font-weight: bold;
+          align-self: flex-start;
+        }
+
+        &__placeholder-due-date {
+          padding: 0px 1px;
+          flex-grow: 1;
+          font-weight: bold;
+          align-self: flex-start;
+        }
+      }
+
+      &__appraisees-list{
+        height: 100%;
+        width: 100%;
+        align-self: start;
+
+        &__title-appraisee {
+          padding: 5px 0px;
+          display: flex;
+          align-items: flex-start;
+          font-size: 1.5rem;
+        }
+
+        &__appraisee-card-container {
+          height: 55vh;
+          overflow: auto;
+        }
+      }
+
+      &__form-questionnaire{
+        width: 100%;
+      }
+    }
+  }
+
+  @media only screen and (min-width: 1050px ) {
 
     .questionnaire-detail {
       width: 800px;
@@ -70,76 +168,17 @@
     .form-questionnaire {
       width: 800px;
     }
-
-    .my-appraisees-list-containner, .form-questionnaire{
-      min-width: 600px;
-    }
   }
 
-  .my-questionnaire-appraisees-outer {
-    display: flex;
-    justify-content: center;
-    height: 80vh;
-    overflow: auto;
-  }
-  .my-questionnaire-appraisees-containter {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-  }
-
-  .questionnaire-detail {
-    display: flex;
-    align-items: start;
-    flex-direction: column;
-    padding-left: 10px;
-  }
-
-  .questionnaire-title {
-  }
-
-  .questionnaire-title > strong {
-    font-weight: bold;
-    font-size: x-large;
-  }
-
-  .questionnaire-description {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    word-break: break-all;
-    font-size: large;
-    padding: 10px 0px 10px 0px;
-  }
-
-  .questionnaire-date {
-    display: flex;
-    width: 100%;
-  }
-
-  .placeholder-start-date {
-    flex-grow: 1;
-    color: green;
-    font-weight: bold;
-    display: flex;
-    align-self: flex-start;
-  }
-
-  .placeholder-due-date {
-    flex-grow: 1;
+  .red {
     color: red;
-    font-weight: bold;
-    display: flex;
-    align-self: flex-start;
   }
 
-  .my-appraisees-list-containner {
-    overflow: auto;
-    padding: 10px;
-    height: 100%;
-    width: 100%;
-    align-self: start;
+  .green {
+    color: green;
   }
+
+
 
   .form-questionnaire {
     display : flex;
@@ -154,10 +193,7 @@
   }
 
   .title-appraisee, .title-questionnaire {
-    padding: 5px 0px 5px 0px;
-    display: flex;
-    align-items: flex-start;
-    font-size: x-large;
+
   }
 
   .title-questionnaire {
