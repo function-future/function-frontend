@@ -4,7 +4,7 @@ import SearchBar from '@/components/SearchBar'
 import UserListCard from '@/components/UserListCard'
 import usersApi from '@/api/controller/users'
 import chatroomApi from '@/api/controller/chatrooms'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import UserSimpleCard from '@/components/UserSimpleCard'
 
 export default {
@@ -20,9 +20,13 @@ export default {
     return {
       users: [],
       selectedUsers: [],
-      name: null,
+      chatroom: {},
+      picture: null,
       wrongName: false,
-      nameMember: ''
+      nameMember: '',
+      maximumSizeAlert: false,
+      isUploading: false,
+      isNext: false
     }
   },
   props: {
@@ -40,6 +44,10 @@ export default {
     }
   },
   methods: {
+    ...mapActions([
+      'uploadGroupImage',
+      'fetchDetailChatroom'
+    ]),
     convertToListUserId (users) {
       let result = users.map(user => user.id)
       result.push(this.currentUser.id)
@@ -53,12 +61,20 @@ export default {
     close () {
       this.$emit('close')
     },
+    nextOrSave () {
+      if (this.selectedUsers.length > 1) {
+        this.isNext = true
+      } else {
+        this.create()
+      }
+    },
     create () {
-      if (this.selectedUsers.length > 1 && !this.name) {
+      if (this.selectedUsers.length > 1 && !this.chatroom.name) {
         this.wrongName = true
       } else if (this.selectedUsers.length > 0) {
         this.$emit('submit', {
-          name: this.name,
+          name: this.chatroom.name,
+          picture: this.chatroom.picture,
           members: this.convertToListUserId(this.selectedUsers)
         })
         this.$emit('close')
@@ -69,7 +85,7 @@ export default {
       this.callSearchUserApi(value)
     },
     errorHandler (err) {
-      console.log(err)
+      console.error(err)
     },
     callSearchUserApi (name) {
       usersApi.searchUser(response => {
@@ -83,27 +99,63 @@ export default {
       }, this.errorHandler)
     },
     enterPressed (event) {
-      if (event.keyCode === 13 && (this.selectedUsers.length > 1 && this.name)) {
+      if (event.keyCode === 13 && (this.selectedUsers.length > 1 && this.chatroom.name)) {
         this.$emit('submit', {
-          name: this.name,
+          name: this.chatroom.name,
+          picture: this.chatroom.picture,
           members: this.convertToListUserId(this.selectedUsers)
         })
         this.$emit('close')
       }
+    },
+    onFileChange (e) {
+      let formData = new FormData()
+      formData.append('file', e.target.files[0])
+      let data = {
+        source: 'UNKNOWN',
+        resources: formData
+      }
+      let configuration = { headers: { 'Content-Type': 'multipart/form-data' } }
+      this.isUploading = true
+      this.uploadGroupImage({
+        data,
+        configuration,
+        callback: this.successUploadGroupPicture,
+        fail: this.failUploadGroupPicture
+      })
+    },
+    successUploadGroupPicture (response) {
+      this.isUploading = false
+      this.chatroom.picture = response.id
+      this.picture = response.file.full
+    },
+    failUploadGroupPicture () {
+      this.isUploading = false
+      this.toast({
+        data: {
+          message: 'Fail to upload image, please try again',
+          type: 'is-danger'
+        }
+      })
+    },
+    fetchDetailChatroomCallback (response) {
+      this.callSearchUserApi('')
+      this.picture = response.data.picture ? response.data.picture.file.full : null
+      this.selectedUsers = response.data.members.filter(user => user.id !== this.currentUser.id)
+      this.chatroom = response.data
+      this.chatroom.picture = response.data.picture ? response.data.picture.id : null
     }
   },
   created () {
     if (this.chatroomId) {
-      chatroomApi.getChatroomDetails(response => {
-        this.callSearchUserApi('')
-        if (response.data.type === 'GROUP') {
-          this.name = response.data.name
-        }
-        this.selectedUsers = response.data.members.filter(user => user.id !== this.currentUser.id)
-      }, this.errorHandler, {
-        params: {
-          chatroomId: this.chatroomId
-        }
+      this.fetchDetailChatroom({
+        data: {
+          params: {
+            chatroomId: this.chatroomId
+          }
+        },
+        fail: this.errorHandler,
+        cb: this.fetchDetailChatroomCallback
       })
     } else {
       this.callSearchUserApi('')

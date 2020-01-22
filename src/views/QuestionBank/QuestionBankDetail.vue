@@ -55,7 +55,7 @@
                     <div v-for="question in questions" :key="question.id">
                       <ListItem @click="redirectToQuestionDetail(question.id)">
                         <template #title>
-                          {{ question.label }}
+                          <span v-html="question.label"></span>
                         </template>
                         <template #actions>
                           <b-dropdown aria-role="list"

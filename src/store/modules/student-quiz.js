@@ -37,6 +37,11 @@ export const actions = {
       callback && callback()
     }, data, fail)
   },
+  fetchStudentQuizTimeLimit ({ state }, { data, callback, fail }) {
+    studentQuizApi.getTimeLimit(({data: response}) => {
+      callback && callback(response)
+    }, data, fail)
+  },
   submitAnswers ({ commit }, { payload, data, callback, fail }) {
     studentQuizApi.postQuizAnswer((response) => {
       callback && callback(response)

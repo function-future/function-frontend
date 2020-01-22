@@ -121,7 +121,7 @@
   </div>
 </template>
 
-<script src="./js/chatrooms.js">
+<script src="js/chatrooms.js">
 </script>
 
 <style scoped>

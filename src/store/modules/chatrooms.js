@@ -1,4 +1,5 @@
 import chatroomApi from '@/api/controller/chatrooms'
+import resourceApi from '@/api/controller/resources'
 
 export const state = {
   chatrooms: [],
@@ -26,36 +27,20 @@ export const mutations = {
   }
 }
 
-const isChatroomEqual = function (chatroom1, chatroom2) {
-  return chatroom1.id === chatroom2.id &&
-    ((!chatroom1.lastMessage && !chatroom2.lastMessage) ||
-    (chatroom1.lastMessage && chatroom2.lastMessage &&
-    chatroom1.lastMessage.seen === chatroom2.lastMessage.seen &&
-    chatroom1.lastMessage.message === chatroom2.lastMessage.message))
-}
-
 export const actions = {
   fetchChatrooms ({ state, commit }, { data, fail, cb }) {
     chatroomApi.getChatrooms(response => {
-      let i = 0
-      let shouldChange = false
-      for (const chatroom of response.data) {
-        if (state.chatrooms[i] && !isChatroomEqual(chatroom, state.chatrooms[i])) {
-          shouldChange = true
-        }
-        i += 1
-      }
-      if (shouldChange) {
-        cb(response.data)
-      }
+      cb(response)
     }, fail, data)
   },
   fetchMessages ({ commit }, { data, fail, cb }) {
     chatroomApi.getMessages(response => {
-      commit('PUSH_MESSAGES', response.data.reverse())
-      if (response.data.length > 0) {
-        cb()
-      }
+      cb && cb(response)
+    }, fail, data)
+  },
+  createMessage ({ commit }, { data, fail, cb }) {
+    chatroomApi.createMessage(response => {
+      cb && cb(response)
     }, fail, data)
   },
   fetchChatroomWithKeyword ({ commit }, { data, fail }) {
@@ -80,12 +65,57 @@ export const actions = {
       data
     )
   },
+  fetchMessagesBeforePivot ({ commit, state }, { data, fail, cb }) {
+    chatroomApi.getMessagesBeforePivot(response => {
+      cb && cb(response)
+    }, fail, data)
+  },
   updateSeenStatus ({ state, commit }, chatroomId) {
     for (let chatroom of state.chatrooms) {
       if (chatroomId === chatroom.id && chatroom.lastMessage) {
         chatroom.lastMessage.seen = true
       }
     }
+  },
+  uploadGroupImage ({ commit }, { data, configuration, callback, fail }) {
+    resourceApi.uploadResource(({ data: response }) => {
+      callback(response)
+    }, data, fail, configuration)
+  },
+  setChatroomsLimit ({ commit }, { data, fail, cb }) {
+    chatroomApi.setLimit(response => {
+      cb && cb(response)
+    }, fail, data)
+  },
+  unsetChatroomsLimit ({ commit }, { fail, cb }) {
+    chatroomApi.unsetLimit(response => {
+      cb && cb(response)
+    }, fail)
+  },
+  enterChatroom ({ commit }, { data, fail, cb }) {
+    chatroomApi.enterChatroom(response => {
+      cb && cb(response)
+    }, fail, data)
+  },
+  leaveChatroom ({ commit }, { data, fail, cb }) {
+    chatroomApi.leaveChatroom(response => {
+      cb && cb(response)
+    }, fail, data)
+  },
+  createChatroom ({ commit }, { data, fail, cb }) {
+    chatroomApi.createChatroom(response => {
+      cb && cb(response)
+    }, fail, data)
+  },
+  updateChatroom ({ commit }, { data, fail, cb }) {
+    chatroomApi.updateChatroom(response => {
+      cb && cb(response)
+    }, fail, data)
+  },
+  fetchDetailChatroom ({ commit }, { data, fail, cb }) {
+    chatroomApi.getChatroomDetails(response => {
+      cb && cb(response)
+    }, fail, data)
   },
   pushMessages ({ commit }, messages) {
     commit('PUSH_MESSAGES', messages)

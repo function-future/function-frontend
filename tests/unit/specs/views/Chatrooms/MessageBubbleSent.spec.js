@@ -1,4 +1,4 @@
-import MessageBubbleSent from '@/views/Chatrooms/MessageBubbleSent'
+import MessageBubbleSent from '@/views/Chatrooms/deprecated/MessageBubbleSent'
 import moment from 'moment'
 import { shallowMount } from '@vue/test-utils'
 

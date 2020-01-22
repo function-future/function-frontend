@@ -366,13 +366,24 @@ export default {
           })
           break
         case 'assignments':
-          this.$router.push({
-            name: 'assignmentDetail',
-            params: {
-              assignmentId: id,
-              batchCode: this.batchCode
-            }
-          })
+          if (this.currentUser.role !== 'STUDENT')
+            this.$router.push({
+              name: 'assignmentDetail',
+              params: {
+                assignmentId: id,
+                batchCode: this.batchCode
+              }
+            })
+          else {
+            this.$router.push({
+              name: 'assignmentRoomDetail',
+              params: {
+                batchCode: this.batchCode,
+                assignmentId: id,
+                studentId: this.currentUser.id
+              }
+            })
+          }
           break
       }
     },

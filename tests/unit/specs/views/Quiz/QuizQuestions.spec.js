@@ -163,11 +163,37 @@ describe('QuizQuestions', () => {
     expect(wrapper.vm.optionLabel(3)).toEqual('D')
   })
 
+  test('successFetchingTimeLimit', () => {
+    initComponent()
+    const response = 20
+    wrapper.vm.successFetchingTimeLimit(response)
+    expect(wrapper.vm.quizDetail.timeLimit).toEqual(response)
+    expect(wrapper.vm.isLoading).toEqual(false)
+  })
+
+  test('failedFetchingTimeLimit', () => {
+    initComponent()
+    store.state.currentUser = {
+      batchCode: 'futur3'
+    }
+    wrapper.vm.quizDetail = {
+      id: 'QZ001'
+    }
+    wrapper.vm.$router.push = jest.fn()
+    wrapper.vm.failedFetchingTimeLimit()
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
+      name: 'quizDetail',
+      params: {
+        quizId: 'QZ001',
+        batchCode: 'futur3'
+      }
+    })
+  })
+
   test('successFetchingStudentQuizQuestions', () => {
     initComponent()
     wrapper.vm.successFetchingStudentQuizQuestions()
     expect(wrapper.vm.currentNumber).toEqual(0)
-    expect(wrapper.vm.isLoading).toEqual(false)
   })
 
   test('failedFetchingStudentQuizQuestions', () => {

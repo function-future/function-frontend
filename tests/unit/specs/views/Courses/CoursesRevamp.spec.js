@@ -422,7 +422,7 @@ describe('Courses Revamp', () => {
     expect(wrapper.vm.showDeleteConfirmationModal).toEqual(false)
     expect(toastSpy).toHaveBeenCalledWith({
       data: {
-        message: 'Successfully delete master course',
+        message: 'Successfully delete  course',
         type: 'is-success'
       }
     })
@@ -434,7 +434,7 @@ describe('Courses Revamp', () => {
     expect(wrapper.vm.showDeleteConfirmationModal).toEqual(false)
     expect(toastSpy).toHaveBeenCalledWith({
       data: {
-        message: 'Fail to delete master course',
+        message: 'Fail to delete  course',
         type: 'is-danger'
       }
     })
@@ -555,6 +555,7 @@ describe('Courses Revamp', () => {
 
   test('computed originBatch batch', () => {
     wrapper.vm.$route.query.tab = 'batch'
+    wrapper.vm.selectedBatchCode = 'code'
     expect(wrapper.vm.originBatch).toEqual(wrapper.vm.$route.params.code)
   })
 

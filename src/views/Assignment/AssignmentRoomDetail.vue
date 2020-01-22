@@ -83,7 +83,7 @@
                       {{ discussion.author.name }}
                     </div>
                     <div class="is-size-7">
-                      {{ discussion.createdAt | moment("dddd, MMMM Do YYYY") }}
+                      {{ discussion.createdAt | moment("dddd, MMMM Do YYYY - h:mm") }}
                     </div>
                     <div class="room-detail__container__discussion__list-content">
                       {{ discussion.comment }}
@@ -91,39 +91,34 @@
                   </div>
                 </div>
               </article>
-              <infinite-loading @infinite="initDiscussion" :distance="4"
+              <infinite-loading @infinite="initDiscussion" :distance="4" direction="top"
                                 spinner="spiral">
                 <div slot="no-more"></div>
                 <div slot="no-results"></div>
               </infinite-loading>
-              <article class="media room-detail__container__discussion__list">
-                <figure class="media-left">
-                  <p class="image is-32x32">
-                    <img class="is-rounded" :src="require('@/assets/profile-picture-placeholder.png')">
-                  </p>
-                </figure>
-                <div class="media-content">
-                  <div class="field">
-                    <p class="control">
+            </div>
+          </div>
+        </div>
+      </b-collapse>
+      <article class="media room-detail__container__discussion__box">
+        <div class="media-content">
+          <div class="field">
+            <p class="control">
                   <textarea class="textarea"
                             v-model="discussion.comment"
                             placeholder="Say something..."
                             :disabled="!accessList.add">
                   </textarea>
-                    </p>
-                  </div>
-                  <div class="field has-text-right" v-if="accessList.add">
-                    <b-button type="is-primary"
-                              @click="submitComment">
-                      Post discussion
-                    </b-button>
-                  </div>
-                </div>
-              </article>
-            </div>
+            </p>
+          </div>
+          <div class="field has-text-right" v-if="accessList.add">
+            <b-button type="is-primary"
+                      @click="submitComment">
+              Post discussion
+            </b-button>
           </div>
         </div>
-      </b-collapse>
+      </article>
     </div>
   </div>
 </template>
@@ -136,7 +131,6 @@
   .room-detail {
     &__container {
       padding: 1rem 1.25rem;
-      margin-bottom: 2rem;
 
       &-title {
         display: flex;
@@ -168,6 +162,9 @@
 
       &__discussion {
         margin-top: 1rem;
+        &__box {
+          margin-top: 1rem;
+        }
       }
     }
   }
@@ -178,6 +175,10 @@
   }
 
   .card-content {
+    @media only screen and (min-width: 1023px) {
+      max-height: 35vh;
+      overflow-y: auto;
+    }
     @media only screen and (max-width: 1023px) {
       padding: 0;
     }

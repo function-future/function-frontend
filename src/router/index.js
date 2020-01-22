@@ -36,7 +36,7 @@ import courses from '@/views/Courses/CoursesRevamp.vue'
 import courseDetail from '@/views/Courses/CourseDetailRevamp.vue'
 import courseForm from '@/views/Courses/CourseFormRevamp.vue'
 import config from '@/config/index'
-import chatrooms from '@/views/Chatrooms/Chatrooms'
+import chatrooms from '@/views/Chatrooms/Chatroom'
 import myQuestionnaire from '@/views/Questionnaire/MyQuestionnaire'
 import myQuestionnaireAppraisee from '@/views/Questionnaire/MyQuestionnaireAppraisee'
 import questionnaires from '@/views/Questionnaire/Questionnaires'
@@ -60,6 +60,7 @@ import loggingRoomTopicsPage from '@/views/LoggingRoom/LoggingRoomTopicsPage.vue
 import logMessageRoom from '@/views/LoggingRoom/LogMessageRoom.vue'
 import loggingRoomCreate from '@/views/LoggingRoom/LoggingRoomCreate'
 import loggingRoomEdit from '@/views/LoggingRoom/LoggingRoomEdit'
+import chatroomContent from '@/views/Chatrooms/ChatroomContent'
 
 import files from '@/views/Files/Files'
 import store from '../store/index.js'
@@ -974,8 +975,22 @@ const router = new Router({
       component: chatrooms,
       meta: {
         auth: true,
-        title: 'Chatrooms'
+        title: 'Chatrooms',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Chatrooms', link: 'chatrooms' }
+        ]
       }
+    },
+    {
+      path: config.app.pages.chatroomsMobile,
+      name: 'chatroomsMobile',
+      component: chatroomContent,
+      meta: {
+        auth: true,
+        title: 'Chatrooms'
+      },
+      props: true
     },
     {
       path: config.app.pages.reminders.list,

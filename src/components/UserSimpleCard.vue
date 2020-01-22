@@ -1,7 +1,7 @@
 <template>
-    <div class="selected-user-card">
+    <div class="selected-user-card" @click="$emit('remove', user.id)">
         <p>{{ user.name }}</p>
-        <font-awesome-icon v-if="showRemove" icon="times" class="selected-user-remove" @click="$emit('remove', user.id)" size="lg"/>
+        <font-awesome-icon v-if="showRemove" icon="times" class="selected-user-remove" size="lg"/>
     </div>
 </template>
 <script src="./js/user-simple-card.js">
@@ -20,9 +20,7 @@
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
         box-sizing: border-box;
-        -webkit-box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.1);
-        -moz-box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.1);
-        box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.1);
+        border: 1px solid #828282;
     }
 
     .selected-user-card > p, .selected-user-remove {
