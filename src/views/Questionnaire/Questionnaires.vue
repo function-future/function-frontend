@@ -11,7 +11,11 @@
           </b-button>
         </div>
         <div class="questionnaires__top-bar__search-bar">
-          <SearchBar @input="searchHandler"></SearchBar>
+          <b-input
+            @input="searchHandler"
+            icon="search"
+            placeholder="Search..."
+            class="is-rounded"/>
         </div>
       </div>
       <div class="questionnaires__content">
@@ -59,6 +63,10 @@
       display: flex;
       align-items: center;
       flex-direction: column;
+      width: 40vw;
+      @media only screen and (max-width: 1023px) {
+        width: 100vw;
+      }
     }
     &__top-bar {
       display: flex;

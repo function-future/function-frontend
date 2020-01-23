@@ -7,7 +7,12 @@
           <p class="modal__header__title"><strong>Add Member</strong></p>
         </div>
         <div class="modal__body">
-          <SearchBar @input="changeKeyword" @keyup="enterPressHandler" />
+          <b-input
+            @input="changeKeyword"
+            @keyup="enterPressHandler"
+            icon="search"
+            placeholder="Search..."
+            class="is-rounded modal__search-bar"/>
           <div class="modal__user-list">
           <template v-for="(user, index) in usersWithoutSelectedOne">
             <UserListCard :name="user.name"
@@ -102,6 +107,10 @@
       &__card {
         cursor: pointer;
       }
+    }
+
+    &__search-bar {
+      margin: 5px 0px;
     }
 
     &__footer {

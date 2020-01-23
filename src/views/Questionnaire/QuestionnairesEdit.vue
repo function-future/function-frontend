@@ -29,7 +29,8 @@
               Description
             </span>
           </div>
-          <QuestionnaireForm :value="currentQuestionnaireAdmin"
+          <QuestionnaireForm class="questionnaire-edit__container__content-description__form"
+                             :value="currentQuestionnaireAdmin"
                              :isReview="progressValue == 4"
                              @input="(newValue) => { setCurrentQuestionnaire(newValue) }"
           />
@@ -150,19 +151,22 @@
 
     &__container {
       overflow: auto;
-      width: 100%;
-      max-width: 800px;
+      width: 40vw;
+      @media only screen and (max-width: 1023px) {
+        width: 100vw;
+      }
 
       &__content-description {
         width: 100%;
-        max-width: 800px;
-        padding: 10px;
 
         &__progress-title {
           text-align: left;
-          margin: 10px 0px;
           font-weight: bold;
           font-size: 1.5rem;
+        }
+
+        &__form {
+          padding: 5px;
         }
       }
 
@@ -238,7 +242,7 @@
     align-items: baseline;
     justify-content: space-between;
     width: 100%;
-    margin-top: 20px;
+    margin-top: 10px;
   }
 
   .button-save {
