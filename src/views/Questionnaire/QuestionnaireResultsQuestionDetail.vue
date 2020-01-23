@@ -1,30 +1,17 @@
 <template>
-  <div class="questionnaire-results-question-detail-outer">
-    <div class="questionnaire-results-question-detail-container">
-      <QuestionnaireCard class="without-border-and-shadow"
-                         v-if="Object.keys(currentResultQuestionnaireDetail).length"
-                         :key="currentResultQuestionnaireDetail.questionnaireDetail.id"
-                         :title="currentResultQuestionnaireDetail.questionnaireDetail.title"
-                         :description="currentResultQuestionnaireDetail.questionnaireDetail.description"
-                         :startDate="currentResultQuestionnaireDetail.questionnaireDetail.startDate"
-                         :dueDate="currentResultQuestionnaireDetail.questionnaireDetail.dueDate"
-                         :score="currentResultQuestionnaireDetail.rating"
-                         :isResult="true"
-                         :isDetail="true"
-                         v-on:click="goToQuestionnaireResult(currentResultQuestionnaireDetail.id)"
-      ></QuestionnaireCard>
-      <p v-if="Object.keys(currentResultQuestionnaireDetail).length"><i>Appraisals for {{currentResultQuestionnaireDetail.appraisee.name}}</i></p>
-      <br>
-      <h2>Question</h2>
-      <QuestionCard class="without-border-and-shadow"
-                    v-if="Object.keys(currentResultQuestionDetail).length"
-                    :key="currentResultQuestionDetail.id"
-                    :description="currentResultQuestionDetail.question.description"
-                    :score="currentResultQuestionDetail.score"
-                    :isResult="true"
-      ></QuestionCard>
-      <br>
-      <h2>Appraised By</h2>
+  <div class="questionnaire-results-question-detail__outer">
+    <div class="questionnaire-results-question-detail__container">
+      <span class="questionnaire-results-question-detail__title">Question</span>
+      <div v-if="Object.keys(currentResultQuestionDetail).length" class="questionnaire-results-question-detail__content-question">
+        <div class="questionnaire-results-question-detail__content-question__description">
+          {{currentResultQuestionDetail.question.description}}
+        </div>
+        <div class="questionnaire-results-question-detail__content-question__score">
+          <span><font-awesome-icon icon="star" size="2x" class="star-icon"></font-awesome-icon></span>
+          <span class="score-number"><strong>{{currentResultQuestionDetail.score.toFixed(1)}}/6.0</strong></span>
+        </div>
+      </div>
+      <span class="questionnaire-results-question-detail__title">Appraised By</span>
       <div class="questionnaire-results-question-list">
         <QuestionnaireParticipantSimpleCard v-for="appraiser in currentResultsQuestionDetailResponsesList"
                                             :name="appraiser.name"
@@ -40,51 +27,49 @@
 <script src="./js/questionnaire-results-question-detail.js">
 </script>
 
-<style scoped>
-  @media only screen and (min-width: 900px){
-    .questionnaire-results-question-detail-outer {
-      min-width: 650px;
+<style lang="scss" scoped>
+  .questionnaire-results-question-detail {
+    &__outer {
+      display: flex;
+      justify-content: center;
+      overflow: auto;
     }
 
-    .questionnaire-results-question-detail-container {
-      min-width: 650px;
+    &__container {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      width: 40vw;
+      @media only screen and (max-width: 1023px) {
+        width: 100vw;
+      }
+    }
+    &__content-question{
+      display: flex;
+      justify-content: space-between;
+      padding : 0px 10px;
+
+      &__description {
+        text-align: left;
+        width: 100%;
+      }
+      &__score{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: #f1c40f;
+      }
+    }
+
+    &__title {
+      font-weight: bold;
+      font-size: 1.2rem;
+      margin: 5px 0px;
+      padding: 0px 10px;
     }
   }
 
-  .questionnaire-results-question-detail-outer {
-    display: flex;
-    justify-content: center;
-    overflow: auto;
-  }
-
-  .questionnaire-results-question-detail-container {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    max-width: 700px;
-  }
-
-  .without-border-and-shadow {
-    background: none;
-    border: none;
-    -webkit-box-sizing: unset;
-    box-sizing: unset;
-    -webkit-box-sizing: unset;
-    border-radius: unset;
-    box-shadow: none;
-    -webkit-box-sizing: unset;
-    cursor: default;
-    margin: 0px;
-  }
-
-  h2,p {
-    margin: 0px;
-    text-align: left;
-  }
-
-  p > i{
-    color: #02AAF3;
-  }
 
   .questionnaire-results-question-list {
     overflow: auto;

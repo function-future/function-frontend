@@ -13,9 +13,13 @@
         <b-icon icon="comments"></b-icon>
         <p class="is-size-7 menu-title">Chatroom</p>
       </a>
-      <a @click="goToPage('loggingRoom')" class="navbar-item is-expanded is-block has-text-centered mobile-router-link">
-        <b-icon icon="star"></b-icon>
+      <a @click="goToPage('')" class="navbar-item is-expanded is-block has-text-centered mobile-router-link">
+        <b-icon icon="chart-bar"></b-icon>
         <p class="is-size-7 menu-title">PA</p>
+      </a>
+      <a @click="goToPage('loggingRoom')" class="navbar-item is-expanded is-block has-text-centered mobile-router-link">
+        <b-icon icon="clipboard-list"></b-icon>
+        <p class="is-size-7 menu-title">LogRoom</p>
       </a>
     </div>
   </nav>

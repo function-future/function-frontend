@@ -1,6 +1,6 @@
 <template>
   <div class="question__outer" @click="$emit('click')" :class="{clickAble:isResult}">
-    <BaseCard class="question__container" >
+    <div class="question__container" >
       <div class="question__number">
         {{ number }}
       </div>
@@ -15,7 +15,7 @@
         <span><font-awesome-icon icon="star" size="2x" class="star-icon"></font-awesome-icon></span>
         <span class="score-number"><strong>{{score.toFixed(1)}}/6.0</strong></span>
       </div>
-    </BaseCard>
+    </div>
   </div>
 </template>
 
@@ -29,25 +29,31 @@
   .question {
     &__outer {
       width: 100%;
-      padding: 10px;
     }
 
     &__container {
       display: flex;
-      padding-right: 10px;
       justify-content: space-between;
-      margin: 0px;
+      background: #FFFFFF;
+      border: 1px solid #F2F2F2;
+      box-sizing: border-box;
+      box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.25);
+      border-radius: 10px;
+      text-align: left;
+      margin: 5px 10px;
+      padding: 10px;
+      cursor: pointer;
+      height: auto;
     }
 
     &__number {
       font-size: 3rem;
-      padding-right: 5px;
       display: flex;
       align-items: center;
     }
 
     &__description {
-      padding-top: 5px;
+      padding: 5px;
       text-align: left;
       width: 100%;
       align-self: center;
@@ -56,6 +62,8 @@
     &__score-placeholder {
       display: flex;
       flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
 
     &__action-icon {

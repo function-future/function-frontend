@@ -4,6 +4,7 @@ import QuestionnaireCard from '@/views/Questionnaire/QuestionnaireCard'
 import { mapActions, mapGetters } from 'vuex'
 import InfiniteLoading from 'vue-infinite-loading'
 import questionnaireResultsApi from '@/api/controller/questionnaire-results'
+import Breakpoint from '@/mixins/Breakpoint'
 
 export default {
   name: 'QuestionnaireResultsMemberDetail',
@@ -13,6 +14,9 @@ export default {
     QuestionnaireCard,
     InfiniteLoading
   },
+  mixins: [
+    Breakpoint
+  ],
   data () {
     return {
       appraiseeTemp: {},

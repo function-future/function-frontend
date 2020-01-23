@@ -1,22 +1,26 @@
 <template>
-  <div class="questionnaire-participant-card-outer">
-    <BaseCard class="questionnaire-participant-card">
-      <div class="questionnaire-participant-card-container">
-        <div class="questionnaire-participant-card-user">
-          <img v-if="avatar" class="questionnaire-participant-card-avatar" :src="avatar">
-          <div class="questionnaire-participant-card-content">
-            <p class="participant-name"><strong>{{ name }}</strong></p>
+  <div class="questionnaire-participant-card__outer">
+    <div class="questionnaire-participant-card__container">
+      <div class="questionnaire-participant-card__content-user">
+        <img v-if="avatar" class="questionnaire-participant-card__content-user__avatar"
+             :src="avatar" onerror="this.src='@/assets/avatar.png'">
+        <div class="questionnaire-participant-card__content-user__description">
+          <span class="questionnaire-participant-card__content-user__description__participant-name">
+            {{ name }}
+          </span>
+          <div v-if="comment" class="questionnaire-participant-card__content-user__description__participant-comment">
+            <i>{{comment}}</i>
           </div>
         </div>
-        <div class="score-placeholder">
-          <span><font-awesome-icon icon="star" size="lg" class="star-icon"></font-awesome-icon></span>
-          <span class="score-number"><strong>{{score.toFixed(1)}}/6.0</strong></span>
+      </div>
+      <div class="questionnaire-participant-card__content-score">
+        <div class="questionnaire-participant-card__content-score__score-placeholder">
+          <span><font-awesome-icon icon="star" size="lg" class="questionnaire-participant-card__content-score__icon">
+          </font-awesome-icon></span>
+          <span class="questionnaire-participant-card__content-score__score-number"><strong>{{score.toFixed(1)}}/6.0</strong></span>
         </div>
       </div>
-      <div v-if="comment">
-        <i>{{comment}}</i>
-      </div>
-    </BaseCard>
+    </div>
   </div>
 </template>
 
@@ -24,50 +28,64 @@
 
 </script>
 
+<style lang="scss" scoped>
+  .questionnaire-participant-card{
+    &__outer {
+      display: flex;
+      width: 100%;
+      justify-content: center;
+    }
 
+    &__container {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      background: #FFFFFF;
+      border: 1px solid #F2F2F2;
+      box-sizing: border-box;
+      box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.25);
+      border-radius: 10px;
+      text-align: left;
+      margin: 5px 10px;
+      padding: 10px;
+      cursor: pointer;
+      height: auto;
+    }
 
+    &__content-user {
+      display : flex;
+      flex-grow: 1;
+      &__avatar {
+        align-self: center;
+        border-radius: 100%;
+        height: 50px;
+        width: 50px;
+      }
 
-<style scoped>
-  .questionnaire-participant-card-outer {
-    display: flex;
-    width: 90%;
-    justify-content: center;
-    margin: 0% 5%;
+      &__description {
+        &__participant-name {
+          font-weight: bold;
+        }
+        &__participant-comment {
+          font-style: italic;
+        }
+      }
+    }
+
+    &__content-score {
+      align-self: center;
+      text-align: right;
+      min-width: 20%;
+
+      &__icon {
+        color: #f1c40f;
+        padding: 0px 5px;
+      }
+
+      &__score-number {
+        text-align: center;
+      }
+    }
   }
 
-  .questionnaire-participant-card {
-    width: 100%;
-    padding: 0px 20px 5px 20px;
-    margin: 5px 0px;
-  }
-  .questionnaire-participant-card-container {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    justify-content: space-between;
-  }
-
-  .questionnaire-participant-card-user {
-    display: flex;
-  }
-
-  .questionnaire-participant-card-avatar {
-    align-self: center;
-    border-radius: 100%;
-    height: 30px;
-    width: 30px;
-  }
-
-  .questionnaire-participant-card-content {
-    margin-left: 10px;
-  }
-
-  .star-icon {
-    color: #f1c40f;
-  }
-
-  .score-number {
-    text-align: center;
-    padding-top: 10px;
-  }
 </style>
