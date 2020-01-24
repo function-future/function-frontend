@@ -22,7 +22,7 @@ export default {
     ModalDeleteConfirmation,
     MenuCard
   },
-  mixins:[
+  mixins: [
     Breakpoint
   ],
   data () {

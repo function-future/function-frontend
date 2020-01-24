@@ -17,6 +17,14 @@ const getListAppraisees = function (callback, error, data) {
   )
 }
 
+const getListAppraiseeDone = function (callback, error, data) {
+  request.getRequest(
+    config.api.communication.myQuestionnaire.getListAppraiseeDone(data.params.questionnaireId),
+    callback,
+    error
+  )
+}
+
 const getQuestionnaireData = function (callback, error, data) {
   request.getRequest(
     config.api.communication.myQuestionnaire.getQuestionnaireData(data.params.questionnaireId, data.params.appraiseeId),
@@ -45,6 +53,7 @@ const addQuestionnaireResponse = function (callback, error, data) {
 export default {
   getMyQuestionnaires,
   getListAppraisees,
+  getListAppraiseeDone,
   getQuestionnaireData,
   getQuestion,
   addQuestionnaireResponse

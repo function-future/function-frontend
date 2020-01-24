@@ -1,6 +1,6 @@
 <template>
   <div class="questionnaire-participant-card__outer">
-    <div class="questionnaire-participant-card__container">
+    <div class="questionnaire-participant-card__container" >
       <div class="questionnaire-participant-card__content-user">
         <img v-if="avatar" class="questionnaire-participant-card__content-user__avatar"
              :src="avatar || require('@/assets/profile-picture-placeholder.png')">
@@ -55,7 +55,7 @@
       display : flex;
       flex-grow: 1;
       &__avatar {
-        align-self: center;
+        align-self: flex-start;
         border-radius: 100%;
         height: 50px;
         width: 50px;

@@ -98,10 +98,12 @@
 
         &__start-date {
           color: green;
+          flex-grow: 1;
         }
 
         &__due-date {
           color: red;
+          flex-grow: 1;
         }
       }
 
