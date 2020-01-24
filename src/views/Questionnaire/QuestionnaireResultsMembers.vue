@@ -12,7 +12,7 @@
                                         :name="appraisee.member.name"
                                         :avatar="appraisee.member.avatar"
                                         :role="appraisee.member.role"
-                                        :university="appraisee.university"
+                                        :university="appraisee.member.university"
                                         :batch="appraisee.member.batch.code"
                                         :score="appraisee.rating"
                                         :isResult="true"

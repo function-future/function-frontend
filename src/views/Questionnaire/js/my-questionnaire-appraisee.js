@@ -31,7 +31,8 @@ export default {
         default: []
       },
       currentQuestionnaireForm: [],
-      responses: []
+      responses: [],
+      appraiseeDone: []
     }
   },
   methods: {
@@ -160,6 +161,8 @@ export default {
     ])
   },
   created () {
+    this.currentQuestionnaireForm = []
+
     this.fetchCurrentQuestionnaire({
       data: {
         params: {
@@ -180,9 +183,19 @@ export default {
     if (this.$route.params.appraiseeId) {
       this.fetchingQuestionnaireData(this.$route.params.appraiseeId)
     }
+
+    myQuestionnaireApi.getListAppraiseeDone(response => {
+      this.appraiseeDone = response.data
+    }, this.errorCallBack,
+    {
+      params: {
+        questionnaireId: this.$route.params.questionnaireId
+      }
+    })
   },
   destroyed () {
     this.questionnaireForm = this.questionnaireForm.default
     this.responses = []
+    this.currentQuestionnaireForm = []
   }
 }

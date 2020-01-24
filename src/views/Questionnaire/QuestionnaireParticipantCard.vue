@@ -1,5 +1,5 @@
 <template>
-  <div class="questionnaire-participant-card__outer" @click="$emit('click')">
+  <div class="questionnaire-participant-card__outer" @click="$emit('click')" :class="{disabled:isDisable}">
     <div class="questionnaire-participant-card__container">
       <div class="questionnaire-participant-card__avatar">
         <img :src="avatar || require('@/assets/profile-picture-placeholder.png')">
@@ -110,5 +110,11 @@
 
   .card {
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.25);
+  }
+
+  .disabled {
+    opacity: 0.5;
+    background-color: white;
+    cursor: default !important;
   }
 </style>

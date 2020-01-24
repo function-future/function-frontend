@@ -27,11 +27,6 @@
           <div class="my-questionnaire-appraisees__content__appraisees-list__title-appraisee">
             <p><strong>Appraisee</strong></p>
           </div>
-<!--          <div class="my-questionnaire-appraisees__content__appraisees-list__appraisee-card-container">-->
-<!--            <MenuCard  :iconMenu="iconMenuMembers" :iconTitle="iconMenuMembersTitle"-->
-<!--                       @click="callShowMembers"-->
-<!--            ></MenuCard>-->
-<!--          </div>-->
           <div class="my-questionnaire-appraisees__content__appraisees-list__appraisee-card-container">
             <QuestionnaireParticipantCard v-for="appraisee in myListAppraisees"
                                           :key="appraisee.id"
@@ -41,6 +36,17 @@
                                           :university="appraisee.university"
                                           :batch="appraisee.batch.name"
                                           v-on:click="goToInputQuestionnaireAnswer(appraisee)"
+            ></QuestionnaireParticipantCard>
+            <QuestionnaireParticipantCard
+              v-for="appraisee in appraiseeDone"
+              :name="appraisee.appraiseeResponse.name"
+              :avatar="appraisee.appraiseeResponse.avatar"
+              :role="appraisee.appraiseeResponse.role"
+              :university="appraisee.appraiseeResponse.university"
+              :batch="appraisee.appraiseeResponse.batch.name"
+              :score="appraisee.score"
+              :isResult="true"
+              :isDisable="true"
             ></QuestionnaireParticipantCard>
           </div>
         </div>

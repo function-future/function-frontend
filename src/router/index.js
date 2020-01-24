@@ -47,6 +47,7 @@ import questionnaireResultsMembers from '@/views/Questionnaire/QuestionnaireResu
 import questionnaireResultsMemberDetail from '@/views/Questionnaire/QuestionnaireResultsMemberDetail'
 import questionnaireResultsQuestionnaireDetail from '@/views/Questionnaire/QuestionnaireResultsQuestionnaireDetail'
 import questionnaireResultsQuestionDetail from '@/views/Questionnaire/QuestionnaireResultsQuestionDetail'
+import menuMobileQuestionnaire from '@/views/Questionnaire/MenuMobileQuestionnaire'
 import reminders from '@/views/Reminders/Reminders'
 import reminderForm from '@/views/Reminders/ReminderForm'
 import profile from '@/views/User/Profile'
@@ -1061,6 +1062,19 @@ const router = new Router({
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
           { name: 'Notifications', link: 'notifications' }
+        ]
+      }
+    },
+    {
+      path: config.app.pages.menuMobileQuestionnaire,
+      name: 'menuMobileQuestionnaire',
+      component: menuMobileQuestionnaire,
+      meta: {
+        title: 'Peer Appraisal',
+        auth: true,
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Peer Appraisal', link: 'menuMobileQuestionnaire' }
         ]
       }
     },

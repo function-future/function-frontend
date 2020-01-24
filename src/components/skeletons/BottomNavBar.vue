@@ -13,7 +13,7 @@
         <b-icon icon="comments"></b-icon>
         <p class="is-size-7 menu-title">Chatroom</p>
       </a>
-      <a @click="goToPage('')" class="navbar-item is-expanded is-block has-text-centered mobile-router-link">
+      <a @click="goToPage('menuMobileQuestionnaire')" class="navbar-item is-expanded is-block has-text-centered mobile-router-link">
         <b-icon icon="chart-bar"></b-icon>
         <p class="is-size-7 menu-title">PA</p>
       </a>

@@ -33,6 +33,7 @@
       display: flex;
       justify-content: center;
       overflow: auto;
+      height: 80vh;
     }
 
     &__container {
@@ -75,7 +76,7 @@
     overflow: auto;
     display: flex;
     flex-direction: column;
-    height: 30vh;
+    height: 60vh;
   }
 
 </style>
