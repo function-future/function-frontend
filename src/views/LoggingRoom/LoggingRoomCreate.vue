@@ -66,13 +66,11 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      width: 40vw;
 
-      @media only screen and (min-width: 800px) {
-        width: 500px;
-      }
-
-      @media only screen and (min-width: 1300px) {
-        width: 800px;
+      @media only screen and (max-width: 1023px) {
+        width: 100vw;
+        padding: 10px;
       }
     }
 

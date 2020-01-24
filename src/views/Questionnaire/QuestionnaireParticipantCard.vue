@@ -2,7 +2,7 @@
   <div class="questionnaire-participant-card__outer" @click="$emit('click')">
     <div class="questionnaire-participant-card__container">
       <div class="questionnaire-participant-card__avatar">
-        <img :src="avatar" onerror="this.src='@/assets/avatar.png'">
+        <img :src="avatar || require('@/assets/profile-picture-placeholder.png')">
       </div>
       <div class="questionnaire-participant-card__content">
         <p class="questionnaire-participant-card__content__participant-name"><strong>{{ name }}</strong></p>

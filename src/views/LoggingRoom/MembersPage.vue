@@ -1,6 +1,6 @@
 <template>
   <div class="members-page__container">
-    <span class="members-page__title"><b>Members</b></span>
+    <span class="members-page__title">Members</span>
     <div class="members-page__participant-container">
       <participant-card v-for="member in loggingRoom.members"
                         :key="member.id"
@@ -29,23 +29,20 @@
 
       display: flex;
       flex-direction: column;
-      width: 100%;
+      width: 40vw;
       @media only screen and (max-width: 1023px) {
-        padding: 2%;
+        width: 100vw;
+        padding: 10px;
       }
     }
 
     &__title {
       text-align: left;
-      font-size: 2rem;
-      margin-bottom: 2vh;
+      font-size: 1.2rem;
+      font-weight: bold;
     }
 
     &__participant-container {
-      /*@media only screen and (max-width: 1023px) {*/
-      /*  display: none;*/
-      /*}*/
-      padding-top: 1vh;
       @media only screen and (max-width: 1023px) {
         height: 82vh;
       }

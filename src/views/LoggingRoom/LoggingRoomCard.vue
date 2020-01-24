@@ -1,6 +1,6 @@
 <template>
     <div>
-      <BaseCard class="logging-room-card__outer">
+      <div class="logging-room-card__outer">
         <div class="logging-room-card__container" @click="$emit('click')">
           <div class="logging-room-card__title">
             <h2> <b>{{computedTitle}}</b> </h2>
@@ -17,7 +17,7 @@
           <font-awesome-icon class="icon icon-edit" icon="edit" @click="$emit('edit')"/>
           <font-awesome-icon class="icon icon-delete" icon="trash-alt" @click="$emit('delete')"/>
         </div>
-      </BaseCard>
+      </div>
     </div>
 </template>
 
@@ -33,9 +33,17 @@
 
   .logging-room-card {
     &__outer {
-      height: 20vh;
-      padding: 15px;
       display: flex;
+      background: #FFFFFF;
+      border: 1px solid #F2F2F2;
+      box-sizing: border-box;
+      box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.25);
+      border-radius: 10px;
+      text-align: left;
+      margin: 5px 10px;
+      padding: 10px;
+      cursor: pointer;
+      height: auto;
     }
 
     &__container {
@@ -47,16 +55,13 @@
     }
 
     &__title {
-      height: 5vh;
       display: flex;
       justify-content: space-between;
     }
     &__description {
-      height: 9vh;
     }
     &__member-information {
       font-size: 2vh;
-      height: 5vh;
       color : #02AAF3;
     }
 

@@ -1,8 +1,8 @@
 <template>
-  <div class="participant-card">
-    <BaseCard class="participant-card__container">
+  <div class="participant-card__outer">
+    <div class="participant-card__container">
       <div v-if="avatar" class="participant-card__content-left">
-        <img :src="avatar">
+        <img :src="avatar || require('@/assets/profile-picture-placeholder.png')">
       </div>
       <div class="participant-card__content-center">
         <p class="participant-card__content-center__name"><strong>{{ name }}</strong></p>
@@ -11,7 +11,7 @@
       <div class="participant-card__content-right">
         <p class="participant-card__content-right__role">{{ computedRole }} - {{ batch }}</p>
       </div>
-    </BaseCard>
+    </div>
   </div>
 </template>
 
@@ -19,31 +19,40 @@
 </script>
 
 <style lang="scss" scoped>
+  @import "@/assets/css/main.scss";
+
   * {
     padding: 0px;
     margin: 0px;
   }
 
   .participant-card {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    padding: 2px 2.5%;
-    @media only screen and (max-width: 1023px) {
-      padding: 0px;
-      margin: 0px 2px;
+    &__outer {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      padding: 2px 2.5%;
+      @media only screen and (max-width: 1023px) {
+        padding: 0px;
+        margin: 0px 2px;
+      }
     }
 
     &__container {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0px;
-      margin: 0px;
       width: 100%;
-      min-height: 62px;
-      padding: 5px 20px;
-
+      background: #FFFFFF;
+      border: 1px solid #F2F2F2;
+      box-sizing: border-box;
+      box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.25);
+      border-radius: 10px;
+      text-align: left;
+      margin: 5px 10px;
+      padding: 10px;
+      cursor: pointer;
+      height: auto;
     }
 
     &__content-left {
@@ -57,7 +66,6 @@
       border-radius: 100%;
       height: 40px;
       width: 40px;
-      padding: 10px;
     }
 
     &__content-center {
