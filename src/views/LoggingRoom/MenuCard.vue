@@ -1,9 +1,9 @@
 <template>
   <div class="menu-card__wrapper" v-on:click="$emit('click')">
-    <BaseCard class="menu-card__container">
-      <font-awesome-icon :icon="iconMenu" size="lg" class="icon blue"></font-awesome-icon>
-      <span class="menu-title"><b>{{iconTitle}}</b></span>
-    </BaseCard>
+    <div class="menu-card__container">
+      <font-awesome-icon :icon="iconMenu" size="3x" class="icon blue"></font-awesome-icon>
+      <span class="menu-title">{{iconTitle}}</span>
+    </div>
   </div>
 </template>
 
@@ -18,10 +18,17 @@
   }
   .menu-card{
     &__container {
-      margin: 0px;
-      padding: 30px;
       display: flex;
-      justify-content: flex-start;
+      background: #FFFFFF;
+      border: 1px solid #F2F2F2;
+      box-sizing: border-box;
+      box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.25);
+      border-radius: 10px;
+      text-align: left;
+      padding: 20px 10px;
+      cursor: pointer;
+      height: auto;
+      align-items: center;
     }
 
     &__container:hover {
@@ -29,9 +36,7 @@
     }
   }
   .icon {
-    height: 4rem;
-    width: 4rem;
-    margin : 0px 10px;
+    margin : 0px;
   }
 
   .blue {
@@ -40,6 +45,7 @@
 
   .menu-title {
     align-self: center;
-    font-size: 2rem;
+    font-weight: bold;
+    font-size: 1.2rem;
   }
 </style>

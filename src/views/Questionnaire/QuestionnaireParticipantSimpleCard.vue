@@ -3,7 +3,7 @@
     <div class="questionnaire-participant-card__container">
       <div class="questionnaire-participant-card__content-user">
         <img v-if="avatar" class="questionnaire-participant-card__content-user__avatar"
-             :src="avatar" onerror="this.src='@/assets/avatar.png'">
+             :src="avatar || require('@/assets/profile-picture-placeholder.png')">
         <div class="questionnaire-participant-card__content-user__description">
           <span class="questionnaire-participant-card__content-user__description__participant-name">
             {{ name }}
@@ -25,7 +25,6 @@
 </template>
 
 <script src="./js/questionnaire-participant-simple-card.js">
-
 </script>
 
 <style lang="scss" scoped>

@@ -32,10 +32,6 @@
           </div>
           <div class="log-message__input-bar__btn-send">
             <font-awesome-icon icon="arrow-circle-up" class="icon button-save" @click="submitMessage"/>
-
-<!--            <BaseButton type="submit" buttonClass="button-save" @click="submitMessage">-->
-<!--              <font-awesome-icon icon="arrow-circle-up" class="icon"/>-->
-<!--            </BaseButton>-->
           </div>
         </div>
       </div>
@@ -59,19 +55,20 @@
    width: 100%;
 
    &__title{
-     margin-top: 2vh;
-     font-size: 2rem;
+     font-size: 1.2rem;
+     font-weight: bold;
    }
 
    &__container {
      display: flex;
      flex-direction: column;
      align-items: center;
-     width: 100%;
      height: 80vh;
+     width: 40vw;
 
-     @media only screen and (min-width: 1023px) {
-       width: 800px;
+     @media only screen and (max-width: 1023px) {
+       width: 100vw;
+       margin: 10px;
      }
    }
 
@@ -79,7 +76,6 @@
      width: 100%;
      height: 75vh;
      overflow: auto;
-
      &__message {
        display: flex;
        align-items: center;

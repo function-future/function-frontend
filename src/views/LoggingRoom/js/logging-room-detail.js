@@ -7,6 +7,7 @@ import ModalAddQuestion from '@/views/Questionnaire/ModalAddQuestion'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
 import MenuCard from '@/views/LoggingRoom/MenuCard'
 
+import Breakpoint from '@/mixins/Breakpoint'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -21,6 +22,9 @@ export default {
     ModalDeleteConfirmation,
     MenuCard
   },
+  mixins:[
+    Breakpoint
+  ],
   data () {
     return {
       topics: [],
@@ -42,21 +46,13 @@ export default {
       iconMenuMembers: 'user',
       iconMenuMembersTitle: 'Members',
       iconMenuTopics: 'list',
-      iconMenuTopicsTitle: 'Topics',
-      showMembers: 'none',
-      show: ''
+      iconMenuTopicsTitle: 'Topics'
     }
   },
   computed: {
     ...mapGetters([
       'accessList'
     ]),
-    isShowMembers: function () {
-      return this.showMembers
-    },
-    isShow: function () {
-      return this.show
-    }
 
   },
   methods: {

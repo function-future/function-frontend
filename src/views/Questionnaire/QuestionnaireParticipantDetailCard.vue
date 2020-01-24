@@ -2,7 +2,7 @@
   <div class="questionnaire-participant-card-detail__outer">
     <BaseCard class="questionnaire-participant-card-detail__container">
       <div class="questionnaire-participant-card-detail__avatar">
-        <img :src="avatar" onerror="this.src='@/assets/avatar.png'">
+        <img :src="avatar || require('@/assets/profile-picture-placeholder.png')">
       </div>
       <div class="questionnaire-participant-card-detail__content">
         <p class="questionnaire-participant-card-detail__content__participant-name participant">

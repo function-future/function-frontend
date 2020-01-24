@@ -1,21 +1,19 @@
 <template>
-  <div class="message-container">
-    <div class="message-content">
-      <div class="message-content__user-info">
-        <div class="message-avatar"><img :src="avatar" onerror="this.src='@/assets/avatar.png'"></div>
-        <div class="message-name">
-          <p>{{ name }}</p>
+  <div class="message__outer">
+    <div class="message__container">
+      <div class="message__content">
+        <div class="message__content__avatar"><img :src="avatar" onerror="this.src='@/assets/avatar.png'"></div>
+        <div class="message__content__description">
+          <span>{{ name }}</span>
+          <div class="message__content__description__text">
+            <span>{{ message }}</span>
+          </div>
         </div>
-        <div class="message-time">
+        <div class="message__content__time">
           {{ convertClock() }}
         </div>
       </div>
-      <div class="break-line">
-        <hr>
-      </div>
-      <div class="message-card">
-        <p>{{ message }}</p>
-      </div>
+
     </div>
   </div>
 </template>
@@ -24,82 +22,80 @@
 </script>
 
 <style lang="scss" scoped>
-  hr {
-    padding: 0px;
-    margin: 0px;
-  }
+  .message {
+    &__outer {
+      width: 100%;
+      display: flex;
+      align-items: center;
+    }
 
-  p {
-    margin: 0;
-  }
+    &__container {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      padding: 10px;
+    }
 
-  .message-container {
-    width: 90%;
-    display: flex;
-    align-items: center;
-  }
-
-  .message-content {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    background: #F2F2F2;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    margin: 5px 10px;
-    border-radius: 10px;
-  }
-
-  .message-card {
-    display: flex;
-  }
-
-  .message-card > p {
-    font-size: 0.9rem;
-  }
-
-  .message-content {
-
-    &__user-info {
+    &__content {
       font-size: 0.8rem;
       font-weight: bold;
       display: flex;
       align-items: center;
-      padding: 10px 0px 0px 10px;
       justify-content: space-between;
+
+      &__avatar {
+        align-self: flex-start;
+      }
+      &__avatar > img {
+        -webkit-border-radius: 100%;
+        -moz-border-radius: 100%;
+        border-radius: 100%;
+        height: 30px;
+        width: 30px;
+        min-width: 30px;
+      }
+
+      &__description{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        text-align: left;
+        padding: 0px 5px;
+        font-size: 0.8rem;
+
+        &__text {
+          background: #F2F2F2;
+          -webkit-box-sizing: border-box;
+          -moz-box-sizing: border-box;
+          box-sizing: border-box;
+          border-radius: 10px;
+          font-size: 0.6rem;
+          padding: 10px 5px;
+        }
+      }
+
+      &__time {
+        display: flex;
+        align-items: flex-end;
+        font-size: 0.8rem;
+      }
     }
-  }
 
-  .message-card > p {
-    padding: 10px;
-    margin-top: 5px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
-    -ms-word-break: break-all;
-    word-break: break-all;
-  }
+  /*  .message-card > p {*/
+  /*    padding: 10px;*/
+  /*    margin-top: 5px;*/
+  /*    -webkit-border-radius: 10px;*/
+  /*    -moz-border-radius: 10px;*/
+  /*    border-radius: 10px;*/
+  /*    -ms-word-break: break-all;*/
+  /*    word-break: break-all;*/
+  /*  }*/
 
-  .message-avatar > img {
-    -webkit-border-radius: 100%;
-    -moz-border-radius: 100%;
-    border-radius: 100%;
-    height: 35px;
-    width: 35px;
-  }
-
-  .message-time {
-    display: flex;
-    align-items: flex-end;
-    font-size: 0.8rem;
-    margin-right: 10px;
-  }
-
-  .message-name {
-    flex-grow: 5;
-    text-align: left;
-    padding-left: 5px;
-    font-size: 1rem;
+  /*  .message-name {*/
+  /*    flex-grow: 5;*/
+  /*    text-align: left;*/
+  /*    padding-left: 5px;*/
+  /*    font-size: 1rem;*/
+  /*  }*/
   }
 </style>
