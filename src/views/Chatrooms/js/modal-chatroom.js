@@ -3,7 +3,6 @@ import BaseInput from '@/components/BaseInput'
 import SearchBar from '@/components/SearchBar'
 import UserListCard from '@/components/UserListCard'
 import usersApi from '@/api/controller/users'
-import chatroomApi from '@/api/controller/chatrooms'
 import { mapGetters, mapActions } from 'vuex'
 import UserSimpleCard from '@/components/UserSimpleCard'
 
@@ -46,7 +45,8 @@ export default {
   methods: {
     ...mapActions([
       'uploadGroupImage',
-      'fetchDetailChatroom'
+      'fetchDetailChatroom',
+      'toast'
     ]),
     convertToListUserId (users) {
       let result = users.map(user => user.id)
