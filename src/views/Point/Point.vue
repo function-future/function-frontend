@@ -46,7 +46,7 @@
               <div v-if="!isLoading">
                 <div>
                   <div v-if="pointListEmpty && !failLoadingPoints">
-                    <EmptyState :src="emptyStateSrc">
+                    <EmptyState :src="activeTabType">
                       <template #title>
                         Looks like you haven't finish any {{tab.value}}!
                       </template>

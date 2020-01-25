@@ -42,14 +42,6 @@ export default {
     },
     pointListEmpty () {
       return !(this.pointList && this.pointList.length)
-    },
-    emptyStateSrc() {
-      switch (this.activeTabType) {
-        case 'quiz':
-          return 'quiz'
-        case 'assignment':
-          return 'assignment'
-      }
     }
   },
   methods: {
