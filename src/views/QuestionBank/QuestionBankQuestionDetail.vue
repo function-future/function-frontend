@@ -23,9 +23,7 @@
             <div class="tile is-ancestor">
               <div class="tile is-parent">
                 <article class="tile is-child box">
-                  <span class="is-size-5 has-text-weight-bold">
-                    {{ questionDetail.label }}
-                  </span>
+                  <span class="is-size-5 has-text-weight-bold" v-html="questionDetail.label"></span>
                 </article>
               </div>
             </div>

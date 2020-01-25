@@ -28,7 +28,8 @@ export default {
   methods: {
     ...mapActions([
       'getBatchReport',
-      'setStudentList'
+      'setStudentList',
+      'toast'
     ]),
     initStudents ($state) {
       this.state = $state
@@ -56,7 +57,12 @@ export default {
       console.log(this.studentList)
     },
     failedFetchingStudentList () {
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        data: {
+          message: 'Fail to load report data, please try again',
+          type: 'is-error'
+        }
+      })
     },
     batch (user) {
       return user.role === 'STUDENT' ? user.batch.name : ''

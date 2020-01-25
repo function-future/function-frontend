@@ -570,7 +570,15 @@ const router = new Router({
     {
       path: config.app.pages.scoring.admin,
       name: 'scoringAdmin',
-      component: scoringAdmin
+      component: scoringAdmin,
+      meta: {
+        auth: true,
+        title: 'Grades',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Grades', link: 'scoringAdmin'}
+        ]
+      }
     },
     {
       path: config.app.pages.questionBanks.list,
