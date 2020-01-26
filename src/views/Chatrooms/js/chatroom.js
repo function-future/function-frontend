@@ -17,8 +17,6 @@ export default {
     ModalChatroom,
     EmptyState
   },
-  created () {
-  },
   data () {
     return {
       showCreateModal: false,
