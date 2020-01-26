@@ -1,6 +1,5 @@
 import SockJS from 'sockjs-client'
 import Stomp from 'stompjs'
-import config from '@/config/index'
 export default {
   data () {
     return {

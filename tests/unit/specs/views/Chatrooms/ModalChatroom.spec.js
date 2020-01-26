@@ -280,7 +280,7 @@ describe('ModalChatroom', () => {
     initComponent(true)
     wrapper.vm.successUploadGroupPicture(response)
     expect(wrapper.vm.picture).toEqual(response.file.full)
-    expect(wrapper.vm.chatroom.picture).toEqual(response.id)
+    expect(wrapper.vm.chatroom.picture).toEqual([response.id])
   })
 
   test('failUploadGroupPicture', () => {
@@ -314,7 +314,7 @@ describe('ModalChatroom', () => {
     wrapper.vm.fetchDetailChatroomCallback(response)
     expect(spy).toBeCalledWith('')
     expect(wrapper.vm.picture).toEqual('full')
-    expect(wrapper.vm.chatroom.picture).toEqual('id')
+    expect(wrapper.vm.chatroom.picture).toEqual(['id'])
   })
 
   test('fetchDetailChatroomCallback 2', () => {

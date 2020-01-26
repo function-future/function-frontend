@@ -4,10 +4,6 @@ import Vuex from 'vuex'
 import moment from 'moment'
 
 describe('ChatroomList', () => {
-  afterEach(() => {
-    jest.resetAllMocks()
-  })
-
   function generateLocalVue () {
     const localVue = createLocalVue()
     localVue.use(Vuex)
@@ -59,9 +55,38 @@ describe('ChatroomList', () => {
       methods: {
         initWebsocketConnection: jest.fn(),
         subscribe: jest.fn()
-      }
+      },
+      data: () => ({
+        chatroom: {
+          type: 'PRIVATE',
+          name: null,
+          members: [
+            {
+              id: '1',
+              name: 'agung'
+            },
+            {
+              id: '2',
+              name: 'bambang'
+            }
+          ]
+        }
+      })
     })
   }
+
+  afterEach(() => {
+    jest.restoreAllMocks()
+  })
+
+  test('Sanity test', () => {
+    expect(true).toBe(true)
+  })
+
+  test('Rendered correctly', () => {
+    let wrapper = initComponent()
+    expect(wrapper.isVueInstance()).toBe(true)
+  })
 
   test('created 1', () => {
     let spy1 = jest.spyOn(ChatroomContent.methods, 'fetchDetailChatroom')
@@ -392,7 +417,8 @@ describe('ChatroomList', () => {
   test('toDateList', () => {
     const time = Date.now()
     const wrapper = initComponent('public')
-    expect(wrapper.vm.toDateList(time)).toEqual([moment(time).year(), moment(time).month(), moment(time).date()])
+    let date = wrapper.vm.toDateList(time)
+    expect(date).toEqual([moment(time).year(), moment(time).month(), moment(time).date()])
   })
 
   test('printDateSeparator today', () => {
