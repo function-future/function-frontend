@@ -3,7 +3,7 @@ import { createLocalVue, shallowMount } from '@vue/test-utils'
 import Vuex from 'vuex'
 import moment from 'moment'
 
-describe('ChatroomList', () => {
+describe('ChatroomContent', () => {
   function generateLocalVue () {
     const localVue = createLocalVue()
     localVue.use(Vuex)

@@ -82,7 +82,7 @@ export default {
         return 'Public'
       } else if (this.chatroom.type === this.chatroomType.GROUP) {
         return this.chatroom.name ? this.chatroom.name : ''
-      } else {
+      } else if (this.chatroom.members) {
         for (const participant of this.chatroom.members) {
           if (participant.id !== this.currentUser.id) {
             return participant.name
