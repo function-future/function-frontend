@@ -59,22 +59,34 @@
             <div>Files</div>
           </div>
         </div>
-        <div class="column is-4" v-if="menuList.batches" @click="goToPage('batches')">
+        <div class="column is-3" v-if="menuList.batches" @click="goToPage('batches')">
           <div class="card-content">
             <div><b-icon icon="school" class="menu-icon"></b-icon></div>
             <div>Batches</div>
           </div>
         </div>
-        <div class="column is-4" v-if="menuList.courses" @click="goToPage('courses')">
+        <div class="column is-3" v-if="menuList.courses" @click="goToPage('courses')">
           <div class="card-content">
             <div><b-icon icon="chalkboard" class="menu-icon"></b-icon></div>
             <div>Courses</div>
           </div>
         </div>
-        <div class="column is-4" v-if="menuList.users" @click="goToPage('users')">
+        <div class="column is-3" v-if="menuList.users" @click="goToPage('users')">
           <div class="card-content">
             <div><b-icon icon="users" class="menu-icon"></b-icon></div>
             <div>Users</div>
+          </div>
+        </div>
+        <div class="column is-3" v-if="menuList.comparisons" @click="goToPage('judgingList')">
+          <div class="card-content">
+            <div><b-icon icon="chalkboard-teacher" class="menu-icon"></b-icon></div>
+            <div>Judging</div>
+          </div>
+        </div>
+        <div class="column is-3" v-if="menuList.points" @click="goToPage('points')">
+          <div class="card-content">
+            <div><b-icon icon="clipboard-list" class="menu-icon"></b-icon></div>
+            <div>Points</div>
           </div>
         </div>
       </div>

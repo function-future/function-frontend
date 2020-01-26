@@ -5,7 +5,7 @@
           <b-icon icon="home"></b-icon>
           <div class="is-size-7 menu-title">Home</div>
       </a>
-      <a @click="goToPage('points')" class="navbar-item is-expanded is-block has-text-centered mobile-router-link">
+      <a @click="goToPage('scoringAdmin')" class="navbar-item is-expanded is-block has-text-centered mobile-router-link">
         <b-icon icon="tasks"></b-icon>
         <p class="is-size-7 menu-title">Scoring</p>
       </a>
