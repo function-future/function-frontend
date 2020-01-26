@@ -126,7 +126,7 @@ export default {
     },
     successUploadGroupPicture (response) {
       this.isUploading = false
-      this.chatroom.picture = response.id
+      this.chatroom.picture = [response.id]
       this.picture = response.file.full
     },
     failUploadGroupPicture () {
@@ -143,7 +143,7 @@ export default {
       this.picture = response.data.picture ? response.data.picture.file.full : null
       this.selectedUsers = response.data.members.filter(user => user.id !== this.currentUser.id)
       this.chatroom = response.data
-      this.chatroom.picture = response.data.picture ? response.data.picture.id : null
+      this.chatroom.picture = response.data.picture ? [response.data.picture.id] : null
     }
   },
   created () {

@@ -18,7 +18,7 @@ export default {
   },
   methods: {
     initWebsocketConnection () {
-      let socket = new SockJS(config.dev.socketHost)
+      let socket = new SockJS('/ws')
       this.stompClient = Stomp.over(socket)
       this.stompClient.debug = null
       this.stompClient.connect({}, this.connectSuccessCallback, this.connectErrorCallback)
