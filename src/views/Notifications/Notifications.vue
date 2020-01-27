@@ -2,7 +2,7 @@
   <div class="notifications">
     <template v-for="notification in notifications">
       <div cardClass="notification-card" :key="notification.id">
-        <div class="notifications__card__container">
+        <div class="notifications__card__container box">
           <div class="notifications__card__content">
             <h3>{{ notification.title }}</h3>
             <p>{{ notification.description }}</p>
