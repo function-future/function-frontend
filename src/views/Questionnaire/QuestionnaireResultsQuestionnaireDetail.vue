@@ -1,6 +1,6 @@
 <template>
-    <div class="questionnaire-results-questionnaire-detail-outer">
-      <div class="questionnaire-results-questionnaire-detail-container">
+    <div class="questionnaire-results-questionnaire-detail__outer">
+      <div class="questionnaire-results-questionnaire-detail__container">
         <QuestionnaireCard class="without-border-and-shadow"
                            v-if="Object.keys(currentResultQuestionnaireDetail).length"
                            :key="currentResultQuestionnaireDetail.questionnaireDetail.id"
@@ -12,10 +12,16 @@
                            :isResult="true"
                            :isDetail="true"
         ></QuestionnaireCard>
-        <h3 v-if="Object.keys(currentResultQuestionnaireDetail).length"><i>Appraisals for {{currentResultQuestionnaireDetail.appraisee.name}}</i></h3>
-        <br>
-        <h2>Questions</h2>
-        <div class="questionnaire-results-question-list">
+        <div class="questionnaire-results-questionnaire-detail__container__placeholder">
+          <span class="questionnaire-results-questionnaire-detail__container__placeholder__name"
+                v-if="Object.keys(currentResultQuestionnaireDetail).length">
+            Appraisals for {{currentResultQuestionnaireDetail.appraisee.name}}
+          </span>
+          <span class="questionnaire-results-questionnaire-detail__container__placeholder__title">
+            Questions
+          </span>
+        </div>
+        <div class="questionnaire-results-questionnaire-detail__container__question-list">
           <QuestionCard v-for="(questionResponse, index) in currentResultQuestionResponsesList"
                         :number="index+1"
                         :description="questionResponse.question.description"
@@ -31,28 +37,45 @@
 <script src="./js/questionnaire-results-questionnaire-detail.js">
 </script>
 
-<style scoped>
-  @media only screen and (min-width: 900px){
-    .questionnaire-results-questionnaire-detail-outer {
-      min-width: 650px;
+<style lang="scss" scoped>
+
+  .questionnaire-results-questionnaire-detail{
+    &__outer {
+      display: flex;
+      justify-content: center;
+      overflow: auto;
     }
 
-    .questionnaire-results-questionnaire-detail-container {
-      min-width: 650px;
+    &__container {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      width: 40vw;
+      @media only screen and (max-width: 1023px) {
+        width: 100vw;
+      }
+
+      &__question-list {
+        height: 55vh;
+        overflow: auto;
+      }
+
+      &__placeholder {
+        display: flex;
+        flex-direction: column;
+        padding: 0px 10px;
+
+        &__name {
+          font-weight: bold;
+          font-style: italic;
+        }
+        &__title{
+          font-weight: bold;
+          margin: 10px 0px;
+          font-size: 1.2rem;
+        }
+      }
     }
-  }
-
-  .questionnaire-results-questionnaire-detail-outer {
-    display: flex;
-    justify-content: center;
-    overflow: auto;
-  }
-
-  .questionnaire-results-questionnaire-detail-container {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    max-width: 700px;
   }
 
   .without-border-and-shadow {
@@ -60,26 +83,9 @@
     border: none;
     -webkit-box-sizing: unset;
     box-sizing: unset;
-    -webkit-box-sizing: unset;
     border-radius: unset;
     box-shadow: none;
-    -webkit-box-sizing: unset;
     cursor: default;
     margin: 0px;
-  }
-
-  h2, h3 {
-    margin: 0px;
-    text-align: left;
-  }
-
-  h3 > i{
-    color: #02AAF3;
-  }
-
-  .questionnaire-results-question-list {
-    padding-top: 10px;
-    height: 55vh;
-    overflow: auto;
   }
 </style>

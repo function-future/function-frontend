@@ -1,16 +1,20 @@
 <template>
-    <div class="logging-room">
+    <div class="logging-room__outer">
       <div class="logging-room__container">
         <div class="logging-room__top-bar-container" :class="{flexEnd: !accessList.edit }">
           <b-button v-if="accessList.edit"
                     class="is-rounded is-primary add-button"
                     icon-left="plus" rounded
                     type="submit"
-                    buttonClass="button-save"
+                    buttonClass="button-save logging-room__top-bar-container__button"
                     @click="goToCreate">
             <span>Add</span>
           </b-button>
-          <SearchBar class="logging-room__search-bar" @input="searchHandler"/>
+          <b-input
+            @input="searchHandler"
+            icon="search"
+            placeholder="Search..."
+            class="is-rounded logging-room__top-bar-container__search-bar"/>
         </div>
         <div class="logging-room__list-card">
           <logging-room-card class="logging-room__list-card__card"
@@ -46,33 +50,42 @@
   @import "@/assets/css/main.scss";
 
   .logging-room {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    height: 90vh;
+    &__outer{
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      height: 80vh;
+      width: 100%;
+    }
 
     &__container {
-
-      width: 100%;
+      width: 40vw;
+      @media only screen and (max-width: 1023px) {
+        width: 100vw;
+      }
     }
 
     &__top-bar-container {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin: 0 15px;
+      margin: 0 10px;
       min-height: 10vh;
-    }
 
-    &__search-bar {
-      @media only screen and (max-width: 1023px) {
-        width: 100%;
+      &__search-bar {
+        @media only screen and (max-width: 1023px) {
+          width: 100%;
+        }
+
+        width: 300px;
       }
 
-      width: 300px;
-      align-self: end;
-
+      &__button{
+        align-items: center;
+      }
     }
+
+
 
     &__list-card {
       @media only screen and (max-width: 1023px) {
@@ -83,21 +96,19 @@
       &__card {
       }
     }
+  }
+  .flexEnd {
+    justify-content: flex-end;
+  }
 
-    .add-button {
-      @media only screen and (max-width: 1023px) {
-        position: fixed;
-        right: 5vw;
-        bottom: 75px;
-        transition: all 0.1s ease-in-out;
-        box-shadow: 2px 2px 16px 4px rgba(0, 0, 0, 0.2);
-        z-index: 1;
-      }
+  .add-button {
+    @media only screen and (max-width: 1023px) {
+      position: fixed;
+      right: 5vw;
+      bottom: 75px;
+      transition: all 0.1s ease-in-out;
+      box-shadow: 2px 2px 16px 4px rgba(0, 0, 0, 0.2);
+      z-index: 1;
     }
-
-    .flexEnd {
-      justify-content: flex-end;
-    }
-
   }
 </style>

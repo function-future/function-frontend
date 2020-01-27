@@ -70,7 +70,10 @@
     padding: 20px;
     margin : 20px 0px 0px 0px;
     flex-direction: column;
-    max-width: 800px;
+    max-width: 40vw;
+    @media only screen and (max-width: 1023px) {
+      max-width: 100vw;
+    }
   }
 
   .questionnaire-title-input {
@@ -84,23 +87,10 @@
   }
   .date-picker {
     display: flex;
-    max-width: 90%;
+    flex-direction: column;
     padding-top: 10px;
   }
 
-  .input-description {
-    height: 15vh;
-  }
-
-  .questionnaire-desc-area {
-    min-height: 20vh;
-  }
-
-  @media only screen and (min-width: 1023px) {
-    .start-date-placeholder, .due-date-placeholder {
-      min-width: 250px;
-    }
-  }
   .start-date-placeholder, .due-date-placeholder {
     display: flex;
     padding-top: 5px;

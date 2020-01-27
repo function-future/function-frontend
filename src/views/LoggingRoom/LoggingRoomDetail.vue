@@ -1,25 +1,24 @@
 <template>
     <div class="logging-room-detail">
       <div class="logging-room-detail__container">
-        <div class="logging-room-detail__title" :style="{display: isShow}">
-          <span><b>{{loggingRoom.title}}</b></span>
+        <div class="logging-room-detail__content">
+            <span class="logging-room-detail__title"><b>{{loggingRoom.title}}</b></span>
+            <span class="logging-room-detail__description">{{loggingRoom.description}}</span>
         </div>
-        <div class="logging-room-detail__description" :style="{display: isShow}">
-          <span>{{loggingRoom.description}}</span>
-          <br>
-          <br>
-        </div>
-        <div class="logging-room-detail__mobile">
-          <MenuCard  :iconMenu="iconMenuMembers" :iconTitle="iconMenuMembersTitle"
+        <div v-if="isMobile" class="logging-room-detail__mobile">
+          <MenuCard  class="logging-room-detail__mobile__menu"
+                     :iconMenu="iconMenuMembers"
+                     :iconTitle="iconMenuMembersTitle"
                      @click="callShowMembers"
           ></MenuCard>
-          <br>
-          <MenuCard :iconMenu="iconMenuTopics" :iconTitle="iconMenuTopicsTitle"
-                    @click="callShowTopics"
+          <MenuCard  class="logging-room-detail__mobile__menu"
+                     :iconMenu="iconMenuTopics"
+                     :iconTitle="iconMenuTopicsTitle"
+                     @click="callShowTopics"
           ></MenuCard>
         </div>
-        <div class="logging-room-detail__member-list-container">
-          <span class="logging-room-detail__member-list-container__title"><b>Members</b></span>
+        <div v-else class="logging-room-detail__member-list-container">
+          <span class="logging-room-detail__member-list-container__title">Members</span>
           <participant-card v-for="member in loggingRoom.members"
                             :key="member.id"
                             :name="member.name"
@@ -89,39 +88,42 @@
     height: 90vh;
     width: 100%;
 
-    &__mobile {
-      @media only screen and (min-width: 1024px) {
-        display: none;
-      }
-    }
     &__container {
-
       display: flex;
       flex-direction: column;
-      width: 100%;
+      width: 40vw;
       @media only screen and (max-width: 1023px) {
-        padding: 2%;
+        width: 100vw;
+        padding: 10px;
       }
+    }
+
+    &__mobile {
+      &__menu {
+        margin: 5px 0px;
+      }
+    }
+
+    &__content {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 15px;
     }
 
     &__title{
       text-align: left;
-      font-size: 2rem;
+      font-size: 1.2rem;
     }
 
     &__description{
       text-align: left;
-      padding: 1vh 0vh;
     }
 
     &__member-list-container{
-      @media only screen and (max-width: 1023px) {
-        display: none;
-      }
       height: 30vh;
       overflow: auto;
       &__title {
-        font-size: 2rem;
+        font-size: 1.2rem;
       }
     }
 

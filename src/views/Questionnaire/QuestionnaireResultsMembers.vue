@@ -12,7 +12,7 @@
                                         :name="appraisee.member.name"
                                         :avatar="appraisee.member.avatar"
                                         :role="appraisee.member.role"
-                                        :university="appraisee.university"
+                                        :university="appraisee.member.university"
                                         :batch="appraisee.member.batch.code"
                                         :score="appraisee.rating"
                                         :isResult="true"
@@ -43,10 +43,9 @@
       display: flex;
       align-items: center;
       flex-direction: column;
-      padding: 10px;
       width: 40vw;
       @media only screen and (max-width: 1023px) {
-        width: 80vw;
+        width: 100vw;
       }
     }
 
@@ -59,7 +58,7 @@
 
       &__title {
         font-weight: bold;
-        font-size: 1.5rem;
+        font-size: 1.2rem;
       }
     }
 

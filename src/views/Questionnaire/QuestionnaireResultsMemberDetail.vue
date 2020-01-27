@@ -1,18 +1,7 @@
 <template>
     <div class="questionnaire-results-member-detail__outer">
       <div class="questionnaire-results-member-detail__container">
-        <div class="questionnaire-results-member-detail__content__user-desktop">
-          <QuestionnaireParticipantDetailCard
-            v-if="currentAppraiseeResult"
-            :avatar="currentAppraiseeResult.member.avatar"
-            :nameParticipant="currentAppraiseeResult.member.name"
-            :university="currentAppraiseeResult.member.university"
-            :batch="currentAppraiseeResult.member.batch.name"
-            :role="currentAppraiseeResult.member.role"
-            :score="currentAppraiseeResult.rating"
-          ></QuestionnaireParticipantDetailCard>
-        </div>
-        <div class="questionnaire-results-member-detail__content__user-mobile">
+        <div v-if="isMobile" class="questionnaire-results-member-detail__content__user-mobile">
           <QuestionnaireParticipantCard v-if="currentAppraiseeResult"
                                         :name="currentAppraiseeResult.member.name"
                                         :avatar="currentAppraiseeResult.member.avatar"
@@ -23,8 +12,19 @@
                                         :isResult="true"
           ></QuestionnaireParticipantCard>
         </div>
+        <div v-else class="questionnaire-results-member-detail__content__user-desktop">
+          <QuestionnaireParticipantDetailCard
+            v-if="currentAppraiseeResult"
+            :avatar="currentAppraiseeResult.member.avatar"
+            :nameParticipant="currentAppraiseeResult.member.name"
+            :university="currentAppraiseeResult.member.university"
+            :batch="currentAppraiseeResult.member.batch.name"
+            :role="currentAppraiseeResult.member.role"
+            :score="currentAppraiseeResult.rating"
+          ></QuestionnaireParticipantDetailCard>
+        </div>
         <div class="questionnaire-results-member-detail__content__questionnaire">
-          <h3>Appraised on</h3>
+          <span class="questionnaire-results-member-detail__content__questionnaire__title">Appraised on :</span>
           <div class="questionnaire-results-member-detail__content__questionnaire__questionnaire-card-list">
             <QuestionnaireCard  v-for="myQuestionnaire in appraiseeResultsQuestionnaires"
                                :key="myQuestionnaire.id"
@@ -70,7 +70,7 @@
       flex-direction: column;
       width: 40vw;
       @media only screen and (max-width: 1023px) {
-        width: 80vw;
+        width: 100vw;
       }
     }
 
@@ -78,11 +78,15 @@
       &__user {
       }
       &__questionnaire{
-        min-width: 600px;
         display: flex;
         flex-direction: column;
         text-align: left;
 
+        &__title {
+          font-size: 1rem;
+          font-weight: bold;
+          margin: 10px 10px;
+        }
         &__questionnaire-card-list {
           width: 100%;
           height: 40vh;

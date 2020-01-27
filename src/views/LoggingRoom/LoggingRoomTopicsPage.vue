@@ -1,7 +1,7 @@
 <template>
   <div class="topics-page__container">
     <div class="topics-page__top-bar">
-      <span class="topics-page__top-bar__title"><b>Topics</b></span>
+      <span class="topics-page__top-bar__title">Topics</span>
       <div class="topics-page__top-bar__add-button">
         <b-button
           v-if="accessList.edit"
@@ -54,9 +54,10 @@
     &__container {
        display: flex;
        flex-direction: column;
-       width: 100%;
+       width: 40vw;
       @media only screen and (max-width: 1023px) {
-        padding: 2%;
+        padding: 10px;
+        width: 100vw;
       }
     }
     &__top-bar {
@@ -66,7 +67,8 @@
 
       &__title {
         text-align: left;
-        font-size: 2rem;
+        font-size: 1.2rem;
+        font-weight: bold;
       }
 
       &__add-button {

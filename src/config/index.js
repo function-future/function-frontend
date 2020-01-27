@@ -130,6 +130,7 @@ module.exports = {
         appraisee: '/my-questionnaire/:questionnaireId/appraisees',
         form: '/my-questionnaire/:questionnaireId/appraisees/:appraiseeId'
       },
+      menuMobileQuestionnaire: '/peer-appraisal',
       questionnaires: {
         default: '/questionnaires',
         create: '/questionnaires/_create',
@@ -496,6 +497,9 @@ module.exports = {
         },
         getListAppraisees (questionnaireId) {
           return `/api/communication/my-questionnaires/${questionnaireId}/appraisees`
+        },
+        getListAppraiseeDone (questionnaireId) {
+          return `/api/communication/my-questionnaires/${questionnaireId}/appraisees-done`
         },
         getQuestionnaireData (questionnaireId, appraiseeId) {
           return `/api/communication/my-questionnaires/${questionnaireId}/appraisees/${appraiseeId}`

@@ -1,8 +1,8 @@
 <template>
-  <div class="questionnaire-participant-card__outer" @click="$emit('click')">
-    <BaseCard class="questionnaire-participant-card__container">
+  <div class="questionnaire-participant-card__outer" @click="$emit('click')" :class="{disabled:isDisable}">
+    <div class="questionnaire-participant-card__container">
       <div class="questionnaire-participant-card__avatar">
-        <img :src="avatar" onerror="this.src='@/assets/avatar.png'">
+        <img :src="avatar || require('@/assets/profile-picture-placeholder.png')">
       </div>
       <div class="questionnaire-participant-card__content">
         <p class="questionnaire-participant-card__content__participant-name"><strong>{{ name }}</strong></p>
@@ -18,13 +18,12 @@
           <font-awesome-icon icon="times" class="icon-delete" @click="$emit('delete')"></font-awesome-icon>
         </span>
       </div>
-    </BaseCard>
+    </div>
   </div>
 </template>
 
 <script src="./js/questionnaire-participant-card.js">
 </script>
-
 
 <style lang="scss" scoped>
 
@@ -41,9 +40,16 @@
 
     &__container {
       display: flex;
-      cursor: pointer;
-      padding: 10px;
+      background: #FFFFFF;
+      border: 1px solid #F2F2F2;
+      box-sizing: border-box;
+      box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.25);
+      border-radius: 10px;
+      text-align: left;
       margin: 10px;
+      padding: 10px;
+      cursor: pointer;
+      height: auto;
     }
 
     &__avatar {
@@ -104,5 +110,11 @@
 
   .card {
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.25);
+  }
+
+  .disabled {
+    opacity: 0.5;
+    background-color: white;
+    cursor: default !important;
   }
 </style>
