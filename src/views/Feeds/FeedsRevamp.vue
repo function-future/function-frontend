@@ -6,10 +6,19 @@
         <img src="@/assets/logo.png"
              class="logo is-center"
              alt="function">
-        <b-icon :icon="profileIcon"
-                class="is-right"
-                @click.native="goToProfile">
-        </b-icon>
+        <div class="is-right">
+          <b-icon
+            v-if="loggedIn"
+            @click.native="goToPage('notifications')"
+            class="icon"
+            icon="bell"
+            size="is-medium"
+            :style="notificationStyle"
+          ></b-icon>
+          <b-icon :icon="profileIcon"
+                  @click.native="goToProfile">
+          </b-icon>
+        </div>
       </div>
       <div class="has-text-centered user-greeting"
            :class="{'no-sticky-note__greeting': !stickyNotesAvailable}"

@@ -78,6 +78,7 @@ export default {
       }
     },
     goToNotifications () {
+      this.notification.color = 'white'
       if (this.$route.name === 'notifications') {
         window.location.reload()
       } else {
@@ -90,6 +91,7 @@ export default {
       })
     },
     successAttemptLogout () {
+      this.removeNotificationSubscription()
       this.$cookies.remove('Function-Session')
       this.$router.push({ name: 'feeds' })
       this.isExtend = false
@@ -107,12 +109,21 @@ export default {
     },
     notificationSubscriptionCallback: function (data) {
       let parsedData = JSON.parse(data.body)
-      console.log(parsedData)
       this.notification.color = 'red'
+    },
+    removeNotificationSubscription: function () {
+      this.notificationSubscription.unsubscribe()
+      this.notificationSubscription = null
     }
   },
+  created () {
+    notificationApi.getTotalUnseen(response => {
+      if (response.data.total > 0) {
+        this.notification.color = 'red'
+      }
+    }, this.errorHandler)
+  },
   destroyed() {
-    this.chatroomSubscription.unsubscribe()
-    this.chatroomSubscription = null
+    this.removeNotificationSubscription()
   }
 }

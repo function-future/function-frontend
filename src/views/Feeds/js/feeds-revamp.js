@@ -1,6 +1,10 @@
 import { mapActions, mapGetters } from 'vuex'
 import ListItem from '@/components/list/ListItem'
 import EmptyState from '@/components/emptyState/EmptyState'
+import Websocket from '@/mixins/Websocket'
+import config from '@/config/index'
+import notificationApi from '@/api/controller/notifications'
+
 let marked = require('marked')
 const MAX_STICKY_NOTE_PREVIEW_LENGTH = 200
 
@@ -9,6 +13,9 @@ export default {
   components: {
     ListItem,
     EmptyState
+  },
+  mixins: {
+    Websocket
   },
   data () {
     return {
@@ -19,12 +26,17 @@ export default {
         size: 5
       },
       isLoadingAnnouncement: true,
-      failLoadAnnouncement: false
+      failLoadAnnouncement: false,
+      notificationSubscription: null,
+      notificationStyle: {
+        color: 'white'
+      }
     }
   },
   created () {
     this.loadStickyNote()
     this.loadAnnouncementList()
+    this.checkNotification()
   },
   computed: {
     ...mapGetters([
@@ -45,6 +57,17 @@ export default {
     profileIcon () {
       if (this.loggedIn) return 'user-circle'
       return 'sign-in-alt'
+    }
+  },
+  watch: {
+    isSocketConnected: function () {
+      if (this.isSocketConnected) {
+        window.alert('masuk')
+        this.notificationSubscription = this.subscribe(
+          config.api.communication.topic.notification(this.currentUser.id),
+          this.notificationSubscriptionCallback
+        )
+      }
     }
   },
   methods: {
@@ -130,7 +153,26 @@ export default {
       this.$router.push({ name: 'account' })
     },
     goToPage (name) {
+      if (name === 'notifications') {this.notificationStyle.color = 'white'}
       this.$router.push({ name: name })
+    },
+    checkNotification () {
+      notificationApi.getTotalUnseen(response => {
+        if (response.data.total > 0) {
+          this.notificationStyle.color = 'red'
+        }
+      }, this.errorHandler)
+    },
+    removeNotificationSubscription: function () {
+      this.notificationSubscription.unsubscribe()
+      this.notificationSubscription = null
+    },
+    notificationSubscriptionCallback: function (data) {
+      console.log('notif-in')
+      this.notificationStyle.color = 'red'
     }
+  },
+  destroyed () {
+    this.removeNotificationSubscription()
   }
 }
