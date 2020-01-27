@@ -1,9 +1,5 @@
-import BaseCard from '@/components/BaseCard'
 export default {
   name: 'ReminderCard',
-  components: {
-    BaseCard
-  },
   props: {
     reminder: Object
   },

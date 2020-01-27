@@ -5,6 +5,7 @@ import InfiniteLoading from 'vue-infinite-loading'
 import reminderApi from '@/api/controller/reminders'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
 import Breakpoint from '@/mixins/Breakpoint'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'Reminders',
@@ -13,7 +14,7 @@ export default {
     BaseButton,
     ReminderCard,
     InfiniteLoading,
-    ModalDeleteConfirmation,
+    ModalDeleteConfirmation
   },
   mixins: [
     Breakpoint
@@ -28,6 +29,9 @@ export default {
     }
   },
   methods: {
+    ...mapActions([
+      'toast'
+    ]),
     infiniteHandler ($state) {
       if (!this.keyword) {
         reminderApi.getReminders(response => {
@@ -65,7 +69,10 @@ export default {
     },
     errorCallback (err) {
       console.log(err)
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        message: 'Something went wrong',
+        type: 'is-error'
+      })
     },
     removeHandler (reminderId) {
       this.reminderIdForRemove = reminderId
@@ -74,7 +81,10 @@ export default {
     deleteReminder () {
       this.showDeleteConfirmation = false
       reminderApi.deleteReminder(response => {
-        this.$toasted.success('Reminder has been successfully deleted')
+        this.toast({
+          message: 'Reminder has been successfully deleted',
+          type: 'is-success'
+        })
         this.reminders = []
         this.page = 1
         this.reminderIdForRemove = ''

@@ -89,10 +89,6 @@
     align-self: flex-start;
     font-size: 1.3rem;
   }
-  /*p {*/
-  /*  margin: 0;*/
-  /*  align-self: flex-start;*/
-  /*}*/
 
   .reminder-form__days-container {
     display: flex;
