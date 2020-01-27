@@ -117,6 +117,7 @@ module.exports = {
         assignments: '/assignments'
       },
       chatrooms: '/chatrooms',
+      chatroomsMobile: '/m/chatrooms/:chatroomId',
       reminders: {
         list: '/reminders',
         detail: '/reminders/:reminderId/detail',
@@ -409,9 +410,20 @@ module.exports = {
       }
     },
     communication: {
+      topic: {
+        chat (chatroomId) {
+          return `/topic/chatrooms/${chatroomId}`
+        },
+        chatroom (userId) {
+          return `/topic/users/${userId}/chatrooms`
+        },
+        notification (userId) {
+          return `/topic/users/${userId}/notifications`
+        }
+      },
       chatrooms: {
-        list (type, search, page, size) {
-          return `/api/communication/chatrooms?type=${type}&search=${search}&page=${page}&size=${size}`
+        list (search, page, size) {
+          return `/api/communication/chatrooms?search=${search}&page=${page}&size=${size}`
         },
         getMessagesBeforePivot (messageId, chatroomId) {
           return `/api/communication/chatrooms/${chatroomId}/messages/_before?messageId=${messageId}`
@@ -429,15 +441,23 @@ module.exports = {
           return `/api/communication/chatrooms/public/messages?page=${page}&size=${size}`
         },
         create: '/api/communication/chatrooms/',
-        createMessage(chatroomId) {
+        createMessage (chatroomId) {
           return `/api/communication/chatrooms/${chatroomId}/messages`
         },
         update (chatroomId) {
           return `/api/communication/chatrooms/${chatroomId}`
         },
-        updateReadStatus(chatroomId, messageId) {
+        updateReadStatus (chatroomId, messageId) {
           return `/api/communication/chatrooms/${chatroomId}/messages/${messageId}/_read`
-        }
+        },
+        enterChatroom (chatroomId) {
+          return `/api/communication/chatrooms/${chatroomId}/_enter`
+        },
+        leaveChatroom (chatroomId) {
+          return `/api/communication/chatrooms/${chatroomId}/_leave`
+        },
+        setLimit: `/api/communication/chatrooms/_setlimit`,
+        unsetLimit: `/api/communication/chatrooms/_unsetlimit`
       },
       notifications: {
         list (page, size) {
@@ -610,6 +630,11 @@ module.exports = {
       '/api': {
         target: 'http://localhost:8080',
         changeOrigin: true
+      },
+      '/ws': {
+        target: 'http://localhost:8080',
+        changeOrigin: true,
+        ws: true
       }
     },
     defaultPageSize: 10

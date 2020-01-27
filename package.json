@@ -26,6 +26,8 @@
     "node-sass": "^4.12.0",
     "register-service-worker": "^1.6.2",
     "sass-loader": "^7.1.0",
+    "sockjs-client": "^1.4.0",
+    "stompjs": "^2.3.3",
     "style-loader": "^0.23.1",
     "tiptap": "^1.26.4",
     "tiptap-extensions": "^1.28.4",

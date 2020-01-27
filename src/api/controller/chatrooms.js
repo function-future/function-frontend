@@ -3,7 +3,7 @@ import request from '../default-request'
 
 const getChatrooms = function (callback, error, data) {
   request.getRequest(
-    config.api.communication.chatrooms.list(data.params.type, data.params.search, data.params.page, config.dev.defaultPageSize),
+    config.api.communication.chatrooms.list(data.params.search, data.params.page, data.params.size),
     callback,
     error
   )
@@ -19,7 +19,7 @@ const getChatroomDetails = function (callback, error, data) {
 
 const getMessages = function (callback, error, data) {
   request.getRequest(
-    config.api.communication.chatrooms.getMessages(data.params.chatroomId, data.params.page, config.dev.defaultPageSize),
+    config.api.communication.chatrooms.getMessages(data.params.chatroomId, data.params.page, data.params.size),
     callback,
     error
   )
@@ -85,6 +85,42 @@ const updateSeenStatus = function (callback, error, data) {
   )
 }
 
+const enterChatroom = function (callback, error, data) {
+  request.postRequest(
+    config.api.communication.chatrooms.enterChatroom(data.params.chatroomId),
+    callback,
+    null,
+    error
+  )
+}
+
+const leaveChatroom = function (callback, error, data) {
+  request.postRequest(
+    config.api.communication.chatrooms.leaveChatroom(data.params.chatroomId),
+    callback,
+    null,
+    error
+  )
+}
+
+const setLimit = function (callback, error, data) {
+  request.postRequest(
+    config.api.communication.chatrooms.setLimit,
+    callback,
+    data.body,
+    error
+  )
+}
+
+const unsetLimit = function (callback, error) {
+  request.postRequest(
+    config.api.communication.chatrooms.unsetLimit,
+    callback,
+    null,
+    error
+  )
+}
+
 export default {
   getChatrooms,
   getChatroomDetails,
@@ -95,5 +131,9 @@ export default {
   createChatroom,
   createMessage,
   updateChatroom,
-  updateSeenStatus
+  updateSeenStatus,
+  enterChatroom,
+  leaveChatroom,
+  setLimit,
+  unsetLimit
 }

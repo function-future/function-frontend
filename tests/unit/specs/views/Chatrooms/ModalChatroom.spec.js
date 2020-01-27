@@ -41,6 +41,13 @@ describe('ModalChatroom', () => {
         auth: {
           state: { currentUser: { id: 'idUser' } },
           getters: { currentUser: state => state.currentUser }
+        },
+        chatrooms: {
+          actions: {
+            uploadGroupImage: jest.fn(),
+            fetchDetailChatroom: jest.fn(),
+            toast: jest.fn()
+          }
         }
       }
     })
@@ -240,15 +247,90 @@ describe('ModalChatroom', () => {
   })
 
   test('error handler', () => {
-    global.console.log = jest.fn()
     initComponent()
+    global.console.error = jest.fn()
     wrapper.vm.errorHandler('test')
-    expect(console.log).toBeCalledTimes(1)
+    expect(console.error).toBeCalledTimes(1)
   })
 
   test('created without chatroomId', () => {
     const spy = jest.spyOn(ModalChatroom.methods, 'callSearchUserApi')
     initComponent(true)
     expect(spy).toBeCalledTimes(1)
+  })
+
+  test('onFileChange', () => {
+    const spy = jest.spyOn(ModalChatroom.methods, 'uploadGroupImage')
+    initComponent(true)
+    wrapper.vm.onFileChange({
+      target: {
+        files: ['asdfas']
+      }
+    })
+    expect(spy).toBeCalledTimes(1)
+  })
+
+  test('successUploadGroupPicture', () => {
+    const response = {
+      id: 'id',
+      file: {
+        full: 'full'
+      }
+    }
+    initComponent(true)
+    wrapper.vm.successUploadGroupPicture(response)
+    expect(wrapper.vm.picture).toEqual(response.file.full)
+    expect(wrapper.vm.chatroom.picture).toEqual([response.id])
+  })
+
+  test('failUploadGroupPicture', () => {
+    const spy = jest.spyOn(ModalChatroom.methods, 'toast')
+    initComponent(true)
+    wrapper.vm.failUploadGroupPicture()
+    expect(spy).toBeCalledWith({
+      data: {
+        message: 'Fail to upload image, please try again',
+        type: 'is-danger'
+      }
+    })
+  })
+
+  test('fetchDetailChatroomCallback 1', () => {
+    const spy = jest.spyOn(ModalChatroom.methods, 'callSearchUserApi').mockImplementation(() => Promise.resolve())
+    const response = {
+      data: {
+        picture: {
+          id: 'id',
+          file: {
+            full: 'full'
+          }
+        },
+        members: [{
+          id: 'id'
+        }]
+      }
+    }
+    initComponent(true)
+    wrapper.vm.fetchDetailChatroomCallback(response)
+    expect(spy).toBeCalledWith('')
+    expect(wrapper.vm.picture).toEqual('full')
+    expect(wrapper.vm.chatroom.picture).toEqual(['id'])
+  })
+
+  test('fetchDetailChatroomCallback 2', () => {
+    const spy = jest.spyOn(ModalChatroom.methods, 'callSearchUserApi').mockImplementation(() => Promise.resolve())
+    const response = {
+      data: {
+        picture: null,
+        members: [{
+          id: 'id'
+        }]
+      }
+    }
+    initComponent(true)
+    wrapper.vm.fetchDetailChatroomCallback(response)
+    expect(spy).toBeCalledWith('')
+    expect(wrapper.vm.picture).toEqual(null)
+    expect(wrapper.vm.chatroom.picture).toEqual(null)
   })
 })
