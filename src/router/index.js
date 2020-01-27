@@ -152,7 +152,7 @@ const loggingRoomEdit = () => import(/* webpackChunkName: 'p-logging_room_edit' 
   '@/views/LoggingRoom/LoggingRoomEdit.vue')
 const files = () => import(/* webpackChunkName: 'p-files' */
   '@/views/Files/Files')
-const chatroomContent = () => import(/* webpackChunkName: 'p-chatroom_content-assignments' */
+const chatroomContent = () => import(/* webpackChunkName: 'p-chatroom_content' */
   '@/views/Chatrooms/ChatroomContent')
 
 Vue.use(Router)
