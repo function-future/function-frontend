@@ -1,5 +1,5 @@
 <template>
-  <div @click="$emit('click', reminder.id)" class="reminder__element-card">
+  <div @click="$emit('click', reminder.id)" class="box">
     <div class="reminder__element-card__wrapper">
       <div class="reminder__element-card__content">
         <h3>{{ reminder.title }}</h3>
