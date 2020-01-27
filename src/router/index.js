@@ -36,121 +36,121 @@ import courseForm from '@/views/Courses/CourseFormRevamp.vue'
 import config from '@/config/index'
 import store from '@/store/index'
 
-const studentAssignments = () => import(/* webpackChunkName: 'p-assignment_student-assignments' */
+const studentAssignments = () => import(/* webpackChunkName: 'p-assignment_student' */
   '@/views/Assignment/StudentAssignments.vue')
-const assignmentForm = () => import(/* webpackChunkName: 'p-assignment_form-assignments' */
+const assignmentForm = () => import(/* webpackChunkName: 'p-assignment_form' */
   '@/views/Assignment/AssignmentForm.vue')
-const assignmentRooms = () => import(/* webpackChunkName: 'p-assignment_room-assignments' */
+const assignmentRooms = () => import(/* webpackChunkName: 'p-assignment_room' */
   '@/views/Assignment/AssignmentRooms.vue')
-const assignmentRoomDetail = () => import(/* webpackChunkName: 'p-assignment_room_detail-assignments' */
+const assignmentRoomDetail = () => import(/* webpackChunkName: 'p-assignment_room_detail' */
   '@/views/Assignment/AssignmentRoomDetail.vue')
-const assignmentDetail = () => import(/* webpackChunkName: 'p-assignment_detail-assignments' */
+const assignmentDetail = () => import(/* webpackChunkName: 'p-assignment_detail' */
   '@/views/Assignment/AssignmentDetail.vue')
-const scoringAdmin = () => import(/* webpackChunkName: 'p-landing_page_admin-assignments' */
+const scoringAdmin = () => import(/* webpackChunkName: 'p-landing_page_admin' */
   '@/views/Scoring/LandingPageAdmin.vue')
-const questionBankDetail = () => import(/* webpackChunkName: 'p-question_bank_detail-assignments' */
+const questionBankDetail = () => import(/* webpackChunkName: 'p-question_bank_detail' */
   '@/views/QuestionBank/QuestionBankDetail.vue')
-const questionBankForm = () => import(/* webpackChunkName: 'p-question_bank_form-assignments' */
+const questionBankForm = () => import(/* webpackChunkName: 'p-question_bank_form' */
   '@/views/QuestionBank/QuestionBankForm.vue')
-const questionBankQuestionDetail = () => import(/* webpackChunkName: 'p-question_bank_question_detail-assignments' */
+const questionBankQuestionDetail = () => import(/* webpackChunkName: 'p-question_bank_question_detail' */
   '@/views/QuestionBank/QuestionBankQuestionDetail.vue')
-const questionForm = () => import(/* webpackChunkName: 'p-question_form-assignments' */
+const questionForm = () => import(/* webpackChunkName: 'p-question_form' */
   '@/views/QuestionBank/QuestionForm.vue')
-const quizForm = () => import(/* webpackChunkName: 'p-quiz_form-assignments' */
+const quizForm = () => import(/* webpackChunkName: 'p-quiz_form' */
   '@/views/Quiz/QuizForm.vue')
-const quizDetail = () => import(/* webpackChunkName: 'p-quiz_detail-assignments' */
+const quizDetail = () => import(/* webpackChunkName: 'p-quiz_detail' */
   '@/views/Quiz/QuizDetail.vue')
-const studentQuizDetail = () => import(/* webpackChunkName: 'p-student_quiz_detail-assignments' */
+const studentQuizDetail = () => import(/* webpackChunkName: 'p-student_quiz_detail' */
   '@/views/Quiz/StudentQuizDetail.vue')
-const quizQuestions = () => import(/* webpackChunkName: 'p-quiz_questions-assignments' */
+const quizQuestions = () => import(/* webpackChunkName: 'p-quiz_questions' */
   '@/views/Quiz/QuizQuestions.vue')
-const judgingList = () => import(/* webpackChunkName: 'p-judging_list-assignments' */
+const judgingList = () => import(/* webpackChunkName: 'p-judging_list' */
   '@/views/FinalJudging/JudgingList.vue')
-const judgingForm = () => import(/* webpackChunkName: 'p-judging_form-assignments' */
+const judgingForm = () => import(/* webpackChunkName: 'p-judging_form' */
   '@/views/FinalJudging/JudgingForm.vue')
-const judgingDetail = () => import(/* webpackChunkName: 'p-judging_detail-assignments' */
+const judgingDetail = () => import(/* webpackChunkName: 'p-judging_detail' */
   '@/views/FinalJudging/JudgingDetail.vue')
-const reportPage = () => import(/* webpackChunkName: 'p-report_page-assignments' */
+const reportPage = () => import(/* webpackChunkName: 'p-report_page' */
   '@/views/FinalJudging/ReportPage.vue')
-const points = () => import(/* webpackChunkName: 'p-point-assignments' */
+const points = () => import(/* webpackChunkName: 'p-point' */
   '@/views/Point/Point.vue')
-const feeds = () => import(/* webpackChunkName: 'p-feeds_revamp-assignments' */
+const feeds = () => import(/* webpackChunkName: 'p-feeds_revamp' */
   '@/views/Feeds/FeedsRevamp.vue')
-const announcements = () => import(/* webpackChunkName: 'p-announcements-assignments' */
+const announcements = () => import(/* webpackChunkName: 'p-announcements' */
   '@/views/Announcements/Announcements.vue')
-const announcementDetail = () => import(/* webpackChunkName: 'p-announcement_detail-assignments' */
+const announcementDetail = () => import(/* webpackChunkName: 'p-announcement_detail' */
   '@/views/Announcements/AnnouncementDetail.vue')
-const announcementForm = () => import(/* webpackChunkName: 'p-announcement_form-assignments' */
+const announcementForm = () => import(/* webpackChunkName: 'p-announcement_form' */
   '@/views/Announcements/AnnouncementForm.vue')
-const activityBlogs = () => import(/* webpackChunkName: 'p-activity_blogs-assignments' */
+const activityBlogs = () => import(/* webpackChunkName: 'p-activity_blogs' */
   '@/views/ActivityBlogs/ActivityBlogs.vue')
-const activityBlogDetail = () => import(/* webpackChunkName: 'p-activity_blog_detail-assignments' */
+const activityBlogDetail = () => import(/* webpackChunkName: 'p-activity_blog_detail' */
   '@/views/ActivityBlogs/ActivityBlogDetail.vue')
-const ActivityBlogForm = () => import(/* webpackChunkName: 'p-activity_blog_form-assignments' */
+const ActivityBlogForm = () => import(/* webpackChunkName: 'p-activity_blog_form' */
   '@/views/ActivityBlogs/ActivityBlogForm.vue')
-const users = () => import(/* webpackChunkName: 'p-users-assignments' */
+const users = () => import(/* webpackChunkName: 'p-users' */
   '@/views/Users/Users.vue')
-const stickyNotes = () => import(/* webpackChunkName: 'p-sticky_notes_detail-assignments' */
+const stickyNotes = () => import(/* webpackChunkName: 'p-sticky_notes_detail' */
   '@/views/StickyNotes/StickyNotesDetail.vue')
-const editStickyNote = () => import(/* webpackChunkName: 'p-edit_sticky_note-assignments' */
+const editStickyNote = () => import(/* webpackChunkName: 'p-edit_sticky_note' */
   '@/views/StickyNotes/EditStickyNote.vue')
-const UserForm = () => import(/* webpackChunkName: 'p-user_form-assignments' */
+const UserForm = () => import(/* webpackChunkName: 'p-user_form' */
   '@/views/Users/UserForm.vue')
-const batches = () => import(/* webpackChunkName: 'p-batches-assignments' */
+const batches = () => import(/* webpackChunkName: 'p-batches' */
   '@/views/Batches/Batches.vue')
-const batchForm = () => import(/* webpackChunkName: 'p-batch_form-assignments' */
+const batchForm = () => import(/* webpackChunkName: 'p-batch_form' */
   '@/views/Batches/BatchForm.vue')
-const courses = () => import(/* webpackChunkName: 'p-courses_revamp-assignments' */
+const courses = () => import(/* webpackChunkName: 'p-courses_revamp' */
   '@/views/Courses/CoursesRevamp.vue')
-const courseDetail = () => import(/* webpackChunkName: 'p-courses_detail_revamp-assignments' */
+const courseDetail = () => import(/* webpackChunkName: 'p-courses_detail_revamp' */
   '@/views/Courses/CourseDetailRevamp.vue')
-const courseForm = () => import(/* webpackChunkName: 'p-courses_form_revamp-assignments' */
+const courseForm = () => import(/* webpackChunkName: 'p-courses_form_revamp' */
   '@/views/Courses/CourseFormRevamp.vue')
-const chatrooms = () => import(/* webpackChunkName: 'p-chatrooms-assignments' */
+const chatrooms = () => import(/* webpackChunkName: 'p-chatrooms' */
   '@/views/Chatrooms/Chatrooms.vue')
-const myQuestionnaire = () => import(/* webpackChunkName: 'p-my_questionnaire-assignments' */
+const myQuestionnaire = () => import(/* webpackChunkName: 'p-my_questionnaire' */
   '@/views/Questionnaire/MyQuestionnaire.vue')
-const myQuestionnaireAppraisee = () => import(/* webpackChunkName: 'p-my_questionairre_appraisee-assignments' */
+const myQuestionnaireAppraisee = () => import(/* webpackChunkName: 'p-my_questionairre_appraisee' */
   '@/views/Questionnaire/MyQuestionnaireAppraisee.vue')
-const questionnaires = () => import(/* webpackChunkName: 'p-questionairres-assignments' */
+const questionnaires = () => import(/* webpackChunkName: 'p-questionairres' */
   '@/views/Questionnaire/Questionnaires.vue')
-const questionnairesCreate = () => import(/* webpackChunkName: 'p-questionairres_create-assignments' */
+const questionnairesCreate = () => import(/* webpackChunkName: 'p-questionairres_create' */
   '@/views/Questionnaire/QuestionnairesCreate.vue')
-const questionnairesEdit = () => import(/* webpackChunkName: 'p-questionairres_edit-assignments' */
+const questionnairesEdit = () => import(/* webpackChunkName: 'p-questionairres_edit' */
   '@/views/Questionnaire/QuestionnairesEdit.vue')
-const questionnaireResults = () => import(/* webpackChunkName: 'p-questionnaire_results-assignments' */
+const questionnaireResults = () => import(/* webpackChunkName: 'p-questionnaire_results' */
   '@/views/Questionnaire/QuestionnaireResults.vue')
-const questionnaireResultsMembers = () => import(/* webpackChunkName: 'p-questionnaire_results_members-assignments' */
+const questionnaireResultsMembers = () => import(/* webpackChunkName: 'p-questionnaire_results_members' */
   '@/views/Questionnaire/QuestionnaireResultsMembers.vue')
-const questionnaireResultsMemberDetail = () => import(/* webpackChunkName: 'p-questionnaire_results_member_detail-assignments' */
+const questionnaireResultsMemberDetail = () => import(/* webpackChunkName: 'p-questionnaire_results_member_detail' */
   '@/views/Questionnaire/QuestionnaireResultsMemberDetail.vue')
-const questionnaireResultsQuestionnaireDetail = () => import(/* webpackChunkName: 'p-questionnaire_results_questionnaire_detail-assignments' */
+const questionnaireResultsQuestionnaireDetail = () => import(/* webpackChunkName: 'p-questionnaire_results_questionnaire_detail' */
   '@/views/Questionnaire/QuestionnaireResultsQuestionnaireDetail.vue')
-const questionnaireResultsQuestionDetail = () => import(/* webpackChunkName: 'p-questionnaire_results_question_detail-assignments' */
+const questionnaireResultsQuestionDetail = () => import(/* webpackChunkName: 'p-questionnaire_results_question_detail' */
   '@/views/Questionnaire/QuestionnaireResultsQuestionDetail.vue')
-const reminders = () => import(/* webpackChunkName: 'p-reminders-assignments' */
+const reminders = () => import(/* webpackChunkName: 'p-reminders' */
   '@/views/Reminders/Reminders.vue')
-const reminderForm = () => import(/* webpackChunkName: 'p-reminder_form-assignments' */
+const reminderForm = () => import(/* webpackChunkName: 'p-reminder_form' */
   '@/views/Reminders/ReminderForm.vue')
-const profile = () => import(/* webpackChunkName: 'p-profile-assignments' */
+const profile = () => import(/* webpackChunkName: 'p-profile' */
   '@/views/User/Profile.vue')
-const account = () => import(/* webpackChunkName: 'p-account-assignments' */
+const account = () => import(/* webpackChunkName: 'p-account' */
   '@/views/User/Account.vue')
-const notifications = () => import(/* webpackChunkName: 'p-notifications-assignments' */
+const notifications = () => import(/* webpackChunkName: 'p-notifications' */
   '@/views/Notifications/Notifications.vue')
 const changePassword = () => import(/* webpackChunkName: 'p-change_password-users' */
   '@/views/User/ChangePassword.vue')
-const loggingRoom = () => import(/* webpackChunkName: 'p-logging_room-assignments' */
+const loggingRoom = () => import(/* webpackChunkName: 'p-logging_room' */
   '@/views/LoggingRoom/LoggingRoom.vue')
-const loggingRoomDetail = () => import(/* webpackChunkName: 'p-logging_room_detail-assignments' */
+const loggingRoomDetail = () => import(/* webpackChunkName: 'p-logging_room_detail' */
   '@/views/LoggingRoom/LoggingRoomDetail.vue')
-const logMessageRoom = () => import(/* webpackChunkName: 'p-log_message_room-assignments' */
+const logMessageRoom = () => import(/* webpackChunkName: 'p-log_message_room' */
   '@/views/LoggingRoom/LogMessageRoom.vue')
-const loggingRoomCreate = () => import(/* webpackChunkName: 'p-logging_room_create-assignments' */
+const loggingRoomCreate = () => import(/* webpackChunkName: 'p-logging_room_create' */
   '@/views/LoggingRoom/LoggingRoomCreate')
-const loggingRoomEdit = () => import(/* webpackChunkName: 'p-logging_room_edit-assignments' */
+const loggingRoomEdit = () => import(/* webpackChunkName: 'p-logging_room_edit' */
   '@/views/LoggingRoom/LoggingRoomEdit.vue')
-const files = () => import(/* webpackChunkName: 'p-files-assignments' */
+const files = () => import(/* webpackChunkName: 'p-files' */
   '@/views/Files/Files')
 const chatroomContent = () => import(/* webpackChunkName: 'p-chatroom_content-assignments' */
   '@/views/Chatrooms/ChatroomContent')
