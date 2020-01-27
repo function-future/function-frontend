@@ -1,6 +1,7 @@
 <template>
   <div class="reminder-form__container">
-    <BaseButton @click="handleTopBtnClick" buttonClass="button-save" class="reminder-form__edit-btn">{{ editMode ? 'Save' : 'Edit' }}</BaseButton>
+    <b-button @click="handleTopBtnClick"
+              class="reminder-form__edit-btn is-primary">{{ editMode ? 'Save' : 'Edit' }}</b-button>
     <h3>Title</h3>
     <BaseInput maxlength="30" class="reminder-form__input" inputType="reminder-input" :disabled="!editMode" v-model="title"></BaseInput>
     <h3>Description</h3>
@@ -53,7 +54,7 @@
 
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   h3 {
     margin: 20px 0 0 0;
     align-self: flex-start;
@@ -130,13 +131,18 @@
 
   .reminder-form__container {
     padding: 0 50px 0 50px;
-    width: 60vw;
     max-height: 85vh;
     overflow: auto;
     margin: 0 auto;
     display: flex;
     align-items: center;
     flex-direction: column;
+    width: 40vw;
+    @media only screen and (max-width:1023px) {
+      width: 100vw;
+      padding: 10px;
+      max-height: 80vh;
+    }
   }
 
   .reminder-form__input {

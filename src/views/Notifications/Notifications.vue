@@ -1,7 +1,7 @@
 <template>
   <div class="notifications">
     <template v-for="notification in notifications">
-      <BaseCard cardClass="notification-card" :key="notification.id">
+      <div cardClass="notification-card" :key="notification.id">
         <div class="notifications__card__container">
           <div class="notifications__card__content">
             <h3>{{ notification.title }}</h3>
@@ -12,7 +12,7 @@
             <p class="notification__card__time">{{ convertClock(notification.createdAt).date }}</p>
           </div>
         </div>
-      </BaseCard>
+      </div>
     </template>
     <infinite-loading @infinite="infiniteHandler">
       <div slot="no-more"></div>
@@ -26,7 +26,7 @@
 
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   h3, p {
     margin: 5px 0;
   }
@@ -35,17 +35,30 @@
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    width: 60vw;
     max-height: 85vh;
     overflow: auto;
     padding: 0 20px;
     margin: 0 auto;
+    width: 40vw;
+    @media only screen and (max-width: 1023px) {
+      width: 100vw;
+      padding: 10px;
+    }
   }
 
   .notifications__card__container {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background: #FFFFFF;
+    border: 1px solid #F2F2F2;
+    box-sizing: border-box;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    text-align: left;
+    margin: 5px 10px;
+    padding: 10px;
+    height: auto;
   }
 
   .notification__card__time {

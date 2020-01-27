@@ -11,6 +11,9 @@
       </b-navbar-item>
     </template>
     <template slot="end">
+      <b-button @click="goToNotifications" class="is-primary">
+        <b-icon class="icon" v-if="loggedIn" icon="bell" size="is-medium" :style="notification"></b-icon>
+      </b-button>
       <b-navbar-item v-if="!loggedIn" tag="div">
         <div class="buttons" @click="login">
           <b-button type="is-light" outlined class="button is-light">
@@ -46,4 +49,5 @@
 
 <script src="./js/nav-bar.js"></script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+</style>

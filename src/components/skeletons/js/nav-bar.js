@@ -2,6 +2,8 @@ import { mapActions, mapGetters } from 'vuex'
 import Breadcrumbs from '@/components/breadcrumbs/Breadcrumbs'
 import ChangePageTitleMixins from '@/mixins/ChangePageTitleMixins'
 import notificationApi from '@/api/controller/notifications'
+import Websocket from '@/mixins/Websocket'
+import config from '@/config/index'
 
 export default {
   name: 'NavBar',
@@ -9,12 +11,27 @@ export default {
     Breadcrumbs
   },
   mixins: [
-    ChangePageTitleMixins
+    ChangePageTitleMixins,
+    Websocket
   ],
   data () {
     return {
       unreadNotifications: 0,
-      notificationPollingInterval: null
+      notificationPollingInterval: null,
+      notificationSubscription: null,
+      notification: {
+        color: 'white'
+      }
+    }
+  },
+  watch: {
+    isSocketConnected: function () {
+      if (this.isSocketConnected) {
+        this.notificationSubscription = this.subscribe(
+          config.api.communication.topic.notification(this.currentUser.id),
+          this.notificationSubscriptionCallback
+        )
+      }
     }
   },
   computed: {
@@ -87,6 +104,15 @@ export default {
       notificationApi.getTotalUnseen(response => {
         this.unreadNotifications = response.data.total
       }, this.errorHandler)
+    },
+    notificationSubscriptionCallback: function (data) {
+      let parsedData = JSON.parse(data.body)
+      console.log(parsedData)
+      this.notification.color = 'red'
     }
+  },
+  destroyed() {
+    this.chatroomSubscription.unsubscribe()
+    this.chatroomSubscription = null
   }
 }

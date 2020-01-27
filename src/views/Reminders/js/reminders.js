@@ -4,6 +4,7 @@ import BaseButton from '@/components/BaseButton'
 import InfiniteLoading from 'vue-infinite-loading'
 import reminderApi from '@/api/controller/reminders'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
+import Breakpoint from '@/mixins/Breakpoint'
 
 export default {
   name: 'Reminders',
@@ -12,8 +13,11 @@ export default {
     BaseButton,
     ReminderCard,
     InfiniteLoading,
-    ModalDeleteConfirmation
+    ModalDeleteConfirmation,
   },
+  mixins: [
+    Breakpoint
+  ],
   data () {
     return {
       reminders: [],

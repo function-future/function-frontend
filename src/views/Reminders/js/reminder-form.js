@@ -6,6 +6,8 @@ import reminderApi from '@/api/controller/reminders'
 import ReminderMemberModal from '@/views/Reminders/ReminderMemberModal'
 import VueCtkDateTimePicker from 'vue-ctk-date-time-picker'
 import 'vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css'
+import CustomMobileNavBar from '@/components/skeletons/CustomMobileNavBar'
+import Breakpoint from '@/mixins/Breakpoint'
 
 export default {
   name: 'ReminderForm',
@@ -15,8 +17,12 @@ export default {
     UserSimpleCard,
     ReminderMemberModal,
     BaseTextArea,
-    VueCtkDateTimePicker
+    VueCtkDateTimePicker,
+    CustomMobileNavBar
   },
+  mixins:[
+    Breakpoint
+  ],
   props: {
     editMode: Boolean,
     createMode: {
