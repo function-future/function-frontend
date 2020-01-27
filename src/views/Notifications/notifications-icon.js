@@ -1,6 +1,7 @@
 import notificationApi from '@/api/controller/notifications'
 import Websocket from '@/mixins/Websocket'
 import config from '@/config/index'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'NotificationsIcon',
@@ -15,6 +16,11 @@ export default {
         total: 0
       }
     }
+  },
+  computed: {
+    ...mapGetters([
+      'currentUser'
+    ])
   },
   watch: {
     isSocketConnected: function () {
