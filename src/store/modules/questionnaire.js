@@ -61,7 +61,7 @@ export const actions = {
     questionnaireApi.getQuestionsQuestionnaire(response => {
       commit('RESET_CURRENT_QUESTIONS')
       commit('PUSH_CURRENT_QUESTIONS', response.data)
-      cb(response)
+      cb && cb(response)
     }, fail, data)
   },
   fetchCurrentAppraisee ({ state, commit }, { data, fail, cb }) {

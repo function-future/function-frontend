@@ -28,18 +28,9 @@ export default {
       questionModal: false,
       participantModal: false,
       participantModalAppraiser: false,
-      currentAppraiseeTemp: {
-        type: Array,
-        default: null
-      },
-      currentAppraiserTemp: {
-        type: Array,
-        default: null
-      },
-      currentQuestionsTemp: {
-        type: Array,
-        default: null
-      },
+      currentAppraiseeTemp: [],
+      currentAppraiserTemp: [],
+      currentQuestionsTemp: [],
       question: {
         id: '',
         description: '',
@@ -98,7 +89,8 @@ export default {
       'setCurrentQuestionnaireAdmin',
       'fetchCurrentQuestions',
       'fetchCurrentAppraisee',
-      'fetchCurrentAppraiser'
+      'fetchCurrentAppraiser',
+      'toast'
     ]),
     setCurrentQuestionnaire (data) {
       this.setCurrentQuestionnaireAdmin({
@@ -109,13 +101,33 @@ export default {
     },
     goToUpdateDescription () {
       if (this.currentQuestionnaireAdmin.title === ' ' || this.currentQuestionnaireAdmin.description === ' ') {
-        this.$toasted.error(' title and description must be filled')
+        this.toast({
+          data: {
+            message: 'title and description must be filled',
+            type: 'is-danger'
+          }
+        })
       } else if (this.currentQuestionnaireAdmin.startDate >= this.currentQuestionnaireAdmin.dueDate) {
-        this.$toasted.error('due date should greater than start date ')
+        this.toast({
+          data: {
+            message: 'due date should greater than start date',
+            type: 'is-danger'
+          }
+        })
       } else if (this.currentQuestionnaireAdmin.startDate === this.currentQuestionnaireAdmin.dueDate) {
-        this.$toasted.error('due date should not same with start date ')
+        this.toast({
+          data: {
+            message: 'due date should not same with start date',
+            type: 'is-danger'
+          }
+        })
       } else if (this.currentQuestionnaireAdmin.startDate < new Date().setHours(0, 0, 0, 0)) {
-        this.$toasted.error('start date should greater than yesterday  ')
+        this.toast({
+          data: {
+            message: 'start date should greater than yesterday',
+            type: 'is-danger'
+          }
+        })
       } else {
         questionnaireApi.updateQuestionnaire(response => {
           this.setCurrentQuestionnaire(response.data)
@@ -135,7 +147,12 @@ export default {
     },
     submitMessageErrorCallback (err) {
       console.log(err)
-      this.$toasted.error('Fail to updateQuestionnaire')
+      this.toast({
+        data: {
+          message: 'Fail to updateQuestionnaire',
+          type: 'is-danger'
+        }
+      })
     },
     resetDeleteConfirmationModalQuestion () {
       this.deleteConfirmationModalQuestion.show = false
@@ -155,7 +172,12 @@ export default {
     },
     submitQuestionErrorCallback (err) {
       console.log(err)
-      this.$toasted.error('Fail to createQuestion')
+      this.toast({
+        data: {
+          message: 'Fail to createQuestion',
+          type: 'is-danger'
+        }
+      })
     },
     fetchingQuestions () {
       this.fetchCurrentQuestions({
@@ -173,7 +195,12 @@ export default {
     },
     deleteTheQuestionQuestionnaire () {
       questionnaireApi.deleteQuestionQuestionnaire(response => {
-        this.$toasted.success('success delete question')
+        this.toast({
+          data: {
+            message: 'success delete question',
+            type: 'is-success'
+          }
+        })
         this.fetchingQuestions()
         this.resetDeleteConfirmationModalQuestion()
       }, this.deleteErrorCallback,
@@ -186,17 +213,32 @@ export default {
     },
     deleteErrorCallback (err) {
       console.log(err)
-      this.$toasted.error('Fail to delete')
+      this.toast({
+        data: {
+          message: 'Fail to delete',
+          type: 'is-danger'
+        }
+      })
     },
     updateErrorCallback (err) {
       console.log(err)
-      this.$toasted.error('Fail to update')
+      this.toast({
+        data: {
+          message: 'Fail to update',
+          type: 'is-danger'
+        }
+      })
     },
     addErrorCallback (err) {
       console.log(err)
-      this.$toasted.error('Fail to add')
+      this.toast({
+        data: {
+          message: 'Fail to add',
+          type: 'is-danger'
+        }
+      })
     },
-    openEditModal (newQuestion , index) {
+    openEditModal (newQuestion, index) {
       this.questionModal = true
       this.question.id = newQuestion.id
       this.question.isUpdate = true
@@ -263,7 +305,7 @@ export default {
       this.deleteConfirmationModalParticipant.participant = {}
     },
     deleteTheParticipant () {
-      if (this.deleteConfirmationModalParticipant.isAppraisee){
+      if (this.deleteConfirmationModalParticipant.isAppraisee) {
         let deleteIdx = this.currentAppraiseeTemp.indexOf(this.deleteConfirmationModalParticipant.participant)
         if (deleteIdx !== -1) {
           this.currentAppraiseeTemp.splice(deleteIdx, 1)
@@ -320,9 +362,9 @@ export default {
           })
         } else {
           questionnaireApi.updateQuestionQuestionnaire(response => {
-            // this.$toasted.success('success Update Question')
-            // this.fetchingQuestions()
-          }, this.updateErrorCallback,
+
+          },
+          this.updateErrorCallback,
           {
             params: {
               questionnaireId: this.$route.params.questionnaireId,
@@ -378,9 +420,7 @@ export default {
       })
       this.removedAppraiser.forEach(member => {
         questionnaireApi.deleteAppraiserQuestionnaire(response => {
-          // this.$toasted.success('success delete Appraiser')
-          // this.fetchingAppraiser()
-          // this.closeDeleteConfirmationModalParticipant()
+
         }, this.deleteErrorCallback,
         {
           params: {
@@ -408,7 +448,12 @@ export default {
       this.$router.replace({
         name: 'questionnaires'
       })
-      this.$toasted.success('success Update Questionnaire')
+      this.toast({
+        data: {
+          message: 'Fail to fetch chatroom detail',
+          type: 'is-danger'
+        }
+      }).success('success Update Questionnaire')
     },
     fetchingCurrentQuestionnarieAdmin () {
       this.fetchCurrentQuestionnaireAdmin({
