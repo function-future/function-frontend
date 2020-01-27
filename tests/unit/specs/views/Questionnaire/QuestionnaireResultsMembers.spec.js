@@ -59,7 +59,11 @@ describe('QuestionnaireResultsMembers', () => {
   test('infiniteHandler case 2', () => {
     questionnaireResultsApi.getUserSummary = success => {
       success({
-        data: [1, 2, 3]
+        data: [{
+          member: {
+            batch: {}
+          }
+        }]
       })
     }
     const $state = {
