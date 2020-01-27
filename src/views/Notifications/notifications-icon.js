@@ -1,4 +1,3 @@
-import { mapGetters } from 'vuex'
 import notificationApi from '@/api/controller/notifications'
 import Websocket from '@/mixins/Websocket'
 import config from '@/config/index'
@@ -12,35 +11,18 @@ export default {
     return {
       notificationSubscription: null,
       notification: {
-        color: 'white'
+        color: 'white',
+        total: 0
       }
     }
   },
   watch: {
     isSocketConnected: function () {
-      if (this.isSocketConnected && this.loggedIn) {
+      if (this.isSocketConnected) {
         this.notificationSubscription = this.subscribe(
           config.api.communication.topic.notification(this.currentUser.id),
           this.notificationSubscriptionCallback
         )
-      } else {
-        if (this.notificationSubscription != null && !this.loggedIn){
-          this.notificationSubscription.unsubscribe()
-          this.notificationSubscription = null
-        }
-      }
-    }
-
-  },
-  computed: {
-    ...mapGetters([
-      'currentUser'
-    ]),
-    loggedIn () {
-      if (Object.keys(this.currentUser).length) {
-        return true
-      } else {
-        return false
       }
     }
   },
@@ -55,6 +37,7 @@ export default {
     },
     notificationSubscriptionCallback: function (data) {
       let parsedData = JSON.parse(data.body)
+      this.notification.total = parsedData.data.total
       this.notification.color = 'red'
     }
   },
@@ -62,7 +45,13 @@ export default {
     notificationApi.getTotalUnseen(response => {
       if (response.data.total > 0) {
         this.notification.color = 'red'
+        this.notification.total = response.data.total
       }
     }, this.errorHandler)
+  },
+  destroyed () {
+    if (this.notificationSubscription !== null) {
+      this.notificationSubscription.unsubscribe()
+    }
   }
 }

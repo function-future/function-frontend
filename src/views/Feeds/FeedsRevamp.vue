@@ -80,6 +80,12 @@
             <div>Users</div>
           </div>
         </div>
+        <div class="column is-4" style="float: left" v-if="menuList.reminders" @click="goToPage('reminders')">
+          <div class="card-content">
+            <div><b-icon icon="stopwatch" class="menu-icon"></b-icon></div>
+            <div>Reminders</div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="announcements">

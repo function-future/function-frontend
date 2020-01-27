@@ -57,27 +57,39 @@
     }
 
     &__wrapper {
-      display: table-cell;
+      @media (min-width: 1023px) {
+        width: 30vw;
+      }
+      @media (max-width: 1023px) {
+        height: 100%;
+        display: flex;
+        flex-direction: column-reverse;
+        transition: opacity 0.3s ease-out, bottom 0.3s ease-out;
+      }
     }
 
     &__user-list {
-      max-height: 70vh;
+      height: 40vh;
       overflow: auto;
-      padding: 0 20px;
+      padding: 10px 0;
     }
 
     &__container {
       display: flex;
       flex-direction: column;
-      width: 30vw;
-      min-width: 350px;
       margin: 0 auto;
-      padding: 10px;
+      padding: 0.5rem 1rem;
       background-color: #fff;
       border-radius: 10px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
       transition: all .3s ease;
       font-family: Helvetica, Arial, sans-serif;
+      max-height: 100vh;
+      overflow: auto;
+      @media (max-width: 1023px) {
+        width: 100vw;
+        border-radius: 0.75rem 0.75rem 0 0;
+      }
     }
 
     &__header {
@@ -95,13 +107,13 @@
     }
 
     &__body {
-      margin: 5px 30px 10px 30px;
+      margin: 0 30px;
       text-align: left;
 
       &__result {
         max-height: 45vh;
         overflow: auto;
-        padding: 15px;
+        padding: 10px 0;
       }
 
       &__card {

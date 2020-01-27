@@ -22,7 +22,7 @@ export default {
     initWebsocketConnection () {
       let socket = new SockJS('/ws')
       this.stompClient = Stomp.over(socket)
-      // this.stompClient.debug = null
+      this.stompClient.debug = null
       this.stompClient.connect({}, this.connectSuccessCallback, this.connectErrorCallback)
     },
     connectSuccessCallback () {
