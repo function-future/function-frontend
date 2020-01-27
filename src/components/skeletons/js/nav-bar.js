@@ -4,6 +4,7 @@ import ChangePageTitleMixins from '@/mixins/ChangePageTitleMixins'
 import notificationApi from '@/api/controller/notifications'
 import Websocket from '@/mixins/Websocket'
 import config from '@/config/index'
+import NotificationsIcon from '@/views/Notifications/NotificationsIcon'
 
 export default {
   name: 'NavBar',
@@ -12,7 +13,8 @@ export default {
   },
   mixins: [
     ChangePageTitleMixins,
-    Websocket
+    Websocket,
+    NotificationsIcon
   ],
   data () {
     return {
