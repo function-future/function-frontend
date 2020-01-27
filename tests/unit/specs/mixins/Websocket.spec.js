@@ -5,7 +5,7 @@ import Stomp from 'stompjs'
 jest.mock('sockjs-client')
 jest.mock('stompjs')
 
-describe('Breakpoint', () => {
+describe('Websocket', () => {
   function initComponent (opt) {
     return shallowMount(Websocket, opt)
   }
@@ -14,7 +14,8 @@ describe('Breakpoint', () => {
     connect: jest.fn(),
     disconnect: jest.fn(),
     subscribe: jest.fn((topic, cb) => { cb() }),
-    debug: null
+    debug: null,
+    connected: true
   }
 
   beforeEach(() => {
@@ -61,11 +62,21 @@ describe('Breakpoint', () => {
     expect(spy).toHaveBeenCalled()
   })
 
-  test('connectSuccessCallback', () => {
+  test('connectSuccessCallback 1', () => {
     let wrapper = initComponent()
     wrapper.vm.isSocketConnected = false
     wrapper.vm.connectSuccessCallback()
     expect(wrapper.vm.isSocketConnected).toBe(true)
+  })
+
+  test('connectSuccessCallback 2', () => {
+    let spy = jest.spyOn(mockStompClient, 'disconnect')
+    let wrapper = initComponent()
+    wrapper.vm.isSocketConnected = false
+    wrapper.vm.isDestroyed = true
+    wrapper.vm.connectSuccessCallback()
+    expect(spy).toHaveBeenCalled()
+    expect(wrapper.vm.isSocketConnected).toBe(false)
   })
 
   test('connectErrorCallback', () => {

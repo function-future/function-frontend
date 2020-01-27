@@ -1,17 +1,20 @@
 import SockJS from 'sockjs-client'
 import Stomp from 'stompjs'
+
 export default {
   data () {
     return {
       stompClient: null,
-      isSocketConnected: false
+      isSocketConnected: false,
+      isDestroyed: false
     }
   },
   created () {
     this.initWebsocketConnection()
   },
   destroyed () {
-    if (this.stompClient !== null) {
+    this.isDestroyed = true
+    if (this.stompClient !== null && this.stompClient.connected) {
       this.stompClient.disconnect()
     }
   },
@@ -23,10 +26,16 @@ export default {
       this.stompClient.connect({}, this.connectSuccessCallback, this.connectErrorCallback)
     },
     connectSuccessCallback () {
-      this.isSocketConnected = true
+      if (this.isDestroyed) {
+        this.stompClient.disconnect()
+      } else {
+        this.isSocketConnected = true
+      }
     },
     connectErrorCallback (error) {
       console.error(error)
+      setTimeout(this.stompClient.connect({}, this.connectSuccessCallback, this.connectErrorCallback), 5000)
+      console.log('STOMP: Reconnecting in 5 seconds')
       this.isSocketConnected = false
     },
     subscribe (topic, cb) {
