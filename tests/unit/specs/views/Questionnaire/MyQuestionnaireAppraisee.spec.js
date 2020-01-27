@@ -6,7 +6,7 @@ import moment from 'moment'
 
 jest.mock('@/api/controller/my-questionnaire')
 
-describe('ModalAddQuestion', () => {
+describe('MyQuestionnaireAppraisee', () => {
   let wrapper
   let store
 
@@ -134,7 +134,7 @@ describe('ModalAddQuestion', () => {
   test('computedDate', () => {
     initWrapper()
     const date = Date.now()
-    expect(wrapper.vm.computedDate(date)).toEqual(moment(date).format('DD/MM/YYYY'))
+    expect(wrapper.vm.computedDate(date)).toEqual(moment(date).format('DD MMM YYYY, h:mm a'))
   })
 
   test('goToInputQuestionnaireAnswer', () => {
