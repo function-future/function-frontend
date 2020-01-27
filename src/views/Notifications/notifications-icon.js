@@ -17,26 +17,32 @@ export default {
     }
   },
   watch: {
-    loggedIn () {
-      if (Object.keys(this.currentUser).length) {
-        if (this.isSocketConnected) {
-          this.notificationSubscription = this.subscribe(
-            config.api.communication.topic.notification(this.currentUser.id),
-            this.notificationSubscriptionCallback
-          )
-        }
+    isSocketConnected: function () {
+      if (this.isSocketConnected && this.loggedIn) {
+        this.notificationSubscription = this.subscribe(
+          config.api.communication.topic.notification(this.currentUser.id),
+          this.notificationSubscriptionCallback
+        )
       } else {
-        if ( this.notificationSubscription != null) {
+        if (this.notificationSubscription != null && !this.loggedIn){
           this.notificationSubscription.unsubscribe()
+          this.notificationSubscription = null
         }
-        this.notificationSubscription = null
       }
     }
+
   },
   computed: {
     ...mapGetters([
       'currentUser'
     ]),
+    loggedIn () {
+      if (Object.keys(this.currentUser).length) {
+        return true
+      } else {
+        return false
+      }
+    }
   },
   methods: {
     goToNotifications () {

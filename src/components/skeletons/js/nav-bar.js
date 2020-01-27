@@ -1,40 +1,21 @@
 import { mapActions, mapGetters } from 'vuex'
 import Breadcrumbs from '@/components/breadcrumbs/Breadcrumbs'
 import ChangePageTitleMixins from '@/mixins/ChangePageTitleMixins'
-import notificationApi from '@/api/controller/notifications'
-import Websocket from '@/mixins/Websocket'
-import config from '@/config/index'
 import NotificationsIcon from '@/views/Notifications/NotificationsIcon'
 
 export default {
   name: 'NavBar',
   components: {
-    Breadcrumbs
+    Breadcrumbs,
+    NotificationsIcon
   },
   mixins: [
     ChangePageTitleMixins,
-    Websocket,
-    NotificationsIcon
   ],
   data () {
     return {
       unreadNotifications: 0,
-      notificationPollingInterval: null,
-      notificationSubscription: null,
-      notification: {
-        color: 'white'
-      }
-    }
-  },
-  watch: {
-    isSocketConnected: function () {
-      console.log('called')
-      if (this.isSocketConnected) {
-        this.notificationSubscription = this.subscribe(
-          config.api.communication.topic.notification(this.currentUser.id),
-          this.notificationSubscriptionCallback
-        )
-      }
+      notificationPollingInterval: null
     }
   },
   computed: {
@@ -70,7 +51,6 @@ export default {
       }
     },
     goToNotifications () {
-      this.notification.color = 'white'
       if (this.$route.name === 'notifications') {
         window.location.reload()
       } else {
@@ -83,7 +63,6 @@ export default {
       })
     },
     successAttemptLogout () {
-      this.removeNotificationSubscription()
       this.$cookies.remove('Function-Session')
       this.$router.push({ name: 'feeds' })
       this.isExtend = false
@@ -93,29 +72,6 @@ export default {
     },
     errorHandler (err) {
       console.log(err)
-    },
-    notificationPollingHandler () {
-      notificationApi.getTotalUnseen(response => {
-        this.unreadNotifications = response.data.total
-      }, this.errorHandler)
-    },
-    notificationSubscriptionCallback: function (data) {
-      let parsedData = JSON.parse(data.body)
-      this.notification.color = 'red'
-    },
-    removeNotificationSubscription: function () {
-      this.notificationSubscription.unsubscribe()
-      this.notificationSubscription = null
     }
-  },
-  created () {
-    notificationApi.getTotalUnseen(response => {
-      if (response.data.total > 0) {
-        this.notification.color = 'red'
-      }
-    }, this.errorHandler)
-  },
-  destroyed () {
-    // this.removeNotificationSubscription()
   }
 }

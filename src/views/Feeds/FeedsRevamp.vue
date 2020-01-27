@@ -7,14 +7,8 @@
              class="logo is-center"
              alt="function">
         <div class="is-right">
-          <b-icon
-            v-if="loggedIn"
-            @click.native="goToPage('notifications')"
-            class="icon"
-            icon="bell"
-            size="is-medium"
-            :style="notificationStyle">
-          </b-icon>
+          <NotificationsIcon v-if="loggedIn"
+          ></NotificationsIcon>
           <b-icon :icon="profileIcon"
                   @click.native="goToProfile">
           </b-icon>
