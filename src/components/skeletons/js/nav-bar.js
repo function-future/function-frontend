@@ -26,6 +26,7 @@ export default {
   },
   watch: {
     isSocketConnected: function () {
+      console.log('called')
       if (this.isSocketConnected) {
         this.notificationSubscription = this.subscribe(
           config.api.communication.topic.notification(this.currentUser.id),
@@ -41,10 +42,8 @@ export default {
     ]),
     loggedIn () {
       if (Object.keys(this.currentUser).length) {
-        this.startPolling()
         return true
       } else {
-        this.stopPolling()
         return false
       }
     },
@@ -63,15 +62,6 @@ export default {
     ...mapActions([
       'attemptLogout'
     ]),
-    startPolling () {
-      if (!this.notificationPollingInterval) {
-        this.notificationPollingInterval = setInterval(this.notificationPollingHandler, 2000)
-      }
-    },
-    stopPolling () {
-      clearInterval(this.notificationPollingInterval)
-      this.notificationPollingInterval = null
-    },
     login () {
       if (!this.loggedIn) {
         this.$router.push({ query: { auth: 'login' } })
@@ -123,7 +113,7 @@ export default {
       }
     }, this.errorHandler)
   },
-  destroyed() {
-    this.removeNotificationSubscription()
+  destroyed () {
+    // this.removeNotificationSubscription()
   }
 }

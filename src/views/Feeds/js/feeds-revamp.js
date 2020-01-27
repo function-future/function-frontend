@@ -61,8 +61,9 @@ export default {
   },
   watch: {
     isSocketConnected: function () {
+      console.log('masuk 1')
       if (this.isSocketConnected) {
-        window.alert('masuk')
+        console.log('masuk')
         this.notificationSubscription = this.subscribe(
           config.api.communication.topic.notification(this.currentUser.id),
           this.notificationSubscriptionCallback
@@ -164,7 +165,9 @@ export default {
       }, this.errorHandler)
     },
     removeNotificationSubscription: function () {
-      this.notificationSubscription.unsubscribe()
+      if (this.notificationSubscription !== null) {
+        this.notificationSubscription.unsubscribe()
+      }
       this.notificationSubscription = null
     },
     notificationSubscriptionCallback: function (data) {

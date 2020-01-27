@@ -1,28 +1,41 @@
 import SockJS from 'sockjs-client'
 import Stomp from 'stompjs'
-import config from '@/config/index'
+
 export default {
   data () {
     return {
       stompClient: null,
-      isSocketConnected: false
+      isSocketConnected: false,
+      isDestroyed: false
     }
   },
   created () {
-    let socket = new SockJS(config.dev.socketHost)
-    this.stompClient = Stomp.over(socket)
-    this.stompClient.debug = null
-    this.stompClient.connect({}, this.connectSuccessCallback, this.connectErrorCallback)
+    this.initWebsocketConnection()
   },
   destroyed () {
-    this.stompClient.disconnect()
+    this.isDestroyed = true
+    if (this.stompClient !== null && this.stompClient.connected) {
+      this.stompClient.disconnect()
+    }
   },
   methods: {
+    initWebsocketConnection () {
+      let socket = new SockJS('/ws')
+      this.stompClient = Stomp.over(socket)
+      this.stompClient.debug = null
+      this.stompClient.connect({}, this.connectSuccessCallback, this.connectErrorCallback)
+    },
     connectSuccessCallback () {
-      this.isSocketConnected = true
+      if (this.isDestroyed) {
+        this.stompClient.disconnect()
+      } else {
+        this.isSocketConnected = true
+      }
     },
     connectErrorCallback (error) {
       console.error(error)
+      setTimeout(this.stompClient.connect({}, this.connectSuccessCallback, this.connectErrorCallback), 5000)
+      console.log('STOMP: Reconnecting in 5 seconds')
       this.isSocketConnected = false
     },
     subscribe (topic, cb) {

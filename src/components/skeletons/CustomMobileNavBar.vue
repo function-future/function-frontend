@@ -12,7 +12,7 @@
   </div>
 </template>
 
-<script src="./js/custom-mobile-nav-bar">
+<script src="./js/custom-mobile-nav-bar.js">
 </script>
 
 <style lang="scss" scoped>

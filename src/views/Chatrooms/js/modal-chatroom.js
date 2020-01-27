@@ -3,7 +3,6 @@ import BaseInput from '@/components/BaseInput'
 import SearchBar from '@/components/SearchBar'
 import UserListCard from '@/components/UserListCard'
 import usersApi from '@/api/controller/users'
-import chatroomApi from '@/api/controller/chatrooms'
 import { mapGetters, mapActions } from 'vuex'
 import UserSimpleCard from '@/components/UserSimpleCard'
 
@@ -46,7 +45,8 @@ export default {
   methods: {
     ...mapActions([
       'uploadGroupImage',
-      'fetchDetailChatroom'
+      'fetchDetailChatroom',
+      'toast'
     ]),
     convertToListUserId (users) {
       let result = users.map(user => user.id)
@@ -126,7 +126,7 @@ export default {
     },
     successUploadGroupPicture (response) {
       this.isUploading = false
-      this.chatroom.picture = response.id
+      this.chatroom.picture = [response.id]
       this.picture = response.file.full
     },
     failUploadGroupPicture () {
@@ -143,7 +143,7 @@ export default {
       this.picture = response.data.picture ? response.data.picture.file.full : null
       this.selectedUsers = response.data.members.filter(user => user.id !== this.currentUser.id)
       this.chatroom = response.data
-      this.chatroom.picture = response.data.picture ? response.data.picture.id : null
+      this.chatroom.picture = response.data.picture ? [response.data.picture.id] : null
     }
   },
   created () {

@@ -632,11 +632,15 @@ module.exports = {
   dev: {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    socketHost: 'http://localhost:8080/ws',
     proxyTable: {
       '/api': {
         target: 'http://localhost:8080',
         changeOrigin: true
+      },
+      '/ws': {
+        target: 'http://localhost:8080',
+        changeOrigin: true,
+        ws: true
       }
     },
     defaultPageSize: 10

@@ -13,8 +13,8 @@
             class="icon"
             icon="bell"
             size="is-medium"
-            :style="notificationStyle"
-          ></b-icon>
+            :style="notificationStyle">
+          </b-icon>
           <b-icon :icon="profileIcon"
                   @click.native="goToProfile">
           </b-icon>
