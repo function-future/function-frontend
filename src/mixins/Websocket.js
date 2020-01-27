@@ -1,6 +1,5 @@
 import SockJS from 'sockjs-client'
 import Stomp from 'stompjs'
-import config from '@/config/index'
 export default {
   data () {
     return {
@@ -9,15 +8,20 @@ export default {
     }
   },
   created () {
-    let socket = new SockJS(config.dev.socketHost)
-    this.stompClient = Stomp.over(socket)
-    this.stompClient.debug = null
-    this.stompClient.connect({}, this.connectSuccessCallback, this.connectErrorCallback)
+    this.initWebsocketConnection()
   },
   destroyed () {
-    this.stompClient.disconnect()
+    if (this.stompClient !== null) {
+      this.stompClient.disconnect()
+    }
   },
   methods: {
+    initWebsocketConnection () {
+      let socket = new SockJS('/ws')
+      this.stompClient = Stomp.over(socket)
+      this.stompClient.debug = null
+      this.stompClient.connect({}, this.connectSuccessCallback, this.connectErrorCallback)
+    },
     connectSuccessCallback () {
       this.isSocketConnected = true
     },

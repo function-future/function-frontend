@@ -21,14 +21,14 @@ export default {
   },
   computed: {
     computedName () {
-      if (this.name.length > MAX_CHAR_NAME) {
+      if (this.name && this.name.length > MAX_CHAR_NAME) {
         return this.name.substring(0, MAX_CHAR_NAME - 3) + '...'
       } else {
         return this.name
       }
     },
     computedLastMessage () {
-      if (this.lastMessage.length > MAX_CHAR_LASTMESSAGE) {
+      if (this.lastMessage && this.lastMessage.length > MAX_CHAR_LASTMESSAGE) {
         return this.lastMessage.substring(0, MAX_CHAR_LASTMESSAGE - 3) + '...'
       } else {
         return this.lastMessage
