@@ -106,8 +106,8 @@ const courseDetail = () => import(/* webpackChunkName: 'p-courses_detail_revamp'
   '@/views/Courses/CourseDetailRevamp.vue')
 const courseForm = () => import(/* webpackChunkName: 'p-courses_form_revamp' */
   '@/views/Courses/CourseFormRevamp.vue')
-const chatrooms = () => import(/* webpackChunkName: 'p-chatrooms' */
-  '@/views/Chatrooms/Chatrooms.vue')
+const chatrooms = () => import(/* webpackChunkName: 'p-chatroom' */
+  '@/views/Chatrooms/Chatroom.vue')
 const myQuestionnaire = () => import(/* webpackChunkName: 'p-my_questionnaire' */
   '@/views/Questionnaire/MyQuestionnaire.vue')
 const myQuestionnaireAppraisee = () => import(/* webpackChunkName: 'p-my_questionairre_appraisee' */
