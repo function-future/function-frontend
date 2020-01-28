@@ -26,8 +26,10 @@ export default {
         })
       } else {
         this.toast({
-          message: 'please select batch',
-          type: 'is-danger'
+          data: {
+            message: 'please select batch',
+            type: 'is-danger'
+          }
         })
       }
     },

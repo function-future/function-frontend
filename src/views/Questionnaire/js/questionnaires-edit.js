@@ -194,22 +194,8 @@ export default {
       this.currentQuestionsTemp = response.data
     },
     deleteTheQuestionQuestionnaire () {
-      questionnaireApi.deleteQuestionQuestionnaire(response => {
-        this.toast({
-          data: {
-            message: 'success delete question',
-            type: 'is-success'
-          }
-        })
-        this.fetchingQuestions()
-        this.resetDeleteConfirmationModalQuestion()
-      }, this.deleteErrorCallback,
-      {
-        params: {
-          questionnaireId: this.$route.params.questionnaireId,
-          questionId: this.deleteConfirmationModalQuestion.id
-        }
-      })
+      this.currentQuestionsTemp.splice(this.deleteConfirmationModalQuestion.selectedIndex, 1)
+      this.resetDeleteConfirmationModalQuestion()
     },
     deleteErrorCallback (err) {
       console.log(err)
@@ -449,8 +435,10 @@ export default {
         name: 'questionnaires'
       })
       this.toast({
-        message: 'success update questionnaire',
-        type: 'is-success'
+        data: {
+          message: 'success update questionnaire',
+          type: 'is-success'
+        }
       })
     },
     fetchingCurrentQuestionnarieAdmin () {

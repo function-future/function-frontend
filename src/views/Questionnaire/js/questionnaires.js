@@ -67,8 +67,10 @@ export default {
     submitMessageErrorCallback (err) {
       console.log(err)
       this.toast({
-        message: 'fail to delete questionnaire',
-        type: 'is-danger'
+        data: {
+          message: 'fail to delete questionnaire',
+          type: 'is-danger'
+        }
       })
     },
     searchHandler (value) {

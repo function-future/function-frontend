@@ -101,14 +101,18 @@ export default {
       })
       if (!submitScore) {
         this.toast({
-          message: 'there are still unanswered question',
-          type: 'is-danger'
+          data: {
+            message: 'there are still unanswered question',
+            type: 'is-danger'
+          }
         })
       } else {
         myQuestionnaireApi.addQuestionnaireResponse(response => {
           this.toast({
-            message: 'success submit questionnaire response',
-            type: 'is-success'
+            data: {
+              message: 'success submit questionnaire response',
+              type: 'is-success'
+            }
           })
           this.backToAppraiseePage()
           this.resetQuestionnaireList()
@@ -135,22 +139,28 @@ export default {
     errorCallbackCurrentQuestionnaire (err) {
       console.log(err)
       this.toast({
-        message: 'connection error',
-        type: 'is-danger'
+        data: {
+          message: 'connection error',
+          type: 'is-danger'
+        }
       })
     },
     errorCallbackAppraisee (err) {
       console.log(err)
       this.toast({
-        message: 'connection error',
-        type: 'is-danger'
+        data: {
+          message: 'connection error',
+          type: 'is-danger'
+        }
       })
     },
     errorCallback (err) {
       console.log(err)
       this.toast({
-        message: 'connection error',
-        type: 'is-danger'
+        data: {
+          message: 'connection error',
+          type: 'is-danger'
+        }
       })
     },
     backToAppraiseePage () {

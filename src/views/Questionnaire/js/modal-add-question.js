@@ -47,8 +47,10 @@ export default {
         this.close()
       } else {
         this.toast({
-          message: 'description cannot empty',
-          type: 'is-danger'
+          data: {
+            message: 'description cannot empty',
+            type: 'is-danger'
+          }
         })
       }
     },
@@ -60,8 +62,10 @@ export default {
         this.close()
       } else {
         this.toast({
-          message: 'description cannot empty',
-          type: 'is-danger'
+          data: {
+            message: 'description cannot empty',
+            type: 'is-danger'
+          }
         })
       }
     }

@@ -26,23 +26,31 @@ export default {
     goToCreate () {
       if (this.questionnaire.title === '' || this.questionnaire.description === '') {
         this.toast({
-          message: 'title and description must be filled',
-          type: 'is-danger'
+          data: {
+            message: 'title and description must be filled',
+            type: 'is-danger'
+          }
         })
       } else if (this.questionnaire.startDate > this.questionnaire.dueDate) {
         this.toast({
-          message: 'due date should greater than start date',
-          type: 'is-danger'
+          data: {
+            message: 'due date should greater than start date',
+            type: 'is-danger'
+          }
         })
       } else if (this.questionnaire.startDate === this.questionnaire.dueDate) {
         this.toast({
-          message: 'due date should greater than start date',
-          type: 'is-danger'
+          data: {
+            message: 'due date should greater than start date',
+            type: 'is-danger'
+          }
         })
       } else if (this.questionnaire.startDate < new Date().setHours(0, 0, 0, 0)) {
         this.toast({
-          message: 'due date should greater than start date',
-          type: 'is-danger'
+          data: {
+            message: 'due date should greater than start date',
+            type: 'is-danger'
+          }
         })
       } else {
         questionnaireApi.createQuestionnaire(response => {
@@ -73,8 +81,10 @@ export default {
       this.resetProps()
       console.log(err)
       this.toast({
-        message: 'Fail to create questionnaire',
-        type: 'is-danger'
+        data: {
+          message: 'Fail to create questionnaire',
+          type: 'is-danger'
+        }
       })
     },
     setCurrentQuestionnaire (data) {
