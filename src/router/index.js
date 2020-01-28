@@ -1266,7 +1266,12 @@ router.afterEach((to, from) => {
     if (!store.getters.accessList.read ||
       (to.meta.add && store.getters.accessList.add !== to.meta.add) ||
       (to.meta.edit && store.getters.accessList.edit !== to.meta.edit)) {
-      Vue.toasted.error('You do not have permission to access the page')
+      store.dispatch('toast', {
+        data: {
+          message: 'You do not have permission to access the page',
+          type: 'is-danger'
+        }
+      })
       router.push({ name: 'feeds' })
     }
     return
@@ -1278,7 +1283,12 @@ router.afterEach((to, from) => {
       if (!store.getters.accessList.read ||
         (to.meta.add && store.getters.accessList.add !== to.meta.add) ||
         (to.meta.edit && store.getters.accessList.edit !== to.meta.edit)) {
-        Vue.toasted.error('You do not have permission to access the page')
+        store.dispatch('toast', {
+          data: {
+            message: 'You do not have permission to access the page',
+            type: 'is-danger'
+          }
+        })
         router.push({ name: 'feeds' })
       }
     },

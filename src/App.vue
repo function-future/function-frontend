@@ -5,12 +5,12 @@
       <MobileNavBar class="top-navbar is-hidden-desktop"></MobileNavBar>
     </transition>
     <div class="main-container is-fullhd">
-      <MenuBar class="is-hidden-mobile is-hidden-touch"></MenuBar>
+      <MenuBar class="is-hidden-mobile is-hidden-touch" @updateViewKey="updateViewKey"></MenuBar>
       <div class="main-content">
         <transition name="fade" mode="out-in">
-          <router-view></router-view>
+          <router-view :key="viewKey"></router-view>
         </transition>
-        <BottomNavBar class="is-hidden-desktop"></BottomNavBar>
+        <BottomNavBar class="is-hidden-desktop" v-if="bottomNavBarVisible"></BottomNavBar>
       </div>
     </div>
     <transition name="fade">

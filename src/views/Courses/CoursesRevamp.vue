@@ -60,7 +60,9 @@
                       {{ courseTitleEllipsis(course.title) }}
                     </template>
                     <template #actions>
-                      <b-dropdown aria-role="list" position="is-bottom-left" @click.prevent.stop>
+                      <b-dropdown aria-role="list" position="is-bottom-left"
+                                  v-if="accessList.edit && accessList.add && accessList.delete"
+                                  @click.prevent.stop>
                         <button class="button is-text" slot="trigger">
                           <b-icon icon="ellipsis-v" size="is-small" class="icon"></b-icon>
                         </button>
