@@ -17,7 +17,9 @@ export default {
   methods: {
     ...mapActions([
       'changePassword',
-      'toast'
+      'toast',
+      'showBottomNavBar',
+      'hideBottomNavBar'
     ]),
     save () {
       this.validateBeforeSubmit(this.validationSuccess)

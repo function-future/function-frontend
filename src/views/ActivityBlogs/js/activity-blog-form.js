@@ -32,7 +32,9 @@ export default {
       'createActivityBlog',
       'updateActivityBlog',
       'uploadResource',
-      'toast'
+      'toast',
+      'showBottomNavBar',
+      'hideBottomNavBar'
     ]),
     initPage () {
       this.initialState()

@@ -8,6 +8,8 @@
               <b-input autofocus
                        v-model="batch.code"
                        name="code"
+                       @focus="hideBottomNavBar"
+                       @blur="showBottomNavBar"
                        v-validate.continues="'required|alpha_num'">
               </b-input>
             </b-field>
@@ -18,6 +20,8 @@
               <b-input autofocus
                        v-model="batch.name"
                        name="name"
+                       @focus="hideBottomNavBar"
+                       @blur="showBottomNavBar"
                        v-validate.continues="'required'">
               </b-input>
             </b-field>
