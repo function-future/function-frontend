@@ -23,12 +23,10 @@
         </div>
         <div class="log-message__input-bar" v-if="accessList.add">
           <div class="log-message__input-bar__text-area">
-            <BaseInput class="text-area"
-                          v-model="messageText"
-                          placeholder="Type a message"
-                          inputType="message-box"
-                          @keyup="submitMessageButton"
-            ></BaseInput>
+            <b-input v-model="messageText"
+                     placeholder="Type a message"
+                     @keyup.native="submitMessageButton"
+            ></b-input>
           </div>
           <div class="log-message__input-bar__btn-send">
             <font-awesome-icon icon="arrow-circle-up" class="icon button-save" @click="submitMessage"/>

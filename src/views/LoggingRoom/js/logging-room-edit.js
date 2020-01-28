@@ -1,5 +1,6 @@
 import loggingRoomCreate from '@/views/LoggingRoom/LoggingRoomCreate'
 import loggingRoomApi from '@/api/controller/logging-room'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'logging-room-edit',
@@ -13,10 +14,20 @@ export default {
       members: []
     }
   },
+  computed:{
+    ...mapActions([
+      'toast'
+    ])
+  },
   methods: {
     errorCallBack (err) {
       console.log(err)
-      this.$toasted.error('Something Error')
+      this.toast({
+        data: {
+          message: 'something error',
+          type: 'is-danger'
+        }
+      })
     }
   },
   mounted () {

@@ -4,7 +4,7 @@ import InfiniteLoading from 'vue-infinite-loading'
 import loggingRoomApi from '@/api/controller/logging-room'
 import BaseButton from '@/components/BaseButton'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
-import { mapGetters } from 'vuex'
+import { mapActions,mapGetters } from 'vuex'
 
 export default {
   name: 'logging-room',
@@ -32,6 +32,9 @@ export default {
   computed: {
     ...mapGetters([
       'accessList'
+    ]),
+    ...mapActions([
+      'toast'
     ])
   },
   methods: {
@@ -74,7 +77,12 @@ export default {
     },
     getErrorCallback (err) {
       console.log(err)
-      this.$toasted.error('Fail to get logging room')
+      this.toast({
+        data: {
+          message: 'Fail to get logging room',
+          type: 'is-danger'
+        }
+      })
     },
     goToLoggingRoomDetail (loggingRoomId) {
       this.$router.push({
@@ -109,7 +117,12 @@ export default {
     },
     deleteLoggingRoom () {
       loggingRoomApi.deleteLoggingRoom(response => {
-        this.$toasted.success('success delete loggingRoom')
+        this.toast({
+          data: {
+            message: 'success delete logging room',
+            type: 'is-success'
+          }
+        })
         this.resetDeleteModal()
         this.page = 1
         this.loggingRooms = []

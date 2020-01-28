@@ -5,8 +5,7 @@
       <div class="questionnaire-results__content" @click="showSelectBatchModal = true">
         <span class="questionnaire-results__content__placeholder">please choose batch : </span>
         <div class="questionnaire-results__content__input-batch">
-          <b-input v-model="batch"
-                   :disabled="true">
+          <b-input v-model="batch">
           </b-input>
         </div>
       </div>
@@ -62,6 +61,7 @@
     &__content {
       display: flex;
       align-items: baseline;
+      padding: 10px 0px;
 
       &__input-batch {
         flex-grow: 1;

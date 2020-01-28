@@ -1,21 +1,13 @@
-import BaseCard from '@/components/BaseCard'
-import BaseInput from '@/components/BaseInput'
-import BaseButton from '@/components/BaseButton'
-import BaseTextArea from '@/components/BaseTextArea'
 import UserSimpleCard from '@/components/UserSimpleCard'
 import ReminderMemberModal from '@/views/Reminders/ReminderMemberModal'
 import loggingRoomApi from '@/api/controller/logging-room'
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'logging-room-create',
   components: {
-    BaseCard,
-    BaseInput,
-    BaseTextArea,
     UserSimpleCard,
     ReminderMemberModal,
-    BaseButton,
     loggingRoomApi
   },
   props: {
@@ -51,6 +43,9 @@ export default {
   computed: {
     ...mapGetters([
       'accessList'
+    ]),
+    ...mapActions([
+      'toast'
     ])
   },
   methods: {
@@ -64,7 +59,12 @@ export default {
       if (this.titleTemp && this.descriptionTemp && this.members.length) {
         if (!this.isEdit) {
           loggingRoomApi.createLoggingRoom(response => {
-            this.$toasted.success('created')
+            this.toast({
+              data: {
+                message: 'success created logging room',
+                type: 'is-success'
+              }
+            })
             this.$router.push({
               name: 'loggingRoom'
             })
@@ -77,7 +77,12 @@ export default {
           })
         } else {
           loggingRoomApi.updateLoggingRoom(() => {
-            this.$toasted.success('updated')
+            this.toast({
+              data: {
+                message: 'success updated logging room',
+                type: 'is-success'
+              }
+            })
             this.$router.push({
               name: 'loggingRoom'
             })
@@ -93,12 +98,22 @@ export default {
           })
         }
       } else {
-        this.$toasted.error('please fill all field!')
+        this.toast({
+          data: {
+            message: 'please fill all field',
+            type: 'is-danger'
+          }
+        })
       }
     },
     errorCallBack (err) {
       console.log(err)
-      this.$toasted.error('Something Error')
+      this.toast({
+        data: {
+          message: 'something error',
+          type: 'is-danger'
+        }
+      })
     },
     computedMembers () {
       let membersId = []

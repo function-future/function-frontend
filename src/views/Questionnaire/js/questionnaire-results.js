@@ -1,10 +1,12 @@
 import ModalSelectBatch from '@/components/modals/ModalSelectBatch'
+import ModalCopy from '@/components/modals/ModalCopy'
 import { mapActions } from 'vuex'
 
 export default {
   name: 'QuestionnaireResults',
   components: {
-    ModalSelectBatch
+    ModalSelectBatch,
+    ModalCopy
   },
   data () {
     return {

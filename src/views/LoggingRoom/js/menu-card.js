@@ -1,10 +1,6 @@
-import BaseCard from '@/components/BaseCard'
 
 export default {
   name: 'menu-card',
-  components: {
-    BaseCard
-  },
   props: {
     iconMenu: {
       type: String,

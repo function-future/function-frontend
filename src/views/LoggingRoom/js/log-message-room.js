@@ -4,7 +4,7 @@ import loggingRoomApi from '@/api/controller/logging-room'
 import BaseInput from '@/components/BaseInput'
 import BaseButton from '@/components/BaseButton'
 import moment from 'moment'
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'log-message-room',
@@ -28,6 +28,9 @@ export default {
   computed: {
     ...mapGetters([
       'accessList'
+    ]),
+    ...mapActions([
+      'toast'
     ])
   },
   methods: {
@@ -54,11 +57,21 @@ export default {
     },
     errorCallBack (err) {
       console.log(err)
-      this.$toasted.error('Something Error')
+      this.toast({
+        data: {
+          message: 'Something Error',
+          type: 'is-danger'
+        }
+      })
     },
     submitMessage () {
       loggingRoomApi.createLogMessage(response => {
-        this.$toasted.success('success add log')
+        this.toast({
+          data: {
+            message: 'success add log',
+            type: 'is-success'
+          }
+        })
         this.messageText = ''
         this.page = 1
         this.logMessages = []
