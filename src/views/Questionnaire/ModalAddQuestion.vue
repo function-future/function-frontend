@@ -7,7 +7,7 @@
           <span class="modal__close"><font-awesome-icon icon="times" class="icon" @click="close" size="lg"></font-awesome-icon></span>
         </div>
         <div class="modal__body">
-          <BaseTextArea :label="descriptionLabel" class="modal__body__input" v-model="descriptionTemp"></BaseTextArea>
+          <b-input type="textarea" :label="descriptionLabel" class="modal__body__input" v-model="descriptionTemp"></b-input>
         </div>
         <div v-if="!isUpdate" class="modal__footer">
           <b-button
@@ -86,6 +86,10 @@
     &__body {
       margin: 20px 0;
       text-align: left;
+
+      &__input {
+        width : 100%
+      }
     }
 
     &__footer {

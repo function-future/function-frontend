@@ -2,7 +2,11 @@
   <div class="my-questionnaire__outer">
     <div class="my-questionnaire__container">
       <div class="my-questionnaire__top-bar">
-        <SearchBar/>
+<!--        <b-input-->
+<!--          @input="searchHandler"-->
+<!--          icon="search"-->
+<!--          placeholder="Search..."-->
+<!--          class="is-rounded"/>-->
       </div>
       <div class="my-questionnaire__content">
         <QuestionnaireCard v-for="myQuestionnaire in myQuestionnaires"

@@ -449,11 +449,9 @@ export default {
         name: 'questionnaires'
       })
       this.toast({
-        data: {
-          message: 'Fail to fetch chatroom detail',
-          type: 'is-danger'
-        }
-      }).success('success Update Questionnaire')
+        message: 'success update questionnaire',
+        type: 'is-success'
+      })
     },
     fetchingCurrentQuestionnarieAdmin () {
       this.fetchCurrentQuestionnaireAdmin({

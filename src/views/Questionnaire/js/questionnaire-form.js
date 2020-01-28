@@ -32,11 +32,6 @@ export default {
     return {
       titleLabel: 'TITLE',
       descriptionLabel: 'DESCRIPTION',
-      startDateTemp: new Date(),
-      dueDateTemp: new Date(),
-      startDateDisplay: 0,
-      dueDateDisplay: 0,
-      dueDateString: ''
     }
   },
   watch: {
@@ -49,5 +44,4 @@ export default {
       return moment(input).format('DD MMM YYYY, h:mm a')
     }
   }
-
 }
