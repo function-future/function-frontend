@@ -47,19 +47,6 @@ export default {
       })
     }
   },
-  // searchHandler (value) {
-  //   this.page = 1
-  //   this.keyword = value
-  //   myQuestionnaireApi.getMyQuestionnaires(response => {
-  //     this.questionnaires = response.data
-  //   }, this.errorCallback, {
-  //     params: {
-  //       page: this.page,
-  //       size: this.size,
-  //       keyword: this.keyword
-  //     }
-  //   })
-  // },
   created () {
     myQuestionnaireApi.getMyQuestionnaires(response => {
       this.myQuestionnaires.push(...response.data)

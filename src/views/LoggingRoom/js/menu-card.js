@@ -1,4 +1,3 @@
-
 export default {
   name: 'menu-card',
   props: {

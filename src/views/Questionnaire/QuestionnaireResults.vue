@@ -67,7 +67,6 @@
         flex-grow: 1;
         margin: 0px 5px;
         font-size: 0.8rem;
-        background-color: white;
       }
 
       &__placeholder {

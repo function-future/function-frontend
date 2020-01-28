@@ -44,4 +44,5 @@ export default {
       return moment(input).format('DD MMM YYYY, h:mm a')
     }
   }
+
 }
