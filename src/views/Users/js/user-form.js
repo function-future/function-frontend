@@ -67,7 +67,9 @@ export default {
       'updateUser',
       'uploadProfilePicture',
       'fetchBatches',
-      'toast'
+      'toast',
+      'showBottomNavBar',
+      'hideBottomNavBar'
     ]),
     initPage () {
       this.initialState()
