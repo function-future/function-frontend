@@ -1,43 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import assignmentForm from '@/views/Assignment/AssignmentForm'
-import assignmentRooms from '@/views/Assignment/AssignmentRooms'
-import assignmentRoomDetail from '@/views/Assignment/AssignmentRoomDetail'
-import assignmentDetail from '@/views/Assignment/AssignmentDetail'
-import scoringAdmin from '@/views/Scoring/LandingPageAdmin'
-import questionBankDetail from '@/views/QuestionBank/QuestionBankDetail'
-import questionBankForm from '@/views/QuestionBank/QuestionBankForm'
-import questionBankQuestionDetail from '@/views/QuestionBank/QuestionBankQuestionDetail'
-import questionForm from '@/views/QuestionBank/QuestionForm'
-import quizForm from '@/views/Quiz/QuizForm'
-import quizDetail from '@/views/Quiz/QuizDetail'
-import quizQuestions from '@/views/Quiz/QuizQuestions'
-import judgingList from '@/views/FinalJudging/JudgingList'
-import judgingForm from '@/views/FinalJudging/JudgingForm'
-import judgingDetail from '@/views/FinalJudging/JudgingDetail'
-import reportPage from '@/views/FinalJudging/ReportPage'
-import points from '@/views/Point/Point'
-import feeds from '@/views/Feeds/FeedsRevamp.vue'
-import announcements from '@/views/Announcements/Announcements.vue'
-import announcementDetail from '@/views/Announcements/AnnouncementDetail.vue'
-import announcementForm from '@/views/Announcements/AnnouncementForm.vue'
-import activityBlogs from '@/views/ActivityBlogs/ActivityBlogs.vue'
-import activityBlogDetail from '@/views/ActivityBlogs/ActivityBlogDetail.vue'
-import ActivityBlogForm from '@/views/ActivityBlogs/ActivityBlogForm.vue'
-import users from '@/views/Users/Users.vue'
-import stickyNotes from '@/views/StickyNotes/StickyNotesDetail.vue'
-import editStickyNote from '@/views/StickyNotes/EditStickyNote.vue'
-import UserForm from '@/views/Users/UserForm.vue'
-import batches from '@/views/Batches/Batches.vue'
-import batchForm from '@/views/Batches/BatchForm.vue'
-import courses from '@/views/Courses/CoursesRevamp.vue'
-import courseDetail from '@/views/Courses/CourseDetailRevamp.vue'
-import courseForm from '@/views/Courses/CourseFormRevamp.vue'
 import config from '@/config/index'
 import store from '@/store/index'
 
-const studentAssignments = () => import(/* webpackChunkName: 'p-assignment_student' */
-  '@/views/Assignment/StudentAssignments.vue')
 const assignmentForm = () => import(/* webpackChunkName: 'p-assignment_form' */
   '@/views/Assignment/AssignmentForm.vue')
 const assignmentRooms = () => import(/* webpackChunkName: 'p-assignment_room' */
@@ -60,8 +25,6 @@ const quizForm = () => import(/* webpackChunkName: 'p-quiz_form' */
   '@/views/Quiz/QuizForm.vue')
 const quizDetail = () => import(/* webpackChunkName: 'p-quiz_detail' */
   '@/views/Quiz/QuizDetail.vue')
-const studentQuizDetail = () => import(/* webpackChunkName: 'p-student_quiz_detail' */
-  '@/views/Quiz/StudentQuizDetail.vue')
 const quizQuestions = () => import(/* webpackChunkName: 'p-quiz_questions' */
   '@/views/Quiz/QuizQuestions.vue')
 const judgingList = () => import(/* webpackChunkName: 'p-judging_list' */
