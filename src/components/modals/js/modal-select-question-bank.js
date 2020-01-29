@@ -85,10 +85,9 @@ export default {
         page: paging.page,
         pageSize: paging.size
       }
-      this.questionBankList.push(...response)
       if (response.length) {
         this.setSelectedBank({ data: response })
-        this.questionBankList.push(this.questionBanks)
+        this.questionBankList.push(...response)
         this.paging.page++
         this.state.loaded()
       } else {

@@ -30,7 +30,9 @@ export default {
       'fetchBatchById',
       'createBatch',
       'updateBatch',
-      'toast'
+      'toast',
+      'showBottomNavBar',
+      'hideBottomNavBar'
     ]),
     initPage () {
       if (this.editMode) {

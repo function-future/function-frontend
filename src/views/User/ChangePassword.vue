@@ -11,6 +11,8 @@
               <b-input v-model="data.oldPassword" autofocus
                        type="password"
                        v-validate.continues="'required'"
+                       @focus="hideBottomNavBar"
+                       @blur="showBottomNavBar"
                        name="current password">
               </b-input>
             </b-field>
@@ -23,6 +25,8 @@
               <b-input v-model="data.newPassword"
                        type="password"
                        v-validate.continues="'required|min:5'"
+                       @focus="hideBottomNavBar"
+                       @blur="showBottomNavBar"
                        name="password" ref="password">
               </b-input>
             </b-field>
@@ -35,6 +39,8 @@
               <b-input v-model="repeatPassword"
                        type="password"
                        v-validate.continues="'required|min:5|confirmed:password'"
+                       @focus="hideBottomNavBar"
+                       @blur="showBottomNavBar"
                        name="repeatPassword" data-vv-as="password" @keyup.enter.native="save">
               </b-input>
             </b-field>
