@@ -1,15 +1,14 @@
 import SearchBar from '@/components/SearchBar'
-import BaseButton from '@/components/BaseButton'
 import QuestionnaireCard from '@/views/Questionnaire/QuestionnaireCard'
 import questionnaireApi from '@/api/controller/questionnaire'
 import InfiniteLoading from 'vue-infinite-loading'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'Questionnaires',
   components: {
     SearchBar,
-    BaseButton,
     QuestionnaireCard,
     InfiniteLoading,
     ModalDeleteConfirmation
@@ -28,6 +27,10 @@ export default {
     }
   },
   methods: {
+    ...mapActions([
+      'createChatroom',
+      'toast'
+    ]),
     goToCreate () {
       this.$router.push({
         name: 'questionnairesCreate'
@@ -45,7 +48,12 @@ export default {
     },
     deleteQuestionnaireWithId () {
       questionnaireApi.deleteQuestionnaire(response => {
-        this.$toasted.success('successs delete')
+        this.toast({
+          data: {
+            message: 'Delete Questionnaire success',
+            type: 'is-success'
+          }
+        })
         this.$refs.infiniteLoading.stateChanger.reset()
         this.resetState()
         this.closeDeleteModal()
@@ -58,7 +66,12 @@ export default {
     },
     submitMessageErrorCallback (err) {
       console.log(err)
-      this.$toasted.error('Fail to deleteQuestionnaire')
+      this.toast({
+        data: {
+          message: 'fail to delete questionnaire',
+          type: 'is-danger'
+        }
+      })
     },
     searchHandler (value) {
       this.page = 1

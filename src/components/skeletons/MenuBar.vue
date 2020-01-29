@@ -96,7 +96,7 @@
                    @click="toggleQuestionnaireMenu"
                    v-if="menuList.questionnaireAdmin">
         <template slot="label" slot-scope="props">
-          Questionnaires Admin
+          Peer Appraisal
           <b-icon
             class="is-pulled-right"
             :icon="props.expanded ? 'caret-down' : 'caret-up'">

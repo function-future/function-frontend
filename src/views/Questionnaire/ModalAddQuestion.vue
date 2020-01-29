@@ -7,13 +7,25 @@
           <span class="modal__close"><font-awesome-icon icon="times" class="icon" @click="close" size="lg"></font-awesome-icon></span>
         </div>
         <div class="modal__body">
-          <BaseTextArea :label="descriptionLabel" class="modal__body__input" v-model="descriptionTemp"></BaseTextArea>
+          <b-input type="textarea" :label="descriptionLabel" class="modal__body__input" v-model="descriptionTemp"></b-input>
         </div>
         <div v-if="!isUpdate" class="modal__footer">
-          <BaseButton class="modal__footer__button" type="save" buttonClass="button-save" @click="submit">Submit</BaseButton>
+          <b-button
+            class="modal__footer__button is-rounded is-primary"
+            type="save"
+            buttonClass="button-save"
+            @click="submit">
+            <span>Submit</span>
+          </b-button>
         </div>
         <div v-else class="modal__footer">
-          <BaseButton class="modal__footer__button" type="save" buttonClass="button-save" @click="updateQuestion">Update</BaseButton>
+          <b-button
+            class="modal__footer__button is-rounded is-primary"
+            type="save"
+            buttonClass="button-save"
+            @click="updateQuestion">
+            <span>Update</span>
+          </b-button>
         </div>
       </div>
     </div>
@@ -42,6 +54,9 @@
     }
 
     &__container {
+      @media only screen and (max-width: 1023px) {
+        width: 80vw;
+      }
       display: flex;
       flex-direction: column;
       width: 50vw;
@@ -71,6 +86,10 @@
     &__body {
       margin: 20px 0;
       text-align: left;
+
+      &__input {
+        width : 100%
+      }
     }
 
     &__footer {

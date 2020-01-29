@@ -1,8 +1,9 @@
 <template>
     <div class="log-message">
       <div class="log-message__container">
-        <div class="log-messsage__title">
-          <h2>{{title}}</h2>
+        <div class="log-message__title">
+          {{title}}
+          <br>
         </div>
         <div class="log-message__messages-room">
           <infinite-loading direction="top" ref="infiniteLoading" @infinite="infiniteHandler">
@@ -22,17 +23,13 @@
         </div>
         <div class="log-message__input-bar" v-if="accessList.add">
           <div class="log-message__input-bar__text-area">
-            <BaseInput class="text-area"
-                          v-model="messageText"
-                          placeholder="Type a message"
-                          inputType="message-box"
-                          @keyup="submitMessageButton"
-            ></BaseInput>
+            <b-input v-model="messageText"
+                     placeholder="Type a message"
+                     @keyup.native="submitMessageButton"
+            ></b-input>
           </div>
           <div class="log-message__input-bar__btn-send">
-            <BaseButton type="submit" buttonClass="button-save" @click="submitMessage">
-              <font-awesome-icon icon="arrow-circle-right" class="icon"/> Send
-            </BaseButton>
+            <font-awesome-icon icon="arrow-circle-up" class="icon button-save" @click="submitMessage"/>
           </div>
         </div>
       </div>
@@ -52,28 +49,31 @@
    display: flex;
    align-items: center;
    flex-direction: column;
-   height: 90vh;
+   height: 95vh;
    width: 100%;
+
+   &__title{
+     font-size: 1.2rem;
+     font-weight: bold;
+   }
 
    &__container {
      display: flex;
      flex-direction: column;
      align-items: center;
+     height: 80vh;
+     width: 40vw;
 
-     @media only screen and (min-width: 800px) {
-       width: 500px;
-     }
-
-     @media only screen and (min-width: 1300px) {
-       width: 800px;
+     @media only screen and (max-width: 1023px) {
+       width: 100vw;
+       margin: 10px;
      }
    }
 
    &__messages-room {
-     width: 80%;
+     width: 100%;
      height: 75vh;
      overflow: auto;
-
      &__message {
        display: flex;
        align-items: center;
@@ -90,19 +90,34 @@
    &__input-bar {
      display: flex;
      align-items: center;
-     width: 80%;
      justify-content: space-between;
+     width: 100%;
+     padding-left: 2%;
+     padding-right: 2%;
 
      &__text-area {
-       padding-left: 5%;
-       padding-right: 2%;
        width: 100%;
      }
+
+     &__btn-send {
+       margin-left: 2%;
+       font-size: 2rem;
+       cursor: pointer;
+     }
+
    }
 
-   .btn-send{
-     margin-left: 5px;
-     height: 4vh;
+   .button-save {
+     display: flex;
+     align-self: center;
+     height: 100%;
+     vertical-align: 0em;
+     color: #02AAF3;
    }
+   .button-save:hover {
+     box-shadow: 2px 2px 8px rgba(0,0,0,0.08), 2px 2px 10px rgba(0,0,0,0.15);
+     border-radius: 50%;
+   }
+
  }
 </style>

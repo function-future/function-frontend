@@ -1,12 +1,12 @@
-import LoggingRoomEdit from '@/views/LoggingRoom/LoggingRoomEdit'
+import MembersPage from '@/views/LoggingRoom/MembersPage'
 import { createLocalVue, shallowMount } from '@vue/test-utils'
-import loggingRoomApi from '@/api/controller/logging-room'
 import Vuex from 'vuex'
+import loggingRoomApi from '@/api/controller/logging-room'
 import VueRouter from 'vue-router'
 
 jest.mock('@/api/controller/logging-room')
 
-describe('LoggingRoomEdit', () => {
+describe('LogggingRoomDetail', () => {
   let wrapper
   let store
   let localVue
@@ -19,43 +19,58 @@ describe('LoggingRoomEdit', () => {
   }
 
   function initStore () {
+    const state = {
+      accessList: {
+        add: true,
+        delete: true,
+        read: true,
+        edit: true
+      }
+    }
+    const getters = {
+      accessList: state => state.accessList
+    }
     const actions = {
       toast: jest.fn()
     }
     const store = new Vuex.Store({
       modules: {
-        LoggingRoomEdit: {
-          actions
+        MembersPage: {
+          state,
+          actions,
+          getters
         }
       }
     })
+
     return {
       store,
-      actions
+      state,
+      actions,
+      getters
     }
   }
 
   function initWrapper (store, propsData, options) {
     const router = new VueRouter([])
-    wrapper = shallowMount(LoggingRoomEdit, {
+    return shallowMount(MembersPage, {
       ...options,
       store,
       localVue,
       router,
       stubs: [
-        'loggingRoomCreate',
         'b-loading',
         'b-field',
         'b-input',
         'b-select',
-        'b-button'
+        'b-button',
+        'LoggingRoomCard',
+        'InfiniteLoading',
+        'ModalDeleteConfirmation',
+        'font-awesome-icon'
       ],
-      propsData: {
-        ...propsData
-      },
       sync: false
     })
-    return wrapper
   }
 
   function initComponent (propsData) {
@@ -63,34 +78,28 @@ describe('LoggingRoomEdit', () => {
     store = initStore()
     wrapper = initWrapper(store.store, propsData)
   }
-  test('mounted', () => {
+
+  afterEach(() => {
+    jest.restoreAllMocks()
+  })
+
+  test('Sanity test', () => {
+    expect(true).toBe(true)
+  })
+
+  test('Rendered correctly', () => {
+    initComponent()
+    expect(wrapper.isVueInstance()).toBe(true)
+  })
+
+  test('setLoggingRoom', () => {
     loggingRoomApi.getLoggingRoom = success => {
       success({
-        data: {
-          title: 'a',
-          description: 'b',
-          members: []
-        }
+        data: []
       })
     }
     initComponent()
-    expect(wrapper.vm.title).toEqual('a')
-    expect(wrapper.vm.description).toEqual('b')
-    expect(wrapper.vm.members.length).toEqual(0)
-  })
-
-
-  test('errorCallBack', () => {
-    initComponent()
-    global.console.log = jest.fn()
-    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
-    wrapper.vm.errorCallBack('err')
-    expect(console.log).toHaveBeenCalledWith('err')
-    expect(toastSpy).toBeCalledWith({
-      data: {
-        message: 'something error',
-        type: 'is-danger'
-      }
-    })
+    wrapper.vm.setLoggingRoom()
+    expect(wrapper.vm.loggingRoom.length).toEqual(0)
   })
 })

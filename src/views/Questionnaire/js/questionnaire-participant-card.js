@@ -13,7 +13,11 @@ export default {
     batch: String,
     isEdit: Boolean,
     isResult: Boolean,
-    score: Number
+    score: Number,
+    isDisable: {
+      type: Boolean,
+      default: false
+    }
   },
   computed: {
     computedRole () {

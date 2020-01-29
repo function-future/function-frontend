@@ -1,9 +1,9 @@
 <template>
     <div>
-      <BaseCard class="logging-room-card__outer">
+      <div class="logging-room-card__outer">
         <div class="logging-room-card__container" @click="$emit('click')">
           <div class="logging-room-card__title">
-            <h2>{{computedTitle}}</h2>
+            <h2>{{computedTitle}} </h2>
           </div>
           <div class="logging-room-card__description" >
             <span>{{computedDescription}}</span>
@@ -17,7 +17,7 @@
           <font-awesome-icon class="icon icon-edit" icon="edit" @click="$emit('edit')"/>
           <font-awesome-icon class="icon icon-delete" icon="trash-alt" @click="$emit('delete')"/>
         </div>
-      </BaseCard>
+      </div>
     </div>
 </template>
 
@@ -33,9 +33,17 @@
 
   .logging-room-card {
     &__outer {
-      height: 20vh;
-      padding: 15px;
       display: flex;
+      background: #FFFFFF;
+      border: 1px solid #F2F2F2;
+      box-sizing: border-box;
+      box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.25);
+      border-radius: 10px;
+      text-align: left;
+      margin: 5px 10px;
+      padding: 10px;
+      cursor: pointer;
+      height: auto;
     }
 
     &__container {
@@ -47,28 +55,27 @@
     }
 
     &__title {
-      height: 5vh;
       display: flex;
       justify-content: space-between;
+      font-weight: bold;
     }
     &__description {
-      height: 9vh;
     }
     &__member-information {
       font-size: 2vh;
-      height: 5vh;
       color : #02AAF3;
     }
 
     &__edit-delete {
-      min-width: 10%;
+      min-width: 8%;
+      display: flex;
+      justify-content: space-between;
     }
   }
 
   .icon-edit {
     font-size : 1.5rem;
     color: #02aaf3;
-    padding-right: 10px;
     cursor: pointer;
   }
 

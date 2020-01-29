@@ -1,56 +1,53 @@
-import ParticipantCard from '@/views/LoggingRoom/ParticipantCard'
-import TopicCard from '@/views/LoggingRoom/TopicCard'
 import InfiniteLoading from 'vue-infinite-loading'
 import loggingRoomApi from '@/api/controller/logging-room'
+import TopicCard from '@/views/LoggingRoom/TopicCard'
 import ModalAddQuestion from '@/views/Questionnaire/ModalAddQuestion'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
-import MenuCard from '@/views/LoggingRoom/MenuCard'
-
-import Breakpoint from '@/mixins/Breakpoint'
 import { mapActions,mapGetters } from 'vuex'
 
+
 export default {
-  name: 'logging-room-detail',
+  name: 'logging-room-topics-page',
   components: {
-    ParticipantCard,
-    TopicCard,
-    loggingRoomApi,
     InfiniteLoading,
+    loggingRoomApi,
     ModalAddQuestion,
     ModalDeleteConfirmation,
-    MenuCard
+    TopicCard
   },
-  mixins: [
-    Breakpoint
-  ],
   data () {
     return {
       topics: [],
       page: 1,
       size: 10,
-      loggingRoom: {},
+      topicModal: false,
       topic: {
         id: '',
         title: '',
         isUpdate: false,
         type: 'Topic'
       },
-      topicModal: false,
       modalDeleteConfirmation: {
         show: false,
         title: '',
         id: ''
-      },
-      iconMenuMembers: 'user',
-      iconMenuMembersTitle: 'Members',
-      iconMenuTopics: 'list',
-      iconMenuTopicsTitle: 'Topics'
+      }
     }
   },
   computed: {
     ...mapGetters([
       'accessList'
-    ])
+    ]),
+  },
+  props: {
+    iconMenu: {
+      type: String,
+      default: 'plus'
+    },
+    iconTitle: {
+      type: String,
+      default: 'Title'
+    }
   },
   methods: {
     ...mapActions([
@@ -76,30 +73,12 @@ export default {
         }
       })
     },
-    errorCallBack (err) {
-      console.log(err)
-      this.toast({
-        data: {
-          message: 'something error',
-          type: 'is-danger'
-        }
-      })
-    },
     goToLoggingRoom (topicId) {
       this.$router.push({
         name: 'logMessage',
         params: {
           loggingRoomId: this.$route.params.loggingRoomId,
           topicId: topicId
-        }
-      })
-    },
-    setLoggingRoom () {
-      loggingRoomApi.getLoggingRoom(response => {
-        this.loggingRoom = response.data
-      }, this.errorCallBack, {
-        params: {
-          loggingRoomId: this.$route.params.loggingRoomId
         }
       })
     },
@@ -144,7 +123,7 @@ export default {
         this.toast({
           data: {
             message: 'success delete the topic',
-            type: 'is-danger'
+            type: 'is-success'
           }
         })
         this.resetDeleteModal()
@@ -158,24 +137,14 @@ export default {
         }
       })
     },
-    callShowMembers () {
-      this.$router.push({
-        name: 'loggingRoomMembersPage',
-        params: {
-          loggingRoomId: this.$route.params.loggingRoomId
+    errorCallBack (err) {
+      console.log(err)
+      this.toast({
+        data: {
+          message: 'something error',
+          type: 'is-danger'
         }
       })
     },
-    callShowTopics () {
-      this.$router.push({
-        name: 'loggingRoomTopicsPage',
-        params: {
-          loggingRoomId: this.$route.params.loggingRoomId
-        }
-      })
-    }
-  },
-  created () {
-    this.setLoggingRoom()
   }
 }

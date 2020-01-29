@@ -1,6 +1,6 @@
 <template>
   <div class="questionnaire-form-outer">
-    <BaseCard class="questionnaire-form-card">
+    <div class="questionnaire-form-card">
       <div class="question-container">
         <div class="no-question">{{ noQuestion}}</div>
         <div class="question-content">
@@ -19,12 +19,14 @@
             </div>
           </div>
           <div class="question-comment">
-            <BaseTextArea v-model="comment"
-                          placeholder="Comment goes here"></BaseTextArea>
+            <b-input type="textarea"
+                     v-model="comment"
+                     placeholder="Comment goes here">
+            </b-input>
           </div>
         </div>
       </div>
-    </BaseCard>
+    </div>
   </div>
 </template>
 

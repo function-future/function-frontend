@@ -2,6 +2,7 @@ import BaseCard from '@/components/BaseCard'
 import BaseInput from '@/components/BaseInput'
 import BaseTextArea from '@/components/BaseTextArea'
 import Datepicker from 'vuejs-datepicker'
+import moment from 'moment'
 
 export default {
   name: 'QuestionnaireForm',
@@ -14,22 +15,34 @@ export default {
   props: {
     value: {
       type: Object,
-      required: true
+      required: true,
+      startDate: {
+        default: new Date()
+      },
+      dueDate: {
+        default: new Date()
+      }
+    },
+    isReview: {
+      default: false,
+      required: false
     }
   },
   data () {
     return {
       titleLabel: 'TITLE',
       descriptionLabel: 'DESCRIPTION',
-      startDateTemp: new Date(),
-      dueDateTemp: new Date(),
-      startDateDisplay: 0,
-      dueDateDisplay: 0
     }
   },
   watch: {
     value () {
       this.$emit('input', this.value)
     }
+  },
+  methods: {
+    dateToString (input) {
+      return moment(input).format('DD MMM YYYY, h:mm a')
+    }
   }
+
 }

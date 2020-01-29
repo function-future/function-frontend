@@ -30,23 +30,28 @@ describe('LoggingRoom', () => {
     const getters = {
       accessList: state => state.accessList
     }
+    const actions = {
+      toast: jest.fn()
+    }
     const store = new Vuex.Store({
-      state,
-      getters
+      modules: {
+        loggingRoom: {
+          state,
+          actions,
+          getters
+        }
+      }
     })
 
     return {
       store,
       state,
+      actions,
       getters
     }
   }
 
   function initWrapper (store, propsData, options) {
-    const $toasted = {
-      error: jest.fn(),
-      success: jest.fn()
-    }
 
     const router = new VueRouter([])
     return shallowMount(LoggingRoom, {
@@ -55,16 +60,16 @@ describe('LoggingRoom', () => {
       localVue,
       router,
       stubs: [
-        'SearchBar',
         'LoggingRoomCard',
         'InfiniteLoading',
-        'BaseButton',
         'ModalDeleteConfirmation',
-        'font-awesome-icon'
+        'font-awesome-icon',
+        'b-loading',
+        'b-field',
+        'b-input',
+        'b-select',
+        'b-button'
       ],
-      mocks: {
-        $toasted
-      },
       sync: false
     })
   }
@@ -152,8 +157,15 @@ describe('LoggingRoom', () => {
   test('errorCallBack', () => {
     initComponent()
     global.console.log = jest.fn()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.getErrorCallback('err')
     expect(console.log).toHaveBeenCalledWith('err')
+    expect(toastSpy).toBeCalledWith({
+      data: {
+        message: 'Fail to get logging room',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('searchHandler', () => {
@@ -233,7 +245,14 @@ describe('LoggingRoom', () => {
         reset: jest.fn()
       }
     }
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.deleteLoggingRoom()
     expect(spy).toHaveBeenCalled()
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'success delete logging room',
+        type: 'is-success'
+      }
+    })
   })
 })

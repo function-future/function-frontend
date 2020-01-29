@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import config from '@/config/index'
 import store from '@/store/index'
-
 const assignmentForm = () => import(/* webpackChunkName: 'p-assignment_form' */
   '@/views/Assignment/AssignmentForm.vue')
 const assignmentRooms = () => import(/* webpackChunkName: 'p-assignment_room' */
@@ -91,6 +90,8 @@ const questionnaireResultsQuestionnaireDetail = () => import(/* webpackChunkName
   '@/views/Questionnaire/QuestionnaireResultsQuestionnaireDetail.vue')
 const questionnaireResultsQuestionDetail = () => import(/* webpackChunkName: 'p-questionnaire_results_question_detail' */
   '@/views/Questionnaire/QuestionnaireResultsQuestionDetail.vue')
+const menuMobileQuestionnaire = () => import(/* webpackChunkName: 'p-menu_mobile_questionnaire' */
+  '@/views/Questionnaire/MenuMobileQuestionnaire.vue')
 const reminders = () => import(/* webpackChunkName: 'p-reminders' */
   '@/views/Reminders/Reminders.vue')
 const reminderForm = () => import(/* webpackChunkName: 'p-reminder_form' */
@@ -113,6 +114,10 @@ const loggingRoomCreate = () => import(/* webpackChunkName: 'p-logging_room_crea
   '@/views/LoggingRoom/LoggingRoomCreate')
 const loggingRoomEdit = () => import(/* webpackChunkName: 'p-logging_room_edit' */
   '@/views/LoggingRoom/LoggingRoomEdit.vue')
+const loggingRoomMembersPage = () => import(/* webpackChunkName: 'p-logging_room_members_page' */
+  '@/views/LoggingRoom/MembersPage.vue')
+const loggingRoomTopicsPage = () => import(/* webpackChunkName: 'p-logging_room_topics_page' */
+  '@/views/LoggingRoom/LoggingRoomTopicsPage.vue')
 const files = () => import(/* webpackChunkName: 'p-files' */
   '@/views/Files/Files')
 const chatroomContent = () => import(/* webpackChunkName: 'p-chatroom_content' */
@@ -1089,6 +1094,19 @@ const router = new Router({
       }
     },
     {
+      path: config.app.pages.menuMobileQuestionnaire,
+      name: 'menuMobileQuestionnaire',
+      component: menuMobileQuestionnaire,
+      meta: {
+        title: 'Peer Appraisal',
+        auth: true,
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Peer Appraisal', link: 'menuMobileQuestionnaire' }
+        ]
+      }
+    },
+    {
       path: config.app.pages.myQuestionnaire.default,
       name: 'myQuestionnaire',
       component: myQuestionnaire,
@@ -1252,16 +1270,55 @@ const router = new Router({
       component: loggingRoom,
       meta: {
         title: 'Logging Rooms',
-        auth: true
+        auth: true,
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Logging Room', link: 'loggingRoom' }
+        ]
       }
     },
     {
-      path: config.app.pages.loggingRoom.topics,
+      path: config.app.pages.loggingRoom.detail,
       name: 'loggingRoomDetail',
       component: loggingRoomDetail,
       meta: {
         title: 'Logging Room - Detail',
-        auth: true
+        auth: true,
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Logging Room', link: 'loggingRoom' },
+          { name: 'Logging Room Detail', link: 'loggingRoomDetail' }
+        ]
+      }
+    },
+    {
+      path: config.app.pages.loggingRoom.members,
+      name: 'loggingRoomMembersPage',
+      component: loggingRoomMembersPage,
+      meta: {
+        title: 'Logging Room - Members',
+        auth: true,
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Logging Room', link: 'loggingRoom' },
+          { name: 'Logging Room Detail', link: 'loggingRoomDetail' },
+          { name: 'Members', link: 'loggingRoomMembersPage' }
+        ]
+      }
+    },
+    {
+      path: config.app.pages.loggingRoom.topics,
+      name: 'loggingRoomTopicsPage',
+      component: loggingRoomTopicsPage,
+      meta: {
+        title: 'Logging Room - Topics',
+        auth: true,
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Logging Room', link: 'loggingRoom' },
+          { name: 'Logging Room Detail', link: 'loggingRoomDetail' },
+          { name: 'Topics', link: 'loggingRoomTopicsPage' }
+        ]
       }
     },
     {
@@ -1270,7 +1327,13 @@ const router = new Router({
       component: logMessageRoom,
       meta: {
         title: 'Logging Room',
-        auth: true
+        auth: true,
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Logging Room', link: 'loggingRoom' },
+          { name: 'Logging Room Detail', link: 'loggingRoomDetail' },
+          { name: 'Log Message', link: 'logMessage' }
+        ]
       }
     },
     {
@@ -1279,7 +1342,12 @@ const router = new Router({
       component: loggingRoomCreate,
       meta: {
         title: 'Logging Room - Create',
-        auth: true
+        auth: true,
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'logging Room', link: 'loggingRoom' },
+          { name: 'Logging Room Create', link: 'loggingRoomCreate' }
+        ]
       }
     },
     {
@@ -1288,7 +1356,12 @@ const router = new Router({
       component: loggingRoomEdit,
       meta: {
         title: 'Logging Room - Edit',
-        auth: true
+        auth: true,
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Logging Room', link: 'loggingRoom' },
+          { name: 'Logging Room Edit', link: 'loggingRoomEdit' }
+        ]
       }
     }
   ]

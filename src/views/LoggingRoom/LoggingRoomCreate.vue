@@ -1,24 +1,33 @@
 <template>
     <div class="logging-room-create" v-if="accessList.edit">
       <div class="logging-room-create__container">
-        <BaseCard class="logging-room-create__content">
+        <div class="logging-room-create__content">
           <div class="logging-room-create__save-button">
-            <BaseButton class="save-btn" type="submit" buttonClass="button-save" @click="saveLoggingRoom">
-              <font-awesome-icon class="icon" icon="save"/> Save
-            </BaseButton>
+            <b-button class="is-rounded is-primary  save-btn"
+                      type="submit" buttonClass="button-save"
+                      icon-left="save"
+                      @click="saveLoggingRoom">
+              <span>Save</span>
+            </b-button>
           </div>
           <div class="logging-room-create__input-title">
-            <BaseInput :label="titleLabel" class="input-title" v-model="titleTemp"></BaseInput>
+            <label>{{titleLabel}}</label>
+            <b-input class="input-title" v-model="titleTemp"></b-input>
           </div>
           <div class="logging-room-create__input-description">
-            <BaseTextArea :label="descriptionLabel" class="input-description" v-model="descriptionTemp"></BaseTextArea>
+            <label>{{descriptionLabel}}</label>
+            <b-input type="textarea" class="input-description" v-model="descriptionTemp"></b-input>
           </div>
           <div class="logging-room-create__input-participant">
             MEMBERS
             <div class="logging-room-create__input-participant__add-btn">
-              <BaseButton class="add-btn" type="submit" buttonClass="button-save" @click="participantModal = true">
-                <font-awesome-icon class="icon icon-plus" icon="plus"/> Add
-              </BaseButton>
+              <b-button class="is-rounded is-primary  add-btn"
+                        type="submit"
+                        buttonClass="button-save"
+                        icon-left="plus"
+                        @click="participantModal = true">
+                <span>Add</span>
+              </b-button>
             </div>
           </div>
           <div class="logging-room-create__participant-list">
@@ -26,7 +35,7 @@
               <UserSimpleCard :user="member" @remove="removeParticipant(index)"></UserSimpleCard>
             </template>
           </div>
-        </BaseCard>
+        </div>
         <ReminderMemberModal
           @addMember="addParticipant"
           :selectedUsers="members"
@@ -59,18 +68,27 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      width: 40vw;
 
-      @media only screen and (min-width: 800px) {
-        width: 500px;
-      }
-
-      @media only screen and (min-width: 1300px) {
-        width: 800px;
+      @media only screen and (max-width: 1023px) {
+        width: 100vw;
+        padding: 10px;
       }
     }
 
     &__content {
       width: 100%;
+      display: flex;
+      background: #FFFFFF;
+      border: 1px solid #F2F2F2;
+      box-sizing: border-box;
+      box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.25);
+      border-radius: 10px;
+      text-align: left;
+      margin: 5px 10px;
+      padding: 10px;
+      flex-direction: column;
+      height: auto;
     }
 
     &__input-participant {

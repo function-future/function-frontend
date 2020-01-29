@@ -1,14 +1,5 @@
-import BaseCard from '@/components/BaseCard'
-import BaseSelect from '@/components/BaseSelect'
-import BaseTextArea from '@/components/BaseTextArea'
-
 export default {
   name: 'MyQuestionnaireForm',
-  components: {
-    BaseCard,
-    BaseTextArea,
-    BaseSelect
-  },
   props: {
     noQuestion: {
       type: Number

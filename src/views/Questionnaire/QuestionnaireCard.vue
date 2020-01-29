@@ -1,37 +1,46 @@
 <template>
-    <div class="questionnaire-card-outer" @click="$emit('click')" :class="{disabled:isDisable, edit:isEdit}">
-      <div class="questionnaire-card-content">
-        <div v-if="!isDetail" class="questionnaire-desc">
-          <p><strong>{{ computedTitle }}</strong></p>
-          <p class="questionnaire-card-content-description">
+    <div class="questionnaire-card__outer" @click="$emit('click')" :class="{disabled:isDisable, edit:isEdit}">
+      <div class="questionnaire-card__content">
+        <div v-if="!isDetail" class="questionnaire-card__content__detail">
+          <span class="questionnaire-card__content__detail__title">
+            {{ computedTitle }}
+          </span>
+          <span class="questionnaire-card__content__detail__description">
             {{ computedDescription }}
-          </p>
+          </span>
         </div>
-        <div v-else class="questionnaire-desc">
-          <p><strong class="detail">{{title}}</strong></p>
-          <p class="questionnaire-card-content-description">
+        <div v-else class="questionnaire-card__content__detail">
+          <span class="questionnaire-card__content__detail__title">
+            {{title}}
+          </span>
+          <span class="questionnaire-card__content__detail__description">
             {{ description }}
-          </p>
+          </span>
         </div>
-        <div class="questionnaire-card-content-date">
-          <div class="placeholder-start-date">
+        <div v-if="!isResult" class="questionnaire-card__content__date">
+          <div class="questionnaire-card__content__date__start-date">
             Start Date : {{ computedStartDate }}
           </div>
-          <div class="placeholder-due-date">
+          <div class="questionnaire-card__content__date__due-date">
             Due Date : {{ computedDueDate }}
           </div>
         </div>
       </div>
-      <div v-if="isResult" class="questionnaire-score">
-        <span><font-awesome-icon icon="star" size="3x" class="star-icon"></font-awesome-icon></span>
-        <span class="score-number"><strong>{{score.toFixed(1)}}/6.0</strong></span>
+      <div v-if="isResult" class="questionnaire-card__content__score">
+        <span class="questionnaire-card__content__score__icon">
+          <font-awesome-icon icon="star" size="2x" class="star-icon">
+          </font-awesome-icon>
+        </span>
+        <span class="questionnaire-card__content__score__score-number">
+          <strong>{{score.toFixed(1)}}/6.0</strong>
+        </span>
       </div>
       <div v-if="isEdit" class="questionnaire-edit">
-        <div class="button-delete">
-          <span><font-awesome-icon @click="$emit('clickDelete')" icon="times"></font-awesome-icon></span>
-        </div>
         <div class="button-create">
-          <span> <font-awesome-icon @click="goToEdit" icon="pencil-alt" class="icon-edit"></font-awesome-icon></span>
+          <span> <font-awesome-icon @click="goToEdit" icon="edit" class="blue icon-edit"></font-awesome-icon></span>
+        </div>
+        <div class="button-delete">
+          <span><font-awesome-icon @click="$emit('clickDelete')" icon="trash-alt" class="red icon-delete"></font-awesome-icon></span>
         </div>
       </div>
     </div>
@@ -40,110 +49,120 @@
 <script src="./js/questionnaire-card.js">
 </script>
 
-<style scoped>
-  p, h2, h3 {
-    margin: 0;
-  }
-  .questionnaire-card-outer {
-    display: flex;
-    grid-template-columns: auto 45px;
-    background: #FFFFFF;
-    border: 1px solid #F2F2F2;
-    box-sizing: border-box;
-    -webkit-box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.1);
-    -moz-box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.1);
-    box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.1);
-    border-radius: 10px;
-    text-align: left;
-    height: 50px;
-    margin: 5px 10px;
-    padding: 10px 0px;
-    cursor: pointer;
-    height: auto;
+<style lang="scss" scoped>
+
+  .questionnaire-card {
+    &__outer {
+      display: flex;
+      background: #FFFFFF;
+      border: 1px solid #F2F2F2;
+      box-sizing: border-box;
+      box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.25);
+      border-radius: 10px;
+      text-align: left;
+      margin: 5px 10px;
+      padding: 10px;
+      cursor: pointer;
+      height: auto;
+    }
+
+    &__content {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: column;
+      width: 100%;
+
+      &__detail {
+        display: flex;
+        flex-direction: column;
+
+        &__title {
+          font-weight: bold;
+          font-size: 1.2rem;
+        }
+
+        &__description {
+          display: flex;
+          flex-direction: column;
+          flex-wrap: wrap;
+          word-break: break-all;
+        }
+      }
+
+      &__date {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        flex-grow: 1;
+        font-weight: bold;
+
+        &__start-date {
+          color: green;
+          flex-grow: 1;
+        }
+
+        &__due-date {
+          color: red;
+          flex-grow: 1;
+        }
+      }
+
+      &__score {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        &__icon {
+          color: #f1c40f;
+        }
+
+        &__score-number {
+          text-align: center;
+          padding-top: 10px;
+        }
+      }
+    }
   }
 
-  .disabled {
-    background-color: #f3f3f3;
-    cursor: default;
-  }
+    .disabled {
+      background-color: #f3f3f3;
+      cursor: default;
+    }
 
-  .edit {
-    cursor: default;
-  }
+    .edit {
+      cursor: default;
+    }
 
-  .questionnaire-card-content {
-    diplay: flex;
-    margin-left: 5px;
-    margin-right: 5Px;
-    flex-wrap: wrap;
-    flex-direction: column;
-    width: 100%;
-  }
+    .questionnaire-edit {
+      display: flex;
+      height: auto;
+      padding-right: 10px;
+    }
 
-  .questionnaire-card-content > p {
-    font-size: 15px;
-  }
+    .icon-edit {
+      cursor:pointer;
+    }
 
-  .questionnaire-card-content-description {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    word-break: break-all;
-  }
+    .icon-delete {
+      cursor: pointer;
+    }
 
-  .questionnaire-card-content-date {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-  }
 
-  .placeholder-start-date {
-    flex-grow: 1;
-    color: green;
-    font-weight: bold;
-  }
+    .detail {
+      font-size: 2rem;
+    }
 
-  .placeholder-due-date {
-    flex-grow: 1;
-    color: red;
-    font-weight: bold;
-  }
+    .blue {
+      color: #02AAF3;
+    }
 
-  .questionnaire-edit {
-    display: flex;
-    height: auto;
-    align-self: center;
-    padding-right: 10px;
-    flex-direction: column;
-  }
-  .button-create {
-    align-self: flex-end;
-  }
-  .button-delete {
-    display: flex;
-    justify-content: flex-end;
-  }
+    .red {
+      color: red;
+    }
 
-  .icon-delete {
-    cursor: pointer;
-  }
-
-  .questionnaire-score {
-    display: flex;
-    flex-direction: column;
-    /*padding: 15px 15px 0px 0px;*/
-  }
-
-  .star-icon {
-    color: #f1c40f;
-  }
-
-  .score-number {
-    text-align: center;
-    padding-top: 10px;
-  }
-
-  .detail {
-    font-size: 2rem;
-  }
+    .disabled{
+      opacity: 0.5;
+      background-color: white;
+    }
 </style>

@@ -1,17 +1,12 @@
-import BaseCard from '@/components/BaseCard'
-import BaseSelect from '@/components/BaseSelect'
-import BaseButton from '@/components/BaseButton'
-import BaseInput from '@/components/BaseInput'
 import ModalSelectBatch from '@/components/modals/ModalSelectBatch'
+import ModalCopy from '@/components/modals/ModalCopy'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'QuestionnaireResults',
   components: {
-    BaseCard,
-    BaseSelect,
-    BaseButton,
-    BaseInput,
-    ModalSelectBatch
+    ModalSelectBatch,
+    ModalCopy
   },
   data () {
     return {
@@ -20,6 +15,9 @@ export default {
     }
   },
   methods: {
+    ...mapActions([
+      'toast'
+    ]),
     goToMembers () {
       if (this.batch !== 'Please select batch') {
         this.$router.push({
@@ -29,7 +27,12 @@ export default {
           }
         })
       } else {
-        this.$toasted.error('please select batch')
+        this.toast({
+          data: {
+            message: 'please select batch',
+            type: 'is-danger'
+          }
+        })
       }
     },
     selectBatch (code) {

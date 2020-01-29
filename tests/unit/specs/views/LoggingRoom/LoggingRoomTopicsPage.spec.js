@@ -1,4 +1,4 @@
-import LoggingRoomDetail from '@/views/LoggingRoom/LoggingRoomDetail'
+import LoggingRoomTopicsPage from '@/views/LoggingRoom/LoggingRoomTopicsPage'
 import { createLocalVue, shallowMount } from '@vue/test-utils'
 import Vuex from 'vuex'
 import loggingRoomApi from '@/api/controller/logging-room'
@@ -6,7 +6,7 @@ import VueRouter from 'vue-router'
 
 jest.mock('@/api/controller/logging-room')
 
-describe('LogggingRoomDetail', () => {
+describe('LoggingRoomTopicsPage', () => {
   let wrapper
   let store
   let localVue
@@ -34,9 +34,13 @@ describe('LogggingRoomDetail', () => {
       toast: jest.fn()
     }
     const store = new Vuex.Store({
-      state,
-      actions,
-      getters
+      modules: {
+        loggingRoomTopicsPage: {
+          state,
+          actions,
+          getters
+        }
+      }
     })
 
     return {
@@ -49,7 +53,7 @@ describe('LogggingRoomDetail', () => {
 
   function initWrapper (store, propsData, options) {
     const router = new VueRouter([])
-    return shallowMount(LoggingRoomDetail, {
+    return shallowMount(LoggingRoomTopicsPage, {
       ...options,
       store,
       localVue,
@@ -79,15 +83,9 @@ describe('LogggingRoomDetail', () => {
     jest.restoreAllMocks()
   })
 
-  test('Sanity test', () => {
+  test('sanity test', () => {
     expect(true).toBe(true)
   })
-
-  test('Rendered correctly', () => {
-    initComponent()
-    expect(wrapper.isVueInstance()).toBe(true)
-  })
-
   test('infiniteHandler case 1', () => {
     const $state = {
       loaded: jest.fn(),
@@ -164,16 +162,6 @@ describe('LogggingRoomDetail', () => {
     })
   })
 
-  test('setLoggingRoom', () => {
-    loggingRoomApi.getLoggingRoom = success => {
-      success({
-        data: []
-      })
-    }
-    initComponent()
-    wrapper.vm.setLoggingRoom()
-    expect(wrapper.vm.loggingRoom.length).toEqual(0)
-  })
 
   test('closeTopicModal', () => {
     initComponent()
@@ -235,7 +223,7 @@ describe('LogggingRoomDetail', () => {
         data: []
       })
     }
-    const spy = jest.spyOn(LoggingRoomDetail.methods, 'resetDeleteModal')
+    const spy = jest.spyOn(LoggingRoomTopicsPage.methods, 'resetDeleteModal')
     initComponent()
     wrapper.vm.$refs.infiniteLoading = {
       stateChanger: {
@@ -247,37 +235,12 @@ describe('LogggingRoomDetail', () => {
     expect(toastSpy).toBeCalledWith({
       data: {
         message: 'success delete the topic',
-        type: 'is-danger'
+        type: 'is-success'
       }
     })
     expect(spy).toHaveBeenCalled()
     expect(wrapper.vm.$refs.infiniteLoading.stateChanger.reset).toHaveBeenCalled()
     expect(wrapper.vm.page).toEqual(1)
     expect(wrapper.vm.topics.length).toEqual(0)
-  })
-
-  test('callShowMembers', () => {
-    initComponent()
-    wrapper.vm.$router.push = jest.fn()
-    wrapper.vm.$route.params.loggingRoomId = 'key'
-    wrapper.vm.callShowMembers()
-    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
-      name: 'loggingRoomMembersPage',
-      params:{
-        loggingRoomId: 'key'
-      }
-    })
-  })
-  test('callShowTopics', () => {
-    initComponent()
-    wrapper.vm.$router.push = jest.fn()
-    wrapper.vm.$route.params.loggingRoomId = 'key'
-    wrapper.vm.callShowTopics()
-    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
-      name: 'loggingRoomTopicsPage',
-      params:{
-        loggingRoomId: 'key'
-      }
-    })
   })
 })

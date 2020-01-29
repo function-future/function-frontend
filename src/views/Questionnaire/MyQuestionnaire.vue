@@ -1,10 +1,14 @@
 <template>
-  <div class="my-questionnaire-outer">
-    <div class="my-questionnaire-container">
-      <div class="search-bar-my-questionnaire">
-        <SearchBar/>
+  <div class="my-questionnaire__outer">
+    <div class="my-questionnaire__container">
+      <div class="my-questionnaire__top-bar">
+<!--        <b-input-->
+<!--          @input="searchHandler"-->
+<!--          icon="search"-->
+<!--          placeholder="Search..."-->
+<!--          class="is-rounded"/>-->
       </div>
-      <div class="my-questionnaire-list-container">
+      <div class="my-questionnaire__content">
         <QuestionnaireCard v-for="myQuestionnaire in myQuestionnaires"
                            :key="myQuestionnaire.id"
                            :title="myQuestionnaire.title"
@@ -26,41 +30,41 @@
 <script src="./js/my-questionnaire.js">
 
 </script>
-
-
-<style scoped>
-  .my-questionnaire-outer {
-    display: flex;
-    justify-content: center;
-    height: 80vh;
-  }
-
-  .my-questionnaire-container {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-  }
-
-  .my-questionnaire-list-container {
-    overflow: auto;
-    padding: 10px;
-  }
-
-  .search-bar-my-questionnaire {
-    align-self: flex-end;
-    width: 150px;
-  }
-
-  @media only screen and (min-width: 800px) {
-    .my-questionnaire-list-container {
-      overflow: auto;
-      padding: 10px;
-      min-width: 600px;
+<style lang="scss" scoped>
+  .my-questionnaire {
+    &__outer {
+      display: flex;
+      justify-content: center;
+      height: 80vh;
     }
 
-    .search-bar-my-questionnaire {
-      width: 300px;
+    &__container {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      width: 100%;
+    }
+
+    &__top-bar{
       align-self: flex-end;
+      width: 100%;
+      padding: 0px 10px;
+
+      @media only screen and (min-width: 1024px){
+        width: 300px;
+        align-self: flex-end;
+      }
+    }
+
+    &__content {
+      overflow: auto;
+      width: 100%;
+      padding: 10px;
+
+      @media only screen and (min-width: 1024px){
+        overflow: auto;
+        padding: 10px;
+      }
     }
   }
 
