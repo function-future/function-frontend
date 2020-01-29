@@ -68,7 +68,7 @@ export default {
       loggingRoomApi.createLogMessage(response => {
         this.toast({
           data: {
-            message: 'success add log',
+            message: 'Success add log',
             type: 'is-success'
           }
         })

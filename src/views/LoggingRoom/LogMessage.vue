@@ -81,21 +81,5 @@
       }
     }
 
-  /*  .message-card > p {*/
-  /*    padding: 10px;*/
-  /*    margin-top: 5px;*/
-  /*    -webkit-border-radius: 10px;*/
-  /*    -moz-border-radius: 10px;*/
-  /*    border-radius: 10px;*/
-  /*    -ms-word-break: break-all;*/
-  /*    word-break: break-all;*/
-  /*  }*/
-
-  /*  .message-name {*/
-  /*    flex-grow: 5;*/
-  /*    text-align: left;*/
-  /*    padding-left: 5px;*/
-  /*    font-size: 1rem;*/
-  /*  }*/
   }
 </style>

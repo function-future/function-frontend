@@ -79,7 +79,7 @@ export default {
           loggingRoomApi.updateLoggingRoom(() => {
             this.toast({
               data: {
-                message: 'success updated logging room',
+                message: 'Success updated logging room',
                 type: 'is-success'
               }
             })

@@ -90,7 +90,7 @@ const questionnaireResultsQuestionnaireDetail = () => import(/* webpackChunkName
   '@/views/Questionnaire/QuestionnaireResultsQuestionnaireDetail.vue')
 const questionnaireResultsQuestionDetail = () => import(/* webpackChunkName: 'p-questionnaire_results_question_detail' */
   '@/views/Questionnaire/QuestionnaireResultsQuestionDetail.vue')
-const menuMobileQuestionnaire = () => import(/* webpackChunkName: 'p-peer-appraisal' */
+const menuMobileQuestionnaire = () => import(/* webpackChunkName: 'p-menu_mobile_questionnaire' */
   '@/views/Questionnaire/MenuMobileQuestionnaire.vue')
 const reminders = () => import(/* webpackChunkName: 'p-reminders' */
   '@/views/Reminders/Reminders.vue')
@@ -1273,7 +1273,7 @@ const router = new Router({
         auth: true,
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'logging Room', link: 'loggingRoom' }
+          { name: 'Logging Room', link: 'loggingRoom' }
         ]
       }
     },
@@ -1286,8 +1286,8 @@ const router = new Router({
         auth: true,
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'logging Room', link: 'loggingRoom' },
-          { name: 'logging Room Detail', link: 'loggingRoomDetail' }
+          { name: 'Logging Room', link: 'loggingRoom' },
+          { name: 'Logging Room Detail', link: 'loggingRoomDetail' }
         ]
       }
     },
@@ -1300,9 +1300,9 @@ const router = new Router({
         auth: true,
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'logging Room', link: 'loggingRoom' },
-          { name: 'logging Room Detail', link: 'loggingRoomDetail' },
-          { name: 'logging Room Detail Members', link: 'loggingRoomMembersPage' }
+          { name: 'Logging Room', link: 'loggingRoom' },
+          { name: 'Logging Room Detail', link: 'loggingRoomDetail' },
+          { name: 'Members', link: 'loggingRoomMembersPage' }
         ]
       }
     },
@@ -1315,9 +1315,9 @@ const router = new Router({
         auth: true,
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'logging Room', link: 'loggingRoom' },
-          { name: 'logging Room Detail', link: 'loggingRoomDetail' },
-          { name: 'logging Room Detail Topics', link: 'loggingRoomTopicsPage' }
+          { name: 'Logging Room', link: 'loggingRoom' },
+          { name: 'Logging Room Detail', link: 'loggingRoomDetail' },
+          { name: 'Topics', link: 'loggingRoomTopicsPage' }
         ]
       }
     },
@@ -1330,9 +1330,9 @@ const router = new Router({
         auth: true,
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'logging Room', link: 'loggingRoom' },
-          { name: 'logging Room Detail', link: 'loggingRoomDetail' },
-          { name: 'log Message', link: 'logMessage' }
+          { name: 'Logging Room', link: 'loggingRoom' },
+          { name: 'Logging Room Detail', link: 'loggingRoomDetail' },
+          { name: 'Log Message', link: 'logMessage' }
         ]
       }
     },
@@ -1359,7 +1359,7 @@ const router = new Router({
         auth: true,
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'logging Room', link: 'loggingRoom' },
+          { name: 'Logging Room', link: 'loggingRoom' },
           { name: 'Logging Room Edit', link: 'loggingRoomEdit' }
         ]
       }

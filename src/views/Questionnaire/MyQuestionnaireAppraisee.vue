@@ -35,7 +35,7 @@
                                           :role="appraisee.role"
                                           :university="appraisee.university"
                                           :batch="appraisee.batch.name"
-                                          v-on:click="goToInputQuestionnaireAnswer(appraisee)"
+                                          @click="goToInputQuestionnaireAnswer(appraisee)"
             ></QuestionnaireParticipantCard>
             <QuestionnaireParticipantCard
               v-for="appraisee in appraiseeDone"
