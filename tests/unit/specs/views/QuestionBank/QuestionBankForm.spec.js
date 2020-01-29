@@ -185,6 +185,7 @@ describe('QuestionBankForm', () => {
     initComponent()
     const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.$router.push = jest.fn()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.successCreatingQuestionBank()
     expect(toastSpy).toHaveBeenCalledTimes(1)
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
