@@ -282,7 +282,6 @@ describe('QuestionForm', () => {
     const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.$route.params.bankId = 'BNK001'
     wrapper.vm.$route.params.questionId = 'QTN001'
-    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.successUpdatingQuestion()
     expect(toastSpy).toHaveBeenCalledTimes(1)
