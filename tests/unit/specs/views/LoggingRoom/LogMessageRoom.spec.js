@@ -162,7 +162,7 @@ describe('LogMessageRoom', () => {
     wrapper.vm.submitMessage()
     expect(toastSpy).toHaveBeenCalledWith({
       data: {
-        message: 'success add log',
+        message: 'Success add log',
         type: 'is-success'
       }
     })
@@ -296,7 +296,7 @@ describe('LogMessageRoom', () => {
     expect(spy).toHaveBeenCalled()
     expect(toastSpy).toBeCalledWith({
       data: {
-        message: 'success add log',
+        message: 'Success add log',
         type: 'is-success'
       }
     })

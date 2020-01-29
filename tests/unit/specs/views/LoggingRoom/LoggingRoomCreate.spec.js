@@ -264,7 +264,7 @@ describe('LoggingRoomCreate', () => {
     wrapper.vm.saveLoggingRoom()
     expect(toastSpy).toBeCalledWith({
       data: {
-        message: 'success updated logging room',
+        message: 'Success updated logging room',
         type: 'is-success'
       }
     })
