@@ -242,7 +242,6 @@ export default {
       this.closeQuestionModal()
     },
     addAppraisee (member) {
-      console.log(member)
       this.currentAppraiseeTemp.push(member)
       for (var i = 0; i < this.removedAppraisee.length; i++) {
         if (this.removedAppraisee[i].id === member.id) {
@@ -251,7 +250,6 @@ export default {
       }
     },
     addAppraiser (member) {
-      console.log(member)
       this.currentAppraiserTemp.push(member)
       for (var i = 0; i < this.removedAppraiser.length; i++) {
         if (this.removedAppraiser[i].id === member.id) {
