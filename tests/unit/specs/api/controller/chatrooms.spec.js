@@ -101,4 +101,40 @@ describe('Chatroom Controller', () => {
     api.updateSeenStatus(callback, errorHandler, data)
     expect(spy).toBeCalledTimes(1)
   })
+
+  test('enterChatroom', () => {
+    const spy = jest.spyOn(request, 'postRequest')
+    const callback = jest.fn()
+    const data = { params: {} }
+    const errorHandler = jest.fn()
+    api.enterChatroom(callback, errorHandler, data)
+    expect(spy).toBeCalledTimes(1)
+  })
+
+  test('leaveChatroom', () => {
+    const spy = jest.spyOn(request, 'postRequest')
+    const callback = jest.fn()
+    const data = { params: {} }
+    const errorHandler = jest.fn()
+    api.leaveChatroom(callback, errorHandler, data)
+    expect(spy).toBeCalledTimes(1)
+  })
+
+  test('setLimit', () => {
+    const spy = jest.spyOn(request, 'postRequest')
+    const callback = jest.fn()
+    const data = { params: {} }
+    const errorHandler = jest.fn()
+    api.setLimit(callback, errorHandler, data)
+    expect(spy).toBeCalledTimes(1)
+  })
+
+  test('unsetLimit', () => {
+    const spy = jest.spyOn(request, 'postRequest')
+    const callback = jest.fn()
+    const data = { params: {} }
+    const errorHandler = jest.fn()
+    api.unsetLimit(callback, errorHandler, data)
+    expect(spy).toBeCalledTimes(1)
+  })
 })

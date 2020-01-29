@@ -24,7 +24,7 @@ describe('ChatroomCard', () => {
       }
     })
 
-    const computedName = name.substring(0, 12) + '...'
+    const computedName = name.substring(0, 27) + '...'
     expect(wrapper.vm.computedName).toEqual(computedName)
   })
 
@@ -38,7 +38,7 @@ describe('ChatroomCard', () => {
       }
     })
 
-    const computedName = name.substring(0, 17) + '...'
+    const computedName = name.substring(0, 27) + '...'
     expect(wrapper.vm.computedName).toEqual(computedName)
   })
 
@@ -54,21 +54,8 @@ describe('ChatroomCard', () => {
     expect(wrapper.vm.computedName).toEqual(name)
   })
 
-  test('computedLastMessage PRIVATE', () => {
-    const lastMessage = 'Last message panjang banget lah pokoknya'
-    const wrapper = shallowMount(ChatroomCard, {
-      propsData: {
-        type: 'PRIVATE',
-        lastMessage: lastMessage,
-        name: 'Priagung'
-      }
-    })
-    const computedLastMessage = lastMessage.substring(0, 17) + '...'
-    expect(wrapper.vm.computedLastMessage).toEqual(computedLastMessage)
-  })
-
-  test('computedLastMessage GROUP', () => {
-    const lastMessage = 'Last message panjang banget lah pokoknya'
+  test('computedLastMessage', () => {
+    const lastMessage = 'Last message panjang banget lah pokoknya asdfadf asdfasdf asdfasdf'
     const wrapper = shallowMount(ChatroomCard, {
       propsData: {
         type: 'GROUP',
@@ -76,7 +63,7 @@ describe('ChatroomCard', () => {
         name: 'Priagung'
       }
     })
-    const computedLastMessage = lastMessage.substring(0, 27) + '...'
+    const computedLastMessage = lastMessage.substring(0, 37) + '...'
     expect(wrapper.vm.computedLastMessage).toEqual(computedLastMessage)
   })
 

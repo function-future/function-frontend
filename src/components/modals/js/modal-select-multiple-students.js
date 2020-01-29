@@ -83,10 +83,9 @@ export default {
     },
     successFetchingStudentList (response) {
       this.paging = response.paging
-      this.studentList.push(...response.data)
       if (response.data.length) {
         this.setStudentList({ data: response.data })
-        this.studentList.push(this.students)
+        this.studentList.push(...response.data)
         this.paging.page++
         this.state.loaded()
       } else {

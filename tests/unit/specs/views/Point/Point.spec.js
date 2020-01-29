@@ -260,8 +260,8 @@ describe('Users', () => {
 
   test('failFetchingPointList', () => {
     initComponent()
-    const spy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failFetchingPointList()
-    expect(spy).toHaveBeenCalledTimes(1)
+    expect(wrapper.vm.isLoading).toEqual(false)
+    expect(wrapper.vm.failLoadingPoints).toEqual(true)
   })
 })

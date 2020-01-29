@@ -5,7 +5,7 @@ import questionnaireApi from '@/api/controller/questionnaire'
 
 jest.mock('@/api/controller/questionnaire')
 
-describe('QuestionnaireResultsQuestionDetail', () => {
+describe('QuestionnairesEdit', () => {
   let wrapper
   let store
 
@@ -28,7 +28,8 @@ describe('QuestionnaireResultsQuestionDetail', () => {
       setCurrentQuestionnaireAdmin: jest.fn(),
       fetchCurrentQuestions: jest.fn(),
       fetchCurrentAppraisee: jest.fn(),
-      fetchCurrentAppraiser: jest.fn()
+      fetchCurrentAppraiser: jest.fn(),
+      toast: jest.fn()
     }
     const store = new Vuex.Store({
       modules: {
@@ -48,10 +49,6 @@ describe('QuestionnaireResultsQuestionDetail', () => {
   }
 
   function initWrapper (propsData, route, initState) {
-    const $toasted = {
-      error: jest.fn(),
-      success: jest.fn()
-    }
 
     const $route = {
       params: {}
@@ -80,7 +77,6 @@ describe('QuestionnaireResultsQuestionDetail', () => {
         'UserSimpleCard'
       ],
       mocks: {
-        $toasted,
         $route,
         $router
       }
@@ -153,40 +149,49 @@ describe('QuestionnaireResultsQuestionDetail', () => {
 
   test('goToUpdateDescription case 1', () => {
     initWrapper()
+    let spy = jest.spyOn(wrapper.vm, 'toast')
+    wrapper.vm.currentQuestionnaireAdmin.title = ' '
+    wrapper.vm.currentQuestionnaireAdmin.description = ' '
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.goToUpdateDescription()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
+    expect(spy).toHaveBeenCalled()
   })
 
   test('goToUpdateDescription case 2', () => {
     initWrapper()
+    const spy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.currentQuestionnaireAdmin.title = 'title'
+    wrapper.vm.currentQuestionnaireAdmin.description = ' '
     wrapper.vm.goToUpdateDescription()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
+    expect(spy).toHaveBeenCalled()
   })
 
   test('goToUpdateDescription case 3', () => {
     initWrapper()
+    const spy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.$router.push = jest.fn()
+    wrapper.vm.currentQuestionnaireAdmin.title = ' '
     wrapper.vm.currentQuestionnaireAdmin.description = 'description'
     wrapper.vm.goToUpdateDescription()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
+    expect(spy).toHaveBeenCalled()
   })
 
   test('goToUpdateDescription case 4', () => {
     initWrapper()
+    const spy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.currentQuestionnaireAdmin.description = 'description'
     wrapper.vm.currentQuestionnaireAdmin.title = 'title'
     wrapper.vm.currentQuestionnaireAdmin.dueDate = Date.now()
     wrapper.vm.currentQuestionnaireAdmin.startDate = Date.now() + 10
     wrapper.vm.goToUpdateDescription()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
+    expect(spy).toHaveBeenCalled()
   })
 
   test('goToUpdateDescription case 5', () => {
     initWrapper()
+    const spy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.currentQuestionnaireAdmin.description = 'description'
     wrapper.vm.currentQuestionnaireAdmin.title = 'title'
@@ -194,11 +199,12 @@ describe('QuestionnaireResultsQuestionDetail', () => {
     wrapper.vm.currentQuestionnaireAdmin.dueDate = date
     wrapper.vm.currentQuestionnaireAdmin.startDate = date
     wrapper.vm.goToUpdateDescription()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
+    expect(spy).toHaveBeenCalled()
   })
 
   test('goToUpdateDescription case 6', () => {
     initWrapper()
+    const spy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.currentQuestionnaireAdmin.description = 'description'
     wrapper.vm.currentQuestionnaireAdmin.title = 'title'
@@ -206,7 +212,7 @@ describe('QuestionnaireResultsQuestionDetail', () => {
     wrapper.vm.currentQuestionnaireAdmin.dueDate = date
     wrapper.vm.currentQuestionnaireAdmin.startDate = 0
     wrapper.vm.goToUpdateDescription()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
+    expect(spy).toHaveBeenCalled()
   })
 
   test('goToUpdateDescription case 7', () => {
@@ -218,15 +224,15 @@ describe('QuestionnaireResultsQuestionDetail', () => {
     }
     const spy = jest.spyOn(QuestionnairesEdit.methods, 'setCurrentQuestionnaire')
     initWrapper()
+    const spy2 = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.currentQuestionnaireAdmin.description = 'description'
     wrapper.vm.currentQuestionnaireAdmin.title = 'title'
-    wrapper.vm.currentQuestionnaireAdmin.startDate = new Date()
-    wrapper.vm.currentQuestionnaireAdmin.dueDate = new Date()
-    wrapper.vm.currentQuestionnaireAdmin.dueDate.setDate(wrapper.vm.currentQuestionnaireAdmin.startDate.getDate() + 1)
+    let date = new Date()
+    wrapper.vm.currentQuestionnaireAdmin.startDate = date
+    wrapper.vm.currentQuestionnaireAdmin.dueDate = date
     wrapper.vm.goToUpdateDescription()
-    expect(wrapper.vm.$toasted.error).not.toHaveBeenCalled()
-    expect(wrapper.vm.$toasted.success).toHaveBeenCalled()
-    expect(spy).toHaveBeenCalled()
+    expect(spy).not.toHaveBeenCalled()
+    expect(spy2).toHaveBeenCalled()
   })
 
   test('goToUpdateDescription case 8', () => {
@@ -238,54 +244,59 @@ describe('QuestionnaireResultsQuestionDetail', () => {
     }
     const spy = jest.spyOn(QuestionnairesEdit.methods, 'setCurrentQuestionnaire')
     initWrapper()
+    const spy2 = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.currentQuestionnaireAdmin.description = 'description'
     wrapper.vm.currentQuestionnaireAdmin.title = 'title'
     wrapper.vm.currentQuestionnaireAdmin.startDate = Date.now()
     wrapper.vm.currentQuestionnaireAdmin.dueDate = Date.now() + 86400
     wrapper.vm.goToUpdateDescription()
-    expect(wrapper.vm.$toasted.error).not.toHaveBeenCalled()
-    expect(wrapper.vm.$toasted.success).toHaveBeenCalled()
     expect(spy).toHaveBeenCalled()
+    expect(spy2).not.toHaveBeenCalled()
   })
 
   test('submitMessageErrorCallback', () => {
     global.console.log = jest.fn()
     initWrapper()
+    const spy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.submitMessageErrorCallback('err')
     expect(console.log).toHaveBeenCalledWith('err')
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
+    expect(spy).toHaveBeenCalled()
   })
 
   test('submitQuestionErrorCallback', () => {
     global.console.log = jest.fn()
     initWrapper()
+    const spy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.submitQuestionErrorCallback('err')
     expect(console.log).toHaveBeenCalledWith('err')
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
+    expect(spy).toHaveBeenCalled()
   })
 
   test('deleteErrorCallback', () => {
     global.console.log = jest.fn()
     initWrapper()
+    const spy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.deleteErrorCallback('err')
     expect(console.log).toHaveBeenCalledWith('err')
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
+    expect(spy).toHaveBeenCalled()
   })
 
   test('updateErrorCallback', () => {
     global.console.log = jest.fn()
     initWrapper()
+    const spy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.updateErrorCallback('err')
     expect(console.log).toHaveBeenCalledWith('err')
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
+    expect(spy).toHaveBeenCalled()
   })
 
   test('addErrorCallback', () => {
     global.console.log = jest.fn()
     initWrapper()
+    const spy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.addErrorCallback('err')
     expect(console.log).toHaveBeenCalledWith('err')
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
+    expect(spy).toHaveBeenCalled()
   })
 
   test('errorHandler', () => {
@@ -310,14 +321,10 @@ describe('QuestionnaireResultsQuestionDetail', () => {
   })
 
   test('submitAddQuestion', () => {
-    questionnaireApi.addQuestionQuestionnaire = success => {
-      success()
-    }
-    const spy = jest.spyOn(QuestionnairesEdit.methods, 'fetchingQuestions')
     initWrapper()
-    wrapper.vm.submitAddQuestion()
-    expect(wrapper.vm.$toasted.success).toHaveBeenCalled()
-    expect(spy).toHaveBeenCalled()
+    let data = {}
+    wrapper.vm.submitAddQuestion(data)
+    expect(wrapper.vm.currentQuestionsTemp[0]).toEqual(data)
   })
 
   test('fetchingQuestions', () => {
@@ -326,18 +333,38 @@ describe('QuestionnaireResultsQuestionDetail', () => {
     expect(store.actions.fetchCurrentQuestions).toHaveBeenCalled()
   })
 
-  test('deleteTheQuestionQuestionnaire', () => {
-    questionnaireApi.deleteQuestionQuestionnaire = success => {
-      success()
-    }
-    const spy = jest.spyOn(QuestionnairesEdit.methods, 'fetchingQuestions')
-    const spyDeleteModal = jest.spyOn(QuestionnairesEdit.methods, 'resetDeleteConfirmationModalQuestion')
+  test('fetchingQuestionsCallback', () => {
     initWrapper()
-    wrapper.vm.deleteTheQuestionQuestionnaire()
-    expect(wrapper.vm.$toasted.success).toHaveBeenCalled()
-    expect(spy).toHaveBeenCalled()
-    expect(spyDeleteModal).toHaveBeenCalled()
+    const response = {
+      data: []
+    }
+    wrapper.vm.fetchingQuestionsCallback(response)
+    expect(wrapper.vm.currentQuestionsTemp.length).toEqual(0)
   })
+
+  test('deleteTheQuestionQuestionnaire', () => {
+    const spyFunc = jest.spyOn(wrapper.vm, 'resetDeleteConfirmationModalQuestion')
+    wrapper.vm.currentQuestionsTemp = [ {}, {} ]
+    wrapper.vm.deleteConfirmationModalQuestion.selectedIndex = 0
+    wrapper.vm.deleteTheQuestionQuestionnaire()
+    expect(spyFunc).toBeCalled()
+    expect(wrapper.vm.currentQuestionsTemp.length).toEqual(1)
+  })
+
+
+  // test('deleteTheQuestionQuestionnaire', () => {
+  //   questionnaireApi.deleteQuestionQuestionnaire = success => {
+  //     success()
+  //   }
+  //   const spy = jest.spyOn(QuestionnairesEdit.methods, 'fetchingQuestions')
+  //   const spyDeleteModal = jest.spyOn(QuestionnairesEdit.methods, 'resetDeleteConfirmationModalQuestion')
+  //   initWrapper()
+  //   const spy2 = jest.spyOn(wrapper.vm, 'toast')
+  //   wrapper.vm.deleteTheQuestionQuestionnaire()
+  //   expect(spy).toHaveBeenCalled()
+  //   expect(spy2).toHaveBeenCalled()
+  //   expect(spyDeleteModal).toHaveBeenCalled()
+  // })
 
   test('openEditModal', () => {
     initWrapper()
@@ -360,21 +387,33 @@ describe('QuestionnaireResultsQuestionDetail', () => {
     const spy = jest.spyOn(QuestionnairesEdit.methods, 'fetchingQuestions')
     const spyCloseModal = jest.spyOn(QuestionnairesEdit.methods, 'closeQuestionModal')
     initWrapper()
+    wrapper.vm.question = {
+      index: 0
+    }
+    wrapper.vm.currentQuestionsTemp[0] = {}
     wrapper.vm.updateTheQuestionQuestionnaire({})
-    expect(wrapper.vm.$toasted.success).toHaveBeenCalled()
     expect(spy).toHaveBeenCalled()
     expect(spyCloseModal).toHaveBeenCalled()
   })
 
-  test('submitParticipant', () => {
-    questionnaireApi.addAppraiseeQuestionnaire = success => {
-      success()
-    }
-    const spy = jest.spyOn(QuestionnairesEdit.methods, 'fetchingAppraisee')
+  test('addAppraisee', () => {
     initWrapper()
-    wrapper.vm.submitParticipant({})
-    expect(wrapper.vm.$toasted.success).toHaveBeenCalled()
-    expect(spy).toHaveBeenCalled()
+    wrapper.vm.currentAppraiseeTemp = [{id: 0}]
+    wrapper.vm.removedAppraisee = [{id: 1}]
+    const member = {id: 1}
+    wrapper.vm.addAppraisee(member)
+    expect(wrapper.vm.currentAppraiseeTemp.length).toEqual(2)
+    expect(wrapper.vm.removedAppraisee.length).toEqual(0)
+  })
+
+  test('addAppraiser', () => {
+    initWrapper()
+    wrapper.vm.currentAppraiserTemp = [{id: 0}]
+    wrapper.vm.removedAppraiser = [{id: 1}]
+    const member = {id: 1}
+    wrapper.vm.addAppraiser(member)
+    expect(wrapper.vm.currentAppraiserTemp.length).toEqual(2)
+    expect(wrapper.vm.removedAppraiser.length).toEqual(0)
   })
 
   test('fetchingAppraisee', () => {
@@ -424,7 +463,6 @@ describe('QuestionnaireResultsQuestionDetail', () => {
     initWrapper()
     wrapper.vm.deleteConfirmationModalParticipant.isAppraisee = true
     wrapper.vm.deleteTheParticipant()
-    expect(wrapper.vm.$toasted.success).toHaveBeenCalled()
     expect(spy).toHaveBeenCalled()
     expect(spyCloseModal).toHaveBeenCalled()
   })
@@ -438,7 +476,6 @@ describe('QuestionnaireResultsQuestionDetail', () => {
     initWrapper()
     wrapper.vm.deleteConfirmationModalParticipant.isAppraisee = false
     wrapper.vm.deleteTheParticipant()
-    expect(wrapper.vm.$toasted.success).toHaveBeenCalled()
     expect(spy).toHaveBeenCalled()
     expect(spyCloseModal).toHaveBeenCalled()
   })
@@ -456,15 +493,130 @@ describe('QuestionnaireResultsQuestionDetail', () => {
     expect(wrapper.vm.currentAppraiserTemp).toEqual('test')
   })
 
-  test('submitParticipantAppraiser', () => {
-    questionnaireApi.addAppraiserQuestionnaire = success => {
-      success()
-    }
-    const spy = jest.spyOn(QuestionnairesEdit.methods, 'fetchingAppraiser')
+  test('updateQuestions', () => {
     initWrapper()
-    wrapper.vm.deleteConfirmationModalParticipant.isAppraisee = true
-    wrapper.vm.submitParticipantAppraiser({})
-    expect(wrapper.vm.$toasted.success).toHaveBeenCalled()
-    expect(spy).toHaveBeenCalled()
+    wrapper.vm.currentQuestionsTemp = [{id: 1}, {id:null}]
+    questionnaireApi.addQuestionQuestionnaire = success => {
+      success({
+        data: {
+        }
+      })
+    }
+    questionnaireApi.updateQuestionQuestionnaire = success => {
+      success({
+        data: {
+        }
+      })
+    }
+    wrapper.vm.updateQuestions()
+  })
+
+  test('updateAppraisee', () => {
+    initWrapper()
+    wrapper.vm.currentAppraiseeTemp = [{id: 1}, {id:null}]
+    wrapper.vm.currentAppraisee = [{id: 1}]
+    questionnaireApi.addAppraiseeQuestionnaire = success => {
+      success({
+        data: {
+        }
+      })
+    }
+    wrapper.vm.removedAppraisee = [{id: 2}]
+    questionnaireApi.deleteAppraiseeQuestionnaire = success => {
+      success({
+        data: {
+        }
+      })
+    }
+    wrapper.vm.updateAppraisee()
+  })
+
+  test('updateAppraiser', () => {
+    initWrapper()
+    wrapper.vm.currentAppraiserTemp = [{id: 1}, {id:null}]
+    wrapper.vm.currentAppraiser = [{id: 1}]
+    questionnaireApi.addAppraiserQuestionnaire = success => {
+      success({
+        data: {
+        }
+      })
+    }
+    wrapper.vm.removedAppraiser = [{id: 2}]
+    questionnaireApi.deleteAppraiserQuestionnaire = success => {
+      success({
+        data: {
+        }
+      })
+    }
+    wrapper.vm.updateAppraiser()
+  })
+
+  test('updateQuestionnaire', () => {
+    initWrapper()
+    const spyFunc1 = jest.spyOn(wrapper.vm, 'goToUpdateDescription')
+    const spyFunc2 = jest.spyOn(wrapper.vm, 'updateQuestions')
+    const spyFunc3 = jest.spyOn(wrapper.vm, 'updateAppraisee')
+    const spyFunc4 = jest.spyOn(wrapper.vm, 'updateAppraiser')
+    wrapper.vm.$router.replace = jest.fn()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
+    wrapper.vm.updateQuestionnaire()
+    expect(spyFunc1).toBeCalled()
+    expect(spyFunc2).toBeCalled()
+    expect(spyFunc3).toBeCalled()
+    expect(spyFunc4).toBeCalled()
+    expect(wrapper.vm.$router.replace).toBeCalledWith({
+      name: 'questionnaires'
+    })
+    expect(toastSpy).toBeCalledWith({
+      data: {
+        message: 'success update questionnaire',
+        type: 'is-success'
+      }
+    })
+  })
+
+
+  test('nextProgress case 1', () => {
+    initWrapper()
+    wrapper.vm.progressValue = 4
+    wrapper.vm.$router.replace = jest.fn()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
+    const spyFunc = jest.spyOn(wrapper.vm, 'updateQuestionnaire')
+    wrapper.vm.nextProgress()
+    expect(spyFunc).toBeCalled()
+    expect(wrapper.vm.$router.replace).toBeCalledWith({
+      name: 'questionnaires'
+    })
+    expect(toastSpy).toBeCalledWith({
+      data: {
+        message: 'success update questionnaire',
+        type: 'is-success'
+      }
+    })
+  })
+
+  test('nextProgress case 2', () => {
+    initWrapper()
+    wrapper.vm.progressValue = 2
+    wrapper.vm.nextProgress()
+    expect(wrapper.vm.progressValue).toEqual(3)
+  })
+
+  test('prevProgress ', () => {
+    initWrapper()
+    wrapper.vm.progressValue = 2
+    wrapper.vm.prevProgress()
+    expect(wrapper.vm.progressValue).toEqual(1)
+  })
+
+  test('fetchingCurrentQuestionnarieAdmin', () => {
+    initWrapper()
+    wrapper.vm.currentQuestionnaireAdmin.startDate = 0
+    wrapper.vm.currentQuestionnaireAdmin.dueDate = 1
+    const spyOn = jest.spyOn(wrapper.vm, 'fetchCurrentQuestionnaireAdmin')
+    wrapper.vm.fetchingCurrentQuestionnarieAdmin()
+    expect(spyOn).toHaveBeenCalled()
+    expect(wrapper.vm.currentQuestionnaireAdmin.startDate).toEqual(new Date(0))
+    expect(wrapper.vm.currentQuestionnaireAdmin.dueDate).toEqual(new Date(1))
   })
 })

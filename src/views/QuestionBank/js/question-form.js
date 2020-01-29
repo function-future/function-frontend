@@ -57,15 +57,15 @@ export default {
     successFetchingQuestionDetail (response) {
       this.questionDetail = { ...response }
       this.questionDetail.options.forEach((option, idx) => {
-        if (option.correct) {
-          this.correctAnswer = idx
+        if (!!option.correct) {
+          this.correctAnswer = idx + 1
         }
       })
     },
     failFetchingQuestionDetail() {
       this.toast({
         data: {
-          message: 'Fail to load question',
+          message: 'Fail to load question data',
           type: 'is-error'
         }
       })
@@ -144,7 +144,7 @@ export default {
     successUpdatingQuestion () {
       this.toast({
         data: {
-          message: 'Successfully updated question',
+          message: 'Successfully updated a question',
           type: 'is-success'
         }
       })
@@ -159,7 +159,7 @@ export default {
     failedUpdatingQuestion () {
       this.toast({
         data: {
-          message: 'Fail to update question',
+          message: 'Fail to update question data, please try again',
           type: 'is-error'
         }
       })

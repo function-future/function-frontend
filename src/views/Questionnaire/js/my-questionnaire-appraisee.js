@@ -31,7 +31,8 @@ export default {
         default: []
       },
       currentQuestionnaireForm: [],
-      responses: []
+      responses: [],
+      appraiseeDone: []
     }
   },
   methods: {
@@ -42,10 +43,11 @@ export default {
       'fetchCurrentQuestions',
       'saveAppraisee',
       'fetchCurrentQuestionsQuestionnaire',
-      'resetQuestionnaireList'
+      'resetQuestionnaireList',
+      'toast'
     ]),
     computedDate (date) {
-      return moment(date).format('DD/MM/YYYY')
+      return moment(date).format('DD MMM YYYY, h:mm a')
     },
     goToInputQuestionnaireAnswer (appraisee) {
       this.fetchingQuestionnaireData(appraisee.id)
@@ -98,10 +100,20 @@ export default {
         })
       })
       if (!submitScore) {
-        this.$toasted.error('there are still unaswered question')
+        this.toast({
+          data: {
+            message: 'there are still unanswered question',
+            type: 'is-danger'
+          }
+        })
       } else {
         myQuestionnaireApi.addQuestionnaireResponse(response => {
-          this.$toasted.success('success submit questionnaire response')
+          this.toast({
+            data: {
+              message: 'success submit questionnaire response',
+              type: 'is-success'
+            }
+          })
           this.backToAppraiseePage()
           this.resetQuestionnaireList()
           this.fetchMyListApprisees({
@@ -126,15 +138,30 @@ export default {
     },
     errorCallbackCurrentQuestionnaire (err) {
       console.log(err)
-      this.$toasted.error('connection error')
+      this.toast({
+        data: {
+          message: 'connection error',
+          type: 'is-danger'
+        }
+      })
     },
     errorCallbackAppraisee (err) {
       console.log(err)
-      this.$toasted.error('connection error')
+      this.toast({
+        data: {
+          message: 'connection error',
+          type: 'is-danger'
+        }
+      })
     },
     errorCallback (err) {
       console.log(err)
-      this.$toasted.error('connection error')
+      this.toast({
+        data: {
+          message: 'connection error',
+          type: 'is-danger'
+        }
+      })
     },
     backToAppraiseePage () {
       this.$router.replace({
@@ -160,6 +187,8 @@ export default {
     ])
   },
   created () {
+    this.currentQuestionnaireForm = []
+
     this.fetchCurrentQuestionnaire({
       data: {
         params: {
@@ -180,9 +209,19 @@ export default {
     if (this.$route.params.appraiseeId) {
       this.fetchingQuestionnaireData(this.$route.params.appraiseeId)
     }
+
+    myQuestionnaireApi.getListAppraiseeDone(response => {
+      this.appraiseeDone = response.data
+    }, this.errorCallBack,
+    {
+      params: {
+        questionnaireId: this.$route.params.questionnaireId
+      }
+    })
   },
   destroyed () {
     this.questionnaireForm = this.questionnaireForm.default
     this.responses = []
+    this.currentQuestionnaireForm = []
   }
 }

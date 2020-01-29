@@ -50,5 +50,16 @@ export default {
     errorHandler (err) {
       console.log(err)
     }
+  },
+  created () {
+    questionnaireResultsApi.getUserSummary(response => {
+      this.appraiseeResults.push(...response.data)
+    }, this.errorHandler, {
+      params: {
+        page: this.page,
+        size: this.size,
+        batchCode: this.$route.params.batchCode
+     }
+    })
   }
 }

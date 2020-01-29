@@ -1,16 +1,24 @@
 <template>
     <div class="logging-room-detail">
       <div class="logging-room-detail__container">
-        <div class="logging-room-detail__title">
-          <h2>{{loggingRoom.title}}</h2>
+        <div class="logging-room-detail__content">
+            <span class="logging-room-detail__title">{{loggingRoom.title}}</span>
+            <span class="logging-room-detail__description">{{loggingRoom.description}}</span>
         </div>
-        <div class="logging-room-detail__description">
-          <span>{{loggingRoom.description}}</span>
-          <br>
-          <br>
-          <h3>Members</h3>
+        <div v-if="isMobile" class="logging-room-detail__mobile">
+          <MenuCard  class="logging-room-detail__mobile__menu"
+                     :iconMenu="iconMenuMembers"
+                     :iconTitle="iconMenuMembersTitle"
+                     @click="callShowMembers"
+          ></MenuCard>
+          <MenuCard  class="logging-room-detail__mobile__menu"
+                     :iconMenu="iconMenuTopics"
+                     :iconTitle="iconMenuTopicsTitle"
+                     @click="callShowTopics"
+          ></MenuCard>
         </div>
-        <div class="logging-room-detail__member-list-container">
+        <div v-else class="logging-room-detail__member-list-container">
+          <span class="logging-room-detail__member-list-container__title">Members</span>
           <participant-card v-for="member in loggingRoom.members"
                             :key="member.id"
                             :name="member.name"
@@ -22,11 +30,17 @@
         </div>
         <div class="logging-room-detail__topic-list-container">
           <div class="logging-room-detail__topic-list-container__top-bar">
-            <h3> Topics </h3>
+            <span class="logging-room-detail__member-list-container__title">Topics</span>
             <div class="logging-room-detail__topic-list-container__top-bar__create-btn">
-              <BaseButton v-if="accessList.edit" class="add-btn" type="submit" buttonClass="button-save" @click="topicModal = true">
-                <font-awesome-icon class="icon icon-plus" icon="plus"/> Add
-              </BaseButton>
+              <b-button
+                v-if="accessList.edit"
+                class="is-primary is-rounded add-btn"
+                type="submit"
+                icon-left="plus"
+                buttonClass="button-save"
+                @click="topicModal = true">
+                <span>Add</span>
+              </b-button>
             </div>
           </div>
           <div class="logging-room-detail__topic-list-container__content">
@@ -75,39 +89,50 @@
     width: 100%;
 
     &__container {
-
       display: flex;
       flex-direction: column;
-      align-items: center;
-
-      @media only screen and (min-width: 800px) {
-        width: 500px;
+      width: 40vw;
+      @media only screen and (max-width: 1023px) {
+        width: 100vw;
+        padding: 10px;
       }
+    }
 
-      @media only screen and (min-width: 1300px) {
-        width: 800px;
+    &__mobile {
+      &__menu {
+        margin: 5px 0px;
       }
+    }
+
+    &__content {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 15px;
     }
 
     &__title{
       text-align: left;
-      width: 80%;
+      font-size: 1.2rem;
+      font-weight: bold;
     }
 
     &__description{
       text-align: left;
-      padding: 1vh 0vh;
-      width: 80%;
     }
 
     &__member-list-container{
-      width: 80%;
       height: 30vh;
       overflow: auto;
+      &__title {
+        font-size: 1.2rem;
+        font-weight: bold;
+      }
     }
 
     &__topic-list-container {
-      width: 80%;
+      @media only screen and (max-width: 1023px) {
+        display: none;
+      }
       text-align: left;
       padding-top: 2vh;
 

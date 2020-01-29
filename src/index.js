@@ -26,14 +26,23 @@ export default {
   mixins: [
     ChangePageTitleMixins
   ],
+  data () {
+    return {
+      viewKey: 0
+    }
+  },
   methods: {
     ...mapActions([
       'getMenuList'
-    ])
+    ]),
+    updateViewKey () {
+      this.viewKey += 1
+    }
   },
   computed: {
     ...mapGetters([
-      'currentUser'
+      'currentUser',
+      'bottomNavBarVisible'
     ]),
     showLoginModal () {
       return this.$route.query.auth === 'login'

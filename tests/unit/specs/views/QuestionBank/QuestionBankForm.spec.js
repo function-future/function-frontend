@@ -183,12 +183,12 @@ describe('QuestionBankForm', () => {
 
   test('successCreatingQuestionBank', () => {
     initComponent()
-    wrapper.vm.$router.push = jest.fn()
     const toastSpy = jest.spyOn(wrapper.vm, 'toast')
+    wrapper.vm.$router.push = jest.fn()
     wrapper.vm.successCreatingQuestionBank()
     expect(toastSpy).toHaveBeenCalledTimes(1)
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
-      name: 'questionBanks'
+      name: 'scoringAdmin'
     })
   })
 
@@ -227,7 +227,6 @@ describe('QuestionBankForm', () => {
     const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failedUpdatingQuestionBank()
     expect(wrapper.vm.isSubmitting).toEqual(false)
-    expect(toastSpy).toHaveBeenCalledTimes(1)
     expect(toastSpy).toHaveBeenCalledTimes(1)
   })
 

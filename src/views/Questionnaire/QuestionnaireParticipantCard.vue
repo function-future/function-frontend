@@ -1,102 +1,120 @@
 <template>
-  <div class="questionnaire-participant-card-outer" @click="$emit('click')">
-    <BaseCard class="questionnaire-participant-card-container">
-      <div v-if="avatar" class="questionnaire-participant-card-avatar">
-        <img :src="avatar">
+  <div class="questionnaire-participant-card__outer" @click="$emit('click')" :class="{disabled:isDisable}">
+    <div class="questionnaire-participant-card__container">
+      <div class="questionnaire-participant-card__avatar">
+        <img :src="avatar || require('@/assets/profile-picture-placeholder.png')">
       </div>
-      <div class="questionnaire-participant-card-content">
-        <p class="participant-name"><strong>{{ name }}</strong></p>
-        <p class="participant-university">{{ university }}</p>
-        <p class="participant-status">{{ computedRole }} - {{ batch }}</p>
+      <div class="questionnaire-participant-card__content">
+        <p class="questionnaire-participant-card__content__participant-name"><strong>{{ name }}</strong></p>
+        <p class="questionnaire-participant-card__content__participant-university">{{ university ? university : '-'}}</p>
+        <p class="questionnaire-participant-card__content__participant-status">{{ computedRole }} - {{ batch }}</p>
       </div>
-      <div v-if="isResult" class="score-placeholder">
-        <span><font-awesome-icon icon="star" size="3x" class="star-icon"></font-awesome-icon></span>
-        <span class="score-number"><strong>{{score.toFixed(1)}}/6.0</strong></span>
+      <div v-if="isResult" class="questionnaire-participant-card__score-placeholder">
+        <div class="questionnaire-participant-card__score-placeholder__icon"><font-awesome-icon icon="star" size="2x" class="star-icon"></font-awesome-icon></div>
+        <div class="questionnaire-participant-card__score-placeholder__score-number">{{score.toFixed(1)}}/6.0</div>
       </div>
-      <div v-if="isEdit" class="delete-placeholder">
+      <div v-if="isEdit" class="questionnaire-participant-card__delete-placeholder">
         <span>
           <font-awesome-icon icon="times" class="icon-delete" @click="$emit('delete')"></font-awesome-icon>
         </span>
       </div>
-    </BaseCard>
+    </div>
   </div>
 </template>
 
 <script src="./js/questionnaire-participant-card.js">
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
   * {
     margin: 0px;
     padding: 0px;
   }
 
-  .questionnaire-participant-card-outer {
-    width: 100%;
-  }
+  .questionnaire-participant-card {
 
-  .questionnaire-participant-card-container {
-    display: flex;
-    padding-right: 10px;
-    cursor: pointer;
-  }
+    &__outer {
+      width: 100%;
+    }
 
-  .questionnaire-participant-card-avatar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-left: 10px;
-  }
+    &__container {
+      display: flex;
+      background: #FFFFFF;
+      border: 1px solid #F2F2F2;
+      box-sizing: border-box;
+      box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.25);
+      border-radius: 10px;
+      text-align: left;
+      margin: 10px;
+      padding: 10px;
+      cursor: pointer;
+      height: auto;
+    }
 
-  .questionnaire-participant-card-avatar > img {
-    border-radius: 100%;
-    height: 75px;
-    width: 75px;
-    padding: 10px;
-  }
+    &__avatar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-  .questionnaire-participant-card-content {
-    padding-left: 10px;
-    width: 100%;
-  }
+    &__avatar > img {
+      border-radius: 100%;
+      height: 75px;
+      width: 75px;
+      padding: 5px;
+      min-width: 75px;
+    }
 
-  .participant-name{
-    padding: 5px 0px 5px 0px ;
-    font-weight: bold;
-    font-size: x-large;
-  }
+    &__content {
+      width: 100%;
+      padding: 5px;
 
-  .participant-university {
-    padding: 5px 0px 5px 0px ;
-    font-size: medium;
-  }
+      &__participant-name{
+        font-weight: bold;
+        font-size: 1rem;
+      }
 
-  .participant-status {
-    padding: 5px 0px 5px 0px ;
-    font-size: medium;
-  }
+      &__participant-university {
+        font-size: 0.8rem;
+      }
 
-  .delete-placeholder {
-    align-items: flex-end;
-  }
+      &__participant-status {
+        font-size: 0.8rem;
+      }
+    }
+    &__delete-placeholder {
+      align-items: flex-end;
+    }
 
-  .score-placeholder {
-    display: flex;
-    flex-direction: column;
-    padding: 15px 15px 0px 0px;
-  }
+    &__score-placeholder {
+      display: flex;
+      flex-direction: column;
+      padding: 5px;
+      text-align: center;
 
-  .star-icon {
-    color: #f1c40f;
-  }
+      &__icon {
+        color: #f1c40f;
+        padding: 5px 0px;
+      }
 
-  .score-number {
-    text-align: center;
-    padding-top: 10px;
+      &__score-number {
+        font-weight: bold;
+      }
+    }
   }
 
   .icon-delete {
     font-size: 2rem;
+  }
+
+  .card {
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.25);
+  }
+
+  .disabled {
+    opacity: 0.5;
+    background-color: white;
+    cursor: default !important;
   }
 </style>

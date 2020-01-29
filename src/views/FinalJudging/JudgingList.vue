@@ -41,7 +41,7 @@
             </div>
           </template>
           <template #actions>
-            <b-dropdown aria-role="list" position="is-bottom-left" @click.prevent.stop>
+            <b-dropdown aria-role="list" position="is-bottom-left" @click.prevent.stop v-if="accessList.edit || accessList.delete">
               <button class="button is-text" slot="trigger">
                 <b-icon icon="ellipsis-v" size="is-small" class="icon"></b-icon>
               </button>

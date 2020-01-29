@@ -1,36 +1,35 @@
 import moment from 'moment'
+import ChatroomType from '@/mixins/ChatroomType'
 
-const MAX_CHAR_GROUP_NAME = 20
-const MAX_CHAR_PRIVATE_NAME = 15
-const MAX_CHAR_PRIVATE_LASTMESSAGE = 20
-const MAX_CHAR_GROUP_LASTMESSAGE = 30
+const MAX_CHAR_NAME = 30
+const MAX_CHAR_LASTMESSAGE = 40
 
 export default {
   name: 'ChatroomCard',
+  mixins: [
+    ChatroomType
+  ],
   props: {
     name: String,
     isSeen: Boolean,
     time: Number,
     lastMessage: String,
-    avatar: String,
+    avatar: Object,
+    isChoosen: Boolean,
     type: String,
-    isChoosen: Boolean
+    totalMembers: Number
   },
   computed: {
     computedName () {
-      if (this.type === 'PRIVATE' && this.name.length > MAX_CHAR_PRIVATE_NAME) {
-        return this.name.substring(0, MAX_CHAR_PRIVATE_NAME - 3) + '...'
-      } else if (this.type === 'GROUP' && this.name.length > MAX_CHAR_GROUP_NAME) {
-        return this.name.substring(0, MAX_CHAR_GROUP_NAME - 3) + '...'
+      if (this.name && this.name.length > MAX_CHAR_NAME) {
+        return this.name.substring(0, MAX_CHAR_NAME - 3) + '...'
       } else {
         return this.name
       }
     },
     computedLastMessage () {
-      if (this.type === 'PRIVATE' && this.lastMessage.length > MAX_CHAR_PRIVATE_LASTMESSAGE) {
-        return this.lastMessage.substring(0, MAX_CHAR_PRIVATE_LASTMESSAGE - 3) + '...'
-      } else if (this.type === 'GROUP' && this.lastMessage.length > MAX_CHAR_GROUP_LASTMESSAGE) {
-        return this.lastMessage.substring(0, MAX_CHAR_GROUP_LASTMESSAGE - 3) + '...'
+      if (this.lastMessage && this.lastMessage.length > MAX_CHAR_LASTMESSAGE) {
+        return this.lastMessage.substring(0, MAX_CHAR_LASTMESSAGE - 3) + '...'
       } else {
         return this.lastMessage
       }

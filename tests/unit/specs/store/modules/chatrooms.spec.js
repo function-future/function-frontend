@@ -1,7 +1,9 @@
 import store from '@/store/modules/chatrooms'
 import api from '@/api/controller/chatrooms'
+import resourceApi from '@/api/controller/resources'
 
 jest.mock('@/api/controller/chatrooms')
+jest.mock('@/api/controller/resources')
 
 describe('actions', () => {
   test('Sanity test', () => {
@@ -157,6 +159,129 @@ describe('actions', () => {
     const commit = jest.fn()
     store.actions.resetMessages({ commit })
     expect(commit).toBeCalledTimes(1)
+  })
+
+  test('Create Message', () => {
+    const commit = jest.fn()
+    const data = {}
+    const fail = jest.fn()
+    const cb = jest.fn()
+    api.createMessage = (success) => {
+      success()
+    }
+    store.actions.createMessage({ commit }, { data, fail, cb })
+    expect(cb).toBeCalledTimes(1)
+  })
+
+  test('Fetch Messages Before Pivot', () => {
+    const commit = jest.fn()
+    const data = {}
+    const fail = jest.fn()
+    const cb = jest.fn()
+    api.getMessagesBeforePivot = (success) => {
+      success()
+    }
+    store.actions.fetchMessagesBeforePivot({ commit }, { data, fail, cb })
+    expect(cb).toBeCalledTimes(1)
+  })
+
+  test('Upload Group Image', () => {
+    const commit = jest.fn()
+    const data = new FormData()
+    let configuration = { headers: { 'Content-Type': 'multipart/form-data' } }
+    const fail = jest.fn()
+    const callback = jest.fn()
+    resourceApi.uploadResource = (success) => {
+      success({ data: {} })
+    }
+    store.actions.uploadGroupImage({ commit }, { data, configuration, callback, fail })
+    expect(callback).toBeCalledTimes(1)
+  })
+
+  test('Set Chatrooms Limit', () => {
+    const commit = jest.fn()
+    const data = {}
+    const fail = jest.fn()
+    const cb = jest.fn()
+    api.setLimit = (success) => {
+      success()
+    }
+    store.actions.setChatroomsLimit({ commit }, { data, fail, cb })
+    expect(cb).toBeCalledTimes(1)
+  })
+
+  test('Unset Chatrooms Limit', () => {
+    const commit = jest.fn()
+    const data = {}
+    const fail = jest.fn()
+    const cb = jest.fn()
+    api.unsetLimit = (success) => {
+      success()
+    }
+    store.actions.unsetChatroomsLimit({ commit }, { data, fail, cb })
+    expect(cb).toBeCalledTimes(1)
+  })
+
+  test('Enter Chatroom', () => {
+    const commit = jest.fn()
+    const data = {}
+    const fail = jest.fn()
+    const cb = jest.fn()
+    api.enterChatroom = (success) => {
+      success()
+    }
+    store.actions.enterChatroom({ commit }, { data, fail, cb })
+    expect(cb).toBeCalledTimes(1)
+  })
+
+  test('Leave Chatroom', () => {
+    const commit = jest.fn()
+    const data = {
+      params: {}
+    }
+    const fail = jest.fn()
+    const cb = jest.fn()
+    api.leaveChatroom = (success) => {
+      success()
+    }
+    store.actions.leaveChatroom({ commit }, { data, fail, cb })
+    expect(cb).toBeCalledTimes(1)
+  })
+
+  test('Create Chatroom', () => {
+    const commit = jest.fn()
+    const data = {}
+    const fail = jest.fn()
+    const cb = jest.fn()
+    api.createChatroom = (success) => {
+      success()
+    }
+    store.actions.createChatroom({ commit }, { data, fail, cb })
+    expect(cb).toBeCalledTimes(1)
+  })
+
+  test('Update Chatroom', () => {
+    const commit = jest.fn()
+    const data = {}
+    const fail = jest.fn()
+    const cb = jest.fn()
+    api.updateChatroom = (success) => {
+      success()
+    }
+    store.actions.updateChatroom({ commit }, { data, fail, cb })
+    expect(cb).toBeCalledTimes(1)
+  })
+
+  test('Fetch Detail Chatroom', () => {
+    const commit = jest.fn()
+    const data = {}
+    const fail = jest.fn()
+    const cb = jest.fn()
+    api.getChatroomDetails = (success) => {
+      success()
+    }
+    store.actions.fetchDetailChatroom({ commit }, { data, fail, cb })
+    expect(cb).toBeCalledTimes(1)
   })
 })
 

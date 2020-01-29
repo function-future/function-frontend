@@ -1,11 +1,20 @@
 <template>
-    <div class="logging-room">
+    <div class="logging-room__outer">
       <div class="logging-room__container">
         <div class="logging-room__top-bar-container" :class="{flexEnd: !accessList.edit }">
-          <BaseButton v-if="accessList.edit" class="btn-add" type="submit" buttonClass="button-save" @click="goToCreate">
-            <font-awesome-icon icon="plus" class="icon"/> New
-          </BaseButton>
-          <SearchBar class="logging-room__search-bar" @input="searchHandler"/>
+          <b-button v-if="accessList.edit"
+                    class="is-rounded is-primary add-button"
+                    icon-left="plus" rounded
+                    type="submit"
+                    buttonClass="button-save logging-room__top-bar-container__button"
+                    @click="goToCreate">
+            <span>Add</span>
+          </b-button>
+          <b-input
+            @input="searchHandler"
+            icon="search"
+            placeholder="Search..."
+            class="is-rounded logging-room__top-bar-container__search-bar"/>
         </div>
         <div class="logging-room__list-card">
           <logging-room-card class="logging-room__list-card__card"
@@ -38,50 +47,68 @@
 </script>
 
 <style lang="scss" scoped >
+  @import "@/assets/css/main.scss";
+
   .logging-room {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    height: 90vh;
-    width: 100%;
+    &__outer{
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      height: 80vh;
+      width: 100%;
+    }
 
     &__container {
-
-      @media only screen and (min-width: 800px) {
-        width: 500px;
-      }
-
-      @media only screen and (min-width: 1300px) {
-        width: 800px;
+      width: 40vw;
+      @media only screen and (max-width: 1023px) {
+        width: 100vw;
       }
     }
 
     &__top-bar-container {
       display: flex;
       justify-content: space-between;
-      margin: 0 15px;
-      max-height: 10vh;
-    }
+      align-items: center;
+      margin: 0 10px;
+      min-height: 10vh;
 
-    &__search-bar {
-      max-width: 300px;
-      align-self: end;
-    }
+      &__search-bar {
+        @media only screen and (max-width: 1023px) {
+          width: 100%;
+        }
 
-    &__list-card {
-      overflow: auto;
-      height: 70vh;
+        width: 300px;
+      }
 
-      &__card {
+      &__button{
+        align-items: center;
       }
     }
 
-    .btn-add {
-      margin: 15px 0px;
-    }
 
-    .flexEnd {
-      justify-content: flex-end;
+
+    &__list-card {
+      @media only screen and (max-width: 1023px) {
+        height: 70vh;
+      }
+      overflow: auto;
+      height: 85vh;
+      &__card {
+      }
+    }
+  }
+  .flexEnd {
+    justify-content: flex-end;
+  }
+
+  .add-button {
+    @media only screen and (max-width: 1023px) {
+      position: fixed;
+      right: 5vw;
+      bottom: 75px;
+      transition: all 0.1s ease-in-out;
+      box-shadow: 2px 2px 16px 4px rgba(0, 0, 0, 0.2);
+      z-index: 1;
     }
   }
 </style>

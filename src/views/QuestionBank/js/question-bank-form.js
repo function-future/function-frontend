@@ -54,7 +54,7 @@ export default {
     failedFetchingQuestionBankDetail () {
       this.toast({
         data: {
-          message: 'Fail to load question bank',
+          message: 'Fail to load question bank data',
           type: 'is-error'
         }
       })
@@ -86,19 +86,19 @@ export default {
     successCreatingQuestionBank () {
       this.toast({
         data: {
-          message: 'Successfully created a question bank',
+          message: 'Successfully created question bank',
           type: 'is-success'
         }
       })
       this.$router.push({
-        name: 'questionBanks'
+        name: 'scoringAdmin'
       })
     },
     failedCreatingQuestionBank () {
       this.isSubmitting = false
       this.toast({
         data: {
-          message: 'Fail to create question bank',
+          message: 'Fail to create question bank, please try again',
           type: 'is-error'
         }
       })
@@ -115,8 +115,10 @@ export default {
     },
     successUpdatingQuestionBank () {
       this.toast({
-        message: 'Successfully update question bank',
-        type: 'is-success'
+        data: {
+          message: 'Successfully updated question bank',
+          type: 'is-success'
+        }
       })
       this.$router.push({
         name: 'questionBankDetail',
@@ -129,7 +131,7 @@ export default {
       this.isSubmitting = false
       this.toast({
         data: {
-          message: 'Fail to update question bank',
+          message: 'Fail to update question bank. please try again',
           type: 'is-error'
         }
       })

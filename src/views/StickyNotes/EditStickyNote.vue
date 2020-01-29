@@ -6,6 +6,8 @@
           <b-input autofocus
                    v-model="stickyNote.title"
                    name="title"
+                   @focus="hideBottomNavBar"
+                   @blur="showBottomNavBar"
                    placeholder="Insert title here"
                    v-validate.disable="'required'">
           </b-input>

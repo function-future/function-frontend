@@ -1,45 +1,96 @@
 import LoggingRoomEdit from '@/views/LoggingRoom/LoggingRoomEdit'
-import {shallowMount} from '@vue/test-utils'
+import { createLocalVue, shallowMount } from '@vue/test-utils'
 import loggingRoomApi from '@/api/controller/logging-room'
+import Vuex from 'vuex'
+import VueRouter from 'vue-router'
 
 jest.mock('@/api/controller/logging-room')
 
 describe('LoggingRoomEdit', () => {
   let wrapper
+  let store
+  let localVue
 
-  function initWrapper (propsData) {
-    const $toasted = {
-      error: jest.fn()
+  function generateLocalVue () {
+    const lv = createLocalVue()
+    lv.use(Vuex)
+    lv.use(VueRouter)
+    return lv
+  }
+
+  function initStore () {
+    const actions = {
+      toast: jest.fn()
     }
-
-    const $route = {
-      params: {}
+    const store = new Vuex.Store({
+      modules: {
+        LoggingRoomEdit: {
+          actions
+        }
+      }
+    })
+    return {
+      store,
+      actions
     }
+  }
 
+  function initWrapper (store, propsData, options) {
+    const router = new VueRouter([])
     wrapper = shallowMount(LoggingRoomEdit, {
+      ...options,
+      store,
+      localVue,
+      router,
       stubs: [
-        'loggingRoomCreate'
+        'loggingRoomCreate',
+        'b-loading',
+        'b-field',
+        'b-input',
+        'b-select',
+        'b-button'
       ],
       propsData: {
         ...propsData
       },
-      mocks: {
-        $toasted,
-        $route
-      }
+      sync: false
     })
+    return wrapper
   }
 
-  test('errorCallBack', () => {
+  function initComponent (propsData) {
+    localVue = generateLocalVue()
+    store = initStore()
+    wrapper = initWrapper(store.store, propsData)
+  }
+  test('mounted', () => {
     loggingRoomApi.getLoggingRoom = success => {
       success({
-        data: []
+        data: {
+          title: 'a',
+          description: 'b',
+          members: []
+        }
       })
     }
-    global.console.log = jest.fn()
-    initWrapper()
-    wrapper.vm.errorCallBack('err')
-    expect(console.log).toHaveBeenCalledTimes(2)
+    initComponent()
+    expect(wrapper.vm.title).toEqual('a')
+    expect(wrapper.vm.description).toEqual('b')
+    expect(wrapper.vm.members.length).toEqual(0)
   })
 
+
+  test('errorCallBack', () => {
+    initComponent()
+    global.console.log = jest.fn()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
+    wrapper.vm.errorCallBack('err')
+    expect(console.log).toHaveBeenCalledWith('err')
+    expect(toastSpy).toBeCalledWith({
+      data: {
+        message: 'something error',
+        type: 'is-danger'
+      }
+    })
+  })
 })

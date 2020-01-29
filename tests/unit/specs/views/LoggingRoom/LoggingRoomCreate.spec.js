@@ -7,7 +7,6 @@ import VueRouter from 'vue-router'
 jest.mock('@/api/controller/logging-room')
 
 describe('LoggingRoomCreate', () => {
-
   let wrapper
   let store
   let localVue
@@ -31,24 +30,27 @@ describe('LoggingRoomCreate', () => {
     const getters = {
       accessList: state => state.accessList
     }
+    const actions = {
+      toast: jest.fn()
+    }
     const store = new Vuex.Store({
-      state,
-      getters
+      modules: {
+        LoggingRoomCreate: {
+          actions,
+          state,
+          getters
+        }
+      }
     })
-
     return {
       store,
       state,
+      actions,
       getters
     }
   }
 
   function initWrapper (store, propsData, options) {
-    const $toasted = {
-      error: jest.fn(),
-      success: jest.fn()
-    }
-
     const router = new VueRouter([])
     return shallowMount(LoggingRoomCreate, {
       ...options,
@@ -56,20 +58,18 @@ describe('LoggingRoomCreate', () => {
       localVue,
       router,
       stubs: [
-        'BaseCard',
-        'BaseInput',
-        'BaseTextArea',
         'UserSimpleCard',
         'ReminderMemberModal',
-        'BaseButton',
         'loggingRoomApi',
-        'font-awesome-icon'
+        'font-awesome-icon',
+        'b-loading',
+        'b-field',
+        'b-input',
+        'b-select',
+        'b-button'
       ],
       propsData: {
         ...propsData
-      },
-      mocks: {
-        $toasted
       },
       sync: false
     })
@@ -117,8 +117,14 @@ describe('LoggingRoomCreate', () => {
       description: '',
       members: []
     })
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.saveLoggingRoom()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
+    expect(toastSpy).toBeCalledWith({
+      data: {
+        message: 'please fill all field',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('saveLoggingRoom case 2', () => {
@@ -127,8 +133,14 @@ describe('LoggingRoomCreate', () => {
       description: '',
       members: []
     })
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.saveLoggingRoom()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
+    expect(toastSpy).toBeCalledWith({
+      data: {
+        message: 'please fill all field',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('saveLoggingRoom case 3', () => {
@@ -137,8 +149,14 @@ describe('LoggingRoomCreate', () => {
       description: 'a',
       members: []
     })
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.saveLoggingRoom()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
+    expect(toastSpy).toBeCalledWith({
+      data: {
+        message: 'please fill all field',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('saveLoggingRoom case 4', () => {
@@ -147,8 +165,14 @@ describe('LoggingRoomCreate', () => {
       description: '',
       members: [{}]
     })
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.saveLoggingRoom()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
+    expect(toastSpy).toBeCalledWith({
+      data: {
+        message: 'please fill all field',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('saveLoggingRoom case 5', () => {
@@ -157,8 +181,14 @@ describe('LoggingRoomCreate', () => {
       description: 'a',
       members: []
     })
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.saveLoggingRoom()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
+    expect(toastSpy).toBeCalledWith({
+      data: {
+        message: 'please fill all field',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('saveLoggingRoom case 6', () => {
@@ -167,8 +197,14 @@ describe('LoggingRoomCreate', () => {
       description: '',
       members: [{}]
     })
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.saveLoggingRoom()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
+    expect(toastSpy).toBeCalledWith({
+      data: {
+        message: 'please fill all field',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('saveLoggingRoom case 7', () => {
@@ -177,8 +213,14 @@ describe('LoggingRoomCreate', () => {
       description: 'a',
       members: [{}]
     })
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.saveLoggingRoom()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
+    expect(toastSpy).toBeCalledWith({
+      data: {
+        message: 'please fill all field',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('saveLoggingRoom case 8', () => {
@@ -194,8 +236,14 @@ describe('LoggingRoomCreate', () => {
       isEdit: false
     })
     wrapper.vm.$router.push = jest.fn()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.saveLoggingRoom()
-    expect(wrapper.vm.$toasted.success).toHaveBeenCalled()
+    expect(toastSpy).toBeCalledWith({
+      data: {
+        message: 'success created logging room',
+        type: 'is-success'
+      }
+    })
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'loggingRoom' })
   })
 
@@ -212,17 +260,29 @@ describe('LoggingRoomCreate', () => {
       isEdit: true
     })
     wrapper.vm.$router.push = jest.fn()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.saveLoggingRoom()
-    expect(wrapper.vm.$toasted.success).toHaveBeenCalled()
+    expect(toastSpy).toBeCalledWith({
+      data: {
+        message: 'Success updated logging room',
+        type: 'is-success'
+      }
+    })
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'loggingRoom' })
   })
 
   test('errorCallBack', () => {
     initComponent()
     global.console.log = jest.fn()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.errorCallBack('err')
     expect(console.log).toHaveBeenCalledWith('err')
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
+    expect(toastSpy).toBeCalledWith({
+      data: {
+        message: 'something error',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('computedMember', () => {

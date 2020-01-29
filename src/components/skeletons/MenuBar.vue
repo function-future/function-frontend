@@ -31,7 +31,8 @@
                    tag="router-link"
                    :active="isActive('courses')"
                    :to="{ name: 'courses' }"
-                   v-if="menuList.courses">
+                   v-if="menuList.courses"
+                   @click.native="updateViewKey">
       </b-menu-item>
       <b-menu-item class="menu-item"
                    label="Users"
@@ -52,7 +53,8 @@
                    tag="router-link"
                    :active="isActive('grades')"
                    :to="{ name: 'scoringAdmin' }"
-                   v-if="menuList.grades">
+                   v-if="menuList.grades"
+                   @click.native="updateViewKey">
       </b-menu-item>
       <b-menu-item class="menu-item"
                    label="Judging"
@@ -94,7 +96,7 @@
                    @click="toggleQuestionnaireMenu"
                    v-if="menuList.questionnaireAdmin">
         <template slot="label" slot-scope="props">
-          Questionnaires Admin
+          Peer Appraisal
           <b-icon
             class="is-pulled-right"
             :icon="props.expanded ? 'caret-down' : 'caret-up'">

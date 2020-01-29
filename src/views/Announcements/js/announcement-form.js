@@ -31,7 +31,9 @@ export default {
       'updateAnnouncement',
       'initialState',
       'uploadResource',
-      'toast'
+      'toast',
+      'showBottomNavBar',
+      'hideBottomNavBar'
     ]),
     initPage () {
       this.initialState()

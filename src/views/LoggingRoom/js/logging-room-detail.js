@@ -2,10 +2,12 @@ import ParticipantCard from '@/views/LoggingRoom/ParticipantCard'
 import TopicCard from '@/views/LoggingRoom/TopicCard'
 import InfiniteLoading from 'vue-infinite-loading'
 import loggingRoomApi from '@/api/controller/logging-room'
-import BaseButton from '@/components/BaseButton'
 import ModalAddQuestion from '@/views/Questionnaire/ModalAddQuestion'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
-import { mapGetters } from 'vuex'
+import MenuCard from '@/views/LoggingRoom/MenuCard'
+
+import Breakpoint from '@/mixins/Breakpoint'
+import { mapActions,mapGetters } from 'vuex'
 
 export default {
   name: 'logging-room-detail',
@@ -14,10 +16,13 @@ export default {
     TopicCard,
     loggingRoomApi,
     InfiniteLoading,
-    BaseButton,
     ModalAddQuestion,
-    ModalDeleteConfirmation
+    ModalDeleteConfirmation,
+    MenuCard
   },
+  mixins: [
+    Breakpoint
+  ],
   data () {
     return {
       topics: [],
@@ -35,7 +40,11 @@ export default {
         show: false,
         title: '',
         id: ''
-      }
+      },
+      iconMenuMembers: 'user',
+      iconMenuMembersTitle: 'Members',
+      iconMenuTopics: 'list',
+      iconMenuTopicsTitle: 'Topics'
     }
   },
   computed: {
@@ -44,6 +53,9 @@ export default {
     ])
   },
   methods: {
+    ...mapActions([
+      'toast'
+    ]),
     infiniteHandler ($state) {
       loggingRoomApi.getLoggingRoomTopic(response => {
         if (this.page === 1) {
@@ -66,7 +78,12 @@ export default {
     },
     errorCallBack (err) {
       console.log(err)
-      this.$toasted.error('Something Error')
+      this.toast({
+        data: {
+          message: 'something error',
+          type: 'is-danger'
+        }
+      })
     },
     goToLoggingRoom (topicId) {
       this.$router.push({
@@ -94,7 +111,12 @@ export default {
     },
     createTopic (value) {
       loggingRoomApi.createTopic(response => {
-        this.$toasted.success('success create question')
+        this.toast({
+          data: {
+            message: 'success create topic',
+            type: 'is-success'
+          }
+        })
         this.page = 1
         this.topics = []
         this.$refs.infiniteLoading.stateChanger.reset()
@@ -119,7 +141,12 @@ export default {
     },
     deleteTopic () {
       loggingRoomApi.deleteTopic(response => {
-        this.$toasted.success('success delete topic')
+        this.toast({
+          data: {
+            message: 'success delete the topic',
+            type: 'is-danger'
+          }
+        })
         this.resetDeleteModal()
         this.page = 1
         this.topics = []
@@ -128,6 +155,22 @@ export default {
         params: {
           loggingRoomId: this.modalDeleteConfirmation.id,
           topicId: this.modalDeleteConfirmation.id
+        }
+      })
+    },
+    callShowMembers () {
+      this.$router.push({
+        name: 'loggingRoomMembersPage',
+        params: {
+          loggingRoomId: this.$route.params.loggingRoomId
+        }
+      })
+    },
+    callShowTopics () {
+      this.$router.push({
+        name: 'loggingRoomTopicsPage',
+        params: {
+          loggingRoomId: this.$route.params.loggingRoomId
         }
       })
     }

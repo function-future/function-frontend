@@ -28,6 +28,8 @@
             <b-input autofocus
                      v-model="userDetail.name"
                      name="name"
+                     @focus="hideBottomNavBar"
+                     @blur="showBottomNavBar"
                      v-validate.continues="'required|alpha_spaces'">
             </b-input>
           </b-field>
@@ -38,6 +40,8 @@
             <b-input v-model="userDetail.phone"
                      name="phone"
                      type="tel"
+                     @focus="hideBottomNavBar"
+                     @blur="showBottomNavBar"
                      v-validate.continues="'required|numeric|min:10|max:13'">
             </b-input>
           </b-field>
@@ -48,6 +52,8 @@
             <b-input v-model="userDetail.email"
                      name="email"
                      type="email"
+                     @focus="hideBottomNavBar"
+                     @blur="showBottomNavBar"
                      v-validate.continues="'required|email'">
             </b-input>
           </b-field>
@@ -57,6 +63,8 @@
           <b-field label="University" label-position="on-border">
             <b-input v-model="userDetail.university"
                      name="university"
+                     @focus="hideBottomNavBar"
+                     @blur="showBottomNavBar"
                      v-validate.continues="'required|min:2'">
             </b-input>
           </b-field>
@@ -82,6 +90,8 @@
           <b-field label="Address" label-position="on-border">
             <b-input v-model="userDetail.address"
                      name="address"
+                     @focus="hideBottomNavBar"
+                     @blur="showBottomNavBar"
                      v-validate.continues="'required|min:5'">
             </b-input>
           </b-field>

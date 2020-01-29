@@ -27,7 +27,9 @@ export default {
       'fetchStickyNotes',
       'postStickyNotes',
       'initialState',
-      'toast'
+      'toast',
+      'showBottomNavBar',
+      'hideBottomNavBar'
     ]),
     initPage () {
       this.getStickyNoteDetail()

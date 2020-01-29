@@ -59,7 +59,7 @@ export default {
     failedFetchingStudentList () {
       this.toast({
         data: {
-          message: 'Fail to load student list',
+          message: 'Fail to load report data, please try again',
           type: 'is-error'
         }
       })

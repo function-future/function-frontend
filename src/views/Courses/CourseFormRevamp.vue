@@ -7,6 +7,8 @@
                    placeholder="Insert title here"
                    v-model="courseData.title"
                    name="title"
+                   @focus="hideBottomNavBar"
+                   @blur="showBottomNavBar"
                    v-validate.disable="'required'">
           </b-input>
         </b-field>

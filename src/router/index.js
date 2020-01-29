@@ -1,64 +1,127 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import assignmentForm from '@/views/Assignment/AssignmentForm'
-import assignmentRooms from '@/views/Assignment/AssignmentRooms'
-import assignmentRoomDetail from '@/views/Assignment/AssignmentRoomDetail'
-import assignmentDetail from '@/views/Assignment/AssignmentDetail'
-import scoringAdmin from '@/views/Scoring/LandingPageAdmin'
-import questionBankDetail from '@/views/QuestionBank/QuestionBankDetail'
-import questionBankForm from '@/views/QuestionBank/QuestionBankForm'
-import questionBankQuestionDetail from '@/views/QuestionBank/QuestionBankQuestionDetail'
-import questionForm from '@/views/QuestionBank/QuestionForm'
-import quizForm from '@/views/Quiz/QuizForm'
-import quizDetail from '@/views/Quiz/QuizDetail'
-import quizQuestions from '@/views/Quiz/QuizQuestions'
-import judgingList from '@/views/FinalJudging/JudgingList'
-import judgingForm from '@/views/FinalJudging/JudgingForm'
-import judgingDetail from '@/views/FinalJudging/JudgingDetail'
-import reportPage from '@/views/FinalJudging/ReportPage'
-import points from '@/views/Point/Point'
-import feeds from '@/views/Feeds/FeedsRevamp.vue'
-import announcements from '@/views/Announcements/Announcements.vue'
-import announcementDetail from '@/views/Announcements/AnnouncementDetail.vue'
-import announcementForm from '@/views/Announcements/AnnouncementForm.vue'
-import activityBlogs from '@/views/ActivityBlogs/ActivityBlogs.vue'
-import activityBlogDetail from '@/views/ActivityBlogs/ActivityBlogDetail.vue'
-import ActivityBlogForm from '@/views/ActivityBlogs/ActivityBlogForm.vue'
-import users from '@/views/Users/Users.vue'
-import stickyNotes from '@/views/StickyNotes/StickyNotesDetail.vue'
-import editStickyNote from '@/views/StickyNotes/EditStickyNote.vue'
-import UserForm from '@/views/Users/UserForm.vue'
-import batches from '@/views/Batches/Batches.vue'
-import batchForm from '@/views/Batches/BatchForm.vue'
-import courses from '@/views/Courses/CoursesRevamp.vue'
-import courseDetail from '@/views/Courses/CourseDetailRevamp.vue'
-import courseForm from '@/views/Courses/CourseFormRevamp.vue'
 import config from '@/config/index'
-import chatrooms from '@/views/Chatrooms/Chatrooms'
-import myQuestionnaire from '@/views/Questionnaire/MyQuestionnaire'
-import myQuestionnaireAppraisee from '@/views/Questionnaire/MyQuestionnaireAppraisee'
-import questionnaires from '@/views/Questionnaire/Questionnaires'
-import questionnairesCreate from '@/views/Questionnaire/QuestionnairesCreate'
-import questionnairesEdit from '@/views/Questionnaire/QuestionnairesEdit'
-import questionnaireResults from '@/views/Questionnaire/QuestionnaireResults'
-import questionnaireResultsMembers from '@/views/Questionnaire/QuestionnaireResultsMembers'
-import questionnaireResultsMemberDetail from '@/views/Questionnaire/QuestionnaireResultsMemberDetail'
-import questionnaireResultsQuestionnaireDetail from '@/views/Questionnaire/QuestionnaireResultsQuestionnaireDetail'
-import questionnaireResultsQuestionDetail from '@/views/Questionnaire/QuestionnaireResultsQuestionDetail'
-import reminders from '@/views/Reminders/Reminders'
-import reminderForm from '@/views/Reminders/ReminderForm'
-import profile from '@/views/User/Profile'
-import account from '@/views/User/Account'
-import notifications from '@/views/Notifications/Notifications.vue'
-import changePassword from '@/views/User/ChangePassword'
-import loggingRoom from '@/views/LoggingRoom/LoggingRoom.vue'
-import loggingRoomDetail from '@/views/LoggingRoom/LoggingRoomDetail.vue'
-import logMessageRoom from '@/views/LoggingRoom/LogMessageRoom.vue'
-import loggingRoomCreate from '@/views/LoggingRoom/LoggingRoomCreate'
-import loggingRoomEdit from '@/views/LoggingRoom/LoggingRoomEdit'
-
-import files from '@/views/Files/Files'
-import store from '../store/index.js'
+import store from '@/store/index'
+const assignmentForm = () => import(/* webpackChunkName: 'p-assignment_form' */
+  '@/views/Assignment/AssignmentForm.vue')
+const assignmentRooms = () => import(/* webpackChunkName: 'p-assignment_room' */
+  '@/views/Assignment/AssignmentRooms.vue')
+const assignmentRoomDetail = () => import(/* webpackChunkName: 'p-assignment_room_detail' */
+  '@/views/Assignment/AssignmentRoomDetail.vue')
+const assignmentDetail = () => import(/* webpackChunkName: 'p-assignment_detail' */
+  '@/views/Assignment/AssignmentDetail.vue')
+const scoringAdmin = () => import(/* webpackChunkName: 'p-landing_page_admin' */
+  '@/views/Scoring/LandingPageAdmin.vue')
+const questionBankDetail = () => import(/* webpackChunkName: 'p-question_bank_detail' */
+  '@/views/QuestionBank/QuestionBankDetail.vue')
+const questionBankForm = () => import(/* webpackChunkName: 'p-question_bank_form' */
+  '@/views/QuestionBank/QuestionBankForm.vue')
+const questionBankQuestionDetail = () => import(/* webpackChunkName: 'p-question_bank_question_detail' */
+  '@/views/QuestionBank/QuestionBankQuestionDetail.vue')
+const questionForm = () => import(/* webpackChunkName: 'p-question_form' */
+  '@/views/QuestionBank/QuestionForm.vue')
+const quizForm = () => import(/* webpackChunkName: 'p-quiz_form' */
+  '@/views/Quiz/QuizForm.vue')
+const quizDetail = () => import(/* webpackChunkName: 'p-quiz_detail' */
+  '@/views/Quiz/QuizDetail.vue')
+const quizQuestions = () => import(/* webpackChunkName: 'p-quiz_questions' */
+  '@/views/Quiz/QuizQuestions.vue')
+const judgingList = () => import(/* webpackChunkName: 'p-judging_list' */
+  '@/views/FinalJudging/JudgingList.vue')
+const judgingForm = () => import(/* webpackChunkName: 'p-judging_form' */
+  '@/views/FinalJudging/JudgingForm.vue')
+const judgingDetail = () => import(/* webpackChunkName: 'p-judging_detail' */
+  '@/views/FinalJudging/JudgingDetail.vue')
+const reportPage = () => import(/* webpackChunkName: 'p-report_page' */
+  '@/views/FinalJudging/ReportPage.vue')
+const points = () => import(/* webpackChunkName: 'p-point' */
+  '@/views/Point/Point.vue')
+const feeds = () => import(/* webpackChunkName: 'p-feeds_revamp' */
+  '@/views/Feeds/FeedsRevamp.vue')
+const announcements = () => import(/* webpackChunkName: 'p-announcements' */
+  '@/views/Announcements/Announcements.vue')
+const announcementDetail = () => import(/* webpackChunkName: 'p-announcement_detail' */
+  '@/views/Announcements/AnnouncementDetail.vue')
+const announcementForm = () => import(/* webpackChunkName: 'p-announcement_form' */
+  '@/views/Announcements/AnnouncementForm.vue')
+const activityBlogs = () => import(/* webpackChunkName: 'p-activity_blogs' */
+  '@/views/ActivityBlogs/ActivityBlogs.vue')
+const activityBlogDetail = () => import(/* webpackChunkName: 'p-activity_blog_detail' */
+  '@/views/ActivityBlogs/ActivityBlogDetail.vue')
+const ActivityBlogForm = () => import(/* webpackChunkName: 'p-activity_blog_form' */
+  '@/views/ActivityBlogs/ActivityBlogForm.vue')
+const users = () => import(/* webpackChunkName: 'p-users' */
+  '@/views/Users/Users.vue')
+const stickyNotes = () => import(/* webpackChunkName: 'p-sticky_notes_detail' */
+  '@/views/StickyNotes/StickyNotesDetail.vue')
+const editStickyNote = () => import(/* webpackChunkName: 'p-edit_sticky_note' */
+  '@/views/StickyNotes/EditStickyNote.vue')
+const UserForm = () => import(/* webpackChunkName: 'p-user_form' */
+  '@/views/Users/UserForm.vue')
+const batches = () => import(/* webpackChunkName: 'p-batches' */
+  '@/views/Batches/Batches.vue')
+const batchForm = () => import(/* webpackChunkName: 'p-batch_form' */
+  '@/views/Batches/BatchForm.vue')
+const courses = () => import(/* webpackChunkName: 'p-courses_revamp' */
+  '@/views/Courses/CoursesRevamp.vue')
+const courseDetail = () => import(/* webpackChunkName: 'p-courses_detail_revamp' */
+  '@/views/Courses/CourseDetailRevamp.vue')
+const courseForm = () => import(/* webpackChunkName: 'p-courses_form_revamp' */
+  '@/views/Courses/CourseFormRevamp.vue')
+const chatrooms = () => import(/* webpackChunkName: 'p-chatroom' */
+  '@/views/Chatrooms/Chatroom.vue')
+const myQuestionnaire = () => import(/* webpackChunkName: 'p-my_questionnaire' */
+  '@/views/Questionnaire/MyQuestionnaire.vue')
+const myQuestionnaireAppraisee = () => import(/* webpackChunkName: 'p-my_questionairre_appraisee' */
+  '@/views/Questionnaire/MyQuestionnaireAppraisee.vue')
+const questionnaires = () => import(/* webpackChunkName: 'p-questionairres' */
+  '@/views/Questionnaire/Questionnaires.vue')
+const questionnairesCreate = () => import(/* webpackChunkName: 'p-questionairres_create' */
+  '@/views/Questionnaire/QuestionnairesCreate.vue')
+const questionnairesEdit = () => import(/* webpackChunkName: 'p-questionairres_edit' */
+  '@/views/Questionnaire/QuestionnairesEdit.vue')
+const questionnaireResults = () => import(/* webpackChunkName: 'p-questionnaire_results' */
+  '@/views/Questionnaire/QuestionnaireResults.vue')
+const questionnaireResultsMembers = () => import(/* webpackChunkName: 'p-questionnaire_results_members' */
+  '@/views/Questionnaire/QuestionnaireResultsMembers.vue')
+const questionnaireResultsMemberDetail = () => import(/* webpackChunkName: 'p-questionnaire_results_member_detail' */
+  '@/views/Questionnaire/QuestionnaireResultsMemberDetail.vue')
+const questionnaireResultsQuestionnaireDetail = () => import(/* webpackChunkName: 'p-questionnaire_results_questionnaire_detail' */
+  '@/views/Questionnaire/QuestionnaireResultsQuestionnaireDetail.vue')
+const questionnaireResultsQuestionDetail = () => import(/* webpackChunkName: 'p-questionnaire_results_question_detail' */
+  '@/views/Questionnaire/QuestionnaireResultsQuestionDetail.vue')
+const menuMobileQuestionnaire = () => import(/* webpackChunkName: 'p-menu_mobile_questionnaire' */
+  '@/views/Questionnaire/MenuMobileQuestionnaire.vue')
+const reminders = () => import(/* webpackChunkName: 'p-reminders' */
+  '@/views/Reminders/Reminders.vue')
+const reminderForm = () => import(/* webpackChunkName: 'p-reminder_form' */
+  '@/views/Reminders/ReminderForm.vue')
+const profile = () => import(/* webpackChunkName: 'p-profile' */
+  '@/views/User/Profile.vue')
+const account = () => import(/* webpackChunkName: 'p-account' */
+  '@/views/User/Account.vue')
+const notifications = () => import(/* webpackChunkName: 'p-notifications' */
+  '@/views/Notifications/Notifications.vue')
+const changePassword = () => import(/* webpackChunkName: 'p-change_password-users' */
+  '@/views/User/ChangePassword.vue')
+const loggingRoom = () => import(/* webpackChunkName: 'p-logging_room' */
+  '@/views/LoggingRoom/LoggingRoom.vue')
+const loggingRoomDetail = () => import(/* webpackChunkName: 'p-logging_room_detail' */
+  '@/views/LoggingRoom/LoggingRoomDetail.vue')
+const logMessageRoom = () => import(/* webpackChunkName: 'p-log_message_room' */
+  '@/views/LoggingRoom/LogMessageRoom.vue')
+const loggingRoomCreate = () => import(/* webpackChunkName: 'p-logging_room_create' */
+  '@/views/LoggingRoom/LoggingRoomCreate')
+const loggingRoomEdit = () => import(/* webpackChunkName: 'p-logging_room_edit' */
+  '@/views/LoggingRoom/LoggingRoomEdit.vue')
+const loggingRoomMembersPage = () => import(/* webpackChunkName: 'p-logging_room_members_page' */
+  '@/views/LoggingRoom/MembersPage.vue')
+const loggingRoomTopicsPage = () => import(/* webpackChunkName: 'p-logging_room_topics_page' */
+  '@/views/LoggingRoom/LoggingRoomTopicsPage.vue')
+const files = () => import(/* webpackChunkName: 'p-files' */
+  '@/views/Files/Files')
+const chatroomContent = () => import(/* webpackChunkName: 'p-chatroom_content' */
+  '@/views/Chatrooms/ChatroomContent')
 
 Vue.use(Router)
 
@@ -568,7 +631,15 @@ const router = new Router({
     {
       path: config.app.pages.scoring.admin,
       name: 'scoringAdmin',
-      component: scoringAdmin
+      component: scoringAdmin,
+      meta: {
+        auth: true,
+        title: 'Grades',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Grades', link: 'scoringAdmin'}
+        ]
+      }
     },
     {
       path: config.app.pages.questionBanks.list,
@@ -694,8 +765,7 @@ const router = new Router({
         title: 'Add Quiz',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'quizBatch' },
-          { name: 'Quizzes', link: 'quizzes' },
+          { name: 'Grades', link: 'scoringAdmin' },
           { name: 'Add Quiz', link: 'addQuiz' }
         ]
       },
@@ -712,8 +782,7 @@ const router = new Router({
         title: 'Edit Quiz',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'quizBatch' },
-          { name: 'Quizzes', link: 'quizzes' },
+          { name: 'Grades', link: 'scoringAdmin' },
           { name: 'Edit Quiz', link: 'editQuiz' }
         ]
       },
@@ -730,8 +799,7 @@ const router = new Router({
         title: 'Quiz Detail',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'quizBatch' },
-          { name: 'Quizzes', link: 'quizzes' },
+          { name: 'Grades', link: 'scoringAdmin' },
           { name: 'Quiz Detail', link: 'quizDetail' }
         ]
       }
@@ -745,8 +813,8 @@ const router = new Router({
         title: 'Questions',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Quizzes', link: 'studentQuizzes' },
-          { name: 'Quiz Detail', link: 'studentQuizDetail' },
+          { name: 'Grades', link: 'scoringAdmin' },
+          { name: 'Quiz Detail', link: 'quizDetail' },
           { name: 'Questions', link: 'studentQuizQuestions' }
         ]
       }
@@ -760,7 +828,6 @@ const router = new Router({
         title: 'Assignment Detail',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'assignmentBatch' },
           { name: 'Assignments', link: 'assignments' },
           { name: 'Assignment Detail', link: 'assignmentDetail' }
         ]
@@ -775,7 +842,6 @@ const router = new Router({
         title: 'Add Assignments',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'assignmentBatch' },
           { name: 'Assignments', link: 'assignments' },
           { name: 'Add Assignment', link: 'addAssignment' }
         ]
@@ -793,7 +859,6 @@ const router = new Router({
         title: 'Edit Assignments',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'assignmentBatch' },
           { name: 'Assignments', link: 'assignments' },
           { name: 'Edit Assignment', link: 'editAssignment' }
         ]
@@ -811,7 +876,6 @@ const router = new Router({
         title: 'Rooms',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'assignmentBatch' },
           { name: 'Assignments', link: 'assignments' },
           { name: 'Assignment Detail', link: 'assignmentDetail' },
           { name: 'Rooms', link: 'assignmentRooms' }
@@ -827,7 +891,6 @@ const router = new Router({
         title: 'Room Detail',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'assignmentBatch' },
           { name: 'Assignments', link: 'assignments' },
           { name: 'Rooms', link: 'assignmentRooms' },
           { name: 'Room Detail', link: 'assignmentRoomDetail' }
@@ -837,14 +900,13 @@ const router = new Router({
         if (store.getters.currentUser.role === 'STUDENT') {
           to.meta.breadcrumb = [
             { name: 'Home', link: 'feeds' },
-            { name: 'Assignments', link: 'studentAssignments' },
+            { name: 'Grades', link: 'scoringAdmin' },
             { name: 'Room Detail', link: 'assignmentRoomDetail' }
           ]
         }
         else {
           to.meta.breadcrumb = [
             { name: 'Home', link: 'feeds' },
-            { name: 'Batches', link: 'assignmentBatch' },
             { name: 'Assignments', link: 'assignments' },
             { name: 'Rooms', link: 'assignmentRooms' },
             { name: 'Room Detail', link: 'assignmentRoomDetail' }
@@ -875,7 +937,6 @@ const router = new Router({
         title: 'Judging Sessions',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'judgingBatch' },
           { name: 'Judging Sessions', link: 'judgingList' }
         ]
       }
@@ -889,7 +950,6 @@ const router = new Router({
         title: 'Add Judging Session',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'judgingBatch' },
           { name: 'Add Judging Session', link: 'addJudging' }
         ],
       },
@@ -904,7 +964,6 @@ const router = new Router({
         title: 'Add Judging Session',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'judgingBatch' },
           { name: 'Judging Session Detail', link: 'judgingDetail' },
           { name: 'Edit Judging Session', link: 'editJudging' }
         ],
@@ -920,7 +979,6 @@ const router = new Router({
         title: 'Judging Detail',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'judgingBatch' },
           { name: 'Judging Sessions', link: 'judgingList' },
           { name: 'Judging Session Detail', link: 'judgingDetail' }
         ]
@@ -935,7 +993,6 @@ const router = new Router({
         title: 'Final Score Report',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Batches', link: 'judgingBatch' },
           { name: 'Judging Sessions', link: 'judgingList' },
           { name: 'Report Page', link: 'batchReportPage' }
         ]
@@ -947,8 +1004,22 @@ const router = new Router({
       component: chatrooms,
       meta: {
         auth: true,
-        title: 'Chatrooms'
+        title: 'Chatrooms',
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Chatrooms', link: 'chatrooms' }
+        ]
       }
+    },
+    {
+      path: config.app.pages.chatroomsMobile,
+      name: 'chatroomsMobile',
+      component: chatroomContent,
+      meta: {
+        auth: true,
+        title: 'Chatrooms'
+      },
+      props: true
     },
     {
       path: config.app.pages.reminders.list,
@@ -1019,6 +1090,19 @@ const router = new Router({
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
           { name: 'Notifications', link: 'notifications' }
+        ]
+      }
+    },
+    {
+      path: config.app.pages.menuMobileQuestionnaire,
+      name: 'menuMobileQuestionnaire',
+      component: menuMobileQuestionnaire,
+      meta: {
+        title: 'Peer Appraisal',
+        auth: true,
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Peer Appraisal', link: 'menuMobileQuestionnaire' }
         ]
       }
     },
@@ -1186,16 +1270,55 @@ const router = new Router({
       component: loggingRoom,
       meta: {
         title: 'Logging Rooms',
-        auth: true
+        auth: true,
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Logging Room', link: 'loggingRoom' }
+        ]
       }
     },
     {
-      path: config.app.pages.loggingRoom.topics,
+      path: config.app.pages.loggingRoom.detail,
       name: 'loggingRoomDetail',
       component: loggingRoomDetail,
       meta: {
         title: 'Logging Room - Detail',
-        auth: true
+        auth: true,
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Logging Room', link: 'loggingRoom' },
+          { name: 'Logging Room Detail', link: 'loggingRoomDetail' }
+        ]
+      }
+    },
+    {
+      path: config.app.pages.loggingRoom.members,
+      name: 'loggingRoomMembersPage',
+      component: loggingRoomMembersPage,
+      meta: {
+        title: 'Logging Room - Members',
+        auth: true,
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Logging Room', link: 'loggingRoom' },
+          { name: 'Logging Room Detail', link: 'loggingRoomDetail' },
+          { name: 'Members', link: 'loggingRoomMembersPage' }
+        ]
+      }
+    },
+    {
+      path: config.app.pages.loggingRoom.topics,
+      name: 'loggingRoomTopicsPage',
+      component: loggingRoomTopicsPage,
+      meta: {
+        title: 'Logging Room - Topics',
+        auth: true,
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Logging Room', link: 'loggingRoom' },
+          { name: 'Logging Room Detail', link: 'loggingRoomDetail' },
+          { name: 'Topics', link: 'loggingRoomTopicsPage' }
+        ]
       }
     },
     {
@@ -1204,7 +1327,13 @@ const router = new Router({
       component: logMessageRoom,
       meta: {
         title: 'Logging Room',
-        auth: true
+        auth: true,
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Logging Room', link: 'loggingRoom' },
+          { name: 'Logging Room Detail', link: 'loggingRoomDetail' },
+          { name: 'Log Message', link: 'logMessage' }
+        ]
       }
     },
     {
@@ -1213,7 +1342,12 @@ const router = new Router({
       component: loggingRoomCreate,
       meta: {
         title: 'Logging Room - Create',
-        auth: true
+        auth: true,
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'logging Room', link: 'loggingRoom' },
+          { name: 'Logging Room Create', link: 'loggingRoomCreate' }
+        ]
       }
     },
     {
@@ -1222,7 +1356,12 @@ const router = new Router({
       component: loggingRoomEdit,
       meta: {
         title: 'Logging Room - Edit',
-        auth: true
+        auth: true,
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Logging Room', link: 'loggingRoom' },
+          { name: 'Logging Room Edit', link: 'loggingRoomEdit' }
+        ]
       }
     }
   ]
@@ -1257,7 +1396,12 @@ router.afterEach((to, from) => {
     if (!store.getters.accessList.read ||
       (to.meta.add && store.getters.accessList.add !== to.meta.add) ||
       (to.meta.edit && store.getters.accessList.edit !== to.meta.edit)) {
-      Vue.toasted.error('You do not have permission to access the page')
+      store.dispatch('toast', {
+        data: {
+          message: 'You do not have permission to access the page',
+          type: 'is-danger'
+        }
+      })
       router.push({ name: 'feeds' })
     }
     return
@@ -1269,7 +1413,12 @@ router.afterEach((to, from) => {
       if (!store.getters.accessList.read ||
         (to.meta.add && store.getters.accessList.add !== to.meta.add) ||
         (to.meta.edit && store.getters.accessList.edit !== to.meta.edit)) {
-        Vue.toasted.error('You do not have permission to access the page')
+        store.dispatch('toast', {
+          data: {
+            message: 'You do not have permission to access the page',
+            type: 'is-danger'
+          }
+        })
         router.push({ name: 'feeds' })
       }
     },

@@ -2,7 +2,7 @@ import QuestionnaireCard from '@/views/Questionnaire/QuestionnaireCard'
 import { shallowMount } from '@vue/test-utils'
 import moment from 'moment'
 
-describe('MyQuestionnaireForm', () => {
+describe('QuestionnaireCard', () => {
   let wrapper
 
   function initWrapper (propsData) {
@@ -89,7 +89,7 @@ describe('MyQuestionnaireForm', () => {
       startDate
     })
     expect(spy).toHaveBeenCalled()
-    expect(wrapper.vm.computedStartDate).toEqual(moment(startDate).format('DD/MM/YYYY'))
+    expect(wrapper.vm.computedStartDate).toEqual(moment(startDate).format('DD/MMM/YYYY, h:mm a'))
   })
 
   test('computedDueDate', () => {
@@ -99,6 +99,6 @@ describe('MyQuestionnaireForm', () => {
       dueDate
     })
     expect(spy).toHaveBeenCalled()
-    expect(wrapper.vm.computedDueDate).toEqual(moment(dueDate).format('DD/MM/YYYY'))
+    expect(wrapper.vm.computedDueDate).toEqual(moment(dueDate).format('DD/MM/YYYY,  h:mm a'))
   })
 })

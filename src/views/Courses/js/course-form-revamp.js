@@ -47,7 +47,9 @@ export default {
       'updateCourse',
       'updateMasterCourse',
       'uploadMaterial',
-      'toast'
+      'toast',
+      'showBottomNavBar',
+      'hideBottomNavBar'
     ]),
     initPage () {
       if (this.editMode) {

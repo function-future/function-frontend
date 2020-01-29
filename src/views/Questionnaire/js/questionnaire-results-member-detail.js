@@ -1,16 +1,22 @@
 import QuestionnaireParticipantDetailCard from '@/views/Questionnaire/QuestionnaireParticipantDetailCard'
+import QuestionnaireParticipantCard from '@/views/Questionnaire/QuestionnaireParticipantCard'
 import QuestionnaireCard from '@/views/Questionnaire/QuestionnaireCard'
 import { mapActions, mapGetters } from 'vuex'
 import InfiniteLoading from 'vue-infinite-loading'
 import questionnaireResultsApi from '@/api/controller/questionnaire-results'
+import Breakpoint from '@/mixins/Breakpoint'
 
 export default {
   name: 'QuestionnaireResultsMemberDetail',
   components: {
     QuestionnaireParticipantDetailCard,
+    QuestionnaireParticipantCard,
     QuestionnaireCard,
     InfiniteLoading
   },
+  mixins: [
+    Breakpoint
+  ],
   data () {
     return {
       appraiseeTemp: {},
