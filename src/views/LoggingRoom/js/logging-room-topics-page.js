@@ -38,9 +38,6 @@ export default {
     ...mapGetters([
       'accessList'
     ]),
-    ...mapActions([
-      'toast'
-    ])
   },
   props: {
     iconMenu: {
@@ -53,6 +50,9 @@ export default {
     }
   },
   methods: {
+    ...mapActions([
+      'toast'
+    ]),
     infiniteHandler ($state) {
       loggingRoomApi.getLoggingRoomTopic(response => {
         if (this.page === 1) {
@@ -136,6 +136,15 @@ export default {
           topicId: this.modalDeleteConfirmation.id
         }
       })
-    }
+    },
+    errorCallBack (err) {
+      console.log(err)
+      this.toast({
+        data: {
+          message: 'something error',
+          type: 'is-danger'
+        }
+      })
+    },
   }
 }

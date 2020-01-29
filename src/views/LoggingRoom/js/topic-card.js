@@ -1,6 +1,5 @@
 import { mapGetters } from 'vuex'
 
-
 export default {
   name: 'topic-card',
   props: {

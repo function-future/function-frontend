@@ -9,13 +9,5 @@ export default {
       type: String,
       default: 'Title'
     }
-  },
-  methods: {
-    testclick () {
-      window.alert('hai')
-      console.log('broken')
-      this.iconTitle = 'skipskip'
-      this.$emit('click')
-    }
   }
 }

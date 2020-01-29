@@ -30,7 +30,6 @@ export default {
   },
   mounted () {
     loggingRoomApi.getLoggingRoom(response => {
-      console.log(response)
       this.title = response.data.title
       this.description = response.data.description
       this.members = response.data.members
