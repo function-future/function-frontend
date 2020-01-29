@@ -104,7 +104,12 @@ export default {
     failFetchingQuestionBankQuestionList () {
       this.isLoading = false
       this.failLoadQuestion = true
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        data: {
+          message: 'Fail to load questions',
+          type: 'is-error'
+        }
+      })
     },
     redirectToEditQuestionBankForm() {
       this.$router.push({
