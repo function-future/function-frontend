@@ -216,8 +216,9 @@ describe('QuestionBankDetail', () => {
 
   test('failFetchingQuestionBankQuestionList', () => {
     initComponent()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failFetchingQuestionBankQuestionList()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledTimes(1)
   })
 
   test('redirectToEditQuestionBankForm', () => {
