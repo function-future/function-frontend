@@ -5,7 +5,7 @@ import questionnaireApi from '@/api/controller/questionnaire'
 
 jest.mock('@/api/controller/questionnaire')
 
-describe('QuestionnaireResultsQuestionDetail', () => {
+describe('QuestionnaireEdit', () => {
   let wrapper
   let store
 
@@ -333,19 +333,19 @@ describe('QuestionnaireResultsQuestionDetail', () => {
     expect(store.actions.fetchCurrentQuestions).toHaveBeenCalled()
   })
 
-  test('deleteTheQuestionQuestionnaire', () => {
-    questionnaireApi.deleteQuestionQuestionnaire = success => {
-      success()
-    }
-    const spy = jest.spyOn(QuestionnairesEdit.methods, 'fetchingQuestions')
-    const spyDeleteModal = jest.spyOn(QuestionnairesEdit.methods, 'resetDeleteConfirmationModalQuestion')
-    initWrapper()
-    const spy2 = jest.spyOn(wrapper.vm, 'toast')
-    wrapper.vm.deleteTheQuestionQuestionnaire()
-    expect(spy).toHaveBeenCalled()
-    expect(spy2).toHaveBeenCalled()
-    expect(spyDeleteModal).toHaveBeenCalled()
-  })
+  // test('deleteTheQuestionQuestionnaire', () => {
+  //   questionnaireApi.deleteQuestionQuestionnaire = success => {
+  //     success()
+  //   }
+  //   const spy = jest.spyOn(QuestionnairesEdit.methods, 'fetchingQuestions')
+  //   const spyDeleteModal = jest.spyOn(QuestionnairesEdit.methods, 'resetDeleteConfirmationModalQuestion')
+  //   initWrapper()
+  //   const spy2 = jest.spyOn(wrapper.vm, 'toast')
+  //   wrapper.vm.deleteTheQuestionQuestionnaire()
+  //   expect(spy).toHaveBeenCalled()
+  //   expect(spy2).toHaveBeenCalled()
+  //   expect(spyDeleteModal).toHaveBeenCalled()
+  // })
 
   test('openEditModal', () => {
     initWrapper()

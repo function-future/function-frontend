@@ -1,30 +1,68 @@
 import QuestionnairesCreate from '@/views/Questionnaire/QuestionnairesCreate'
-import { shallowMount } from '@vue/test-utils'
+import { createLocalVue, shallowMount } from '@vue/test-utils'
+import Vuex from 'vuex'
+import VueRouter from 'vue-router'
 import questionnaireApi from '@/api/controller/questionnaire'
 
 jest.mock('@/api/controller/questionnaire')
 
-describe('QuestionnaireResults', () => {
+describe('QuestionnaireCreate', () => {
   let wrapper
+  let store
+  let localVue
 
-  function initWrapper () {
-    const $router = {}
+  function generateLocalVue () {
+    const lv = createLocalVue()
+    lv.use(Vuex)
+    lv.use(VueRouter)
+    return lv
+  }
 
-    const $toasted = {
-      error: jest.fn(),
-      success: jest.fn()
+  function initStore () {
+    const actions = {
+      toast: jest.fn()
     }
-    wrapper = shallowMount(QuestionnairesCreate, {
-      stubs: [
-        'BaseButton',
-        'QuestionnaireForm',
-        'font-awesome-icon'
-      ],
-      mocks: {
-        $router,
-        $toasted
+    const store = new Vuex.Store({
+      modules: {
+        QuestionnaireResults: {
+          actions
+        }
       }
     })
+    return {
+      store,
+      actions
+    }
+  }
+
+  function initWrapper (store, propsData, options) {
+    const router = new VueRouter([])
+    wrapper = shallowMount(QuestionnairesCreate, {
+      ...options,
+      store,
+      localVue,
+      router,
+      propsData: {
+        ...propsData
+      },
+      stubs: [
+        'QuestionnaireForm',
+        'font-awesome-icon',
+        'b-loading',
+        'b-field',
+        'b-input',
+        'b-select',
+        'b-button'
+      ],
+      sync: false
+    })
+    return wrapper
+  }
+
+  function initComponent (propsData) {
+    localVue = generateLocalVue()
+    store = initStore()
+    wrapper = initWrapper(store.store, propsData)
   }
 
   afterEach(() => {
@@ -36,61 +74,91 @@ describe('QuestionnaireResults', () => {
   })
 
   test('goToCreate case 1', () => {
-    initWrapper()
-    wrapper.vm.$router.push = jest.fn()
+    initComponent()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.goToCreate()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
+    expect(toastSpy).toBeCalledWith({
+      data: {
+        message: 'title and description must be filled',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('goToCreate case 2', () => {
-    initWrapper()
-    wrapper.vm.$router.push = jest.fn()
+    initComponent()
     wrapper.vm.questionnaire.title = 'title'
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.goToCreate()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
+    expect(toastSpy).toBeCalledWith({
+      data: {
+        message: 'title and description must be filled',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('goToCreate case 3', () => {
-    initWrapper()
-    wrapper.vm.$router.push = jest.fn()
+    initComponent()
     wrapper.vm.questionnaire.description = 'description'
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.goToCreate()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
+    expect(toastSpy).toBeCalledWith({
+      data: {
+        message: 'title and description must be filled',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('goToCreate case 4', () => {
-    initWrapper()
-    wrapper.vm.$router.push = jest.fn()
+    initComponent()
     wrapper.vm.questionnaire.description = 'description'
     wrapper.vm.questionnaire.title = 'title'
     wrapper.vm.questionnaire.dueDate = Date.now()
     wrapper.vm.questionnaire.startDate = Date.now() + 10
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.goToCreate()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
+    expect(toastSpy).toBeCalledWith({
+      data: {
+        message: 'due date should greater than start date',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('goToCreate case 5', () => {
-    initWrapper()
-    wrapper.vm.$router.push = jest.fn()
+    initComponent()
     wrapper.vm.questionnaire.description = 'description'
     wrapper.vm.questionnaire.title = 'title'
     const date = Date.now()
     wrapper.vm.questionnaire.dueDate = date
     wrapper.vm.questionnaire.startDate = date
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.goToCreate()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
+    expect(toastSpy).toBeCalledWith({
+      data: {
+        message: 'due date should greater than start date',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('goToCreate case 6', () => {
-    initWrapper()
-    wrapper.vm.$router.push = jest.fn()
+    initComponent()
     wrapper.vm.questionnaire.description = 'description'
     wrapper.vm.questionnaire.title = 'title'
     const date = Date.now()
     wrapper.vm.questionnaire.dueDate = date
     wrapper.vm.questionnaire.startDate = 0
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.goToCreate()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
+    expect(toastSpy).toBeCalledWith({
+      data: {
+        message: 'due date should greater than start date',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('goToCreate case 7', () => {
@@ -100,7 +168,7 @@ describe('QuestionnaireResults', () => {
         }
       })
     }
-    initWrapper()
+    initComponent()
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.questionnaire.description = 'description'
     wrapper.vm.questionnaire.title = 'title'
@@ -108,7 +176,6 @@ describe('QuestionnaireResults', () => {
     wrapper.vm.questionnaire.dueDate = new Date()
     wrapper.vm.questionnaire.dueDate.setDate(wrapper.vm.questionnaire.startDate.getDate() + 1)
     wrapper.vm.goToCreate()
-    expect(wrapper.vm.$toasted.error).not.toHaveBeenCalled()
     expect(wrapper.vm.$router.push).toHaveBeenCalled()
   })
 
@@ -122,11 +189,17 @@ describe('QuestionnaireResults', () => {
   test('submitMessageErrorCallback', () => {
     global.console.log = jest.fn()
     const spy = jest.spyOn(QuestionnairesCreate.methods, 'resetProps')
-    initWrapper()
+    initComponent()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.submitMessageErrorCallback('err')
     expect(console.log).toHaveBeenCalledWith('err')
     expect(spy).toHaveBeenCalled()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
+    expect(toastSpy).toBeCalledWith({
+      data: {
+        message: 'Fail to create questionnaire',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('setCurrentQuestionnaire', () => {

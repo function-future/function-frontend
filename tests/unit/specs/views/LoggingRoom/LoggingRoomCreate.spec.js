@@ -133,8 +133,14 @@ describe('LoggingRoomCreate', () => {
       description: '',
       members: []
     })
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.saveLoggingRoom()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
+    expect(toastSpy).toBeCalledWith({
+      data: {
+        message: 'please fill all field',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('saveLoggingRoom case 3', () => {
@@ -143,8 +149,14 @@ describe('LoggingRoomCreate', () => {
       description: 'a',
       members: []
     })
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.saveLoggingRoom()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
+    expect(toastSpy).toBeCalledWith({
+      data: {
+        message: 'please fill all field',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('saveLoggingRoom case 4', () => {
@@ -153,8 +165,14 @@ describe('LoggingRoomCreate', () => {
       description: '',
       members: [{}]
     })
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.saveLoggingRoom()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
+    expect(toastSpy).toBeCalledWith({
+      data: {
+        message: 'please fill all field',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('saveLoggingRoom case 5', () => {
@@ -163,8 +181,14 @@ describe('LoggingRoomCreate', () => {
       description: 'a',
       members: []
     })
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.saveLoggingRoom()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
+    expect(toastSpy).toBeCalledWith({
+      data: {
+        message: 'please fill all field',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('saveLoggingRoom case 6', () => {
@@ -173,8 +197,14 @@ describe('LoggingRoomCreate', () => {
       description: '',
       members: [{}]
     })
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.saveLoggingRoom()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
+    expect(toastSpy).toBeCalledWith({
+      data: {
+        message: 'please fill all field',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('saveLoggingRoom case 7', () => {
@@ -183,8 +213,14 @@ describe('LoggingRoomCreate', () => {
       description: 'a',
       members: [{}]
     })
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.saveLoggingRoom()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
+    expect(toastSpy).toBeCalledWith({
+      data: {
+        message: 'please fill all field',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('saveLoggingRoom case 8', () => {
@@ -200,8 +236,14 @@ describe('LoggingRoomCreate', () => {
       isEdit: false
     })
     wrapper.vm.$router.push = jest.fn()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.saveLoggingRoom()
-    expect(wrapper.vm.$toasted.success).toHaveBeenCalled()
+    expect(toastSpy).toBeCalledWith({
+      data: {
+        message: 'success created logging room',
+        type: 'is-success'
+      }
+    })
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'loggingRoom' })
   })
 
@@ -218,17 +260,29 @@ describe('LoggingRoomCreate', () => {
       isEdit: true
     })
     wrapper.vm.$router.push = jest.fn()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.saveLoggingRoom()
-    expect(wrapper.vm.$toasted.success).toHaveBeenCalled()
+    expect(toastSpy).toBeCalledWith({
+      data: {
+        message: 'success updated logging room',
+        type: 'is-success'
+      }
+    })
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'loggingRoom' })
   })
 
   test('errorCallBack', () => {
     initComponent()
     global.console.log = jest.fn()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.errorCallBack('err')
     expect(console.log).toHaveBeenCalledWith('err')
-    expect(wrapper.vm, 'toast').toHaveBeenCalled()
+    expect(toastSpy).toBeCalledWith({
+      data: {
+        message: 'something error',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('computedMember', () => {

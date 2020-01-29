@@ -296,8 +296,8 @@ export default {
         if (deleteIdx !== -1) {
           this.currentAppraiseeTemp.splice(deleteIdx, 1)
         }
-        if (!this.removedAppraisee.includes(this.deleteConfirmationModalParticipant.participant)
-          && this.currentAppraisee.includes(this.deleteConfirmationModalParticipant.participant)
+        if (!this.removedAppraisee.includes(this.deleteConfirmationModalParticipant.participant) &&
+          this.currentAppraisee.includes(this.deleteConfirmationModalParticipant.participant)
         ) {
           this.removedAppraisee.push(this.deleteConfirmationModalParticipant.participant)
         }
@@ -306,8 +306,8 @@ export default {
         if (deleteIdx !== -1) {
           this.currentAppraiserTemp.splice(deleteIdx, 1)
         }
-        if (!this.removedAppraiser.includes(this.deleteConfirmationModalParticipant.participant)
-          && this.currentAppraiser.includes(this.deleteConfirmationModalParticipant.participant)
+        if (!this.removedAppraiser.includes(this.deleteConfirmationModalParticipant.participant) &&
+          this.currentAppraiser.includes(this.deleteConfirmationModalParticipant.participant)
         ) {
           this.removedAppraiser.push(this.deleteConfirmationModalParticipant.participant)
         }

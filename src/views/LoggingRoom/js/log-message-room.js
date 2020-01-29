@@ -28,12 +28,12 @@ export default {
   computed: {
     ...mapGetters([
       'accessList'
-    ]),
-    ...mapActions([
-      'toast'
     ])
   },
   methods: {
+    ...mapActions([
+      'toast'
+    ]),
     infiniteHandler ($state) {
       loggingRoomApi.getLogMessages(response => {
         if (this.page === 1) {

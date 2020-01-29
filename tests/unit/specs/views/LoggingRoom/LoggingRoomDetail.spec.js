@@ -30,24 +30,28 @@ describe('LogggingRoomDetail', () => {
     const getters = {
       accessList: state => state.accessList
     }
+    const actions = {
+      toast: jest.fn()
+    }
     const store = new Vuex.Store({
-      state,
-      getters
+      modules: {
+        loggingRoomDetail: {
+          state,
+          actions,
+          getters
+        }
+      }
     })
 
     return {
       store,
       state,
+      actions,
       getters
     }
   }
 
   function initWrapper (store, propsData, options) {
-    const $toasted = {
-      error: jest.fn(),
-      success: jest.fn()
-    }
-
     const router = new VueRouter([])
     return shallowMount(LoggingRoomDetail, {
       ...options,
@@ -55,16 +59,16 @@ describe('LogggingRoomDetail', () => {
       localVue,
       router,
       stubs: [
-        'SearchBar',
+        'b-loading',
+        'b-field',
+        'b-input',
+        'b-select',
+        'b-button',
         'LoggingRoomCard',
         'InfiniteLoading',
-        'BaseButton',
         'ModalDeleteConfirmation',
         'font-awesome-icon'
       ],
-      mocks: {
-        $toasted
-      },
       sync: false
     })
   }
@@ -139,10 +143,16 @@ describe('LogggingRoomDetail', () => {
 
   test('errorCallBack', () => {
     initComponent()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     global.console.log = jest.fn()
     wrapper.vm.errorCallBack('err')
     expect(console.log).toHaveBeenCalledWith('err')
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
+    expect(toastSpy).toBeCalledWith({
+      data: {
+        message: 'something error',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('goToLoggingRoom', () => {
@@ -190,8 +200,14 @@ describe('LogggingRoomDetail', () => {
         reset: jest.fn()
       }
     }
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.createTopic({})
-    expect(wrapper.vm.$toasted.success).toHaveBeenCalled()
+    expect(toastSpy).toBeCalledWith({
+      data: {
+        message: 'success create topic',
+        type: 'is-success'
+      }
+    })
     expect(wrapper.vm.page).toEqual(1)
     expect(wrapper.vm.topics.length).toEqual(0)
     expect(wrapper.vm.$refs.infiniteLoading.stateChanger.reset).toHaveBeenCalled()
@@ -230,9 +246,15 @@ describe('LogggingRoomDetail', () => {
         reset: jest.fn()
       }
     }
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.deleteTopic()
+    expect(toastSpy).toBeCalledWith({
+      data: {
+        message: 'success delete the topic',
+        type: 'is-danger'
+      }
+    })
     expect(spy).toHaveBeenCalled()
-    expect(wrapper.vm.$toasted.success).toHaveBeenCalled()
     expect(wrapper.vm.$refs.infiniteLoading.stateChanger.reset).toHaveBeenCalled()
     expect(wrapper.vm.page).toEqual(1)
     expect(wrapper.vm.topics.length).toEqual(0)

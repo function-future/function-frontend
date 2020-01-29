@@ -43,12 +43,12 @@ export default {
   computed: {
     ...mapGetters([
       'accessList'
-    ]),
-    ...mapActions([
-      'toast'
     ])
   },
   methods: {
+    ...mapActions([
+      'toast'
+    ]),
     removeParticipant (index) {
       this.membersTemp.splice(index, 1)
     },

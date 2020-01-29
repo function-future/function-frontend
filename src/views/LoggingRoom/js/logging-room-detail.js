@@ -50,12 +50,12 @@ export default {
   computed: {
     ...mapGetters([
       'accessList'
-    ]),
-    ...mapActions([
-      'toast'
     ])
   },
   methods: {
+    ...mapActions([
+      'toast'
+    ]),
     infiniteHandler ($state) {
       loggingRoomApi.getLoggingRoomTopic(response => {
         if (this.page === 1) {

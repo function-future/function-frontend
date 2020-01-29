@@ -5,7 +5,6 @@ import Vuex from 'vuex'
 import moment from 'moment'
 import VueRouter from 'vue-router'
 
-
 jest.mock('@/api/controller/logging-room')
 
 describe('LogMessageRoom', () => {
@@ -32,23 +31,24 @@ describe('LogMessageRoom', () => {
     const getters = {
       accessList: state => state.accessList
     }
+    const actions = {
+      toast: jest.fn()
+    }
     const store = new Vuex.Store({
       state,
+      actions,
       getters
     })
 
     return {
       store,
       state,
+      actions,
       getters
     }
   }
 
   function initWrapper (store, options) {
-    const $toasted = {
-      error: jest.fn(),
-      success: jest.fn()
-    }
     const router = new VueRouter([])
     return shallowMount(LogMessageRoom, {
       ...options,
@@ -59,13 +59,11 @@ describe('LogMessageRoom', () => {
         'BaseButton',
         'InfiniteLoading',
         'BaseInput',
-        'font-awesome-icon'
+        'font-awesome-icon',
+        'b-input'
       ],
       propsData: {
         title: 'title'
-      },
-      mocks: {
-        $toasted
       }
     })
   }
@@ -135,9 +133,16 @@ describe('LogMessageRoom', () => {
 
   test('errorCallBack', () => {
     initComponent()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     global.console.log = jest.fn()
     wrapper.vm.errorCallBack('err')
     expect(console.log).toHaveBeenCalledWith('err')
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Something Error',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('submitMessage', () => {
@@ -153,8 +158,14 @@ describe('LogMessageRoom', () => {
       }
     }
     wrapper.vm.messageText = 'something'
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.submitMessage()
-    expect(wrapper.vm.$toasted.success).toHaveBeenCalled()
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'success add log',
+        type: 'is-success'
+      }
+    })
     expect(wrapper.vm.$refs.infiniteLoading.stateChanger.reset).toHaveBeenCalled()
     expect(wrapper.vm.messageText).toEqual('')
     expect(wrapper.vm.page).toEqual(1)
@@ -278,11 +289,17 @@ describe('LogMessageRoom', () => {
         reset: jest.fn()
       }
     }
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.submitMessageButton({
       keyCode: 13
     })
     expect(spy).toHaveBeenCalled()
-    expect(wrapper.vm.$toasted.success).toHaveBeenCalled()
+    expect(toastSpy).toBeCalledWith({
+      data: {
+        message: 'success add log',
+        type: 'is-success'
+      }
+    })
     expect(wrapper.vm.$refs.infiniteLoading.stateChanger.reset).toHaveBeenCalled()
     expect(wrapper.vm.messageText).toEqual('')
     expect(wrapper.vm.page).toEqual(1)

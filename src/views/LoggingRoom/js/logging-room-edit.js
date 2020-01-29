@@ -14,12 +14,10 @@ export default {
       members: []
     }
   },
-  computed:{
+  methods: {
     ...mapActions([
       'toast'
-    ])
-  },
-  methods: {
+    ]),
     errorCallBack (err) {
       console.log(err)
       this.toast({
