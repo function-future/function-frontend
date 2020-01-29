@@ -90,6 +90,8 @@ const questionnaireResultsQuestionnaireDetail = () => import(/* webpackChunkName
   '@/views/Questionnaire/QuestionnaireResultsQuestionnaireDetail.vue')
 const questionnaireResultsQuestionDetail = () => import(/* webpackChunkName: 'p-questionnaire_results_question_detail' */
   '@/views/Questionnaire/QuestionnaireResultsQuestionDetail.vue')
+const menuMobileQuestionnaire = () => import(/* webpackChunkName: 'p-peer-appraisal' */
+  '@/views/Questionnaire/MenuMobileQuestionnaire.vue')
 const reminders = () => import(/* webpackChunkName: 'p-reminders' */
   '@/views/Reminders/Reminders.vue')
 const reminderForm = () => import(/* webpackChunkName: 'p-reminder_form' */
@@ -112,6 +114,10 @@ const loggingRoomCreate = () => import(/* webpackChunkName: 'p-logging_room_crea
   '@/views/LoggingRoom/LoggingRoomCreate')
 const loggingRoomEdit = () => import(/* webpackChunkName: 'p-logging_room_edit' */
   '@/views/LoggingRoom/LoggingRoomEdit.vue')
+const loggingRoomMembersPage = () => import(/* webpackChunkName: 'p-logging_room_members_page' */
+  '@/views/LoggingRoom/MembersPage.vue')
+const loggingRoomTopicsPage = () => import(/* webpackChunkName: 'p-logging_room_topics_page' */
+  '@/views/LoggingRoom/LoggingRoomTopicsPage.vue')
 const files = () => import(/* webpackChunkName: 'p-files' */
   '@/views/Files/Files')
 const chatroomContent = () => import(/* webpackChunkName: 'p-chatroom_content' */
