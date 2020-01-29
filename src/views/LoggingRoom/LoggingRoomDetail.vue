@@ -2,7 +2,7 @@
     <div class="logging-room-detail">
       <div class="logging-room-detail__container">
         <div class="logging-room-detail__content">
-            <span class="logging-room-detail__title"><b>{{loggingRoom.title}}</b></span>
+            <span class="logging-room-detail__title">{{loggingRoom.title}}</span>
             <span class="logging-room-detail__description">{{loggingRoom.description}}</span>
         </div>
         <div v-if="isMobile" class="logging-room-detail__mobile">
@@ -30,7 +30,7 @@
         </div>
         <div class="logging-room-detail__topic-list-container">
           <div class="logging-room-detail__topic-list-container__top-bar">
-            <span class="logging-room-detail__member-list-container__title"><b>Topics</b></span>
+            <span class="logging-room-detail__member-list-container__title">Topics</span>
             <div class="logging-room-detail__topic-list-container__top-bar__create-btn">
               <b-button
                 v-if="accessList.edit"
@@ -113,6 +113,7 @@
     &__title{
       text-align: left;
       font-size: 1.2rem;
+      font-weight: bold;
     }
 
     &__description{
@@ -124,6 +125,7 @@
       overflow: auto;
       &__title {
         font-size: 1.2rem;
+        font-weight: bold;
       }
     }
 

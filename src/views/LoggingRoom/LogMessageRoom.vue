@@ -2,7 +2,7 @@
     <div class="log-message">
       <div class="log-message__container">
         <div class="log-message__title">
-          <b>{{title}}</b>
+          {{title}}
           <br>
         </div>
         <div class="log-message__messages-room">
@@ -102,7 +102,7 @@
      &__btn-send {
        margin-left: 2%;
        font-size: 2rem;
-       pointer: hover;
+       cursor: pointer;
      }
 
    }
