@@ -81,8 +81,10 @@ export default {
       if (this.createMode) {
         reminderApi.createReminder(response => {
           this.toast({
-            message: 'Reminder has been successfully created',
-            type: 'is-success'
+            data: {
+              message: 'Reminder has been successfully created',
+              type: 'is-success'
+            }
           })
           this.$router.replace({ name: 'reminderDetail', params: { reminderId: response.data.id } })
         }, this.errorHandler, { body: data })
@@ -90,8 +92,10 @@ export default {
         const reminderId = this.$route.params.reminderId
         reminderApi.updateReminder(response => {
           this.toast({
-            message: 'Reminder has been successfully updated',
-            type: 'is-success'
+            data: {
+              message: 'Reminder has been successfully updated',
+              type: 'is-success'
+            }
           })
           this.$router.replace({ name: 'reminderDetail', params: { reminderId } })
         }, this.errorHandler, {
