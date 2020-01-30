@@ -43,7 +43,8 @@ export default {
       'fetchCurrentQuestions',
       'saveAppraisee',
       'fetchCurrentQuestionsQuestionnaire',
-      'resetQuestionnaireList'
+      'resetQuestionnaireList',
+      'toast'
     ]),
     computedDate (date) {
       return moment(date).format('DD MMM YYYY, h:mm a')
@@ -99,10 +100,20 @@ export default {
         })
       })
       if (!submitScore) {
-        this.$toasted.error('there are still unaswered question')
+        this.toast({
+          data: {
+            message: 'there are still unanswered question',
+            type: 'is-danger'
+          }
+        })
       } else {
         myQuestionnaireApi.addQuestionnaireResponse(response => {
-          this.$toasted.success('success submit questionnaire response')
+          this.toast({
+            data: {
+              message: 'success submit questionnaire response',
+              type: 'is-success'
+            }
+          })
           this.backToAppraiseePage()
           this.resetQuestionnaireList()
           this.fetchMyListApprisees({
@@ -127,15 +138,30 @@ export default {
     },
     errorCallbackCurrentQuestionnaire (err) {
       console.log(err)
-      this.$toasted.error('connection error')
+      this.toast({
+        data: {
+          message: 'connection error',
+          type: 'is-danger'
+        }
+      })
     },
     errorCallbackAppraisee (err) {
       console.log(err)
-      this.$toasted.error('connection error')
+      this.toast({
+        data: {
+          message: 'connection error',
+          type: 'is-danger'
+        }
+      })
     },
     errorCallback (err) {
       console.log(err)
-      this.$toasted.error('connection error')
+      this.toast({
+        data: {
+          message: 'connection error',
+          type: 'is-danger'
+        }
+      })
     },
     backToAppraiseePage () {
       this.$router.replace({

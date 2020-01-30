@@ -1,33 +1,70 @@
 import Questionnaires from '@/views/Questionnaire/Questionnaires'
-import { shallowMount } from '@vue/test-utils'
+import { createLocalVue, shallowMount } from '@vue/test-utils'
+import Vuex from 'vuex'
+import VueRouter from 'vue-router'
 import questionnaireApi from '@/api/controller/questionnaire'
 
 jest.mock('@/api/controller/questionnaire')
 
-describe('QuestionnaireResults', () => {
+describe('Questionnaires', () => {
   let wrapper
+  let store
+  let localVue
 
-  function initWrapper () {
-    const $router = {}
+  function generateLocalVue () {
+    const lv = createLocalVue()
+    lv.use(Vuex)
+    lv.use(VueRouter)
+    return lv
+  }
 
-    const $toasted = {
-      error: jest.fn(),
-      success: jest.fn()
+  function initStore () {
+    const actions = {
+      toast: jest.fn()
     }
+    const store = new Vuex.Store({
+      modules: {
+        QuestionnaireResults: {
+          actions
+        }
+      }
+    })
+    return {
+      store,
+      actions
+    }
+  }
+
+  function initWrapper (store, propsData, options) {
+    const router = new VueRouter([])
     wrapper = shallowMount(Questionnaires, {
+      ...options,
+      store,
+      localVue,
+      router,
+      propsData: {
+        ...propsData
+      },
       stubs: [
-        'SearchBar',
-        'BaseButton',
         'QuestionnaireCard',
         'InfiniteLoading',
         'ModalDeleteConfirmation',
-        'font-awesome-icon'
+        'font-awesome-icon',
+        'b-loading',
+        'b-field',
+        'b-input',
+        'b-select',
+        'b-button'
       ],
-      mocks: {
-        $router,
-        $toasted
-      }
+      sync: false
     })
+    return wrapper
+  }
+
+  function initComponent (propsData) {
+    localVue = generateLocalVue()
+    store = initStore()
+    wrapper = initWrapper(store.store, propsData)
   }
 
   afterEach(() => {
@@ -39,7 +76,7 @@ describe('QuestionnaireResults', () => {
   })
 
   test('goCreate', () => {
-    initWrapper()
+    initComponent()
     wrapper.vm.$router.push = jest.fn()
     wrapper.vm.goToCreate()
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
@@ -68,31 +105,47 @@ describe('QuestionnaireResults', () => {
   })
 
   test('deleteQuestionnaireWithId', () => {
+    initComponent()
     questionnaireApi.deleteQuestionnaire = success => {
-      success()
+      success({
+        code: 200,
+        status: 'OK',
+        data: {}
+      })
     }
-    const spyResetState = jest.spyOn(Questionnaires.methods, 'resetState')
-    const spyCloseDeleteModal = jest.spyOn(Questionnaires.methods, 'closeDeleteModal')
+    const spyResetState = jest.spyOn(wrapper.vm, 'resetState')
+    const spyCloseDeleteModal = jest.spyOn(wrapper.vm, 'closeDeleteModal')
 
-    initWrapper()
     wrapper.vm.$refs.infiniteLoading = {
       stateChanger: {
         reset: jest.fn()
       }
     }
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.deleteQuestionnaireWithId()
-    expect(wrapper.vm.$toasted.success).toHaveBeenCalled()
-    expect(spyResetState).toHaveBeenCalled()
-    expect(spyCloseDeleteModal).toHaveBeenCalled()
+    expect(toastSpy).toBeCalledWith({
+      data: {
+        message: 'Delete Questionnaire success',
+        type: 'is-success'
+      }
+    })
     expect(wrapper.vm.$refs.infiniteLoading.stateChanger.reset).toHaveBeenCalled()
+    expect(spyCloseDeleteModal).toHaveBeenCalled()
+    expect(spyResetState).toHaveBeenCalled()
   })
 
   test('submitMessageErrorCallback', () => {
+    initComponent()
     global.console.log = jest.fn()
-    initWrapper()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.submitMessageErrorCallback('err')
     expect(console.log).toHaveBeenCalledWith('err')
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
+    expect(toastSpy).toBeCalledWith({
+      data: {
+        message: 'fail to delete questionnaire',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('searchHandler', () => {

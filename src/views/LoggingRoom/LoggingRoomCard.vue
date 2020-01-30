@@ -3,7 +3,7 @@
       <div class="logging-room-card__outer">
         <div class="logging-room-card__container" @click="$emit('click')">
           <div class="logging-room-card__title">
-            <h2> <b>{{computedTitle}}</b> </h2>
+            <h2>{{computedTitle}} </h2>
           </div>
           <div class="logging-room-card__description" >
             <span>{{computedDescription}}</span>
@@ -57,6 +57,7 @@
     &__title {
       display: flex;
       justify-content: space-between;
+      font-weight: bold;
     }
     &__description {
     }

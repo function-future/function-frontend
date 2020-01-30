@@ -36,7 +36,8 @@ export default {
     ...mapActions([
       'fetchQuestionDetail',
       'createQuestion',
-      'updateQuestion'
+      'updateQuestion',
+      'toast'
     ]),
     initPage () {
       if (this.editMode) {
@@ -56,13 +57,18 @@ export default {
     successFetchingQuestionDetail (response) {
       this.questionDetail = { ...response }
       this.questionDetail.options.forEach((option, idx) => {
-        if (option.correct) {
-          this.correctAnswer = idx
+        if (!!option.correct) {
+          this.correctAnswer = idx + 1
         }
       })
     },
     failFetchingQuestionDetail() {
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        data: {
+          message: 'Fail to load question data',
+          type: 'is-error'
+        }
+      })
       this.$router.go(-1)
     },
     optionLabel(idx) {
@@ -97,7 +103,12 @@ export default {
       })
     },
     successCreatingQuestion () {
-      this.$toasted.success('Successfully created a question')
+      this.toast({
+        data: {
+          message: 'Successfully created a question',
+          type: 'is-success'
+        }
+      })
       this.$router.push({
         name: 'questionBankDetail',
         params: {
@@ -106,7 +117,12 @@ export default {
       })
     },
     failedCreatingQuestion () {
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        data: {
+          message: 'Fail to create question',
+          type: 'is-error'
+        }
+      })
     },
     editQuestion () {
       this.questionDetail.options.forEach(option => {
@@ -126,7 +142,12 @@ export default {
       })
     },
     successUpdatingQuestion () {
-      this.$toasted.success('Successfully updated this question')
+      this.toast({
+        data: {
+          message: 'Successfully updated a question',
+          type: 'is-success'
+        }
+      })
       this.$router.push({
         name: 'questionBankQuestionDetail',
         params: {
@@ -136,7 +157,12 @@ export default {
       })
     },
     failedUpdatingQuestion () {
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        data: {
+          message: 'Fail to update question data, please try again',
+          type: 'is-error'
+        }
+      })
     }
   }
 }

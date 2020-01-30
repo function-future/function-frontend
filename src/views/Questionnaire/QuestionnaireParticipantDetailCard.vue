@@ -1,6 +1,6 @@
 <template>
   <div class="questionnaire-participant-card-detail__outer">
-    <BaseCard class="questionnaire-participant-card-detail__container">
+    <div class="questionnaire-participant-card-detail__container">
       <div class="questionnaire-participant-card-detail__avatar">
         <img :src="avatar || require('@/assets/profile-picture-placeholder.png')">
       </div>
@@ -23,7 +23,7 @@
           </span>
         </div>
       </div>
-    </BaseCard>
+    </div>
   </div>
 </template>
 
@@ -48,6 +48,16 @@
       flex-direction: column;
       align-items: center;
       min-width: 250px;
+      justify-content: space-between;
+      background: #FFFFFF;
+      border: 1px solid #F2F2F2;
+      box-sizing: border-box;
+      box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.25);
+      border-radius: 10px;
+      text-align: left;
+      margin: 5px 10px;
+      padding: 10px;
+      height: auto;
     }
 
     &__avatar > img {

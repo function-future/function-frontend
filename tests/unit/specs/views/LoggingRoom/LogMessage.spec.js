@@ -2,7 +2,7 @@ import LogMessage from '@/views/LoggingRoom/LogMessage'
 import { shallowMount } from '@vue/test-utils'
 import moment from 'moment'
 
-describe('ParticipantCard', () => {
+describe('logMessage', () => {
   let wrapper
 
   function initWrapper (propsData) {

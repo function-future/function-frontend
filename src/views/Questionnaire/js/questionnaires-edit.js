@@ -194,22 +194,8 @@ export default {
       this.currentQuestionsTemp = response.data
     },
     deleteTheQuestionQuestionnaire () {
-      questionnaireApi.deleteQuestionQuestionnaire(response => {
-        this.toast({
-          data: {
-            message: 'success delete question',
-            type: 'is-success'
-          }
-        })
-        this.fetchingQuestions()
-        this.resetDeleteConfirmationModalQuestion()
-      }, this.deleteErrorCallback,
-      {
-        params: {
-          questionnaireId: this.$route.params.questionnaireId,
-          questionId: this.deleteConfirmationModalQuestion.id
-        }
-      })
+      this.currentQuestionsTemp.splice(this.deleteConfirmationModalQuestion.selectedIndex, 1)
+      this.resetDeleteConfirmationModalQuestion()
     },
     deleteErrorCallback (err) {
       console.log(err)
@@ -256,7 +242,6 @@ export default {
       this.closeQuestionModal()
     },
     addAppraisee (member) {
-      console.log(member)
       this.currentAppraiseeTemp.push(member)
       for (var i = 0; i < this.removedAppraisee.length; i++) {
         if (this.removedAppraisee[i].id === member.id) {
@@ -265,7 +250,6 @@ export default {
       }
     },
     addAppraiser (member) {
-      console.log(member)
       this.currentAppraiserTemp.push(member)
       for (var i = 0; i < this.removedAppraiser.length; i++) {
         if (this.removedAppraiser[i].id === member.id) {
@@ -310,8 +294,8 @@ export default {
         if (deleteIdx !== -1) {
           this.currentAppraiseeTemp.splice(deleteIdx, 1)
         }
-        if (!this.removedAppraisee.includes(this.deleteConfirmationModalParticipant.participant)
-          && this.currentAppraisee.includes(this.deleteConfirmationModalParticipant.participant)
+        if (!this.removedAppraisee.includes(this.deleteConfirmationModalParticipant.participant) &&
+          this.currentAppraisee.includes(this.deleteConfirmationModalParticipant.participant)
         ) {
           this.removedAppraisee.push(this.deleteConfirmationModalParticipant.participant)
         }
@@ -320,8 +304,8 @@ export default {
         if (deleteIdx !== -1) {
           this.currentAppraiserTemp.splice(deleteIdx, 1)
         }
-        if (!this.removedAppraiser.includes(this.deleteConfirmationModalParticipant.participant)
-          && this.currentAppraiser.includes(this.deleteConfirmationModalParticipant.participant)
+        if (!this.removedAppraiser.includes(this.deleteConfirmationModalParticipant.participant) &&
+          this.currentAppraiser.includes(this.deleteConfirmationModalParticipant.participant)
         ) {
           this.removedAppraiser.push(this.deleteConfirmationModalParticipant.participant)
         }
@@ -450,10 +434,10 @@ export default {
       })
       this.toast({
         data: {
-          message: 'Fail to fetch chatroom detail',
-          type: 'is-danger'
+          message: 'success update questionnaire',
+          type: 'is-success'
         }
-      }).success('success Update Questionnaire')
+      })
     },
     fetchingCurrentQuestionnarieAdmin () {
       this.fetchCurrentQuestionnaireAdmin({

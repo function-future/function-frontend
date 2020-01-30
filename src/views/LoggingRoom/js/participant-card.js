@@ -1,10 +1,5 @@
-import BaseCard from '@/components/BaseCard'
-
 export default {
   name: 'participant-card',
-  components: {
-    BaseCard
-  },
   props: {
     name: String,
     avatar: String,

@@ -1,6 +1,7 @@
 import BaseButton from '@/components/BaseButton'
 import QuestionnaireForm from '@/views/Questionnaire/QuestionnaireForm'
 import questionnaireApi from '@/api/controller/questionnaire'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'QuestionnairesCreate',
@@ -19,15 +20,38 @@ export default {
     }
   },
   methods: {
+    ...mapActions([
+      'toast'
+    ]),
     goToCreate () {
       if (this.questionnaire.title === '' || this.questionnaire.description === '') {
-        this.$toasted.error(' title and description must be filled')
+        this.toast({
+          data: {
+            message: 'title and description must be filled',
+            type: 'is-danger'
+          }
+        })
       } else if (this.questionnaire.startDate > this.questionnaire.dueDate) {
-        this.$toasted.error('due date should greater than start date ')
+        this.toast({
+          data: {
+            message: 'due date should greater than start date',
+            type: 'is-danger'
+          }
+        })
       } else if (this.questionnaire.startDate === this.questionnaire.dueDate) {
-        this.$toasted.error('due date should not same with start date ')
+        this.toast({
+          data: {
+            message: 'due date should greater than start date',
+            type: 'is-danger'
+          }
+        })
       } else if (this.questionnaire.startDate < new Date().setHours(0, 0, 0, 0)) {
-        this.$toasted.error('start date should greater than yesterday  ')
+        this.toast({
+          data: {
+            message: 'due date should greater than start date',
+            type: 'is-danger'
+          }
+        })
       } else {
         questionnaireApi.createQuestionnaire(response => {
           this.$router.push({
@@ -56,7 +80,12 @@ export default {
     submitMessageErrorCallback (err) {
       this.resetProps()
       console.log(err)
-      this.$toasted.error('Fail to createQuestionnaire')
+      this.toast({
+        data: {
+          message: 'Fail to create questionnaire',
+          type: 'is-danger'
+        }
+      })
     },
     setCurrentQuestionnaire (data) {
       this.questionnaire = data

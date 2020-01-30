@@ -1,13 +1,13 @@
 <template>
     <div>
-      <BaseCard class="card-container">
+      <div class="card-container">
         <div class="questionnaire-title-input">
           <label class="questionnaire-title-input__label-title">{{titleLabel}}</label>
           <br>
           <div v-if="isReview" class="questionnaire-title-input__text-show">
             {{value.title}}
           </div>
-          <BaseInput v-else class="input-title" v-model="value.title"></BaseInput>
+          <b-input v-else class="input-title" v-model="value.title"></b-input>
         </div>
         <div class="questionnaire-desc-area">
           <label class="questionnaire-title-input__label-title">{{descriptionLabel}}</label>
@@ -15,7 +15,7 @@
           <div v-if="isReview" class="questionnaire-title-input__text-show">
             {{value.description}}
           </div>
-          <BaseTextArea v-else class="input-description" v-model="value.description"></BaseTextArea>
+          <b-input type="textarea" v-else class="input-description" v-model="value.description"></b-input>
         </div>
         <div class="date-picker">
           <div class="start-date-container">
@@ -47,7 +47,7 @@
             </div>
           </div>
         </div>
-      </BaseCard>
+      </div>
     </div>
 </template>
 
@@ -67,9 +67,17 @@
   }
   .card-container {
     display: flex;
-    padding: 20px;
-    margin : 20px 0px 0px 0px;
+    justify-content: space-between;
     flex-direction: column;
+    background: #FFFFFF;
+    border: 1px solid #F2F2F2;
+    box-sizing: border-box;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    text-align: left;
+    margin: 5px 10px;
+    padding: 10px;
+    height: auto;
     max-width: 40vw;
     @media only screen and (max-width: 1023px) {
       max-width: 100vw;

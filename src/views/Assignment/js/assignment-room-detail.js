@@ -163,7 +163,7 @@ export default {
         data: {
           batchCode: this.$route.params.batchCode,
           assignmentId: this.$route.params.assignmentId,
-          roomId: this.$route.params.roomId
+          roomId: this.$route.params.studentId
         },
         payload,
         callback: this.successUpdatingScore,

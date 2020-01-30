@@ -2,7 +2,7 @@
   <div class="questionnaire-participant-card__outer">
     <div class="questionnaire-participant-card__container" >
       <div class="questionnaire-participant-card__content-user">
-        <img v-if="avatar" class="questionnaire-participant-card__content-user__avatar"
+        <img v-if="avatar" alt="user picture" class="questionnaire-participant-card__content-user__avatar"
              :src="avatar || require('@/assets/profile-picture-placeholder.png')">
         <div class="questionnaire-participant-card__content-user__description">
           <span class="questionnaire-participant-card__content-user__description__participant-name">

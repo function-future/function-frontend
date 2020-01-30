@@ -1,5 +1,6 @@
 import BaseButton from '@/components/BaseButton'
 import BaseTextArea from '@/components/BaseTextArea'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'modal-add-question',
@@ -32,6 +33,9 @@ export default {
     }
   },
   methods: {
+    ...mapActions([
+      'toast'
+    ]),
     close () {
       this.$emit('close')
     },
@@ -42,7 +46,12 @@ export default {
         })
         this.close()
       } else {
-        this.$toasted.error('description cannot null')
+        this.toast({
+          data: {
+            message: 'description cannot empty',
+            type: 'is-danger'
+          }
+        })
       }
     },
     updateQuestion () {
@@ -52,7 +61,12 @@ export default {
         })
         this.close()
       } else {
-        this.$toasted.error('description cannot null')
+        this.toast({
+          data: {
+            message: 'description cannot empty',
+            type: 'is-danger'
+          }
+        })
       }
     }
   }

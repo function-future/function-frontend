@@ -104,7 +104,12 @@ export default {
     failFetchingQuestionBankQuestionList () {
       this.isLoading = false
       this.failLoadQuestion = true
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        data: {
+          message: 'Fail to load questions',
+          type: 'is-error'
+        }
+      })
     },
     redirectToEditQuestionBankForm() {
       this.$router.push({
@@ -193,13 +198,19 @@ export default {
     },
     successDeletingQuestion () {
       this.showDeleteConfirmationModal = false
+      this.questions = []
+      this.paging = {
+        page: 1,
+        size: 10,
+        totalRecords: 10
+      }
+      this.infiniteId += 1
       this.toast({
         data: {
-          message: 'Successfully delete question bank',
+          message: 'Successfully deleted question',
           type: 'is-success'
         }
       })
-      this.$router.go()
     },
     failedDeletingQuestion () {
       this.showDeleteConfirmationModal = false

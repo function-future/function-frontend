@@ -83,16 +83,5 @@ export default {
       },
       fail: this.errorHandler
     })
-    //
-    // questionnaireResultsApi.getQuestionnaireSimpleSummary(response => {
-    //   this.appraiseeResultsQuestionnaires.push(...response.data)
-    //   console.log(response)
-    // }, this.errorCallback, {
-    //   params: {
-    //     page: this.page,
-    //     size: this.size,
-    //     userSummaryId: this.$route.params.userSummaryId
-    //   }
-    // })
   }
 }

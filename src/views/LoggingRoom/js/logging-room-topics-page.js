@@ -3,7 +3,7 @@ import loggingRoomApi from '@/api/controller/logging-room'
 import TopicCard from '@/views/LoggingRoom/TopicCard'
 import ModalAddQuestion from '@/views/Questionnaire/ModalAddQuestion'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
-import { mapGetters } from 'vuex'
+import { mapActions,mapGetters } from 'vuex'
 
 
 export default {
@@ -37,7 +37,7 @@ export default {
   computed: {
     ...mapGetters([
       'accessList'
-    ])
+    ]),
   },
   props: {
     iconMenu: {
@@ -50,6 +50,9 @@ export default {
     }
   },
   methods: {
+    ...mapActions([
+      'toast'
+    ]),
     infiniteHandler ($state) {
       loggingRoomApi.getLoggingRoomTopic(response => {
         if (this.page === 1) {
@@ -87,7 +90,12 @@ export default {
     },
     createTopic (value) {
       loggingRoomApi.createTopic(response => {
-        this.$toasted.success('success create question')
+        this.toast({
+          data: {
+            message: 'success create topic',
+            type: 'is-success'
+          }
+        })
         this.page = 1
         this.topics = []
         this.$refs.infiniteLoading.stateChanger.reset()
@@ -112,7 +120,12 @@ export default {
     },
     deleteTopic () {
       loggingRoomApi.deleteTopic(response => {
-        this.$toasted.success('success delete topic')
+        this.toast({
+          data: {
+            message: 'success delete the topic',
+            type: 'is-success'
+          }
+        })
         this.resetDeleteModal()
         this.page = 1
         this.topics = []
@@ -123,6 +136,15 @@ export default {
           topicId: this.modalDeleteConfirmation.id
         }
       })
-    }
+    },
+    errorCallBack (err) {
+      console.log(err)
+      this.toast({
+        data: {
+          message: 'something error',
+          type: 'is-danger'
+        }
+      })
+    },
   }
 }

@@ -46,6 +46,9 @@
       box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
       transition: all .3s ease;
       font-family: Helvetica, Arial, sans-serif;
+      @media only screen and (max-width: 1023px) {
+        width: 80vw;
+      }
     }
     &__header {
       display: flex;

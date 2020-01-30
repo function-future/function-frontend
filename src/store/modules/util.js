@@ -1,5 +1,18 @@
 import { ToastProgrammatic as Toast } from 'buefy'
 
+export const state = {
+  bottomNavBarVisible: true
+}
+
+export const mutations = {
+  HIDE_BOTTOM_NAV_BAR (state) {
+    state.bottomNavBarVisible = false
+  },
+  SHOW_BOTTOM_NAV_BAR (state) {
+    state.bottomNavBarVisible = true
+  }
+}
+
 export const actions = {
   toast ({ state }, { data }) {
     let windowWidth = window.innerWidth
@@ -9,9 +22,24 @@ export const actions = {
       duration: 3500,
       ...data
     })
+  },
+  showBottomNavBar ({ commit }) {
+    commit('SHOW_BOTTOM_NAV_BAR')
+  },
+  hideBottomNavBar ({ commit }) {
+    commit('HIDE_BOTTOM_NAV_BAR')
+  }
+}
+
+export const getters = {
+  bottomNavBarVisible (state) {
+    return state.bottomNavBarVisible
   }
 }
 
 export default {
-  actions
+  state,
+  mutations,
+  actions,
+  getters
 }

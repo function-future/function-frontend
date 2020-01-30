@@ -37,6 +37,9 @@ export default {
     },
     isActive (name) {
       return this.$route.name === name
+    },
+    updateViewKey () {
+      this.$emit('updateViewKey')
     }
   }
 }

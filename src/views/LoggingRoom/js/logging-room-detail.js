@@ -2,13 +2,12 @@ import ParticipantCard from '@/views/LoggingRoom/ParticipantCard'
 import TopicCard from '@/views/LoggingRoom/TopicCard'
 import InfiniteLoading from 'vue-infinite-loading'
 import loggingRoomApi from '@/api/controller/logging-room'
-import BaseButton from '@/components/BaseButton'
 import ModalAddQuestion from '@/views/Questionnaire/ModalAddQuestion'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
 import MenuCard from '@/views/LoggingRoom/MenuCard'
 
 import Breakpoint from '@/mixins/Breakpoint'
-import { mapGetters } from 'vuex'
+import { mapActions,mapGetters } from 'vuex'
 
 export default {
   name: 'logging-room-detail',
@@ -17,7 +16,6 @@ export default {
     TopicCard,
     loggingRoomApi,
     InfiniteLoading,
-    BaseButton,
     ModalAddQuestion,
     ModalDeleteConfirmation,
     MenuCard
@@ -52,10 +50,12 @@ export default {
   computed: {
     ...mapGetters([
       'accessList'
-    ]),
-
+    ])
   },
   methods: {
+    ...mapActions([
+      'toast'
+    ]),
     infiniteHandler ($state) {
       loggingRoomApi.getLoggingRoomTopic(response => {
         if (this.page === 1) {
@@ -78,7 +78,12 @@ export default {
     },
     errorCallBack (err) {
       console.log(err)
-      this.$toasted.error('Something Error')
+      this.toast({
+        data: {
+          message: 'something error',
+          type: 'is-danger'
+        }
+      })
     },
     goToLoggingRoom (topicId) {
       this.$router.push({
@@ -106,7 +111,12 @@ export default {
     },
     createTopic (value) {
       loggingRoomApi.createTopic(response => {
-        this.$toasted.success('success create question')
+        this.toast({
+          data: {
+            message: 'success create topic',
+            type: 'is-success'
+          }
+        })
         this.page = 1
         this.topics = []
         this.$refs.infiniteLoading.stateChanger.reset()
@@ -131,7 +141,12 @@ export default {
     },
     deleteTopic () {
       loggingRoomApi.deleteTopic(response => {
-        this.$toasted.success('success delete topic')
+        this.toast({
+          data: {
+            message: 'success delete the topic',
+            type: 'is-danger'
+          }
+        })
         this.resetDeleteModal()
         this.page = 1
         this.topics = []

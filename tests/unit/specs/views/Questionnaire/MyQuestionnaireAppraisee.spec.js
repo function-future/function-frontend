@@ -31,7 +31,8 @@ describe('MyQuestionnaireAppraisee', () => {
       fetchCurrentQuestions: jest.fn(),
       saveAppraisee: jest.fn(),
       fetchCurrentQuestionsQuestionnaire: jest.fn(),
-      resetQuestionnaireList: jest.fn()
+      resetQuestionnaireList: jest.fn(),
+      toast: jest.fn()
     }
     const store = new Vuex.Store({
       modules: {
@@ -51,10 +52,6 @@ describe('MyQuestionnaireAppraisee', () => {
   }
 
   function initWrapper (propsData, route, initState) {
-    const $toasted = {
-      error: jest.fn(),
-      success: jest.fn()
-    }
 
     const $route = {
       params: {},
@@ -82,11 +79,11 @@ describe('MyQuestionnaireAppraisee', () => {
         'myQuestionnaireApi'
       ],
       mocks: {
-        $toasted,
         $route,
         $router
       }
     })
+    return wrapper
   }
 
   afterEach(() => {
@@ -192,8 +189,8 @@ describe('MyQuestionnaireAppraisee', () => {
     }
     const spyBackToAppraiseePage = jest.spyOn(MyQuestionnaireAppraisee.methods, 'backToAppraiseePage')
       .mockImplementation(() => {})
-
     initWrapper()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.currentQuestionnaireForm = currentQuestionnaireForm
     wrapper.vm.printScore()
     expect(wrapper.vm.responses).toEqual([{
@@ -201,7 +198,12 @@ describe('MyQuestionnaireAppraisee', () => {
       score: currentQuestionnaireForm[0].score,
       comment: currentQuestionnaireForm[0].comment
     }])
-    expect(wrapper.vm.$toasted.success).toHaveBeenCalled()
+    expect(toastSpy).toBeCalledWith({
+      data: {
+        message: 'success submit questionnaire response',
+        type: 'is-success'
+      }
+    })
     expect(spyBackToAppraiseePage).toHaveBeenCalled()
     expect(store.actions.resetQuestionnaireList).toHaveBeenCalled()
   })
@@ -214,8 +216,8 @@ describe('MyQuestionnaireAppraisee', () => {
         comment: 'comment'
       }
     ]
-
     initWrapper()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.currentQuestionnaireForm = currentQuestionnaireForm
     wrapper.vm.printScore()
     expect(wrapper.vm.responses).toEqual([{
@@ -223,25 +225,48 @@ describe('MyQuestionnaireAppraisee', () => {
       score: currentQuestionnaireForm[0].score,
       comment: currentQuestionnaireForm[0].comment
     }])
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
+    expect(toastSpy).toBeCalledWith({
+      data: {
+        message: 'there are still unanswered question',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('errorCallback', () => {
     initWrapper()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.errorCallback()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
+    expect(toastSpy).toBeCalledWith({
+      data: {
+        message: 'connection error',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('errorCallbackCurrentQuestionnaire', () => {
     initWrapper()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.errorCallbackCurrentQuestionnaire()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
+    expect(toastSpy).toBeCalledWith({
+      data: {
+        message: 'connection error',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('errorCallbackAppraisee', () => {
     initWrapper()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.errorCallbackAppraisee()
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
+    expect(toastSpy).toBeCalledWith({
+      data: {
+        message: 'connection error',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('backToAppraiseePage', () => {
