@@ -5,7 +5,9 @@ const path = require('path')
 const CompressionPlugin = require('compression-webpack-plugin')
 
 module.exports = {
+  productionSourceMap: false,
   chainWebpack: config => {
+    config.plugins.delete('prefetch')
     config.plugin('CompressionPlugin').use(
       new CompressionPlugin({
         algorithm: 'gzip',
