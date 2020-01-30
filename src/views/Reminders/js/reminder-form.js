@@ -6,6 +6,9 @@ import reminderApi from '@/api/controller/reminders'
 import ReminderMemberModal from '@/views/Reminders/ReminderMemberModal'
 import VueCtkDateTimePicker from 'vue-ctk-date-time-picker'
 import 'vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css'
+import CustomMobileNavBar from '@/components/skeletons/CustomMobileNavBar'
+import Breakpoint from '@/mixins/Breakpoint'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'ReminderForm',
@@ -15,8 +18,12 @@ export default {
     UserSimpleCard,
     ReminderMemberModal,
     BaseTextArea,
-    VueCtkDateTimePicker
+    VueCtkDateTimePicker,
+    CustomMobileNavBar
   },
+  mixins: [
+    Breakpoint
+  ],
   props: {
     editMode: Boolean,
     createMode: {
@@ -38,6 +45,9 @@ export default {
     }
   },
   methods: {
+    ...mapActions([
+      'toast'
+    ]),
     toDisplayDay (day) {
       return day.charAt(0).toUpperCase() + day.slice(1, 3).toLowerCase()
     },
@@ -70,13 +80,19 @@ export default {
       const data = this.prepareDataForRequest()
       if (this.createMode) {
         reminderApi.createReminder(response => {
-          this.$toasted.success('Reminder has been successfully created')
+          this.toast({
+            message: 'Reminder has been successfully created',
+            type: 'is-success'
+          })
           this.$router.replace({ name: 'reminderDetail', params: { reminderId: response.data.id } })
         }, this.errorHandler, { body: data })
       } else {
         const reminderId = this.$route.params.reminderId
         reminderApi.updateReminder(response => {
-          this.$toasted.success('Reminder has been successfully updated')
+          this.toast({
+            message: 'Reminder has been successfully updated',
+            type: 'is-success'
+          })
           this.$router.replace({ name: 'reminderDetail', params: { reminderId } })
         }, this.errorHandler, {
           body: data,
@@ -88,7 +104,10 @@ export default {
     },
     errorHandler (err) {
       console.log(err)
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        message: 'Something went wrong',
+        type: 'is-error'
+      })
     },
     addMemberHandler (member) {
       this.members.push(member)

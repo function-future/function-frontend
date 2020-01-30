@@ -6,10 +6,13 @@
         <img src="@/assets/logo.png"
              class="logo is-center"
              alt="function">
-        <b-icon :icon="profileIcon"
-                class="is-right"
-                @click.native="goToProfile">
-        </b-icon>
+        <div class="is-right">
+          <NotificationsIcon v-if="loggedIn"
+          ></NotificationsIcon>
+          <b-icon :icon="profileIcon"
+                  @click.native="goToProfile">
+          </b-icon>
+        </div>
       </div>
       <div class="has-text-centered user-greeting"
            :class="{'no-sticky-note__greeting': !stickyNotesAvailable}"
@@ -41,22 +44,28 @@
     </div>
     <div class="app-menu is-size-7-mobile is-hidden-desktop">
       <div class="columns is-mobile is-vcentered is-multiline is-gapless is-centered">
-        <div class="column is-4" @click="goToPage('announcements')">
+        <div class="column is-3" @click="goToPage('announcements')">
           <div class="card-content">
             <div><b-icon icon="bullhorn" class="menu-icon"></b-icon></div>
             <div>Announcements</div>
           </div>
         </div>
-        <div class="column is-4" @click="goToPage('activityBlogs')">
+        <div class="column is-3" @click="goToPage('activityBlogs')">
           <div class="card-content">
             <div><b-icon icon="newspaper" class="menu-icon"></b-icon></div>
             <div>Activity Blogs</div>
           </div>
         </div>
-        <div class="column is-4" v-if="menuList.files" @click="goToPage('files')">
+        <div class="column is-3" v-if="menuList.files" @click="goToPage('files')">
           <div class="card-content">
             <div><b-icon icon="file-alt" class="menu-icon"></b-icon></div>
             <div>Files</div>
+          </div>
+        </div>
+        <div class="column is-3" v-if="menuList.reminders" @click="goToPage('reminders')">
+          <div class="card-content">
+            <div><b-icon icon="stopwatch" class="menu-icon"></b-icon></div>
+            <div>Reminders</div>
           </div>
         </div>
         <div class="column is-3" v-if="menuList.batches" @click="goToPage('batches')">

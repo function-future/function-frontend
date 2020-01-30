@@ -1,6 +1,8 @@
 import { mapActions, mapGetters } from 'vuex'
 import ListItem from '@/components/list/ListItem'
 import EmptyState from '@/components/emptyState/EmptyState'
+import NotificationsIcon from '@/views/Notifications/NotificationsIcon'
+
 let marked = require('marked')
 const MAX_STICKY_NOTE_PREVIEW_LENGTH = 200
 
@@ -8,7 +10,8 @@ export default {
   name: 'feeds',
   components: {
     ListItem,
-    EmptyState
+    EmptyState,
+    NotificationsIcon
   },
   data () {
     return {

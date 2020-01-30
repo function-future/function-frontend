@@ -2,19 +2,25 @@ import ReminderForm from '@/views/Reminders/ReminderForm'
 import reminderApi from '@/api/controller/reminders'
 import { createLocalVue, shallowMount } from '@vue/test-utils'
 import VueRouter from 'vue-router'
+import Vuex from 'vuex'
 
 jest.mock('@/api/controller/reminders')
 
 describe('ReminderForm', () => {
   function initWrapper (propsData) {
-    const $toasted = {
-      error: jest.fn(),
-      success: jest.fn()
-    }
-
     const localVue = createLocalVue()
     localVue.use(VueRouter)
+    localVue.use(Vuex)
     const router = new VueRouter([])
+    const store = new Vuex.Store({
+      modules: {
+        reminders: {
+          actions: {
+            toast: jest.fn()
+          }
+        }
+      }
+    })
 
     return shallowMount(ReminderForm, {
       propsData,
@@ -28,9 +34,7 @@ describe('ReminderForm', () => {
         'font-awesome-icon'
       ],
       localVue,
-      mocks: {
-        $toasted
-      },
+      store,
       router
     })
   }

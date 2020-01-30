@@ -1,15 +1,23 @@
 import { mapActions, mapGetters } from 'vuex'
 import Breadcrumbs from '@/components/breadcrumbs/Breadcrumbs'
 import ChangePageTitleMixins from '@/mixins/ChangePageTitleMixins'
+import NotificationsIcon from '@/views/Notifications/NotificationsIcon'
 
 export default {
   name: 'NavBar',
   components: {
-    Breadcrumbs
+    Breadcrumbs,
+    NotificationsIcon
   },
   mixins: [
-    ChangePageTitleMixins
+    ChangePageTitleMixins,
   ],
+  data () {
+    return {
+      unreadNotifications: 0,
+      notificationPollingInterval: null
+    }
+  },
   computed: {
     ...mapGetters([
       'menuList',
