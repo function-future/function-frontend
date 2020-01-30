@@ -31,7 +31,7 @@ export default {
       failFetchUser: false,
       failFetchBatch: false,
       batches: [],
-      selectedBatchId: ''
+      selectedBatchCode: ''
     }
   },
   computed: {
@@ -46,8 +46,8 @@ export default {
     }
   },
   created () {
-    this.initPage()
     this.fetchBatchList()
+    this.initPage()
   },
   methods: {
     ...mapActions([
@@ -66,7 +66,7 @@ export default {
         page: this.paging.page,
         size: this.paging.size,
         role: this.currentTab.toUpperCase(),
-        batchId: this.selectedBatchId
+        batchCode: this.selectedBatchCode
       }
       this.fetchUsersByRoleAndName({
         data,

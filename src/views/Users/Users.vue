@@ -18,12 +18,12 @@
                 <b-field label="Batch"
                          label-position="on-border">
                   <b-select placeholder="Select a batch"
-                            v-model="selectedBatchId"
+                            v-model="selectedBatchCode"
                             @input="searchHandler"
                             expanded>
                     <option v-for="batch in batches"
-                            :key="batch.id"
-                            :value="batch.id">
+                            :key="batch.code"
+                            :value="batch.code">
                       {{ batch.name }}
                     </option>
                   </b-select>

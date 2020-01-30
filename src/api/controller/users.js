@@ -7,8 +7,8 @@ const getUserList = function (callback, data, errorHandler) {
 
 const getUserListWithRoleAndName = function (callback, data, errorHandler) {
   let path = config.api.core.users.getWithNameAndRole(data.name, data.page, data.size, data.role)
-  if (data.batchId !== '') {
-    path = path + '&batchId=' + data.batchId
+  if (data.batchCode !== '') {
+    path = path + '&batch=' + data.batchCode
   }
   request.getRequest(path, callback, errorHandler)
 }
