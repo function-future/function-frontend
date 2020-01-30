@@ -28,7 +28,10 @@ export default {
       userList: [],
       keyword: '',
       showDeleteConfirmationModal: false,
-      failFetchUser: false
+      failFetchUser: false,
+      failFetchBatch: false,
+      batches: [],
+      selectedBatchId: ''
     }
   },
   computed: {
@@ -44,12 +47,14 @@ export default {
   },
   created () {
     this.initPage()
+    this.fetchBatchList()
   },
   methods: {
     ...mapActions([
       'fetchUsersByRoleAndName',
       'deleteUserById',
-      'toast'
+      'toast',
+      'fetchBatches'
     ]),
     initPage () {
       this.isLoading = true
@@ -60,7 +65,8 @@ export default {
         name: this.keyword,
         page: this.paging.page,
         size: this.paging.size,
-        role: this.currentTab.toUpperCase()
+        role: this.currentTab.toUpperCase(),
+        batchId: this.selectedBatchId
       }
       this.fetchUsersByRoleAndName({
         data,
@@ -147,6 +153,39 @@ export default {
     },
     batch (user) {
       return user.role === 'STUDENT' ? user.batch.name : ''
+    },
+    fetchBatchList () {
+      this.fetchBatches({
+        callback: this.successFetchBatches,
+        fail: this.failFetchBatches
+      })
+    },
+    successFetchBatches (response) {
+      this.batches = [
+        {
+          id: '',
+          name: 'All',
+          code: ''
+        },
+        ...response
+      ]
+      this.failFetchBatch = false
+    },
+    failFetchBatches () {
+      this.batches = [
+        {
+          id: '',
+          name: 'All',
+          code: ''
+        }
+      ]
+      this.failFetchBatch = true
+      this.toast({
+        data: {
+          message: 'Fail to load batch list, please refresh the page',
+          type: 'is-danger'
+        }
+      })
     }
   },
   watch: {
