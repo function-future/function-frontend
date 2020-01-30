@@ -11,7 +11,7 @@
   </span>
 </template>
 
-<script src="./notifications-icon.js">
+<script src="./js/notifications-icon.js">
 </script>
 
 <style lang="scss" scoped>

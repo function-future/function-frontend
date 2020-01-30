@@ -22,7 +22,7 @@
 
 </template>
 
-<script src="./notifications.js">
+<script src="./js/notifications.js">
 
 </script>
 
