@@ -32,7 +32,7 @@ export default {
     EditorMenuBubble,
     Icon
   },
-  props: [ 'value', 'placeholder', 'label' ],
+  props: [ 'value', 'placeholder', 'label', 'upload' ],
   mounted () {
     this.editor = new Editor({
       onUpdate: ({ getHTML }) => {

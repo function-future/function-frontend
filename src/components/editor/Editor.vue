@@ -84,7 +84,7 @@
                      ref="file"
                      @change="onFileChange(commands.image)"
                      style="display: none"/>
-              <label class="imagebubble-menu" for="image-upload">
+              <label class="imagebubble-menu" for="image-upload" v-if="upload">
                 <icon name="upload" />
                 <span>Upload Image</span>
               </label>
