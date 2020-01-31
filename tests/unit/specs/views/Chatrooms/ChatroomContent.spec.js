@@ -244,7 +244,7 @@ describe('ChatroomContent', () => {
 
     let result = wrapper.vm.computedMessagesDate
 
-    expect(spy).toBeCalledTimes(8)
+    expect(spy).toBeCalledTimes(4)
     expect(result[0].isNewDate).toBe(true)
     expect(result[1].isNewDate).toBe(false)
     expect(result[2].isNewDate).toBe(true)
@@ -517,6 +517,7 @@ describe('ChatroomContent', () => {
 
   test('scrollMessageToBottom', done => {
     let wrapper = initComponent('public')
+    wrapper.vm.isLoading = false
     wrapper.vm.scrollMessageToBottom()
     wrapper.vm.$nextTick(() => {
       let container = wrapper.vm.$el.querySelector('#messages-container')

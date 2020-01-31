@@ -57,16 +57,15 @@
       <input v-if="timeType === 'MONTHLY'" :disabled="!editMode" v-model="date" class="reminder-form__date"
              type="number" min="1" max="31">
       <h4>When ?</h4>
-      <VueCtkDateTimePicker
+      <b-timepicker
         class="reminder-form__time-picker"
-        color="#02AAF3"
-        button-color="#02AAF3"
-        :only-time="true"
-        :no-label="true"
-        :disabled="!editMode"
-        format="HH:mm"
-        formatted="HH:mm"
-        v-model="time"></VueCtkDateTimePicker>
+        inline
+        placeholder="Click to select..."
+        icon="clock"
+        :enable-seconds="false"
+        v-model="time"
+        hour-format="24">
+      </b-timepicker>
       <ReminderMemberModal @addMember="addMemberHandler" :selectedUsers="members" @close="showModalMember = false"
                            v-if="showModalMember"></ReminderMemberModal>
     </div>
@@ -98,8 +97,8 @@
   }
 
   .reminder-form__time-picker {
-    width: 100px;
-    margin: 10px auto 0 0;
+    /*width: 100px;*/
+    margin: 10px;
   }
 
   .reminder-form__day-card {

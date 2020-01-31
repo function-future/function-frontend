@@ -3,6 +3,7 @@ import reminderApi from '@/api/controller/reminders'
 import { createLocalVue, shallowMount } from '@vue/test-utils'
 import VueRouter from 'vue-router'
 import Vuex from 'vuex'
+import moment from 'moment'
 
 jest.mock('@/api/controller/reminders')
 
@@ -54,7 +55,7 @@ describe('ReminderForm', () => {
     wrapper.vm.timeType = 'EVERY_DAY'
     wrapper.vm.members = [{ id: 'memberId' }]
     wrapper.vm.date = 10
-    wrapper.vm.time = '10:00'
+    wrapper.vm.time = moment('10:00', 'HH:mm').toDate()
 
     wrapper.vm.save()
 
@@ -72,7 +73,7 @@ describe('ReminderForm', () => {
     wrapper.vm.timeType = 'EVERY_DAY'
     wrapper.vm.members = [{ id: 'memberId' }]
     wrapper.vm.date = 10
-    wrapper.vm.time = '10:00'
+    wrapper.vm.time = moment('10:00', 'HH:mm').toDate()
 
     wrapper.vm.save()
 
@@ -105,7 +106,7 @@ describe('ReminderForm', () => {
 
   test('parseTime', () => {
     const wrapper = initWrapper()
-    wrapper.vm.time = '12:00'
+    wrapper.vm.time = moment('12:00', 'HH:mm').toDate()
     expect(wrapper.vm.parseTime()).toEqual({
       minute: 0,
       hour: 12
@@ -120,7 +121,7 @@ describe('ReminderForm', () => {
     wrapper.vm.members = [{ id: 'memberId' }]
     wrapper.vm.daysChosen = []
     wrapper.vm.date = 10
-    wrapper.vm.time = '10:00'
+    wrapper.vm.time = moment('10:00', 'HH:mm').toDate()
     expect(wrapper.vm.prepareDataForRequest()).toEqual({
       title: 'title',
       description: 'description',
@@ -140,7 +141,7 @@ describe('ReminderForm', () => {
     wrapper.vm.timeType = 'EVERY_DAY'
     wrapper.vm.members = [{ id: 'memberId' }]
     wrapper.vm.date = 10
-    wrapper.vm.time = '10:00'
+    wrapper.vm.time = moment('10:00', 'HH:mm').toDate()
     expect(wrapper.vm.prepareDataForRequest()).toEqual({
       title: 'title',
       description: 'description',
