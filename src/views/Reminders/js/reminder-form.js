@@ -4,11 +4,10 @@ import BaseButton from '@/components/BaseButton'
 import UserSimpleCard from '@/components/UserSimpleCard'
 import reminderApi from '@/api/controller/reminders'
 import ReminderMemberModal from '@/views/Reminders/ReminderMemberModal'
-import VueCtkDateTimePicker from 'vue-ctk-date-time-picker'
-import 'vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css'
 import CustomMobileNavBar from '@/components/skeletons/CustomMobileNavBar'
 import Breakpoint from '@/mixins/Breakpoint'
 import { mapActions } from 'vuex'
+import moment from 'moment'
 
 export default {
   name: 'ReminderForm',
@@ -18,7 +17,6 @@ export default {
     UserSimpleCard,
     ReminderMemberModal,
     BaseTextArea,
-    VueCtkDateTimePicker,
     CustomMobileNavBar
   },
   mixins: [
@@ -39,7 +37,7 @@ export default {
       daysChosen: ['SUNDAY'],
       timeType: 'EVERY_DAY',
       date: 1,
-      time: '00:00',
+      time: null,
       title: '',
       description: ''
     }
@@ -60,8 +58,8 @@ export default {
     },
     parseTime () {
       return {
-        minute: parseInt(this.time.split(':')[1]),
-        hour: parseInt(this.time.split(':')[0])
+        minute: this.time ? this.time.getMinutes() : 0,
+        hour: this.time ? this.time.getHours() : 0
       }
     },
     prepareDataForRequest () {
@@ -81,8 +79,10 @@ export default {
       if (this.createMode) {
         reminderApi.createReminder(response => {
           this.toast({
-            message: 'Reminder has been successfully created',
-            type: 'is-success'
+            data: {
+              message: 'Reminder has been successfully created',
+              type: 'is-success'
+            }
           })
           this.$router.replace({ name: 'reminderDetail', params: { reminderId: response.data.id } })
         }, this.errorHandler, { body: data })
@@ -90,8 +90,10 @@ export default {
         const reminderId = this.$route.params.reminderId
         reminderApi.updateReminder(response => {
           this.toast({
-            message: 'Reminder has been successfully updated',
-            type: 'is-success'
+            data: {
+              message: 'Reminder has been successfully updated',
+              type: 'is-success'
+            }
           })
           this.$router.replace({ name: 'reminderDetail', params: { reminderId } })
         }, this.errorHandler, {
@@ -138,7 +140,7 @@ export default {
         this.timeType = data.repeatDays.length === 7 ? 'EVERY_DAY' : 'WEEKLY'
         this.daysChosen = data.repeatDays
       }
-      this.time = data.time
+      this.time = moment(data.time, 'HH:mm').toDate()
     }
   },
   created () {

@@ -21,6 +21,9 @@
         <div slot="no-more"></div>
         <div slot="no-results"></div>
       </infinite-loading>
+      <template v-if="reminders.length === 0">
+        <EmptyState class="reminder__empty-state" src="folder"></EmptyState>
+      </template>
     </div>
     <ModalDeleteConfirmation v-if="showDeleteConfirmation" @clickDelete="deleteReminder" @close="showDeleteConfirmation = false" />
   </div>

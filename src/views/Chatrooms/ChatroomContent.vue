@@ -17,37 +17,43 @@
         </div>
       </div>
       <div class="chatroom-content__container">
-        <div id="messages-container" class="chatroom-content__container__messages">
-          <infinite-loading :identifier="chatroomId" direction="top" @infinite="infiniteMessageHandler">
-            <div slot="no-more"></div>
-            <div slot="no-results"></div>
-            <div slot="no-loading"></div>
-          </infinite-loading>
-          <div v-for="message in computedMessagesDate" :key="message.id">
-            <template v-if="message.isNewDate">
-              <p class="chatroom-content__dateseparator">{{ printDateSeparator(message) }}</p>
-            </template>
-            <MessageBubbleSent v-if="message.sender.id === currentUser.id"
-                               :message="message.text"
-                               :clock="message.time"
-                               class="chatroom-content__message-bubble"></MessageBubbleSent>
+        <div v-if="isLoading">
+          <ListItem v-for="n in 4" v-bind:key="n" :loading="isLoading"></ListItem>
+        </div>
+        <template v-else>
+          <div id="messages-container" class="chatroom-content__container__messages">
+            <infinite-loading :identifier="chatroomId" direction="top" @infinite="infiniteMessageHandler">
+              <div slot="no-more"></div>
+              <div slot="no-results"></div>
+              <div slot="no-loading"></div>
+            </infinite-loading>
+            <div v-for="message in computedMessagesDate" :key="message.id">
+              <template v-if="message.isNewDate">
+                <p class="chatroom-content__dateseparator">{{ printDateSeparator(message) }}</p>
+              </template>
+              <MessageBubbleSent v-if="message.sender.id === currentUser.id"
+                                 :message="message.text"
+                                 :clock="message.time"
+                                 class="chatroom-content__message-bubble"></MessageBubbleSent>
 
-            <MessageBubbleReceived v-else
-                                   :message="message.text"
-                                   :clock="message.time"
-                                   :name="message.sender.name"
-                                   :avatar="message.sender.avatar"
-                                   class="chatroom-content__message-bubble"></MessageBubbleReceived>
+              <MessageBubbleReceived v-else
+                                     :message="message.text"
+                                     :clock="message.time"
+                                     :name="message.sender.name"
+                                     :avatar="message.sender.avatar"
+                                     class="chatroom-content__message-bubble"></MessageBubbleReceived>
+            </div>
           </div>
-        </div>
-        <div class="chatroom-content__container__input">
-          <b-field>
-            <b-input type="is-primary" v-model="inputMessage" @keyup.native="onKeyup" placeholder="Type your message.." expanded></b-input>
-            <p class="control">
-              <button class="button is-primary" @click="sendMessage">Send</button>
-            </p>
-          </b-field>
-        </div>
+          <div class="chatroom-content__container__input">
+            <b-field>
+              <b-input type="is-primary" v-model="inputMessage" @keyup.native="onKeyup"
+                       placeholder="Type your message.." expanded></b-input>
+              <p class="control">
+                <button class="button is-primary" @click="sendMessage">Send</button>
+              </p>
+            </b-field>
+          </div>
+        </template>
       </div>
     </div>
     <ModalChatroom v-if="showUpdateModal" @close="showUpdateModal = false"

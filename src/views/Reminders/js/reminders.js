@@ -4,6 +4,7 @@ import BaseButton from '@/components/BaseButton'
 import InfiniteLoading from 'vue-infinite-loading'
 import reminderApi from '@/api/controller/reminders'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
+import EmptyState from '@/components/emptyState/EmptyState'
 import Breakpoint from '@/mixins/Breakpoint'
 import { mapActions } from 'vuex'
 
@@ -14,7 +15,8 @@ export default {
     BaseButton,
     ReminderCard,
     InfiniteLoading,
-    ModalDeleteConfirmation
+    ModalDeleteConfirmation,
+    EmptyState
   },
   mixins: [
     Breakpoint
