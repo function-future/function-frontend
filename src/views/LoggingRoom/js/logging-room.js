@@ -2,7 +2,7 @@ import SearchBar from '@/components/SearchBar'
 import LoggingRoomCard from '@/views/LoggingRoom/LoggingRoomCard'
 import InfiniteLoading from 'vue-infinite-loading'
 import loggingRoomApi from '@/api/controller/logging-room'
-import BaseButton from '@/components/BaseButton'
+import EmptyState from '@/components/emptyState/EmptyState'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
 import { mapActions,mapGetters } from 'vuex'
 
@@ -13,8 +13,8 @@ export default {
     LoggingRoomCard,
     InfiniteLoading,
     loggingRoomApi,
-    BaseButton,
-    ModalDeleteConfirmation
+    ModalDeleteConfirmation,
+    EmptyState
   },
   data () {
     return {

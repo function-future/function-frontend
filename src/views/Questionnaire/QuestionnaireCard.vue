@@ -95,6 +95,7 @@
         width: 100%;
         flex-grow: 1;
         font-weight: bold;
+        font-size: 0.8rem;
 
         &__start-date {
           color: green;
