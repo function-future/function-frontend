@@ -53,7 +53,7 @@
         <div class="column is-3" @click="goToPage('activityBlogs')">
           <div class="card-content">
             <div><b-icon icon="newspaper" class="menu-icon"></b-icon></div>
-            <div>Activity Blogs</div>
+            <div>Blogs</div>
           </div>
         </div>
         <div class="column is-3" v-if="menuList.files" @click="goToPage('files')">
