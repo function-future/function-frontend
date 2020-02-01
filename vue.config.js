@@ -68,7 +68,7 @@ module.exports = {
         splitChunks: {
           cacheGroups: {
             vendor: {
-              test: /[\\/]node_modules[\\/](?!(buefy|@fortawesome|vee-validate|vue-moment|vue-toasted))(.[a-zA-Z0-9.\-_]+)[\\/]/,
+              test: /[\\/]node_modules[\\/](?!(buefy|@fortawesome|vee-validate|vue-moment))(.[a-zA-Z0-9.\-_]+)[\\/]/,
               chunks: 'initial',
               name: 'vendors',
               enforce: true
@@ -95,12 +95,6 @@ module.exports = {
               test: /[\\/]node_modules[\\/]vue-moment(.[a-zA-Z0-9.\-_]+)[\\/]/,
               chunks: 'initial',
               name: 'vue-moment',
-              enforce: true
-            },
-            vue_toasted: {
-              test: /[\\/]node_modules[\\/]vue-toasted(.[a-zA-Z0-9.\-_]+)[\\/]/,
-              chunks: 'initial',
-              name: 'vue-toasted',
               enforce: true
             }
           }

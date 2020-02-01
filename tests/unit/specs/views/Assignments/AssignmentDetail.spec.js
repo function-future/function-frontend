@@ -62,7 +62,6 @@ describe('AssignmentDetail', () => {
         'BaseInput',
         'BaseSelect',
         'font-awesome-icon',
-        'vue-toasted',
         'v-date-picker'
       ],
       mocks: {

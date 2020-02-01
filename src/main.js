@@ -8,7 +8,6 @@ import { far } from '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import axios from 'axios'
 import config from '@/config/index'
-import Toasted from 'vue-toasted'
 import VeeValidate from 'vee-validate'
 import VueCookies from 'vue-cookies'
 import Buefy from 'buefy'
@@ -21,13 +20,6 @@ library.add(far)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.use(require('vue-moment'))
 Vue.use(VueTimers)
-
-Vue.use(Toasted, {
-  theme: 'bubble',
-  className: 'toaster',
-  duration: 6000,
-  position: 'bottom-right'
-})
 
 Vue.use(VeeValidate)
 Vue.use(VueCookies)
