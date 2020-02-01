@@ -68,7 +68,7 @@ module.exports = {
         splitChunks: {
           cacheGroups: {
             vendor: {
-              test: /[\\/]node_modules[\\/](?!(buefy|@fortawesome|mavon-editor|v-calendar|vee-validate|vue-moment|vue-toasted))(.[a-zA-Z0-9.\-_]+)[\\/]/,
+              test: /[\\/]node_modules[\\/](?!(buefy|@fortawesome|v-calendar|vee-validate|vue-moment|vue-toasted))(.[a-zA-Z0-9.\-_]+)[\\/]/,
               chunks: 'initial',
               name: 'vendors',
               enforce: true
@@ -83,12 +83,6 @@ module.exports = {
               test: /[\\/]node_modules[\\/]@fortawesome(.[a-zA-Z0-9.\-_]+)[\\/]/,
               chunks: 'initial',
               name: 'fortawesome',
-              enforce: true
-            },
-            mavon_editor: {
-              test: /[\\/]node_modules[\\/]mavon-editor(.[a-zA-Z0-9.\-_]+)[\\/]/,
-              chunks: 'initial',
-              name: 'mavon-editor',
               enforce: true
             },
             v_calendar: {

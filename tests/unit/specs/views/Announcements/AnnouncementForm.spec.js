@@ -4,13 +4,11 @@ import Vuex from 'vuex'
 import VueRouter from 'vue-router'
 import config from '@/config/index'
 import VeeValidate from 'vee-validate'
-import mavonEditor from 'mavon-editor'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
 localVue.use(VueRouter)
 localVue.use(VeeValidate)
-localVue.use(mavonEditor)
 
 const routes = [
   {

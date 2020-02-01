@@ -64,8 +64,7 @@ describe('AssignmentDetail', () => {
         'font-awesome-icon',
         'vue-toasted',
         'v-date-picker',
-        'v-calendar',
-        'mavon-editor'
+        'v-calendar'
       ],
       mocks: {
         $toasted
