@@ -27,7 +27,7 @@
                         </span>
                       </div>
                       <a class="modal__body__file-version__content-link"
-                         :href="value.url" target="_blank" style="color: #4a4a4a">
+                         :href="value.url" download style="color: #4a4a4a">
                         <b-icon icon="download" size="is-small"></b-icon>
                       </a>
                     </div>
