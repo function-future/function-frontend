@@ -42,7 +42,7 @@ export default {
       this.$emit('updateViewKey')
     },
     goToGithubIssue () {
-      window.open("https://github.com/function-future/function-frontend/issues/new")
+      window.open("https://github.com/function-future/function-frontend/issues/new?assignees=priagungs%2C+jonathan016%2C+RickyKennedy25%2C+karnandohuang%2C+oliverrsebastian%2C+DavidWilliamK&labels=bug&template=bug_report.md&title=%5BBUG%5D")
     }
   }
 }
