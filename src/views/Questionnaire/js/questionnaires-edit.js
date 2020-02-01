@@ -52,7 +52,11 @@ export default {
       maxValue: 4,
       questions: [],
       removedAppraisee: [],
-      removedAppraiser: []
+      removedAppraiser: [],
+      isCreate: {
+        type: Boolean,
+        default: false
+      }
     }
   },
   computed: {
@@ -100,32 +104,22 @@ export default {
       this.currentQuestionnaireAdmin.dueDate = new Date(this.currentQuestionnaireAdmin.dueDate)
     },
     goToUpdateDescription () {
-      if (this.currentQuestionnaireAdmin.title === ' ' || this.currentQuestionnaireAdmin.description === ' ') {
-        this.toast({
-          data: {
-            message: 'title and description must be filled',
-            type: 'is-danger'
-          }
-        })
-      } else if (this.currentQuestionnaireAdmin.startDate >= this.currentQuestionnaireAdmin.dueDate) {
-        this.toast({
-          data: {
-            message: 'due date should greater than start date',
-            type: 'is-danger'
-          }
-        })
-      } else if (this.currentQuestionnaireAdmin.startDate === this.currentQuestionnaireAdmin.dueDate) {
-        this.toast({
-          data: {
-            message: 'due date should not same with start date',
-            type: 'is-danger'
-          }
-        })
-      } else if (this.currentQuestionnaireAdmin.startDate < new Date().setHours(0, 0, 0, 0)) {
-        this.toast({
-          data: {
-            message: 'start date should greater than yesterday',
-            type: 'is-danger'
+      if (this.isCreate) {
+        questionnaireApi.createQuestionnaire(response => {
+          console.log(response)
+          this.$router.push({
+            name: 'questionnairesEdit',
+            params: {
+              questionnaireId: response.data.id
+            }
+          })
+        }, this.submitMessageErrorCallback,
+        {
+          body: {
+            title: this.questionnaire.title,
+            desc: this.questionnaire.description,
+            startDate: this.questionnaire.startDate.getTime(),
+            dueDate: this.questionnaire.dueDate.getTime()
           }
         })
       } else {
@@ -424,20 +418,88 @@ export default {
     prevProgress () {
       this.progressValue = this.progressValue - 1
     },
+    validateQuestionnaire () {
+      if (this.currentQuestionnaireAdmin.title === ' ' || this.currentQuestionnaireAdmin.description === ' ') {
+        this.toast({
+          data: {
+            message: 'Title and description must be filled',
+            type: 'is-danger'
+          }
+        })
+        return false
+      }
+      if (this.currentQuestionnaireAdmin.startDate >= this.currentQuestionnaireAdmin.dueDate) {
+        this.toast({
+          data: {
+            message: 'Due date should greater than start date',
+            type: 'is-danger'
+          }
+        })
+        return false
+      }
+      if (this.currentQuestionnaireAdmin.startDate === this.currentQuestionnaireAdmin.dueDate) {
+        this.toast({
+          data: {
+            message: 'Due date should not same with start date',
+            type: 'is-danger'
+          }
+        })
+        return false
+      }
+      if (this.currentQuestionnaireAdmin.startDate < new Date().setHours(0, 0, 0, 0)) {
+        this.toast({
+          data: {
+            message: 'Start date should greater than yesterday',
+            type: 'is-danger'
+          }
+        })
+        return false
+      }
+      if (this.currentAppraiseeTemp.length === 0) {
+        this.toast({
+          data: {
+            message: 'Appraisee cannot be empty',
+            type: 'is-danger'
+          }
+        })
+        return false
+      }
+      if (this.currentAppraiserTemp.length === 0) {
+        this.toast({
+          data: {
+            message: 'Appraiser cannot be empty',
+            type: 'is-danger'
+          }
+        })
+        return false
+      }
+      return true
+    },
     updateQuestionnaire () {
-      this.goToUpdateDescription()
-      this.updateQuestions()
-      this.updateAppraisee()
-      this.updateAppraiser()
-      this.$router.replace({
-        name: 'questionnaires'
-      })
-      this.toast({
-        data: {
-          message: 'success update questionnaire',
-          type: 'is-success'
+      if (this.validateQuestionnaire()) {
+        this.goToUpdateDescription()
+        this.updateQuestions()
+        this.updateAppraisee()
+        this.updateAppraiser()
+        this.$router.replace({
+          name: 'questionnaires'
+        })
+        if (this.isCreate) {
+          this.toast({
+            data: {
+              message: 'Success update questionnaire',
+              type: 'is-success'
+            }
+          })
+        } else {
+          this.toast({
+            data: {
+              message: 'Success create questionnaire',
+              type: 'is-success'
+            }
+          })
         }
-      })
+      }
     },
     fetchingCurrentQuestionnarieAdmin () {
       this.fetchCurrentQuestionnaireAdmin({

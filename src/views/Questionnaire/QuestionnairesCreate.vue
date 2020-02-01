@@ -1,15 +1,16 @@
 <template>
   <div class="questionnaire-create__outer">
     <div class="questionnaire-create__container">
-      <div class="questionnaire-create__top-bar">
-        <b-button
-          class="button-save is-rounded is-primary"
-          @click="goToCreate">
-          <span>Finish</span>
-        </b-button>
-      </div>
+<!--      <div class="questionnaire-create__top-bar">-->
+<!--        <b-button-->
+<!--          class="button-save is-rounded is-primary"-->
+<!--          @click="goToCreate">-->
+<!--          <span>Finish</span>-->
+<!--        </b-button>-->
+<!--      </div>-->
       <div class="questionnaire-create__content">
-        <QuestionnaireForm :value="questionnaire"
+        <QuetionnaireEdit :value="questionnaire"
+                          :isCreate="true"
                            @input="(newValue) => { setCurrentQuestionnaire(newValue) }"
         />
       </div>

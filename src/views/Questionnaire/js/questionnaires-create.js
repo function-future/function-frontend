@@ -1,5 +1,6 @@
 import BaseButton from '@/components/BaseButton'
 import QuestionnaireForm from '@/views/Questionnaire/QuestionnaireForm'
+import QuestionnaireEdit from '@/views/Questionnaire/QuestionnaireEdit'
 import questionnaireApi from '@/api/controller/questionnaire'
 import { mapActions } from 'vuex'
 
@@ -7,7 +8,8 @@ export default {
   name: 'QuestionnairesCreate',
   components: {
     BaseButton,
-    QuestionnaireForm
+    QuestionnaireForm,
+    QuestionnaireEdit
   },
   data () {
     return {
@@ -54,6 +56,7 @@ export default {
         })
       } else {
         questionnaireApi.createQuestionnaire(response => {
+          console.log(response)
           this.$router.push({
             name: 'questionnairesEdit',
             params: {
