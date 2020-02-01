@@ -6,7 +6,27 @@ if (workbox) {
   workbox.routing.registerNavigationRoute('/index.html')
 
   workbox.routing.registerRoute(
-    new RegExp('/api'),
-    new workbox.strategies.NetworkOnly()
+    /\.(?:png|gif|jpg|jpeg|webp|svg)$/i,
+    new workbox.strategies.CacheFirst({
+      cacheName: 'function-images',
+      plugins: [
+        new workbox.expiration.Plugin({
+          maxAgeSeconds: 60 * 60
+        })
+      ]
+    })
+  )
+
+  workbox.routing.registerRoute(
+    /[\\/]api[\\/]*/i,
+    new workbox.strategies.NetworkFirst({
+      cacheName: 'function-apis',
+      networkTimeoutSeconds: 5,
+      plugins: [
+        new workbox.expiration.Plugin({
+          maxAgeSeconds: 24 * 60 * 60
+        })
+      ]
+    })
   )
 }
