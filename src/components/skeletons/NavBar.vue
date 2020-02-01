@@ -18,6 +18,8 @@
           </b-button>
         </div>
       </b-navbar-item>
+      <NotificationsIcon v-if="loggedIn"
+      ></NotificationsIcon>
       <b-dropdown class="buttons" v-if="loggedIn"
                   position="is-bottom-left"
                   aria-role="menu">
@@ -46,4 +48,5 @@
 
 <script src="./js/nav-bar.js"></script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+</style>

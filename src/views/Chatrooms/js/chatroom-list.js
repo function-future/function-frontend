@@ -5,6 +5,7 @@ import Websocket from '@/mixins/Websocket'
 import Breakpoint from '@/mixins/Breakpoint'
 import config from '@/config/index'
 import InfiniteLoading from 'vue-infinite-loading'
+import ListItem from '@/components/list/ListItem'
 
 export default {
   name: 'ChatroomList',
@@ -15,7 +16,8 @@ export default {
   ],
   components: {
     ChatroomCard,
-    InfiniteLoading
+    InfiniteLoading,
+    ListItem
   },
   props: {
     activeChatroomId: String
@@ -26,7 +28,8 @@ export default {
       page: 1,
       size: 10,
       totalSize: null,
-      chatroomSubscription: null
+      chatroomSubscription: null,
+      isLoading: true
     }
   },
   computed: {
@@ -38,6 +41,7 @@ export default {
   watch: {
     isSocketConnected: function () {
       if (this.isSocketConnected) {
+        this.isLoading = false
         this.chatroomSubscription = this.subscribe(
           config.api.communication.topic.chatroom(this.currentUser.id),
           this.chatroomSubscriptionCallback

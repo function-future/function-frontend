@@ -34,8 +34,6 @@ export default {
     },
     connectErrorCallback (error) {
       console.error(error)
-      setTimeout(this.stompClient.connect({}, this.connectSuccessCallback, this.connectErrorCallback), 5000)
-      console.log('STOMP: Reconnecting in 5 seconds')
       this.isSocketConnected = false
     },
     subscribe (topic, cb) {

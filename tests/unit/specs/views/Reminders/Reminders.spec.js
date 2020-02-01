@@ -2,20 +2,26 @@ import Reminders from '@/views/Reminders/Reminders'
 import { createLocalVue, shallowMount } from '@vue/test-utils'
 import reminderApi from '@/api/controller/reminders'
 import VueRouter from 'vue-router'
+import Vuex from 'vuex'
 
 jest.mock('@/api/controller/reminders')
 
 describe('Reminders', () => {
   let wrapper
   function initComponent () {
-    const $toasted = {
-      error: jest.fn(),
-      success: jest.fn()
-    }
     const lv = createLocalVue()
     lv.use(VueRouter)
+    lv.use(Vuex)
     const router = new VueRouter([])
-
+    const store = new Vuex.Store({
+      modules: {
+        reminders: {
+          actions: {
+            toast: jest.fn()
+          }
+        }
+      }
+    })
     wrapper = shallowMount(Reminders, {
       stubs: [
         'vue-infinite-loading',
@@ -24,10 +30,8 @@ describe('Reminders', () => {
         'ReminderCard',
         'InfiniteLoading'
       ],
+      store,
       localVue: lv,
-      mocks: {
-        $toasted
-      },
       router
     })
   }

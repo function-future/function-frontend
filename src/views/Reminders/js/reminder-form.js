@@ -4,8 +4,10 @@ import BaseButton from '@/components/BaseButton'
 import UserSimpleCard from '@/components/UserSimpleCard'
 import reminderApi from '@/api/controller/reminders'
 import ReminderMemberModal from '@/views/Reminders/ReminderMemberModal'
-import VueCtkDateTimePicker from 'vue-ctk-date-time-picker'
-import 'vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css'
+import CustomMobileNavBar from '@/components/skeletons/CustomMobileNavBar'
+import Breakpoint from '@/mixins/Breakpoint'
+import { mapActions } from 'vuex'
+import moment from 'moment'
 
 export default {
   name: 'ReminderForm',
@@ -15,8 +17,11 @@ export default {
     UserSimpleCard,
     ReminderMemberModal,
     BaseTextArea,
-    VueCtkDateTimePicker
+    CustomMobileNavBar
   },
+  mixins: [
+    Breakpoint
+  ],
   props: {
     editMode: Boolean,
     createMode: {
@@ -32,12 +37,15 @@ export default {
       daysChosen: ['SUNDAY'],
       timeType: 'EVERY_DAY',
       date: 1,
-      time: '00:00',
+      time: null,
       title: '',
       description: ''
     }
   },
   methods: {
+    ...mapActions([
+      'toast'
+    ]),
     toDisplayDay (day) {
       return day.charAt(0).toUpperCase() + day.slice(1, 3).toLowerCase()
     },
@@ -50,8 +58,8 @@ export default {
     },
     parseTime () {
       return {
-        minute: parseInt(this.time.split(':')[1]),
-        hour: parseInt(this.time.split(':')[0])
+        minute: this.time ? this.time.getMinutes() : 0,
+        hour: this.time ? this.time.getHours() : 0
       }
     },
     prepareDataForRequest () {
@@ -70,13 +78,23 @@ export default {
       const data = this.prepareDataForRequest()
       if (this.createMode) {
         reminderApi.createReminder(response => {
-          this.$toasted.success('Reminder has been successfully created')
+          this.toast({
+            data: {
+              message: 'Reminder has been successfully created',
+              type: 'is-success'
+            }
+          })
           this.$router.replace({ name: 'reminderDetail', params: { reminderId: response.data.id } })
         }, this.errorHandler, { body: data })
       } else {
         const reminderId = this.$route.params.reminderId
         reminderApi.updateReminder(response => {
-          this.$toasted.success('Reminder has been successfully updated')
+          this.toast({
+            data: {
+              message: 'Reminder has been successfully updated',
+              type: 'is-success'
+            }
+          })
           this.$router.replace({ name: 'reminderDetail', params: { reminderId } })
         }, this.errorHandler, {
           body: data,
@@ -88,7 +106,10 @@ export default {
     },
     errorHandler (err) {
       console.log(err)
-      this.$toasted.error('Something went wrong')
+      this.toast({
+        message: 'Something went wrong',
+        type: 'is-error'
+      })
     },
     addMemberHandler (member) {
       this.members.push(member)
@@ -119,7 +140,7 @@ export default {
         this.timeType = data.repeatDays.length === 7 ? 'EVERY_DAY' : 'WEEKLY'
         this.daysChosen = data.repeatDays
       }
-      this.time = data.time
+      this.time = moment(data.time, 'HH:mm').toDate()
     }
   },
   created () {

@@ -7,6 +7,10 @@
   "proxies": {
     "/api/": {
       "origin": "http://198.46.208.254:8080/api/"
+    },
+    "/ws/": {
+      "origin": "http://198.46.208.254:8080/ws/",
+      "websocket": true
     }
   },
   "headers": {

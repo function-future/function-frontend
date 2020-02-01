@@ -91,7 +91,7 @@ export default {
     failedFetchingTimeLimit () {
       this.toast({
         data: {
-          message: 'Something went wrong',
+          message: 'Failed to start quiz',
           type: 'is-error'
         }
       })
