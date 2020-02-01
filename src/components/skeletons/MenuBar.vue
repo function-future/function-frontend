@@ -122,6 +122,10 @@
                    :to="{ name: 'loggingRoom' }"
                    v-if="menuList.loggingRoom">
       </b-menu-item>
+      <b-menu-item class="menu-item"
+                   label="Report Issue"
+                   @click="goToGithubIssue">
+      </b-menu-item>
     </b-menu-list>
   </b-menu>
 </template>

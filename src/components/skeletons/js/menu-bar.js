@@ -40,6 +40,9 @@ export default {
     },
     updateViewKey () {
       this.$emit('updateViewKey')
+    },
+    goToGithubIssue () {
+      window.open("https://github.com/function-future/function-frontend/issues/new")
     }
   }
 }
