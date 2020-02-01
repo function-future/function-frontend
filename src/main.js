@@ -10,7 +10,6 @@ import axios from 'axios'
 import config from '@/config/index'
 import Toasted from 'vue-toasted'
 import VeeValidate from 'vee-validate'
-import VCalendar from 'v-calendar'
 import VueCookies from 'vue-cookies'
 import Buefy from 'buefy'
 import VueTimers from 'vue-timers'
@@ -31,7 +30,6 @@ Vue.use(Toasted, {
 })
 
 Vue.use(VeeValidate)
-Vue.use(VCalendar)
 Vue.use(VueCookies)
 Vue.use(Buefy, {
   defaultIconComponent: 'font-awesome-icon',
