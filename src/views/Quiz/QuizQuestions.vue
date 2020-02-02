@@ -49,12 +49,13 @@
             Previous
           </b-button>
           <b-button
+            class="quiz-questions__container__actions-next"
             outlined
             type="is-success"
             icon-pack="fas"
             icon-right="forward"
             :disabled="next.disabled"
-            @click.prevent="next.action">
+            @click.prevent="next.action" v-if="!next.disabled">
             Next
           </b-button>
           <b-button
@@ -63,7 +64,7 @@
             icon-pack="fas"
             icon-right="check-circle" class="quiz-questions__container__actions-submit"
             @click="submitQuiz"
-            :disabled="isSubmitting">
+            :disabled="isSubmitting" v-if="!!next.disabled">
             Submit
           </b-button>
         </div>
@@ -92,12 +93,19 @@
         width: 100%;
       }
       &__actions {
-        padding: 0 16px;
+        @media only screen and (min-width: 769px) {
+          float: right;
+          padding: 0 16px;
+        }
+        @media only screen and (max-width: 768px) {
+          display: flex;
+          justify-content: space-around;
+          &-prev, &-next, &-submit {
+            min-width: 40vw;
+          }
+        }
         &-prev {
           margin-right: 0.5rem;
-        }
-        &-submit {
-          float: right;
         }
       }
       &__modal {
