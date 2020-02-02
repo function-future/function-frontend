@@ -40,7 +40,7 @@ export default {
       this.$emit('close')
     },
     submit () {
-      if (this.descriptionTemp.length > 0) {
+      if (this.descriptionTemp.length != null) {
         this.$emit('submit', {
           description: this.descriptionTemp
         })
@@ -55,7 +55,7 @@ export default {
       }
     },
     updateQuestion () {
-      if (this.descriptionTemp.length > 0) {
+      if (this.descriptionTemp != null) {
         this.$emit('update', {
           description: this.descriptionTemp
         })
@@ -68,6 +68,12 @@ export default {
           }
         })
       }
+    },
+    created () {
+      this.descriptionTemp = this.description
+    },
+    destroyed () {
+      this.descriptionTemp = ''
     }
   }
 }

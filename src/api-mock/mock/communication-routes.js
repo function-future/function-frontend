@@ -433,7 +433,7 @@ export const myQuestionnaires = [
   {
     // get my questionnaire
     method: 'GET',
-    url: config.api.communication.myQuestionnaire.getMyquestionnnaires(1, 10),
+    url: config.api.communication.myQuestionnaire.getMyquestionnnaires(1, 10, null),
     response: {
       'code': 200,
       'status': 'OK',

@@ -492,8 +492,12 @@ module.exports = {
         }
       },
       myQuestionnaire: {
-        getMyquestionnnaires (page, size) {
-          return `/api/communication/my-questionnaires?page=${page}&size=${size}`
+        getMyquestionnnaires (page, size, keyword) {
+          if (keyword == null) {
+            return `/api/communication/my-questionnaires?page=${page}&size=${size}`
+          } else {
+            return `/api/communication/my-questionnaires?page=${page}&size=${size}&search=${keyword}`
+          }
         },
         getListAppraisees (questionnaireId) {
           return `/api/communication/my-questionnaires/${questionnaireId}/appraisees`

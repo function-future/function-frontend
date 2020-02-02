@@ -14,7 +14,7 @@ export default {
     return {
       myQuestionnaires: [],
       page: 1,
-      size: 10
+      size: 10,
     }
   },
   methods: {
@@ -45,6 +45,20 @@ export default {
         params: {
           page: this.page,
           size: this.size
+        }
+      })
+    },
+    searchHandler (value) {
+      this.page = 1
+      console.log(value)
+      myQuestionnaireApi.getMyQuestionnaires(response => {
+        console.log(response.data)
+        this.myQuestionnaires = response.data
+      }, this.errorCallback, {
+        params: {
+          page: this.page,
+          size: this.size,
+          keyword: value
         }
       })
     }

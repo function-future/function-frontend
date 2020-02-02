@@ -44,7 +44,7 @@ export default {
         startDate: new Date(new Date().setSeconds(0)),
         dueDate: new Date(new Date().setSeconds(0))
       },
-      question: {
+      questionTemp: {
         id: '',
         description: '',
         isUpdate: false,
@@ -121,6 +121,12 @@ export default {
           this.updateQuestions()
           this.updateAppraisee()
           this.updateAppraiser()
+          this.toast({
+            data: {
+              message: 'Success create questionnaire',
+              type: 'is-success'
+            }
+          })
         }, this.submitMessageErrorCallback,
         {
           body: {
@@ -132,10 +138,20 @@ export default {
         })
       } else {
         questionnaireApi.updateQuestionnaire(response => {
-          this.setCurrentQuestionnaire(response.data)
-          this.updateQuestions()
-          this.updateAppraisee()
-          this.updateAppraiser()
+          if(response.code !== 403) {
+            this.currentQuestionnaireTemp.id = response.data.id
+            this.updateQuestions()
+            this.updateAppraisee()
+            this.updateAppraiser()
+            this.toast({
+              data: {
+                message: 'Success update questionnaire',
+                type: 'is-success'
+              }
+            })
+          } else {
+            this.submitMessageErrorCallback()
+          }
         }, this.submitMessageErrorCallback,
         {
           params: {
@@ -199,7 +215,7 @@ export default {
       this.currentQuestionsTemp = response.data
     },
     deleteTheQuestionQuestionnaire () {
-      this.currentQuestionsTemp.splice(this.deleteConfirmationModalQuestion.selectedIndex, 1)
+      this.currentQuestionsTemp.splice(this.deleteConfirmationModalQuestion.selectedIndex-1, 1)
       this.resetDeleteConfirmationModalQuestion()
     },
     deleteErrorCallback (err) {
@@ -224,20 +240,27 @@ export default {
       console.log(err)
     },
     openEditModal (newQuestion, index) {
+      alert(index)
       this.questionModal = true
-      this.question.id = newQuestion.id
-      this.question.isUpdate = true
-      this.question.description = newQuestion.description
-      this.question.index = index
+      this.questionTemp.id = newQuestion.id
+      this.questionTemp.isUpdate = true
+      this.questionTemp.description = newQuestion.description
+      this.questionTemp.index = index
+    },
+    openQuestionModal () {
+      this.questionModal = true
+      this.questionTemp.id = ''
+      this.questionTemp.isUpdate = false
+      this.questionTemp.description = ''
     },
     closeQuestionModal () {
       this.questionModal = false
-      this.question.id = ''
-      this.question.isUpdate = false
-      this.question.description = ''
+      this.questionTemp.id = ''
+      this.questionTemp.isUpdate = false
+      this.questionTemp.description = ''
     },
     updateTheQuestionQuestionnaire (value) {
-      this.currentQuestionsTemp[this.question.index].description = value.description
+      this.currentQuestionsTemp[this.questionTemp.index].description = value.description
       this.closeQuestionModal()
     },
     addAppraisee (member) {
@@ -332,7 +355,7 @@ export default {
     },
     updateQuestions () {
       this.currentQuestionsTemp.forEach(question => {
-        if (question.id == null) {
+        if (question.id === null) {
           questionnaireApi.addQuestionQuestionnaire(response => {
           }, this.submitQuestionErrorCallback,
           {
@@ -476,21 +499,6 @@ export default {
         this.$router.replace({
           name: 'questionnaires'
         })
-        if (!this.isCreate) {
-          this.toast({
-            data: {
-              message: 'Success update questionnaire',
-              type: 'is-success'
-            }
-          })
-        } else {
-          this.toast({
-            data: {
-              message: 'Success create questionnaire',
-              type: 'is-success'
-            }
-          })
-        }
       }
     },
     fetchingCurrentQuestionnarieAdmin () {

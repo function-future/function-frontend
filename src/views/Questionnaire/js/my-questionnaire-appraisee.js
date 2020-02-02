@@ -89,6 +89,7 @@ export default {
     },
     printScore () {
       let submitScore = true
+      this.responses = []
       this.currentQuestionnaireForm.forEach(questionnaireScore => {
         if (questionnaireScore.score === 0) {
           submitScore = false
@@ -187,6 +188,7 @@ export default {
     ])
   },
   created () {
+    this.responses =[]
     this.currentQuestionnaireForm = []
 
     this.fetchCurrentQuestionnaire({

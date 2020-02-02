@@ -18,33 +18,32 @@
             <b-button
               class="is-primary is-rounded"
               @click="nextProgress">
-              <span v-show="progressValue != 4">Next</span>
-              <span v-show="progressValue == 4">Finish</span>
+              <span v-if="progressValue != 4">Next</span>
+              <span v-if="progressValue == 4">Finish</span>
             </b-button>
           </div>
         </div>
-        <div class="questionnaire-edit__container__content-description" v-show="progressValue == 1 || progressValue == 4">
+        <div class="questionnaire-edit__container__content-description" v-if="progressValue == 1 || progressValue == 4">
           <div class="title-placeholder">
             <span class="questionnaire-edit__container__content-description__progress-title">
               Description
             </span>
           </div>
-          {{currentQuestionnaireTemp}}
           <QuestionnaireForm class="questionnaire-edit__container__content-description__form"
                              :value="currentQuestionnaireTemp"
                              :isReview="progressValue == 4"
                              @input="(newValue) => { setCurrentQuestionnaire(newValue) }"
           />
         </div>
-        <div class="questionnaire-edit__container__content-question" v-show="progressValue == 2 || progressValue == 4">
+        <div class="questionnaire-edit__container__content-question" v-if="progressValue == 2 || progressValue == 4">
           <div class="title-placeholder" >
             <span class="questionnaire-edit__container__content-description__progress-title">
               Questions
             </span>
-            <b-button v-show="progressValue == 2"
+            <b-button v-if="progressValue == 2"
               button-class="button-save"
               class="button-save is-primary is-rounded"
-              @click="questionModal = true">
+              @click="openQuestionModal">
               <span>Add</span>
             </b-button>
           </div>
@@ -60,10 +59,10 @@
             ></QuestionCard>
           </div>
         </div>
-        <div class="questionnaire-edit__container__content-appraisee" v-show="progressValue == 3 || progressValue == 4">
+        <div class="questionnaire-edit__container__content-appraisee" v-if="progressValue == 3 || progressValue == 4">
           <div class="title-placeholder">
             <span class="questionnaire-edit__container__content-description__progress-title">Participant - Appraisee</span>
-            <b-button v-show="progressValue == 3"
+            <b-button v-if="progressValue == 3"
               button-class="button-save"
               class="button-save is-rounded is-primary"
               @click="participantModal = true">
@@ -80,10 +79,10 @@
             </template>
           </div>
         </div>
-        <div class="questionnaire-edit__container__content-appraiser" v-show="progressValue == 3 || progressValue == 4">
+        <div class="questionnaire-edit__container__content-appraiser" v-if="progressValue == 3 || progressValue == 4">
           <div class="title-placeholder">
             <span class="questionnaire-edit__container__content-description__progress-title">Participant - Appraiser</span>
-            <b-button v-show="progressValue == 3"
+            <b-button v-if="progressValue == 3"
               button-class="button-save"
               class="button-save is-primary is-rounded"
               @click="participantModalAppraiser = true">
@@ -101,13 +100,17 @@
           </div>
         </div>
       </div>
-      <modal-add-question :type="question.type" :description="question.description" :isUpdate="question.isUpdate" v-show="questionModal"
+      <modal-add-question v-if="questionModal"
+                          :questionId="questionTemp.id"
+                          :type="questionTemp.type"
+                          :description="questionTemp.description"
+                          :isUpdate="questionTemp.isUpdate"
              @close="closeQuestionModal"
              @submit="submitAddQuestion"
              @update="updateTheQuestionQuestionnaire"
       ></modal-add-question>
       <modal-delete-confirmation
-        v-show="deleteConfirmationModalQuestion.show"
+        v-if="deleteConfirmationModalQuestion.show"
           @close="resetDeleteConfirmationModalQuestion"
           @clickDelete="deleteTheQuestionQuestionnaire">
         <div slot="description">
@@ -120,15 +123,15 @@
         :selectedUsers="currentAppraiseeTemp"
         :isQuestionnaireSearch="true"
         @close="participantModal = false"
-        v-show="participantModal"></ReminderMemberModal>
+        v-if="participantModal"></ReminderMemberModal>
       <ReminderMemberModal
         @addMember="addAppraiser"
         :selectedUsers="currentAppraiserTemp"
         :isQuestionnaireSearch="true"
         @close="participantModalAppraiser = false"
-        v-show="participantModalAppraiser"></ReminderMemberModal>
+        v-if="participantModalAppraiser"></ReminderMemberModal>
       <modal-delete-confirmation
-        v-show="deleteConfirmationModalParticipant.show"
+        v-if="deleteConfirmationModalParticipant.show"
         @close="closeDeleteConfirmationModalParticipant"
         @clickDelete="deleteTheParticipant">
         <div slot="description">

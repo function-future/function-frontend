@@ -2,11 +2,12 @@
   <div class="my-questionnaire__outer">
     <div class="my-questionnaire__container">
       <div class="my-questionnaire__top-bar">
-<!--        <b-input-->
-<!--          @input="searchHandler"-->
-<!--          icon="search"-->
-<!--          placeholder="Search..."-->
-<!--          class="is-rounded"/>-->
+        <b-input
+          @input="searchHandler"
+          icon="search"
+          placeholder="Search..."
+          class="is-rounded"
+        />
       </div>
       <div class="my-questionnaire__content">
         <div v-if="Object.keys(myQuestionnaires).length === 0" class="my-questionnaire__content__empty-wrapper">
