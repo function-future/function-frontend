@@ -68,7 +68,7 @@ module.exports = {
         splitChunks: {
           cacheGroups: {
             vendor: {
-              test: /[\\/]node_modules[\\/](?!(buefy|@fortawesome|vee-validate|vue-moment))(.[a-zA-Z0-9.\-_]+)[\\/]/,
+              test: /[\\/]node_modules[\\/](?!(buefy|@fortawesome|vee-validate|vue-moment|sockjs-client))(.[a-zA-Z0-9.\-_]+)[\\/]/,
               chunks: 'initial',
               name: 'vendors',
               enforce: true
@@ -83,6 +83,12 @@ module.exports = {
               test: /[\\/]node_modules[\\/]@fortawesome(.[a-zA-Z0-9.\-_]+)[\\/]/,
               chunks: 'initial',
               name: 'fortawesome',
+              enforce: true
+            },
+            sockjs_client: {
+              test: /[\\/]node_modules[\\/]sockjs-client(.[a-zA-Z0-9.\-_]+)[\\/]/,
+              chunks: 'initial',
+              name: 'sockjs-client',
               enforce: true
             },
             vee_validate: {
