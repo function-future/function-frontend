@@ -3,6 +3,7 @@ const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const helpers = require('./helpers')
 const path = require('path')
 const CompressionPlugin = require('compression-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
 
 module.exports = {
   productionSourceMap: false,
@@ -20,6 +21,12 @@ module.exports = {
       return {
         mode: 'development',
         optimization: {
+          minimize: true,
+          minimizer: [
+            new TerserPlugin({
+              parallel: true
+            })
+          ],
           runtimeChunk: 'single',
           splitChunks: {
             chunks: 'all'
@@ -39,6 +46,12 @@ module.exports = {
       return {
         mode: 'development',
         optimization: {
+          minimize: true,
+          minimizer: [
+            new TerserPlugin({
+              parallel: true
+            })
+          ],
           runtimeChunk: 'single',
           splitChunks: {
             chunks: 'all'
@@ -64,6 +77,12 @@ module.exports = {
     }
     return {
       optimization: {
+        minimize: true,
+        minimizer: [
+          new TerserPlugin({
+            parallel: true
+          })
+        ],
         runtimeChunk: 'single',
         splitChunks: {
           cacheGroups: {
