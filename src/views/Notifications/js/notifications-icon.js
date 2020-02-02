@@ -35,6 +35,7 @@ export default {
   methods: {
     goToNotifications () {
       this.notification.color = 'white'
+      this.notification.total = 0
       if (this.$route.name === 'notifications') {
         window.location.reload()
       } else {

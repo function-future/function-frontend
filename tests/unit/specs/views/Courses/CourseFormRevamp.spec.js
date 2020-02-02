@@ -3,7 +3,6 @@ import { createLocalVue, shallowMount } from '@vue/test-utils'
 import Vuex from 'vuex'
 import VueRouter from 'vue-router'
 import VeeValidate from 'vee-validate'
-import mavonEditor from 'mavon-editor'
 
 describe('CourseForm Revamp', () => {
   let store
@@ -15,7 +14,6 @@ describe('CourseForm Revamp', () => {
     lv.use(Vuex)
     lv.use(VueRouter)
     lv.use(VeeValidate)
-    lv.use(mavonEditor)
     return lv
   }
 
