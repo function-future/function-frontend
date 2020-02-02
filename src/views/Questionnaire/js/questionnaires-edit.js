@@ -23,6 +23,12 @@ export default {
     ReminderMemberModal,
     UserSimpleCard
   },
+  props: {
+    isCreate: {
+      type: Boolean,
+      default: false
+    }
+  },
   data () {
     return {
       questionModal: false,
@@ -31,6 +37,13 @@ export default {
       currentAppraiseeTemp: [],
       currentAppraiserTemp: [],
       currentQuestionsTemp: [],
+      currentQuestionnaireTemp: {
+        id: null,
+        title: null,
+        description: null,
+        startDate: new Date(new Date().setSeconds(0)),
+        dueDate: new Date(new Date().setSeconds(0))
+      },
       question: {
         id: '',
         description: '',
@@ -52,11 +65,7 @@ export default {
       maxValue: 4,
       questions: [],
       removedAppraisee: [],
-      removedAppraiser: [],
-      isCreate: {
-        type: Boolean,
-        default: false
-      }
+      removedAppraiser: []
     }
   },
   computed: {
@@ -76,6 +85,9 @@ export default {
     },
     currentQuestionsTemp () {
       this.computedQuestions()
+    },
+    currentQuestionnaireTemp () {
+      this.computedQuestionnaireTemp()
     }
   },
   methods: {
@@ -88,6 +100,9 @@ export default {
     computedQuestions () {
       return this.currentQuestionsTemp ? this.currentQuestions : []
     },
+    computedQuestionnaireTemp () {
+      return this.currentQuestionnaireTemp ? this.currentQuestionnaireAdmin : {}
+    },
     ...mapActions([
       'fetchCurrentQuestionnaireAdmin',
       'setCurrentQuestionnaireAdmin',
@@ -97,44 +112,40 @@ export default {
       'toast'
     ]),
     setCurrentQuestionnaire (data) {
-      this.setCurrentQuestionnaireAdmin({
-        data: data
-      })
-      this.currentQuestionnaireAdmin.startDate = new Date(this.currentQuestionnaireAdmin.startDate)
-      this.currentQuestionnaireAdmin.dueDate = new Date(this.currentQuestionnaireAdmin.dueDate)
+      this.copyToCurrentQuestionnaireTemp(data)
     },
     goToUpdateDescription () {
       if (this.isCreate) {
         questionnaireApi.createQuestionnaire(response => {
-          console.log(response)
-          this.$router.push({
-            name: 'questionnairesEdit',
-            params: {
-              questionnaireId: response.data.id
-            }
-          })
+          this.currentQuestionnaireTemp.id = response.data.id
+          this.updateQuestions()
+          this.updateAppraisee()
+          this.updateAppraiser()
         }, this.submitMessageErrorCallback,
         {
           body: {
-            title: this.questionnaire.title,
-            desc: this.questionnaire.description,
-            startDate: this.questionnaire.startDate.getTime(),
-            dueDate: this.questionnaire.dueDate.getTime()
+            title: this.currentQuestionnaireTemp.title,
+            desc: this.currentQuestionnaireTemp.description,
+            startDate: this.currentQuestionnaireTemp.startDate.getTime(),
+            dueDate: this.currentQuestionnaireTemp.dueDate.getTime()
           }
         })
       } else {
         questionnaireApi.updateQuestionnaire(response => {
           this.setCurrentQuestionnaire(response.data)
+          this.updateQuestions()
+          this.updateAppraisee()
+          this.updateAppraiser()
         }, this.submitMessageErrorCallback,
         {
           params: {
             questionnaireId: this.$route.params.questionnaireId
           },
           body: {
-            title: this.currentQuestionnaireAdmin.title,
-            desc: this.currentQuestionnaireAdmin.description,
-            startDate: isNaN(Date.parse(this.currentQuestionnaireAdmin.startDate)) ? this.currentQuestionnaireAdmin.startDate : this.currentQuestionnaireAdmin.startDate.getTime(),
-            dueDate: isNaN(Date.parse(this.currentQuestionnaireAdmin.dueDate)) ? this.currentQuestionnaireAdmin.dueDate : this.currentQuestionnaireAdmin.dueDate.getTime()
+            title: this.currentQuestionnaireTemp.title,
+            desc: this.currentQuestionnaireTemp.description,
+            startDate: this.currentQuestionnaireTemp.startDate.getTime(),
+            dueDate: this.currentQuestionnaireTemp.dueDate.getTime()
           }
         })
       }
@@ -211,12 +222,6 @@ export default {
     },
     addErrorCallback (err) {
       console.log(err)
-      this.toast({
-        data: {
-          message: 'Fail to add',
-          type: 'is-danger'
-        }
-      })
     },
     openEditModal (newQuestion, index) {
       this.questionModal = true
@@ -335,17 +340,16 @@ export default {
               description: question.description
             },
             params: {
-              questionnaireId: this.$route.params.questionnaireId
+              questionnaireId: this.currentQuestionnaireTemp.id
             }
           })
         } else {
           questionnaireApi.updateQuestionQuestionnaire(response => {
-
           },
           this.updateErrorCallback,
           {
             params: {
-              questionnaireId: this.$route.params.questionnaireId,
+              questionnaireId: this.currentQuestionnaireTemp.id,
               questionId: question.id
             },
             body: {
@@ -362,7 +366,7 @@ export default {
           }, this.addErrorCallback,
           {
             params: {
-              questionnaireId: this.$route.params.questionnaireId
+              questionnaireId: this.currentQuestionnaireTemp.id
             },
             body: {
               idParticipant: member.id
@@ -375,7 +379,7 @@ export default {
         }, this.deleteErrorCallback,
         {
           params: {
-            questionnaireId: this.$route.params.questionnaireId,
+            questionnaireId: this.currentQuestionnaireTemp.id,
             questionnaireParticipantId: member.participantId
           }
         })
@@ -388,7 +392,7 @@ export default {
           }, this.addErrorCallback,
           {
             params: {
-              questionnaireId: this.$route.params.questionnaireId
+              questionnaireId: this.currentQuestionnaireTemp.id
             },
             body: {
               idParticipant: member.id
@@ -402,7 +406,7 @@ export default {
         }, this.deleteErrorCallback,
         {
           params: {
-            questionnaireId: this.$route.params.questionnaireId,
+            questionnaireId: this.currentQuestionnaireTemp.id,
             questionnaireParticipantId: member.participantId
           }
         })
@@ -419,7 +423,7 @@ export default {
       this.progressValue = this.progressValue - 1
     },
     validateQuestionnaire () {
-      if (this.currentQuestionnaireAdmin.title === ' ' || this.currentQuestionnaireAdmin.description === ' ') {
+      if (this.currentQuestionnaireTemp.title === null || this.currentQuestionnaireTemp.description === null) {
         this.toast({
           data: {
             message: 'Title and description must be filled',
@@ -428,7 +432,7 @@ export default {
         })
         return false
       }
-      if (this.currentQuestionnaireAdmin.startDate >= this.currentQuestionnaireAdmin.dueDate) {
+      if (this.currentQuestionnaireTemp.startDate.getTime() >= this.currentQuestionnaireTemp.dueDate.getTime()) {
         this.toast({
           data: {
             message: 'Due date should greater than start date',
@@ -437,19 +441,10 @@ export default {
         })
         return false
       }
-      if (this.currentQuestionnaireAdmin.startDate === this.currentQuestionnaireAdmin.dueDate) {
+      if (this.currentQuestionnaireTemp.startDate.getTime() < new Date()) {
         this.toast({
           data: {
-            message: 'Due date should not same with start date',
-            type: 'is-danger'
-          }
-        })
-        return false
-      }
-      if (this.currentQuestionnaireAdmin.startDate < new Date().setHours(0, 0, 0, 0)) {
-        this.toast({
-          data: {
-            message: 'Start date should greater than yesterday',
+            message: 'Start date should greater than now',
             type: 'is-danger'
           }
         })
@@ -478,13 +473,10 @@ export default {
     updateQuestionnaire () {
       if (this.validateQuestionnaire()) {
         this.goToUpdateDescription()
-        this.updateQuestions()
-        this.updateAppraisee()
-        this.updateAppraiser()
         this.$router.replace({
           name: 'questionnaires'
         })
-        if (this.isCreate) {
+        if (!this.isCreate) {
           this.toast({
             data: {
               message: 'Success update questionnaire',
@@ -509,16 +501,24 @@ export default {
           }
 
         },
-        fail: this.errorHandler
+        fail: this.errorHandler,
+        cb: this.copyToCurrentQuestionnaireTemp
       })
-      this.currentQuestionnaireAdmin.startDate = new Date(this.currentQuestionnaireAdmin.startDate)
-      this.currentQuestionnaireAdmin.dueDate = new Date(this.currentQuestionnaireAdmin.dueDate)
+    },
+    copyToCurrentQuestionnaireTemp (response) {
+      this.currentQuestionnaireTemp.id = response.data.id
+      this.currentQuestionnaireTemp.title = response.data.title
+      this.currentQuestionnaireTemp.description = response.data.description
+      this.currentQuestionnaireTemp.startDate = new Date(this.currentQuestionnaireAdmin.startDate)
+      this.currentQuestionnaireTemp.dueDate = new Date(this.currentQuestionnaireAdmin.dueDate)
     }
   },
   created () {
-    this.fetchingCurrentQuestionnarieAdmin()
-    this.fetchingQuestions()
-    this.fetchingAppraisee()
-    this.fetchingAppraiser()
+    if (!this.isCreate) {
+      this.fetchingCurrentQuestionnarieAdmin()
+      this.fetchingQuestions()
+      this.fetchingAppraisee()
+      this.fetchingAppraiser()
+    }
   }
 }

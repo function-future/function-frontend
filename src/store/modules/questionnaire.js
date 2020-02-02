@@ -48,10 +48,11 @@ export const actions = {
       commit('PUSH_LIST_QUESTIONNAIRES', response.data)
     }, fail, data)
   },
-  fetchCurrentQuestionnaireAdmin ({ state, commit }, { data, fail }) {
+  fetchCurrentQuestionnaireAdmin ({ state, commit }, { data, fail, cb }) {
     questionnaireApi.getQuestionnaire(response => {
       commit('RESET_CURRENT_QUESTIONNAIRE_ADMIN')
       commit('ASSIGN_CURRENT_QUESTIONNAIRE_ADMIN', response.data)
+      cb && cb(response)
     }, fail, data)
   },
   setCurrentQuestionnaireAdmin ({ commit }, { data }) {

@@ -1,6 +1,6 @@
 import BaseButton from '@/components/BaseButton'
 import QuestionnaireForm from '@/views/Questionnaire/QuestionnaireForm'
-import QuestionnaireEdit from '@/views/Questionnaire/QuestionnaireEdit'
+import QuestionnairesEdit from '@/views/Questionnaire/QuestionnairesEdit'
 import questionnaireApi from '@/api/controller/questionnaire'
 import { mapActions } from 'vuex'
 
@@ -9,7 +9,7 @@ export default {
   components: {
     BaseButton,
     QuestionnaireForm,
-    QuestionnaireEdit
+    QuestionnairesEdit
   },
   data () {
     return {
@@ -18,7 +18,8 @@ export default {
         description: '',
         startDate: new Date(),
         dueDate: new Date()
-      }
+      },
+      isCreate: true
     }
   },
   methods: {
