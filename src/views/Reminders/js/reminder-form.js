@@ -107,8 +107,10 @@ export default {
     errorHandler (err) {
       console.log(err)
       this.toast({
-        message: 'Something went wrong',
-        type: 'is-error'
+        data: {
+          message: 'Something went wrong',
+          type: 'is-danger'
+        }
       })
     },
     addMemberHandler (member) {
