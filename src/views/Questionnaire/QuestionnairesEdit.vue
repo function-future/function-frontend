@@ -30,7 +30,7 @@
             </span>
           </div>
           <QuestionnaireForm class="questionnaire-edit__container__content-description__form"
-                             :value="currentQuestionnaireAdmin"
+                             :value="currentQuestionnaireTemp"
                              :isReview="progressValue == 4"
                              @input="(newValue) => { setCurrentQuestionnaire(newValue) }"
           />
@@ -43,7 +43,7 @@
             <b-button v-if="progressValue == 2"
               button-class="button-save"
               class="button-save is-primary is-rounded"
-              @click="questionModal = true">
+              @click="openQuestionModal">
               <span>Add</span>
             </b-button>
           </div>
@@ -100,13 +100,17 @@
           </div>
         </div>
       </div>
-      <modal-add-question :type="question.type" :description="question.description" :isUpdate="question.isUpdate" v-if="questionModal"
+      <modal-add-question v-if="questionModal"
+                          :questionId="questionTemp.id"
+                          :type="questionTemp.type"
+                          :description="questionTemp.description"
+                          :isUpdate="questionTemp.isUpdate"
              @close="closeQuestionModal"
              @submit="submitAddQuestion"
              @update="updateTheQuestionQuestionnaire"
       ></modal-add-question>
       <modal-delete-confirmation
-          v-if="deleteConfirmationModalQuestion.show"
+        v-if="deleteConfirmationModalQuestion.show"
           @close="resetDeleteConfirmationModalQuestion"
           @clickDelete="deleteTheQuestionQuestionnaire">
         <div slot="description">
@@ -172,17 +176,14 @@
 
       &__content-quesiton {
         width: 100%;
-        max-width: 800px;
       }
 
       &__content-appraisee {
         width: 100%;
-        max-width: 800px;
       }
 
       &__content-appraiser {
         width: 100%;
-        max-width: 800px;
       }
     }
 

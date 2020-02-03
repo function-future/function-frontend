@@ -2,7 +2,6 @@ import ActivityBlogForm from '@/views/ActivityBlogs/ActivityBlogForm'
 import { createLocalVue, shallowMount } from '@vue/test-utils'
 import Vuex from 'vuex'
 import VeeValidate from 'vee-validate'
-import MavonEditor from 'mavon-editor'
 
 describe('ActivityBlogForm', () => {
   let store
@@ -13,7 +12,6 @@ describe('ActivityBlogForm', () => {
     const lv = createLocalVue()
     lv.use(Vuex)
     lv.use(VeeValidate)
-    lv.use(MavonEditor)
     return lv
   }
 

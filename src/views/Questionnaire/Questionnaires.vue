@@ -19,16 +19,25 @@
         </div>
       </div>
       <div class="questionnaires__content">
-        <QuestionnaireCard v-for="myQuestionnaire in questionnaires"
-                           :id="myQuestionnaire.id"
-                           :title="myQuestionnaire.title"
-                           :description="myQuestionnaire.description"
-                           :startDate="myQuestionnaire.startDate"
-                           :dueDate="myQuestionnaire.dueDate"
-                           :isEdit="true"
-                           :isDisable="Date.now() > myQuestionnaire.startDate"
-                           @clickDelete="openDeleteModal(myQuestionnaire)"
-        ></QuestionnaireCard>
+        <div v-if="Object.keys(questionnaires).length === 0" class="questionnaires__content__empty-wrapper">
+          <EmptyState class="questionnaires__empty-state" src="questionnaires-empty">
+            <template #title>
+              Looks like there is no questionnaire was made!
+            </template>
+          </EmptyState>
+        </div>
+        <div v-else class="questionnaires__content__wrapper">
+          <QuestionnaireCard v-for="myQuestionnaire in questionnaires"
+                             :id="myQuestionnaire.id"
+                             :title="myQuestionnaire.title"
+                             :description="myQuestionnaire.description"
+                             :startDate="myQuestionnaire.startDate"
+                             :dueDate="myQuestionnaire.dueDate"
+                             :isEdit="true"
+                             :isDisable="Date.now() > myQuestionnaire.startDate"
+                             @clickDelete="openDeleteModal(myQuestionnaire)"
+          ></QuestionnaireCard>
+        </div>
         <infinite-loading ref="infiniteLoading" :identifier="keyword" @infinite="infiniteHandler">
           <div slot="no-more"></div>
           <div slot="no-results"></div>

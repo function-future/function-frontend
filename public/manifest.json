@@ -3,6 +3,18 @@
   "short_name": "Function",
   "icons": [
     {
+      "src": "./img/icons/favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "./img/icons/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
       "src": "./img/icons/favicon-36x36.png",
       "sizes": "36x36",
       "type": "image/png",
@@ -63,8 +75,8 @@
       "purpose": "maskable any"
     }
   ],
-  "start_url": "./index.html",
+  "start_url": "/",
   "display": "standalone",
-  "background_color": "#FFFFFF",
+  "background_color": "#02AAF3",
   "theme_color": "#02AAF3"
 }

@@ -3,6 +3,7 @@ const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const helpers = require('./helpers')
 const path = require('path')
 const CompressionPlugin = require('compression-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
 
 module.exports = {
   productionSourceMap: false,
@@ -20,6 +21,12 @@ module.exports = {
       return {
         mode: 'development',
         optimization: {
+          minimize: true,
+          minimizer: [
+            new TerserPlugin({
+              parallel: true
+            })
+          ],
           runtimeChunk: 'single',
           splitChunks: {
             chunks: 'all'
@@ -39,6 +46,12 @@ module.exports = {
       return {
         mode: 'development',
         optimization: {
+          minimize: true,
+          minimizer: [
+            new TerserPlugin({
+              parallel: true
+            })
+          ],
           runtimeChunk: 'single',
           splitChunks: {
             chunks: 'all'
@@ -64,13 +77,25 @@ module.exports = {
     }
     return {
       optimization: {
+        minimize: true,
+        minimizer: [
+          new TerserPlugin({
+            parallel: true
+          })
+        ],
         runtimeChunk: 'single',
         splitChunks: {
           cacheGroups: {
             vendor: {
-              test: /[\\/]node_modules[\\/](?!(@fortawesome|mavon-editor|v-calendar|vee-validate|vue-moment|vue-toasted))(.[a-zA-Z0-9.\-_]+)[\\/]/,
+              test: /[\\/]node_modules[\\/](?!(buefy|@fortawesome|vee-validate|vue-moment|sockjs-client))(.[a-zA-Z0-9.\-_]+)[\\/]/,
               chunks: 'initial',
               name: 'vendors',
+              enforce: true
+            },
+            buefy: {
+              test: /[\\/]node_modules[\\/]buefy(.[a-zA-Z0-9.\-_]+)[\\/]/,
+              chunks: 'initial',
+              name: 'buefy',
               enforce: true
             },
             fortawesome: {
@@ -79,16 +104,10 @@ module.exports = {
               name: 'fortawesome',
               enforce: true
             },
-            mavon_editor: {
-              test: /[\\/]node_modules[\\/]mavon-editor(.[a-zA-Z0-9.\-_]+)[\\/]/,
+            sockjs_client: {
+              test: /[\\/]node_modules[\\/]sockjs-client(.[a-zA-Z0-9.\-_]+)[\\/]/,
               chunks: 'initial',
-              name: 'mavon-editor',
-              enforce: true
-            },
-            v_calendar: {
-              test: /[\\/]node_modules[\\/]v-calendar(.[a-zA-Z0-9.\-_]+)[\\/]/,
-              chunks: 'initial',
-              name: 'v-calendar',
+              name: 'sockjs-client',
               enforce: true
             },
             vee_validate: {
@@ -102,12 +121,6 @@ module.exports = {
               chunks: 'initial',
               name: 'vue-moment',
               enforce: true
-            },
-            vue_toasted: {
-              test: /[\\/]node_modules[\\/]vue-toasted(.[a-zA-Z0-9.\-_]+)[\\/]/,
-              chunks: 'initial',
-              name: 'vue-toasted',
-              enforce: true
             }
           }
         }
@@ -117,6 +130,19 @@ module.exports = {
   pwa: {
     name: 'Function',
     themeColor: '#02AAF3',
+    msTileColor: '#02AAF3',
+    appleMobileWebAppCapable: 'yes',
+    appleMobileWebAppStatusBarStyle: 'black-translucent',
+    manifestOptions: {
+      backgroundColor: '#02AAF3'
+    },
+    iconPaths: {
+      favicon32: 'img/icons/favicon-32x32.png',
+      favicon16: 'img/icons/favicon-16x16.png',
+      appleTouchIcon: 'img/icons/apple-touch-icon.png',
+      maskIcon: 'img/icons/safari-pinned-tab.svg',
+      msTileImage: 'img/icons/mstile-150x150.png'
+    },
     workboxPluginMode: 'InjectManifest',
     workboxOptions: {
       swSrc: 'src/service-worker.js',

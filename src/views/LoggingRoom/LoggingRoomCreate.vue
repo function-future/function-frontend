@@ -96,6 +96,7 @@
       align-items: center;
       justify-content: space-between;
       &__add-btn {
+        margin: 5px 0px;
         font-size: 0.5rem;
         width: fit-content;
       }

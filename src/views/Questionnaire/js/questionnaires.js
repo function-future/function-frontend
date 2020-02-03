@@ -2,6 +2,7 @@ import SearchBar from '@/components/SearchBar'
 import QuestionnaireCard from '@/views/Questionnaire/QuestionnaireCard'
 import questionnaireApi from '@/api/controller/questionnaire'
 import InfiniteLoading from 'vue-infinite-loading'
+import EmptyState from '@/components/emptyState/EmptyState'
 import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
 import { mapActions } from 'vuex'
 
@@ -11,7 +12,8 @@ export default {
     SearchBar,
     QuestionnaireCard,
     InfiniteLoading,
-    ModalDeleteConfirmation
+    ModalDeleteConfirmation,
+    EmptyState
   },
   data () {
     return {

@@ -14,7 +14,7 @@
           <a class="button is-primary is-outlined"
              v-if="roomDetail.assignment.file"
              :href="roomDetail.assignment.file"
-             target="_blank">
+             download>
             Download material
           </a>
         </div>
@@ -162,6 +162,11 @@
 
       &__discussion {
         margin-top: 1rem;
+        @media only screen and (max-width: 1023px) {
+          &__list {
+            padding: 0.5rem;
+          }
+        }
         &__box {
           margin-top: 1rem;
         }

@@ -156,4 +156,9 @@ describe('MenuBar', () => {
   test('isActive', () => {
     expect(wrapper.vm.isActive('feeds')).toEqual(false)
   })
+
+  test('updateViewKey', () => {
+    wrapper.vm.updateViewKey()
+    expect(expect(wrapper.emitted().updateViewKey.length).toEqual(1))
+  })
 })

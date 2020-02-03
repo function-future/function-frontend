@@ -54,6 +54,7 @@
           <div class="title-questionnaire">
             <p><i>Questionnaire for {{currentQuestionnaireData.appraisee.name }}</i></p>
           </div>
+          {{currentQuestionnaireForm}}
           <div class="form-questionnaire-content">
             <MyQuestionnaireForm v-for="(question, index) in currentQuestionsQuestionnaire"
                                   :noQuestion="index+1"

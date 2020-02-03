@@ -7,17 +7,26 @@
           </div>
         </div>
         <div class="questionnaire-results-member__content">
-          <QuestionnaireParticipantCard v-for="appraisee in appraiseeResults"
-                                        :id="appraisee.id"
-                                        :name="appraisee.member.name"
-                                        :avatar="appraisee.member.avatar"
-                                        :role="appraisee.member.role"
-                                        :university="appraisee.member.university"
-                                        :batch="appraisee.member.batch.code"
-                                        :score="appraisee.rating"
-                                        :isResult="true"
-                                        v-on:click="goToMemberDetail(appraisee.id)"
-          ></QuestionnaireParticipantCard>
+          <div v-if="Object.keys(appraiseeResults).length === 0" class="questionnaire-results-member__content__empty-wrapper">
+            <EmptyState class="questionnaire-results-member__empty-state" src="questionnaire-results-empty">
+              <template #title>
+                Looks like there is no one members have score!
+              </template>
+            </EmptyState>
+          </div>
+          <div v-else>
+            <QuestionnaireParticipantCard v-for="appraisee in appraiseeResults"
+                                          :id="appraisee.id"
+                                          :name="appraisee.member.name"
+                                          :avatar="appraisee.member.avatar"
+                                          :role="appraisee.member.role"
+                                          :university="appraisee.member.university"
+                                          :batch="appraisee.member.batch.code"
+                                          :score="appraisee.rating"
+                                          :isResult="true"
+                                          v-on:click="goToMemberDetail(appraisee.id)"
+            ></QuestionnaireParticipantCard>
+          </div>
           <infinite-loading ref="infiniteLoading" @infinite="infiniteHandler">
             <div slot="no-more"></div>
             <div slot="no-results"></div>

@@ -84,7 +84,7 @@
                      ref="file"
                      @change="onFileChange(commands.image)"
                      style="display: none"/>
-              <label class="imagebubble-menu" for="image-upload">
+              <label class="imagebubble-menu" for="image-upload" v-if="upload">
                 <icon name="upload" />
                 <span>Upload Image</span>
               </label>
@@ -417,7 +417,7 @@
     position: absolute;
     display: flex;
     flex-direction: column;
-    width: 110px;
+    width: 130px;
     z-index: 50;
     top: 25px;
     left: 0;
