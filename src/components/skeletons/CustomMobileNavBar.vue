@@ -1,6 +1,6 @@
 <template>
   <div v-if="isMobile" class="mobile-navbar__wrapper">
-    <div class="mobile-navbar__back" @click="$router.go(-1)">
+    <div class="mobile-navbar__back" @click="$router.push({ name: 'chatrooms' })">
       <b-icon icon="chevron-left"></b-icon>
     </div>
     <div class="mobile-navbar__title">

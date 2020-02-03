@@ -9,6 +9,7 @@ import MessageBubbleReceived from '@/views/Chatrooms/MessageBubbleReceived'
 import MessageBubbleSent from '@/views/Chatrooms/MessageBubbleSent'
 import ModalChatroom from '@/views/Chatrooms/ModalChatroom'
 import config from '@/config/index'
+import ListItem from '@/components/list/ListItem'
 
 export default {
   name: 'ChatroomContent',
@@ -22,7 +23,8 @@ export default {
     InfiniteLoading,
     MessageBubbleReceived,
     MessageBubbleSent,
-    ModalChatroom
+    ModalChatroom,
+    ListItem
   },
   props: {
     chatroomId: {
@@ -37,7 +39,8 @@ export default {
       messagesSubscription: null,
       lastMessageId: null,
       size: 10,
-      showUpdateModal: false
+      showUpdateModal: false,
+      isLoading: true
     }
   },
   created () {
@@ -262,6 +265,7 @@ export default {
     },
     subscribeMessages () {
       if (this.isSocketConnected) {
+        this.isLoading = false
         this.messagesSubscription = this.subscribe(
           config.api.communication.topic.chat(this.chatroomId),
           this.messagesSubscriptionCallback
@@ -285,6 +289,7 @@ export default {
   },
   watch: {
     chatroomId (newChatroomId, oldChatroomId) {
+      this.isLoading = true
       if (newChatroomId !== 'public') {
         this.fetchDetailChatroom({
           data: {

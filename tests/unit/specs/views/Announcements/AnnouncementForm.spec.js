@@ -4,13 +4,11 @@ import Vuex from 'vuex'
 import VueRouter from 'vue-router'
 import config from '@/config/index'
 import VeeValidate from 'vee-validate'
-import mavonEditor from 'mavon-editor'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
 localVue.use(VueRouter)
 localVue.use(VeeValidate)
-localVue.use(mavonEditor)
 
 const routes = [
   {
@@ -118,8 +116,7 @@ describe('AnnouncementForm.vue on edit mode', () => {
         'BaseButton',
         'BaseSelect',
         'font-awesome-icon',
-        'v-date-picker',
-        'v-calendar'
+        'v-date-picker'
       ],
       sync: false,
       propsData: { editMode }
@@ -140,8 +137,7 @@ describe('AnnouncementForm.vue on edit mode', () => {
         'BaseButton',
         'BaseSelect',
         'font-awesome-icon',
-        'v-date-picker',
-        'v-calendar'
+        'v-date-picker'
       ],
       sync: false
     })
@@ -160,8 +156,7 @@ describe('AnnouncementForm.vue on edit mode', () => {
         'BaseButton',
         'BaseSelect',
         'font-awesome-icon',
-        'v-date-picker',
-        'v-calendar'
+        'v-date-picker'
       ],
       sync: false
     })
@@ -186,8 +181,7 @@ describe('AnnouncementForm.vue on edit mode', () => {
         'BaseButton',
         'BaseSelect',
         'font-awesome-icon',
-        'v-date-picker',
-        'v-calendar'
+        'v-date-picker'
       ],
       sync: false
     })
@@ -207,8 +201,7 @@ describe('AnnouncementForm.vue on edit mode', () => {
         'BaseButton',
         'BaseSelect',
         'font-awesome-icon',
-        'v-date-picker',
-        'v-calendar'
+        'v-date-picker'
       ],
       sync: false
     })
@@ -228,8 +221,7 @@ describe('AnnouncementForm.vue on edit mode', () => {
         'BaseButton',
         'BaseSelect',
         'font-awesome-icon',
-        'v-date-picker',
-        'v-calendar'
+        'v-date-picker'
       ],
       sync: false
     })
@@ -249,8 +241,7 @@ describe('AnnouncementForm.vue on edit mode', () => {
         'BaseButton',
         'BaseSelect',
         'font-awesome-icon',
-        'v-date-picker',
-        'v-calendar'
+        'v-date-picker'
       ],
       sync: false
     })
@@ -279,8 +270,7 @@ describe('AnnouncementForm.vue on edit mode', () => {
         'BaseButton',
         'BaseSelect',
         'font-awesome-icon',
-        'v-date-picker',
-        'v-calendar'
+        'v-date-picker'
       ],
       sync: false
     })
@@ -305,8 +295,7 @@ describe('AnnouncementForm.vue on edit mode', () => {
         'BaseButton',
         'BaseSelect',
         'font-awesome-icon',
-        'v-date-picker',
-        'v-calendar'
+        'v-date-picker'
       ],
       sync: false
     })
@@ -335,8 +324,7 @@ describe('AnnouncementForm.vue on edit mode', () => {
         'BaseButton',
         'BaseSelect',
         'font-awesome-icon',
-        'v-date-picker',
-        'v-calendar'
+        'v-date-picker'
       ],
       sync: false
     })
@@ -361,8 +349,7 @@ describe('AnnouncementForm.vue on edit mode', () => {
         'BaseButton',
         'BaseSelect',
         'font-awesome-icon',
-        'v-date-picker',
-        'v-calendar'
+        'v-date-picker'
       ],
       sync: false
     })
@@ -382,8 +369,7 @@ describe('AnnouncementForm.vue on edit mode', () => {
         'BaseButton',
         'BaseSelect',
         'font-awesome-icon',
-        'v-date-picker',
-        'v-calendar'
+        'v-date-picker'
       ],
       sync: false
     })
@@ -407,8 +393,7 @@ describe('AnnouncementForm.vue on edit mode', () => {
         'BaseButton',
         'BaseSelect',
         'font-awesome-icon',
-        'v-date-picker',
-        'v-calendar'
+        'v-date-picker'
       ],
       sync: false
     })
@@ -429,8 +414,7 @@ describe('AnnouncementForm.vue on edit mode', () => {
         'BaseButton',
         'BaseSelect',
         'font-awesome-icon',
-        'v-date-picker',
-        'v-calendar'
+        'v-date-picker'
       ],
       sync: false
     })
@@ -450,8 +434,7 @@ describe('AnnouncementForm.vue on edit mode', () => {
         'BaseButton',
         'BaseSelect',
         'font-awesome-icon',
-        'v-date-picker',
-        'v-calendar'
+        'v-date-picker'
       ],
       propsData: { editMode: true },
       sync: false
@@ -472,8 +455,7 @@ describe('AnnouncementForm.vue on edit mode', () => {
         'BaseButton',
         'BaseSelect',
         'font-awesome-icon',
-        'v-date-picker',
-        'v-calendar'
+        'v-date-picker'
       ],
       propsData: { editMode: true },
       sync: false
@@ -504,8 +486,7 @@ describe('AnnouncementForm.vue on edit mode', () => {
         'BaseButton',
         'BaseSelect',
         'font-awesome-icon',
-        'v-date-picker',
-        'v-calendar'
+        'v-date-picker'
       ],
       propsData: { editMode: true },
       sync: false
@@ -531,8 +512,7 @@ describe('AnnouncementForm.vue on edit mode', () => {
         'BaseButton',
         'BaseSelect',
         'font-awesome-icon',
-        'v-date-picker',
-        'v-calendar'
+        'v-date-picker'
       ],
       propsData: { editMode: true },
       sync: false
