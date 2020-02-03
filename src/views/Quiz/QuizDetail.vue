@@ -92,7 +92,7 @@
             </section>
           </template>
         </div>
-        <div class="quiz-detail__container__footer">
+        <div class="quiz-detail__container__footer" v-if="!!currentUser && currentUser.role === 'STUDENT'">
           <b-button type="is-primary"
                     @click="goToStudentQuiz">
             Start
