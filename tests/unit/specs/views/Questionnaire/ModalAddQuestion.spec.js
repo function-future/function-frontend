@@ -69,7 +69,7 @@ describe('ModalAddQuestion', () => {
   })
 
   test('destroyed', () => {
-    initComponent()
+    initWrapper()
     wrapper.destroy()
     expect(wrapper.vm.descriptionTemp).toEqual('')
   })

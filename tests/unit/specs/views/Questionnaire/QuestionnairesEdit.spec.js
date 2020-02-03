@@ -141,6 +141,30 @@ describe('QuestionnairesEdit', () => {
     expect(wrapper.vm.computedAppraisee()).toEqual(store.state.currentAppraiser)
   })
 
+  test('computedQuestions case 1', () => {
+    initWrapper()
+    wrapper.vm.currentQuestionsTemp = null
+    expect(wrapper.vm.computedQuestions()).toEqual([])
+  })
+
+  test('computedQuestions case 2', () => {
+    initWrapper()
+    wrapper.vm.currentQuestionsTemp = 'test'
+    expect(wrapper.vm.computedQuestions()).toEqual(store.state.currentQuestions)
+  })
+
+  test('computedQuestionnaireTemp case 1', () => {
+    initWrapper()
+    wrapper.vm.currentQuestionnaireTemp = null
+    expect(wrapper.vm.computedQuestionnaireTemp()).toEqual({})
+  })
+
+  test('computedQuestionnaireTemp case 2', () => {
+    initWrapper()
+    wrapper.vm.currentQuestionnaireTemp = 'test'
+    expect(wrapper.vm.computedQuestionnaireTemp()).toEqual(store.state.currentQuestionnaireAdmin)
+  })
+
   test('setCurrentQuestionnaire', () => {
     initWrapper()
     const spyFunc = jest.spyOn(wrapper.vm, 'copyToCurrentQuestionnaireTemp')
@@ -222,6 +246,35 @@ describe('QuestionnairesEdit', () => {
       }
     })
   })
+
+  test('goToUpdateDescription case 2', () => {
+    questionnaireApi.createQuestionnaire = success => {
+      success({
+        code: 201,
+        data: {
+          id: 'id'
+        }
+      })
+    }
+    initWrapper()
+    wrapper.vm.isCreate = true
+    const spy2 = jest.spyOn(wrapper.vm, 'toast')
+    const spyFunc2 = jest.spyOn(wrapper.vm, 'updateQuestions')
+    const spyFunc3 = jest.spyOn(wrapper.vm, 'updateAppraisee')
+    const spyFunc4 = jest.spyOn(wrapper.vm, 'updateAppraiser')
+
+    wrapper.vm.goToUpdateDescription()
+    expect(spyFunc2).toBeCalled()
+    expect(spyFunc3).toBeCalled()
+    expect(spyFunc4).toBeCalled()
+    expect(spy2).toBeCalledWith({
+      data: {
+        message: 'Success create questionnaire',
+        type: 'is-success'
+      }
+    })
+  })
+
 
   test('submitMessageErrorCallback', () => {
     global.console.log = jest.fn()
@@ -339,6 +392,13 @@ describe('QuestionnairesEdit', () => {
     initWrapper()
     wrapper.vm.questionModal = false
     wrapper.vm.openEditModal({})
+    expect(wrapper.vm.questionModal).toBe(true)
+  })
+
+  test('openQuestionModal', () => {
+    initWrapper()
+    wrapper.vm.questionModal = false
+    wrapper.vm.openQuestionModal()
     expect(wrapper.vm.questionModal).toBe(true)
   })
 
