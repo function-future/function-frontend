@@ -49,7 +49,7 @@
                    v-if="menuList.files">
       </b-menu-item>
       <b-menu-item class="menu-item"
-                   label="Grades"
+                   label="Tasks"
                    tag="router-link"
                    :active="isActive('grades')"
                    :to="{ name: 'scoringAdmin' }"
