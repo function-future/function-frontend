@@ -130,7 +130,7 @@
                     </b-dropdown-item>
                     <b-dropdown-item
                       aria-role="listitem">
-                      <a :href="file.file" target="_blank" style="color: #4a4a4a">
+                      <a :href="file.file" download style="color: #4a4a4a">
                         <span class="icon-wrapper">
                         <b-icon icon="download" class="icon" size="is-small"></b-icon>
                         Download

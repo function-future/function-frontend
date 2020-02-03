@@ -51,7 +51,7 @@
           <a class="button is-primary is-outlined"
              v-if="assignmentDetail.file"
              :href="assignmentDetail.file"
-             target="_blank">
+             download>
             Download material
           </a>
         </div>

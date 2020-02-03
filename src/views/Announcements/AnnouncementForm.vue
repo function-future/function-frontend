@@ -23,6 +23,7 @@
                 v-model="announcementDetail.description"
                 ref="editor"
                 @imgUpload="$imgAdd"
+                :upload="true"
                 placeholder="Insert description here">
         </Editor>
         <div v-if="errors.has('description')"><span class="input-invalid-message">{{ errors.first('description') }}</span></div>

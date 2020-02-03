@@ -56,8 +56,7 @@ describe('Account', () => {
       router,
       stubs: [
         'b-button',
-        'b-icon',
-        'vue-toasted'
+        'b-icon'
       ],
       mocks: {
         $toasted
