@@ -17,16 +17,25 @@
             class="is-rounded logging-room__top-bar-container__search-bar"/>
         </div>
         <div class="logging-room__list-card">
-          <logging-room-card class="logging-room__list-card__card"
-                              v-for="loggingRoom in loggingRooms"
-                              :key="loggingRoom.id"
-                              :title="loggingRoom.title"
-                              :description="loggingRoom.description"
-                              :memberCount="loggingRoom.members.length"
-                              @click="goToLoggingRoomDetail(loggingRoom.id)"
-                              @edit="editLoggingRoom(loggingRoom.id)"
-                              @delete="openDeleteModal(loggingRoom)"
-          ></logging-room-card>
+          <div v-if="Object.keys(loggingRooms).length === 0" class="logging-room__list-card__empty-wrapper">
+            <EmptyState class="logging-room__list-card__empty-state" src="logging-room-empty">
+              <template #title>
+                Looks like there is no Logging Room !
+              </template>
+            </EmptyState>
+          </div>
+          <div v-else class="logging-room__list-card__card">
+            <logging-room-card
+                               v-for="loggingRoom in loggingRooms"
+                               :key="loggingRoom.id"
+                               :title="loggingRoom.title"
+                               :description="loggingRoom.description"
+                               :memberCount="loggingRoom.members.length"
+                               @click="goToLoggingRoomDetail(loggingRoom.id)"
+                               @edit="editLoggingRoom(loggingRoom.id)"
+                               @delete="openDeleteModal(loggingRoom)"
+            ></logging-room-card>
+          </div>
           <infinite-loading ref="infiniteLoading" @infinite="infiniteHandler">
             <div slot="no-more"></div>
             <div slot="no-results"></div>
@@ -84,8 +93,6 @@
         align-items: center;
       }
     }
-
-
 
     &__list-card {
       @media only screen and (max-width: 1023px) {

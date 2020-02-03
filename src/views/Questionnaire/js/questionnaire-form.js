@@ -16,6 +16,7 @@ export default {
     value: {
       type: Object,
       required: true,
+      id: null,
       startDate: {
         default: new Date()
       },
@@ -31,7 +32,7 @@ export default {
   data () {
     return {
       titleLabel: 'TITLE',
-      descriptionLabel: 'DESCRIPTION',
+      descriptionLabel: 'DESCRIPTION'
     }
   },
   watch: {
