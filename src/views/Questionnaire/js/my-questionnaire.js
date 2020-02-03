@@ -50,7 +50,6 @@ export default {
     },
     searchHandler (value) {
       this.page = 1
-      console.log(value)
       myQuestionnaireApi.getMyQuestionnaires(response => {
         console.log(response.data)
         this.myQuestionnaires = response.data
