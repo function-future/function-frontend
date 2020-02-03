@@ -14,7 +14,7 @@
           <a class="button is-primary is-outlined"
              v-if="roomDetail.assignment.file"
              :href="roomDetail.assignment.file"
-             target="_blank">
+             download>
             Download material
           </a>
         </div>

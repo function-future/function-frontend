@@ -32,7 +32,7 @@ export default {
     EditorMenuBubble,
     Icon
   },
-  props: [ 'value', 'placeholder', 'label' ],
+  props: [ 'value', 'placeholder', 'label', 'upload' ],
   mounted () {
     this.editor = new Editor({
       onUpdate: ({ getHTML }) => {
@@ -120,7 +120,7 @@ export default {
     onFileChange (command) {
       this.imageCommand = command
       this.file = this.$refs.file.files[0]
-      this.$emit('imgUpload', { file: this.file })
+      this.$emit('imgUpload', this.file)
     },
     addImage (src) {
       if (this.src !== null) {

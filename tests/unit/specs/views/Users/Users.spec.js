@@ -273,4 +273,47 @@ describe('Users', () => {
     wrapper.vm.activeTab = tab
     expect(wrapper.vm.currentTab).toEqual(wrapper.vm.tabs[tab].value)
   })
+
+  test('successFetchBatches', () => {
+    initComponent()
+    const response = [
+      {
+        id: 'one',
+        name: 'one',
+        code: 'one'
+      }
+    ]
+    wrapper.vm.successFetchBatches(response)
+    const expectedData = [
+      {
+        id: '',
+        name: 'All',
+        code: ''
+      },
+      ...response
+    ]
+    expect(wrapper.vm.failFetchBatch).toEqual(false)
+    expect(wrapper.vm.batches).toEqual(expectedData)
+  })
+
+  test('failFetchBatches', () => {
+    initComponent()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
+    wrapper.vm.failFetchBatches()
+    const expectedData = [
+      {
+        id: '',
+        name: 'All',
+        code: ''
+      }
+    ]
+    expect(wrapper.vm.failFetchBatch).toEqual(true)
+    expect(wrapper.vm.batches).toEqual(expectedData)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Fail to load batch list, please refresh the page',
+        type: 'is-danger'
+      }
+    })
+  })
 })

@@ -21,11 +21,26 @@ describe('Users Controller', () => {
     done()
   })
 
-  test('getUserListWithRoleAndName', async (done) => {
+  test('getUserListWithRoleAndName has batchCode', async (done) => {
     const spy = jest.spyOn(request, 'getRequest')
     const callback = jest.fn()
     const errorHandler = jest.fn()
-    api.getUserListWithRoleAndName(callback, errorHandler)
+    const data = {
+      batchCode: 'code'
+    }
+    api.getUserListWithRoleAndName(callback, data, errorHandler)
+    expect(spy).toBeCalledTimes(1)
+    done()
+  })
+
+  test('getUserListWithRoleAndName no batchCode', async (done) => {
+    const spy = jest.spyOn(request, 'getRequest')
+    const callback = jest.fn()
+    const errorHandler = jest.fn()
+    const data = {
+      batchCode: ''
+    }
+    api.getUserListWithRoleAndName(callback, data, errorHandler)
     expect(spy).toBeCalledTimes(1)
     done()
   })
