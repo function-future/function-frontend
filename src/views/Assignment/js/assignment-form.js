@@ -165,8 +165,10 @@ export default {
     },
     successCreatingAssignment () {
       this.toast({
-        data: 'Successfully created assignment',
-        type: 'is-success'
+        data: {
+          message: 'Successfully created assignment',
+          type: 'is-success'
+        },
       })
       this.$router.push({
         name: 'questionBanks'
