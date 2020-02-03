@@ -72,8 +72,10 @@ export default {
     errorCallback (err) {
       console.log(err)
       this.toast({
-        message: 'Something went wrong',
-        type: 'is-error'
+        data: {
+          message: 'Something went wrong',
+          type: 'is-danger'
+        }
       })
     },
     removeHandler (reminderId) {
@@ -84,8 +86,10 @@ export default {
       this.showDeleteConfirmation = false
       reminderApi.deleteReminder(response => {
         this.toast({
-          message: 'Reminder has been successfully deleted',
-          type: 'is-success'
+          data: {
+            message: 'Reminder has been successfully deleted',
+            type: 'is-success'
+          }
         })
         this.reminders = []
         this.page = 1
