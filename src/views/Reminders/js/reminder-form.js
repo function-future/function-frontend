@@ -109,7 +109,7 @@ export default {
       this.toast({
         data: {
           message: 'Something went wrong',
-          type: 'is-error'
+          type: 'is-danger'
         }
       })
     },
