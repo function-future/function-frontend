@@ -98,6 +98,7 @@
           height: 100%;
           display: flex;
           align-items: center;
+          margin-right: 1rem;
         }
       }
 
