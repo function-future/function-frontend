@@ -62,6 +62,18 @@ describe('ModalAddQuestion', () => {
     expect(true).toBe(true)
   })
 
+  test('created', () => {
+    const props = { description: 'description' }
+    initComponent(props)
+    expect(wrapper.vm.descriptionTemp).toEqual('description')
+  })
+
+  test('destroyed', () => {
+    initComponent()
+    wrapper.destroy()
+    expect(wrapper.vm.descriptionTemp).toEqual('')
+  })
+
   test('close', () => {
     initWrapper()
     wrapper.vm.close()
@@ -79,6 +91,7 @@ describe('ModalAddQuestion', () => {
 
   test('submit fail', () => {
     initComponent()
+    wrapper.vm.descriptionTemp = null
     const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.submit()
     expect(toastSpy).toBeCalledWith({
@@ -91,8 +104,7 @@ describe('ModalAddQuestion', () => {
   })
 
   test('update success', () => {
-    const props = { description: 'description' }
-    initComponent(props)
+    initComponent()
     const spy = jest.spyOn(wrapper.vm, 'close')
     wrapper.vm.updateQuestion()
     expect(wrapper.emitted('update')).toBeTruthy()
@@ -101,9 +113,9 @@ describe('ModalAddQuestion', () => {
 
   test('update fail', () => {
     initComponent()
+    wrapper.vm.descriptionTemp = null
     const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.updateQuestion()
-    expect(wrapper.emitted('update')).toBeFalsy()
     expect(toastSpy).toBeCalledWith({
       data: {
         message: 'description cannot empty',

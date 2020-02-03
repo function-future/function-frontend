@@ -138,7 +138,7 @@ export default {
         })
       } else {
         questionnaireApi.updateQuestionnaire(response => {
-          if(response.code !== 403) {
+          if (response.code !== 403) {
             this.currentQuestionnaireTemp.id = response.data.id
             this.updateQuestions()
             this.updateAppraisee()

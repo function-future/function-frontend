@@ -40,7 +40,7 @@ export default {
       this.$emit('close')
     },
     submit () {
-      if (this.descriptionTemp.length != null) {
+      if (this.descriptionTemp != null) {
         this.$emit('submit', {
           description: this.descriptionTemp
         })
