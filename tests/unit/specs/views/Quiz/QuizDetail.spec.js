@@ -33,6 +33,7 @@ describe('QuizDetail', () => {
         edit: true
       },
       currentUser: {
+        role: 'STUDENT',
         batchCode: 'future3'
       }
     }
@@ -98,25 +99,109 @@ describe('QuizDetail', () => {
     expect(wrapper.isVueInstance()).toBe(true)
   })
 
-  test('initPage', () => {
+  test('trialsExist false', () => {
     initComponent()
-    const spy = jest.spyOn(wrapper.vm, 'fetchQuizById')
+    wrapper.vm.quizDetail = {
+      title: '',
+      description: '',
+      endDate: new Date(15000),
+      timeLimit: 1,
+      trials: 0,
+      batch: '',
+      questionCount: 0
+    }
+    expect(wrapper.vm.trialsExist).toEqual(false)
+  })
+
+  test('trialsExist true', () => {
+    initComponent()
+    wrapper.vm.quizDetail = {
+      title: '',
+      description: '',
+      endDate: new Date(15000),
+      timeLimit: 1,
+      trials: 10,
+      batch: '',
+      questionCount: 0
+    }
+    expect(wrapper.vm.trialsExist).toEqual(true)
+  })
+
+  test('initPage with student loggedIn', () => {
+    initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'getStudentQuizDetail')
     wrapper.vm.initPage()
     expect(spy).toHaveBeenCalledTimes(1)
   })
 
-  test('successFetchingQuizById', () => {
+  test('getStudentQuizDetail', () => {
     initComponent()
-    wrapper.vm.successFetchingQuizById()
+    const spy = jest.spyOn(wrapper.vm, 'fetchStudentQuizDetail')
+    wrapper.vm.getStudentQuizDetail()
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('getAdminQuizDetail', () => {
+    initComponent()
+    const spy = jest.spyOn(wrapper.vm, 'fetchQuizById')
+    wrapper.vm.getAdminQuizDetail()
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('successFetchingQuizById with timeLimit changed to hour', () => {
+    initComponent()
+    const response = {
+      id: 'QZ001',
+      quiz: {
+        title: '',
+        description: '',
+        endDate: 15000,
+        timeLimit: 60,
+        trials: 10,
+        batch: '',
+        questionCount: 0
+      },
+      trials: 0
+    }
+    wrapper.vm.successFetchingQuizById(response)
     expect(wrapper.vm.quizDetail).toEqual({
       title: '',
       description: '',
       endDate: new Date(15000),
-      timeLimit: 60,
+      timeLimit: 1,
       trials: 0,
       batch: '',
       questionCount: 0
     })
+    expect(wrapper.vm.isMinutes).toEqual(false)
+  })
+
+  test('successFetchingQuizById with timeLimit changed to minute', () => {
+    initComponent()
+    const response = {
+      id: 'QZ001',
+      quiz: {
+        title: '',
+        description: '',
+        endDate: 15000,
+        timeLimit: 20,
+        trials: 10,
+        batch: '',
+        questionCount: 0
+      },
+      trials: 0
+    }
+    wrapper.vm.successFetchingQuizById(response)
+    expect(wrapper.vm.quizDetail).toEqual({
+      title: '',
+      description: '',
+      endDate: new Date(15000),
+      timeLimit: 20,
+      trials: 0,
+      batch: '',
+      questionCount: 0
+    })
+    expect(wrapper.vm.isMinutes).toEqual(true)
   })
 
   test('failFetchingQuizById', () => {
@@ -167,30 +252,14 @@ describe('QuizDetail', () => {
   })
 
   test('goToStudentQuiz', () => {
-    initComponent()
-    wrapper.vm.$route.params.quizId = 'QZ0001'
-    const spy = jest.spyOn(wrapper.vm, 'fetchStudentQuizDetail')
-    wrapper.vm.goToStudentQuiz()
-    expect(spy).toHaveBeenCalledTimes(1)
-  })
-
-  test('successFetchingStudentQuiz', () => {
-    initComponent()
     wrapper.vm.$route.params.quizId = 'QZ0001'
     wrapper.vm.$router.push = jest.fn()
-    wrapper.vm.successFetchingStudentQuiz()
+    wrapper.vm.goToStudentQuiz()
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
       name: 'studentQuizQuestions',
       params: {
         quizId: 'QZ0001'
       }
     })
-  })
-
-  test('failedFetchingStudentQuiz', () => {
-    initComponent()
-    const spy = jest.spyOn(wrapper.vm, 'toast')
-    wrapper.vm.failedFetchingStudentQuiz()
-    expect(spy).toHaveBeenCalledTimes(1)
   })
 })

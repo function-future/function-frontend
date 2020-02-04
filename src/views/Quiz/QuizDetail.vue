@@ -41,7 +41,8 @@
               </div>
               <div class="tile is-parent">
                 <article class="tile is-child box">
-                  <p>Time Limit</p>
+                  <span>Time Limit</span>
+                  <span style="font-size: 0.6rem">({{isMinutes ? 'Minutes' : 'Hours'}})</span>
                   <p class="subtitle has-text-weight-bold">{{ quizDetail.timeLimit }}</p>
                 </article>
               </div>
@@ -94,7 +95,8 @@
         </div>
         <div class="quiz-detail__container__footer" v-if="!!currentUser && currentUser.role === 'STUDENT'">
           <b-button type="is-primary"
-                    @click="goToStudentQuiz">
+                    @click="goToStudentQuiz"
+                    :disabled="!trialsExist">
             Start
           </b-button>
         </div>
