@@ -59,7 +59,7 @@ export default {
           batchCode: this.currentUser.batchCode,
           quizId: this.$route.params.quizId
         },
-        callback: this.successFetchingQuizById,
+        callback: this.successFetchingStudentQuiz,
         fail: this.failFetchingQuizById
       })
     },
@@ -69,17 +69,24 @@ export default {
           batchCode: this.$route.params.batchCode,
           id: this.$route.params.quizId
         },
-        callback: this.successFetchingQuizById,
+        callback: this.successFetchingAdminQuiz,
         fail: this.failFetchingQuizById
       })
     },
-    successFetchingQuizById (response) {
+    successFetchingStudentQuiz (response) {
       this.quizDetail = { ...response.quiz }
       this.quizDetail.endDate = new Date(this.quizDetail.endDate)
       if (this.quizDetail.timeLimit >= 60)
         this.quizDetail.timeLimit = Math.floor(this.quizDetail.timeLimit / 60)
       else this.isMinutes = true
       this.quizDetail.trials = response.trials
+    },
+    successFetchingAdminQuiz (response) {
+      this.quizDetail = { ...response }
+      this.quizDetail.endDate = new Date(this.quizDetail.endDate)
+      if (this.quizDetail.timeLimit >= 60)
+        this.quizDetail.timeLimit = Math.floor(this.quizDetail.timeLimit / 60)
+      else this.isMinutes = true
     },
     failFetchingQuizById () {
       this.toast({
