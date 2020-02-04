@@ -7,7 +7,8 @@
                     icon-left="plus"
                     type="is-primary"
                     @click="addJudging"
-                    class="judging__action-add">
+                    class="judging__action-add"
+                    v-if="accessList.add">
             Add
           </b-button>
           <b-button style="margin-right: 8px" rounded

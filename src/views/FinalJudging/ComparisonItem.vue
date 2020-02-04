@@ -15,7 +15,7 @@
           <span class="comparison-item__profile-name">Total Points: {{pointData.totalPoint}}</span>
         </div>
         <div class="is-hidden-desktop comparison-item__profile-modal">
-          <b-button type="is-primary" icon-right="pencil-alt" @click="isMobileScoreModalVisible=true">
+          <b-button type="is-primary" icon-right="pencil-alt" @click="isMobileScoreModalVisible=true" v-if="accessList.add">
             {{finalScore}}
           </b-button>
           <!--<b-button @click="isMobileScoreModalVisible = true">Score</b-button>-->
@@ -40,7 +40,7 @@
           </b-tab-item>
         </b-tabs>
       </div>
-      <div class="comparison-item__final-score is-hidden-mobile">
+      <div class="comparison-item__final-score is-hidden-mobile" v-if="accessList.add">
         <b-field label="Final Score" label-position="on-border" grouped>
           <b-input class="comparison-item__final-score-input" v-model="finalScore"></b-input>
           <p class="control">
