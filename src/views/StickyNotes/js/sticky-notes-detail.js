@@ -1,12 +1,10 @@
 import { mapActions, mapGetters } from 'vuex'
-import BaseCard from '@/components/BaseCard'
-import ListItem from '@/components/list/ListItem'
+const ListItem = () => import('@/components/list/ListItem')
 let marked = require('marked')
 
 export default {
   name: 'stickyNotes',
   components: {
-    BaseCard,
     ListItem
   },
   data () {

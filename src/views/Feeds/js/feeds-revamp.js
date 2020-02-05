@@ -1,8 +1,8 @@
 import { mapActions, mapGetters } from 'vuex'
-import ListItem from '@/components/list/ListItem'
-import EmptyState from '@/components/emptyState/EmptyState'
-import NotificationsIcon from '@/views/Notifications/NotificationsIcon'
-import SkeletonBox from '@/components/skeletonBox/SkeletonBox'
+const ListItem = () => import('@/components/list/ListItem')
+const EmptyState = () => import('@/components/emptyState/EmptyState')
+const NotificationsIcon = () => import('@/views/Notifications/NotificationsIcon')
+const SkeletonBox = () => import('@/components/skeletonBox/SkeletonBox')
 
 let marked = require('marked')
 const MAX_STICKY_NOTE_PREVIEW_LENGTH = 200

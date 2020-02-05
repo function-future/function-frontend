@@ -1,9 +1,9 @@
 import { mapActions, mapGetters } from 'vuex'
 import InfiniteLoading from 'vue-infinite-loading'
-import ListItem from '@/components/list/ListItem'
-import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
-import ModalCopy from '@/components/modals/ModalCopy'
-import EmptyState from '@/components/emptyState/EmptyState'
+const ListItem = () => import('@/components/list/ListItem')
+const ModalDeleteConfirmation = () => import('@/components/modals/ModalDeleteConfirmation')
+const ModalCopy = () => import('@/components/modals/ModalCopy')
+const EmptyState = () => import('@/components/emptyState/EmptyState')
 
 export default {
   name: 'coursesRevamp',
