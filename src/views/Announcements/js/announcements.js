@@ -116,6 +116,9 @@ export default {
       this.closeDeleteConfirmationModal()
     },
     successDeleteAnnouncementById () {
+      if ((this.paging.totalRecords - 1) % 10 === 0) {
+        this.paging.page -= 1
+      }
       this.loadAnnouncementList()
       this.toast({
         data: {

@@ -133,6 +133,9 @@ export default {
       this.closeDeleteConfirmationModal()
     },
     successDeleteActivityBlogById () {
+      if ((this.paging.totalRecords - 1) % 10 === 0) {
+        this.paging.page -= 1
+      }
       this.initPage()
       this.toast({
         data: {

@@ -127,6 +127,9 @@ export default {
       this.closeDeleteConfirmationModal()
     },
     successDeleteUserById () {
+      if ((this.paging.totalRecords - 1) % 10 === 0) {
+        this.paging.page -= 1
+      }
       this.fetchTabList()
       this.toast({
         data: {
