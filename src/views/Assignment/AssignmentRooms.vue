@@ -51,7 +51,9 @@
   @import "@/assets/css/main.scss";
 
   .room_container {
-    margin-bottom: 10vh;
+    @media only screen and (max-width: 1024px) {
+      margin-bottom: 10vh;
+    }
   }
 
   .card-container {
