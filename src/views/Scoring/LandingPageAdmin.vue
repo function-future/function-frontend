@@ -34,7 +34,7 @@
                   </div>
                   <div class="scoring__container__tabs-actions-deadline" v-if="currentTabType !== 'questionBanks'">
                     <b-checkbox v-model="isPassedDeadline">
-                      View passed {{ tabTitle.toLowerCase() }}
+                      View passed {{ !!tabTitle && tabTitle.toLowerCase() }}
                     </b-checkbox>
                   </div>
                 </div>
@@ -94,7 +94,7 @@
               <div v-if="listEmpty && !failLoadItem">
                 <EmptyState :src="emptyStateSrc">
                   <template #title>
-                    Looks like there is no {{ tabTitle.toLowerCase() }}!
+                    Looks like there is no {{ !!tabTitle && tabTitle.toLowerCase() }}!
                   </template>
                 </EmptyState>
               </div>
@@ -118,7 +118,7 @@
     <modal-delete-confirmation v-if="isVisibleDeleteModal"
                                @close="closeDeleteConfirmationModal"
                                @clickDelete="deleteItem">
-      <div slot="description">Delete this {{tabTitle.toLowerCase()}}?</div>
+      <div slot="description">Delete this {{ !!tabTitle && tabTitle.toLowerCase() }}?</div>
     </modal-delete-confirmation>
     <modal-copy v-if="isVisibleCopyModal"
                 @close="isVisibleCopyModal = false"
