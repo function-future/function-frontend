@@ -76,7 +76,7 @@
       }
 
       &__messages {
-        height: calc(100% - 2.5rem - 0.5rem - 5px);
+        height: 100%;
         overflow: auto;
       }
 
@@ -85,7 +85,7 @@
         height: 2.5rem;
         @media only screen and (max-width: 1023px) {
           position: fixed;
-          bottom: 3.5rem;
+          bottom: 2px;
           width: calc(100% - 1rem);
           padding: 0;
           z-index: 50;

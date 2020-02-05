@@ -26,7 +26,9 @@ describe('ChatroomContent', () => {
             fetchMessagesBeforePivot: jest.fn(),
             createMessage: jest.fn(),
             updateChatroom: jest.fn(),
-            toast: jest.fn()
+            toast: jest.fn(),
+            showBottomNavbar: jest.fn(),
+            hideBottomNavbar: jest.fn()
           },
           getters: {
             messages: () => messages || [],
