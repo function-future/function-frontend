@@ -1,6 +1,6 @@
 import { mapActions, mapGetters } from 'vuex'
-import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
-import InfiniteLoading from 'vue-infinite-loading'
+const ModalDeleteConfirmation = () => import('@/components/modals/ModalDeleteConfirmation')
+const InfiniteLoading = () => import('vue-infinite-loading')
 let marked = require('marked')
 
 export default {

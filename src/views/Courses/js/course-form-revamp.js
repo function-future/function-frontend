@@ -1,5 +1,5 @@
 import { mapActions, mapGetters } from 'vuex'
-import Editor from '@/components/editor/Editor'
+const Editor = () => import('@/components/editor/Editor')
 
 export default {
   name: 'courseForm',
