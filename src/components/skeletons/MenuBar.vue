@@ -44,7 +44,7 @@
       <b-menu-item class="menu-item"
                    label="Files"
                    tag="router-link"
-                   :active="isActive('files')"
+                   :active="isActive('folder')"
                    :to="{ name: 'files' }"
                    v-if="menuList.files">
       </b-menu-item>
