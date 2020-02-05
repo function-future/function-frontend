@@ -1,9 +1,9 @@
 import { mapGetters, mapActions } from 'vuex'
-import ListItem from '@/components/list/ListItem'
-import EmptyState from '@/components/emptyState/EmptyState'
-import ModalSelectBatch  from "@/components/modals/ModalSelectBatch"
-import ModalDeleteConfirmation from "@/components/modals/ModalDeleteConfirmation"
-import ModalCopy from '@/components/modals/ModalCopy'
+const ListItem = () => import('@/components/list/ListItem')
+const EmptyState = () => import('@/components/emptyState/EmptyState')
+const ModalSelectBatch  = () => import("@/components/modals/ModalSelectBatch")
+const ModalDeleteConfirmation = () => import("@/components/modals/ModalDeleteConfirmation")
+const ModalCopy = () => import('@/components/modals/ModalCopy')
 import InfiniteLoading from 'vue-infinite-loading'
 let marked = require('marked')
 export default {
