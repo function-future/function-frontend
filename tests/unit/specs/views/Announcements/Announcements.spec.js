@@ -405,6 +405,32 @@ describe('Announcements', () => {
     })
   })
 
+  test('successDeleteAnnouncementById last item in the page', () => {
+    const $router = {
+      push: jest.fn()
+    }
+    wrapper = shallowMount(announcements, {
+      store,
+      localVue,
+      mocks: {
+        $router
+      },
+      sync: false
+    })
+    wrapper.vm.paging.totalRecords = 11
+    wrapper.vm.paging.page = 2
+    const loadAnnouncementListSpy = jest.spyOn(wrapper.vm, 'loadAnnouncementList')
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
+    wrapper.vm.successDeleteAnnouncementById()
+    expect(loadAnnouncementListSpy).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Successfully delete announcement',
+        type: 'is-success'
+      }
+    })
+  })
+
   test('failDeleteAnnouncementById', () => {
     wrapper = shallowMount(announcements, {
       store,

@@ -10,18 +10,23 @@
           Edit
         </b-button>
       </div>
-      <div class="sticky-notes__header">
-        <div class="sticky-notes__header-title">
-          <span class="is-size-5 has-text-weight-bold">{{ stickyNote.title || 'Sticky Notes' }}</span>
-        </div>
-        <div class="sticky-notes__header-date">
+      <div v-if="!isLoading">
+        <div class="sticky-notes__header">
+          <div class="sticky-notes__header-title">
+            <span class="is-size-5 has-text-weight-bold">{{ stickyNote.title || 'Sticky Notes' }}</span>
+          </div>
+          <div class="sticky-notes__header-date">
           <span class="is-size-7">
             {{ stickyNote.updatedAt | moment("dddd, MMMM Do YYYY") }}
           </span>
+          </div>
+        </div>
+        <div class="sticky-notes__content">
+          <span class="content" v-html="stickyNoteCompiledMarkdown"></span>
         </div>
       </div>
-      <div class="sticky-notes__content">
-        <span class="content" v-html="stickyNoteCompiledMarkdown"></span>
+      <div v-if="isLoading">
+        <ListItem :loading="isLoading"></ListItem>
       </div>
     </div>
   </div>

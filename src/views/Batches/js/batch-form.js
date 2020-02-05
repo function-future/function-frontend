@@ -1,15 +1,7 @@
 import { mapActions } from 'vuex'
-import BaseInput from '@/components/BaseInput'
-import BaseButton from '@/components/BaseButton'
-import BaseTextArea from '@/components/BaseTextArea'
 
 export default {
   name: 'batchForm',
-  components: {
-    BaseButton,
-    BaseInput,
-    BaseTextArea
-  },
   data () {
     return {
       batch: {

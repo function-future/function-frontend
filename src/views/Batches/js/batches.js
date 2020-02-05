@@ -1,7 +1,7 @@
 import { mapActions, mapGetters } from 'vuex'
-import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
-import ListItem from '@/components/list/ListItem'
-import EmptyState from '@/components/emptyState/EmptyState'
+const ModalDeleteConfirmation = () => import('@/components/modals/ModalDeleteConfirmation')
+const ListItem = () => import('@/components/list/ListItem')
+const EmptyState = () => import('@/components/emptyState/EmptyState')
 
 export default {
   name: 'batches',

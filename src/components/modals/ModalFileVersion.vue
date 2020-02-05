@@ -29,7 +29,7 @@
                           {{ name }}
                         </span>
                           <span>
-                          {{ value.timestamp | moment("MMMM Do, YYYY") }}
+                          {{ value.timestamp | moment("MMMM Do, YYYY hh:mm:ss") }}
                         </span>
                         </div>
                         <a class="modal__body__file-version__content-link"

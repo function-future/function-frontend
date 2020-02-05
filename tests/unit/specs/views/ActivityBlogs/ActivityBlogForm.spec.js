@@ -301,6 +301,14 @@ describe('ActivityBlogForm', () => {
     expect(wrapper.vm.$router.push).toHaveBeenCalledTimes(1)
   })
 
+  test('checkCurrentUser is admin', () => {
+    store.state.currentUser.id = ''
+    store.state.currentUser.role = 'ADMIN'
+    wrapper.vm.$router.push = jest.fn()
+    wrapper.vm.checkCurrentUser()
+    expect(wrapper.vm.$router.push).toHaveBeenCalledTimes(0)
+  })
+
   test('$imgAdd', () => {
     const spy = jest.spyOn(wrapper.vm, 'uploadResource')
     wrapper.vm.$imgAdd()

@@ -53,8 +53,8 @@
               <div class="files__container__content__folders__list-item card">
                 <div class="files__container__content__folders__list-item-title" @click="goToFolder(folder.id)">
                   <b-icon icon="folder"></b-icon>
-                  <span class="has-text-weight-bold is-size-7-touch" :title="folder.name">
-                    {{ showLimitedPreviewText(folder.name) }}
+                  <span class="files-ellipsis has-text-weight-bold is-size-7-touch" :title="folder.name">
+                    {{ folder.name }}
                   </span>
                 </div>
                 <div class="files__container__content__folders__list-item-actions" v-if="currentUser.role === 'ADMIN'">
@@ -105,8 +105,8 @@
               <div class="files__container__content__files__list-item card">
                 <div class="files__container__content__files__list-item-title" @click="openFilePreview(file.id)">
                   <b-icon icon="file"></b-icon>
-                  <span class="has-text-weight-bold is-size-7-touch" :title="file.name">
-                    {{ showLimitedPreviewText(file.name) }}
+                  <span class="files-ellipsis has-text-weight-bold is-size-7-touch" :title="file.name">
+                    {{ file.name }}
                   </span>
                 </div>
                 <div class="files__container__content__files__list-item-actions">
@@ -338,6 +338,11 @@
                 display: flex;
                 align-items: center;
                 font-size: 0.875rem;
+                flex-grow: 1;
+                flex-shrink: 1;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
               }
             }
           }
@@ -365,11 +370,24 @@
                 display: flex;
                 align-items: center;
                 font-size: 0.875rem;
+                flex-grow: 1;
+                flex-shrink: 1;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
               }
             }
           }
         }
       }
+    }
+
+    &-ellipsis {
+      flex-grow: 1;
+      flex-shrink: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
 </style>

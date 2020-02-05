@@ -1,12 +1,10 @@
 import { mapActions, mapGetters } from 'vuex'
-import BaseCard from '@/components/BaseCard'
-import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
+const ModalDeleteConfirmation = () => import('@/components/modals/ModalDeleteConfirmation')
 let marked = require('marked')
 
 export default {
   name: 'announcementDetail',
   components: {
-    BaseCard,
     ModalDeleteConfirmation
   },
   created () {

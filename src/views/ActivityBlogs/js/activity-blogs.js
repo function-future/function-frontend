@@ -1,7 +1,7 @@
 import { mapActions, mapGetters } from 'vuex'
-import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
-import ListItem from '@/components/list/ListItem'
-import EmptyState from '@/components/emptyState/EmptyState'
+const ModalDeleteConfirmation = () => import('@/components/modals/ModalDeleteConfirmation')
+const ListItem = () => import('@/components/list/ListItem')
+const EmptyState = () => import('@/components/emptyState/EmptyState')
 let marked = require('marked')
 
 export default {
@@ -88,7 +88,9 @@ export default {
       })
     },
     compileToMarkdown: function (description) {
-      return marked(this.showLimitedPreviewText(description.replace(/<img([\w\W]+?)>/g, '')))
+      description = description.replace(/<img([\w\W]+?)>/g, '')
+      description = description.replace(/<hr>/g, '')
+      return marked(this.showLimitedPreviewText(description))
     },
     showLimitedPreviewText: function (text) {
       let maximumCharacters = 350
@@ -131,6 +133,9 @@ export default {
       this.closeDeleteConfirmationModal()
     },
     successDeleteActivityBlogById () {
+      if ((this.paging.totalRecords - 1) % 10 === 0) {
+        this.paging.page -= 1
+      }
       this.initPage()
       this.toast({
         data: {

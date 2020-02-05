@@ -1,7 +1,8 @@
 import { mapActions, mapGetters } from 'vuex'
-import ListItem from '@/components/list/ListItem'
-import EmptyState from '@/components/emptyState/EmptyState'
-import NotificationsIcon from '@/views/Notifications/NotificationsIcon'
+const ListItem = () => import('@/components/list/ListItem')
+const EmptyState = () => import('@/components/emptyState/EmptyState')
+const NotificationsIcon = () => import('@/views/Notifications/NotificationsIcon')
+const SkeletonBox = () => import('@/components/skeletonBox/SkeletonBox')
 
 let marked = require('marked')
 const MAX_STICKY_NOTE_PREVIEW_LENGTH = 200
@@ -11,7 +12,8 @@ export default {
   components: {
     ListItem,
     EmptyState,
-    NotificationsIcon
+    NotificationsIcon,
+    SkeletonBox
   },
   data () {
     return {
@@ -22,7 +24,8 @@ export default {
         size: 5
       },
       isLoadingAnnouncement: true,
-      failLoadAnnouncement: false
+      failLoadAnnouncement: false,
+      isLoadingStickyNotes: true
     }
   },
   created () {
@@ -57,15 +60,18 @@ export default {
       'toast'
     ]),
     loadStickyNote () {
+      this.isLoadingStickyNotes = true
       this.fetchStickyNotes({
         callback: this.successLoadStickyNote,
         fail: this.failLoadStickyNote
       })
     },
     successLoadStickyNote () {
+      this.isLoadingStickyNotes = false
       this.stickyNote = this.stickyNotes[0] || ''
     },
     failLoadStickyNote () {
+      this.isLoadingStickyNotes = false
       this.toast({
         data: {
           message: 'Fail to load sticky note detail, please refresh the page',
@@ -123,7 +129,9 @@ export default {
       return text.length > maximumCharacters ? text.slice(0, maximumCharacters) + '...' : text
     },
     announcementPreview: function (announcement) {
-      return this.showLimitedPreviewText(announcement.description.replace(/<img([\w\W]+?)>/g, ''))
+      announcement.description = announcement.description.replace(/<img([\w\W]+?)>/g, '')
+      announcement.description = announcement.description.replace(/<hr>/g, '')
+      return this.showLimitedPreviewText(announcement.description)
     },
     goToProfile () {
       if (!this.loggedIn) {

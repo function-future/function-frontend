@@ -1,7 +1,7 @@
 import { mapActions, mapGetters } from 'vuex'
-import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
-import UserListItem from '@/components/list/UserListItem'
-import EmptyState from '@/components/emptyState/EmptyState'
+const ModalDeleteConfirmation = () => import('@/components/modals/ModalDeleteConfirmation')
+const UserListItem = () => import('@/components/list/UserListItem')
+const EmptyState = () => import('@/components/emptyState/EmptyState')
 
 export default {
   name: 'users',
@@ -127,6 +127,9 @@ export default {
       this.closeDeleteConfirmationModal()
     },
     successDeleteUserById () {
+      if ((this.paging.totalRecords - 1) % 10 === 0) {
+        this.paging.page -= 1
+      }
       this.fetchTabList()
       this.toast({
         data: {

@@ -1,15 +1,16 @@
 import { mapActions, mapGetters } from 'vuex'
-import BaseCard from '@/components/BaseCard'
+const ListItem = () => import('@/components/list/ListItem')
 let marked = require('marked')
 
 export default {
   name: 'stickyNotes',
   components: {
-    BaseCard
+    ListItem
   },
   data () {
     return {
-      stickyNote: {}
+      stickyNote: {},
+      isLoading: false
     }
   },
   created () {
@@ -33,6 +34,7 @@ export default {
       'toast'
     ]),
     initPage () {
+      this.isLoading = true
       this.fetchStickyNotes({
         callback: this.successFetchStickyNote,
         fail: this.fetchStickyNoteFailed
@@ -40,8 +42,10 @@ export default {
     },
     successFetchStickyNote () {
       this.stickyNote = this.stickyNotes[0] || ''
+      this.isLoading = false
     },
     fetchStickyNoteFailed () {
+      this.isLoading = false
       this.toast({
         data: {
           message: 'Fail to load sticky note detail, please refresh the page',
