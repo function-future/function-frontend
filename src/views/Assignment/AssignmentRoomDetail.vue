@@ -131,6 +131,9 @@
   .room-detail {
     &__container {
       padding: 1rem 1.25rem;
+      @media only screen and (max-width: 1024px) {
+        margin-bottom: 10vh;
+      }
 
       &-title {
         display: flex;
