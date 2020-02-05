@@ -1,6 +1,6 @@
 import { mapActions, mapGetters } from 'vuex'
-import ListItem from '@/components/list/ListItem'
-import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
+const ListItem = () => import('@/components/list/ListItem')
+const ModalDeleteConfirmation = () => import('@/components/modals/ModalDeleteConfirmation')
 let marked = require('marked')
 
 export default {

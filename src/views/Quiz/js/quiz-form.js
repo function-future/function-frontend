@@ -1,8 +1,8 @@
 import { mapActions, mapGetters } from 'vuex'
 import Editor from '@/components/editor/Editor'
-import ListItem from '@/components/list/ListItem'
-import EmptyState from '@/components/emptyState/EmptyState'
-import ModalSelectQuestionBanks from '@/components/modals/ModalSelectQuestionBank'
+const ListItem = () => import('@/components/list/ListItem')
+const EmptyState = () => import('@/components/emptyState/EmptyState')
+const ModalSelectQuestionBanks = () => import('@/components/modals/ModalSelectQuestionBank')
 export default {
   name: 'AddQuiz',
   components: {
