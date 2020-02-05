@@ -1278,6 +1278,34 @@ const router = new Router({
       }
     },
     {
+      path: config.app.pages.loggingRoom.create,
+      name: 'loggingRoomCreate',
+      component: loggingRoomCreate,
+      meta: {
+        title: 'Logging Room - Create',
+        auth: true,
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'logging Room', link: 'loggingRoom' },
+          { name: 'Logging Room Create', link: 'loggingRoomCreate' }
+        ]
+      }
+    },
+    {
+      path: config.app.pages.loggingRoom.edit,
+      name: 'loggingRoomEdit',
+      component: loggingRoomEdit,
+      meta: {
+        title: 'Logging Room - Edit',
+        auth: true,
+        breadcrumb: [
+          { name: 'Home', link: 'feeds' },
+          { name: 'Logging Room', link: 'loggingRoom' },
+          { name: 'Logging Room Edit', link: 'loggingRoomEdit' }
+        ]
+      }
+    },
+    {
       path: config.app.pages.loggingRoom.detail,
       name: 'loggingRoomDetail',
       component: loggingRoomDetail,
@@ -1336,34 +1364,7 @@ const router = new Router({
         ]
       }
     },
-    {
-      path: config.app.pages.loggingRoom.create,
-      name: 'loggingRoomCreate',
-      component: loggingRoomCreate,
-      meta: {
-        title: 'Logging Room - Create',
-        auth: true,
-        breadcrumb: [
-          { name: 'Home', link: 'feeds' },
-          { name: 'logging Room', link: 'loggingRoom' },
-          { name: 'Logging Room Create', link: 'loggingRoomCreate' }
-        ]
-      }
-    },
-    {
-      path: config.app.pages.loggingRoom.edit,
-      name: 'loggingRoomEdit',
-      component: loggingRoomEdit,
-      meta: {
-        title: 'Logging Room - Edit',
-        auth: true,
-        breadcrumb: [
-          { name: 'Home', link: 'feeds' },
-          { name: 'Logging Room', link: 'loggingRoom' },
-          { name: 'Logging Room Edit', link: 'loggingRoomEdit' }
-        ]
-      }
-    }
+
   ]
 })
 

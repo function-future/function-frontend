@@ -1,6 +1,7 @@
 <template>
     <div class="logging-room-create" v-if="accessList.edit">
       <div class="logging-room-create__container">
+        <label class="logging-room-create__label-title">LOGGING ROOM</label>
         <div class="logging-room-create__content">
           <div class="logging-room-create__save-button">
             <b-button class="is-rounded is-primary  save-btn"
@@ -59,16 +60,20 @@
   .logging-room-create {
     display: flex;
     align-items: center;
-    justify-content: center;
     flex-direction: column;
     height: 90vh;
     width: 100%;
 
+    &__label-title {
+      font-weight: bold;
+      margin: 15px 5px;
+      font-size: 1.2rem;
+    }
+
     &__container {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      width: 40vw;
+      width: 100%;
 
       @media only screen and (max-width: 1023px) {
         width: 100vw;
@@ -89,6 +94,7 @@
       padding: 10px;
       flex-direction: column;
       height: auto;
+      align-self: center;
     }
 
     &__input-participant {
