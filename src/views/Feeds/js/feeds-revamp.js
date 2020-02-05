@@ -129,7 +129,9 @@ export default {
       return text.length > maximumCharacters ? text.slice(0, maximumCharacters) + '...' : text
     },
     announcementPreview: function (announcement) {
-      return this.showLimitedPreviewText(announcement.description.replace(/<img([\w\W]+?)>/g, ''))
+      announcement.description = announcement.description.replace(/<img([\w\W]+?)>/g, '')
+      announcement.description = announcement.description.replace(/<hr>/g, '')
+      return this.showLimitedPreviewText(announcement.description)
     },
     goToProfile () {
       if (!this.loggedIn) {

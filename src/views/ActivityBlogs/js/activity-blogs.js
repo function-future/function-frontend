@@ -88,7 +88,9 @@ export default {
       })
     },
     compileToMarkdown: function (description) {
-      return marked(this.showLimitedPreviewText(description.replace(/<img([\w\W]+?)>/g, '')))
+      description = description.replace(/<img([\w\W]+?)>/g, '')
+      description = description.replace(/<hr>/g, '')
+      return marked(this.showLimitedPreviewText(description))
     },
     showLimitedPreviewText: function (text) {
       let maximumCharacters = 350

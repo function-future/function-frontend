@@ -85,7 +85,9 @@ export default {
       })
     },
     textPreview: function (announcement) {
-      return marked(this.showLimitedPreviewText(announcement.description.replace(/<img([\w\W]+?)>/g, '')))
+      announcement.description = announcement.description.replace(/<img([\w\W]+?)>/g, '')
+      announcement.description = announcement.description.replace(/<hr>/g, '')
+      return marked(this.showLimitedPreviewText(announcement.description))
     },
     showLimitedPreviewText: function (text) {
       let maximumCharacters = 250
