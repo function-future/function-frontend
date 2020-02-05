@@ -59,7 +59,7 @@
       <b-menu-item class="menu-item"
                    label="Judging"
                    tag="router-link"
-                   :active="isActive('comparisons')"
+                   :active="isActive('judgingList')"
                    :to="{ name: 'judgingList' }"
                    v-if="menuList.comparisons">
       </b-menu-item>
