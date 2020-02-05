@@ -634,10 +634,10 @@ const router = new Router({
       component: scoringAdmin,
       meta: {
         auth: true,
-        title: 'Grades',
+        title: 'Tasks',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Grades', link: 'scoringAdmin'}
+          { name: 'Tasks', link: 'scoringAdmin'}
         ]
       }
     },
@@ -765,7 +765,7 @@ const router = new Router({
         title: 'Add Quiz',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Grades', link: 'scoringAdmin' },
+          { name: 'Tasks', link: 'scoringAdmin' },
           { name: 'Add Quiz', link: 'addQuiz' }
         ]
       },
@@ -782,7 +782,7 @@ const router = new Router({
         title: 'Edit Quiz',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Grades', link: 'scoringAdmin' },
+          { name: 'Tasks', link: 'scoringAdmin' },
           { name: 'Edit Quiz', link: 'editQuiz' }
         ]
       },
@@ -799,7 +799,7 @@ const router = new Router({
         title: 'Quiz Detail',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Grades', link: 'scoringAdmin' },
+          { name: 'Tasks', link: 'scoringAdmin' },
           { name: 'Quiz Detail', link: 'quizDetail' }
         ]
       }
@@ -813,7 +813,7 @@ const router = new Router({
         title: 'Questions',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Grades', link: 'scoringAdmin' },
+          { name: 'Tasks', link: 'scoringAdmin' },
           { name: 'Quiz Detail', link: 'quizDetail' },
           { name: 'Questions', link: 'studentQuizQuestions' }
         ]
@@ -900,7 +900,7 @@ const router = new Router({
         if (store.getters.currentUser.role === 'STUDENT') {
           to.meta.breadcrumb = [
             { name: 'Home', link: 'feeds' },
-            { name: 'Grades', link: 'scoringAdmin' },
+            { name: 'Tasks', link: 'scoringAdmin' },
             { name: 'Room Detail', link: 'assignmentRoomDetail' }
           ]
         }

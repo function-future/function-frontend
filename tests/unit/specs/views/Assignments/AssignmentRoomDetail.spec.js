@@ -233,7 +233,7 @@ describe('AssignmentRoomDetail', () => {
   })
 
   test('isDeadlineHasPassed false computed', () => {
-    wrapper.vm.roomDetail.assignment.deadline = new Date().setFullYear(2020, 1, 1)
+    wrapper.vm.roomDetail.assignment.deadline = new Date().setFullYear(3000, 1, 1)
     expect(wrapper.vm.isDeadlineHasPassed).toEqual(false)
   })
 

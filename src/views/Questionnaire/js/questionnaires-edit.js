@@ -23,6 +23,12 @@ export default {
     ReminderMemberModal,
     UserSimpleCard
   },
+  props: {
+    isCreate: {
+      type: Boolean,
+      default: false
+    }
+  },
   data () {
     return {
       questionModal: false,
@@ -31,7 +37,14 @@ export default {
       currentAppraiseeTemp: [],
       currentAppraiserTemp: [],
       currentQuestionsTemp: [],
-      question: {
+      currentQuestionnaireTemp: {
+        id: null,
+        title: null,
+        description: null,
+        startDate: new Date(new Date().setSeconds(0)),
+        dueDate: new Date(new Date().setSeconds(0))
+      },
+      questionTemp: {
         id: '',
         description: '',
         isUpdate: false,
@@ -72,6 +85,9 @@ export default {
     },
     currentQuestionsTemp () {
       this.computedQuestions()
+    },
+    currentQuestionnaireTemp () {
+      this.computedQuestionnaireTemp()
     }
   },
   methods: {
@@ -84,6 +100,9 @@ export default {
     computedQuestions () {
       return this.currentQuestionsTemp ? this.currentQuestions : []
     },
+    computedQuestionnaireTemp () {
+      return this.currentQuestionnaireTemp ? this.currentQuestionnaireAdmin : {}
+    },
     ...mapActions([
       'fetchCurrentQuestionnaireAdmin',
       'setCurrentQuestionnaireAdmin',
@@ -93,54 +112,56 @@ export default {
       'toast'
     ]),
     setCurrentQuestionnaire (data) {
-      this.setCurrentQuestionnaireAdmin({
-        data: data
-      })
-      this.currentQuestionnaireAdmin.startDate = new Date(this.currentQuestionnaireAdmin.startDate)
-      this.currentQuestionnaireAdmin.dueDate = new Date(this.currentQuestionnaireAdmin.dueDate)
+      this.copyToCurrentQuestionnaireTemp(data)
     },
     goToUpdateDescription () {
-      if (this.currentQuestionnaireAdmin.title === ' ' || this.currentQuestionnaireAdmin.description === ' ') {
-        this.toast({
-          data: {
-            message: 'title and description must be filled',
-            type: 'is-danger'
-          }
-        })
-      } else if (this.currentQuestionnaireAdmin.startDate >= this.currentQuestionnaireAdmin.dueDate) {
-        this.toast({
-          data: {
-            message: 'due date should greater than start date',
-            type: 'is-danger'
-          }
-        })
-      } else if (this.currentQuestionnaireAdmin.startDate === this.currentQuestionnaireAdmin.dueDate) {
-        this.toast({
-          data: {
-            message: 'due date should not same with start date',
-            type: 'is-danger'
-          }
-        })
-      } else if (this.currentQuestionnaireAdmin.startDate < new Date().setHours(0, 0, 0, 0)) {
-        this.toast({
-          data: {
-            message: 'start date should greater than yesterday',
-            type: 'is-danger'
+      if (this.isCreate) {
+        questionnaireApi.createQuestionnaire(response => {
+          this.currentQuestionnaireTemp.id = response.data.id
+          this.updateQuestions()
+          this.updateAppraisee()
+          this.updateAppraiser()
+          this.toast({
+            data: {
+              message: 'Success create questionnaire',
+              type: 'is-success'
+            }
+          })
+        }, this.submitMessageErrorCallback,
+        {
+          body: {
+            title: this.currentQuestionnaireTemp.title,
+            desc: this.currentQuestionnaireTemp.description,
+            startDate: this.currentQuestionnaireTemp.startDate.getTime(),
+            dueDate: this.currentQuestionnaireTemp.dueDate.getTime()
           }
         })
       } else {
         questionnaireApi.updateQuestionnaire(response => {
-          this.setCurrentQuestionnaire(response.data)
+          if (response.code !== 403) {
+            this.currentQuestionnaireTemp.id = response.data.id
+            this.updateQuestions()
+            this.updateAppraisee()
+            this.updateAppraiser()
+            this.toast({
+              data: {
+                message: 'Success update questionnaire',
+                type: 'is-success'
+              }
+            })
+          } else {
+            this.submitMessageErrorCallback()
+          }
         }, this.submitMessageErrorCallback,
         {
           params: {
             questionnaireId: this.$route.params.questionnaireId
           },
           body: {
-            title: this.currentQuestionnaireAdmin.title,
-            desc: this.currentQuestionnaireAdmin.description,
-            startDate: isNaN(Date.parse(this.currentQuestionnaireAdmin.startDate)) ? this.currentQuestionnaireAdmin.startDate : this.currentQuestionnaireAdmin.startDate.getTime(),
-            dueDate: isNaN(Date.parse(this.currentQuestionnaireAdmin.dueDate)) ? this.currentQuestionnaireAdmin.dueDate : this.currentQuestionnaireAdmin.dueDate.getTime()
+            title: this.currentQuestionnaireTemp.title,
+            desc: this.currentQuestionnaireTemp.description,
+            startDate: this.currentQuestionnaireTemp.startDate.getTime(),
+            dueDate: this.currentQuestionnaireTemp.dueDate.getTime()
           }
         })
       }
@@ -194,7 +215,7 @@ export default {
       this.currentQuestionsTemp = response.data
     },
     deleteTheQuestionQuestionnaire () {
-      this.currentQuestionsTemp.splice(this.deleteConfirmationModalQuestion.selectedIndex, 1)
+      this.currentQuestionsTemp.splice(this.deleteConfirmationModalQuestion.selectedIndex-1, 1)
       this.resetDeleteConfirmationModalQuestion()
     },
     deleteErrorCallback (err) {
@@ -217,28 +238,29 @@ export default {
     },
     addErrorCallback (err) {
       console.log(err)
-      this.toast({
-        data: {
-          message: 'Fail to add',
-          type: 'is-danger'
-        }
-      })
     },
     openEditModal (newQuestion, index) {
+      alert(index)
       this.questionModal = true
-      this.question.id = newQuestion.id
-      this.question.isUpdate = true
-      this.question.description = newQuestion.description
-      this.question.index = index
+      this.questionTemp.id = newQuestion.id
+      this.questionTemp.isUpdate = true
+      this.questionTemp.description = newQuestion.description
+      this.questionTemp.index = index
+    },
+    openQuestionModal () {
+      this.questionModal = true
+      this.questionTemp.id = ''
+      this.questionTemp.isUpdate = false
+      this.questionTemp.description = ''
     },
     closeQuestionModal () {
       this.questionModal = false
-      this.question.id = ''
-      this.question.isUpdate = false
-      this.question.description = ''
+      this.questionTemp.id = ''
+      this.questionTemp.isUpdate = false
+      this.questionTemp.description = ''
     },
     updateTheQuestionQuestionnaire (value) {
-      this.currentQuestionsTemp[this.question.index].description = value.description
+      this.currentQuestionsTemp[this.questionTemp.index].description = value.description
       this.closeQuestionModal()
     },
     addAppraisee (member) {
@@ -333,7 +355,7 @@ export default {
     },
     updateQuestions () {
       this.currentQuestionsTemp.forEach(question => {
-        if (question.id == null) {
+        if (question.id === null) {
           questionnaireApi.addQuestionQuestionnaire(response => {
           }, this.submitQuestionErrorCallback,
           {
@@ -341,17 +363,16 @@ export default {
               description: question.description
             },
             params: {
-              questionnaireId: this.$route.params.questionnaireId
+              questionnaireId: this.currentQuestionnaireTemp.id
             }
           })
         } else {
           questionnaireApi.updateQuestionQuestionnaire(response => {
-
           },
           this.updateErrorCallback,
           {
             params: {
-              questionnaireId: this.$route.params.questionnaireId,
+              questionnaireId: this.currentQuestionnaireTemp.id,
               questionId: question.id
             },
             body: {
@@ -368,7 +389,7 @@ export default {
           }, this.addErrorCallback,
           {
             params: {
-              questionnaireId: this.$route.params.questionnaireId
+              questionnaireId: this.currentQuestionnaireTemp.id
             },
             body: {
               idParticipant: member.id
@@ -381,7 +402,7 @@ export default {
         }, this.deleteErrorCallback,
         {
           params: {
-            questionnaireId: this.$route.params.questionnaireId,
+            questionnaireId: this.currentQuestionnaireTemp.id,
             questionnaireParticipantId: member.participantId
           }
         })
@@ -394,7 +415,7 @@ export default {
           }, this.addErrorCallback,
           {
             params: {
-              questionnaireId: this.$route.params.questionnaireId
+              questionnaireId: this.currentQuestionnaireTemp.id
             },
             body: {
               idParticipant: member.id
@@ -408,7 +429,7 @@ export default {
         }, this.deleteErrorCallback,
         {
           params: {
-            questionnaireId: this.$route.params.questionnaireId,
+            questionnaireId: this.currentQuestionnaireTemp.id,
             questionnaireParticipantId: member.participantId
           }
         })
@@ -424,20 +445,61 @@ export default {
     prevProgress () {
       this.progressValue = this.progressValue - 1
     },
+    validateQuestionnaire () {
+      if (this.currentQuestionnaireTemp.title === null || this.currentQuestionnaireTemp.description === null) {
+        this.toast({
+          data: {
+            message: 'Title and description must be filled',
+            type: 'is-danger'
+          }
+        })
+        return false
+      }
+      if (this.currentQuestionnaireTemp.startDate.getTime() >= this.currentQuestionnaireTemp.dueDate.getTime()) {
+        this.toast({
+          data: {
+            message: 'Due date should greater than start date',
+            type: 'is-danger'
+          }
+        })
+        return false
+      }
+      if (this.currentQuestionnaireTemp.startDate.getTime() < new Date()) {
+        this.toast({
+          data: {
+            message: 'Start date should greater than now',
+            type: 'is-danger'
+          }
+        })
+        return false
+      }
+      if (this.currentAppraiseeTemp.length === 0) {
+        this.toast({
+          data: {
+            message: 'Appraisee cannot be empty',
+            type: 'is-danger'
+          }
+        })
+        return false
+      }
+      if (this.currentAppraiserTemp.length === 0) {
+        this.toast({
+          data: {
+            message: 'Appraiser cannot be empty',
+            type: 'is-danger'
+          }
+        })
+        return false
+      }
+      return true
+    },
     updateQuestionnaire () {
-      this.goToUpdateDescription()
-      this.updateQuestions()
-      this.updateAppraisee()
-      this.updateAppraiser()
-      this.$router.replace({
-        name: 'questionnaires'
-      })
-      this.toast({
-        data: {
-          message: 'success update questionnaire',
-          type: 'is-success'
-        }
-      })
+      if (this.validateQuestionnaire()) {
+        this.goToUpdateDescription()
+        this.$router.replace({
+          name: 'questionnaires'
+        })
+      }
     },
     fetchingCurrentQuestionnarieAdmin () {
       this.fetchCurrentQuestionnaireAdmin({
@@ -447,16 +509,24 @@ export default {
           }
 
         },
-        fail: this.errorHandler
+        fail: this.errorHandler,
+        cb: this.copyToCurrentQuestionnaireTemp
       })
-      this.currentQuestionnaireAdmin.startDate = new Date(this.currentQuestionnaireAdmin.startDate)
-      this.currentQuestionnaireAdmin.dueDate = new Date(this.currentQuestionnaireAdmin.dueDate)
+    },
+    copyToCurrentQuestionnaireTemp (response) {
+      this.currentQuestionnaireTemp.id = response.data.id
+      this.currentQuestionnaireTemp.title = response.data.title
+      this.currentQuestionnaireTemp.description = response.data.description
+      this.currentQuestionnaireTemp.startDate = new Date(this.currentQuestionnaireAdmin.startDate)
+      this.currentQuestionnaireTemp.dueDate = new Date(this.currentQuestionnaireAdmin.dueDate)
     }
   },
   created () {
-    this.fetchingCurrentQuestionnarieAdmin()
-    this.fetchingQuestions()
-    this.fetchingAppraisee()
-    this.fetchingAppraiser()
+    if (!this.isCreate) {
+      this.fetchingCurrentQuestionnarieAdmin()
+      this.fetchingQuestions()
+      this.fetchingAppraisee()
+      this.fetchingAppraiser()
+    }
   }
 }

@@ -3,7 +3,7 @@ import request from '../default-request'
 
 const getMyQuestionnaires = function (callback, error, data) {
   request.getRequest(
-    config.api.communication.myQuestionnaire.getMyquestionnnaires(data.params.page, data.params.size),
+    config.api.communication.myQuestionnaire.getMyquestionnnaires(data.params.page, data.params.size, data.params.keyword),
     callback,
     error
   )

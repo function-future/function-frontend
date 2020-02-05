@@ -1,18 +1,20 @@
 import QuestionnaireCard from '@/views/Questionnaire/QuestionnaireCard'
 import InfiniteLoading from 'vue-infinite-loading'
+import EmptyState from '@/components/emptyState/EmptyState'
 import myQuestionnaireApi from '@/api/controller/my-questionnaire'
 
 export default {
   name: 'MyQuestionnaire',
   components: {
     QuestionnaireCard,
-    InfiniteLoading
+    InfiniteLoading,
+    EmptyState
   },
   data () {
     return {
       myQuestionnaires: [],
       page: 1,
-      size: 10
+      size: 10,
     }
   },
   methods: {
@@ -43,6 +45,19 @@ export default {
         params: {
           page: this.page,
           size: this.size
+        }
+      })
+    },
+    searchHandler (value) {
+      this.page = 1
+      myQuestionnaireApi.getMyQuestionnaires(response => {
+        console.log(response.data)
+        this.myQuestionnaires = response.data
+      }, this.errorCallback, {
+        params: {
+          page: this.page,
+          size: this.size,
+          keyword: value
         }
       })
     }

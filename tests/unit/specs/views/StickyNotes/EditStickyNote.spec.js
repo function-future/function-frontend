@@ -3,7 +3,6 @@ import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import VueRouter from 'vue-router'
 import VeeValidate from 'vee-validate'
-import MavonEditor from 'mavon-editor'
 
 describe('EditStickyNotes', () => {
   let store
@@ -15,7 +14,6 @@ describe('EditStickyNotes', () => {
     lv.use(Vuex)
     lv.use(VueRouter)
     lv.use(VeeValidate)
-    lv.use(MavonEditor)
     return lv
   }
 

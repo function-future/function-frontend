@@ -1,6 +1,7 @@
 import SearchBar from '@/components/SearchBar'
 import QuestionnaireParticipantCard from '@/views/Questionnaire/QuestionnaireParticipantCard'
 import InfiniteLoading from 'vue-infinite-loading'
+import EmptyState from '@/components/emptyState/EmptyState'
 import questionnaireResultsApi from '@/api/controller/questionnaire-results'
 
 export default {
@@ -8,7 +9,8 @@ export default {
   components: {
     SearchBar,
     QuestionnaireParticipantCard,
-    InfiniteLoading
+    InfiniteLoading,
+    EmptyState
   },
   data () {
     return {

@@ -44,55 +44,55 @@
     </div>
     <div class="app-menu is-size-7-mobile is-hidden-desktop">
       <div class="columns is-mobile is-vcentered is-multiline is-gapless is-centered">
-        <div class="column is-3" @click="goToPage('announcements')">
+        <div class="column is-3 disable-selection" @click="goToPage('announcements')">
           <div class="card-content">
             <div><b-icon icon="bullhorn" class="menu-icon"></b-icon></div>
             <div>Announcements</div>
           </div>
         </div>
-        <div class="column is-3" @click="goToPage('activityBlogs')">
+        <div class="column is-3 disable-selection" @click="goToPage('activityBlogs')">
           <div class="card-content">
             <div><b-icon icon="newspaper" class="menu-icon"></b-icon></div>
-            <div>Activity Blogs</div>
+            <div>Blogs</div>
           </div>
         </div>
-        <div class="column is-3" v-if="menuList.files" @click="goToPage('files')">
+        <div class="column is-3 disable-selection" v-if="menuList.files" @click="goToPage('files')">
           <div class="card-content">
             <div><b-icon icon="file-alt" class="menu-icon"></b-icon></div>
             <div>Files</div>
           </div>
         </div>
-        <div class="column is-3" v-if="menuList.reminders" @click="goToPage('reminders')">
+        <div class="column is-3 disable-selection" v-if="menuList.reminders" @click="goToPage('reminders')">
           <div class="card-content">
             <div><b-icon icon="stopwatch" class="menu-icon"></b-icon></div>
             <div>Reminders</div>
           </div>
         </div>
-        <div class="column is-3" v-if="menuList.batches" @click="goToPage('batches')">
+        <div class="column is-3 disable-selection" v-if="menuList.batches" @click="goToPage('batches')">
           <div class="card-content">
             <div><b-icon icon="school" class="menu-icon"></b-icon></div>
             <div>Batches</div>
           </div>
         </div>
-        <div class="column is-3" v-if="menuList.courses" @click="goToPage('courses')">
+        <div class="column is-3 disable-selection" v-if="menuList.courses" @click="goToPage('courses')">
           <div class="card-content">
             <div><b-icon icon="chalkboard" class="menu-icon"></b-icon></div>
             <div>Courses</div>
           </div>
         </div>
-        <div class="column is-3" v-if="menuList.users" @click="goToPage('users')">
+        <div class="column is-3 disable-selection" v-if="menuList.users" @click="goToPage('users')">
           <div class="card-content">
             <div><b-icon icon="users" class="menu-icon"></b-icon></div>
             <div>Users</div>
           </div>
         </div>
-        <div class="column is-3" v-if="menuList.comparisons" @click="goToPage('judgingList')">
+        <div class="column is-3 disable-selection" v-if="menuList.comparisons" @click="goToPage('judgingList')">
           <div class="card-content">
             <div><b-icon icon="chalkboard-teacher" class="menu-icon"></b-icon></div>
             <div>Judging</div>
           </div>
         </div>
-        <div class="column is-3" v-if="menuList.points" @click="goToPage('points')">
+        <div class="column is-3 disable-selection" v-if="menuList.points" @click="goToPage('points')">
           <div class="card-content">
             <div><b-icon icon="clipboard-list" class="menu-icon"></b-icon></div>
             <div>Points</div>
@@ -105,7 +105,7 @@
         <ListItem v-for="n in 3" v-bind:key="n" :loading="isLoadingAnnouncement"></ListItem>
       </div>
       <div v-else>
-        <div class="announcements__title is-size-5"
+        <div class="announcements__title is-size-5 disable-selection"
              @click="goToAnnouncementPage">
           <span>Announcements</span>
         </div>
@@ -247,5 +247,13 @@
         }
       }
     }
+  }
+
+  .disable-selection {
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer */
+    -khtml-user-select: none; /* KHTML browsers (e.g. Konqueror) */
+    -webkit-user-select: none; /* Chrome, Safari, and Opera */
+    -webkit-touch-callout: none; /* Disable Android and iOS callouts*/
   }
 </style>

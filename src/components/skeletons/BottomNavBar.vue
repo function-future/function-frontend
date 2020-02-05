@@ -7,7 +7,7 @@
       </a>
       <a @click="goToPage('scoringAdmin')" class="navbar-item is-expanded is-block has-text-centered mobile-router-link">
         <b-icon icon="tasks"></b-icon>
-        <p class="is-size-7 menu-title">Scoring</p>
+        <p class="is-size-7 menu-title">Tasks</p>
       </a>
       <a @click="goToPage('chatrooms')" class="navbar-item is-expanded is-block has-text-centered mobile-router-link">
         <b-icon icon="comments"></b-icon>
@@ -19,7 +19,7 @@
       </a>
       <a @click="goToPage('loggingRoom')" class="navbar-item is-expanded is-block has-text-centered mobile-router-link">
         <b-icon icon="clipboard-list"></b-icon>
-        <p class="is-size-7 menu-title">LogRoom</p>
+        <p class="is-size-7 menu-title">Logs</p>
       </a>
     </div>
   </nav>

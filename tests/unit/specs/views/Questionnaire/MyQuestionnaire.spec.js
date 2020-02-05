@@ -6,7 +6,7 @@ import myQuestionnaireApi from '@/api/controller/my-questionnaire'
 
 jest.mock('@/api/controller/my-questionnaire')
 
-describe('ModalAddQuestion', () => {
+describe('MyQuestionnaire', () => {
   let wrapper
   let store
 
@@ -125,5 +125,16 @@ describe('ModalAddQuestion', () => {
     wrapper.vm.page = 2
     wrapper.vm.infiniteHandler($state)
     expect($state.loaded).toHaveBeenCalled()
+  })
+
+  test('searchHandler', () => {
+    myQuestionnaireApi.getMyQuestionnaires = success => {
+      success({
+        data: []
+      })
+    }
+    initWrapper()
+    wrapper.vm.searchHandler('test')
+    expect(wrapper.vm.myQuestionnaires).toEqual([])
   })
 })

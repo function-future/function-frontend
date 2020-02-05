@@ -13,13 +13,31 @@
                         @click="goToAddUser">
                 {{ currentTab }}
               </b-button>
-              <b-field>
-                <b-input placeholder="Search"
-                         rounded
-                         @input="searchHandler"
-                         v-model="keyword">
-                </b-input>
-              </b-field>
+              <div v-if="activeTab === 0"
+                   class="users__container__tabs-actions-filter">
+                <b-field label="Batch"
+                         label-position="on-border">
+                  <b-select placeholder="Select a batch"
+                            v-model="selectedBatchCode"
+                            @input="searchHandler"
+                            expanded>
+                    <option v-for="batch in batches"
+                            :key="batch.code"
+                            :value="batch.code">
+                      {{ batch.name }}
+                    </option>
+                  </b-select>
+                </b-field>
+              </div>
+              <div class="users__container__tabs-actions-search">
+                <b-field>
+                  <b-input placeholder="Search"
+                           rounded
+                           @input="searchHandler"
+                           v-model="keyword">
+                  </b-input>
+                </b-field>
+              </div>
             </div>
             <div class="users__container__tabs-content">
               <div v-if="isLoading">
@@ -136,13 +154,26 @@
 
         &-actions {
           display: flex;
-          justify-content: space-between;
           align-items: center;
           margin-right: 1.5rem;
           margin-bottom: 0.5rem;
 
           @media only screen and (max-width: 1023px) {
             margin-right: 0;
+          }
+
+          &-filter {
+            min-width: 10rem;
+            margin-left: 1rem;
+
+            @media (max-width: 1023px) {
+              min-width: 5rem;
+              margin-left: auto;
+            }
+          }
+
+          &-search {
+            margin-left: auto;
           }
         }
 

@@ -23,13 +23,19 @@
               START DATE :
             </label>
             <div class="start-date-placeholder">
-              <span v-if="isReview">{{dateToString(value.startDate)}}</span>
-              <b-datetimepicker v-else
-                placeholder="Type or select a date..."
-                icon="calendar"
-                v-model="value.startDate"
-                editable>
-              </b-datetimepicker>
+              <b-field v-if="!isReview">
+                <b-datetimepicker v-model="value.startDate"
+                                  placeholder="Click to select...">
+                  <template slot="left">
+                    <button class="button is-primary"
+                            @click="value.startDate = new Date(new Date().setSeconds(0))">
+                      <b-icon icon="clock"></b-icon>
+                      <span>Now</span>
+                    </button>
+                  </template>
+                </b-datetimepicker>
+              </b-field>
+              <span v-else>{{dateToString(value.startDate)}}</span>
             </div>
           </div>
           <div class="due-date-container">
@@ -37,13 +43,19 @@
               DUE DATE :
             </label>
             <div class="due-date-placeholder">
-              <span v-if="isReview">{{dateToString(value.dueDate)}}</span>
-              <b-datetimepicker v-else
-                placeholder="Type or select a date..."
-                icon="calendar-times"
-                v-model="value.dueDate"
-                editable>
-              </b-datetimepicker>
+              <b-field v-if="!isReview">
+                <b-datetimepicker v-model="value.dueDate"
+                                  placeholder="Click to select...">
+                  <template slot="left">
+                    <button class="button is-primary"
+                            @click="value.dueDate = new Date(new Date().setSeconds(0))">
+                      <b-icon icon="clock"></b-icon>
+                      <span>Now</span>
+                    </button>
+                  </template>
+                </b-datetimepicker>
+              </b-field>
+              <span v-else>{{dateToString(value.dueDate)}}</span>
             </div>
           </div>
         </div>
