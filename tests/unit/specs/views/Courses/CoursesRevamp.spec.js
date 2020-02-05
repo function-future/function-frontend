@@ -137,7 +137,7 @@ describe('Courses Revamp', () => {
     wrapper.vm.activeTab = -1
     wrapper.vm.setQuery()
     expect(wrapper.vm.activeTab).toEqual(0)
-    expect(wrapper.vm.$router.replace).toHaveBeenCalledTimes(1)
+    expect(wrapper.vm.$router.push).toHaveBeenCalledTimes(1)
   })
 
   test('setQuery active tab same as query', () => {
@@ -145,7 +145,7 @@ describe('Courses Revamp', () => {
     wrapper.vm.activeTab = -1
     wrapper.vm.setQuery()
     expect(wrapper.vm.activeTab).toEqual(0)
-    expect(wrapper.vm.$router.replace).toHaveBeenCalledTimes(0)
+    expect(wrapper.vm.$router.push).toHaveBeenCalledTimes(0)
   })
 
   test('initBatchCourse batches length > 0', () => {
@@ -564,5 +564,37 @@ describe('Courses Revamp', () => {
       name: 'Karnando Sepryan'
     }
     expect(wrapper.vm.loggedIn).toEqual(1)
+  })
+
+  test('computed currentTabType has query', () => {
+    $route.query.tab = 'master'
+    expect(wrapper.vm.currentTabType).toEqual('master')
+  })
+
+  test('computed currentTabType no query', () => {
+    store.state.currentUser = {
+      role: 'ADMIN'
+    }
+    $route.query.tab = ''
+    expect(wrapper.vm.currentTabType).toEqual('master')
+  })
+
+  test('computed defaultCurrentTabType is student', () => {
+    store.state.currentUser = {
+      role: 'STUDENT'
+    }
+    expect(wrapper.vm.defaultCurrentTabType).toEqual('batch')
+  })
+
+  test('computed defaultCurrentTabType is not student', () => {
+    store.state.currentUser = {
+      role: 'JUDGE'
+    }
+    expect(wrapper.vm.defaultCurrentTabType).toEqual('master')
+  })
+
+  test('goToCreateBatch', () => {
+    wrapper.vm.goToCreateBatch()
+    expect(wrapper.vm.$router.push).toHaveBeenCalledTimes(1)
   })
 })

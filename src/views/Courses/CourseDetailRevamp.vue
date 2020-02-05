@@ -81,7 +81,7 @@
                   {{ discussion.author.name }}
                 </div>
                 <div class="is-size-7">
-                  {{ discussion.createdAt | moment("dddd, MMMM Do YYYY") }}
+                  {{ discussion.createdAt | moment("dddd, MMMM Do YYYY h:mm:ss") }}
                 </div>
                 <div class="course-detail__container__discussion__list-content">
                   {{ discussion.comment }}

@@ -213,6 +213,20 @@ describe('Users', () => {
     })
   })
 
+  test('successDeleteUserById last item in the page', () => {
+    initComponent()
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
+    wrapper.vm.paging.totalRecords = 11
+    wrapper.vm.paging.page = 2
+    wrapper.vm.successDeleteUserById()
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'successfully delete user',
+        type: 'is-success'
+      }
+    })
+  })
+
   test('failDeleteUserById', () => {
     initComponent()
     const toastSpy = jest.spyOn(wrapper.vm, 'toast')

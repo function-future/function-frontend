@@ -61,6 +61,7 @@ export default {
       this.imageIds = [ ...this.activityBlog.files.map(i => i.id) ]
     },
     checkCurrentUser () {
+      if (this.currentUser.role === 'ADMIN') return
       if (this.currentUser.id !== this.activityBlog.author.id) {
         this.$router.push({
           name: 'activityBlogDetail',
