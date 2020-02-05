@@ -44,6 +44,7 @@ export default {
     }
   },
   created () {
+    this.hideBottomNavBar()
     if (this.chatroomId !== 'public') {
       this.fetchDetailChatroom({
         data: {
@@ -66,6 +67,7 @@ export default {
     this.refreshMessages()
   },
   destroyed () {
+    this.showBottomNavBar()
     this.leaveChatroom({
       data: {
         params: {
@@ -120,7 +122,9 @@ export default {
       'fetchMessagesBeforePivot',
       'createMessage',
       'updateChatroom',
-      'toast'
+      'toast',
+      'hideBottomNavBar',
+      'showBottomNavBar'
     ]),
     infiniteMessageHandler ($state) {
       if (this.lastMessageId === null) {
