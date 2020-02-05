@@ -136,6 +136,9 @@
       display: flex;
       flex-direction: column;
       padding: 1rem 1.25rem;
+      @media only screen and (max-width: 1023px) {
+        margin-bottom: 10vh;
+      }
 
       &__actions {
         margin-bottom: 0.75rem;
