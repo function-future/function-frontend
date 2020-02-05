@@ -6,8 +6,8 @@
                   is-rounded
                   column
                   is-one-fifth-desktop
-                  is-three-fifths-mobile
-                  is-offset-one-fifth-mobile" v-for="room in rooms">
+                  is-three-fifths-touch
+                  is-offset-one-fifth-touch" v-for="room in rooms">
           <div class="card-image">
             <figure class="image is-4by3">
               <img :src="room.avatar || require('@/assets/profile-picture-placeholder.png')" alt="Placeholder image" class="rounded-image">
@@ -64,7 +64,7 @@
 
   .detail-card {
     &-container {
-      @media only screen and (min-width: 768px) {
+      @media only screen and (min-width: 1024px) {
         margin-left: 20px;
         margin-right: 20px;
       }
