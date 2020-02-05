@@ -85,7 +85,9 @@ export default {
       })
     },
     textPreview: function (announcement) {
-      return marked(this.showLimitedPreviewText(announcement.description.replace(/<img([\w\W]+?)>/g, '')))
+      announcement.description = announcement.description.replace(/<img([\w\W]+?)>/g, '')
+      announcement.description = announcement.description.replace(/<hr>/g, '')
+      return marked(this.showLimitedPreviewText(announcement.description))
     },
     showLimitedPreviewText: function (text) {
       let maximumCharacters = 250
@@ -114,6 +116,9 @@ export default {
       this.closeDeleteConfirmationModal()
     },
     successDeleteAnnouncementById () {
+      if ((this.paging.totalRecords - 1) % 10 === 0) {
+        this.paging.page -= 1
+      }
       this.loadAnnouncementList()
       this.toast({
         data: {

@@ -35,4 +35,8 @@
   .mobile-router-link {
     color: #FFFFFF;
   }
+
+  .navbar-item {
+    padding: 0.5rem 0.75rem 1rem 0.75rem;
+  }
 </style>

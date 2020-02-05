@@ -31,12 +31,19 @@
           </b-icon>
           <div class="sticky-note-text">
             <div>
-              <span class="has-text-weight-bold">
-              {{ stickyNote.title || 'Sticky Notes' }}
-            </span>
+              <span v-if="isLoadingStickyNotes" class="has-text-weight-bold">
+                <SkeletonBox height="1rem" :min-width="20" :max-width="40"></SkeletonBox>
+              </span>
+              <span v-if="!isLoadingStickyNotes" class="has-text-weight-bold">
+                {{ stickyNote.title || 'Sticky Notes' }}
+              </span>
             </div>
             <div>
-              <span class="content" v-html="stickyNotesDescriptionPreview(stickyNote.description)"></span>
+              <span v-if="isLoadingStickyNotes">
+                <SkeletonBox height="1rem" :min-width="40" :max-width="55"></SkeletonBox>
+              </span>
+              <span v-if="!isLoadingStickyNotes" class="content"
+                    v-html="stickyNotesDescriptionPreview(stickyNote.description)"></span>
             </div>
           </div>
         </div>
@@ -194,6 +201,7 @@
 
   .sticky-note-text {
     font-size: 0.875rem;
+    width: 100%;
   }
 
   .info-icon {
