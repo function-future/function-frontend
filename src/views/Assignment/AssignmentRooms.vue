@@ -4,7 +4,7 @@
       <div class="card detail-card-container is-rounded" v-for="room in rooms">
         <div class="card-image">
           <figure class="image is-4by3">
-            <img :src="room.avatar" alt="Placeholder image" class="rounded-image">
+            <img :src="room.avatar || require('@/assets/profile-picture-placeholder.png')" alt="Placeholder image" class="rounded-image">
           </figure>
         </div>
         <div class="card-content">
