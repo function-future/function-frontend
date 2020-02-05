@@ -370,6 +370,11 @@
                 display: flex;
                 align-items: center;
                 font-size: 0.875rem;
+                flex-grow: 1;
+                flex-shrink: 1;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
               }
             }
           }
