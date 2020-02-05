@@ -90,7 +90,7 @@
     margin: 5px 10px;
     padding: 10px;
     height: auto;
-    max-width: 40vw;
+    max-width: 100%;
     @media only screen and (max-width: 1023px) {
       max-width: 100vw;
     }

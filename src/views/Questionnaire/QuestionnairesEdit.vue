@@ -155,7 +155,7 @@
 
     &__container {
       overflow: auto;
-      width: 40vw;
+      width: 100%;
       @media only screen and (max-width: 1023px) {
         width: 100vw;
       }

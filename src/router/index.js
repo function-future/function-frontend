@@ -1207,12 +1207,12 @@ const router = new Router({
       name: 'questionnaireResultsMembers',
       component: questionnaireResultsMembers,
       meta: {
-        title: 'Questionnaire Results - Members',
+        title: 'Members',
         auth: true,
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
           { name: 'Questionnaire Results', link: 'questionnaireResults' },
-          { name: 'Questionnaire Results Member', link: 'questionnaireResultsMembers' }
+          { name: 'Members', link: 'questionnaireResultsMembers' }
         ]
       }
     },
@@ -1221,13 +1221,13 @@ const router = new Router({
       name: 'questionnaireResultsMemberDetail',
       component: questionnaireResultsMemberDetail,
       meta: {
-        title: 'Questionnaire Results - Member Detail',
+        title: 'Member Detail',
         auth: true,
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
           { name: 'Questionnaire Results', link: 'questionnaireResults' },
-          { name: 'Questionnaire Results Member', link: 'questionnaireResultsMembers' },
-          { name: 'Questionnaire Results Member Detail', link: 'questionnaireResultsMemberDetail' }
+          { name: 'Members', link: 'questionnaireResultsMembers' },
+          { name: 'Member Detail', link: 'questionnaireResultsMemberDetail' }
         ]
       }
     },
@@ -1236,14 +1236,14 @@ const router = new Router({
       name: 'questionnaireResultsQuestionnaireDetail',
       component: questionnaireResultsQuestionnaireDetail,
       meta: {
-        title: 'Questionnaire Results - Questionnaire Detail',
+        title: 'Questionnaire Detail',
         auth: true,
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
           { name: 'Questionnaire Results', link: 'questionnaireResults' },
-          { name: 'Questionnaire Results Member', link: 'questionnaireResultsMembers' },
-          { name: 'Questionnaire Results Member Detail', link: 'questionnaireResultsMemberDetail' },
-          { name: 'Questionnaire Results Detail', link: 'questionnaireResultsQuestionnaireDetail' }
+          { name: 'Members', link: 'questionnaireResultsMembers' },
+          { name: 'Member Detail', link: 'questionnaireResultsMemberDetail' },
+          { name: 'Questionnaire Detail', link: 'questionnaireResultsQuestionnaireDetail' }
         ]
       }
     },
@@ -1252,15 +1252,15 @@ const router = new Router({
       name: 'questionnaireResultsQuestionDetail',
       component: questionnaireResultsQuestionDetail,
       meta: {
-        title: 'Questionnaire Results - Question Detail',
+        title: 'Question Detail',
         auth: true,
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
           { name: 'Questionnaire Results', link: 'questionnaireResults' },
-          { name: 'Questionnaire Results Member', link: 'questionnaireResultsMembers' },
-          { name: 'Questionnaire Results Member Detail', link: 'questionnaireResultsMemberDetail' },
-          { name: 'Questionnaire Results Detail', link: 'questionnaireResultsQuestionnaireDetail' },
-          { name: 'Questionnaire Results Question Detail', link: 'questionnaireResultsQuestionDetail' }
+          { name: 'Members', link: 'questionnaireResultsMembers' },
+          { name: 'Member Detail', link: 'questionnaireResultsMemberDetail' },
+          { name: 'Questionnaire Detail', link: 'questionnaireResultsQuestionnaireDetail' },
+          { name: 'Question Detail', link: 'questionnaireResultsQuestionDetail' }
         ]
       }
     },

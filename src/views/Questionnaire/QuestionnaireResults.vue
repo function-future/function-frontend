@@ -41,7 +41,6 @@
       justify-content: space-between;
       flex-direction: column;
       align-self: center;
-      width: 40vw;
       @media only screen and (max-width: 1023px) {
         width: 100vw;
         padding: 0vh 5vw;

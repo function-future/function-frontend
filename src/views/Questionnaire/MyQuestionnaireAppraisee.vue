@@ -54,7 +54,6 @@
           <div class="title-questionnaire">
             <p><i>Questionnaire for {{currentQuestionnaireData.appraisee.name }}</i></p>
           </div>
-          {{currentQuestionnaireForm}}
           <div class="form-questionnaire-content">
             <MyQuestionnaireForm v-for="(question, index) in currentQuestionsQuestionnaire"
                                   :noQuestion="index+1"
@@ -90,8 +89,10 @@
       width: 100%;
       display: flex;
       justify-content: center;
-      height: 80vh;
       overflow: auto;
+      @media only screen and (max-width: 1023px) {
+        height: 80vh;
+      }
     }
     &__container {
       display: flex;

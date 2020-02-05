@@ -6,7 +6,7 @@
                                         :name="currentAppraiseeResult.member.name"
                                         :avatar="currentAppraiseeResult.member.avatar"
                                         :role="currentAppraiseeResult.member.role"
-                                        :university="currentAppraiseeResult.university"
+                                        :university="currentAppraiseeResult.member.university"
                                         :batch="currentAppraiseeResult.member.batch.code"
                                         :score="currentAppraiseeResult.rating"
                                         :isResult="true"
@@ -68,7 +68,7 @@
       justify-content: center;
       align-items: center;
       flex-direction: column;
-      width: 40vw;
+      width: 100%;
       @media only screen and (max-width: 1023px) {
         width: 100vw;
       }
