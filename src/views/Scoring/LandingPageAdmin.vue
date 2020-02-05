@@ -1,5 +1,5 @@
 <template>
-  <div class="auto-overflow-container scoring-container">
+  <div class="auto-overflow-container scoring__container">
     <section>
       <b-tabs class="scoring__header-tabs" v-model="selectedTab">
         <b-tab-item v-for="tab in tabs"
@@ -139,6 +139,9 @@
     &__container {
       padding: 0.4rem 1.25rem;
       height: 85vh;
+      @media only screen and (max-width: 1023px) {
+        margin-bottom: 10vh;
+      }
 
       &__tabs {
         @media only screen and (min-width: 1023px) {
