@@ -65,7 +65,11 @@ export default {
       return Object.keys(this.currentUser).length
     },
     currentTabType () {
-      return this.$route.query.tab
+      return this.$route.query.tab || this.defaultCurrentTabType
+    },
+    defaultCurrentTabType () {
+      if (this.isStudent) return 'batch'
+      return 'master'
     },
     partialSelected () {
       return (this.selectedIds.length !== this.courses.length) && this.selectedIds.length > 0
@@ -86,7 +90,6 @@ export default {
   },
   created () {
     this.checkCurrentUser()
-    this.setQuery()
   },
   methods: {
     ...mapActions([
@@ -116,7 +119,7 @@ export default {
     setQuery () {
       if (this.activeTab < 0 || this.activeTab > this.tabs.length) this.activeTab = 0
       if (this.tabs[this.activeTab].type === this.currentTabType) return
-      this.$router.replace({
+      this.$router.push({
         query: { tab: this.tabs[this.activeTab].type }
       })
     },
