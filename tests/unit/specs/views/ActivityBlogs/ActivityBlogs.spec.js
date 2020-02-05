@@ -198,6 +198,14 @@ describe('ActivityBlogs', () => {
     expect(loadActivityBlogListSpy).toHaveBeenCalledTimes(1)
   })
 
+  test('successDeleteActivityBlogById last item in the page', () => {
+    wrapper.vm.paging.totalRecords = 11
+    wrapper.vm.paging.page = 2
+    const loadActivityBlogListSpy = jest.spyOn(wrapper.vm, 'initPage')
+    wrapper.vm.successDeleteActivityBlogById()
+    expect(loadActivityBlogListSpy).toHaveBeenCalledTimes(1)
+  })
+
   test('failDeleteActivityBlogById', () => {
     const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failDeleteActivityBlogById()
