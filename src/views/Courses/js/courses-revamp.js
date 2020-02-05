@@ -1,5 +1,5 @@
 import { mapActions, mapGetters } from 'vuex'
-const InfiniteLoading = () => import('vue-infinite-loading')
+import InfiniteLoading from 'vue-infinite-loading'
 const ListItem = () => import('@/components/list/ListItem')
 const ModalDeleteConfirmation = () => import('@/components/modals/ModalDeleteConfirmation')
 const ModalCopy = () => import('@/components/modals/ModalCopy')

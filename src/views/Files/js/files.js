@@ -1,12 +1,12 @@
 import { mapActions, mapGetters } from 'vuex'
 import config from '@/config/index'
+import InfiniteLoading from 'vue-infinite-loading'
 const ModalDeleteConfirmation = () => import('@/components/modals/ModalDeleteConfirmation')
 const ModalCreateFolder = () => import('@/components/modals/ModalCreateFolder')
 const ModalRenameFileFolder = () => import('@/components/modals/ModalRenameFileFolder')
 const ModalFileUploadProgress = () => import('@/components/modals/ModalFileUploadProgress')
 const ModalFileVersion = () => import('@/components/modals/ModalFileVersion')
 const EmptyState = () => import('@/components/emptyState/EmptyState')
-const InfiniteLoading = () => import('vue-infinite-loading')
 
 export default {
   name: 'files',
