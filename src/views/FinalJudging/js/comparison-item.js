@@ -1,7 +1,7 @@
 import { mapActions, mapGetters } from 'vuex'
 import InfiniteLoading from 'vue-infinite-loading'
-import ListItem from '@/components/list/ListItem'
-import ModalInputFinalScore from '@/components/modals/ModalInputFinalScore'
+const ListItem = () => import('@/components/list/ListItem')
+const ModalInputFinalScore = () => import('@/components/modals/ModalInputFinalScore')
 
 export default {
   name: 'comparison-detail',

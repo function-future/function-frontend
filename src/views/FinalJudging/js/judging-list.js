@@ -1,16 +1,14 @@
 import { mapActions, mapGetters } from 'vuex'
-import ListItem from '@/components/list/ListItem'
-import EmptyState from '@/components/emptyState/EmptyState'
-import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
-import BasePagination from '@/components/BasePagination'
+const ListItem = () => import('@/components/list/ListItem')
+const EmptyState = () => import('@/components/emptyState/EmptyState')
+const ModalDeleteConfirmation = () => import('@/components/modals/ModalDeleteConfirmation')
 
 export default {
   name: 'FinalJudgingList',
   components: {
     ListItem,
     EmptyState,
-    ModalDeleteConfirmation,
-    BasePagination
+    ModalDeleteConfirmation
   },
   data () {
     return {
