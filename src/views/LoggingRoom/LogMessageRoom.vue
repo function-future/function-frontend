@@ -49,7 +49,7 @@
    display: flex;
    align-items: center;
    flex-direction: column;
-   height: 95vh;
+   height: calc(100vh - 60px - 0.5rem);
    width: 100%;
 
    &__title{
@@ -61,18 +61,16 @@
      display: flex;
      flex-direction: column;
      align-items: center;
-     height: 80vh;
      width: 40vw;
 
      @media only screen and (max-width: 1023px) {
        width: 100vw;
-       margin: 10px;
      }
    }
 
    &__messages-room {
      width: 100%;
-     height: 75vh;
+     height: 78vh;
      overflow: auto;
      &__message {
        display: flex;

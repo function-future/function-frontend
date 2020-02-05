@@ -136,9 +136,9 @@ export default {
     this.getTitle()
   },
   created () {
-    this.hideBottomNavbar()
+    this.hideBottomNavBar()
   },
   destroyed () {
-    this.showBottomNavbar()
+    this.showBottomNavBar()
   }
 }

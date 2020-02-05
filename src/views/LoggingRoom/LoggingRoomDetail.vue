@@ -85,7 +85,7 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    height: 90vh;
+    height: calc(100vh - 60px - 0.5rem - 62px);
     width: 100%;
 
     &__container {
@@ -94,7 +94,7 @@
       width: 100%;
       @media only screen and (max-width: 1023px) {
         width: 100vw;
-        padding: 10px;
+        padding: 0px 10px;
       }
     }
 
