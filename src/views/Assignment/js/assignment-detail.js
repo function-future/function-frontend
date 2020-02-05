@@ -1,4 +1,4 @@
-import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
+const ModalDeleteConfirmation = () => import('@/components/modals/ModalDeleteConfirmation')
 import { mapActions, mapGetters } from 'vuex'
 let marked = require('marked')
 
