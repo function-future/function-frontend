@@ -7,7 +7,8 @@
           <img class="is-rounded" :src="avatarPreview">
         </figure>
         <label for="upload-image"
-               class="button is-primary is-outlined">
+               class="button is-primary is-outlined"
+               :class="{'is-loading': uploadingProfilePicture}">
           Edit Picture
         </label>
         <input type="file"
@@ -117,7 +118,7 @@
         <div class="user-form__container__form-actions">
           <div class="buttons">
             <b-button type="is-light" @click="cancel">Cancel</b-button>
-            <b-button type="is-primary" @click="save" :loading="isSubmitting">Save</b-button>
+            <b-button type="is-primary" @click="save" :loading="isSubmitting || uploadingProfilePicture">Save</b-button>
           </div>
         </div>
       </div>
