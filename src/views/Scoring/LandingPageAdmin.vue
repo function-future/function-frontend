@@ -34,18 +34,15 @@
                   </div>
                   <div class="scoring__container__tabs-actions-deadline" v-if="currentTabType !== 'questionBanks'">
                     <b-checkbox v-model="isPassedDeadline">
-                      View passed {{ tabTitle }}
+                      View passed {{ tabTitle.toLowerCase() }}
                     </b-checkbox>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <section class="scoring-content">
-            <div v-if="isLoading">
-              <ListItem v-for="n in 4" v-bind:key="n" :loading="isLoading"></ListItem>
-            </div>
-            <div v-if="!isLoading && !listEmpty">
+          <div class="scoring-content" infinite-wrapper>
+            <div v-if="!isLoading || !listEmpty">
               <ListItem v-for="item in items"
                         v-bind:key="item.id"
                         @click="goToItemDetail(item.id)">
@@ -97,7 +94,7 @@
               <div v-if="listEmpty && !failLoadItem">
                 <EmptyState :src="emptyStateSrc">
                   <template #title>
-                    Looks like there is no {{tabTitle}}!
+                    Looks like there is no {{ tabTitle.toLowerCase() }}!
                   </template>
                 </EmptyState>
               </div>
@@ -105,20 +102,23 @@
                 <EmptyState src="error" :errorState="true"></EmptyState>
               </div>
             </div>
-          </section>
+            <infinite-loading :identifier="infiniteId"
+                              @infinite="getListData"
+                              force-use-infinite-wrapper=".scoring-content">
+              <div slot="spinner">
+                <ListItem v-for="n in 4" v-bind:key="n" :loading="isLoading"></ListItem>
+              </div>
+              <div slot="no-more"></div>
+              <div slot="no-results"></div>
+            </infinite-loading>
+          </div>
         </b-tab-item>
-        <infinite-loading :identifier="infiniteId"
-                          @infinite="getListData"
-                          force-use-infinite-wrapper=".auto-overflow-container">
-          <div slot="no-more"></div>
-          <div slot="no-results"></div>
-        </infinite-loading>
       </b-tabs>
     </section>
     <modal-delete-confirmation v-if="isVisibleDeleteModal"
                                @close="closeDeleteConfirmationModal"
                                @clickDelete="deleteItem">
-      <div slot="description">Delete this {{tabTitle}}?</div>
+      <div slot="description">Delete this {{tabTitle.toLowerCase()}}?</div>
     </modal-delete-confirmation>
     <modal-copy v-if="isVisibleCopyModal"
                 @close="isVisibleCopyModal = false"
@@ -134,6 +134,10 @@
 
 <style lang="scss" scoped>
   @import "@/assets/css/main.scss";
+
+  .auto-overflow-container {
+    overflow-y: hidden;
+  }
 
   .scoring {
     &__container {
@@ -166,6 +170,7 @@
 
     &-content {
       height: 70vh;
+      overflow-y: auto;
     }
   }
 
