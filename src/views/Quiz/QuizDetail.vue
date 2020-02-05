@@ -125,7 +125,7 @@
       flex-direction: column;
       padding: 1rem 1.25rem;
       @media only screen and (max-width: 1023px) {
-        margin-bottom: 20vh;
+        margin-bottom: 10vh;
       }
 
       &__actions {
