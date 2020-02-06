@@ -42,7 +42,8 @@ export default {
         }
       ],
       batches: [],
-      isFetchingBatches: true
+      isFetchingBatches: true,
+      uploadingProfilePicture: false
     }
   },
   created () {
@@ -105,8 +106,12 @@ export default {
     setUserDetail () {
       this.avatarPreview = require('@/assets/profile-picture-placeholder.png')
       this.userDetail = this.user
+      if (this.userDetail.avatar && this.userDetail.avatar !== '') {
+        this.avatarPreview = this.userDetail.avatar
+      }
     },
     onFileChange (e) {
+      this.uploadingProfilePicture = true
       this.newImage = e.target.files[0]
       let files = e.target.files
       if (files[0].size > 1000000) {
@@ -135,8 +140,10 @@ export default {
     successUploadProfilePicture (response) {
       this.userDetail.avatarId = response.id
       this.avatarPreview = response.file.full
+      this.uploadingProfilePicture = false
     },
     failUploadProfilePicture () {
+      this.uploadingProfilePicture = false
       this.toast({
         data: {
           message: 'Fail to upload image, please try again',

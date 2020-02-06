@@ -44,14 +44,14 @@
       <b-menu-item class="menu-item"
                    label="Files"
                    tag="router-link"
-                   :active="isActive('files')"
+                   :active="isActive('folder')"
                    :to="{ name: 'files' }"
                    v-if="menuList.files">
       </b-menu-item>
       <b-menu-item class="menu-item"
                    label="Tasks"
                    tag="router-link"
-                   :active="isActive('grades')"
+                   :active="isActive('scoringAdmin')"
                    :to="{ name: 'scoringAdmin' }"
                    v-if="menuList.grades"
                    @click.native="updateViewKey">
@@ -59,7 +59,7 @@
       <b-menu-item class="menu-item"
                    label="Judging"
                    tag="router-link"
-                   :active="isActive('comparisons')"
+                   :active="isActive('judgingList')"
                    :to="{ name: 'judgingList' }"
                    v-if="menuList.comparisons">
       </b-menu-item>
