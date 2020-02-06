@@ -1,7 +1,7 @@
 if (workbox) {
   workbox.core.setLogLevel(workbox.core.LOG_LEVELS.debug)
 
-  workbox.precaching.precacheAndRoute(self.__precacheManifest || [])
+  workbox.precaching.precacheAndRoute([])
 
   workbox.routing.registerNavigationRoute('/index.html')
 
@@ -10,7 +10,7 @@ if (workbox) {
   // will cause the web app not updating should new changes are deployed.
   // See https://developers.google.com/web/tools/workbox/modules/workbox-precaching#serving_precached_responses
   workbox.routing.registerRoute(
-    /\.(?:css|js)$/i,
+    /\.(?:css|js|json)$/i,
     new workbox.strategies.StaleWhileRevalidate({
       cacheName: 'function-precaches',
       plugins: [
