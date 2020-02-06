@@ -32,7 +32,9 @@ describe('LogMessageRoom', () => {
       accessList: state => state.accessList
     }
     const actions = {
-      toast: jest.fn()
+      toast: jest.fn(),
+      showBottomNavbar: jest.fn(),
+      hideBottomNavbar: jest.fn()
     }
     const store = new Vuex.Store({
       state,
@@ -316,4 +318,5 @@ describe('LogMessageRoom', () => {
     initComponent()
     expect(spy).toHaveBeenCalled()
   })
+
 })

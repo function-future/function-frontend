@@ -44,20 +44,22 @@
       display: flex;
       justify-content: center;
       overflow: auto;
+      height: calc(100vh - 60px - 0.5rem - 62px);
     }
 
     &__container {
       display: flex;
-      justify-content: center;
       flex-direction: column;
-      width: 40vw;
+      width: 100%;
+      height: 100%;
       @media only screen and (max-width: 1023px) {
         width: 100vw;
       }
 
       &__question-list {
-        height: 55vh;
+        height: auto;
         overflow: auto;
+        max-height: calc(100% - 161px);
       }
 
       &__placeholder {

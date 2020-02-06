@@ -32,7 +32,9 @@ export default {
   },
   methods: {
     ...mapActions([
-      'toast'
+      'toast',
+      'hideBottomNavBar',
+      'showBottomNavBar'
     ]),
     infiniteHandler ($state) {
       loggingRoomApi.getLogMessages(response => {
@@ -132,5 +134,11 @@ export default {
   },
   mounted () {
     this.getTitle()
+  },
+  created () {
+    this.hideBottomNavBar()
+  },
+  destroyed () {
+    this.showBottomNavBar()
   }
 }

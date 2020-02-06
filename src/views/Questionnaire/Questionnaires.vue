@@ -65,13 +65,16 @@
       display: flex;
       justify-content: center;
       height: 80vh;
+      @media only screen and (max-width: 1023px) {
+        height: calc(100vh - 60px - 0.5rem - 62px);
+      }
       width: 100%;
     }
     &__container {
       display: flex;
       align-items: center;
       flex-direction: column;
-      width: 40vw;
+      width: 100%;
       @media only screen and (max-width: 1023px) {
         width: 100vw;
       }
@@ -81,10 +84,9 @@
       align-items: baseline;
       justify-content: space-between;
       width: 100%;
-      padding: 0px 10px;
+      padding: 10px;
 
       &__create-button {
-        padding-top: 12px;
         align-self: flex-start;
       }
 

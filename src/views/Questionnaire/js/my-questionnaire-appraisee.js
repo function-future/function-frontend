@@ -32,7 +32,8 @@ export default {
       },
       currentQuestionnaireForm: [],
       responses: [],
-      appraiseeDone: []
+      appraiseeDone: [],
+      currentNameTemp: ''
     }
   },
   methods: {
@@ -50,6 +51,7 @@ export default {
       return moment(date).format('DD MMM YYYY, h:mm a')
     },
     goToInputQuestionnaireAnswer (appraisee) {
+      this.currentNameTemp = appraisee.name
       this.fetchingQuestionnaireData(appraisee.id)
       this.$router.push({
         name: 'myQuestionnaireForm',

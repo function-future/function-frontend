@@ -64,11 +64,15 @@
       align-items: center;
       flex-direction: column;
       height: 80vh;
+      @media only screen and (max-width: 1023px) {
+        height: calc(100vh - 60px - 0.5rem - 62px);
+      }
       width: 100%;
     }
 
     &__container {
-      width: 40vw;
+      width: 100%;
+      height: 100%;
       @media only screen and (max-width: 1023px) {
         width: 100vw;
       }
@@ -79,8 +83,6 @@
       justify-content: space-between;
       align-items: center;
       margin: 0 10px;
-      min-height: 10vh;
-
       &__search-bar {
         @media only screen and (max-width: 1023px) {
           width: 100%;
@@ -95,11 +97,8 @@
     }
 
     &__list-card {
-      @media only screen and (max-width: 1023px) {
-        height: 70vh;
-      }
       overflow: auto;
-      height: 85vh;
+      height: calc(100% - 36px);
       &__card {
       }
     }

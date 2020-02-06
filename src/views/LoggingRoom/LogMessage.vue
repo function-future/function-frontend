@@ -71,6 +71,7 @@
           border-radius: 10px;
           font-size: 0.6rem;
           padding: 10px 5px;
+          word-break: break-all;
         }
       }
 

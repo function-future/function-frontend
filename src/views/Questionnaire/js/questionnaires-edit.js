@@ -240,7 +240,6 @@ export default {
       console.log(err)
     },
     openEditModal (newQuestion, index) {
-      alert(index)
       this.questionModal = true
       this.questionTemp.id = newQuestion.id
       this.questionTemp.isUpdate = true

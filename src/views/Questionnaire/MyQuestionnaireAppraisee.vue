@@ -52,9 +52,8 @@
         </div>
         <div v-else class="my-questionnaire-appraisees__content__form-questionnaire">
           <div class="title-questionnaire">
-            <p><i>Questionnaire for {{currentQuestionnaireData.appraisee.name }}</i></p>
+            <span>Questionnaire for {{currentNameTemp}}</span>
           </div>
-          {{currentQuestionnaireForm}}
           <div class="form-questionnaire-content">
             <MyQuestionnaireForm v-for="(question, index) in currentQuestionsQuestionnaire"
                                   :noQuestion="index+1"
@@ -90,8 +89,11 @@
       width: 100%;
       display: flex;
       justify-content: center;
-      height: 80vh;
       overflow: auto;
+      height: 80vh;
+      @media only screen and (max-width: 1023px) {
+        height: calc(100vh - 60px - 0.5rem - 62px);
+      }
     }
     &__container {
       display: flex;
@@ -142,9 +144,12 @@
       }
 
       &__appraisees-list{
-        height: 100%;
         width: 100%;
+        height: 100%;
         align-self: start;
+        @media only screen and (max-width: 1023px) {
+          height: calc(100% - 130px);
+        }
 
         &__title-appraisee {
           padding: 5px 0px;
@@ -156,11 +161,20 @@
         &__appraisee-card-container {
           height: 55vh;
           overflow: auto;
+          @media only screen and (max-width: 1023px) {
+            height: auto;
+            overflow: auto;
+            max-height: calc(100% - 12px);
+            padding: 10px 0px;
+          }
         }
       }
 
       &__form-questionnaire{
         width: 100%;
+        @media only screen and (max-height: 1023px) {
+          height: calc(100% - 120px);
+        }
       }
     }
   }
@@ -185,8 +199,6 @@
     color: green;
   }
 
-
-
   .form-questionnaire {
     display : flex;
     flex-direction: column;
@@ -197,14 +209,15 @@
     max-height: 60vh;
     overflow: auto;
     padding-bottom: 5px;
-  }
-
-  .title-appraisee, .title-questionnaire {
-
+    @media only screen and (max-width: 1023px) {
+      height: auto;
+      max-height: calc(100% - 65px);
+    }
   }
 
   .title-questionnaire {
-    color: #02aaf3;
+    font-style: italic;
+    font-size: 0.8rem;
   }
 
   .submit-button {

@@ -18,12 +18,12 @@
               </section>
             </div>
           </div>
-          <div class="question-comment">
+          <b-field class="question-comment">
             <b-input type="textarea"
                      v-model="comment"
                      placeholder="Comment goes here">
             </b-input>
-          </div>
+          </b-field>
         </div>
       </div>
     </div>

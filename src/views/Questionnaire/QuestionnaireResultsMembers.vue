@@ -52,7 +52,7 @@
       display: flex;
       align-items: center;
       flex-direction: column;
-      width: 40vw;
+      width: 100%;
       @media only screen and (max-width: 1023px) {
         width: 100vw;
       }

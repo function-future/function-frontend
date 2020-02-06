@@ -12,7 +12,7 @@
         </div>
       </div>
       <span class="questionnaire-results-question-detail__title">Appraised By</span>
-      <div class="questionnaire-results-question-list">
+      <div class="questionnaire-results-question-detail__list">
         <QuestionnaireParticipantSimpleCard v-for="appraiser in currentResultsQuestionDetailResponsesList"
                                             :name="appraiser.name"
                                             :avatar="appraiser.avatar"
@@ -33,14 +33,14 @@
       display: flex;
       justify-content: center;
       overflow: auto;
-      height: 80vh;
+      height: calc(100vh - 60px - 0.5rem - 62px);
     }
 
     &__container {
       display: flex;
-      justify-content: center;
       flex-direction: column;
-      width: 40vw;
+      width: 100%;
+      height: 100%;
       @media only screen and (max-width: 1023px) {
         width: 100vw;
       }
@@ -69,14 +69,14 @@
       margin: 5px 0px;
       padding: 0px 10px;
     }
-  }
 
-
-  .questionnaire-results-question-list {
-    overflow: auto;
-    display: flex;
-    flex-direction: column;
-    height: 60vh;
+    &__list {
+      overflow: auto;
+      display: flex;
+      height: auto;
+      flex-direction: column;
+      max-height: calc(100% - 134px);
+    }
   }
 
 </style>

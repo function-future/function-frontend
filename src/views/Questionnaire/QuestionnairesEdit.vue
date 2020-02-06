@@ -150,12 +150,15 @@
       display: flex;
       justify-content: center;
       height: 80vh;
+      @media only screen and (max-width: 1023px) {
+        height: calc(100vh - 10px - 60px - 0.5rem - 62px);
+      }
       padding : 10px;
+      overflow: auto;
     }
 
     &__container {
-      overflow: auto;
-      width: 40vw;
+      width: 100%;
       @media only screen and (max-width: 1023px) {
         width: 100vw;
       }
@@ -227,7 +230,7 @@
   .question-container-list
    {
     height: auto;
-    max-height: 75vh;
+    max-height: calc(100vh - 60px - 0.5rem - 62px - 121px);
     overflow: auto;
   }
 

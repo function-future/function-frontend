@@ -99,6 +99,6 @@ describe('QuestionnaireCard', () => {
       dueDate
     })
     expect(spy).toHaveBeenCalled()
-    expect(wrapper.vm.computedDueDate).toEqual(moment(dueDate).format('DD/MM/YYYY,  h:mm a'))
+    expect(wrapper.vm.computedDueDate).toEqual(moment(dueDate).format('DD/MMM/YYYY,  h:mm a'))
   })
 })
