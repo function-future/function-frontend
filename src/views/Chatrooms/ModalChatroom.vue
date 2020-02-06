@@ -119,7 +119,7 @@
         width: 30vw;
       }
       @media (max-width: 1023px) {
-        height: 100%;
+        height: 100vh;
         display: flex;
         flex-direction: column-reverse;
         transition: opacity 0.3s ease-out, bottom 0.3s ease-out;
