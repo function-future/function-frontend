@@ -28,7 +28,8 @@ describe('ModalFileVersion', () => {
     const actions = {
       getFileDetail: jest.fn(),
       downloadFile: jest.fn(),
-      updateFile: jest.fn()
+      updateFile: jest.fn(),
+      toast: jest.fn()
     }
     const getters = {
       accessList: state => state.accessList,
@@ -54,10 +55,6 @@ describe('ModalFileVersion', () => {
 
   function createWrapper (store, options) {
     const router = new VueRouter([])
-    const $toasted = {
-      error: jest.fn(),
-      success: jest.fn()
-    }
     return shallowMount(ModalFileVersion, {
       ...options,
       store,
@@ -74,9 +71,6 @@ describe('ModalFileVersion', () => {
         'BaseSelect',
         'font-awesome-icon'
       ],
-      mocks: {
-        $toasted
-      },
       sync: false
     })
   }
@@ -134,10 +128,16 @@ describe('ModalFileVersion', () => {
   })
 
   test('failGetFileDetail', () => {
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failGetFileDetail()
     expect(wrapper.vm.isLoading).toEqual(false)
     expect(wrapper.vm.fileDetail).toEqual({})
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalled()
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Fail to get file detail, please try again',
+        type: 'is-danger'
+      }
+    })
   })
 
   test('close', () => {
@@ -175,15 +175,27 @@ describe('ModalFileVersion', () => {
 
   test('successUpdateFile', () => {
     const spy = jest.spyOn(wrapper.vm, 'initData')
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.successUpdateFile()
     expect(wrapper.vm.isUploading).toEqual(false)
-    expect(wrapper.vm.$toasted.success).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Successfully updated file',
+        type: 'is-success'
+      }
+    })
     expect(spy).toHaveBeenCalledTimes(1)
   })
 
   test('failUpdateFile', () => {
+    const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.failUpdateFile()
     expect(wrapper.vm.isUploading).toEqual(false)
-    expect(wrapper.vm.$toasted.error).toHaveBeenCalledTimes(1)
+    expect(toastSpy).toHaveBeenCalledWith({
+      data: {
+        message: 'Fail to update file, please try again',
+        type: 'is-danger'
+      }
+    })
   })
 })

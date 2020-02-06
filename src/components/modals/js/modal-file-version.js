@@ -34,7 +34,8 @@ export default {
     ...mapActions([
       'downloadFile',
       'getFileDetail',
-      'updateFile'
+      'updateFile',
+      'toast'
     ]),
     initData () {
       this.isLoading = true
@@ -56,7 +57,12 @@ export default {
       this.disableUpload = true
       this.isLoading = false
       this.fileDetail = {}
-      this.$toasted.error('Fail to get file detail, please try again')
+      this.toast({
+        data: {
+          message: 'Fail to get file detail, please try again',
+          type: 'is-danger'
+        }
+      })
     },
     close () {
       this.$emit('close')
@@ -94,12 +100,22 @@ export default {
     },
     successUpdateFile () {
       this.isUploading = false
-      this.$toasted.success('Successfully updated file')
+      this.toast({
+        data: {
+          message: 'Successfully updated file',
+          type: 'is-success'
+        }
+      })
       this.initData()
     },
     failUpdateFile () {
       this.isUploading = false
-      this.$toasted.error('Fail to update file, please try again')
+      this.toast({
+        data: {
+          message: 'Fail to update file, please try again',
+          type: 'is-danger'
+        }
+      })
     }
   }
 }
