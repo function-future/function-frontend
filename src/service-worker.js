@@ -10,12 +10,12 @@ if (workbox) {
   // will cause the web app not updating should new changes are deployed.
   // See https://developers.google.com/web/tools/workbox/modules/workbox-precaching#serving_precached_responses
   workbox.routing.registerRoute(
-    /\.(?:css|js|json)$/i,
+    /\.(?:css|js|json|html)$/i,
     new workbox.strategies.StaleWhileRevalidate({
       cacheName: 'function-precaches',
       plugins: [
         new workbox.expiration.Plugin({
-          maxAgeSeconds: 24 * 60 * 60
+          maxAgeSeconds: 30 * 24 * 60 * 60
         })
       ]
     })
