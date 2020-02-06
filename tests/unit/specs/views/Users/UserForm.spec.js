@@ -163,6 +163,7 @@ describe('UserForm', () => {
 
   test('setUserDetail with avatar', () => {
     initComponent()
+    store.state.user.avatar = 'asdasdsada.jpg'
     wrapper.vm.setUserDetail()
     expect(wrapper.vm.userDetail).toEqual(store.state.user)
   })

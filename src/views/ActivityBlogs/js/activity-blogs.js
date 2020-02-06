@@ -90,6 +90,8 @@ export default {
     compileToMarkdown: function (description) {
       description = description.replace(/<img([\w\W]+?)>/g, '')
       description = description.replace(/<hr>/g, '')
+      description = description.replace(/<h3>/g, '<p>')
+      description = description.replace(/<\/h3>/g, '</p>')
       return marked(this.showLimitedPreviewText(description))
     },
     showLimitedPreviewText: function (text) {

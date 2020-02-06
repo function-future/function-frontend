@@ -21,7 +21,7 @@
                    v-for="(value, name) in fileDetail.versions"
                    :key="name">
                 <div class="column">
-                  <ListItem :minHeight="'50px'">
+                  <ListItem :minHeight="'50px'" class="custom-list-item">
                     <template #content>
                       <div class="modal__body__file-version__content">
                         <div class="modal__body__file-version__content-info">
@@ -84,10 +84,10 @@
     }
 
     &__wrapper {
-      padding-top: 30vh;
+      padding-top: 20vh;
 
       @media (max-width: 1023px) {
-        height: 100%;
+        height: 100vh;
         display: flex;
         flex-direction: column-reverse;
         transition: opacity 0.3s ease-out, bottom 0.3s ease-out;
@@ -227,5 +227,9 @@
     to {
       opacity: 1;
     }
+  }
+
+  .custom-list-item {
+    margin-bottom: 0;
   }
 </style>
