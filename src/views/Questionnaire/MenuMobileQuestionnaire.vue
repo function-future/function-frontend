@@ -35,13 +35,16 @@
       align-items: center;
       flex-direction: column;
       height: 90vh;
+      @media only screen and (max-width: 1023px) {
+        height: calc(100vh - 60px - 0.5rem - 62px);
+      }
       width: 100%;
     }
 
     &__container {
       display: flex;
       flex-direction: column;
-      width: 100vw;
+      width: 100%;
       @media only screen and (max-width: 1023px) {
         width: 100vw;
         padding: 10px;

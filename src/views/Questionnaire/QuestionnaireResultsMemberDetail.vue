@@ -62,6 +62,9 @@
       overflow: auto;
       flex-direction: column;
       align-items: center;
+      @media only screen and (max-width: 1023px) {
+        height: calc(100vh - 60px - 0.5rem - 62px);
+      }
     }
 
     &__container {
@@ -71,6 +74,7 @@
       width: 100%;
       @media only screen and (max-width: 1023px) {
         width: 100vw;
+        height: 100%;
       }
     }
 
@@ -81,6 +85,9 @@
         display: flex;
         flex-direction: column;
         text-align: left;
+        @media only screen and (max-width: 1023px) {
+          height: calc(100% - 133px);
+        }
 
         &__title {
           font-size: 1rem;
@@ -89,7 +96,6 @@
         }
         &__questionnaire-card-list {
           width: 100%;
-          height: 40vh;
           overflow: auto;
         }
       }

@@ -47,6 +47,9 @@
       display: flex;
       justify-content: center;
       height: 80vh;
+      @media only screen and (max-width: 1023px) {
+        height: calc(100vh - 60px - 0.5rem - 62px);
+      }
     }
 
     &__container {
