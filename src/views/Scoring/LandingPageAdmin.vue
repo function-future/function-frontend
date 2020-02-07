@@ -14,7 +14,8 @@
                             rounded
                             @click="addItem"
                             icon-left="plus"
-                            type="is-primary">
+                            type="is-primary"
+                            class="scoring__header-add">
                     Add
                   </b-button>
                   <div class="scoring__container__tabs-actions-filter"
@@ -140,6 +141,13 @@
   }
 
   .scoring {
+    &__header {
+      &-add {
+        margin-top: 0.5rem;
+      }
+    }
+
+
     &__container {
       padding: 0.4rem 1.25rem;
       height: 85vh;
