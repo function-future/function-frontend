@@ -104,6 +104,8 @@
 </script>
 
 <style lang="scss" scoped>
+  @import "@/assets/css/main.scss";
+
   .judging {
     &-container {
       padding: 1rem 1.25rem;
