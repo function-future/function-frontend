@@ -130,7 +130,7 @@ describe('ComparisonItem', () => {
       size: 10,
       totalRecords: 10
     })
-    expect(wrapper.vm.pointData).toEqual([])
+    expect(wrapper.vm.pointData).toEqual({})
     expect(wrapper.vm.state).toEqual('')
   })
 
@@ -234,10 +234,8 @@ describe('ComparisonItem', () => {
     initComponent()
     wrapper.vm.activeTab = 2
     const resetSpy = jest.spyOn(wrapper.vm, 'resetPage')
-    const getPointSpy = jest.spyOn(wrapper.vm, 'getPointsData')
     wrapper.vm.$nextTick(() => {
       expect(resetSpy).toHaveBeenCalledTimes(1)
-      expect(getPointSpy).toHaveBeenCalledTimes(1)
       done()
     })
   })
