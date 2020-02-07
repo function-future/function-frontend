@@ -8,7 +8,7 @@ export default {
   data () {
     return {
       activityBlogDetail: {},
-      imageIds: [],
+      images: [],
       isSubmitting: false,
       uploadingFile: false
     }
@@ -58,7 +58,7 @@ export default {
         title: this.activityBlog.title || '',
         description: this.activityBlog.description || ''
       }
-      this.imageIds = [ ...this.activityBlog.files.map(i => i.id) ]
+      this.images = [ ...this.activityBlog.files ]
     },
     checkCurrentUser () {
       if (this.currentUser.role === 'ADMIN') return
@@ -85,7 +85,7 @@ export default {
     successUploadResource (response) {
       this.uploadingFile = false
       this.$refs.editor.addImage(response.file.full)
-      this.imageIds.push(response.id)
+      this.images.push(response)
     },
     failUploadResource () {
       this.uploadingFile = false
@@ -107,10 +107,14 @@ export default {
       this.validateBeforeSubmit(this.validationSuccess)
     },
     validationSuccess () {
+      let imageIds =
+        this.images
+          .filter(i => this.activityBlogDetail.description.includes(i.file.full))
+          .map(i => i.id)
       this.isSubmitting = true
       let data = {
         ...this.activityBlogDetail,
-        files: this.imageIds
+        files: imageIds
       }
       this.editMode ? this.sendUpdateActivityBlogData(data) : this.sendCreateActivityBlogData(data)
     },
