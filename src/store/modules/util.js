@@ -19,7 +19,7 @@ export const actions = {
     let position = windowWidth > 1023 ? 'is-bottom' : 'is-top'
     Toast.open({
       position: position,
-      duration: 3500,
+      duration: 1750,
       ...data
     })
   },
