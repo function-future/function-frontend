@@ -39,7 +39,8 @@ export default {
       batches: [],
       batchCode: '',
       infiniteId: +new Date(),
-      isPassedDeadline: false
+      isPassedDeadline: false,
+      switchingTabLoading: false
     }
   },
   created () {
@@ -160,6 +161,8 @@ export default {
         this.batchCode = response[0].code
       }
       else {
+        this.switchingTabLoading = false
+        this.isLoading = false
         this.batchCode = 'No batch found'
       }
     },
@@ -209,6 +212,7 @@ export default {
     successFetchingListData (response, paging) {
       this.paging = paging
       this.isLoading = false
+      this.switchingTabLoading = false
       if (response.length) {
         this.items.push(...response)
         this.paging.page++
@@ -220,6 +224,7 @@ export default {
     failFetchingQuestionBankList() {
       this.failLoadItem = true
       this.isLoading = false
+      this.switchingTabLoading = false
       this.toast({
         data: {
           message: 'Fail to load question banks',
@@ -230,6 +235,8 @@ export default {
     },
     failFetchingListData () {
       this.failLoadItem = false
+      this.isLoading = false
+      this.switchingTabLoading = false
       this.toast({
         data: {
           message: 'Fail to load ' + this.tabTitle,
@@ -483,6 +490,7 @@ export default {
       this.setQuery()
     },
     currentTabType() {
+      this.switchingTabLoading = true
       this.resetData()
     },
     batchCode() {

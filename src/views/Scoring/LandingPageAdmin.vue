@@ -5,7 +5,8 @@
         <b-tab-item v-for="tab in tabs"
                     :key="tab.title"
                     :label="tab.title"
-                    :visible="tab.visible">
+                    :visible="tab.visible"
+                    :disabled="isLoading">
           <div class="scoring__header">
             <div class="columns is-mobile">
               <div class="column">
@@ -15,11 +16,12 @@
                             @click="addItem"
                             icon-left="plus"
                             type="is-primary"
-                            class="scoring__header-add">
+                            class="scoring__header-add"
+                            :loading="switchingTabLoading">
                     Add
                   </b-button>
                   <div class="scoring__container__tabs-actions-filter"
-                       v-if="visibleBatchSelection">
+                       v-if="visibleBatchSelection && !switchingTabLoading">
                     <b-field label="Batch"
                              label-position="on-border">
                       <b-select placeholder="Select a batch"
@@ -33,7 +35,7 @@
                       </b-select>
                     </b-field>
                   </div>
-                  <div class="scoring__container__tabs-actions-deadline" v-if="currentTabType !== 'questionBanks'">
+                  <div class="scoring__container__tabs-actions-deadline" v-if="currentTabType !== 'questionBanks' && !switchingTabLoading">
                     <b-checkbox v-model="isPassedDeadline">
                       View passed {{ !!tabTitle && tabTitle.toLowerCase() }}
                     </b-checkbox>
@@ -42,7 +44,7 @@
               </div>
             </div>
           </div>
-          <div class="scoring-content" infinite-wrapper>
+          <div class="scoring-content">
             <div v-if="!isLoading || !listEmpty">
               <ListItem v-for="item in items"
                         v-bind:key="item.id"
@@ -103,18 +105,18 @@
                 <EmptyState src="error" :errorState="true"></EmptyState>
               </div>
             </div>
-            <infinite-loading :identifier="infiniteId"
-                              @infinite="getListData"
-                              force-use-infinite-wrapper=".scoring-content">
-              <div slot="spinner">
-                <ListItem v-for="n in 4" v-bind:key="n" :loading="isLoading"></ListItem>
-              </div>
-              <div slot="no-more"></div>
-              <div slot="no-results"></div>
-            </infinite-loading>
           </div>
         </b-tab-item>
       </b-tabs>
+      <infinite-loading :identifier="infiniteId"
+                        @infinite="getListData"
+                        v-if="currentTabType">
+        <div slot="spinner">
+          <ListItem v-for="n in 5" v-bind:key="n" :loading="isLoading" :distance="100"></ListItem>
+        </div>
+        <div slot="no-more"></div>
+        <div slot="no-results"></div>
+      </infinite-loading>
     </section>
     <modal-delete-confirmation v-if="isVisibleDeleteModal"
                                @close="closeDeleteConfirmationModal"
@@ -135,10 +137,6 @@
 
 <style lang="scss" scoped>
   @import "@/assets/css/main.scss";
-
-  .auto-overflow-container {
-    overflow-y: hidden;
-  }
 
   .scoring {
     &__header {
@@ -166,19 +164,6 @@
           }
         }
       }
-    }
-
-    &__header {
-      position: sticky;
-      top: 0;
-      background-color: #ffffff;
-      z-index: 1;
-      margin-bottom: 0 !important;
-    }
-
-    &-content {
-      height: 70vh;
-      overflow-y: auto;
     }
   }
 
