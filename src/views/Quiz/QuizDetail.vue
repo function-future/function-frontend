@@ -41,7 +41,7 @@
               </div>
               <div class="tile is-parent">
                 <article class="tile is-child box">
-                  <span>Time Limit</span>
+                  <span>Time Limit </span>
                   <span style="font-size: 0.6rem">({{isMinutes ? 'Minutes' : 'Hours'}})</span>
                   <p class="subtitle has-text-weight-bold">{{ quizDetail.timeLimit }}</p>
                 </article>
