@@ -1,15 +1,11 @@
 import { mapActions, mapGetters } from 'vuex'
-import BaseButton from '@/components/BaseButton'
 import ListItem from '@/components/list/ListItem'
-import BaseCard from '@/components/BaseCard'
 import InfiniteLoading from 'vue-infinite-loading'
 
 export default {
   name: 'modal-select-question-banks',
   components: {
-    BaseButton,
     ListItem,
-    BaseCard,
     InfiniteLoading
   },
   props: ['currentlySelected'],
@@ -30,7 +26,21 @@ export default {
   computed: {
     ...mapGetters([
       'questionBanks'
-    ])
+    ]),
+    partialSelected () {
+      return (this.selectedId.length !== this.questionBankList.length) && this.selectedId.length > 0
+    },
+    allSelected: {
+      get() {
+        return !!this.questionBankList.length ? this.selectedId.length === this.questionBankList.length : false
+      },
+      set (value) {
+        let temp = []
+        if (!!value)
+          temp = this.questionBankList.map(bank => bank.id)
+        this.selectedId = temp
+      }
+    }
   },
   created () {
     this.initialState()
@@ -87,6 +97,10 @@ export default {
       }
       if (response.length) {
         this.setSelectedBank({ data: response })
+        if (this.allSelected) {
+          let temp = response.map(bank => bank.id)
+          this.selectedId = this.selectedId.concat(temp)
+        }
         this.questionBankList.push(...response)
         this.paging.page++
         this.state.loaded()

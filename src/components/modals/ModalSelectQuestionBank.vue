@@ -8,12 +8,12 @@
             <span class="modal__close" @click="close"><b-icon icon="times" size="lg"></b-icon></span>
           </div>
           <div class="modal__body">
-            <div class="columns is-multiline" v-if="isLoading">
-              <div class="column is-12" v-for="n in 3" :key="n">
-                <ListItem :minHeight="'50px'" :simple="true" :loading="isLoading"></ListItem>
+            <div v-if="!isLoading" class="columns is-mobile">
+              <div class="column is-flex">
+                <b-checkbox v-model="allSelected" :indeterminate="partialSelected">Select all question bank</b-checkbox>
               </div>
             </div>
-            <div class="columns is-mobile" v-else v-for="bank in questionBankList" :key="bank.id">
+            <div class="columns is-mobile" v-if="!isLoading || !!questionBankList" v-for="bank in questionBankList" :key="bank.id">
               <div class="column is-narrow is-flex">
                 <b-checkbox :native-value="bank.id" v-model="selectedId"></b-checkbox>
               </div>
@@ -32,8 +32,10 @@
               </div>
             </div>
             <infinite-loading :distance="100"
-                              @infinite="initQuestionBanks"
-                              spinner="spiral">
+                              @infinite="initQuestionBanks">
+              <div slot="spinner">
+                <ListItem v-for="n in 3" :key="n" :minHeight="'50px'" :simple="true" :loading="isLoading"></ListItem>
+              </div>
               <div slot="no-more"></div>
               <div slot="no-results"></div>
             </infinite-loading>
