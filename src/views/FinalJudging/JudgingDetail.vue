@@ -34,7 +34,7 @@
           </span>
           </div>
         </div>
-        <div class="judging-session__content level">
+        <div class="judging-session__content is-flex-desktop level">
           <comparison-item class="level-item judging-session__content-item"
                            v-for="student in judging.students"
                            :key="student.id" :studentData="student">
@@ -119,6 +119,8 @@
       &-item {
         @media only screen and (min-width: 1023px) {
           max-width: 48%;
+          align-self: flex-start;
+          height: 100%;
         }
       }
     }
