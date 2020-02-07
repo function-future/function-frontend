@@ -77,11 +77,17 @@
     }
 
     &__wrapper {
-      display: table-cell;
       padding-top: 20vh;
 
       @media (max-width: 1023px) {
-        padding-top: 30vh;
+        height: 100%;
+        display: flex;
+        flex-direction: column-reverse;
+        transition: opacity 0.3s ease-out, bottom 0.3s ease-out;
+      }
+
+      @media (max-height: 550px) {
+        padding-top: 0;
       }
     }
 
@@ -97,8 +103,15 @@
 
       @media (max-width: 1023px) {
         width: 100%;
-        height: 100%;
+        height: auto;
         border-radius: 8px 8px 0 0;
+      }
+
+      @media (max-height: 350px) {
+        padding-top: 5vh;
+        padding-bottom: 15vh;
+        height: 350px;
+        overflow: auto;
       }
     }
 
