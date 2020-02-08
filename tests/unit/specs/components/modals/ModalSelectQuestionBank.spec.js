@@ -110,10 +110,42 @@ describe('ModalSelectQuestionBank', () => {
     expect(wrapper.isVueInstance()).toBe(true)
   })
 
+  test('allSelected set to false', () => {
+    initComponent()
+    wrapper.vm.selectedIds = ['BNK001', 'BNK002']
+    wrapper.vm.allSelected = false
+    expect(wrapper.vm.selectedIds).toEqual([])
+  })
+
+  test('allSelected set to true', () => {
+    initComponent()
+    wrapper.vm.questionBankList = [
+      {
+        id: 'BNK001',
+        name: 'BANK001'
+      },
+      {
+        id: 'BNK002',
+        name: 'BANK002'
+      },
+      {
+        id: 'BNK003',
+        name: 'BANK3'
+      },
+      {
+        id: 'BNK004',
+        name: 'BANK4'
+      }
+    ]
+    wrapper.vm.selectedIds = ['BNK001', 'BNK002']
+    wrapper.vm.allSelected = true
+    expect(wrapper.vm.selectedIds).toEqual(['BNK001', 'BNK002', 'BNK003', 'BNK004'])
+  })
+
   test('initialState', () => {
     initComponent()
     expect(wrapper.vm.selectedBank).toEqual(wrapper.vm.currentlySelected)
-    expect(wrapper.vm.selectedId).toEqual(['BNK001', 'BNK002'])
+    expect(wrapper.vm.selectedIds).toEqual(['BNK001', 'BNK002'])
   })
 
   test('close', () => {
@@ -124,21 +156,21 @@ describe('ModalSelectQuestionBank', () => {
 
   test('select an existing bank', () => {
     initComponent()
-    wrapper.vm.selectedId = ['BNK001', 'BNK002']
+    wrapper.vm.selectedIds = ['BNK001', 'BNK002']
     wrapper.vm.select('BNK001')
-    expect(wrapper.vm.selectedId).toEqual(['BNK002'])
+    expect(wrapper.vm.selectedIds).toEqual(['BNK002'])
   })
 
   test('select a non existing bank', () => {
     initComponent()
-    wrapper.vm.selectedId = ['BNK001']
+    wrapper.vm.selectedIds = ['BNK001']
     wrapper.vm.select('BNK002')
-    expect(wrapper.vm.selectedId).toEqual(['BNK001', 'BNK002'])
+    expect(wrapper.vm.selectedIds).toEqual(['BNK001', 'BNK002'])
   })
 
   test('selectBanks', () => {
     initComponent()
-    wrapper.vm.selectedId = ['BNK001', 'BNK002']
+    wrapper.vm.selectedIds = ['BNK001', 'BNK002']
     wrapper.vm.questionBankList = [
       {
         id: 'BNK001',
@@ -174,8 +206,9 @@ describe('ModalSelectQuestionBank', () => {
     expect(spy).toHaveBeenCalledTimes(1)
   })
 
-  test('successFetchingBankList', () => {
+  test('successFetchingBankList with allSelected is false', () => {
     initComponent()
+    wrapper.vm.allSelected = false
     const response = [
       {
         'id': 'BNK001',
@@ -198,6 +231,39 @@ describe('ModalSelectQuestionBank', () => {
     })
     expect(wrapper.vm.isLoading).toEqual(false)
   })
+
+  test('successFetchingBankList with allSelected is true', () => {
+    initComponent()
+    wrapper.vm.allSelected = true
+    wrapper.vm.allSelected = false
+    wrapper.vm.selectedIds = [
+      'BNK001',
+      'BNK002'
+    ]
+    const response = [
+      {
+        'id': 'BNK003',
+      },
+      {
+        'id': 'BNK004',
+      }
+    ]
+    const paging = {
+      page: 1,
+      size: 10
+    }
+    wrapper.vm.state = {
+      loaded: jest.fn()
+    }
+    wrapper.vm.successFetchingBankList(response, paging)
+    expect(wrapper.vm.paging).toEqual({
+      page: 2,
+      pageSize: 10
+    })
+    expect(wrapper.vm.selectedIds)
+    expect(wrapper.vm.isLoading).toEqual(false)
+  })
+
 
   test('successFetchingBankList maximum page', () => {
     initComponent()

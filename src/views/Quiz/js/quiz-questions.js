@@ -1,7 +1,7 @@
 import { mapActions, mapGetters } from 'vuex'
-import QuizModal from '@/components/modals/QuizModal'
-import Timer from '@/components/quiz/Timer'
-import ListItem from '@/components/list/ListItem'
+const QuizModal = () => import('@/components/modals/QuizModal')
+const Timer = () => import('@/components/quiz/Timer')
+const ListItem = () => import('@/components/list/ListItem')
 
 export default {
   name: 'QuizQuestions',

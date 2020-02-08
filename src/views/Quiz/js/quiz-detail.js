@@ -1,6 +1,6 @@
 import { mapActions, mapGetters } from 'vuex'
-import ListItem from '@/components/list/ListItem'
-import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
+const ListItem = () => import('@/components/list/ListItem')
+const ModalDeleteConfirmation = () => import('@/components/modals/ModalDeleteConfirmation')
 let marked = require('marked')
 
 export default {
@@ -19,7 +19,8 @@ export default {
         trials: 0,
         questionCount: 0
       },
-      showDeleteConfirmationModal: false
+      showDeleteConfirmationModal: false,
+      isMinutes: false
     }
   },
   created () {
@@ -33,6 +34,9 @@ export default {
     ]),
     descriptionCompiledMarkdown: function () {
       return marked(this.quizDetail.description)
+    },
+    trialsExist() {
+      return !!this.quizDetail && !!this.quizDetail.trials
     }
   },
   methods: {
@@ -44,19 +48,45 @@ export default {
       'toast'
     ]),
     initPage () {
+      if (this.currentUser && this.currentUser.role === 'STUDENT')
+        this.getStudentQuizDetail()
+      else
+        this.getAdminQuizDetail()
+    },
+    getStudentQuizDetail() {
+      this.fetchStudentQuizDetail({
+        data: {
+          batchCode: this.currentUser.batchCode,
+          quizId: this.$route.params.quizId
+        },
+        callback: this.successFetchingStudentQuiz,
+        fail: this.failFetchingQuizById
+      })
+    },
+    getAdminQuizDetail() {
       this.fetchQuizById({
         data: {
           batchCode: this.$route.params.batchCode,
           id: this.$route.params.quizId
         },
-        callback: this.successFetchingQuizById,
+        callback: this.successFetchingAdminQuiz,
         fail: this.failFetchingQuizById
       })
     },
-    successFetchingQuizById () {
-      this.quizDetail = { ...this.quiz }
+    successFetchingStudentQuiz (response) {
+      this.quizDetail = { ...response.quiz }
       this.quizDetail.endDate = new Date(this.quizDetail.endDate)
-      this.quizDetail.timeLimit = Math.floor(this.quizDetail.timeLimit / 60)
+      if (this.quizDetail.timeLimit >= 60)
+        this.quizDetail.timeLimit = Math.floor(this.quizDetail.timeLimit / 60)
+      else this.isMinutes = true
+      this.quizDetail.trials = response.trials
+    },
+    successFetchingAdminQuiz (response) {
+      this.quizDetail = { ...response }
+      this.quizDetail.endDate = new Date(this.quizDetail.endDate)
+      if (this.quizDetail.timeLimit >= 60)
+        this.quizDetail.timeLimit = Math.floor(this.quizDetail.timeLimit / 60)
+      else this.isMinutes = true
     },
     failFetchingQuizById () {
       this.toast({
@@ -105,28 +135,10 @@ export default {
       })
     },
     goToStudentQuiz () {
-      this.fetchStudentQuizDetail({
-        data: {
-          batchCode: this.currentUser.batchCode,
-          quizId: this.$route.params.quizId
-        },
-        callback: this.successFetchingStudentQuiz,
-        fail: this.failedFetchingStudentQuiz
-      })
-    },
-    successFetchingStudentQuiz () {
       this.$router.push({
         name: 'studentQuizQuestions',
         params: {
           quizId: this.$route.params.quizId
-        }
-      })
-    },
-    failedFetchingStudentQuiz () {
-      this.toast({
-        data: {
-          message: 'Can\'t start quiz, please check your remaining trials',
-          type: 'is-danger'
         }
       })
     }

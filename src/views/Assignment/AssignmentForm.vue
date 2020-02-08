@@ -70,6 +70,9 @@
     &__container {
       padding: 1rem 1.25rem;
       margin-bottom: 2rem;
+      @media only screen and (max-width: 1024px) {
+        margin-bottom: 10vh;
+      }
 
       &-title {
         display: flex;

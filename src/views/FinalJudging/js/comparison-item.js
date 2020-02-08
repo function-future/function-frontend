@@ -1,14 +1,16 @@
 import { mapActions, mapGetters } from 'vuex'
 import InfiniteLoading from 'vue-infinite-loading'
-import ListItem from '@/components/list/ListItem'
-import ModalInputFinalScore from '@/components/modals/ModalInputFinalScore'
+const ListItem = () => import('@/components/list/ListItem')
+const ModalInputFinalScore = () => import('@/components/modals/ModalInputFinalScore')
+const EmptyState = () => import('@/components/emptyState/EmptyState')
 
 export default {
   name: 'comparison-detail',
   components: {
     InfiniteLoading,
     ListItem,
-    ModalInputFinalScore
+    ModalInputFinalScore,
+    EmptyState
   },
   props: [
     'studentData'
@@ -61,7 +63,7 @@ export default {
         size: 10,
         totalRecords: 10
       }
-      this.pointData = []
+      this.pointData = {}
       this.state = ''
       this.infiniteId += 1
     },
@@ -139,7 +141,6 @@ export default {
   watch: {
     activeTab () {
       this.resetPage()
-      this.getPointsData()
     }
   }
 }

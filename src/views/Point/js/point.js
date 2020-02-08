@@ -1,7 +1,7 @@
 import { mapActions, mapGetters } from 'vuex'
-import EmptyState from '@/components/emptyState/EmptyState'
-import ListItem from '@/components/list/ListItem'
-import UserListItem from '@/components/list/UserListItem'
+const EmptyState = () => import('@/components/emptyState/EmptyState')
+const ListItem = () => import('@/components/list/ListItem')
+const UserListItem = () => import('@/components/list/UserListItem')
 import InfiniteLoading from 'vue-infinite-loading'
 
 export default {

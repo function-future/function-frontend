@@ -1,7 +1,7 @@
 import { mapActions, mapGetters } from 'vuex'
-import ListItem from '@/components/list/ListItem'
-import EmptyState from '@/components/emptyState/EmptyState'
-import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
+const ListItem = () => import('@/components/list/ListItem')
+const EmptyState = () => import('@/components/emptyState/EmptyState')
+const ModalDeleteConfirmation = () => import('@/components/modals/ModalDeleteConfirmation')
 import InfiniteLoading from 'vue-infinite-loading'
 
 export default {
