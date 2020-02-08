@@ -54,7 +54,7 @@
         <div class="column is-3 disable-selection" @click="goToPage('announcements')">
           <div class="card-content">
             <div><b-icon icon="bullhorn" class="menu-icon"></b-icon></div>
-            <div>Announcements</div>
+            <div>Announcements Update</div>
           </div>
         </div>
         <div class="column is-3 disable-selection" @click="goToPage('activityBlogs')">
