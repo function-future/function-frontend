@@ -713,7 +713,6 @@ const router = new Router({
           { name: 'Home', link: 'feeds' },
           { name: 'Question Banks', link: 'questionBanks' },
           { name: 'Question Bank Detail', link: 'questionBankDetail' },
-          { name: 'Questions', link: 'questionBankQuestionList' },
           { name: 'Question Detail', link: 'questionBankQuestionDetail' }
         ]
       }
@@ -729,7 +728,6 @@ const router = new Router({
           { name: 'Home', link: 'feeds' },
           { name: 'Question Banks', link: 'questionBanks' },
           { name: 'Question Bank Detail', link: 'questionBankDetail' },
-          { name: 'Questions', link: 'questionBankQuestionList' },
           { name: 'Add Question', link: 'addQuestion' }
         ]
       },
@@ -748,7 +746,6 @@ const router = new Router({
           { name: 'Home', link: 'feeds' },
           { name: 'Question Banks', link: 'questionBanks' },
           { name: 'Question Bank Detail', link: 'questionBankDetail' },
-          { name: 'Questions', link: 'questionBankQuestionList' },
           { name: 'Edit Question', link: 'editQuestion' }
         ]
       },
