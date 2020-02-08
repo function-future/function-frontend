@@ -146,7 +146,7 @@ describe('ActivityBlogForm', () => {
       }
     }
     wrapper.vm.successUploadResource(response)
-    expect(wrapper.vm.imageIds).toEqual(['id-1'])
+    expect(wrapper.vm.images).toEqual([ response ])
   })
 
   test('failUploadResource', () => {

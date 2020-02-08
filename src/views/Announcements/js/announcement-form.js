@@ -9,7 +9,7 @@ export default {
   data () {
     return {
       announcementDetail: {},
-      imageIds: [],
+      images: [],
       isSubmitting: false
     }
   },
@@ -68,7 +68,7 @@ export default {
         summary: this.announcement.summary || '',
         description: this.announcement.description || ''
       }
-      this.imageIds = [ ...this.announcement.files.map(i => i.id) ]
+      this.images = [ ...this.announcement.files ]
     },
     validateBeforeSubmit (callback) {
       this.$validator.validateAll().then((result) => {
@@ -81,10 +81,14 @@ export default {
       this.validateBeforeSubmit(this.validationSuccess)
     },
     validationSuccess () {
+      let imageIds =
+        this.images
+          .filter(i => this.announcementDetail.description.includes(i.file.full))
+          .map(i => i.id)
       this.isSubmitting = true
       let data = {
         ...this.announcementDetail,
-        files: this.imageIds
+        files: imageIds
       }
       this.editMode ? this.sendUpdateAnnouncementData(data) : this.sendCreateAnnouncementData(data)
     },
@@ -162,7 +166,7 @@ export default {
     successUploadResource (response) {
       this.uploadingFile = false
       this.$refs.editor.addImage(response.file.full)
-      this.imageIds.push(response.id)
+      this.images.push(response)
     },
     failUploadResource () {
       this.uploadingFile = false
