@@ -129,7 +129,6 @@
           bottom: 75px;
           transition: all 0.1s ease-in-out;
           box-shadow: 2px 2px 16px 4px rgba(0, 0, 0, 0.2);
-          border-radius: 50%;
           z-index: 5;
         }
       }
