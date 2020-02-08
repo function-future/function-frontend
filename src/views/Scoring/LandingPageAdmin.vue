@@ -37,7 +37,7 @@
                   </div>
                   <div class="scoring__container__tabs-actions-deadline" v-if="currentTabType !== 'questionBanks' && !switchingTabLoading">
                     <b-checkbox v-model="isPassedDeadline">
-                      View passed {{ !!tabTitle && tabTitle.toLowerCase() }}
+                      View past {{ !!tabTitle && tabTitle.toLowerCase() }}
                     </b-checkbox>
                   </div>
                 </div>
