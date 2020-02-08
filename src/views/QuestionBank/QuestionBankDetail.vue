@@ -161,6 +161,7 @@
           bottom: 75px;
           transition: all 0.1s ease-in-out;
           border-radius: 50%;
+          z-index: 1000;
 
           button {
             margin: 0.25rem 0;
@@ -182,9 +183,6 @@
         padding-bottom: 1rem;
         border-bottom: 1px solid #BDBDBD;
         margin-bottom: 1rem;
-        @media only screen and (max-width: 1023px) {
-          margin-bottom: 15vh;
-        }
       }
     }
   }
