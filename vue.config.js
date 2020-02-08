@@ -134,11 +134,22 @@ module.exports = {
     appleMobileWebAppCapable: 'yes',
     appleMobileWebAppStatusBarStyle: 'black-translucent',
     manifestOptions: {
+      startUrl: '/',
       backgroundColor: '#02AAF3'
     },
     iconPaths: {
-      favicon32: 'img/icons/favicon-32x32.png',
       favicon16: 'img/icons/favicon-16x16.png',
+      favicon32: 'img/icons/favicon-32x32.png',
+      favicon36: 'img/icons/favicon-36x36.png',
+      favicon48: 'img/icons/favicon-48x48.png',
+      favicon72: 'img/icons/favicon-72x72.png',
+      favicon96: 'img/icons/favicon-96x96.png',
+      favicon128: 'img/icons/favicon-128x128.png',
+      favicon144: 'img/icons/favicon-144x144.png',
+      favicon152: 'img/icons/favicon-152x152.png',
+      favicon192: 'img/icons/favicon-192x192.png',
+      favicon384: 'img/icons/favicon-384x384.png',
+      favicon512: 'img/icons/favicon-512x512.png',
       appleTouchIcon: 'img/icons/apple-touch-icon.png',
       maskIcon: 'img/icons/safari-pinned-tab.svg',
       msTileImage: 'img/icons/mstile-150x150.png'
