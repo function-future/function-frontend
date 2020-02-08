@@ -112,9 +112,9 @@ describe('ModalSelectQuestionBank', () => {
 
   test('allSelected set to false', () => {
     initComponent()
-    wrapper.vm.selectedId = ['BNK001', 'BNK002']
+    wrapper.vm.selectedIds = ['BNK001', 'BNK002']
     wrapper.vm.allSelected = false
-    expect(wrapper.vm.selectedId).toEqual([])
+    expect(wrapper.vm.selectedIds).toEqual([])
   })
 
   test('allSelected set to true', () => {
@@ -137,15 +137,15 @@ describe('ModalSelectQuestionBank', () => {
         name: 'BANK4'
       }
     ]
-    wrapper.vm.selectedId = ['BNK001', 'BNK002']
+    wrapper.vm.selectedIds = ['BNK001', 'BNK002']
     wrapper.vm.allSelected = true
-    expect(wrapper.vm.selectedId).toEqual(['BNK001', 'BNK002', 'BNK003', 'BNK004'])
+    expect(wrapper.vm.selectedIds).toEqual(['BNK001', 'BNK002', 'BNK003', 'BNK004'])
   })
 
   test('initialState', () => {
     initComponent()
     expect(wrapper.vm.selectedBank).toEqual(wrapper.vm.currentlySelected)
-    expect(wrapper.vm.selectedId).toEqual(['BNK001', 'BNK002'])
+    expect(wrapper.vm.selectedIds).toEqual(['BNK001', 'BNK002'])
   })
 
   test('close', () => {
@@ -156,21 +156,21 @@ describe('ModalSelectQuestionBank', () => {
 
   test('select an existing bank', () => {
     initComponent()
-    wrapper.vm.selectedId = ['BNK001', 'BNK002']
+    wrapper.vm.selectedIds = ['BNK001', 'BNK002']
     wrapper.vm.select('BNK001')
-    expect(wrapper.vm.selectedId).toEqual(['BNK002'])
+    expect(wrapper.vm.selectedIds).toEqual(['BNK002'])
   })
 
   test('select a non existing bank', () => {
     initComponent()
-    wrapper.vm.selectedId = ['BNK001']
+    wrapper.vm.selectedIds = ['BNK001']
     wrapper.vm.select('BNK002')
-    expect(wrapper.vm.selectedId).toEqual(['BNK001', 'BNK002'])
+    expect(wrapper.vm.selectedIds).toEqual(['BNK001', 'BNK002'])
   })
 
   test('selectBanks', () => {
     initComponent()
-    wrapper.vm.selectedId = ['BNK001', 'BNK002']
+    wrapper.vm.selectedIds = ['BNK001', 'BNK002']
     wrapper.vm.questionBankList = [
       {
         id: 'BNK001',
@@ -236,7 +236,7 @@ describe('ModalSelectQuestionBank', () => {
     initComponent()
     wrapper.vm.allSelected = true
     wrapper.vm.allSelected = false
-    wrapper.vm.selectedId = [
+    wrapper.vm.selectedIds = [
       'BNK001',
       'BNK002'
     ]
@@ -260,7 +260,7 @@ describe('ModalSelectQuestionBank', () => {
       page: 2,
       pageSize: 10
     })
-    expect(wrapper.vm.selectedId)
+    expect(wrapper.vm.selectedIds)
     expect(wrapper.vm.isLoading).toEqual(false)
   })
 

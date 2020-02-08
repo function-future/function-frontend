@@ -15,7 +15,7 @@
             </div>
             <div class="columns is-mobile" v-if="!isLoading || !!questionBankList" v-for="bank in questionBankList" :key="bank.id">
               <div class="column is-narrow is-flex">
-                <b-checkbox :native-value="bank.id" v-model="selectedId"></b-checkbox>
+                <b-checkbox :native-value="bank.id" v-model="selectedIds"></b-checkbox>
               </div>
               <div class="column" @click="select(bank.id)">
                 <ListItem>

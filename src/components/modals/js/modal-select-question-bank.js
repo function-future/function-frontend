@@ -13,7 +13,7 @@ export default {
     return {
       questionBankList: [],
       selectedBank: [],
-      selectedId: [],
+      selectedIds: [],
       paging: {
         page: 1,
         pageSize: 10,
@@ -28,17 +28,17 @@ export default {
       'questionBanks'
     ]),
     partialSelected () {
-      return (this.selectedId.length !== this.questionBankList.length) && this.selectedId.length > 0
+      return (this.selectedIds.length !== this.questionBankList.length) && this.selectedIds.length > 0
     },
     allSelected: {
       get() {
-        return !!this.questionBankList.length ? this.selectedId.length === this.questionBankList.length : false
+        return !!this.questionBankList.length ? this.selectedIds.length === this.questionBankList.length : false
       },
       set (value) {
         let temp = []
         if (!!value)
           temp = this.questionBankList.map(bank => bank.id)
-        this.selectedId = temp
+        this.selectedIds = temp
       }
     }
   },
@@ -53,22 +53,22 @@ export default {
     ]),
     initialState () {
       this.selectedBank = [ ...this.currentlySelected ]
-      this.selectedBank.forEach(bank => this.selectedId.push(bank.id))
+      this.selectedBank.forEach(bank => this.selectedIds.push(bank.id))
     },
     close () {
       this.$emit('close')
     },
     select (bankId) {
-      if (this.selectedId.find(value => value === bankId)) {
-        this.selectedId.splice(this.selectedId.indexOf(bankId), 1)
+      if (this.selectedIds.find(value => value === bankId)) {
+        this.selectedIds.splice(this.selectedIds.indexOf(bankId), 1)
       }
       else {
-        this.selectedId.push(bankId)
+        this.selectedIds.push(bankId)
       }
     },
     selectBanks () {
       this.selectedBank = []
-      this.selectedId.forEach(id => {
+      this.selectedIds.forEach(id => {
         this.questionBankList.forEach(bank => {
           if (bank.id === id) {
             this.selectedBank.push(bank)
@@ -99,7 +99,7 @@ export default {
         this.setSelectedBank({ data: response })
         if (this.allSelected) {
           let temp = response.map(bank => bank.id)
-          this.selectedId = this.selectedId.concat(temp)
+          this.selectedIds = this.selectedIds.concat(temp)
         }
         this.questionBankList.push(...response)
         this.paging.page++
