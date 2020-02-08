@@ -17,7 +17,7 @@
       <div class="has-text-centered user-greeting"
            :class="{'no-sticky-note__greeting': !stickyNotesAvailable}"
            v-if="loggedIn">
-        Hi, {{ currentUser.name }}!
+        Hello, {{ currentUser.name }}!
       </div>
       <div class="overlap-header-background"></div>
     </section>
