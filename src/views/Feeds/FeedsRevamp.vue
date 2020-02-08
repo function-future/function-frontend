@@ -60,7 +60,7 @@
         <div class="column is-3 disable-selection" @click="goToPage('activityBlogs')">
           <div class="card-content">
             <div><b-icon icon="newspaper" class="menu-icon"></b-icon></div>
-            <div>Blogs</div>
+            <div>Blogs Update</div>
           </div>
         </div>
         <div class="column is-3 disable-selection" v-if="menuList.files" @click="goToPage('files')">
