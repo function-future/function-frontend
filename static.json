@@ -18,11 +18,11 @@
       "Cache-Control": "no-store, no-cache"
     },
     "**.js": {
-      "Cache-Control": "public, max-age=31536000",
+      "Cache-Control": "no-store, no-cache, must-revalidate",
       "Access-Control-Allow-Origin": "cdn-instance.example.com"
     },
     "**.css": {
-      "Cache-Control": "public, max-age=31536000",
+      "Cache-Control": "no-store, no-cache, must-revalidate",
       "Access-Control-Allow-Origin": "cdn-instance.example.com"
     }
   }
