@@ -5,7 +5,13 @@ export default {
   data () {
     return {
       gradesSubmenuVisibility: false,
-      questionnaireSubmenuVisibility: false
+      questionnaireSubmenuVisibility: false,
+      loggedInTemp: {}
+    }
+  },
+  watch: {
+    currentUser () {
+      this.loggedIn()
     }
   },
   computed: {
@@ -13,6 +19,11 @@ export default {
       'menuList',
       'currentUser'
     ]),
+    loggedIn () {
+      if (!Object.keys(this.currentUser).length) {
+        this.questionnaireSubmenuVisibility = false
+      }
+    },
     showGrades () {
       return this.gradesSubmenuVisibility
     },
