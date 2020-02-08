@@ -40,8 +40,8 @@
                     v-model="dates[1]"
                     placeholder="Assignment deadline"
                     :min-date="minDate"
-                    :editable="false"
-                    :mobile-native="false">
+                    :mobile-native="false"
+                    disabled>
                   </b-datepicker>
                 </b-field>
               </template>
