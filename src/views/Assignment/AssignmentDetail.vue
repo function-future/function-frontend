@@ -35,11 +35,13 @@
           <div class="assignment-detail__container__header__info">
             <div class="assignment-detail__container-header__info-date">
               <template>
-                <b-field label="Deadline" label-position="on-border">
+                <b-field label="Deadline" label-position="on-border" v-if="!!dates && dates.length">
                   <b-datepicker
-                    v-model="dates"
+                    v-model="dates[1]"
+                    placeholder="Assignment deadline"
                     :min-date="minDate"
-                    range>
+                    :mobile-native="false"
+                    disabled>
                   </b-datepicker>
                 </b-field>
               </template>

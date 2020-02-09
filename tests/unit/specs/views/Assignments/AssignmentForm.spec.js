@@ -289,7 +289,7 @@ describe('AssignmentForm', () => {
     const toastSpy = jest.spyOn(wrapper.vm, 'toast')
     wrapper.vm.successCreatingAssignment()
     expect(routerSpy).toHaveBeenCalledWith({
-      name: 'questionBanks'
+      name: 'scoringAdmin'
     })
     expect(toastSpy).toHaveBeenCalledTimes(1)
   })

@@ -276,7 +276,7 @@ export default {
           break
         case 'assignments':
           this.$router.push({
-            name: 'assignmentDetail',
+            name: 'editAssignment',
             params: {
               assignmentId: id,
               batchCode: this.batchCode

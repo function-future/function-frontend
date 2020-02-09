@@ -36,7 +36,7 @@
 <style scoped lang="scss">
 @import "@/assets/css/main.scss";
 
-  .report-container {
+  .report_container {
     @media only screen and (max-width: 1023px) {
       margin-bottom: 10vh;
     }

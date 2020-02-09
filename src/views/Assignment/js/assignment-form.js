@@ -171,7 +171,7 @@ export default {
         },
       })
       this.$router.push({
-        name: 'questionBanks'
+        name: 'scoringAdmin'
       })
     },
     failedCreatingAssignment () {
