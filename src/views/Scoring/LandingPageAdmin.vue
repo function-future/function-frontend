@@ -89,7 +89,7 @@
                 </template>
               </ListItem>
             </div>
-            <div v-if="!isLoading">
+            <div v-if="!isLoading && listEmpty">
               <div v-if="listEmpty && !failLoadItem">
                 <EmptyState :src="emptyStateSrc">
                   <template #title>
