@@ -109,7 +109,7 @@
                   <div slot="no-results"></div>
                 </infinite-loading>
               </div>
-              <div class="buttons is-right judging-form__container-students-add">
+              <div class="buttons is-left question-bank__container-questions-add">
                 <b-button type="is-primary" @click="redirectToQuestionForm">Add Question</b-button>
               </div>
             </b-collapse>
@@ -183,6 +183,12 @@
         padding-bottom: 1rem;
         border-bottom: 1px solid #BDBDBD;
         margin-bottom: 1rem;
+      }
+
+      &-questions {
+        &-add {
+          padding-left: 1rem;
+        }
       }
     }
   }
