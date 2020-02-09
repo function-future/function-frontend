@@ -4,6 +4,7 @@ export default {
   name: 'MenuBar',
   data () {
     return {
+      showFalse: false,
       gradesSubmenuVisibility: false,
       questionnaireSubmenuVisibility: false,
       loggedInTemp: {}

@@ -161,4 +161,11 @@ describe('MenuBar', () => {
     wrapper.vm.updateViewKey()
     expect(expect(wrapper.emitted().updateViewKey.length).toEqual(1))
   })
+
+  test('computed loggedIn', () => {
+    store.state.currentUser = {}
+    wrapper.vm.questionnaireSubmenuVisibility = true
+    wrapper.vm.loggedIn
+    expect(wrapper.vm.questionnaireSubmenuVisibility).toEqual(false)
+  })
 })

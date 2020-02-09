@@ -1,7 +1,6 @@
 <template>
   <b-menu  class="navbar">
     <b-menu-list class="menu-list">
-      {{showQuestionnaire}}
       <b-menu-item class="menu-item"
                    label="Feeds"
                    tag="router-link" exact
@@ -92,7 +91,8 @@
                    :to="{ name: 'myQuestionnaire' }"
                    v-if="menuList.myQuestionnaire">
       </b-menu-item>
-      <b-menu-item :expanded="showQuestionnaire"
+      <b-menu-item :active="showQuestionnaire"
+                   :expanded="showQuestionnaire"
                    @click="toggleQuestionnaireMenu"
                    v-if="menuList.questionnaireAdmin">
         <template slot="label" slot-scope="props">
