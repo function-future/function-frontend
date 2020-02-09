@@ -1,8 +1,8 @@
 import { mapActions, mapGetters } from 'vuex'
 import Editor from '@/components/editor/Editor'
-import UserListItem from '@/components/list/UserListItem'
-import EmptyState from '@/components/emptyState/EmptyState'
-import ModalSelectMultipleStudents from '@/components/modals/ModalSelectMultipleStudents'
+const UserListItem = () => import('@/components/list/UserListItem')
+const EmptyState = () => import('@/components/emptyState/EmptyState')
+const ModalSelectMultipleStudents = () => import('@/components/modals/ModalSelectMultipleStudents')
 
 export default {
   name: 'judgingForm',

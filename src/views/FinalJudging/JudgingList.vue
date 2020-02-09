@@ -7,7 +7,8 @@
                     icon-left="plus"
                     type="is-primary"
                     @click="addJudging"
-                    class="judging__action-add">
+                    class="judging__action-add"
+                    v-if="accessList.add">
             Add
           </b-button>
           <b-button style="margin-right: 8px" rounded
@@ -103,6 +104,8 @@
 </script>
 
 <style lang="scss" scoped>
+  @import "@/assets/css/main.scss";
+
   .judging {
     &-container {
       padding: 1rem 1.25rem;
@@ -126,7 +129,6 @@
           bottom: 75px;
           transition: all 0.1s ease-in-out;
           box-shadow: 2px 2px 16px 4px rgba(0, 0, 0, 0.2);
-          border-radius: 50%;
           z-index: 5;
         }
       }

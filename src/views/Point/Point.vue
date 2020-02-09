@@ -84,6 +84,9 @@
     flex-direction: column;
     justify-content: space-around;
     height: 85%;
+    @media only screen and (max-width: 1023px) {
+      margin-bottom: 10vh;
+    }
   }
 
   .point {

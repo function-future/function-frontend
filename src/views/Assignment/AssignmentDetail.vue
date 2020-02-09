@@ -1,67 +1,71 @@
 <template>
   <div class="auto-overflow-container">
-    <div class="assignment-detail__container">
-      <div class="assignment-detail__container__actions">
-        <b-button rounded
-                  icon-left="pen"
-                  type="is-primary"
-                  @click="goToEditAssignment"
-                  v-if="accessList.edit">
-          Edit
-        </b-button>
-        <b-button rounded
-                  icon-left="trash"
-                  type="is-danger"
-                  @click="showDeleteConfirmationModal = true"
-                  v-if="accessList.delete">
-          Delete
-        </b-button>
-      </div>
-      <div class="assignment-detail__container__header">
-        <div class="assignment-detail__container__header-title">
-          <span class="is-size-5 has-text-weight-bold">
-            {{ assignmentDetail.title }}
-          </span>
+    <div class="assignment_container">
+      <div class="assignment-detail__container">
+        <div class="assignment-detail__container__actions">
           <b-button rounded
-                    class="is-pulled-right is-small"
-                    icon-left="eye"
+                    icon-left="pen"
                     type="is-primary"
-                    @click="goToRoomList"
-                    v-if="accessList.read">
-            Rooms
+                    @click="goToEditAssignment"
+                    v-if="accessList.edit">
+            Edit
+          </b-button>
+          <b-button rounded
+                    icon-left="trash"
+                    type="is-danger"
+                    @click="showDeleteConfirmationModal = true"
+                    v-if="accessList.delete">
+            Delete
           </b-button>
         </div>
-        <div class="assignment-detail__container__header__info">
-          <div class="assignment-detail__container-header__info-date">
-            <template>
-              <b-field label="Deadline" label-position="on-border">
-                <b-datepicker
-                  v-model="dates"
-                  :min-date="minDate"
-                  range>
-                </b-datepicker>
-              </b-field>
-            </template>
+        <div class="assignment-detail__container__header">
+          <div class="assignment-detail__container__header-title">
+            <span class="is-size-5 has-text-weight-bold">
+              {{ assignmentDetail.title }}
+            </span>
+            <b-button rounded
+                      class="is-pulled-right is-small"
+                      icon-left="eye"
+                      type="is-primary"
+                      @click="goToRoomList"
+                      v-if="accessList.read">
+              Rooms
+            </b-button>
+          </div>
+          <div class="assignment-detail__container__header__info">
+            <div class="assignment-detail__container-header__info-date">
+              <template>
+                <b-field label="Deadline" label-position="on-border" v-if="!!dates && dates.length">
+                  <b-datepicker
+                    v-model="dates[1]"
+                    placeholder="Assignment deadline"
+                    :min-date="minDate"
+                    :mobile-native="false"
+                    disabled>
+                  </b-datepicker>
+                </b-field>
+              </template>
+            </div>
+          </div>
+        </div>
+        <div class="assignment-detail__container__content wrap-word">
+          <span class="content" v-html="descriptionCompiledMarkdown"></span>
+          <div class="assignment-detail__container__content-download">
+            <a class="button is-primary is-outlined"
+               v-if="assignmentDetail.file"
+               :href="assignmentDetail.file"
+               download>
+              Download material
+            </a>
           </div>
         </div>
       </div>
-      <div class="assignment-detail__container__content wrap-word">
-        <span class="content" v-html="descriptionCompiledMarkdown"></span>
-        <div class="assignment-detail__container__content-download">
-          <a class="button is-primary is-outlined"
-             v-if="assignmentDetail.file"
-             :href="assignmentDetail.file"
-             download>
-            Download material
-          </a>
-        </div>
-      </div>
+      <modal-delete-confirmation v-if="showDeleteConfirmationModal"
+                                 @close="showDeleteConfirmationModal = false"
+                                 @clickDelete="deleteThis">
+        <div slot="description">Are you sure you want to delete this assignment?</div>
+      </modal-delete-confirmation>
     </div>
-    <modal-delete-confirmation v-if="showDeleteConfirmationModal"
-                               @close="showDeleteConfirmationModal = false"
-                               @clickDelete="deleteThis">
-      <div slot="description">Are you sure you want to delete this assignment?</div>
-    </modal-delete-confirmation>
   </div>
 </template>
 
@@ -70,6 +74,13 @@
 
 <style lang="scss" scoped>
   @import "@/assets/css/main.scss";
+
+  .assignment_container {
+    @media only screen and (max-width: 1024px) {
+      margin-bottom: 10vh;
+    }
+  }
+
   .assignment-detail {
     &__container {
       display: flex;

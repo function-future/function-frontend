@@ -1,5 +1,5 @@
 import { mapActions, mapGetters } from 'vuex'
-import ListItem from '@/components/list/ListItem'
+const ListItem = () => import('@/components/list/ListItem')
 import InfiniteLoading from 'vue-infinite-loading'
 let marked = require('marked')
 

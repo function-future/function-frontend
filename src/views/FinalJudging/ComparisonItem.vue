@@ -15,7 +15,7 @@
           <span class="comparison-item__profile-name">Total Points: {{pointData.totalPoint}}</span>
         </div>
         <div class="is-hidden-desktop comparison-item__profile-modal">
-          <b-button type="is-primary" icon-right="pencil-alt" @click="isMobileScoreModalVisible=true">
+          <b-button type="is-primary" icon-right="pencil-alt" @click="isMobileScoreModalVisible=true" v-if="accessList.add">
             {{finalScore}}
           </b-button>
           <!--<b-button @click="isMobileScoreModalVisible = true">Score</b-button>-->
@@ -24,23 +24,34 @@
       <div class="comparison-item__detail">
         <b-tabs type="is-boxed" v-model="activeTab">
           <b-tab-item class="comparison-item__detail-list" v-for="tab in tabs" :key="tab.value" :label="tab.label">
-            <ListItem v-for="score in scoreList"
-                      :key="score.title">
-              <template #title>
-                {{score.title}}
-              </template>
-              <template #actions>
-                {{score.point}}
-              </template>
-            </ListItem>
-            <infinite-loading @infinite="getPointsData" spinner="spiral" :identifier="infiniteId"><
-              <div slot="no-more"></div>
-              <div slot="no-results"></div>
-            </infinite-loading>
+            <div>
+              <div v-if="!!pointData && !!pointData.scores" >
+                <ListItem v-for="score in scoreList"
+                          :key="score.title">
+                  <template #title>
+                    {{score.title}}
+                  </template>
+                  <template #actions>
+                    {{score.point}}
+                  </template>
+                </ListItem>
+              </div>
+              <div v-else>
+                <EmptyState :src="tab.value">
+                  <template #title>
+                    Looks like this student have yet to finish any {{ tab.value }}!
+                  </template>
+                </EmptyState>
+              </div>
+            </div>
           </b-tab-item>
         </b-tabs>
+        <infinite-loading @infinite="getPointsData" spinner="spiral" :identifier="infiniteId" force-use-infinite-wrapper=".comparison-item__detail-list">
+          <div slot="no-more"></div>
+          <div slot="no-results"></div>
+        </infinite-loading>
       </div>
-      <div class="comparison-item__final-score is-hidden-mobile">
+      <div class="comparison-item__final-score is-hidden-mobile" v-if="accessList.add">
         <b-field label="Final Score" label-position="on-border" grouped>
           <b-input class="comparison-item__final-score-input" v-model="finalScore"></b-input>
           <p class="control">
@@ -86,7 +97,7 @@
     }
 
     &__detail {
-      max-height: 40vh;
+      height: 40vh;
       overflow-y: auto;
     }
 

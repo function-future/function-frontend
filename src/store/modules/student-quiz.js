@@ -28,7 +28,7 @@ export const actions = {
   fetchStudentQuizDetail ({ commit }, { data, callback, fail }) {
     studentQuizApi.getQuizDetail(({data: response}) => {
       commit('SET_STUDENT_QUIZ_DETAIL', response)
-      callback && callback()
+      callback && callback(response)
     }, data, fail)
   },
   fetchStudentQuizQuestions ({ commit }, { data, callback, fail }) {

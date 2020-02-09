@@ -1,5 +1,5 @@
 import { mapActions, mapGetters } from 'vuex'
-import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
+const ModalDeleteConfirmation = () => import('@/components/modals/ModalDeleteConfirmation')
 
 export default {
   name: 'QuestionBankQuestionDetail',

@@ -1,30 +1,32 @@
 <template>
   <div class="auto-overflow-container">
-    <div v-for="student in studentList">
-      <UserListItem :imageUrl="student.avatar">
-        <template #name>
-          {{student.name}}
-        </template>
-        <template #info>
-          <div>
-            {{batch(student)}}
-          </div>
-          <div>
-            {{student.university}}
-          </div>
-        </template>
-        <template #actions>
-          <div class="point-container">
-            {{student.finalPoint}}
-          </div>
-        </template>
-      </UserListItem>
+    <div class="report_container">
+      <div v-for="student in studentList">
+        <UserListItem :imageUrl="student.avatar">
+          <template #name>
+            {{student.name}}
+          </template>
+          <template #info>
+            <div>
+              {{batch(student)}}
+            </div>
+            <div>
+              {{student.university}}
+            </div>
+          </template>
+          <template #actions>
+            <div class="point-container">
+              {{student.finalPoint}}
+            </div>
+          </template>
+        </UserListItem>
+      </div>
+      <infinite-loading @infinite="initStudents"
+                        spinner="spiral">
+        <div slot="no-more"></div>
+        <div slot="no-results"></div>
+      </infinite-loading>
     </div>
-    <infinite-loading @infinite="initStudents"
-                      spinner="spiral">
-      <div slot="no-more"></div>
-      <div slot="no-results"></div>
-    </infinite-loading>
   </div>
 </template>
 
@@ -33,6 +35,12 @@
 
 <style scoped lang="scss">
 @import "@/assets/css/main.scss";
+
+  .report_container {
+    @media only screen and (max-width: 1023px) {
+      margin-bottom: 10vh;
+    }
+  }
 
   .point-container {
     border-radius: 50%;

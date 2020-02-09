@@ -31,7 +31,9 @@
               <b-datepicker v-model="calendarDetails.dates"
                             placeholder="Select Dates"
                             :min-date="calendarDetails.minDate"
-                            range></b-datepicker>
+                            :mobile-native="false"
+                            range>
+              </b-datepicker>
             </b-field>
           </div>
         </div>
@@ -60,7 +62,7 @@
           </div>
         </div>
       </div>
-      <div class="quiz-form__container-students">
+      <div class="quiz-form__container-bank">
         <template>
           <section>
             <b-collapse class="card" aria-id="contentIdForA11y3">
@@ -81,7 +83,7 @@
               </div>
               <div class="card-content">
                 <div class="content">
-                  <div v-if="bankNotEmpty">
+                  <div v-if="bankNotEmpty" class="quiz-form__container-bank-list">
                     <div v-for="bank in quizDetail.questionBanks" :key="bank.id">
                       <ListItem>
                         <template #title>
@@ -107,7 +109,7 @@
                       </template>
                     </EmptyState>
                   </div>
-                  <div class="buttons is-right quiz-form__container-students-add">
+                  <div class="buttons is-right quiz-form__container-bank-add">
                     <b-button type="is-primary" @click="toggleQuestionBankSelectModal">Add Question Banks</b-button>
                   </div>
                 </div>
@@ -142,6 +144,9 @@
     &__container {
       padding: 1rem 1.25rem;
       margin-bottom: 2rem;
+      @media only screen and (max-width: 1023px) {
+        margin-bottom: 10vh;
+      }
 
       &-title {
         display: flex;
@@ -172,6 +177,7 @@
 
           @media only screen and (max-width: 1023px) {
             margin-bottom: 1rem;
+            width: 100%;
           }
         }
 
@@ -182,15 +188,20 @@
           @media only screen and (min-width: 1023px) {
             margin-left: 0.5rem;
           }
-        }
 
-        &-input {
-
+          @media only screen and (max-width: 1023px) {
+            margin-bottom: 1rem;
+          }
         }
       }
 
-      &-students {
+      &-bank {
         margin-bottom: 1rem;
+
+        &-list {
+          overflow-y: auto;
+          max-height: 30vh;
+        }
 
         &-add {
           margin-top: 1rem;

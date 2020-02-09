@@ -439,7 +439,7 @@ describe('LandingPageAdmin', () => {
     wrapper.vm.batchCode = 'futurre3'
     wrapper.vm.goToEditItem(1)
     expect(wrapper.vm.$router.push).toHaveBeenCalledWith({
-      name: 'assignmentDetail',
+      name: 'editAssignment',
       params: {
         assignmentId: 1,
         batchCode: 'futurre3'

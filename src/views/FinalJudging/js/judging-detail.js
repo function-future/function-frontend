@@ -1,7 +1,7 @@
 import { mapActions, mapGetters } from 'vuex'
-import ComparisonItem from '@/views/FinalJudging/ComparisonItem'
-import ModalSelectMultipleStudents from '@/components/modals/ModalSelectMultipleStudents'
-import ModalDeleteConfirmation from '@/components/modals/ModalDeleteConfirmation'
+const ComparisonItem = () => import('@/views/FinalJudging/ComparisonItem')
+const ModalSelectMultipleStudents = () => import('@/components/modals/ModalSelectMultipleStudents')
+const ModalDeleteConfirmation = () => import('@/components/modals/ModalDeleteConfirmation')
 let marked = require('marked')
 
 export default {
