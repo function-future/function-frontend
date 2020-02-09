@@ -19,6 +19,7 @@ export default {
           description: ''
         }
       },
+      deadline: new Date(),
       discussions: [],
       discussion: {
         comment: ''
@@ -76,6 +77,7 @@ export default {
     },
     successFetchRoomById () {
       this.roomDetail = this.room
+      this.deadline = new Date(this.roomDetail.assignment.deadline)
       this.isLoading = false
     },
     failFetchRoomById () {
