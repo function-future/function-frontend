@@ -5,14 +5,15 @@ if (workbox) {
 
   workbox.routing.registerNavigationRoute('/index.html')
 
-  // Precache needs to be handled since workbox-precache plugin does caching
+  // Alternative for handling precache with regular caching as
+  // precache needs to be handled since workbox-precache plugin does caching
   // on precached asset with something similar to CacheFirst strategy, which
   // will cause the web app not updating should new changes are deployed.
   // See https://developers.google.com/web/tools/workbox/modules/workbox-precaching#serving_precached_responses
   workbox.routing.registerRoute(
-    /\.(?:css|js|json|html)$/i,
+    /(\.(?:css|js|json|html)(\.gz|)$|[\\/]img[\\/]|favicon\.ico$)/i,
     new workbox.strategies.StaleWhileRevalidate({
-      cacheName: 'function-precaches',
+      cacheName: 'function-offline-assets',
       plugins: [
         new workbox.expiration.Plugin({
           maxAgeSeconds: 30 * 24 * 60 * 60
