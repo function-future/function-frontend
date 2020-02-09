@@ -9,7 +9,7 @@
                     :disabled="isLoading">
           <div class="scoring__header">
             <div class="columns is-multiline is-mobile">
-              <div class="column is-narrow" v-if="accessList.create">
+              <div class="column is-narrow" v-if="accessList.add">
                 <b-button rounded
                           @click="addItem"
                           icon-left="plus"
@@ -54,7 +54,7 @@
                   </div>
                 </template>
                 <template #actions>
-                  <b-dropdown v-if="accessList.create || accessList.edit" aria-role="list"
+                  <b-dropdown v-if="accessList.add || accessList.edit" aria-role="list"
                               position="is-bottom-left"
                               @click.prevent.stop>
                     <button class="button is-text" slot="trigger">
@@ -70,7 +70,7 @@
                     </b-dropdown-item>
                     <b-dropdown-item aria-role="listitem"
                                      @click="showCopyModal(item.id)"
-                                     v-if="accessList.create && (currentTabType !== 'questionBanks')">
+                                     v-if="accessList.add && (currentTabType !== 'questionBanks')">
                       <span class="icon-wrapper">
                         <b-icon icon="copy" class="icon" size="is-small"></b-icon>
                         Copy
