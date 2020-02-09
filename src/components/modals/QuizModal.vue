@@ -17,7 +17,7 @@
                 <div class="media">
                   <div class="media-content">
                     <p class="title is-4">Trials Left</p>
-                    <p class="subtitle is-6">{{ trialsLeft }}</p>
+                    <p class="subtitle is-6">{{ trialsLeft }} remaining</p>
                   </div>
                   <div class="media-right">
                     <div class="modal__body__card-content-point">
@@ -30,9 +30,9 @@
               </div>
             </div>
           </div>
-          <div class="modal__footer">
-            <b-button type="is-primary" :disabled="trialsLeft < 1" @click="retry">Retry</b-button>
-            <b-button type="is-success" @click="finish">Finish</b-button>
+          <div class="modal__footer buttons">
+            <b-button type="is-primary" outlined :disabled="trialsLeft < 1" @click="retry">Retry</b-button>
+            <b-button type="is-success" outlined @click="finish">Finish</b-button>
           </div>
         </div>
       </div>
@@ -188,5 +188,11 @@
     to {
       opacity: 1;
     }
+  }
+
+  .card {
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
   }
 </style>
