@@ -19,7 +19,17 @@ describe('AssignmentRoomDetail', () => {
 
   function initStore () {
     const state = {
-      room: {},
+      room: {
+        assignment: {
+          'id': 'ASG0001',
+          'title': 'Assignment 1',
+          'description': 'Description Number 1',
+          'deadline': 15000,
+          'file': 'http://function-static.com/ASG0001/fileName.docx',
+          'fileId': 'fileId',
+          'batch': 3
+        }
+      },
       comments: [],
       accessList: {},
       currentUser: {}

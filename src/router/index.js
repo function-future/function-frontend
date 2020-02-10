@@ -642,19 +642,6 @@ const router = new Router({
       }
     },
     {
-      path: config.app.pages.questionBanks.list,
-      name: 'questionBanks',
-      component: scoringAdmin,
-      meta: {
-        auth: true,
-        title: 'Question Banks',
-        breadcrumb: [
-          { name: 'Home', link: 'feeds' },
-          { name: 'Question Banks', link: 'questionBanks' }
-        ]
-      }
-    },
-    {
       path: config.app.pages.questionBanks.detail,
       name: 'questionBankDetail',
       component: questionBankDetail,
@@ -663,7 +650,7 @@ const router = new Router({
         title: 'Question Bank Detail',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Question Banks', link: 'questionBanks' },
+          { name: 'Tasks', link: 'scoringAdmin' },
           { name: 'Question Bank Detail', link: 'questionBankDetail' }
         ]
       }
@@ -677,7 +664,7 @@ const router = new Router({
         title: 'Add Question Bank',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Question Banks', link: 'questionBanks' },
+          { name: 'Tasks', link: 'scoringAdmin' },
           { name: 'Add Question Bank', link: 'addQuestionBank' }
         ]
       },
@@ -694,7 +681,7 @@ const router = new Router({
         title: 'Edit Question Bank',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Question Banks', link: 'questionBanks' },
+          { name: 'Tasks', link: 'scoringAdmin' },
           { name: 'Add Question Bank', link: 'addQuestionBank' }
         ]
       },
@@ -711,7 +698,7 @@ const router = new Router({
         title: 'Question Detail',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Question Banks', link: 'questionBanks' },
+          { name: 'Tasks', link: 'scoringAdmin' },
           { name: 'Question Bank Detail', link: 'questionBankDetail' },
           { name: 'Question Detail', link: 'questionBankQuestionDetail' }
         ]
@@ -726,7 +713,7 @@ const router = new Router({
         title: 'New Question',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Question Banks', link: 'questionBanks' },
+          { name: 'Tasks', link: 'scoringAdmin' },
           { name: 'Question Bank Detail', link: 'questionBankDetail' },
           { name: 'Add Question', link: 'addQuestion' }
         ]
@@ -744,7 +731,7 @@ const router = new Router({
         title: 'Edit Question',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Question Banks', link: 'questionBanks' },
+          { name: 'Tasks', link: 'scoringAdmin' },
           { name: 'Question Bank Detail', link: 'questionBankDetail' },
           { name: 'Edit Question', link: 'editQuestion' }
         ]
@@ -825,7 +812,7 @@ const router = new Router({
         title: 'Assignment Detail',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Assignments', link: 'assignments' },
+          { name: 'Tasks', link: 'scoringAdmin' },
           { name: 'Assignment Detail', link: 'assignmentDetail' }
         ]
       }
@@ -839,7 +826,7 @@ const router = new Router({
         title: 'Add Assignments',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Assignments', link: 'assignments' },
+          { name: 'Tasks', link: 'scoringAdmin' },
           { name: 'Add Assignment', link: 'addAssignment' }
         ]
       },
@@ -856,7 +843,7 @@ const router = new Router({
         title: 'Edit Assignments',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Assignments', link: 'assignments' },
+          { name: 'Tasks', link: 'scoringAdmin' },
           { name: 'Edit Assignment', link: 'editAssignment' }
         ]
       },
@@ -873,7 +860,7 @@ const router = new Router({
         title: 'Rooms',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Assignments', link: 'assignments' },
+          { name: 'Tasks', link: 'scoringAdmin' },
           { name: 'Assignment Detail', link: 'assignmentDetail' },
           { name: 'Rooms', link: 'assignmentRooms' }
         ]
@@ -888,7 +875,7 @@ const router = new Router({
         title: 'Room Detail',
         breadcrumb: [
           { name: 'Home', link: 'feeds' },
-          { name: 'Assignments', link: 'assignments' },
+          { name: 'Tasks', link: 'scoringAdmin' },
           { name: 'Rooms', link: 'assignmentRooms' },
           { name: 'Room Detail', link: 'assignmentRoomDetail' }
         ]
@@ -904,7 +891,7 @@ const router = new Router({
         else {
           to.meta.breadcrumb = [
             { name: 'Home', link: 'feeds' },
-            { name: 'Assignments', link: 'assignments' },
+            { name: 'Tasks', link: 'scoringAdmin' },
             { name: 'Rooms', link: 'assignmentRooms' },
             { name: 'Room Detail', link: 'assignmentRoomDetail' }
           ]

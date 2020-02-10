@@ -7,6 +7,13 @@
             {{ roomDetail.assignment.title }}
           </span>
         </div>
+        <div class="room-detail__container__header__info">
+          <div class="room-detail__container__header__info-date">
+            <span class="is-size-7">
+              {{ roomDetail.assignment.uploadedDate | moment("dddd, MMMM Do YYYY") }}
+            </span>
+          </div>
+        </div>
       </div>
       <div class="room-detail__container__content wrap-word">
         <div class="room-detail__container__content-download">
@@ -19,6 +26,16 @@
           </a>
         </div>
       </div>
+      <template>
+        <b-field label="Deadline" label-position="on-border" v-if="!!roomDetail.assignment && !!roomDetail.assignment.deadline">
+          <b-datepicker
+            v-model="deadline"
+            placeholder="Assignment deadline"
+            :mobile-native="false"
+            disabled>
+          </b-datepicker>
+        </b-field>
+      </template>
       <b-collapse class="card room-detail__container__discussion" aria-id="contentIdForA11y3" v-if="accessList.add && accessList.add.score" :open="false">
         <div
           slot="trigger"
@@ -133,6 +150,19 @@
       padding: 1rem 1.25rem;
       @media only screen and (max-width: 1024px) {
         margin-bottom: 10vh;
+      }
+
+      &__header {
+        margin-bottom: 0.5rem;
+
+        &__info {
+          border-left: 1px solid #BDBDBD;
+          padding-left: 0.5rem;
+        }
+      }
+
+      &__content {
+        margin-bottom: 0.75rem;
       }
 
       &-title {

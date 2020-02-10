@@ -8,39 +8,35 @@
                     :visible="tab.visible"
                     :disabled="isLoading">
           <div class="scoring__header">
-            <div class="columns is-mobile">
-              <div class="column">
-                <div class="buttons">
-                  <b-button v-if="accessList.add"
-                            rounded
-                            @click="addItem"
-                            icon-left="plus"
-                            type="is-primary"
-                            class="scoring__header-add"
-                            :loading="switchingTabLoading">
-                    Add
-                  </b-button>
-                  <div class="scoring__container__tabs-actions-filter"
-                       v-if="visibleBatchSelection && !switchingTabLoading">
-                    <b-field label="Batch"
-                             label-position="on-border">
-                      <b-select placeholder="Select a batch"
-                                v-model="batchCode"
-                                expanded>
-                        <option v-for="batch in batches"
-                                :key="batch.code"
-                                :value="batch.code">
-                          {{ batch.name }}
-                        </option>
-                      </b-select>
-                    </b-field>
-                  </div>
-                  <div class="scoring__container__tabs-actions-deadline" v-if="currentTabType !== 'questionBanks' && !switchingTabLoading">
-                    <b-checkbox v-model="isPassedDeadline">
-                      View past {{ !!tabTitle && tabTitle.toLowerCase() }}
-                    </b-checkbox>
-                  </div>
-                </div>
+            <div class="columns is-multiline is-mobile">
+              <div class="column is-narrow" v-if="accessList.add">
+                <b-button rounded
+                          @click="addItem"
+                          icon-left="plus"
+                          type="is-primary"
+                          :loading="switchingTabLoading">
+                  Add
+                </b-button>
+              </div>
+              <div class="column is-3-desktop is-8-touch scoring__container__tabs-actions-filter"
+                   v-if="visibleBatchSelection && !switchingTabLoading">
+                <b-field label="Batch"
+                         label-position="on-border">
+                  <b-select placeholder="Select a batch"
+                            v-model="batchCode"
+                            expanded>
+                    <option v-for="batch in batches"
+                            :key="batch.code"
+                            :value="batch.code">
+                      {{ batch.name }}
+                    </option>
+                  </b-select>
+                </b-field>
+              </div>
+              <div class="column is-7-desktop is-12-mobile scoring__container__tabs-actions-deadline" v-if="currentTabType !== 'questionBanks' && !switchingTabLoading">
+                <b-checkbox v-model="isPassedDeadline">
+                  View past {{ !!tabTitle && tabTitle.toLowerCase() }}
+                </b-checkbox>
               </div>
             </div>
           </div>
@@ -93,7 +89,7 @@
                 </template>
               </ListItem>
             </div>
-            <div v-if="!isLoading">
+            <div v-if="!isLoading && listEmpty">
               <div v-if="listEmpty && !failLoadItem">
                 <EmptyState :src="emptyStateSrc">
                   <template #title>
@@ -140,9 +136,7 @@
 
   .scoring {
     &__header {
-      &-add {
-        margin-top: 0.5rem;
-      }
+      margin-bottom: 1rem;
     }
 
 
@@ -160,7 +154,8 @@
 
         &-actions {
           &-deadline {
-            margin-left: 0.5rem;
+            display: flex;
+            align-items: center;
           }
         }
       }
@@ -184,5 +179,9 @@
 
   .tab-item {
     margin-bottom: 0!important;
+  }
+
+  .column {
+    padding-bottom: var(--columnGap);
   }
 </style>
