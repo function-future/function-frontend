@@ -1,8 +1,8 @@
 <template>
   <div class="participant-card__outer">
     <div class="participant-card__container">
-      <div v-if="avatar" class="participant-card__content-left">
-        <img :src="avatar || require('@/assets/profile-picture-placeholder.png')">
+      <div class="participant-card__content-left">
+        <img :src="avatar" onerror="this.src='@/assets/avatar.png'">
       </div>
       <div class="participant-card__content-center">
         <p class="participant-card__content-center__name"><strong>{{ name }}</strong></p>

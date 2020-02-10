@@ -12,7 +12,7 @@ export default {
   },
   watch: {
     currentUser () {
-      this.loggedIn()
+      this.loggedIn
     }
   },
   computed: {
