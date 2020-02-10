@@ -99,7 +99,7 @@
           Peer Appraisal
           <b-icon
             class="is-pulled-right"
-            :icon="props.expanded ? 'caret-up' : 'caret-down'">
+            :icon="props.expanded ? 'caret-down' : 'caret-up'">
           </b-icon>
         </template>
         <b-menu-item class="menu-item"
