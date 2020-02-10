@@ -31,8 +31,8 @@
             </div>
           </div>
           <div class="modal__footer buttons">
-            <b-button type="is-primary" outlined :disabled="trialsLeft < 1" @click="retry">Retry</b-button>
-            <b-button type="is-success" outlined @click="finish">Finish</b-button>
+            <b-button type="is-primary" icon-left="redo" outlined :disabled="trialsLeft < 1" @click="retry">Retry</b-button>
+            <b-button type="is-success" icon-left="check-circle" outlined @click="finish">Finish</b-button>
           </div>
         </div>
       </div>
