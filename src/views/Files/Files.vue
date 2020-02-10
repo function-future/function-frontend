@@ -64,6 +64,9 @@
                     <button class="button is-text" slot="trigger">
                       <b-icon icon="ellipsis-v" size="is-small" class="icon"></b-icon>
                     </button>
+                    <b-dropdown-item custom aria-role="menuitem" class="is-hidden-desktop">
+                      <div class="is-size-6">{{ folder.name }}</div>
+                    </b-dropdown-item>
                     <b-dropdown-item
                       aria-role="listitem"
                       @click="openRenameFileFolderModal(folder.id, folder.name, folder.type)"
