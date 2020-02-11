@@ -165,7 +165,7 @@ describe('MenuBar', () => {
   test('computed loggedIn', () => {
     store.state.currentUser = {}
     wrapper.vm.questionnaireSubmenuVisibility = true
-    wrapper.vm.loggedIn
+    wrapper.vm.loggedIn()
     expect(wrapper.vm.questionnaireSubmenuVisibility).toEqual(false)
   })
 })
