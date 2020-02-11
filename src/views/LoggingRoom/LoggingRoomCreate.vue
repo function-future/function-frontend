@@ -110,6 +110,7 @@
 
     &__participant-list {
       display: flex;
+      flex-flow: wrap;
     }
 
     &__save-button {

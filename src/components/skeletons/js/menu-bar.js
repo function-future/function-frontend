@@ -20,11 +20,6 @@ export default {
       'menuList',
       'currentUser'
     ]),
-    loggedIn () {
-      if (!Object.keys(this.currentUser).length) {
-        this.questionnaireSubmenuVisibility = false
-      }
-    },
     showGrades () {
       return this.gradesSubmenuVisibility
     },
@@ -39,6 +34,11 @@ export default {
     }
   },
   methods: {
+    loggedIn () {
+      if (!Object.keys(this.currentUser).length) {
+        this.questionnaireSubmenuVisibility = false
+      }
+    },
     toggleGradesMenu () {
       this.gradesSubmenuVisibility = !this.gradesSubmenuVisibility
       if (this.questionnaireSubmenuVisibility) this.questionnaireSubmenuVisibility = !this.questionnaireSubmenuVisibility

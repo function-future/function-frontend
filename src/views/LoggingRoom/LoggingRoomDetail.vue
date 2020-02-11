@@ -5,7 +5,7 @@
             <span class="logging-room-detail__title">{{loggingRoom.title}}</span>
             <span class="logging-room-detail__description">{{loggingRoom.description}}</span>
         </div>
-        <div v-if="isMobile" class="logging-room-detail__mobile">
+        <div class="logging-room-detail__mobile">
           <MenuCard  class="logging-room-detail__mobile__menu"
                      :iconMenu="iconMenuMembers"
                      :iconTitle="iconMenuMembersTitle"
@@ -16,45 +16,6 @@
                      :iconTitle="iconMenuTopicsTitle"
                      @click="callShowTopics"
           ></MenuCard>
-        </div>
-        <div v-else class="logging-room-detail__member-list-container">
-          <span class="logging-room-detail__member-list-container__title">Members</span>
-          <participant-card v-for="member in loggingRoom.members"
-                            :key="member.id"
-                            :name="member.name"
-                            :avatar="member.avatar"
-                            :role="member.role"
-                            :university="member.university"
-                            :batch="member.batchName"
-          ></participant-card>
-        </div>
-        <div class="logging-room-detail__topic-list-container">
-          <div class="logging-room-detail__topic-list-container__top-bar">
-            <span class="logging-room-detail__member-list-container__title">Topics</span>
-            <div class="logging-room-detail__topic-list-container__top-bar__create-btn">
-              <b-button
-                v-if="accessList.edit"
-                class="is-primary is-rounded add-btn"
-                type="submit"
-                icon-left="plus"
-                buttonClass="button-save"
-                @click="topicModal = true">
-                <span>Add</span>
-              </b-button>
-            </div>
-          </div>
-          <div class="logging-room-detail__topic-list-container__content">
-            <topic-card v-for="topic in topics"
-                          :key="topic.id"
-                          :title="topic.title"
-                          @click="goToLoggingRoom(topic.id)"
-                          @delete="openDeleteModal(topic)"
-            ></topic-card>
-            <infinite-loading ref="infiniteLoading" @infinite="infiniteHandler">
-              <div slot="no-more"></div>
-              <div slot="no-results"></div>
-            </infinite-loading>
-          </div>
         </div>
         <modal-add-question :type="topic.type" :description="topic.title" :isUpdate="topic.isUpdate" v-if="topicModal"
                             @close="closeTopicModal"
@@ -87,6 +48,9 @@
     flex-direction: column;
     height: calc(100vh - 60px - 0.5rem - 62px);
     width: 100%;
+    @media only screen and (min-width: 1023px) {
+      max-width: 40vw;
+    }
 
     &__container {
       display: flex;
