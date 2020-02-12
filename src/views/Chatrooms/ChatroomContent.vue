@@ -76,7 +76,10 @@
       }
 
       &__messages {
-        height: 100%;
+        height: calc(100% - 2.5rem - 5px);
+        @media only screen and (max-width: 1023px) {
+          height: 100%;
+        }
         overflow: auto;
       }
 

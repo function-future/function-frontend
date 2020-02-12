@@ -91,6 +91,7 @@ export default {
       this.chatroomSubscription.unsubscribe()
     }
     this.unsetChatroomsLimit({ fail: this.onError })
+    this.resetChatrooms()
   },
   methods: {
     ...mapActions([
