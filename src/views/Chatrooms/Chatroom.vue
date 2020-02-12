@@ -34,9 +34,6 @@
 
   .chatroom {
     &__container {
-      height: 85vh;
-      overflow-y: auto;
-      overflow-x: hidden;
       display: flex;
       @media only screen and (max-width: 1023px) {
         flex-direction: column;
